@@ -10,9 +10,10 @@
 .incidentformButton > .label {
     -fx-text-fill: black !important;
     -fx-alignment: center-left;
-    -fx-font-size: 18px;
-    -fx-padding: 0 0 0 10.5;
+    -fx-font-size: 16px;
+    -fx-padding: 0 10px 0 10;
 }
+
 
 .incidentformButton:hover {
     -fx-background-color: #546778;

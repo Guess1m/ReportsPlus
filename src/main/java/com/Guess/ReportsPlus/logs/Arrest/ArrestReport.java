@@ -14,6 +14,9 @@ public class ArrestReport {
 	@XmlElement(name = "arrestDate")
 	private String arrestDate;
 	
+	@XmlElement(name = "arrestStatus")
+	private String arrestStatus;
+	
 	@XmlElement(name = "arrestTime")
 	private String arrestTime;
 	
@@ -117,6 +120,14 @@ public class ArrestReport {
 	
 	public void setArrestDate(String arrestDate) {
 		this.arrestDate = arrestDate;
+	}
+	
+	public String getStatus() {
+		return arrestStatus != null ? arrestStatus : "Closed";
+	}
+	
+	public void setStatus(String arrestStatus) {
+		this.arrestStatus = arrestStatus;
 	}
 	
 	public String getArrestDetails() {

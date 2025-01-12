@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="398.0" prefWidth="346.0"
+            xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
+    <center>
+        <AnchorPane fx:id="mainPane">
+            <children>
+                <VBox layoutY="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0"
+                      AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
+                    <children>
+                        <BorderPane>
+                            <center>
+                                <Label fx:id="selectReportTypeLabel" text="Select a Report Type:">
+                                    <font>
+                                        <Font name="Segoe UI Black" size="18.0"/>
+                                    </font>
+                                </Label>
+                            </center>
+                        </BorderPane>
+                        <GridPane hgap="5.0" vgap="5.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Button fx:id="accident"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Accident Report" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="arrest"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Arrest Report" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="callout"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Callout Report" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="death"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Death Report" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="impound"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Impound Report" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="incident"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Incident Report" GridPane.rowIndex="4">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="patrol"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Patrol Report" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="search"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Search Report" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="citation"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Traffic Citation" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="trafficstop"
+                                        style="-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
+                                        text="Traffic Stop" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                </Button>
+                            </children>
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

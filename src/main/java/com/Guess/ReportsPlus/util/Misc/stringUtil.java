@@ -9,42 +9,60 @@ import java.net.URISyntaxException;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 public class stringUtil {
-	// version.txt
-	// version
-	// updatesList
-	// pom.xml
-	// New locale
-	// Sound List If Changed
-	public static final String version = "v1.2-alpha";
-	public static final String[] updatesList = {"AutoUpdater Implementation (BETA)", "Sound Pack / PedVeh Images Installer", "Recieve Server Version", "Hunting/Boating/Fishing License Info", "App Text Color Configuration", "More License Outcomes", "Fixed FX Thread Bugs", "Fix Ped License Status Bug", "Added Ped Flags", "Improved Registration/Insurance Info", "Better Show When Veh. Type is None", "Clear Saved Lookup Data", "Improved Warrant Information"};
+	/*
+	UPDATE:
+	 version.txt
+	 version
+	 updatesList
+	 pom.xml
+	 New locale
+	 Sound List If Changed
+	 Server Updates
+	 Plugin Updates
+	 Updater Updates
+	 UserGuide Version / Changes
+	 Copy Over Updater To Resources
+	 */
+	
+	public static final String version = "v1.3-alpha";
+	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Support For Handing Suspects Citations", "Fix Creating New Court Case When Updating Report", "Fixed CourtCase Note Area", "Added AutoUpdate Utility With Update Checks", "New Report App For Creating Blank Reports", "Display All IPv4 Addresses In Server Rather Than Just First", "Autoupdate Server With Application If Connected", "Reset App Positions Button", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Fix Spacing On Report MenuButtons", "Added Shutdown Button", "Added Missing Freeways", "Fix Vehicle Owners Able To Be Below 18", "Added Ped Flag Probility Setting", "Rearrange Topbar/Taskbar Elements", "Hide Maximize For Non-Resizable Windows"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
-	/* New Version Locale.properies changes
-	NEW:
-	Desktop.AvailableLabel=Available!
-	Desktop.NewVersionAvailable=New Version Available!
-	Settings.desktopAppTextClrLabel=App Text Color
-	Settings.ClearLookupDataBtn=CLEAR LOOKUP DATA
-	Settings.desktopAppTextClrTT=Set the color of the app name text
-	UpdatesWindow.UpdateButton=AutoUpdate (BETA)
-	UpdatesWindow.CantUpdateLabel=No Update Available!
-	UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
-	UpdatesWindow.MissingUpdater=Missing UpdateUtility!
-	Settings.installSoundsBtn=INSTALL/UPDATE
-	Settings.soundPackNotDetectedLbl=Sound Pack Not Detected
-	Settings.imagesNotDetectedLbl=Ped/Veh Images Not Detected
-	Settings.enablePedVehImages=Enable Ped/Veh Images
-	Settings.enablePedVehImagesTT=Toggle whether ped/veh images will be shown in lookup
-	Settings.clearLookupDataLabel=Clear Old Ped / Veh Data
-	Settings.clearLookupDataLabelTT=ONLY delete saved ped / veh history data from previous lookups to free space
-	PedLookup.PedImageFoundlbl=Image Found in File:
-	
-	REMOVED:
-	UpdatesWindow.CheckUpdatesButton=Check For Updates
-	
-	CHANGED:
-	Settings.AudioSettingsHeader=AUDIO SETTINGS  ->  Settings.AudioSettingsHeader=AUDIO/OPTIONAL SETTINGS
-	Settings.AudioBtn=Audio  ->  Settings.AudioBtn=Audio/Optionals
-	*/
+	public static final String localeChanges = """
+			NEW:
+			Settings.mainSettingsSubheader=MAIN SETTINGS
+			Settings.colorSettingsSubheader=COLOR SETTINGS
+			Settings.MiscSettingsSubheader=MISC / SERVER SETTINGS
+			Settings.developerSubheader=DEVELOPER / RESET DATA
+			Settings.desktopTaskBarClrLabel=Taskbar Color
+			Settings.desktopTaskBarClrTT=Set the color of the bottom task bar
+			Settings.desktopTaskBarTextClrLabel=Taskbar Text Color
+			Settings.desktopTaskBarTextClrTT=Set the color of the text on the bottom taskbar
+			Settings.resetAppPosBtn=RESET APP POSITIONS
+			Settings.resetAppPosLabel=Reset App Positions
+			Settings.resetAppPosTT=Reset apps to their default positions
+			UpdatesWindow.notStartedLabel=Not Started
+			UpdatesWindow.armChipCheckbox=Use Windows / ARM MacOS Download
+			UpdatesWindow.startAutoUpdateBtn=Start AutoUpdate
+			UpdatesWindow.autoUpdateUtilityHeader=AutoUpdate Utility
+			UpdatesWindow.validAutoUpdateCheck=OK
+			UpdatesWindow.invalidAutoUpdateCheck=Invalid
+			UpdatesWindow.successfulAutoUpdateCheck=Successful Check!
+			UpdatesWindow.failedAutoUpdateCheck=Issues Found
+			UpdatesWindow.checksDidntPassLabel=Can't Update:
+			UpdatesWindow.LocaleChangesButton=Locale Changes
+			UpdatesWindow.updateServerCheckbox=Update Server (Requires you to be connected)
+			NewReportApp.selectReportTypeLabel=Select a Report Type:
+			UpdatesWindow.intelChipCheckbox=Use Intel Chip MacOS Download (Only select if using a Intel chip mac)
+			UpdatesWindow.launchAutoUpdateBtn=Launch Update Utility (BETA)
+			LogBrowser.SubHeading=Log Browser
+			LogBrowser.reportDatabaseLabel=Report Database
+			
+			REMOVED:
+			Desktop.CreateReportButton=Create Report
+			UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
+			UpdatesWindow.UpdateButton=AutoUpdate
+			LogBrowser.SubHeading=Log Browser
+			""";
 	
 	public static final String name = "Reports Plus";
 	public static final String DeathReportLogURL = getDataLogsFolderPath() + "deathReportLogs.xml";

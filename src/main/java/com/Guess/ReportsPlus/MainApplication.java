@@ -41,9 +41,7 @@ public class MainApplication extends Application {
 		mainDesktopControllerObj = fxmlLoader.getController();
 		primaryStage.setTitle("ReportsPlus Desktop");
 		primaryStage.setScene(scene);
-		primaryStage.getIcons().add(
-				new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
-		primaryStage.show();
+		primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
 		mainDesktopStage = primaryStage;
 		
 		String windowConfig = ConfigReader.configRead("uiSettings", "windowDisplaySetting");

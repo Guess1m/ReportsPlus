@@ -620,220 +620,296 @@
                                 </VBox>
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="paneDesktop" layoutX="10.0" layoutY="10.0" visible="false"
-                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Label fx:id="desktopSetingsHeader" alignment="CENTER" styleClass="settingsLabel"
-                                       text="DESKTOP SETTINGS" AnchorPane.leftAnchor="15.0"
-                                       AnchorPane.topAnchor="10.0"/>
-                                <VBox spacing="35.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                        <ScrollPane fx:id="paneDesktop" visible="false" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <content>
+                                <AnchorPane>
                                     <children>
-                                        <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
+                                        <Label fx:id="desktopSetingsHeader" alignment="CENTER"
+                                               styleClass="settingsLabel" text="DESKTOP SETTINGS"
+                                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                                        <VBox layoutX="25.0" layoutY="50.0" spacing="35.0"
+                                              AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
                                             <children>
-                                                <Label fx:id="desktopUseSolidClrLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="Use Solid Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <ToggleButton fx:id="solidColorToggle" mnemonicParsing="false"
-                                                              onAction="#solidColorToggle" text="Status"
-                                                              GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                              GridPane.rowSpan="2" GridPane.valignment="CENTER">
-                                                    <toggleGroup>
-                                                        <ToggleGroup fx:id="DesktopSetting"/>
-                                                    </toggleGroup>
-                                                </ToggleButton>
-                                                <Label fx:id="desktopUseSolidClrTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Desktop background will be set to a solid color"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="desktopBackgroundClrLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="Desktop Background Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label fx:id="desktopBackgroundClrTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Set the color of the desktop background (If solid color enabled)"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
-                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                      GridPane.valignment="CENTER">
+                                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
                                                     <children>
-                                                        <ColorPicker fx:id="desktopBackgroundPicker" prefWidth="150.0"/>
+                                                        <Label fx:id="desktopUseSolidClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Use Solid Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <ToggleButton fx:id="solidColorToggle" mnemonicParsing="false"
+                                                                      onAction="#solidColorToggle" text="Status"
+                                                                      GridPane.columnIndex="1"
+                                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                                      GridPane.valignment="CENTER">
+                                                            <toggleGroup>
+                                                                <ToggleGroup fx:id="DesktopSetting"/>
+                                                            </toggleGroup>
+                                                        </ToggleButton>
+                                                        <Label fx:id="desktopUseSolidClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Desktop background will be set to a solid color"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
                                                     </children>
-                                                </HBox>
-                                            </children>
-                                        </GridPane>
-                                        <AnchorPane VBox.vgrow="SOMETIMES"/>
-                                        <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="useDesktopBackgroundImageLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="Use Desktop Background"
-                                                       GridPane.valignment="CENTER"/>
-                                                <ToggleButton fx:id="backgroundToggle" mnemonicParsing="false"
-                                                              onAction="#backgroundToggle" text="Status"
-                                                              toggleGroup="$DesktopSetting" GridPane.columnIndex="1"
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopBackgroundClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Desktop Background Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopBackgroundClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Set the color of the desktop background (If solid color enabled)"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
                                                               GridPane.halignment="CENTER" GridPane.rowSpan="2"
-                                                              GridPane.valignment="CENTER"/>
-                                                <Label fx:id="useDesktopBackgroundImageTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Desktop background will be set to a specified image"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
+                                                              GridPane.valignment="CENTER">
+                                                            <children>
+                                                                <ColorPicker fx:id="desktopBackgroundPicker"
+                                                                             prefWidth="150.0"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="useDesktopBackgroundImageLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Use Desktop Background"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <ToggleButton fx:id="backgroundToggle" mnemonicParsing="false"
+                                                                      onAction="#backgroundToggle" text="Status"
+                                                                      toggleGroup="$DesktopSetting"
+                                                                      GridPane.columnIndex="1"
+                                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                                      GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="useDesktopBackgroundImageTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Desktop background will be set to a specified image"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" prefWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopImageChooserLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Desktop Image Chooser"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopImageChooserTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Choose the image to use as the desktop background (Matching monitor size will work best)"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Button fx:id="chooseImageFileBtn" mnemonicParsing="false"
+                                                                onAction="#desktopImageBtn" text="Choose Image File"
+                                                                GridPane.columnIndex="1"
+                                                                GridPane.columnSpan="2147483647"
+                                                                GridPane.halignment="CENTER"
+                                                                GridPane.rowSpan="2147483647"
+                                                                GridPane.valignment="CENTER"/>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopAppTextClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="App Text Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopAppTextClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Set the color of the app name text"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <ColorPicker fx:id="appTextPicker" prefWidth="150.0"
+                                                                     GridPane.columnIndex="1"
+                                                                     GridPane.halignment="CENTER"
+                                                                     GridPane.rowSpan="2147483647"
+                                                                     GridPane.valignment="CENTER"/>
+                                                    </children>
+                                                </GridPane>
+                                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                                <GridPane layoutX="10.0" layoutY="10.0" maxHeight="65.0"
+                                                          VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopTopBarClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Top Bar Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopTopBarClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Set the color of the top information bar"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <ColorPicker fx:id="topBarPicker" prefWidth="150.0"
+                                                                     GridPane.columnIndex="1"
+                                                                     GridPane.halignment="CENTER"
+                                                                     GridPane.rowSpan="2147483647"
+                                                                     GridPane.valignment="CENTER"/>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopTopBarTextClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Top Bar Text Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopTopBarTextClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Set the color of the text on the top bar"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <ColorPicker fx:id="topBarTextPicker" prefWidth="150.0"
+                                                                     GridPane.columnIndex="1"
+                                                                     GridPane.halignment="CENTER"
+                                                                     GridPane.rowSpan="2147483647"
+                                                                     GridPane.valignment="CENTER"/>
+                                                    </children>
+                                                </GridPane>
+                                                <AnchorPane/>
+                                                <GridPane maxHeight="65.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopTaskBarClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Taskbar Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopTaskBarClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Set the color of the bottom task bar"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <ColorPicker fx:id="taskBarClrPicker" prefWidth="150.0"
+                                                                     GridPane.columnIndex="1"
+                                                                     GridPane.halignment="CENTER"
+                                                                     GridPane.rowSpan="2147483647"
+                                                                     GridPane.valignment="CENTER"/>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="desktopTaskBarTextClrLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Taskbar Text Color"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="desktopTaskBarTextClrTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Set the color of the text on the bottom taskbar"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <ColorPicker fx:id="taskBarTextClrPicker" prefWidth="150.0"
+                                                                     GridPane.columnIndex="1"
+                                                                     GridPane.halignment="CENTER"
+                                                                     GridPane.rowSpan="2147483647"
+                                                                     GridPane.valignment="CENTER"/>
+                                                    </children>
+                                                </GridPane>
                                             </children>
-                                        </GridPane>
-                                        <GridPane VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" prefWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="desktopImageChooserLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="Desktop Image Chooser"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label fx:id="desktopImageChooserTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Choose the image to use as the desktop background (Matching monitor size will work best)"
-                                                       wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <Button fx:id="chooseImageFileBtn" mnemonicParsing="false"
-                                                        onAction="#desktopImageBtn" text="Choose Image File"
-                                                        GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
-                                                        GridPane.halignment="CENTER" GridPane.rowSpan="2147483647"
-                                                        GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
-                                        <AnchorPane VBox.vgrow="SOMETIMES"/>
-                                        <GridPane layoutX="10.0" layoutY="10.0" maxHeight="65.0" VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="desktopTopBarClrLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="Top Bar Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label fx:id="desktopTopBarClrTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Set the color of the top information bar"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ColorPicker fx:id="topBarPicker" prefWidth="150.0"
-                                                             GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                             GridPane.rowSpan="2147483647"
-                                                             GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="desktopTopBarTextClrLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="Top Bar Text Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label fx:id="desktopTopBarTextClrTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Set the color of the text on the top bar"
-                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ColorPicker fx:id="topBarTextPicker" prefWidth="150.0"
-                                                             GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                             GridPane.rowSpan="2147483647"
-                                                             GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane maxHeight="65.0" VBox.vgrow="SOMETIMES">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
-                                                <ColumnConstraints hgrow="ALWAYS"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="desktopAppTextClrLabel" alignment="CENTER"
-                                                       styleClass="paneHeading" text="App Text Color"
-                                                       GridPane.valignment="CENTER"/>
-                                                <Label fx:id="desktopAppTextClrTT" alignment="CENTER"
-                                                       styleClass="paneSubtext"
-                                                       text="Set the color of the app name text" GridPane.rowIndex="1"
-                                                       GridPane.valignment="TOP">
-                                                    <GridPane.margin>
-                                                        <Insets/>
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <ColorPicker fx:id="appTextPicker" prefWidth="150.0"
-                                                             GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                                             GridPane.rowSpan="2147483647"
-                                                             GridPane.valignment="CENTER"/>
-                                            </children>
-                                        </GridPane>
+                                        </VBox>
                                     </children>
-                                </VBox>
-                            </children>
-                        </AnchorPane>
+                                    <padding>
+                                        <Insets bottom="25.0"/>
+                                    </padding>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
                         <AnchorPane fx:id="paneReport" visible="false" AnchorPane.bottomAnchor="0.0"
                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
@@ -1748,6 +1824,32 @@
                                                 </Label>
                                                 <Button fx:id="centerWindowsBtn" mnemonicParsing="false"
                                                         onAction="#centerWindowsBtnClick" text="CENTER WINDOWS"
+                                                        GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                                        GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
+                                            </children>
+                                        </GridPane>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                <ColumnConstraints hgrow="ALWAYS"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="NEVER"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Label fx:id="resetAppPosLabel" alignment="CENTER"
+                                                       styleClass="paneHeading" text="Reset App Positions"
+                                                       GridPane.valignment="CENTER"/>
+                                                <Label fx:id="resetAppPosTT" alignment="CENTER" styleClass="paneSubtext"
+                                                       text="Reset apps to their default positions"
+                                                       GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                    <GridPane.margin>
+                                                        <Insets/>
+                                                    </GridPane.margin>
+                                                </Label>
+                                                <Button fx:id="resetAppPosBtn" mnemonicParsing="false"
+                                                        onAction="#resetAppPosClick" text="RESET APP POSITIONS"
                                                         GridPane.columnIndex="1" GridPane.halignment="CENTER"
                                                         GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                             </children>

@@ -86,8 +86,7 @@ public class ConfigReader {
 				try (OutputStream output = new FileOutputStream(configFile)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property),
-				    LogUtils.Severity.DEBUG);
+				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
 			} else {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}
@@ -142,6 +141,9 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "topBarTextColor", "#000000");
 		checkAndSetDefaultValue("desktopSettings", "appTextColor", "#ffffff");
 		
+		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
+		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
+		
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");
 		checkAndSetDefaultValue("misc", "IDDuration", "infinite");
@@ -169,7 +171,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "lastIPV4Connection", "");
 		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
-		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "10000");
+		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "13000");
 		
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
@@ -191,6 +193,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistory", "validLicenseChance", "80");
 		checkAndSetDefaultValue("pedHistory", "expiredLicenseChance", "15");
 		checkAndSetDefaultValue("pedHistory", "suspendedLicenseChance", "5");
+		checkAndSetDefaultValue("pedHistory", "baseFlagProbability", "5");
 		
 		// Arrest
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "60");
@@ -212,6 +215,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "handgunChance", "50");
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "longgunChance", "28");
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");
+		
+		checkAndSetDefaultValue("update", "type", "client");
 		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}

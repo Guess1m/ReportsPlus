@@ -14,6 +14,9 @@ public class IncidentReport {
 	@XmlElement(name = "incidentDate")
 	private String incidentDate;
 	
+	@XmlElement(name = "incidentStatus")
+	private String incidentStatus;
+	
 	@XmlElement(name = "incidentTime")
 	private String incidentTime;
 	
@@ -182,5 +185,13 @@ public class IncidentReport {
 	
 	public void setOfficerRank(String officerRank) {
 		this.officerRank = officerRank;
+	}
+	
+	public String getStatus() {
+		return incidentStatus != null ? incidentStatus : "Closed";
+	}
+	
+	public void setStatus(String incidentStatus) {
+		this.incidentStatus = incidentStatus;
 	}
 }

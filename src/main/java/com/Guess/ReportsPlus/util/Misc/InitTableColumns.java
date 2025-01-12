@@ -10,866 +10,1109 @@ import com.Guess.ReportsPlus.logs.Patrol.PatrolReport;
 import com.Guess.ReportsPlus.logs.Search.SearchReport;
 import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationReport;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReport;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.setSmallColumnWidth;
 
 public class InitTableColumns {
-	static double minColumnWidth = 185.0;
+	private static String commonFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Segoe UI\";";
 	
 	public static void initializeDeathReportColumns(TableView tableview) {
-		TableColumn<DeathReport, String> notesColumn = new TableColumn<>("Notes");
-		notesColumn.setCellValueFactory(new PropertyValueFactory<>("notesTextArea"));
-		
-		TableColumn<DeathReport, String> divisionColumn = new TableColumn<>("Division");
-		divisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
-		
-		TableColumn<DeathReport, String> agencyColumn = new TableColumn<>("Agency");
-		agencyColumn.setCellValueFactory(new PropertyValueFactory<>("agency"));
-		
-		TableColumn<DeathReport, String> numberColumn = new TableColumn<>("Number");
-		numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
-		
-		TableColumn<DeathReport, String> rankColumn = new TableColumn<>("Rank");
-		rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
-		
-		TableColumn<DeathReport, String> nameColumn = new TableColumn<>("Name");
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
-		TableColumn<DeathReport, String> streetColumn = new TableColumn<>("Street");
-		streetColumn.setCellValueFactory(new PropertyValueFactory<>("street"));
-		
-		TableColumn<DeathReport, String> countyColumn = new TableColumn<>("County");
-		countyColumn.setCellValueFactory(new PropertyValueFactory<>("county"));
-		
-		TableColumn<DeathReport, String> areaColumn = new TableColumn<>("Area");
-		areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
-		
-		TableColumn<DeathReport, String> dateColumn = new TableColumn<>("Date");
-		dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-		
-		TableColumn<DeathReport, String> timeColumn = new TableColumn<>("Time");
-		timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-		
-		TableColumn<DeathReport, String> deathReportNumberColumn = new TableColumn<>("Death Report Number");
+		TableColumn<DeathReport, String> deathReportNumberColumn = new TableColumn<>("Report #:");
 		deathReportNumberColumn.setCellValueFactory(new PropertyValueFactory<>("deathReportNumber"));
+		deathReportNumberColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<DeathReport, String> decedentColumn = new TableColumn<>("Decedent");
+		TableColumn<DeathReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
+		
+		TableColumn<DeathReport, String> decedentColumn = new TableColumn<>("Decedent:");
 		decedentColumn.setCellValueFactory(new PropertyValueFactory<>("decedent"));
+		decedentColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<DeathReport, String> ageColumn = new TableColumn<>("Age");
-		ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
-		
-		TableColumn<DeathReport, String> genderColumn = new TableColumn<>("Gender");
-		genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-		
-		TableColumn<DeathReport, String> descriptionColumn = new TableColumn<>("Description");
-		descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-		
-		TableColumn<DeathReport, String> addressColumn = new TableColumn<>("Address");
-		addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-		
-		TableColumn<DeathReport, String> witnessesColumn = new TableColumn<>("Witnesses");
-		witnessesColumn.setCellValueFactory(new PropertyValueFactory<>("witnesses"));
-		
-		TableColumn<DeathReport, String> causeOfDeathColumn = new TableColumn<>("Cause of Death");
+		TableColumn<DeathReport, String> causeOfDeathColumn = new TableColumn<>("Cause of Death:");
+		causeOfDeathColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(causeOfDeathColumn, Pos.CENTER_LEFT, "Cause of Death:");
 		causeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("causeOfDeath"));
+		causeOfDeathColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<DeathReport, String> modeOfDeathColumn = new TableColumn<>("Mode of Death");
+		TableColumn<DeathReport, String> modeOfDeathColumn = new TableColumn<>("Mode of Death:");
+		modeOfDeathColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(modeOfDeathColumn, Pos.CENTER_LEFT, "Mode of Death:");
 		modeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("modeOfDeath"));
+		modeOfDeathColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<DeathReport, String> timeofDeathColumn = new TableColumn<>("Time of Death");
-		timeofDeathColumn.setCellValueFactory(new PropertyValueFactory<>("timeOfDeath"));
-		
-		TableColumn<DeathReport, String> dateOfDeathColumn = new TableColumn<>("Date of Death");
-		dateOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfDeath"));
-		
-		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(notesColumn,
-		                                                                                                   divisionColumn,
-		                                                                                                   agencyColumn,
-		                                                                                                   numberColumn,
-		                                                                                                   rankColumn,
-		                                                                                                   nameColumn,
-		                                                                                                   streetColumn,
-		                                                                                                   countyColumn,
-		                                                                                                   areaColumn,
-		                                                                                                   dateColumn,
-		                                                                                                   timeColumn,
-		                                                                                                   deathReportNumberColumn,
-		                                                                                                   decedentColumn,
-		                                                                                                   ageColumn,
-		                                                                                                   genderColumn,
-		                                                                                                   descriptionColumn,
-		                                                                                                   addressColumn,
-		                                                                                                   witnessesColumn,
-		                                                                                                   causeOfDeathColumn,
-		                                                                                                   modeOfDeathColumn,
-		                                                                                                   timeofDeathColumn,
-		                                                                                                   dateOfDeathColumn);
+		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(deathReportNumberColumn, statusColumn, decedentColumn, causeOfDeathColumn, modeOfDeathColumn);
 		
 		tableview.getColumns().addAll(deathReportColumns);
 		
 		for (TableColumn<DeathReport, ?> column : deathReportColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
 		
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(deathReportNumberColumn);
-		setSmallColumnWidth(dateColumn);
-		setSmallColumnWidth(timeColumn);
-		setSmallColumnWidth(timeofDeathColumn);
-		setSmallColumnWidth(dateOfDeathColumn);
-		setSmallColumnWidth(ageColumn);
-		setSmallColumnWidth(genderColumn);
-		setSmallColumnWidth(numberColumn);
 	}
 	
 	public static void initializeImpoundColumns(TableView tableview) {
-		
-		TableColumn<ImpoundReport, String> impoundNumberColumn = new TableColumn<>("Impound #");
+		TableColumn<ImpoundReport, String> impoundNumberColumn = new TableColumn<>("Impound #:");
 		impoundNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundNumber"));
+		impoundNumberColumn.setCellFactory(column -> new TableCell<ImpoundReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ImpoundReport, String> impoundDateColumn = new TableColumn<>("Impound Date");
-		impoundDateColumn.setCellValueFactory(new PropertyValueFactory<>("impoundDate"));
+		TableColumn<ImpoundReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<ImpoundReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ImpoundReport, String> impoundTimeColumn = new TableColumn<>("Impound Time");
-		impoundTimeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundTime"));
-		
-		TableColumn<ImpoundReport, String> ownerNameColumn = new TableColumn<>("Owner Name");
+		TableColumn<ImpoundReport, String> ownerNameColumn = new TableColumn<>("Owner:");
+		ownerNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(ownerNameColumn, Pos.CENTER_LEFT, "Owner:");
 		ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
+		ownerNameColumn.setCellFactory(column -> new TableCell<ImpoundReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ImpoundReport, String> ownerAgeColumn = new TableColumn<>("Owner Age");
-		ownerAgeColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAge"));
-		
-		TableColumn<ImpoundReport, String> ownerGenderColumn = new TableColumn<>("Owner Gender");
-		ownerGenderColumn.setCellValueFactory(new PropertyValueFactory<>("ownerGender"));
-		
-		TableColumn<ImpoundReport, String> ownerAddressColumn = new TableColumn<>("Owner Address");
-		ownerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("ownerAddress"));
-		
-		TableColumn<ImpoundReport, String> impoundPlateNumberColumn = new TableColumn<>("Veh. Plate #");
+		TableColumn<ImpoundReport, String> impoundPlateNumberColumn = new TableColumn<>("Plate #:");
+		impoundPlateNumberColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(impoundPlateNumberColumn, Pos.CENTER_LEFT, "Plate #:");
 		impoundPlateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundPlateNumber"));
+		impoundPlateNumberColumn.setCellFactory(column -> new TableCell<ImpoundReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ImpoundReport, String> impoundModelColumn = new TableColumn<>("Veh. Model");
-		impoundModelColumn.setCellValueFactory(new PropertyValueFactory<>("impoundModel"));
-		
-		TableColumn<ImpoundReport, String> impoundTypeColumn = new TableColumn<>("Veh. Type");
-		impoundTypeColumn.setCellValueFactory(new PropertyValueFactory<>("impoundType"));
-		
-		TableColumn<ImpoundReport, String> impoundColorColumn = new TableColumn<>("Veh. Color");
-		impoundColorColumn.setCellValueFactory(new PropertyValueFactory<>("impoundColor"));
-		
-		TableColumn<ImpoundReport, String> impoundCommentsColumn = new TableColumn<>("Comments");
-		impoundCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("impoundComments"));
-		
-		TableColumn<ImpoundReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-		
-		TableColumn<ImpoundReport, String> officerNameColumn = new TableColumn<>("Officer Name");
-		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
-		
-		TableColumn<ImpoundReport, String> officerNumberColumn = new TableColumn<>("Officer #");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-		
-		TableColumn<ImpoundReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-		
-		TableColumn<ImpoundReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-		
-		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(
-				impoundNumberColumn, impoundDateColumn, impoundTimeColumn, ownerNameColumn, ownerAgeColumn,
-				ownerGenderColumn, ownerAddressColumn, impoundPlateNumberColumn, impoundModelColumn, impoundTypeColumn,
-				impoundColorColumn, impoundCommentsColumn, officerRankColumn, officerNameColumn, officerNumberColumn,
-				officerDivisionColumn, officerAgencyColumn);
+		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(impoundNumberColumn, statusColumn, impoundPlateNumberColumn, ownerNameColumn);
 		
 		tableview.getColumns().addAll(impoundColumns);
 		
 		for (TableColumn<ImpoundReport, ?> column : impoundColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setEditable(false);
+			column.setReorderable(false);
 		}
+		
 		setSmallColumnWidth(impoundNumberColumn);
-		setSmallColumnWidth(impoundDateColumn);
-		setSmallColumnWidth(impoundTimeColumn);
-		setSmallColumnWidth(ownerAgeColumn);
-		setSmallColumnWidth(ownerGenderColumn);
-		setSmallColumnWidth(impoundPlateNumberColumn);
-		setSmallColumnWidth(impoundModelColumn);
-		setSmallColumnWidth(impoundColorColumn);
-		setSmallColumnWidth(officerNumberColumn);
+		setSmallColumnWidth(statusColumn);
 	}
 	
 	public static void initializePatrolColumns(TableView tableview) {
-		
-		TableColumn<PatrolReport, String> patrolNumberColumn = new TableColumn<>("Patrol #");
+		TableColumn<PatrolReport, String> patrolNumberColumn = new TableColumn<>("Patrol #:");
 		patrolNumberColumn.setCellValueFactory(new PropertyValueFactory<>("patrolNumber"));
+		patrolNumberColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<PatrolReport, String> patrolDateColumn = new TableColumn<>("Date");
-		patrolDateColumn.setCellValueFactory(new PropertyValueFactory<>("patrolDate"));
+		TableColumn<PatrolReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<PatrolReport, String> patrolLengthColumn = new TableColumn<>("Length");
+		TableColumn<PatrolReport, String> patrolLengthColumn = new TableColumn<>("Length:");
+		patrolLengthColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(patrolLengthColumn, Pos.CENTER_LEFT, "Length:");
 		patrolLengthColumn.setCellValueFactory(new PropertyValueFactory<>("patrolLength"));
+		patrolLengthColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<PatrolReport, String> patrolStartTimeColumn = new TableColumn<>("Start Time");
+		TableColumn<PatrolReport, String> patrolStartTimeColumn = new TableColumn<>("Start Time:");
+		patrolStartTimeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(patrolStartTimeColumn, Pos.CENTER_LEFT, "Start Time:");
 		patrolStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStartTime"));
+		patrolStartTimeColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<PatrolReport, String> patrolStopTimeColumn = new TableColumn<>("Stop Time");
+		TableColumn<PatrolReport, String> patrolStopTimeColumn = new TableColumn<>("Stop Time:");
+		patrolStopTimeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(patrolStopTimeColumn, Pos.CENTER_LEFT, "Stop Time:");
 		patrolStopTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStopTime"));
+		patrolStopTimeColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<PatrolReport, String> officerRankColumn = new TableColumn<>("Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-		
-		TableColumn<PatrolReport, String> officerNameColumn = new TableColumn<>("Name");
+		TableColumn<PatrolReport, String> officerNameColumn = new TableColumn<>("Name:");
+		officerNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(officerNameColumn, Pos.CENTER_LEFT, "Name:");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
+		officerNameColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<PatrolReport, String> officerNumberColumn = new TableColumn<>("Number");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-		
-		TableColumn<PatrolReport, String> officerDivisionColumn = new TableColumn<>("Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-		
-		TableColumn<PatrolReport, String> officerAgencyColumn = new TableColumn<>("Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-		
-		TableColumn<PatrolReport, String> officerVehicleColumn = new TableColumn<>("Vehicle");
-		officerVehicleColumn.setCellValueFactory(new PropertyValueFactory<>("officerVehicle"));
-		
-		TableColumn<PatrolReport, String> patrolCommentsColumn = new TableColumn<>("Comments");
-		patrolCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("patrolComments"));
-		
-		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(
-				patrolNumberColumn, patrolDateColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn,
-				officerRankColumn, officerNameColumn, officerNumberColumn, officerDivisionColumn, officerAgencyColumn,
-				officerVehicleColumn, patrolCommentsColumn);
+		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(patrolNumberColumn, statusColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn, officerNameColumn);
 		
 		tableview.getColumns().addAll(patrolColumns);
 		
 		for (TableColumn<PatrolReport, ?> column : patrolColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setEditable(false);
+			column.setReorderable(false);
 		}
+		
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(patrolNumberColumn);
-		setSmallColumnWidth(patrolDateColumn);
-		setSmallColumnWidth(patrolLengthColumn);
-		setSmallColumnWidth(patrolStartTimeColumn);
-		setSmallColumnWidth(patrolStopTimeColumn);
-		setSmallColumnWidth(officerNumberColumn);
 	}
 	
 	public static void initializeCitationColumns(TableView tableview) {
-		
-		TableColumn<TrafficCitationReport, String> citationNumberColumn = new TableColumn<>("Citation #");
+		TableColumn<TrafficCitationReport, String> citationNumberColumn = new TableColumn<>("Citation #:");
 		citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
+		citationNumberColumn.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficCitationReport, String> citationDateColumn = new TableColumn<>("Citation Date");
-		citationDateColumn.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
+		TableColumn<TrafficCitationReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficCitationReport, String> citationTimeColumn = new TableColumn<>("Citation Time");
-		citationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("citationTime"));
+		TableColumn<TrafficCitationReport, String> citationDate = new TableColumn<>("Date:");
+		citationDate.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(citationDate, Pos.CENTER_LEFT, "Date:");
+		citationDate.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
+		citationDate.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficCitationReport, String> citationChargesColumn = new TableColumn<>("Charges");
-		citationChargesColumn.setCellValueFactory(new PropertyValueFactory<>("citationCharges"));
-		
-		TableColumn<TrafficCitationReport, String> citationCountyColumn = new TableColumn<>("County");
-		citationCountyColumn.setCellValueFactory(new PropertyValueFactory<>("citationCounty"));
-		
-		TableColumn<TrafficCitationReport, String> citationAreaColumn = new TableColumn<>("Area");
-		citationAreaColumn.setCellValueFactory(new PropertyValueFactory<>("citationArea"));
-		
-		TableColumn<TrafficCitationReport, String> citationStreetColumn = new TableColumn<>("Street");
-		citationStreetColumn.setCellValueFactory(new PropertyValueFactory<>("citationStreet"));
-		
-		TableColumn<TrafficCitationReport, String> offenderNameColumn = new TableColumn<>("Sus. Name");
+		TableColumn<TrafficCitationReport, String> offenderNameColumn = new TableColumn<>("Suspect:");
+		offenderNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(offenderNameColumn, Pos.CENTER_LEFT, "Suspect:");
 		offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
+		offenderNameColumn.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficCitationReport, String> offenderGenderColumn = new TableColumn<>("Sus. Gender");
-		offenderGenderColumn.setCellValueFactory(new PropertyValueFactory<>("offenderGender"));
-		
-		TableColumn<TrafficCitationReport, String> offenderAgeColumn = new TableColumn<>("Sus. Age");
-		offenderAgeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderAge"));
-		
-		TableColumn<TrafficCitationReport, String> offenderHomeAddressColumn = new TableColumn<>("Sus. Address");
-		offenderHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("offenderHomeAddress"));
-		
-		TableColumn<TrafficCitationReport, String> offenderDescriptionColumn = new TableColumn<>("Sus. Description");
-		offenderDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("offenderDescription"));
-		
-		TableColumn<TrafficCitationReport, String> offenderVehicleModelColumn = new TableColumn<>("Sus. Veh. Model");
+		TableColumn<TrafficCitationReport, String> offenderVehicleModelColumn = new TableColumn<>("Model:");
+		offenderVehicleModelColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(offenderVehicleModelColumn, Pos.CENTER_LEFT, "Model:");
 		offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
+		offenderVehicleModelColumn.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficCitationReport, String> offenderVehicleColorColumn = new TableColumn<>("Sus. Veh. Color");
-		offenderVehicleColorColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleColor"));
-		
-		TableColumn<TrafficCitationReport, String> offenderVehicleTypeColumn = new TableColumn<>("Sus. Veh. Type");
-		offenderVehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleType"));
-		
-		TableColumn<TrafficCitationReport, String> offenderVehiclePlateColumn = new TableColumn<>("Sus. Veh. Plate");
-		offenderVehiclePlateColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehiclePlate"));
-		
-		TableColumn<TrafficCitationReport, String> offenderVehicleOtherColumn = new TableColumn<>("Sus. Veh. Other");
-		offenderVehicleOtherColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleOther"));
-		
-		TableColumn<TrafficCitationReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-		
-		TableColumn<TrafficCitationReport, String> officerNameColumn = new TableColumn<>("Officer Name");
-		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
-		
-		TableColumn<TrafficCitationReport, String> officerNumberColumn = new TableColumn<>("Officer #");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-		
-		TableColumn<TrafficCitationReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-		
-		TableColumn<TrafficCitationReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-		
-		TableColumn<TrafficCitationReport, String> citationCommentsColumn = new TableColumn<>("Comments");
-		citationCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("citationComments"));
-		
-		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(
-				citationNumberColumn, citationDateColumn, citationTimeColumn, citationChargesColumn,
-				citationCountyColumn, citationAreaColumn, citationStreetColumn, offenderNameColumn,
-				offenderGenderColumn, offenderAgeColumn, offenderHomeAddressColumn, offenderDescriptionColumn,
-				offenderVehicleModelColumn, offenderVehicleColorColumn, offenderVehicleTypeColumn,
-				offenderVehiclePlateColumn, offenderVehicleOtherColumn, officerRankColumn, officerNameColumn,
-				officerNumberColumn, officerDivisionColumn, officerAgencyColumn, citationCommentsColumn);
+		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(citationNumberColumn, statusColumn, citationDate, offenderNameColumn, offenderVehicleModelColumn);
 		
 		tableview.getColumns().addAll(citationColumns);
 		
 		for (TableColumn<TrafficCitationReport, ?> column : citationColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
+		
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(citationNumberColumn);
-		setSmallColumnWidth(citationDateColumn);
-		setSmallColumnWidth(citationTimeColumn);
-		setSmallColumnWidth(offenderGenderColumn);
-		setSmallColumnWidth(offenderAgeColumn);
-		setSmallColumnWidth(offenderVehicleColorColumn);
-		setSmallColumnWidth(offenderVehiclePlateColumn);
-		setSmallColumnWidth(officerNumberColumn);
 	}
 	
 	public static void initializeArrestColumns(TableView tableview) {
-		
-		TableColumn<ArrestReport, String> arrestNumberColumn = new TableColumn<>("Arrest #");
+		TableColumn<ArrestReport, String> arrestNumberColumn = new TableColumn<>("Arrest #:");
 		arrestNumberColumn.setCellValueFactory(new PropertyValueFactory<>("arrestNumber"));
+		arrestNumberColumn.setCellFactory(column -> new TableCell<ArrestReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ArrestReport, String> arrestDateColumn = new TableColumn<>("Arrest Date");
+		TableColumn<ArrestReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<ArrestReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
+		
+		TableColumn<ArrestReport, String> arrestDateColumn = new TableColumn<>("Date:");
+		arrestDateColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(arrestDateColumn, Pos.CENTER_LEFT, "Date:");
 		arrestDateColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDate"));
+		arrestDateColumn.setCellFactory(column -> new TableCell<ArrestReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ArrestReport, String> arrestTimeColumn = new TableColumn<>("Arrest Time");
-		arrestTimeColumn.setCellValueFactory(new PropertyValueFactory<>("arrestTime"));
-		
-		TableColumn<ArrestReport, String> arrestChargesColumn = new TableColumn<>("Charges");
-		arrestChargesColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCharges"));
-		
-		TableColumn<ArrestReport, String> arrestCountyColumn = new TableColumn<>("County");
-		arrestCountyColumn.setCellValueFactory(new PropertyValueFactory<>("arrestCounty"));
-		
-		TableColumn<ArrestReport, String> arrestAreaColumn = new TableColumn<>("Area");
-		arrestAreaColumn.setCellValueFactory(new PropertyValueFactory<>("arrestArea"));
-		
-		TableColumn<ArrestReport, String> arrestStreetColumn = new TableColumn<>("Street");
-		arrestStreetColumn.setCellValueFactory(new PropertyValueFactory<>("arrestStreet"));
-		
-		TableColumn<ArrestReport, String> arresteeNameColumn = new TableColumn<>("Sus. Name");
+		TableColumn<ArrestReport, String> arresteeNameColumn = new TableColumn<>("Suspect:");
+		arresteeNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(arresteeNameColumn, Pos.CENTER_LEFT, "Suspect:");
 		arresteeNameColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeName"));
+		arresteeNameColumn.setCellFactory(column -> new TableCell<ArrestReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<ArrestReport, String> arresteeAgeColumn = new TableColumn<>("Sus. Age/DOB");
-		arresteeAgeColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeAge"));
-		
-		TableColumn<ArrestReport, String> arresteeGenderColumn = new TableColumn<>("Sus. Gender");
-		arresteeGenderColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeGender"));
-		
-		TableColumn<ArrestReport, String> arresteeDescriptionColumn = new TableColumn<>("Sus. Description");
-		arresteeDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeDescription"));
-		
-		TableColumn<ArrestReport, String> ambulanceYesNoColumn = new TableColumn<>("Ambulance (Y/N)");
-		ambulanceYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("ambulanceYesNo"));
-		
-		TableColumn<ArrestReport, String> taserYesNoColumn = new TableColumn<>("Taser (Y/N)");
-		taserYesNoColumn.setCellValueFactory(new PropertyValueFactory<>("TaserYesNo"));
-		
-		TableColumn<ArrestReport, String> arresteeMedicalInformationColumn = new TableColumn<>("Med. Info.");
-		arresteeMedicalInformationColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeMedicalInformation"));
-		
-		TableColumn<ArrestReport, String> arresteeHomeAddressColumn = new TableColumn<>("Sus. Address");
-		arresteeHomeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeHomeAddress"));
-		
-		TableColumn<ArrestReport, String> arrestDetailsColumn = new TableColumn<>("Details");
-		arrestDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDetails"));
-		
-		TableColumn<ArrestReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-		
-		TableColumn<ArrestReport, String> officerNameColumn = new TableColumn<>("Officer Name");
-		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
-		
-		TableColumn<ArrestReport, String> officerNumberColumn = new TableColumn<>("Officer #");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-		
-		TableColumn<ArrestReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-		
-		TableColumn<ArrestReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-		
-		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(
-				arrestNumberColumn, arrestDateColumn, arrestTimeColumn, arrestChargesColumn, arrestCountyColumn,
-				arrestAreaColumn, arrestStreetColumn, arresteeNameColumn, arresteeAgeColumn, arresteeGenderColumn,
-				arresteeDescriptionColumn, ambulanceYesNoColumn, taserYesNoColumn, arresteeMedicalInformationColumn,
-				arresteeHomeAddressColumn, arrestDetailsColumn, officerRankColumn, officerNameColumn,
-				officerNumberColumn, officerDivisionColumn, officerAgencyColumn);
+		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(arrestNumberColumn, statusColumn, arrestDateColumn, arresteeNameColumn);
 		
 		tableview.getColumns().addAll(arrestColumns);
 		
 		for (TableColumn<ArrestReport, ?> column : arrestColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setEditable(false);
+			column.setReorderable(false);
 		}
+		
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(arrestNumberColumn);
-		setSmallColumnWidth(arrestDateColumn);
-		setSmallColumnWidth(arrestTimeColumn);
-		setSmallColumnWidth(arresteeAgeColumn);
-		setSmallColumnWidth(arresteeGenderColumn);
-		setSmallColumnWidth(ambulanceYesNoColumn);
-		setSmallColumnWidth(taserYesNoColumn);
-		setSmallColumnWidth(officerNumberColumn);
 	}
 	
 	public static void initializeIncidentColumns(TableView tableview) {
-		
-		TableColumn<IncidentReport, String> incidentNumberColumn = new TableColumn<>("Incident #");
+		TableColumn<IncidentReport, String> incidentNumberColumn = new TableColumn<>("Incident #:");
 		incidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("incidentNumber"));
+		incidentNumberColumn.setCellFactory(column -> new TableCell<IncidentReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<IncidentReport, String> incidentDateColumn = new TableColumn<>("Date");
-		incidentDateColumn.setCellValueFactory(new PropertyValueFactory<>("incidentDate"));
+		TableColumn<IncidentReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<IncidentReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<IncidentReport, String> incidentTimeColumn = new TableColumn<>("Time");
-		incidentTimeColumn.setCellValueFactory(new PropertyValueFactory<>("incidentTime"));
-		
-		TableColumn<IncidentReport, String> incidentStatementColumn = new TableColumn<>("Statement");
-		incidentStatementColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStatement"));
-		
-		TableColumn<IncidentReport, String> incidentWitnessesColumn = new TableColumn<>("Suspects");
+		TableColumn<IncidentReport, String> incidentWitnessesColumn = new TableColumn<>("Suspects:");
+		incidentWitnessesColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(incidentWitnessesColumn, Pos.CENTER_LEFT, "Suspects:");
 		incidentWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("incidentWitnesses"));
+		incidentWitnessesColumn.setCellFactory(column -> new TableCell<IncidentReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<IncidentReport, String> incidentVictimsColumn = new TableColumn<>("Victims/Witnesses");
+		TableColumn<IncidentReport, String> incidentVictimsColumn = new TableColumn<>("Victims/Witnesses:");
+		incidentVictimsColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(incidentVictimsColumn, Pos.CENTER_LEFT, "Victims/Witnesses:");
 		incidentVictimsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentVictims"));
+		incidentVictimsColumn.setCellFactory(column -> new TableCell<IncidentReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<IncidentReport, String> officerNameColumn = new TableColumn<>("Officer Name");
-		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
-		
-		TableColumn<IncidentReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-		
-		TableColumn<IncidentReport, String> officerNumberColumn = new TableColumn<>("Officer #");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-		
-		TableColumn<IncidentReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-		
-		TableColumn<IncidentReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-		
-		TableColumn<IncidentReport, String> incidentStreetColumn = new TableColumn<>("Street");
-		incidentStreetColumn.setCellValueFactory(new PropertyValueFactory<>("incidentStreet"));
-		
-		TableColumn<IncidentReport, String> incidentAreaColumn = new TableColumn<>("Area");
-		incidentAreaColumn.setCellValueFactory(new PropertyValueFactory<>("incidentArea"));
-		
-		TableColumn<IncidentReport, String> incidentCountyColumn = new TableColumn<>("County");
-		incidentCountyColumn.setCellValueFactory(new PropertyValueFactory<>("incidentCounty"));
-		
-		TableColumn<IncidentReport, String> incidentActionsTakenColumn = new TableColumn<>("Details");
-		incidentActionsTakenColumn.setCellValueFactory(new PropertyValueFactory<>("incidentActionsTaken"));
-		
-		TableColumn<IncidentReport, String> incidentCommentsColumn = new TableColumn<>("Comments");
-		incidentCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentComments"));
-		
-		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(
-				incidentNumberColumn, incidentDateColumn, incidentTimeColumn, incidentStatementColumn,
-				incidentWitnessesColumn, incidentVictimsColumn, officerNameColumn, officerRankColumn,
-				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, incidentStreetColumn,
-				incidentAreaColumn, incidentCountyColumn, incidentActionsTakenColumn, incidentCommentsColumn);
+		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(incidentNumberColumn, statusColumn, incidentWitnessesColumn, incidentVictimsColumn);
 		
 		tableview.getColumns().addAll(incidentColumns);
+		
 		for (TableColumn<IncidentReport, ?> column : incidentColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
+		
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(incidentNumberColumn);
-		setSmallColumnWidth(incidentDateColumn);
-		setSmallColumnWidth(incidentTimeColumn);
-		setSmallColumnWidth(officerNumberColumn);
 	}
 	
 	public static void initializeSearchColumns(TableView tableview) {
-		
-		TableColumn<SearchReport, String> searchNumberColumn = new TableColumn<>("Search #");
+		TableColumn<SearchReport, String> searchNumberColumn = new TableColumn<>("Search #:");
 		searchNumberColumn.setCellValueFactory(new PropertyValueFactory<>("SearchNumber"));
+		searchNumberColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<SearchReport, String> searchDateColumn = new TableColumn<>("Date");
-		searchDateColumn.setCellValueFactory(new PropertyValueFactory<>("searchDate"));
+		TableColumn<SearchReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<SearchReport, String> searchTimeColumn = new TableColumn<>("Time");
-		searchTimeColumn.setCellValueFactory(new PropertyValueFactory<>("searchTime"));
-		
-		TableColumn<SearchReport, String> searchSeizedItemsColumn = new TableColumn<>("Details/Field Sob.");
-		searchSeizedItemsColumn.setCellValueFactory(new PropertyValueFactory<>("searchSeizedItems"));
-		
-		TableColumn<SearchReport, String> searchGroundsColumn = new TableColumn<>("Grounds");
-		searchGroundsColumn.setCellValueFactory(new PropertyValueFactory<>("searchGrounds"));
-		
-		TableColumn<SearchReport, String> searchTypeColumn = new TableColumn<>("Type");
-		searchTypeColumn.setCellValueFactory(new PropertyValueFactory<>("searchType"));
-		
-		TableColumn<SearchReport, String> searchMethodColumn = new TableColumn<>("Method");
-		searchMethodColumn.setCellValueFactory(new PropertyValueFactory<>("searchMethod"));
-		
-		TableColumn<SearchReport, String> searchWitnessesColumn = new TableColumn<>("Witnesses");
-		searchWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("searchWitnesses"));
-		
-		TableColumn<SearchReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("officerRank"));
-		
-		TableColumn<SearchReport, String> officerNameColumn = new TableColumn<>("Officer Name");
-		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
-		
-		TableColumn<SearchReport, String> officerNumberColumn = new TableColumn<>("Officer #");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerNumber"));
-		
-		TableColumn<SearchReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("officerAgency"));
-		
-		TableColumn<SearchReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("officerDivision"));
-		
-		TableColumn<SearchReport, String> searchStreetColumn = new TableColumn<>("Street");
-		searchStreetColumn.setCellValueFactory(new PropertyValueFactory<>("searchStreet"));
-		
-		TableColumn<SearchReport, String> searchAreaColumn = new TableColumn<>("Area");
-		searchAreaColumn.setCellValueFactory(new PropertyValueFactory<>("searchArea"));
-		
-		TableColumn<SearchReport, String> searchCountyColumn = new TableColumn<>("County");
-		searchCountyColumn.setCellValueFactory(new PropertyValueFactory<>("searchCounty"));
-		
-		TableColumn<SearchReport, String> searchCommentsColumn = new TableColumn<>("Comments");
-		searchCommentsColumn.setCellValueFactory(new PropertyValueFactory<>("searchComments"));
-		
-		TableColumn<SearchReport, String> searchedPersonsColumn = new TableColumn<>("Sus. Searched");
+		TableColumn<SearchReport, String> searchedPersonsColumn = new TableColumn<>("Searched:");
+		searchedPersonsColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(searchedPersonsColumn, Pos.CENTER_LEFT, "Searched:");
 		searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
+		searchedPersonsColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<SearchReport, String> testsConductedColumn = new TableColumn<>("Test(s) Cond.");
-		testsConductedColumn.setCellValueFactory(new PropertyValueFactory<>("testsConducted"));
+		TableColumn<SearchReport, String> searchTypeColumn = new TableColumn<>("Type:");
+		searchTypeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(searchTypeColumn, Pos.CENTER_LEFT, "Type:");
+		searchTypeColumn.setCellValueFactory(new PropertyValueFactory<>("searchType"));
+		searchTypeColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<SearchReport, String> resultsColumn = new TableColumn<>("Result(s)");
-		resultsColumn.setCellValueFactory(new PropertyValueFactory<>("testResults"));
+		TableColumn<SearchReport, String> searchMethodColumn = new TableColumn<>("Method:");
+		searchMethodColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(searchMethodColumn, Pos.CENTER_LEFT, "Method:");
+		searchMethodColumn.setCellValueFactory(new PropertyValueFactory<>("searchMethod"));
+		searchMethodColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<SearchReport, String> BACMeasurementColumn = new TableColumn<>("BAC");
-		BACMeasurementColumn.setCellValueFactory(new PropertyValueFactory<>("breathalyzerBACMeasure"));
-		
-		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(
-				searchNumberColumn, searchDateColumn, searchTimeColumn, searchSeizedItemsColumn, searchGroundsColumn,
-				searchTypeColumn, searchMethodColumn, searchWitnessesColumn, officerRankColumn, officerNameColumn,
-				officerNumberColumn, officerAgencyColumn, officerDivisionColumn, searchStreetColumn, searchAreaColumn,
-				searchCountyColumn, searchCommentsColumn, searchedPersonsColumn, testsConductedColumn, resultsColumn,
-				BACMeasurementColumn);
+		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(searchNumberColumn, statusColumn, searchedPersonsColumn, searchTypeColumn, searchMethodColumn);
 		
 		tableview.getColumns().addAll(searchColumns);
 		
 		for (TableColumn<SearchReport, ?> column : searchColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(searchNumberColumn);
-		setSmallColumnWidth(searchDateColumn);
-		setSmallColumnWidth(searchTimeColumn);
-		setSmallColumnWidth(officerNumberColumn);
-		setSmallColumnWidth(testsConductedColumn);
-		setSmallColumnWidth(resultsColumn);
-		setSmallColumnWidth(BACMeasurementColumn);
 	}
 	
 	public static void initializeTrafficStopColumns(TableView tableview) {
-		TableColumn<TrafficStopReport, String> dateColumn = new TableColumn<>("Date");
-		dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
-		
-		TableColumn<TrafficStopReport, String> timeColumn = new TableColumn<>("Time");
-		timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
-		
-		TableColumn<TrafficStopReport, String> nameColumn = new TableColumn<>("Name");
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-		
-		TableColumn<TrafficStopReport, String> rankColumn = new TableColumn<>("Rank");
-		rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
-		
-		TableColumn<TrafficStopReport, String> numberColumn = new TableColumn<>("Number");
-		numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
-		
-		TableColumn<TrafficStopReport, String> divisionColumn = new TableColumn<>("Division");
-		divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
-		
-		TableColumn<TrafficStopReport, String> agencyColumn = new TableColumn<>("Agency");
-		agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
-		
-		TableColumn<TrafficStopReport, String> stopNumberColumn = new TableColumn<>("Stop #");
+		TableColumn<TrafficStopReport, String> stopNumberColumn = new TableColumn<>("Stop #:");
 		stopNumberColumn.setCellValueFactory(new PropertyValueFactory<>("StopNumber"));
+		stopNumberColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficStopReport, String> commentsTextAreaColumn = new TableColumn<>("Comments");
-		commentsTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("CommentsTextArea"));
+		TableColumn<TrafficStopReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficStopReport, String> streetColumn = new TableColumn<>("Street");
-		streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
-		
-		TableColumn<TrafficStopReport, String> countyColumn = new TableColumn<>("County");
-		countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
-		
-		TableColumn<TrafficStopReport, String> areaColumn = new TableColumn<>("Area");
-		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
-		
-		TableColumn<TrafficStopReport, String> plateNumberColumn = new TableColumn<>("Plate #");
+		TableColumn<TrafficStopReport, String> plateNumberColumn = new TableColumn<>("Plate #:");
 		plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("PlateNumber"));
+		plateNumberColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficStopReport, String> colorColumn = new TableColumn<>("Color");
-		colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
-		
-		TableColumn<TrafficStopReport, String> typeColumn = new TableColumn<>("Type");
-		typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
-		
-		TableColumn<TrafficStopReport, String> modelColumn = new TableColumn<>("Model");
-		modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
-		
-		TableColumn<TrafficStopReport, String> otherInfoColumn = new TableColumn<>("Other Info.");
-		otherInfoColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseOtherInfo"));
-		
-		TableColumn<TrafficStopReport, String> operatorNameColumn = new TableColumn<>("Operator Name");
+		TableColumn<TrafficStopReport, String> operatorNameColumn = new TableColumn<>("Operator:");
+		operatorNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(operatorNameColumn, Pos.CENTER_LEFT, "Operator Name:");
 		operatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
+		operatorNameColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficStopReport, String> operatorAgeColumn = new TableColumn<>("Operator Age");
-		operatorAgeColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAge"));
+		TableColumn<TrafficStopReport, String> modelColumn = new TableColumn<>("Model:");
+		modelColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(modelColumn, Pos.CENTER_LEFT, "Model:");
+		modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
+		modelColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<TrafficStopReport, String> operatorGenderColumn = new TableColumn<>("Operator Gender");
-		operatorGenderColumn.setCellValueFactory(new PropertyValueFactory<>("operatorGender"));
-		
-		TableColumn<TrafficStopReport, String> operatorDescriptionColumn = new TableColumn<>("Operator Description");
-		operatorDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("operatorDescription"));
-		
-		TableColumn<TrafficStopReport, String> operatorAddressColumn = new TableColumn<>("Operator Address");
-		operatorAddressColumn.setCellValueFactory(new PropertyValueFactory<>("operatorAddress"));
-		
-		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(
-				stopNumberColumn, dateColumn, timeColumn, modelColumn, otherInfoColumn, operatorNameColumn,
-				operatorAgeColumn, operatorAddressColumn, operatorDescriptionColumn, operatorGenderColumn, nameColumn,
-				rankColumn, numberColumn, divisionColumn, agencyColumn, commentsTextAreaColumn, streetColumn,
-				countyColumn, areaColumn, plateNumberColumn, colorColumn, typeColumn);
+		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(stopNumberColumn, statusColumn, plateNumberColumn, operatorNameColumn, modelColumn);
 		
 		tableview.getColumns().addAll(trafficStopColumns);
 		for (TableColumn<TrafficStopReport, ?> column : trafficStopColumns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
-		setSmallColumnWidth(stopNumberColumn);
-		setSmallColumnWidth(dateColumn);
-		setSmallColumnWidth(timeColumn);
-		setSmallColumnWidth(operatorAgeColumn);
-		setSmallColumnWidth(operatorGenderColumn);
-		setSmallColumnWidth(numberColumn);
-		setSmallColumnWidth(plateNumberColumn);
-		setSmallColumnWidth(colorColumn);
-		setSmallColumnWidth(numberColumn);
 		
+		setSmallColumnWidth(stopNumberColumn);
+		setSmallColumnWidth(plateNumberColumn);
+		setSmallColumnWidth(statusColumn);
 	}
 	
 	public static void initializeCalloutColumns(TableView tableview) {
-		
-		TableColumn<CalloutReport, String> calloutNumberColumn = new TableColumn<>("Callout #");
+		TableColumn<CalloutReport, String> calloutNumberColumn = new TableColumn<>("Callout #:");
 		calloutNumberColumn.setCellValueFactory(new PropertyValueFactory<>("CalloutNumber"));
+		calloutNumberColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<CalloutReport, String> notesTextAreaColumn = new TableColumn<>("Notes");
-		notesTextAreaColumn.setCellValueFactory(new PropertyValueFactory<>("NotesTextArea"));
+		TableColumn<CalloutReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<CalloutReport, String> responseGradeColumn = new TableColumn<>("Grade");
+		TableColumn<CalloutReport, String> responseGradeColumn = new TableColumn<>("Grade:");
 		responseGradeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseGrade"));
+		responseGradeColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
 		TableColumn<CalloutReport, String> responseTypeColumn = new TableColumn<>("Type");
+		responseTypeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(responseTypeColumn, Pos.CENTER_LEFT, "Type:");
 		responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseType"));
-		
-		TableColumn<CalloutReport, String> timeColumn = new TableColumn<>("Time");
-		timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
-		
-		TableColumn<CalloutReport, String> dateColumn = new TableColumn<>("Date");
-		dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
-		
-		TableColumn<CalloutReport, String> divisionColumn = new TableColumn<>("Division");
-		divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
-		
-		TableColumn<CalloutReport, String> agencyColumn = new TableColumn<>("Agency");
-		agencyColumn.setCellValueFactory(new PropertyValueFactory<>("Agency"));
-		
-		TableColumn<CalloutReport, String> numberColumn = new TableColumn<>("Number");
-		numberColumn.setCellValueFactory(new PropertyValueFactory<>("Number"));
-		
-		TableColumn<CalloutReport, String> rankColumn = new TableColumn<>("Rank");
-		rankColumn.setCellValueFactory(new PropertyValueFactory<>("Rank"));
-		
-		TableColumn<CalloutReport, String> nameColumn = new TableColumn<>("Name");
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-		
-		TableColumn<CalloutReport, String> addressColumn = new TableColumn<>("Address");
-		addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
-		
-		TableColumn<CalloutReport, String> countyColumn = new TableColumn<>("County");
-		countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
+		responseTypeColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
 		TableColumn<CalloutReport, String> areaColumn = new TableColumn<>("Area");
+		areaColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(areaColumn, Pos.CENTER_LEFT, "Area:");
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
+		areaColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					label.setStyle(commonFontSize);
+					setGraphic(label);
+				}
+			}
+		});
 		
-		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
-		                                                                                          dateColumn,
-		                                                                                          timeColumn,
-		                                                                                          notesTextAreaColumn,
-		                                                                                          responseGradeColumn,
-		                                                                                          responseTypeColumn,
-		                                                                                          divisionColumn,
-		                                                                                          agencyColumn,
-		                                                                                          numberColumn,
-		                                                                                          rankColumn,
-		                                                                                          nameColumn,
-		                                                                                          addressColumn,
-		                                                                                          countyColumn,
-		                                                                                          areaColumn);
-		tableview.getColumns().addAll(columns);
+		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn, statusColumn, responseGradeColumn, responseTypeColumn, areaColumn);
 		for (TableColumn<CalloutReport, ?> column : columns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
+		tableview.getColumns().addAll(columns);
 		setSmallColumnWidth(calloutNumberColumn);
-		setSmallColumnWidth(dateColumn);
-		setSmallColumnWidth(timeColumn);
-		setSmallColumnWidth(numberColumn);
+		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(responseGradeColumn);
 	}
 	
 	public static void initializeAccidentColumns(TableView tableview) {
-		TableColumn<AccidentReport, String> accidentNumberColumn = new TableColumn<>("Accident #");
+		TableColumn<AccidentReport, String> accidentNumberColumn = new TableColumn<>("Accident #:");
 		accidentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("AccidentNumber"));
 		
-		TableColumn<AccidentReport, String> dateColumn = new TableColumn<>("Date");
-		dateColumn.setCellValueFactory(new PropertyValueFactory<>("AccidentDate"));
+		TableColumn<AccidentReport, String> statusColumn = new TableColumn<>("Status:");
+		statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+		statusColumn.setCellFactory(column -> new TableCell<AccidentReport, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					Label label = new Label(item);
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					
+					if (item.trim().equalsIgnoreCase("In Progress")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Reopened")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Pending")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
+						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+					} else {
+						label.setStyle(baseStyle);
+					}
+					
+					setGraphic(label);
+				}
+			}
+		});
 		
-		TableColumn<AccidentReport, String> timeColumn = new TableColumn<>("Time");
-		timeColumn.setCellValueFactory(new PropertyValueFactory<>("AccidentTime"));
-		
-		TableColumn<AccidentReport, String> streetColumn = new TableColumn<>("Street");
-		streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
-		
-		TableColumn<AccidentReport, String> areaColumn = new TableColumn<>("Area");
-		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
-		
-		TableColumn<AccidentReport, String> countyColumn = new TableColumn<>("County");
-		countyColumn.setCellValueFactory(new PropertyValueFactory<>("County"));
-		
-		TableColumn<AccidentReport, String> weatherConditionsColumn = new TableColumn<>("Weather Conditions");
-		weatherConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("WeatherConditions"));
-		
-		TableColumn<AccidentReport, String> roadConditionsColumn = new TableColumn<>("Road Conditions");
-		roadConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("RoadConditions"));
-		
-		TableColumn<AccidentReport, String> otherVehiclesInvolvedColumn = new TableColumn<>("Other Vehicles Involved");
-		otherVehiclesInvolvedColumn.setCellValueFactory(new PropertyValueFactory<>("OtherVehiclesInvolved"));
-		
-		TableColumn<AccidentReport, String> plateNumberColumn = new TableColumn<>("Plate Number");
+		TableColumn<AccidentReport, String> plateNumberColumn = new TableColumn<>("Plate #:");
 		plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("PlateNumber"));
 		
-		TableColumn<AccidentReport, String> colorColumn = new TableColumn<>("Color");
-		colorColumn.setCellValueFactory(new PropertyValueFactory<>("Color"));
-		
-		TableColumn<AccidentReport, String> typeColumn = new TableColumn<>("Type");
-		typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
-		
-		TableColumn<AccidentReport, String> modelColumn = new TableColumn<>("Model");
-		modelColumn.setCellValueFactory(new PropertyValueFactory<>("Model"));
-		
-		TableColumn<AccidentReport, String> ownerNameColumn = new TableColumn<>("Owner Name");
+		TableColumn<AccidentReport, String> ownerNameColumn = new TableColumn<>("Owner:");
+		ownerNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(ownerNameColumn, Pos.CENTER_LEFT, "Owner:");
 		ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerName"));
 		
-		TableColumn<AccidentReport, String> ownerAgeColumn = new TableColumn<>("Owner Age");
-		ownerAgeColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerAge"));
+		TableColumn<AccidentReport, String> streetColumn = new TableColumn<>("Street");
+		streetColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(streetColumn, Pos.CENTER_LEFT, "Street:");
+		streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
 		
-		TableColumn<AccidentReport, String> ownerGenderColumn = new TableColumn<>("Owner Gender");
-		ownerGenderColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerGender"));
+		TableColumn<AccidentReport, String> roadConditionsColumn = new TableColumn<>("Road Conditions");
+		roadConditionsColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+		setColumnAlignment(roadConditionsColumn, Pos.CENTER_LEFT, "Conditions:");
+		roadConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("RoadConditions"));
 		
-		TableColumn<AccidentReport, String> ownerAddressColumn = new TableColumn<>("Owner Address");
-		ownerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerAddress"));
-		
-		TableColumn<AccidentReport, String> ownerDescriptionColumn = new TableColumn<>("Owner Description");
-		ownerDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerDescription"));
-		
-		TableColumn<AccidentReport, String> witnessesColumn = new TableColumn<>("Witnesses");
-		witnessesColumn.setCellValueFactory(new PropertyValueFactory<>("Witnesses"));
-		
-		TableColumn<AccidentReport, String> injuriesReportedColumn = new TableColumn<>("Injuries Reported");
-		injuriesReportedColumn.setCellValueFactory(new PropertyValueFactory<>("InjuriesReported"));
-		
-		TableColumn<AccidentReport, String> damageDetailsColumn = new TableColumn<>("Damage Details");
-		damageDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("DamageDetails"));
-		
-		TableColumn<AccidentReport, String> officerRankColumn = new TableColumn<>("Officer Rank");
-		officerRankColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerRank"));
-		
-		TableColumn<AccidentReport, String> officerNameColumn = new TableColumn<>("Officer Name");
-		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerName"));
-		
-		TableColumn<AccidentReport, String> officerNumberColumn = new TableColumn<>("Officer Number");
-		officerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerNumber"));
-		
-		TableColumn<AccidentReport, String> officerAgencyColumn = new TableColumn<>("Officer Agency");
-		officerAgencyColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerAgency"));
-		
-		TableColumn<AccidentReport, String> officerDivisionColumn = new TableColumn<>("Officer Division");
-		officerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("OfficerDivision"));
-		
-		TableColumn<AccidentReport, String> commentsColumn = new TableColumn<>("Notes");
-		commentsColumn.setCellValueFactory(new PropertyValueFactory<>("Comments"));
-		
-		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn,
-		                                                                                           dateColumn,
-		                                                                                           timeColumn,
-		                                                                                           streetColumn,
-		                                                                                           areaColumn,
-		                                                                                           countyColumn,
-		                                                                                           weatherConditionsColumn,
-		                                                                                           roadConditionsColumn,
-		                                                                                           otherVehiclesInvolvedColumn,
-		                                                                                           plateNumberColumn,
-		                                                                                           colorColumn,
-		                                                                                           typeColumn,
-		                                                                                           modelColumn,
-		                                                                                           ownerNameColumn,
-		                                                                                           ownerAgeColumn,
-		                                                                                           ownerGenderColumn,
-		                                                                                           ownerAddressColumn,
-		                                                                                           ownerDescriptionColumn,
-		                                                                                           witnessesColumn,
-		                                                                                           injuriesReportedColumn,
-		                                                                                           damageDetailsColumn,
-		                                                                                           officerRankColumn,
-		                                                                                           officerNameColumn,
-		                                                                                           officerNumberColumn,
-		                                                                                           officerAgencyColumn,
-		                                                                                           officerDivisionColumn,
-		                                                                                           commentsColumn);
+		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn, statusColumn, plateNumberColumn, ownerNameColumn, streetColumn, roadConditionsColumn);
 		tableview.getColumns().addAll(columns);
 		for (TableColumn<AccidentReport, ?> column : columns) {
-			column.setMinWidth(minColumnWidth);
+			column.setReorderable(false);
+			column.setEditable(false);
 		}
 		setSmallColumnWidth(accidentNumberColumn);
-		setSmallColumnWidth(dateColumn);
-		setSmallColumnWidth(timeColumn);
-		setSmallColumnWidth(officerNumberColumn);
-		setSmallColumnWidth(colorColumn);
-		setSmallColumnWidth(typeColumn);
-		setSmallColumnWidth(modelColumn);
-		setSmallColumnWidth(countyColumn);
+		setSmallColumnWidth(statusColumn);
+		setSmallColumnWidth(plateNumberColumn);
+	}
+	
+	private static void setColumnAlignment(TableColumn<?, String> calloutStatusColumn, Pos position, String text) {
+		Label label = new Label(text);
+		HBox hbox = new HBox(label);
+		hbox.setAlignment(position);
+		hbox.setPadding(new Insets(0, 0, 0, 5));
+		
+		calloutStatusColumn.setText(null);
+		calloutStatusColumn.setGraphic(hbox);
 	}
 	
 }

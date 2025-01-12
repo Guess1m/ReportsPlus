@@ -35,18 +35,22 @@ import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReport;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReports;
 import jakarta.xml.bind.JAXBException;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -73,10 +77,9 @@ import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addCitationsToTabl
 public class LogViewController {
 	public static LogViewController logController;
 	public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
-	@javafx.fxml.FXML
-	private Label logbrwsrlbl;
-	@javafx.fxml.FXML
-	private Label reportPlusLabelFill;
+	List<BorderPane> sideButtons = new ArrayList<>();
+	private BorderPane activePane;
+	
 	@javafx.fxml.FXML
 	private AnchorPane logPane;
 	@javafx.fxml.FXML
@@ -94,19 +97,57 @@ public class LogViewController {
 	@javafx.fxml.FXML
 	private TableView calloutTable;
 	@javafx.fxml.FXML
-	private VBox bkgclr2;
-	@javafx.fxml.FXML
 	private TableView patrolTable;
 	@javafx.fxml.FXML
 	private TableView accidentReportTable;
 	@javafx.fxml.FXML
-	private TabPane tabPane;
-	@javafx.fxml.FXML
 	private TableView incidentTable;
 	@javafx.fxml.FXML
 	private TableView searchTable;
+	@javafx.fxml.FXML
+	private Label reportsInProgressLabel;
+	@javafx.fxml.FXML
+	private Label totalReportsHeader;
+	@javafx.fxml.FXML
+	private Label totalReportsLabel;
+	@javafx.fxml.FXML
+	private ProgressBar closedReportsProgressBar;
+	@javafx.fxml.FXML
+	private Label closedReportsHeader;
+	@javafx.fxml.FXML
+	private Label reportsInProgressHeader;
+	@javafx.fxml.FXML
+	private Label closedReportsLabel;
+	@javafx.fxml.FXML
+	private BorderPane callout;
+	@javafx.fxml.FXML
+	private BorderPane arrest;
+	@javafx.fxml.FXML
+	private BorderPane death;
+	@javafx.fxml.FXML
+	private BorderPane accident;
+	@javafx.fxml.FXML
+	private BorderPane search;
+	@javafx.fxml.FXML
+	private BorderPane patrol;
+	@javafx.fxml.FXML
+	private BorderPane trafficStop;
+	@javafx.fxml.FXML
+	private BorderPane citation;
+	@javafx.fxml.FXML
+	private BorderPane impound;
+	@javafx.fxml.FXML
+	private BorderPane incident;
+	@javafx.fxml.FXML
+	private StackPane tableStackPane;
+	@javafx.fxml.FXML
+	private ProgressBar reportsInProgressBar;
+	@javafx.fxml.FXML
+	private Label subHeading;
 	
 	public void initialize() {
+		sideButtons.addAll(Arrays.asList(callout, arrest, death, accident, search, patrol, trafficStop, citation, impound, incident));
+		
 		initializeCalloutColumns(calloutTable);
 		initializeArrestColumns(arrestTable);
 		initializeCitationColumns(citationTable);
@@ -127,7 +168,46 @@ public class LogViewController {
 			}
 		});
 		
-		logbrwsrlbl.setText(localization.getLocalizedMessage("LogBrowser.SubHeading", "Log Browser"));
+		addHoverListener(calloutTable, callout);
+		addHoverListener(arrestTable, arrest);
+		addHoverListener(deathReportTable, death);
+		addHoverListener(accidentReportTable, accident);
+		addHoverListener(searchTable, search);
+		addHoverListener(patrolTable, patrol);
+		addHoverListener(trafficStopTable, trafficStop);
+		addHoverListener(citationTable, citation);
+		addHoverListener(impoundTable, impound);
+		addHoverListener(incidentTable, incident);
+		
+		Platform.runLater(() -> {
+			List<Node> nodesToRemove = new ArrayList<>();
+			for (Node table : tableStackPane.getChildren()) {
+				if (table instanceof TableView) {
+					nodesToRemove.add(table);
+				}
+			}
+			
+			setActive(calloutTable, callout);
+			
+			for (BorderPane otherPane : sideButtons) {
+				otherPane.setStyle("-fx-background-color: transparent;");
+				for (Node node : otherPane.getChildren()) {
+					if (node instanceof Label) {
+						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					}
+				}
+			}
+			
+			activePane = callout;
+			callout.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
+			for (Node node : callout.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+				}
+			}
+		});
+		
+		subHeading.setText(localization.getLocalizedMessage("LogBrowser.reportDatabaseLabel", "Report Database"));
 	}
 	
 	private void loadLogs() {
@@ -212,6 +292,14 @@ public class LogViewController {
 		}
 	}
 	
+	public void calloutLogUpdate(List<CalloutReport> logEntries) {
+		if (logEntries == null) {
+			logEntries = new ArrayList<>();
+		}
+		calloutTable.getItems().clear();
+		calloutTable.getItems().addAll(logEntries);
+	}
+	
 	public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
 		if (logEntries == null) {
 			logEntries = new ArrayList<>();
@@ -260,14 +348,6 @@ public class LogViewController {
 		trafficStopTable.getItems().addAll(logEntries);
 	}
 	
-	public void calloutLogUpdate(List<CalloutReport> logEntries) {
-		if (logEntries == null) {
-			logEntries = new ArrayList<>();
-		}
-		calloutTable.getItems().clear();
-		calloutTable.getItems().addAll(logEntries);
-	}
-	
 	public void impoundLogUpdate(List<ImpoundReport> logEntries) {
 		if (logEntries == null) {
 			logEntries = new ArrayList<>();
@@ -294,6 +374,57 @@ public class LogViewController {
 		accidentReportTable.getItems().addAll(logEntries);
 	}
 	
+	private void addHoverListener(TableView table, BorderPane pane) {
+		pane.setOnMouseEntered(event -> {
+			if (activePane == pane) {
+				return;
+			}
+			pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+				}
+			}
+		});
+		
+		pane.setOnMouseExited(event -> {
+			if (activePane == pane) {
+				return;
+			}
+			pane.setStyle("-fx-background-color: transparent;");
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+				}
+			}
+		});
+		
+		pane.setOnMouseClicked(event -> {
+			
+			if (activePane == pane) {
+				return;
+			}
+			setActive(table, pane);
+			
+			for (BorderPane otherPane : sideButtons) {
+				otherPane.setStyle("-fx-background-color: transparent;");
+				for (Node node : otherPane.getChildren()) {
+					if (node instanceof Label) {
+						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					}
+				}
+			}
+			
+			activePane = pane;
+			pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Label) {
+					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+				}
+			}
+		});
+	}
+	
 	@javafx.fxml.FXML
 	public void onDeathReportRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
@@ -302,55 +433,30 @@ public class LogViewController {
 			if (deathReport != null) {
 				Map<String, Object> deathReportObj = newDeathReport();
 				
-				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report") + " Map");
+				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get(localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report") + " Map");
 				
-				TextField name = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField rank = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField div = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField agen = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField num = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-				TextField date = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-				ComboBox street = (ComboBox) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				ComboBox area = (ComboBox) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				TextField county = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-				TextField deathNum = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"));
-				TextField decedent = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"));
-				TextField age = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"));
-				TextField gender = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"));
-				TextField address = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"));
-				TextField description = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"));
-				TextField causeofdeath = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"));
-				TextField modeofdeath = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"));
-				TextField witnesses = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
-				TextArea notes = (TextArea) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
-				TextField timeofdeath = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"));
-				TextField dateofdeath = (TextField) deathReport1.get(
-						localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"));
+				TextField name = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField rank = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField div = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField agen = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField num = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField date = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				ComboBox street = (ComboBox) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				ComboBox area = (ComboBox) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				TextField county = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				TextField deathNum = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"));
+				TextField decedent = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"));
+				TextField age = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"));
+				TextField gender = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"));
+				TextField address = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"));
+				TextField description = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"));
+				TextField causeofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"));
+				TextField modeofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"));
+				TextField witnesses = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
+				TextArea notes = (TextArea) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextField timeofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"));
+				TextField dateofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"));
 				
 				timeofdeath.setText(deathReport.getTimeOfDeath());
 				dateofdeath.setText(deathReport.getDateOfDeath());
@@ -404,6 +510,9 @@ public class LogViewController {
 				MenuButton pullnotesbtn = (MenuButton) deathReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) deathReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) deathReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -421,42 +530,22 @@ public class LogViewController {
 				
 				Map<String, Object> calloutReportObj = newCallout();
 				
-				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.CalloutReportTitle",
-						                                 "Callout Report") + " Map");
+				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj.get(localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report") + " Map");
 				
-				TextField officername = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField officerrank = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField officerdiv = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField officeragen = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField officernum = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-				TextField calloutnum = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"));
-				ComboBox calloutarea = (ComboBox) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				TextArea calloutnotes = (TextArea) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
-				TextField calloutcounty = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-				ComboBox calloutstreet = (ComboBox) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				TextField calloutdate = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField callouttime = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-				TextField callouttype = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                                                  "type")));
-				TextField calloutcode = (TextField) calloutReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
+				TextField officername = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField officerrank = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField officerdiv = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField officeragen = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField officernum = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField calloutnum = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"));
+				ComboBox calloutarea = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				TextArea calloutnotes = (TextArea) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextField calloutcounty = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				ComboBox calloutstreet = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				TextField calloutdate = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField callouttime = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				TextField callouttype = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				TextField calloutcode = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 				
 				officername.setText(calloutReport.getName());
 				officerrank.setText(calloutReport.getRank());
@@ -473,7 +562,9 @@ public class LogViewController {
 				callouttype.setText(calloutReport.getResponseType());
 				calloutcode.setText(calloutReport.getResponseGrade());
 				
-				BorderPane root = (BorderPane) calloutReportObj.get("root");
+				ComboBox<String> statusValue = (ComboBox<String>) calloutReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button delBtn = (Button) calloutReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -520,35 +611,20 @@ public class LogViewController {
 				
 				Map<String, Object> patrolReportObj = newPatrol();
 				
-				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report") + " Map");
+				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get(localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report") + " Map");
 				
-				TextField name = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField rank = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField div = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField agen = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField num = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-				TextField patrolnum = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.PatrolNumField", "patrolnumber"));
-				TextArea notes = (TextArea) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
-				TextField date = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField starttime = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.StartTimeField", "starttime"));
-				TextField stoptime = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.StopTimeField", "stoptime"));
-				TextField length = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.LengthField", "length"));
-				TextField vehicle = (TextField) patrolReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"));
+				TextField name = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField rank = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField div = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField agen = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField num = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField patrolnum = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.PatrolNumField", "patrolnumber"));
+				TextArea notes = (TextArea) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextField date = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField starttime = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.StartTimeField", "starttime"));
+				TextField stoptime = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.StopTimeField", "stoptime"));
+				TextField length = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.LengthField", "length"));
+				TextField vehicle = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"));
 				
 				name.setText(patrolReport.getOfficerName());
 				patrolnum.setText(patrolReport.getPatrolNumber());
@@ -593,6 +669,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				patrolnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) patrolReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) patrolReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -610,62 +689,34 @@ public class LogViewController {
 				
 				Map<String, Object> trafficStopReportObj = newTrafficStop();
 				
-				Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle",
-						                                 "Traffic Stop Report") + " Map");
+				Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report") + " Map");
 				
-				TextField officernamets = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField officerrankts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField officerdivts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField officeragents = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField officernumarrestts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField officernamets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField officerrankts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField officerdivts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField officeragents = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField officernumarrestts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				
-				TextField offenderNamets = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-				TextField offenderAgets = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-				TextField offenderGenderts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-				TextField offenderAddressts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-				TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-						                                 "offender description"));
+				TextField offenderNamets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+				TextField offenderAgets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+				TextField offenderGenderts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+				TextField offenderAddressts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+				TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 				
-				ComboBox colorts = (ComboBox) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				ComboBox typets = (ComboBox) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                                                  "type")));
-				TextField plateNumberts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-				TextField otherInfots = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
-				TextField modelts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+				ComboBox colorts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+				ComboBox typets = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				TextField plateNumberts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+				TextField otherInfots = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
+				TextField modelts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				
-				ComboBox areats = (ComboBox) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				ComboBox streetts = (ComboBox) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				TextField countyts = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				ComboBox areats = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				ComboBox streetts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				TextField countyts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 				TextField stopnumts = (TextField) trafficStopReportMap.get("stop number");
-				TextField datets = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField timets = (TextField) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				TextField datets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField timets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
-				TextArea notests = (TextArea) trafficStopReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
+				TextArea notests = (TextArea) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
 				
 				stopnumts.setText(trafficStopReport.getStopNumber());
 				datets.setText(trafficStopReport.getDate());
@@ -723,6 +774,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				stopnumts.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) trafficStopReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) trafficStopReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -740,48 +794,27 @@ public class LogViewController {
 				
 				Map<String, Object> incidentReportObj = newIncident();
 				
-				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.IncidentReportTitle",
-						                                 "Incident Report") + " Map");
+				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(localization.getLocalizedMessage("ReportWindows.IncidentReportTitle", "Incident Report") + " Map");
 				
-				TextField name = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField rank = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField div = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField agen = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField num = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField name = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField rank = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField div = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField agen = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField num = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				
-				TextField incidentnum = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.IncidentNumField", "incident num"));
-				TextField date = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-				ComboBox street = (ComboBox) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				ComboBox area = (ComboBox) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				TextField county = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				TextField incidentnum = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.IncidentNumField", "incident num"));
+				TextField date = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				ComboBox street = (ComboBox) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				ComboBox area = (ComboBox) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				TextField county = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 				
-				TextField suspects = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.SuspectsField", "suspect(s)"));
-				TextField vicwit = (TextField) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.VictimsWitnessField",
-						                                 "victim(s) / witness(s)"));
-				TextArea statement = (TextArea) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.StatementField", "statement"));
+				TextField suspects = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.SuspectsField", "suspect(s)"));
+				TextField vicwit = (TextField) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.VictimsWitnessField", "victim(s) / witness(s)"));
+				TextArea statement = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.StatementField", "statement"));
 				
-				TextArea summary = (TextArea) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.IncidentSummaryField", "summary"));
-				TextArea notes = (TextArea) incidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
+				TextArea summary = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.IncidentSummaryField", "summary"));
+				TextArea notes = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
 				
 				name.setText(incidentReport.getOfficerName());
 				incidentnum.setText(incidentReport.getIncidentNumber());
@@ -832,6 +865,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				incidentnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) incidentReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) incidentReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -849,52 +885,29 @@ public class LogViewController {
 				
 				Map<String, Object> impoundReportObj = newImpound();
 				
-				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle",
-						                                 "Impound Report") + " Map");
+				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
 				
-				TextField officername = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField officerrank = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField officerdiv = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField officeragen = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField officernum = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField officername = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField officerrank = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField officerdiv = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField officeragen = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField officernum = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				
-				TextField offenderName = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-				TextField offenderAge = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-				TextField offenderGender = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-				TextField offenderAddress = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+				TextField offenderName = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+				TextField offenderAge = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+				TextField offenderGender = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+				TextField offenderAddress = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 				
-				TextField num = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.ImpoundNumField", "impound number"));
-				TextField date = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				TextField num = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.ImpoundNumField", "impound number"));
+				TextField date = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
-				ComboBox color = (ComboBox) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				ComboBox type = (ComboBox) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                                                  "type")));
-				TextField plateNumber = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-				TextField model = (TextField) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+				ComboBox color = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+				ComboBox type = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				TextField plateNumber = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+				TextField model = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				
-				TextArea notes = (TextArea) impoundReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
+				TextArea notes = (TextArea) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
 				
 				num.setText(impoundReport.getImpoundNumber());
 				date.setText(impoundReport.getImpoundDate());
@@ -946,6 +959,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				num.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) impoundReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) impoundReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -962,63 +978,34 @@ public class LogViewController {
 			if (trafficCitationReport != null) {
 				Map<String, Object> trafficCitationObj = newCitation();
 				
-				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
-						localization.getLocalizedMessage("ReportWindows.CitationReportTitle",
-						                                 "Citation Report") + " Map");
+				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
 				
-				TextField officername = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField officerrank = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField officerdiv = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField officeragen = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField officernum = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField officername = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField officerrank = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField officerdiv = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField officeragen = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField officernum = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				
-				TextField offenderName = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-				TextField offenderAge = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-				TextField offenderGender = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-				TextField offenderAddress = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-				TextField offenderDescription = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-						                                 "offender description"));
+				TextField offenderName = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+				TextField offenderAge = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+				TextField offenderGender = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+				TextField offenderAddress = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+				TextField offenderDescription = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 				
-				ComboBox area = (ComboBox) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				ComboBox street = (ComboBox) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				TextField county = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-				TextField num = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.CitationNumField", "citation number"));
-				TextField date = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				ComboBox area = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				ComboBox street = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				TextField county = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				TextField num = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.CitationNumField", "citation number"));
+				TextField date = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
-				ComboBox color = (ComboBox) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				ComboBox type = (ComboBox) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                                                  "type")));
-				TextField plateNumber = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-				TextField otherInfo = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
-				TextField model = (TextField) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+				ComboBox color = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+				ComboBox type = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				TextField plateNumber = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+				TextField otherInfo = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
+				TextField model = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				
-				TextArea notes = (TextArea) citationReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
+				TextArea notes = (TextArea) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
 				
 				officername.setText(trafficCitationReport.getOfficerName());
 				officerrank.setText(trafficCitationReport.getOfficerRank());
@@ -1077,6 +1064,9 @@ public class LogViewController {
 				ObservableList<CitationsData> citationList = FXCollections.observableArrayList();
 				citationtable1.setItems(citationList);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) trafficCitationObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				addCitationsToTable(trafficCitationReport.getCitationCharges(), citationList);
 				
 				Button submitBtn = (Button) trafficCitationObj.get("submitBtn");
@@ -1095,56 +1085,33 @@ public class LogViewController {
 			if (searchReport != null) {
 				Map<String, Object> searchReportObj = newSearch();
 				
-				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
+				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get(localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
 				
-				TextField name = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField rank = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField div = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField agen = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField num = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField name = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField rank = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField div = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField agen = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField num = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				
-				TextField searchnum = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
-				TextField date = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-				ComboBox street = (ComboBox) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				ComboBox area = (ComboBox) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				TextField county = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				TextField searchnum = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
+				TextField date = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				ComboBox street = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				ComboBox area = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				TextField county = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 				
-				TextField grounds = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
-				TextField witness = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"));
-				TextField searchedindividual = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.SearchedIndividualField",
-						                                 "searched individual"));
-				ComboBox type = (ComboBox) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
-				ComboBox method = (ComboBox) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
+				TextField grounds = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
+				TextField witness = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"));
+				TextField searchedindividual = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchedIndividualField", "searched individual"));
+				ComboBox type = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
+				ComboBox method = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
 				
-				TextField testconducted = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
-				TextField result = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
-				TextField bacmeasurement = (TextField) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
+				TextField testconducted = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
+				TextField result = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
+				TextField bacmeasurement = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
 				
-				TextArea seizeditems = (TextArea) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
-				TextArea notes = (TextArea) searchReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
+				TextArea seizeditems = (TextArea) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
+				TextArea notes = (TextArea) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
 				
 				name.setText(searchReport.getOfficerName());
 				div.setText(searchReport.getOfficerDivision());
@@ -1202,6 +1169,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				searchnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) searchReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) searchReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -1218,57 +1188,32 @@ public class LogViewController {
 			if (arrestReport != null) {
 				Map<String, Object> arrestReportObj = newArrest();
 				
-				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
+				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
 				
-				TextField officername = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField officerrank = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField officerdiv = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField officeragen = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField officernumarrest = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				TextField officername = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField officerrank = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField officerdiv = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField officeragen = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField officernumarrest = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				
-				TextField offenderName = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-				TextField offenderAge = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-				TextField offenderGender = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-				TextField offenderAddress = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-				TextField offenderDescription = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-						                                 "offender description"));
+				TextField offenderName = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+				TextField offenderAge = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+				TextField offenderGender = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+				TextField offenderAddress = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+				TextField offenderDescription = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 				
-				ComboBox area = (ComboBox) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				ComboBox street = (ComboBox) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				TextField county = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-				TextField arrestnum = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.ArrestNumberField", "arrest number"));
-				TextField date = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				ComboBox area = (ComboBox) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				ComboBox street = (ComboBox) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				TextField county = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				TextField arrestnum = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.ArrestNumberField", "arrest number"));
+				TextField date = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
-				TextField ambulancereq = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldAmbulanceRequired",
-						                                 "ambulance required (Y/N)"));
-				TextField taserdep = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTaserDeployed", "taser deployed (Y/N)"));
-				TextField othermedinfo = (TextField) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOtherInformation", "other information"));
+				TextField ambulancereq = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldAmbulanceRequired", "ambulance required (Y/N)"));
+				TextField taserdep = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTaserDeployed", "taser deployed (Y/N)"));
+				TextField othermedinfo = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOtherInformation", "other information"));
 				
-				TextArea notes = (TextArea) arrestReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
+				TextArea notes = (TextArea) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
 				
 				arrestnum.setText(arrestReport.getArrestNumber());
 				officername.setText(arrestReport.getOfficerName());
@@ -1292,7 +1237,6 @@ public class LogViewController {
 				notes.setText(arrestReport.getArrestDetails());
 				
 				BorderPane root = (BorderPane) arrestReportObj.get("root");
-				Stage stage = (Stage) root.getScene().getWindow();
 				Button delBtn = (Button) arrestReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1304,8 +1248,7 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete ArrestReport #" + numToDelete + ": ", e);
 					}
-					CustomWindow window = getWindow(
-							localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report"));
+					CustomWindow window = getWindow(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report"));
 					if (window != null) {
 						window.closeWindow();
 					}
@@ -1323,6 +1266,9 @@ public class LogViewController {
 				MenuButton pullnotesbtn = (MenuButton) arrestReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				arrestnum.setEditable(false);
+				
+				ComboBox<String> statusValue = (ComboBox<String>) arrestReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
 				
 				TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
 				ObservableList<ChargesData> chargeList = FXCollections.observableArrayList();
@@ -1346,72 +1292,35 @@ public class LogViewController {
 			if (accidentReport != null) {
 				Map<String, Object> accidentReportObj = newAccident();
 				
-				Map<String, Object> accidentReportMap = (Map<String, Object>) accidentReportObj.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentReportTitle",
-						                                 "Accident Report") + " Map");
+				Map<String, Object> accidentReportMap = (Map<String, Object>) accidentReportObj.get(localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report") + " Map");
 				
-				TextField name = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-				TextField rank = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-				TextField div = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-				TextField agen = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-				TextField num = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-				ComboBox street = (ComboBox) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-				ComboBox area = (ComboBox) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				TextField county = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-				TextField date = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-				TextField time = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-				TextField accidentnum = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentNumberField", "accident number"));
-				TextField weatherConditions = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentWeatherConditionsField",
-						                                 "weather conditions"));
-				TextField roadConditions = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentRoadConditionsField",
-						                                 "road conditions"));
-				TextField otherVehiclesInvolved = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentOtherVehiclesField",
-						                                 "other vehicles involved"));
-				TextField witnesses = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
-				TextField injuries = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentInjuriesField", "injuries"));
-				TextField damages = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.AccidentDamagesField", "damages"));
-				TextField offenderName = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-				TextField offenderAge = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-				TextField offenderGender = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-				TextField offenderAddress = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-				TextField offenderDescription = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-						                                 "offender description"));
-				TextField model = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-				TextField plateNumber = (TextField) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-				ComboBox type = (ComboBox) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldType",
-						                                                                  "type")));
-				ComboBox color = (ComboBox) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				TextArea notes = (TextArea) accidentReportMap.get(
-						localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                 localization.getLocalizedMessage("ReportWindows.FieldNotes",
-						                                                                  "notes")));
+				TextField name = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+				TextField rank = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+				TextField div = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+				TextField agen = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+				TextField num = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+				ComboBox street = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+				ComboBox area = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+				TextField county = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+				TextField date = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+				TextField time = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+				TextField accidentnum = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.AccidentNumberField", "accident number"));
+				TextField weatherConditions = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.AccidentWeatherConditionsField", "weather conditions"));
+				TextField roadConditions = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.AccidentRoadConditionsField", "road conditions"));
+				TextField otherVehiclesInvolved = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.AccidentOtherVehiclesField", "other vehicles involved"));
+				TextField witnesses = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
+				TextField injuries = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.AccidentInjuriesField", "injuries"));
+				TextField damages = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.AccidentDamagesField", "damages"));
+				TextField offenderName = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+				TextField offenderAge = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+				TextField offenderGender = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+				TextField offenderAddress = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+				TextField offenderDescription = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+				TextField model = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+				TextField plateNumber = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+				ComboBox type = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				ComboBox color = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
+				TextArea notes = (TextArea) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
 				
 				accidentnum.setText(accidentReport.getAccidentNumber());
 				name.setText(accidentReport.getOfficerName());
@@ -1453,8 +1362,7 @@ public class LogViewController {
 					} catch (JAXBException e) {
 						logError("Could not delete AccidentReport #" + numToDelete + ": ", e);
 					}
-					CustomWindow window = getWindow(
-							localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report"));
+					CustomWindow window = getWindow(localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report"));
 					if (window != null) {
 						window.closeWindow();
 					}
@@ -1473,6 +1381,9 @@ public class LogViewController {
 				pullnotesbtn.setVisible(false);
 				accidentnum.setEditable(false);
 				
+				ComboBox<String> statusValue = (ComboBox<String>) accidentReportObj.get("statusValue");
+				statusValue.setValue("Reopened");
+				
 				Button submitBtn = (Button) accidentReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
 				
@@ -1481,20 +1392,50 @@ public class LogViewController {
 		}
 	}
 	
-	public Label getLogbrwsrlbl() {
-		return logbrwsrlbl;
-	}
-	
-	public VBox getBkgclr2() {
-		return bkgclr2;
-	}
-	
-	public Label getReportPlusLabelFill() {
-		return reportPlusLabelFill;
-	}
-	
-	public TabPane getTabPane() {
-		return tabPane;
+	private <T> void setActive(TableView<T> table, BorderPane sideButton) {
+		tableStackPane.getChildren().clear();
+		tableStackPane.getChildren().add(table);
+		
+		ObservableList<T> items = table.getItems();
+		
+		long closed = 0, inProg = 0, pending = 0, cancelled = 0, reOpen = 0;
+		
+		for (T item : items) {
+			try {
+				Method getStatusMethod = item.getClass().getMethod("getStatus");
+				String status = (String) getStatusMethod.invoke(item);
+				
+				if ("Closed".equalsIgnoreCase(status)) {
+					closed++;
+				} else if ("In Progress".equalsIgnoreCase(status)) {
+					inProg++;
+				} else if ("Pending".equalsIgnoreCase(status)) {
+					pending++;
+				} else if ("Cancelled".equalsIgnoreCase(status)) {
+					cancelled++;
+				} else if ("Reopened".equalsIgnoreCase(status)) {
+					reOpen++;
+				}
+			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+				logError("Could not obtain getStatus method for update: ", e);
+			}
+		}
+		
+		long totalReports = (closed + inProg + reOpen + pending + cancelled);
+		long totalInProgress = (reOpen + inProg + pending);
+		long totalClosed = (closed + cancelled);
+		
+		double closedPercentage = ((double) totalClosed / totalReports) * 100;
+		double inProgressPercentage = ((double) totalInProgress / totalReports) * 100;
+		
+		closedReportsProgressBar.setProgress(closedPercentage / 100);
+		reportsInProgressBar.setProgress(inProgressPercentage / 100);
+		
+		reportsInProgressLabel.setText(String.valueOf(totalInProgress));
+		closedReportsLabel.setText(String.valueOf(totalClosed));
+		totalReportsLabel.setText(String.valueOf(totalReports));
+		
+		activePane = sideButton;
 	}
 	
 	public TableView getArrestTable() {

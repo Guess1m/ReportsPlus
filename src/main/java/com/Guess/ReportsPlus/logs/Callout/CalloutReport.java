@@ -12,6 +12,9 @@ public class CalloutReport {
 	@XmlElement(name = "CalloutNumber")
 	private String calloutNumber;
 	
+	@XmlElement(name = "CalloutStatus")
+	private String calloutStatus;
+	
 	@XmlElement(name = "NotesTextArea")
 	private String notesTextArea;
 	
@@ -161,5 +164,13 @@ public class CalloutReport {
 	
 	public void setTime(String time) {
 		this.time = time;
+	}
+	
+	public String getStatus() {
+		return calloutStatus != null ? calloutStatus : "Closed";
+	}
+	
+	public void setStatus(String calloutStatus) {
+		this.calloutStatus = calloutStatus;
 	}
 }

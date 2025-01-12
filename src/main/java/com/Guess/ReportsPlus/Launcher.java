@@ -4,6 +4,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Localization.Localization;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Misc.controllerUtils;
 import com.Guess.ReportsPlus.util.Misc.stringUtil;
 import javafx.scene.text.Font;
 
@@ -17,7 +18,6 @@ import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.*
 import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
-import static com.Guess.ReportsPlus.util.Report.treeViewUtils.*;
 
 public class Launcher {
 	public static Localization localization;
@@ -235,24 +235,23 @@ public class Launcher {
 		File customizationFile = new File(customizationFilePath);
 		if (!chargesFile.exists()) {
 			try {
-				copyChargeDataFile();
+				controllerUtils.copyChargeDataFile();
 			} catch (IOException e) {
 			}
 		}
 		if (!citationsFile.exists()) {
 			try {
-				copyCitationDataFile();
+				controllerUtils.copyCitationDataFile();
 			} catch (IOException e) {
 				logError("Could not copy CitationData file: ", e);
 			}
 		}
 		if (!customizationFile.exists()) {
 			try {
-				copyCustomizationDataFile();
+				controllerUtils.copyCustomizationDataFile();
 			} catch (IOException e) {
 				logError("Could not copy Customization file: ", e);
 			}
 		}
 	}
-	
 }

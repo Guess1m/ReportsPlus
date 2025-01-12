@@ -15,80 +15,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 
 public class treeViewUtils {
-	public static void copyChargeDataFile() throws IOException {
-		
-		String sourcePathCharges = "/com/Guess/ReportsPlus/data/Charges.xml";
-		Path destinationDir = Paths.get(getJarPath(), "data");
-		
-		if (!Files.exists(destinationDir)) {
-			Files.createDirectories(destinationDir);
-		}
-		
-		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCharges)) {
-			if (inputStream != null) {
-				
-				Path destinationPathCharges = destinationDir.resolve(Paths.get(sourcePathCharges).getFileName());
-				
-				Files.copy(inputStream, destinationPathCharges, StandardCopyOption.REPLACE_EXISTING);
-			} else {
-				log("Resource not found: " + sourcePathCharges, LogUtils.Severity.ERROR);
-			}
-		}
-	}
-	
-	public static void copyCitationDataFile() throws IOException {
-		
-		String sourcePathCitations = "/com/Guess/ReportsPlus/data/Citations.xml";
-		Path destinationDir = Paths.get(getJarPath(), "data");
-		
-		if (!Files.exists(destinationDir)) {
-			Files.createDirectories(destinationDir);
-		}
-		
-		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCitations)) {
-			if (inputStream != null) {
-				
-				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCitations).getFileName());
-				
-				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
-			} else {
-				log("Resource not found: " + sourcePathCitations, LogUtils.Severity.ERROR);
-			}
-		}
-	}
-	
-	public static void copyCustomizationDataFile() throws IOException {
-		
-		String sourcePathCustomization = "/com/Guess/ReportsPlus/data/customization.json";
-		Path destinationDir = Paths.get(getJarPath(), "data");
-		
-		if (!Files.exists(destinationDir)) {
-			Files.createDirectories(destinationDir);
-		}
-		
-		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCustomization)) {
-			if (inputStream != null) {
-				
-				Path destinationPathCitations = destinationDir.resolve(
-						Paths.get(sourcePathCustomization).getFileName());
-				
-				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
-			} else {
-				log("Resource not found: " + sourcePathCustomization, LogUtils.Severity.ERROR);
-			}
-		}
-	}
 	
 	public static String findXMLValue(String selectedValue, String value, String path) {
 		try {
@@ -144,10 +76,6 @@ public class treeViewUtils {
 				parseTreeXML(childElement, item);
 			}
 		}
-	}
-	
-	public static void expandTreeItem(TreeItem<String> root) {
-		root.setExpanded(true);
 	}
 	
 	public static void addChargesToTable(String chargesString, ObservableList<ChargesData> chargeList) {

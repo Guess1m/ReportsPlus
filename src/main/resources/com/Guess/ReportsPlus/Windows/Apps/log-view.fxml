@@ -1,227 +1,419 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="956.0"
-            xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Apps.LogViewController">
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="576.0" prefWidth="747.0"
+            stylesheets="@../../css/logViewer/logViewer.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Apps.LogViewController">
     <center>
         <AnchorPane fx:id="logPane">
             <children>
-                <VBox fx:id="bkgclr2" layoutX="-10.0" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0"
+                <HBox layoutX="5.0" layoutY="5.0" spacing="1.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="41.0" prefWidth="722.0"
-                                    VBox.vgrow="NEVER">
-                            <children>
-                                <GridPane layoutX="120.0" layoutY="-2.0" AnchorPane.bottomAnchor="0.0"
-                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                          AnchorPane.topAnchor="0.0">
+                  <children>
+                      <VBox maxWidth="220.0" minWidth="-Infinity" spacing="9.0"
+                            style="-fx-background-color: rgb(255,255,255,0.4);" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label text="ReportsPlus">
+                              <font>
+                                  <Font name="Segoe UI Black" size="18.0"/>
+                              </font>
+                              <padding>
+                                  <Insets left="25.0" right="25.0"/>
+                              </padding>
+                           </Label>
+                            <Label fx:id="subHeading" text="Report Database">
+                              <font>
+                                  <Font name="Segoe UI Semibold" size="11.0"/>
+                              </font>
+                              <VBox.margin>
+                                  <Insets top="-9.0"/>
+                              </VBox.margin>
+                              <padding>
+                                  <Insets left="25.0" right="25.0"/>
+                              </padding>
+                           </Label>
+                           <Separator maxHeight="2.0" opacity="0.57">
+                              <VBox.margin>
+                                  <Insets left="10.0" right="10.0"/>
+                              </VBox.margin>
+                           </Separator>
+                           <Label text="REPORT TYPE:" textFill="#6b6b6b">
+                              <font>
+                                  <Font name="Segoe UI Black" size="9.0"/>
+                              </font>
+                              <padding>
+                                  <Insets left="25.0" right="25.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets top="17.0"/>
+                              </VBox.margin>
+                           </Label>
+                           <BorderPane fx:id="callout">
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                              <center>
+                                 <Label text="Callout" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                           </BorderPane>
+                           <BorderPane fx:id="trafficStop">
+                              <center>
+                                 <Label text="Traffic Stop" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="incident">
+                              <center>
+                                 <Label text="Incident" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="search">
+                              <center>
+                                 <Label text="Search" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="arrest">
+                              <center>
+                                 <Label text="Arrest" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="patrol">
+                              <center>
+                                 <Label text="Patrol" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="citation">
+                              <center>
+                                 <Label text="Citation" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="impound">
+                              <center>
+                                 <Label text="Impound" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="death">
+                              <center>
+                                 <Label text="Death" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                           <BorderPane fx:id="accident">
+                              <center>
+                                 <Label text="Accident" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="13.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets left="15.0" right="15.0"/>
+                                    </padding>
+                                 </Label>
+                              </center>
+                              <padding>
+                                  <Insets bottom="5.0" top="5.0"/>
+                              </padding>
+                              <VBox.margin>
+                                  <Insets left="10.0"/>
+                              </VBox.margin>
+                           </BorderPane>
+                        </children>
+                        <HBox.margin>
+                            <Insets bottom="-5.0" left="-5.0" top="-5.0"/>
+                        </HBox.margin>
+                        <padding>
+                            <Insets bottom="10.0" top="10.0"/>
+                        </padding>
+                     </VBox>
+                      <VBox HBox.hgrow="ALWAYS">
+                        <children>
+                            <BorderPane style="-fx-background-color: rgb(0,0,0,0.025);">
+                              <center>
+                                 <GridPane hgap="30.0">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="0.0"
-                                                           prefWidth="431.5"/>
-                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="0.0"
-                                                           prefWidth="362.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints vgrow="NEVER"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label fx:id="logbrwsrlbl" style="-fx-text-fill: grey;" styleClass="viewerLabel"
-                                               stylesheets="@../../css/tableCss.css" text="Log Browser"
-                                               textOverrun="CLIP" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets left="5.0"/>
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="reportPlusLabelFill" style="-fx-text-fill: #5e7387;"
-                                               styleClass="databaseReportLabel" stylesheets="@../../css/tableCss.css"
-                                               text="ReportsPlus" textOverrun="CLIP">
-                                            <font>
-                                                <Font name="Segoe UI Black" size="13.0"/>
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets right="5.0"/>
-                                            </GridPane.margin>
-                                        </Label>
+                                        <VBox spacing="5.0"
+                                              style="-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;">
+                                          <children>
+                                             <Label fx:id="totalReportsHeader" minWidth="10.0" text="Total Reports:">
+                                                <font>
+                                                    <Font name="Segoe UI Black" size="13.0"/>
+                                                </font>
+                                             </Label>
+                                             <Label fx:id="totalReportsLabel" minWidth="-Infinity" text="25">
+                                                <padding>
+                                                    <Insets left="10.0"/>
+                                                </padding>
+                                                <font>
+                                                    <Font name="Segoe UI Semibold" size="13.0"/>
+                                                </font>
+                                             </Label>
+                                          </children>
+                                          <padding>
+                                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                          </padding>
+                                       </VBox>
+                                        <VBox spacing="5.0"
+                                              style="-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;"
+                                              GridPane.columnIndex="1">
+                                          <children>
+                                              <Label fx:id="reportsInProgressHeader" minWidth="10.0"
+                                                     text="Reports In Progress:">
+                                                <font>
+                                                    <Font name="Segoe UI Black" size="13.0"/>
+                                                </font>
+                                             </Label>
+                                             <HBox spacing="35.0">
+                                                <children>
+                                                   <Label fx:id="reportsInProgressLabel" minWidth="-Infinity" text="5">
+                                                      <padding>
+                                                          <Insets left="10.0"/>
+                                                      </padding>
+                                                      <font>
+                                                          <Font name="Segoe UI Semibold" size="13.0"/>
+                                                      </font>
+                                                   </Label>
+                                                   <AnchorPane HBox.hgrow="ALWAYS">
+                                                      <children>
+                                                          <ProgressBar fx:id="reportsInProgressBar" maxHeight="11.0"
+                                                                       progress="0.44"
+                                                                       styleClass="progress-bar-InProgress"
+                                                                       AnchorPane.leftAnchor="0.0"
+                                                                       AnchorPane.rightAnchor="0.0"
+                                                                       AnchorPane.topAnchor="3.0"/>
+                                                      </children>
+                                                   </AnchorPane>
+                                                </children>
+                                             </HBox>
+                                          </children>
+                                          <padding>
+                                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                          </padding>
+                                       </VBox>
+                                        <VBox spacing="5.0"
+                                              style="-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;"
+                                              GridPane.columnIndex="2">
+                                          <children>
+                                             <Label fx:id="closedReportsHeader" minWidth="10.0" text="Reports Closed:">
+                                                <font>
+                                                    <Font name="Segoe UI Black" size="13.0"/>
+                                                </font>
+                                             </Label>
+                                             <HBox spacing="35.0">
+                                                <children>
+                                                   <Label fx:id="closedReportsLabel" minWidth="-Infinity" text="20">
+                                                      <HBox.margin>
+                                                          <Insets left="10.0"/>
+                                                      </HBox.margin>
+                                                      <font>
+                                                          <Font name="Segoe UI Semibold" size="13.0"/>
+                                                      </font>
+                                                   </Label>
+                                                   <AnchorPane HBox.hgrow="ALWAYS">
+                                                      <children>
+                                                          <ProgressBar fx:id="closedReportsProgressBar" maxHeight="11.0"
+                                                                       progress="0.8" styleClass="progress-bar-Closed"
+                                                                       AnchorPane.leftAnchor="0.0"
+                                                                       AnchorPane.rightAnchor="0.0"
+                                                                       AnchorPane.topAnchor="3.0"/>
+                                                      </children>
+                                                   </AnchorPane>
+                                                </children>
+                                             </HBox>
+                                          </children>
+                                          <padding>
+                                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                          </padding>
+                                       </VBox>
                                     </children>
-                                </GridPane>
-                            </children>
-                        </AnchorPane>
-                        <TabPane fx:id="tabPane" prefHeight="384.0" prefWidth="951.0"
-                                 style="-fx-border-color: transparent;" styleClass="darktabpane"
-                                 stylesheets="@../../css/settings/SettingsTabPane.css" VBox.vgrow="ALWAYS">
-                            <tabs>
-                                <Tab closable="false" text="Callouts">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="calloutTable" onMouseClicked="#onCalloutRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Traffic Stops">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="trafficStopTable"
-                                                           onMouseClicked="#onTrafficStopRowClick" prefHeight="556.0"
-                                                           prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Incidents">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="incidentTable" onMouseClicked="#onIncidentRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Searches">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="searchTable" onMouseClicked="#onSearchRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Arrests">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="arrestTable" onMouseClicked="#onArrestRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Patrols">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="patrolTable" onMouseClicked="#onPatrolRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Citations">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="citationTable" onMouseClicked="#onCitationRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Impounds">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="impoundTable" onMouseClicked="#onImpoundRowClick"
-                                                           prefHeight="556.0" prefWidth="779.0"
-                                                           style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Death Reports">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="deathReportTable"
-                                                           onMouseClicked="#onDeathReportRowClick" prefHeight="556.0"
-                                                           prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                                <Tab closable="false" text="Accident Reports">
-                                    <content>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="556.0"
-                                                    prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                    stylesheets="@../../css/main/scrollPane.css">
-                                            <content>
-                                                <TableView fx:id="accidentReportTable"
-                                                           onMouseClicked="#onAccidentReportRowClick" prefHeight="556.0"
-                                                           prefWidth="779.0" style="-fx-border-color: transparent;"
-                                                           styleClass="chargesTable"
-                                                           stylesheets="@../../css/tableCss.css"/>
-                                            </content>
-                                        </ScrollPane>
-                                    </content>
-                                </Tab>
-                            </tabs>
-                            <effect>
-                                <DropShadow height="0.0" radius="0.0" width="0.0">
-                                    <color>
-                                        <Color opacity="0.0"/>
-                                    </color>
-                                </DropShadow>
-                            </effect>
-                        </TabPane>
-                    </children>
-                    <padding>
-                        <Insets left="10.0" top="10.0"/>
-                    </padding>
-                </VBox>
+                                 </GridPane>
+                              </center>
+                              <padding>
+                                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0"/>
+                              </padding>
+                           </BorderPane>
+                           <StackPane fx:id="tableStackPane" VBox.vgrow="ALWAYS">
+                              <children>
+                                  <TableView fx:id="trafficStopTable" onMouseClicked="#onTrafficStopRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="incidentTable" onMouseClicked="#onIncidentRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="searchTable" onMouseClicked="#onSearchRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="arrestTable" onMouseClicked="#onArrestRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="patrolTable" onMouseClicked="#onPatrolRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="citationTable" onMouseClicked="#onCitationRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="impoundTable" onMouseClicked="#onImpoundRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="deathReportTable" onMouseClicked="#onDeathReportRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                  <TableView fx:id="accidentReportTable" onMouseClicked="#onAccidentReportRowClick">
+                                      <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                      </columnResizePolicy>
+                                  </TableView>
+                                 <TableView fx:id="calloutTable" onMouseClicked="#onCalloutRowClick">
+                                     <columnResizePolicy>
+                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                     </columnResizePolicy>
+                                 </TableView>
+                              </children>
+                              <VBox.margin>
+                                  <Insets/>
+                              </VBox.margin>
+                           </StackPane>
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

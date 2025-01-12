@@ -25,70 +25,33 @@ import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificati
 public class PedHistoryMath {
 	
 	private static final List<String> maleNames = new ArrayList<>(
-			Arrays.asList("James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas",
-			              "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul",
-			              "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Henry", "Peter", "Jack",
-			              "Ryan", "Harry", "Frank", "Gary", "Raymond", "Albert", "Arthur"));
+			Arrays.asList("James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua", "Kenneth", "Kevin", "Brian", "George", "Edward", "Henry", "Peter",
+			              "Jack", "Ryan", "Harry", "Frank", "Gary", "Raymond", "Albert", "Arthur"));
 	private static final List<String> femaleNames = new ArrayList<>(
-			Arrays.asList("Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah",
-			              "Karen", "Nancy", "Lisa", "Margaret", "Betty", "Sandra", "Ashley", "Dorothy", "Kimberly",
-			              "Emily", "Donna", "Michelle", "Carol", "Amanda", "Melissa", "Deborah", "Laura", "Stephanie",
-			              "Rebecca", "Sharon", "Cynthia", "Kathleen", "Helen", "Amy", "Angela", "Anna"));
+			Arrays.asList("Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen", "Nancy", "Lisa", "Margaret", "Betty", "Sandra", "Ashley", "Dorothy", "Kimberly", "Emily", "Donna", "Michelle", "Carol", "Amanda", "Melissa", "Deborah", "Laura",
+			              "Stephanie", "Rebecca", "Sharon", "Cynthia", "Kathleen", "Helen", "Amy", "Angela", "Anna"));
 	private static final List<String> lastNames = new ArrayList<>(
-			Arrays.asList("Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez",
-			              "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor",
-			              "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez",
-			              "Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright",
-			              "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall",
-			              "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"));
+			Arrays.asList("Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez",
+			              "Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"));
 	private static final Map<String, String> pedAddresses = new HashMap<>();
 	private static final List<String> losSantosAddresses = new ArrayList<>(
-			List.of("Abattoir Avenue", "Abe Milton Parkway", "Ace Jones Drive", "Adam's Apple Boulevard",
-			        "Aguja Street", "Alta Place", "Alta Street", "Amarillo Vista", "Amarillo Way", "Americano Way",
-			        "Atlee Street", "Autopia Parkway", "Banham Canyon Drive", "Barbareno Road", "Bay City Avenue",
-			        "Bay City Incline", "Baytree Canyon Road", "Boulevard Del Perro", "Bridge Street", "Brouge Avenue",
-			        "Buccaneer Way", "Buen Vino Road", "Caesars Place", "Calais Avenue", "Capital Boulevard",
-			        "Carcer Way", "Carson Avenue", "Chum Street", "Chupacabra Street", "Clinton Avenue",
-			        "Cockingend Drive", "Conquistador Street", "Cortes Street", "Cougar Avenue", "Covenant Avenue",
-			        "Cox Way", "Crusade Road", "Davis Avenue", "Decker Street", "Didion Drive", "Dorset Drive",
-			        "Dorset Place", "Dry Dock Street", "Dunstable Drive", "Dunstable Lane", "Dutch London Street",
-			        "Eastbourne Way", "East Galileo Avenue", "East Mirror Drive", "Eclipse Boulevard", "Edwood Way",
-			        "Elgin Avenue", "El Burro Boulevard", "El Rancho Boulevard", "Equality Way", "Exceptionalists Way",
-			        "Fantastic Place", "Fenwell Place", "Forum Drive", "Fudge Lane", "Galileo Road", "Gentry Lane",
-			        "Ginger Street", "Glory Way", "Goma Street", "Greenwich Parkway", "Greenwich Place",
-			        "Greenwich Way", "Grove Street", "Hanger Way", "Hangman Avenue", "Hardy Way", "Hawick Avenue",
-			        "Heritage Way", "Hillcrest Avenue", "Hillcrest Ridge Access Road", "Imagination Court",
-			        "Industry Passage", "Ineseno Road", "Integrity Way", "Invention Court", "Innocence Boulevard",
-			        "Jamestown Street", "Kimble Hill Drive", "Kortz Drive", "Labor Place", "Laguna Place",
-			        "Lake Vinewood Drive", "Las Lagunas Boulevard", "Liberty Street", "Lindsay Circus",
-			        "Little Bighorn Avenue", "Low Power Street", "Macdonald Street", "Mad Wayne Thunder Drive",
-			        "Magellan Avenue", "Marathon Avenue", "Marlowe Drive", "Melanoma Street", "Meteor Street",
-			        "Milton Road", "Mirror Park Boulevard", "Mirror Place", "Morningwood Boulevard", "Mount Haan Drive",
-			        "Mount Haan Road", "Mount Vinewood Drive", "Movie Star Way", "Mutiny Road", "New Empire Way",
-			        "Nikola Avenue", "Nikola Place", "Normandy Drive", "North Archer Avenue", "North Conker Avenue",
-			        "North Sheldon Avenue", "North Rockford Drive", "Occupation Avenue", "Orchardville Avenue",
-			        "Palomino Avenue", "Peaceful Street", "Perth Street", "Picture Perfect Drive", "Plaice Place",
-			        "Playa Vista", "Popular Street", "Portola Drive", "Power Street", "Prosperity Street",
-			        "Prosperity Street Promenade", "Red Desert Avenue", "Richman Street", "Rockford Drive",
-			        "Roy Lowenstein Boulevard", "Rub Street", "San Andreas Avenue", "Sandcastle Way",
-			        "San Vitus Boulevard", "Senora Road", "Shank Street", "Signal Street", "Sinner Street",
-			        "Sinners Passage", "South Arsenal Street", "South Boulevard Del Perro", "South Mo Milton Drive",
-			        "South Rockford Drive", "South Shambles Street", "Spanish Avenue", "Steele Way",
-			        "Strangeways Drive", "Strawberry Avenue", "Supply Street", "Sustancia Road", "Swiss Street",
-			        "Tackle Street", "Tangerine Street", "Tongva Drive", "Tower Way", "Tug Street", "Utopia Gardens",
-			        "Vespucci Boulevard", "Vinewood Boulevard", "Vinewood Park Drive", "Vitus Street", "Voodoo Place",
-			        "West Eclipse Boulevard", "West Galileo Avenue", "West Mirror Drive", "Whispymound Drive",
+			List.of("Abattoir Avenue", "Abe Milton Parkway", "Ace Jones Drive", "Adam's Apple Boulevard", "Aguja Street", "Alta Place", "Alta Street", "Amarillo Vista", "Amarillo Way", "Americano Way", "Atlee Street", "Autopia Parkway", "Banham Canyon Drive", "Barbareno Road", "Bay City Avenue",
+			        "Bay City Incline", "Baytree Canyon Road", "Boulevard Del Perro", "Bridge Street", "Brouge Avenue", "Buccaneer Way", "Buen Vino Road", "Caesars Place", "Calais Avenue", "Capital Boulevard", "Carcer Way", "Carson Avenue", "Chum Street", "Chupacabra Street", "Clinton Avenue",
+			        "Cockingend Drive", "Conquistador Street", "Cortes Street", "Cougar Avenue", "Covenant Avenue", "Cox Way", "Crusade Road", "Davis Avenue", "Decker Street", "Didion Drive", "Dorset Drive", "Dorset Place", "Dry Dock Street", "Dunstable Drive", "Dunstable Lane",
+			        "Dutch London Street", "Eastbourne Way", "East Galileo Avenue", "East Mirror Drive", "Eclipse Boulevard", "Edwood Way", "Elgin Avenue", "El Burro Boulevard", "El Rancho Boulevard", "Equality Way", "Exceptionalists Way", "Fantastic Place", "Fenwell Place", "Forum Drive",
+			        "Fudge Lane", "Galileo Road", "Gentry Lane", "Ginger Street", "Glory Way", "Goma Street", "Greenwich Parkway", "Greenwich Place", "Greenwich Way", "Grove Street", "Hanger Way", "Hangman Avenue", "Hardy Way", "Hawick Avenue", "Heritage Way", "Hillcrest Avenue",
+			        "Hillcrest Ridge Access Road", "Imagination Court", "Industry Passage", "Ineseno Road", "Integrity Way", "Invention Court", "Innocence Boulevard", "Jamestown Street", "Kimble Hill Drive", "Kortz Drive", "Labor Place", "Laguna Place", "Lake Vinewood Drive",
+			        "Las Lagunas Boulevard", "Liberty Street", "Lindsay Circus", "Little Bighorn Avenue", "Low Power Street", "Macdonald Street", "Mad Wayne Thunder Drive", "Magellan Avenue", "Marathon Avenue", "Marlowe Drive", "Melanoma Street", "Meteor Street", "Milton Road",
+			        "Mirror Park Boulevard", "Mirror Place", "Morningwood Boulevard", "Mount Haan Drive", "Mount Haan Road", "Mount Vinewood Drive", "Movie Star Way", "Mutiny Road", "New Empire Way", "Nikola Avenue", "Nikola Place", "Normandy Drive", "North Archer Avenue", "North Conker Avenue",
+			        "North Sheldon Avenue", "North Rockford Drive", "Occupation Avenue", "Orchardville Avenue", "Palomino Avenue", "Peaceful Street", "Perth Street", "Picture Perfect Drive", "Plaice Place", "Playa Vista", "Popular Street", "Portola Drive", "Power Street", "Prosperity Street",
+			        "Prosperity Street Promenade", "Red Desert Avenue", "Richman Street", "Rockford Drive", "Roy Lowenstein Boulevard", "Rub Street", "San Andreas Avenue", "Sandcastle Way", "San Vitus Boulevard", "Senora Road", "Shank Street", "Signal Street", "Sinner Street", "Sinners Passage",
+			        "South Arsenal Street", "South Boulevard Del Perro", "South Mo Milton Drive", "South Rockford Drive", "South Shambles Street", "Spanish Avenue", "Steele Way", "Strangeways Drive", "Strawberry Avenue", "Supply Street", "Sustancia Road", "Swiss Street", "Tackle Street",
+			        "Tangerine Street", "Tongva Drive", "Tower Way", "Tug Street", "Utopia Gardens", "Vespucci Boulevard", "Vinewood Boulevard", "Vinewood Park Drive", "Vitus Street", "Voodoo Place", "West Eclipse Boulevard", "West Galileo Avenue", "West Mirror Drive", "Whispymound Drive",
 			        "Wild Oats Drive", "York Street", "Zancudo Barranca"));
 	private static final List<String> blaineCountyAddresses = new ArrayList<>(
-			List.of("Algonquin Boulevard", "Alhambra Drive", "Armadillo Avenue", "Baytree Canyon Road", "Calafia Road",
-			        "Cascabel Avenue", "Cassidy Trail", "Cat-Claw Avenue", "Chianski Passage", "Cholla Road",
-			        "Cholla Springs Avenue", "Duluoz Avenue", "East Joshua Road", "Fort Zancudo Approach Road",
-			        "Galileo Road", "Grapeseed Avenue", "Grapeseed Main Street", "Joad Lane", "Joshua Road",
-			        "Lesbos Lane", "Lolita Avenue", "Marina Drive", "Meringue Lane", "Mount Haan Road",
-			        "Mountain View Drive", "Niland Avenue", "North Calafia Way", "Nowhere Road", "O'Neil Way",
-			        "Paleto Boulevard", "Panorama Drive", "Procopio Drive", "Procopio Promenade", "Pyrite Avenue",
-			        "Raton Pass", "Route 68 Approach", "Seaview Road", "Senora Way", "Smoke Tree Road", "Union Road",
-			        "Zancudo Avenue", "Zancudo Road", "Zancudo Trail"));
+			List.of("Algonquin Boulevard", "Alhambra Drive", "Armadillo Avenue", "Baytree Canyon Road", "Calafia Road", "Cascabel Avenue", "Cassidy Trail", "Cat-Claw Avenue", "Chianski Passage", "Cholla Road", "Cholla Springs Avenue", "Duluoz Avenue", "East Joshua Road",
+			        "Fort Zancudo Approach Road", "Galileo Road", "Grapeseed Avenue", "Grapeseed Main Street", "Joad Lane", "Joshua Road", "Lesbos Lane", "Lolita Avenue", "Marina Drive", "Meringue Lane", "Mount Haan Road", "Mountain View Drive", "Niland Avenue", "North Calafia Way", "Nowhere Road",
+			        "O'Neil Way", "Paleto Boulevard", "Panorama Drive", "Procopio Drive", "Procopio Promenade", "Pyrite Avenue", "Raton Pass", "Route 68 Approach", "Seaview Road", "Senora Way", "Smoke Tree Road", "Union Road", "Zancudo Avenue", "Zancudo Road", "Zancudo Trail"));
 	
 	public static String getRandomDepartment() {
 		String[] departments = {"LSPD", "LSSO", "BCSO", "SAHP", "FIB", "IAA"};
@@ -282,9 +245,7 @@ public class PedHistoryMath {
 		
 		Random random = new Random();
 		
-		int numberOfCharges = determineNumberOfCharges(noChargesProbability, oneToTwoChargesProbability,
-		                                               twoToThreeChargesProbability, threeToFiveChargesProbability,
-		                                               random);
+		int numberOfCharges = determineNumberOfCharges(noChargesProbability, oneToTwoChargesProbability, twoToThreeChargesProbability, threeToFiveChargesProbability, random);
 		
 		for (int i = 0; i < numberOfCharges && !chargeElements.isEmpty(); i++) {
 			int index = random.nextInt(chargeElements.size());
@@ -336,9 +297,7 @@ public class PedHistoryMath {
 		
 		Random random = new Random();
 		
-		int numberOfCitations = determineNumberOfCitations(noCitationsProbability, oneToTwoCitationsProbability,
-		                                                   twoToThreeCitationsProbability,
-		                                                   threeToFiveCitationsProbability, random);
+		int numberOfCitations = determineNumberOfCitations(noCitationsProbability, oneToTwoCitationsProbability, twoToThreeCitationsProbability, threeToFiveCitationsProbability, random);
 		
 		for (int i = 0; i < numberOfCitations && !citationElements.isEmpty(); i++) {
 			int index = random.nextInt(citationElements.size());
@@ -425,30 +384,23 @@ public class PedHistoryMath {
 		return address;
 	}
 	
-	public static String generateBirthday(int maxAge) {
+	public static String generateBirthday(int minAge, int maxAge) {
 		Random random = new Random();
 		LocalDate today = LocalDate.now();
+		LocalDate maxBirthDate = today.minusYears(minAge);
 		LocalDate minBirthDate = today.minusYears(maxAge);
-		long randomDays = random.nextInt((int) ChronoUnit.DAYS.between(minBirthDate, today) + 1);
-		LocalDate birthDate = today.minusDays(randomDays);
+		long randomDays = random.nextInt((int) ChronoUnit.DAYS.between(minBirthDate, maxBirthDate) + 1);
+		LocalDate birthDate = minBirthDate.plusDays(randomDays);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
 		return birthDate.format(formatter);
 	}
 	
-	public static String assignFlagsBasedOnPriors(int chargePriors) {
+	public static String assignFlagsBasedOnPriors(int chargePriors, int baseFactorPercent, double maxProbability, int flagIncrement) {
 		ArrayList<String> flags = new ArrayList<>(
-				List.of(localization.getLocalizedMessage("Other.FlagRestrainingOrder", "Active Restraining Order"),
-				        localization.getLocalizedMessage("Other.FlagGangAffiliation", "Gang Affiliation"),
-				        localization.getLocalizedMessage("Other.FlagDomesticHistory", "Domestic Violence History"),
-				        localization.getLocalizedMessage("Other.FlagOffender", "Sex Offender"),
-				        localization.getLocalizedMessage("Other.FlagUnderInvestigation", "Under Investigation"),
-				        localization.getLocalizedMessage("Other.FlagHighRick", "High Risk"),
-				        localization.getLocalizedMessage("Other.FlagMentalHealth", "Mental Health Flag"),
-				        localization.getLocalizedMessage("Other.FlagDrug", "Drug-related"),
-				        localization.getLocalizedMessage("Other.FlagImmigration", "Immigration Status"),
-				        localization.getLocalizedMessage("Other.FLagNoContact", "No Contact"),
-				        localization.getLocalizedMessage("Other.FlagFlightRisk", "Flight Risk"),
-				        localization.getLocalizedMessage("Other.FlagViolent", "Violent"),
+				List.of(localization.getLocalizedMessage("Other.FlagRestrainingOrder", "Active Restraining Order"), localization.getLocalizedMessage("Other.FlagGangAffiliation", "Gang Affiliation"), localization.getLocalizedMessage("Other.FlagDomesticHistory", "Domestic Violence History"),
+				        localization.getLocalizedMessage("Other.FlagOffender", "Sex Offender"), localization.getLocalizedMessage("Other.FlagUnderInvestigation", "Under Investigation"), localization.getLocalizedMessage("Other.FlagHighRick", "High Risk"),
+				        localization.getLocalizedMessage("Other.FlagMentalHealth", "Mental Health Flag"), localization.getLocalizedMessage("Other.FlagDrug", "Drug-related"), localization.getLocalizedMessage("Other.FlagImmigration", "Immigration Status"),
+				        localization.getLocalizedMessage("Other.FLagNoContact", "No Contact"), localization.getLocalizedMessage("Other.FlagFlightRisk", "Flight Risk"), localization.getLocalizedMessage("Other.FlagViolent", "Violent"),
 				        localization.getLocalizedMessage("Other.FLagArgumentative", "Argumentative")));
 		
 		Map<String, Double> flagWeights = new HashMap<>() {{
@@ -474,9 +426,9 @@ public class PedHistoryMath {
 		Random random = new Random();
 		ArrayList<String> assignedFlags = new ArrayList<>();
 		
-		double baseProbability = Math.min(0.05 * chargePriors, 0.9);
+		double baseProbability = Math.min((baseFactorPercent / 100.0) * chargePriors, maxProbability);
 		
-		int maxFlags = Math.min((chargePriors / 2) + random.nextInt(2), flags.size());
+		int maxFlags = Math.min((chargePriors / flagIncrement) + random.nextInt(2), flags.size());
 		Collections.shuffle(flags);
 		
 		for (String flag : flags) {
@@ -491,4 +443,5 @@ public class PedHistoryMath {
 		
 		return String.join(", ", assignedFlags);
 	}
+	
 }

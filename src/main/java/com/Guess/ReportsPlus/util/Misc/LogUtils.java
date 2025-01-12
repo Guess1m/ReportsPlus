@@ -59,8 +59,7 @@ public class LogUtils {
 	}
 	
 	public static void endLog() {
-		System.out.println(
-				"----------------------------- END LOG [" + MainApplication.getTime() + "] -----------------------------");
+		System.out.println("----------------------------- END LOG [" + MainApplication.getTime() + "] -----------------------------");
 		System.out.println();
 	}
 	
@@ -74,7 +73,7 @@ public class LogUtils {
 		System.err.println(errorMessage);
 		e.printStackTrace(System.err);
 		System.err.println("***");
-		showNotificationError("ERROR Manager", "ERROR: " + message);
+		showNotificationError("ERROR Manager", message);
 	}
 	
 	public enum Severity {

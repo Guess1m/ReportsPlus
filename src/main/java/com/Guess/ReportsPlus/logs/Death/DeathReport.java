@@ -13,6 +13,9 @@ public class DeathReport {
 	@XmlElement(name = "Division")
 	private String division;
 	
+	@XmlElement(name = "deathStatus")
+	private String deathStatus;
+	
 	@XmlElement(name = "Agency")
 	private String agency;
 	
@@ -247,5 +250,13 @@ public class DeathReport {
 	
 	public void setWitnesses(String witnesses) {
 		this.witnesses = witnesses;
+	}
+	
+	public String getStatus() {
+		return deathStatus != null ? deathStatus : "Closed";
+	}
+	
+	public void setStatus(String deathStatus) {
+		this.deathStatus = deathStatus;
 	}
 }

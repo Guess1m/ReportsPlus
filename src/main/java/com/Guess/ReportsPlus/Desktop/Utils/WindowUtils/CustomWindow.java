@@ -3,6 +3,7 @@ package com.Guess.ReportsPlus.Desktop.Utils.WindowUtils;
 import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.TaskbarApp;
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -25,6 +26,8 @@ import java.net.URL;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.*;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.currentNotifications;
 
 public class CustomWindow {
@@ -66,7 +69,7 @@ public class CustomWindow {
 		try {
 			root1 = loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			logError("Could not load window: " + fileName, e);
 		}
 		this.windowPane = (BorderPane) root1;
 		this.title = title;
@@ -74,6 +77,11 @@ public class CustomWindow {
 		controller = loader.getController();
 		this.root = root;
 		this.image = image;
+		
+		if (windowPane == null) {
+			log("Window returned null, window likely didnt load: " + title, LogUtils.Severity.ERROR);
+			return;
+		}
 		
 		initializeWindow(resizable);
 		addMainStageResizeListener();
@@ -204,7 +212,7 @@ public class CustomWindow {
 		});
 	}
 	
-	private void minimizeWindow() {
+	public void minimizeWindow() {
 		CustomWindow customWindow = windows.get(title);
 		if (customWindow != null) {
 			customWindow.getWindowPane().setVisible(false);

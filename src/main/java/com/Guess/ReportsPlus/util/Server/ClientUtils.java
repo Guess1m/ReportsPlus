@@ -315,7 +315,10 @@ public class ClientUtils {
 	private static void runUpdateID() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
-				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/currentID-view.fxml", "Current IDs", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
+				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+				                                                         "Windows/Server/currentID-view.fxml",
+				                                                         "Current IDs", true, 1, true, true,
+				                                                         mainDesktopControllerObj.getTaskBarApps(),
 				                                                         new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
 				
 				try {

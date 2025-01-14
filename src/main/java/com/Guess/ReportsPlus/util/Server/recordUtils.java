@@ -23,7 +23,7 @@ public class recordUtils {
 		byte[] encodedBytes = Files.readAllBytes(path);
 		String data = new String(encodedBytes);
 		
-		String[] pedestrians = data.split(",");
+		String[] pedestrians = data.split("\\|");
 		for (String pedestrian : pedestrians) {
 			Map<String, String> attributesMap = new HashMap<>();
 			String[] attributes = pedestrian.split("&");
@@ -58,7 +58,7 @@ public class recordUtils {
 		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
 		String data = new String(encodedBytes);
 		
-		String[] vehicles = data.split(",");
+		String[] vehicles = data.split("\\|");
 		for (String vehicle : vehicles) {
 			Map<String, String> attributesMap = new HashMap<>();
 			String[] attributes = vehicle.split("&");
@@ -90,7 +90,7 @@ public class recordUtils {
 		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
 		String data = new String(encodedBytes);
 		
-		String[] vehicles = data.split(",");
+		String[] vehicles = data.split("\\|");
 		for (String vehicle : vehicles) {
 			Map<String, String> attributesMap = new HashMap<>();
 			String[] attributes = vehicle.split("&");

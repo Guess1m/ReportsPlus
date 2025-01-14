@@ -302,6 +302,10 @@
                                                                         <RowConstraints maxHeight="-Infinity"
                                                                                         minHeight="-Infinity"
                                                                                         vgrow="SOMETIMES"/>
+                                                                        <RowConstraints maxHeight="-Infinity"
+                                                                                        minHeight="-Infinity"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
                                                                     </rowConstraints>
                                                                     <children>
                                                                         <AnchorPane>
@@ -363,23 +367,42 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
-                                                                        <Button fx:id="btninfo2" mnemonicParsing="false"
-                                                                                onAction="#vehcreateimpreport"
-                                                                                opacity="0.73" prefHeight="33.0"
-                                                                                styleClass="accentBtn"
-                                                                                text="Create Impound Report"
-                                                                                textOverrun="CLIP"
-                                                                                GridPane.columnIndex="2"
-                                                                                GridPane.halignment="RIGHT"
-                                                                                GridPane.rowIndex="1"
-                                                                                GridPane.valignment="BOTTOM">
-                                                                            <font>
-                                                                                <Font name="Segoe UI" size="12.0"/>
-                                                                            </font>
+                                                                        <BorderPane GridPane.columnSpan="2147483647"
+                                                                                    GridPane.rowIndex="2">
+                                                                            <right>
+                                                                                <Button fx:id="btninfo2"
+                                                                                        mnemonicParsing="false"
+                                                                                        onAction="#vehcreateimpreport"
+                                                                                        opacity="0.73" prefHeight="33.0"
+                                                                                        styleClass="accentBtn"
+                                                                                        text="Create Impound Report"
+                                                                                        textOverrun="CLIP"
+                                                                                        BorderPane.alignment="CENTER">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Button>
+                                                                            </right>
+                                                                            <left>
+                                                                                <Button fx:id="btninfo3"
+                                                                                        mnemonicParsing="false"
+                                                                                        onAction="#ownerLookup"
+                                                                                        opacity="0.73" prefHeight="33.0"
+                                                                                        styleClass="accentBtn"
+                                                                                        text="Owner Lookup"
+                                                                                        textOverrun="CLIP"
+                                                                                        BorderPane.alignment="CENTER">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI"
+                                                                                              size="12.0"/>
+                                                                                    </font>
+                                                                                </Button>
+                                                                            </left>
                                                                             <GridPane.margin>
-                                                                                <Insets right="15.0"/>
+                                                                                <Insets left="15.0" right="15.0"/>
                                                                             </GridPane.margin>
-                                                                        </Button>
+                                                                        </BorderPane>
                                                                         <AnchorPane GridPane.rowIndex="1">
                                                                             <children>
                                                                                 <TextField fx:id="vehinspectionfield"
@@ -400,18 +423,27 @@
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
-                                                                        <Button fx:id="btninfo3" mnemonicParsing="false"
-                                                                                onAction="#ownerLookup" opacity="0.73"
-                                                                                prefHeight="33.0" styleClass="accentBtn"
-                                                                                text="Owner Lookup" textOverrun="CLIP"
-                                                                                GridPane.columnIndex="1"
-                                                                                GridPane.halignment="CENTER"
-                                                                                GridPane.rowIndex="1"
-                                                                                GridPane.valignment="BOTTOM">
-                                                                            <font>
-                                                                                <Font name="Segoe UI" size="12.0"/>
-                                                                            </font>
-                                                                        </Button>
+                                                                        <AnchorPane GridPane.columnIndex="1"
+                                                                                    GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <TextField fx:id="vehvinfield"
+                                                                                           editable="false"
+                                                                                           layoutY="50.0"
+                                                                                           AnchorPane.leftAnchor="0.0"
+                                                                                           AnchorPane.rightAnchor="0.0"
+                                                                                           AnchorPane.topAnchor="27.0"/>
+                                                                                <Label fx:id="plt11"
+                                                                                       text="Registered VIN:"
+                                                                                       textOverrun="WORD_ELLIPSIS"
+                                                                                       AnchorPane.leftAnchor="0.0"
+                                                                                       AnchorPane.topAnchor="0.0">
+                                                                                    <font>
+                                                                                        <Font name="Segoe UI Semibold"
+                                                                                              size="16.0"/>
+                                                                                    </font>
+                                                                                </Label>
+                                                                            </children>
+                                                                        </AnchorPane>
                                                                     </children>
                                                                 </GridPane>
                                                                 <Label fx:id="info2" alignment="CENTER"

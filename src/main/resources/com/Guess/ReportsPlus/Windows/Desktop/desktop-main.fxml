@@ -7,7 +7,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainDesktop" maxHeight="-Infinity" maxWidth="-Infinity"
+            prefHeight="742.0"
             prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
             xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Desktop.mainDesktopController">
     <center>
@@ -50,6 +51,12 @@
                                                 <Font name="Segoe UI Black" size="12.5"/>
                                             </font>
                                         </Label>
+                                        <ImageView fx:id="inputLockButton" fitHeight="15.0" fitWidth="15.0"
+                                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                            <image>
+                                                <Image url="@../../imgs/icons/lock.png"/>
+                                            </image>
+                                        </ImageView>
                                     </children>
                                 </HBox>
                             </right>
@@ -96,23 +103,29 @@
                         </BorderPane>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="desktopContainer" VBox.vgrow="ALWAYS">
+                <AnchorPane fx:id="inputLock" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                     <children>
-                        <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true" spacing="10.0"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                        <AnchorPane fx:id="desktopContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Label fx:id="infoLabelLeft">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="15.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="infoLabelRight">
-                                    <font>
-                                        <Font name="Segoe UI Black" size="15.0"/>
-                                    </font>
-                                </Label>
+                                <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true"
+                                      spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="10.0">
+                                    <children>
+                                        <Label fx:id="infoLabelLeft">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="infoLabelRight">
+                                            <font>
+                                                <Font name="Segoe UI Black" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
                             </children>
-                        </HBox>
+                        </AnchorPane>
                     </children>
                 </AnchorPane>
                 <GridPane fx:id="bottomBar" maxHeight="-Infinity" minHeight="45.0" opacity="0.8" prefHeight="45.0"
@@ -143,13 +156,14 @@
                         </VBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
-                                <Button fx:id="shutdownBtn" mnemonicParsing="false" onAction="#shutdownButtonPress"
-                                        style="-fx-background-color: rgb(0,0,0,0.1);" text="Shutdown">
+                                <Button fx:id="shutdownBtn" focusTraversable="false" mnemonicParsing="false"
+                                        onAction="#shutdownButtonPress" style="-fx-background-color: rgb(0,0,0,0.1);"
+                                        text="Shutdown">
                                     <font>
                                         <Font name="Segoe UI Black" size="10.0"/>
                                     </font>
                                 </Button>
-                                <Button fx:id="button1" mnemonicParsing="false"
+                                <Button fx:id="button1" focusTraversable="false" mnemonicParsing="false"
                                         style="-fx-background-color: rgb(0,0,0,0.1);" text="Edit Mode">
                                     <font>
                                         <Font name="Segoe UI Black" size="10.0"/>

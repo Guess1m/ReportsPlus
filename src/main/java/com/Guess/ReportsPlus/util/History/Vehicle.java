@@ -1,5 +1,6 @@
 package com.Guess.ReportsPlus.util.History;
 
+import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -11,6 +12,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +63,9 @@ public class Vehicle {
 	@XmlElement(name = "Type")
 	private String type;
 	
+	@XmlElement(name = "Vin")
+	private String vin;
+	
 	@XmlElement(name = "Inspection")
 	private String inspection;
 	
@@ -106,6 +111,14 @@ public class Vehicle {
 	
 	public String getOwner() {
 		return owner;
+	}
+	
+	public String getVin() {
+		return vin;
+	}
+	
+	public void setVin(String vin) {
+		this.vin = vin;
 	}
 	
 	public void setOwner(String owner) {
@@ -194,7 +207,13 @@ public class Vehicle {
 	
 	public static class VehicleHistoryUtils {
 		
-		public static String generateInspectionStatus(int validChance) {
+		public static String generateInspectionStatus() {
+			int validChance = 85;
+			try {
+				validChance = Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"));
+			} catch (IOException e) {
+				logError("Error reading vehicleHistory.hasValidInspection: ", e);
+			}
 			if (validChance < 0 || validChance > 100) {
 				throw new IllegalArgumentException("Chance must be between 0 and 100 for Veh. inspection.");
 			}
@@ -233,7 +252,8 @@ public class Vehicle {
 				Vehicles.setVehicleList(new java.util.ArrayList<>());
 			}
 			
-			Optional<Vehicle> existingReport = Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equals(Vehicle.getPlateNumber())).findFirst();
+			Optional<Vehicle> existingReport = Vehicles.getVehicleList().stream().filter(
+					e -> e.getPlateNumber().equals(Vehicle.getPlateNumber())).findFirst();
 			
 			if (existingReport.isPresent()) {
 				Vehicles.getVehicleList().remove(existingReport.get());
@@ -256,7 +276,8 @@ public class Vehicle {
 			}
 			
 			if (Vehicles.getVehicleList() != null) {
-				return Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
+				return Vehicles.getVehicleList().stream().filter(
+						e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
 			}
 			
 			return Optional.empty();

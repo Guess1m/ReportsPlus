@@ -159,8 +159,9 @@ public class CurrentIDViewController {
 							String gender = historyID.getGender();
 							String address = historyID.getAddress();
 							String pedModel = historyID.getPedModel();
-							String genNum1 = generateRandomNumber();
-							String genNum2 = generateRandomNumber();
+							String genNum1 = historyID.getLicenseNumber();
+							//TODO: add functionality for gunNum2
+							String genNum2 = "Blank";
 							String fullName = firstName + " " + lastName;
 							
 							FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));

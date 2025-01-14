@@ -167,7 +167,6 @@
                                                     style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;">
                                             <children>
                                                 <TextArea fx:id="notepadTextArea" layoutY="56.0" prefHeight="337.0"
-                                                          promptText="Suspect Info / Vehicle Info / Witness Info / Etc."
                                                           style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: rgb(0,0,0,0.1); -fx-border-color: transparent;"
                                                           styleClass="text-area" wrapText="true"
                                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"

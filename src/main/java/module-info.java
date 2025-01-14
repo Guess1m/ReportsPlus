@@ -9,6 +9,7 @@ module com.Guess.ReportsPlus {
 	requires java.desktop;
 	requires com.fasterxml.jackson.databind;
 	requires jdk.compiler;
+	requires java.rmi;
 	
 	opens com.Guess.ReportsPlus.logs to javafx.base;
 	opens com.Guess.ReportsPlus to javafx.fxml;
@@ -46,6 +47,8 @@ module com.Guess.ReportsPlus {
 	opens com.Guess.ReportsPlus.util.Misc to jakarta.xml.bind, javafx.fxml;
 	exports com.Guess.ReportsPlus.Windows.Settings;
 	opens com.Guess.ReportsPlus.Windows.Settings to jakarta.xml.bind, javafx.fxml;
+	exports com.Guess.ReportsPlus.util.UserProfiles;
+	opens com.Guess.ReportsPlus.util.UserProfiles to jakarta.xml.bind, javafx.fxml;
 	exports com.Guess.ReportsPlus.Windows.Misc;
 	opens com.Guess.ReportsPlus.Windows.Misc to javafx.fxml;
 	exports com.Guess.ReportsPlus.Windows.Server;

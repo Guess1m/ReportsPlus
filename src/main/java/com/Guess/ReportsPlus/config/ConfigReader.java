@@ -217,6 +217,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");
 		
 		checkAndSetDefaultValue("update", "type", "client");
+		checkAndSetDefaultValue("keybindings", "inputLock", "H");
 		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}

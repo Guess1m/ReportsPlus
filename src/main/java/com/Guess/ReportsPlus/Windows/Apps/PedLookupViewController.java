@@ -1381,7 +1381,9 @@ public class PedLookupViewController {
 			if (searchedNameID != null) {
 				log(searchedName + " HistoryID not null", LogUtils.Severity.DEBUG);
 				String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-				Ped ped = createPed(generateLicenseNumber(), searchedNameID.getName(), searchedNameID.getGender(), searchedNameID.getBirthday(), searchedNameID.getAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
+				Ped ped = createPed(searchedNameID.getLicenseNumber(), searchedNameID.getName(),
+				                    searchedNameID.getGender(), searchedNameID.getBirthday(),
+				                    searchedNameID.getAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
 				
 				try {
 					Ped.PedHistoryUtils.addPed(ped);

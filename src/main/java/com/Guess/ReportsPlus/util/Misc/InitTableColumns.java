@@ -13,19 +13,17 @@ import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReport;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.setSmallColumnWidth;
 
 public class InitTableColumns {
-	private static String commonFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Segoe UI\";";
+	public static String commonTableFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Segoe UI\";";
 	
 	public static void initializeDeathReportColumns(TableView tableview) {
 		TableColumn<DeathReport, String> deathReportNumberColumn = new TableColumn<>("Report #:");
@@ -39,7 +37,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -56,7 +54,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -86,7 +84,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -94,7 +92,7 @@ public class InitTableColumns {
 		
 		TableColumn<DeathReport, String> causeOfDeathColumn = new TableColumn<>("Cause of Death:");
 		causeOfDeathColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(causeOfDeathColumn, Pos.CENTER_LEFT, "Cause of Death:");
+		controllerUtils.setColumnAlignment(causeOfDeathColumn, Pos.CENTER_LEFT, "Cause of Death:");
 		causeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("causeOfDeath"));
 		causeOfDeathColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
 			@Override
@@ -105,7 +103,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -113,7 +111,7 @@ public class InitTableColumns {
 		
 		TableColumn<DeathReport, String> modeOfDeathColumn = new TableColumn<>("Mode of Death:");
 		modeOfDeathColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(modeOfDeathColumn, Pos.CENTER_LEFT, "Mode of Death:");
+		controllerUtils.setColumnAlignment(modeOfDeathColumn, Pos.CENTER_LEFT, "Mode of Death:");
 		modeOfDeathColumn.setCellValueFactory(new PropertyValueFactory<>("modeOfDeath"));
 		modeOfDeathColumn.setCellFactory(column -> new TableCell<DeathReport, String>() {
 			@Override
@@ -124,7 +122,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -155,7 +153,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -172,7 +170,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -193,7 +191,7 @@ public class InitTableColumns {
 		
 		TableColumn<ImpoundReport, String> ownerNameColumn = new TableColumn<>("Owner:");
 		ownerNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(ownerNameColumn, Pos.CENTER_LEFT, "Owner:");
+		controllerUtils.setColumnAlignment(ownerNameColumn, Pos.CENTER_LEFT, "Owner:");
 		ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
 		ownerNameColumn.setCellFactory(column -> new TableCell<ImpoundReport, String>() {
 			@Override
@@ -204,7 +202,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -212,7 +210,7 @@ public class InitTableColumns {
 		
 		TableColumn<ImpoundReport, String> impoundPlateNumberColumn = new TableColumn<>("Plate #:");
 		impoundPlateNumberColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(impoundPlateNumberColumn, Pos.CENTER_LEFT, "Plate #:");
+		controllerUtils.setColumnAlignment(impoundPlateNumberColumn, Pos.CENTER_LEFT, "Plate #:");
 		impoundPlateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("impoundPlateNumber"));
 		impoundPlateNumberColumn.setCellFactory(column -> new TableCell<ImpoundReport, String>() {
 			@Override
@@ -223,7 +221,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -254,7 +252,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -271,7 +269,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -292,7 +290,7 @@ public class InitTableColumns {
 		
 		TableColumn<PatrolReport, String> patrolLengthColumn = new TableColumn<>("Length:");
 		patrolLengthColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(patrolLengthColumn, Pos.CENTER_LEFT, "Length:");
+		controllerUtils.setColumnAlignment(patrolLengthColumn, Pos.CENTER_LEFT, "Length:");
 		patrolLengthColumn.setCellValueFactory(new PropertyValueFactory<>("patrolLength"));
 		patrolLengthColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
 			@Override
@@ -303,7 +301,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -311,7 +309,7 @@ public class InitTableColumns {
 		
 		TableColumn<PatrolReport, String> patrolStartTimeColumn = new TableColumn<>("Start Time:");
 		patrolStartTimeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(patrolStartTimeColumn, Pos.CENTER_LEFT, "Start Time:");
+		controllerUtils.setColumnAlignment(patrolStartTimeColumn, Pos.CENTER_LEFT, "Start Time:");
 		patrolStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStartTime"));
 		patrolStartTimeColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
 			@Override
@@ -322,7 +320,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -330,7 +328,7 @@ public class InitTableColumns {
 		
 		TableColumn<PatrolReport, String> patrolStopTimeColumn = new TableColumn<>("Stop Time:");
 		patrolStopTimeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(patrolStopTimeColumn, Pos.CENTER_LEFT, "Stop Time:");
+		controllerUtils.setColumnAlignment(patrolStopTimeColumn, Pos.CENTER_LEFT, "Stop Time:");
 		patrolStopTimeColumn.setCellValueFactory(new PropertyValueFactory<>("patrolStopTime"));
 		patrolStopTimeColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
 			@Override
@@ -341,7 +339,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -349,7 +347,7 @@ public class InitTableColumns {
 		
 		TableColumn<PatrolReport, String> officerNameColumn = new TableColumn<>("Name:");
 		officerNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(officerNameColumn, Pos.CENTER_LEFT, "Name:");
+		controllerUtils.setColumnAlignment(officerNameColumn, Pos.CENTER_LEFT, "Name:");
 		officerNameColumn.setCellValueFactory(new PropertyValueFactory<>("officerName"));
 		officerNameColumn.setCellFactory(column -> new TableCell<PatrolReport, String>() {
 			@Override
@@ -360,7 +358,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -391,7 +389,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -408,7 +406,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -429,7 +427,7 @@ public class InitTableColumns {
 		
 		TableColumn<TrafficCitationReport, String> citationDate = new TableColumn<>("Date:");
 		citationDate.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(citationDate, Pos.CENTER_LEFT, "Date:");
+		controllerUtils.setColumnAlignment(citationDate, Pos.CENTER_LEFT, "Date:");
 		citationDate.setCellValueFactory(new PropertyValueFactory<>("citationDate"));
 		citationDate.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
 			@Override
@@ -440,7 +438,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -448,7 +446,7 @@ public class InitTableColumns {
 		
 		TableColumn<TrafficCitationReport, String> offenderNameColumn = new TableColumn<>("Suspect:");
 		offenderNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(offenderNameColumn, Pos.CENTER_LEFT, "Suspect:");
+		controllerUtils.setColumnAlignment(offenderNameColumn, Pos.CENTER_LEFT, "Suspect:");
 		offenderNameColumn.setCellValueFactory(new PropertyValueFactory<>("offenderName"));
 		offenderNameColumn.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
 			@Override
@@ -459,7 +457,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -467,7 +465,7 @@ public class InitTableColumns {
 		
 		TableColumn<TrafficCitationReport, String> offenderVehicleModelColumn = new TableColumn<>("Model:");
 		offenderVehicleModelColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(offenderVehicleModelColumn, Pos.CENTER_LEFT, "Model:");
+		controllerUtils.setColumnAlignment(offenderVehicleModelColumn, Pos.CENTER_LEFT, "Model:");
 		offenderVehicleModelColumn.setCellValueFactory(new PropertyValueFactory<>("offenderVehicleModel"));
 		offenderVehicleModelColumn.setCellFactory(column -> new TableCell<TrafficCitationReport, String>() {
 			@Override
@@ -478,7 +476,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -509,7 +507,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -526,7 +524,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -547,7 +545,7 @@ public class InitTableColumns {
 		
 		TableColumn<ArrestReport, String> arrestDateColumn = new TableColumn<>("Date:");
 		arrestDateColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(arrestDateColumn, Pos.CENTER_LEFT, "Date:");
+		controllerUtils.setColumnAlignment(arrestDateColumn, Pos.CENTER_LEFT, "Date:");
 		arrestDateColumn.setCellValueFactory(new PropertyValueFactory<>("arrestDate"));
 		arrestDateColumn.setCellFactory(column -> new TableCell<ArrestReport, String>() {
 			@Override
@@ -558,7 +556,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -566,7 +564,7 @@ public class InitTableColumns {
 		
 		TableColumn<ArrestReport, String> arresteeNameColumn = new TableColumn<>("Suspect:");
 		arresteeNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(arresteeNameColumn, Pos.CENTER_LEFT, "Suspect:");
+		controllerUtils.setColumnAlignment(arresteeNameColumn, Pos.CENTER_LEFT, "Suspect:");
 		arresteeNameColumn.setCellValueFactory(new PropertyValueFactory<>("arresteeName"));
 		arresteeNameColumn.setCellFactory(column -> new TableCell<ArrestReport, String>() {
 			@Override
@@ -577,7 +575,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -608,7 +606,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -625,7 +623,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -646,7 +644,7 @@ public class InitTableColumns {
 		
 		TableColumn<IncidentReport, String> incidentWitnessesColumn = new TableColumn<>("Suspects:");
 		incidentWitnessesColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(incidentWitnessesColumn, Pos.CENTER_LEFT, "Suspects:");
+		controllerUtils.setColumnAlignment(incidentWitnessesColumn, Pos.CENTER_LEFT, "Suspects:");
 		incidentWitnessesColumn.setCellValueFactory(new PropertyValueFactory<>("incidentWitnesses"));
 		incidentWitnessesColumn.setCellFactory(column -> new TableCell<IncidentReport, String>() {
 			@Override
@@ -657,7 +655,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -665,7 +663,7 @@ public class InitTableColumns {
 		
 		TableColumn<IncidentReport, String> incidentVictimsColumn = new TableColumn<>("Victims/Witnesses:");
 		incidentVictimsColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(incidentVictimsColumn, Pos.CENTER_LEFT, "Victims/Witnesses:");
+		controllerUtils.setColumnAlignment(incidentVictimsColumn, Pos.CENTER_LEFT, "Victims/Witnesses:");
 		incidentVictimsColumn.setCellValueFactory(new PropertyValueFactory<>("incidentVictims"));
 		incidentVictimsColumn.setCellFactory(column -> new TableCell<IncidentReport, String>() {
 			@Override
@@ -676,7 +674,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -707,7 +705,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -724,7 +722,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -745,7 +743,7 @@ public class InitTableColumns {
 		
 		TableColumn<SearchReport, String> searchedPersonsColumn = new TableColumn<>("Searched:");
 		searchedPersonsColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(searchedPersonsColumn, Pos.CENTER_LEFT, "Searched:");
+		controllerUtils.setColumnAlignment(searchedPersonsColumn, Pos.CENTER_LEFT, "Searched:");
 		searchedPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("searchedPersons"));
 		searchedPersonsColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
 			@Override
@@ -756,7 +754,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -764,7 +762,7 @@ public class InitTableColumns {
 		
 		TableColumn<SearchReport, String> searchTypeColumn = new TableColumn<>("Type:");
 		searchTypeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(searchTypeColumn, Pos.CENTER_LEFT, "Type:");
+		controllerUtils.setColumnAlignment(searchTypeColumn, Pos.CENTER_LEFT, "Type:");
 		searchTypeColumn.setCellValueFactory(new PropertyValueFactory<>("searchType"));
 		searchTypeColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
 			@Override
@@ -775,7 +773,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -783,7 +781,7 @@ public class InitTableColumns {
 		
 		TableColumn<SearchReport, String> searchMethodColumn = new TableColumn<>("Method:");
 		searchMethodColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(searchMethodColumn, Pos.CENTER_LEFT, "Method:");
+		controllerUtils.setColumnAlignment(searchMethodColumn, Pos.CENTER_LEFT, "Method:");
 		searchMethodColumn.setCellValueFactory(new PropertyValueFactory<>("searchMethod"));
 		searchMethodColumn.setCellFactory(column -> new TableCell<SearchReport, String>() {
 			@Override
@@ -794,7 +792,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -824,7 +822,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -841,7 +839,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -871,7 +869,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -879,7 +877,7 @@ public class InitTableColumns {
 		
 		TableColumn<TrafficStopReport, String> operatorNameColumn = new TableColumn<>("Operator:");
 		operatorNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(operatorNameColumn, Pos.CENTER_LEFT, "Operator Name:");
+		controllerUtils.setColumnAlignment(operatorNameColumn, Pos.CENTER_LEFT, "Operator Name:");
 		operatorNameColumn.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
 		operatorNameColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
 			@Override
@@ -890,7 +888,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -898,7 +896,7 @@ public class InitTableColumns {
 		
 		TableColumn<TrafficStopReport, String> modelColumn = new TableColumn<>("Model:");
 		modelColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(modelColumn, Pos.CENTER_LEFT, "Model:");
+		controllerUtils.setColumnAlignment(modelColumn, Pos.CENTER_LEFT, "Model:");
 		modelColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseModel"));
 		modelColumn.setCellFactory(column -> new TableCell<TrafficStopReport, String>() {
 			@Override
@@ -909,7 +907,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -940,7 +938,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
 					setGraphic(label);
 				}
 			}
@@ -957,7 +955,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -987,7 +985,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -995,7 +993,7 @@ public class InitTableColumns {
 		
 		TableColumn<CalloutReport, String> responseTypeColumn = new TableColumn<>("Type");
 		responseTypeColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(responseTypeColumn, Pos.CENTER_LEFT, "Type:");
+		controllerUtils.setColumnAlignment(responseTypeColumn, Pos.CENTER_LEFT, "Type:");
 		responseTypeColumn.setCellValueFactory(new PropertyValueFactory<>("ResponseType"));
 		responseTypeColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
 			@Override
@@ -1006,7 +1004,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -1014,7 +1012,7 @@ public class InitTableColumns {
 		
 		TableColumn<CalloutReport, String> areaColumn = new TableColumn<>("Area");
 		areaColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(areaColumn, Pos.CENTER_LEFT, "Area:");
+		controllerUtils.setColumnAlignment(areaColumn, Pos.CENTER_LEFT, "Area:");
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("Area"));
 		areaColumn.setCellFactory(column -> new TableCell<CalloutReport, String>() {
 			@Override
@@ -1025,7 +1023,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonFontSize);
+					label.setStyle(commonTableFontSize);
 					setGraphic(label);
 				}
 			}
@@ -1057,7 +1055,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -1081,17 +1079,17 @@ public class InitTableColumns {
 		
 		TableColumn<AccidentReport, String> ownerNameColumn = new TableColumn<>("Owner:");
 		ownerNameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(ownerNameColumn, Pos.CENTER_LEFT, "Owner:");
+		controllerUtils.setColumnAlignment(ownerNameColumn, Pos.CENTER_LEFT, "Owner:");
 		ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("OwnerName"));
 		
 		TableColumn<AccidentReport, String> streetColumn = new TableColumn<>("Street");
 		streetColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(streetColumn, Pos.CENTER_LEFT, "Street:");
+		controllerUtils.setColumnAlignment(streetColumn, Pos.CENTER_LEFT, "Street:");
 		streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
 		
 		TableColumn<AccidentReport, String> roadConditionsColumn = new TableColumn<>("Road Conditions");
 		roadConditionsColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-		setColumnAlignment(roadConditionsColumn, Pos.CENTER_LEFT, "Conditions:");
+		controllerUtils.setColumnAlignment(roadConditionsColumn, Pos.CENTER_LEFT, "Conditions:");
 		roadConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("RoadConditions"));
 		
 		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn, statusColumn, plateNumberColumn, ownerNameColumn, streetColumn, roadConditionsColumn);
@@ -1103,16 +1101,6 @@ public class InitTableColumns {
 		setSmallColumnWidth(accidentNumberColumn);
 		setSmallColumnWidth(statusColumn);
 		setSmallColumnWidth(plateNumberColumn);
-	}
-	
-	private static void setColumnAlignment(TableColumn<?, String> calloutStatusColumn, Pos position, String text) {
-		Label label = new Label(text);
-		HBox hbox = new HBox(label);
-		hbox.setAlignment(position);
-		hbox.setPadding(new Insets(0, 0, 0, 5));
-		
-		calloutStatusColumn.setText(null);
-		calloutStatusColumn.setGraphic(hbox);
 	}
 	
 }

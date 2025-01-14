@@ -11,11 +11,14 @@ import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -242,7 +245,7 @@ public class controllerUtils {
 	}
 	
 	public static void setSmallColumnWidth(TableColumn column) {
-		double minColumnWidthSmall = 150.0;
+		double minColumnWidthSmall = 160.0;
 		column.setMaxWidth(minColumnWidthSmall);
 	}
 	
@@ -972,12 +975,14 @@ public class controllerUtils {
 	}
 	
 	public static void updateRecentSearches(List<String> recentSearches, ComboBox<String> searchField, String newSearch) {
-		recentSearches.remove(newSearch);
-		recentSearches.add(0, newSearch);
-		if (recentSearches.size() > 5) {
-			recentSearches.remove(5);
+		if (!newSearch.isEmpty()) {
+			recentSearches.remove(newSearch);
+			recentSearches.add(0, newSearch);
+			if (recentSearches.size() > 5) {
+				recentSearches.remove(5);
+			}
+			searchField.getItems().setAll(recentSearches);
 		}
-		searchField.getItems().setAll(recentSearches);
 	}
 	
 	public static void copyChargeDataFile() throws IOException {
@@ -1041,5 +1046,15 @@ public class controllerUtils {
 				log("Resource not found: " + sourcePathCustomization, Severity.ERROR);
 			}
 		}
+	}
+	
+	public static void setColumnAlignment(TableColumn<?, String> calloutStatusColumn, Pos position, String text) {
+		Label label = new Label(text);
+		HBox hbox = new HBox(label);
+		hbox.setAlignment(position);
+		hbox.setPadding(new Insets(0, 0, 0, 5));
+		
+		calloutStatusColumn.setText(null);
+		calloutStatusColumn.setGraphic(hbox);
 	}
 }

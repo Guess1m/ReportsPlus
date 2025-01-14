@@ -25,43 +25,23 @@ public class stringUtil {
 	 */
 	
 	public static final String version = "v1.3-alpha";
-	public static final String[] updatesList = {"Enhanced Logging For Updates", "Fixed Some Locale", "Added Taskbar Customization", "Support For Handing Suspects Citations", "Fix Creating New Court Case When Updating Report", "Fixed CourtCase Note Area", "Added AutoUpdate Utility With Update Checks", "New Report App For Creating Blank Reports", "Display All IPv4 Addresses In Server Rather Than Just First", "Autoupdate Server With Application If Connected", "Reset App Positions Button", "Delayed Loading Window Until Init Is Done", "Fixed Server App Not Updating Connection Status", "Fix Spacing On Report MenuButtons", "Added Shutdown Button", "Added Missing Freeways", "Fix Vehicle Owners Able To Be Below 18", "Added Ped Flag Probility Setting", "Rearrange Topbar/Taskbar Elements", "Hide Maximize For Non-Resizable Windows"};
+	public static final String[] updatesList = {"Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Redesigned Profile App"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			NEW:
-			Settings.mainSettingsSubheader=MAIN SETTINGS
-			Settings.colorSettingsSubheader=COLOR SETTINGS
-			Settings.MiscSettingsSubheader=MISC / SERVER SETTINGS
-			Settings.developerSubheader=DEVELOPER / RESET DATA
-			Settings.desktopTaskBarClrLabel=Taskbar Color
-			Settings.desktopTaskBarClrTT=Set the color of the bottom task bar
-			Settings.desktopTaskBarTextClrLabel=Taskbar Text Color
-			Settings.desktopTaskBarTextClrTT=Set the color of the text on the bottom taskbar
-			Settings.resetAppPosBtn=RESET APP POSITIONS
-			Settings.resetAppPosLabel=Reset App Positions
-			Settings.resetAppPosTT=Reset apps to their default positions
-			UpdatesWindow.notStartedLabel=Not Started
-			UpdatesWindow.armChipCheckbox=Use Windows / ARM MacOS Download
-			UpdatesWindow.startAutoUpdateBtn=Start AutoUpdate
-			UpdatesWindow.autoUpdateUtilityHeader=AutoUpdate Utility
-			UpdatesWindow.validAutoUpdateCheck=OK
-			UpdatesWindow.invalidAutoUpdateCheck=Invalid
-			UpdatesWindow.successfulAutoUpdateCheck=Successful Check!
-			UpdatesWindow.failedAutoUpdateCheck=Issues Found
-			UpdatesWindow.checksDidntPassLabel=Can't Update:
-			UpdatesWindow.LocaleChangesButton=Locale Changes
-			UpdatesWindow.updateServerCheckbox=Update Server (Requires you to be connected)
-			NewReportApp.selectReportTypeLabel=Select a Report Type:
-			UpdatesWindow.intelChipCheckbox=Use Intel Chip MacOS Download (Only select if using a Intel chip mac)
-			UpdatesWindow.launchAutoUpdateBtn=Launch Update Utility (BETA)
-			LogBrowser.SubHeading=Log Browser
-			LogBrowser.reportDatabaseLabel=Report Database
+			UserManager.editProfileLabel=Edit Current Profile:
+			UserManager.editProfileSubLabel=Switch to or edit the selected profile
+			UserManager.userProfileLabel=User Profiles:
+			UserManager.userProfileSubLabel=These are the found user profiles
+			Settings.inputLockKeybindLabel=Input Lock Keybind
+			Settings.inputLockKeybindTT=Keybind to use for activating desktop input lock
+			VehicleLookup.FieldVIN=Registered VIN:
 			
 			REMOVED:
-			Desktop.CreateReportButton=Create Report
-			UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
-			UpdatesWindow.UpdateButton=AutoUpdate
-			LogBrowser.SubHeading=Log Browser
+			UserManager.MainHeader=Edit Officer Data:
+			UserManager.NameFieldPrompt=Name
+			UserManager.NumberFieldPrompt=Number
+			
 			""";
 	
 	public static final String name = "Reports Plus";
@@ -85,6 +65,7 @@ public class stringUtil {
 	public static final String currentIDFileURL = getJarPath() + File.separator + "serverData" + File.separator + "ServerCurrentID.xml";
 	public static final String currentLocationFileURL = getJarPath() + File.separator + "serverData" + File.separator + "ServerLocation.data";
 	public static final String IDHistoryURL = getJarPath() + File.separator + "data" + File.separator + "IDHistory.xml";
+	public static final String currentUserFileURL = getJarPath() + File.separator + "data" + File.separator + "UserProfiles.xml";
 	public static final String pedImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "peds";
 	public static final String vehImageFolderURL = getJarPath() + File.separator + "images" + File.separator + "vehicles";
 	public static final String soundPackDownloadURL = "https://github.com/Guess1m/ReportsPlus/releases/latest/download/sounds-optional.zip";

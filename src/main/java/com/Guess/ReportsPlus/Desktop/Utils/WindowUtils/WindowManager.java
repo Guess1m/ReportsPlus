@@ -12,6 +12,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+
 public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();
 	public static Map<String, CustomWindow> minimizedWindows = new HashMap<>();
@@ -26,20 +29,28 @@ public class WindowManager {
 			
 			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root, image);
 			
-			if (root != null) {
-				Platform.runLater(() -> {
-					root.getChildren().add(customWindow.getWindowPane());
-					
-					double[] savedPosition = windowPositions.get(title);
-					if (savedPosition != null) {
-						customWindow.setPosition(savedPosition[0], savedPosition[1]);
-					} else if (centerOnDesktop) {
-						customWindow.centerOnDesktop();
+			if (customWindow.getWindowPane() != null) {
+				try {
+					if (root != null) {
+						Platform.runLater(() -> {
+							root.getChildren().add(customWindow.getWindowPane());
+							
+							double[] savedPosition = windowPositions.get(title);
+							if (savedPosition != null) {
+								customWindow.setPosition(savedPosition[0], savedPosition[1]);
+							} else if (centerOnDesktop) {
+								customWindow.centerOnDesktop();
+							}
+							
+							windows.put(title, customWindow);
+							customWindow.bringToFront();
+						});
 					}
-					
-					windows.put(title, customWindow);
-					customWindow.bringToFront();
-				});
+				} catch (NullPointerException e) {
+					logError("Error creating window: " + title, e);
+				}
+			} else {
+				log("WindowPane was null after creation, Window likely had an error: " + title, LogUtils.Severity.ERROR);
 			}
 			return customWindow;
 			

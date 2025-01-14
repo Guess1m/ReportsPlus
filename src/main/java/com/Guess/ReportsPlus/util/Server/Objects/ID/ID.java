@@ -34,8 +34,8 @@ public class ID {
 	@XmlElement(name = "PedModel")
 	private String pedModel;
 	
-	@XmlElement(name = "Index")
-	private int index;
+	@XmlElement(name = "LicenseNumber")
+	private String licenseNumber;
 	
 	@XmlElement(name = "Status")
 	private String status;
@@ -114,6 +114,10 @@ public class ID {
 	
 	public String getBirthday() {
 		return birthday;
+	}
+	
+	public String getLicenseNumber() {
+		return licenseNumber;
 	}
 	
 	public String getGender() {

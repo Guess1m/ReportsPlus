@@ -15,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -32,6 +33,7 @@ import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.a
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
+import static com.Guess.ReportsPlus.Desktop.mainDesktopController.isInputLocked;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopBackground;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
@@ -120,20 +122,6 @@ public class settingsController {
 	private Button resetReportDefaultsBtn;
 	@javafx.fxml.FXML
 	private TextField socketTimeoutField;
-	@javafx.fxml.FXML
-	private AnchorPane paneAudio;
-	@javafx.fxml.FXML
-	private AnchorPane paneApplication;
-	@javafx.fxml.FXML
-	private AnchorPane paneDeveloper;
-	@javafx.fxml.FXML
-	private AnchorPane paneNotification;
-	@javafx.fxml.FXML
-	private AnchorPane paneReport;
-	@javafx.fxml.FXML
-	private AnchorPane paneWindow;
-	@javafx.fxml.FXML
-	private AnchorPane paneNetworking;
 	@javafx.fxml.FXML
 	private ComboBox notiPosCombobox;
 	@javafx.fxml.FXML
@@ -462,6 +450,26 @@ public class settingsController {
 	private Button resetAppPosBtn;
 	@javafx.fxml.FXML
 	private Label resetAppPosLabel;
+	@javafx.fxml.FXML
+	private ScrollPane paneWindow;
+	@javafx.fxml.FXML
+	private ScrollPane paneAudio;
+	@javafx.fxml.FXML
+	private ScrollPane paneNotification;
+	@javafx.fxml.FXML
+	private ScrollPane paneApplication;
+	@javafx.fxml.FXML
+	private ScrollPane paneDeveloper;
+	@javafx.fxml.FXML
+	private ScrollPane paneReport;
+	@javafx.fxml.FXML
+	private ScrollPane paneNetworking;
+	@javafx.fxml.FXML
+	private Label inputLockKeybindTT;
+	@javafx.fxml.FXML
+	private Label inputLockKeybindLabel;
+	@javafx.fxml.FXML
+	private TextField inputLockKeybindField;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -497,28 +505,49 @@ public class settingsController {
 			vehLookupViewController.getInfo2().setStyle("-fx-background-color: " + secclr + ";");
 			
 			vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
+			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
+					e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white;"));
+			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(
+					e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
 			
 			vehLookupViewController.getVehSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			vehLookupViewController.getVehSearchBtn().setOnMouseEntered(e -> vehLookupViewController.getVehSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			vehLookupViewController.getVehSearchBtn().setOnMouseExited(e -> vehLookupViewController.getVehSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
+			vehLookupViewController.getVehSearchBtn().setOnMouseEntered(
+					e -> vehLookupViewController.getVehSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
+			vehLookupViewController.getVehSearchBtn().setOnMouseExited(
+					e -> vehLookupViewController.getVehSearchBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
 			
-			vehLookupViewController.getAddDataToNotesBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getAddDataToNotesBtn().setOnMouseEntered(e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getAddDataToNotesBtn().setOnMouseExited(e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getAddDataToNotesBtn().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getAddDataToNotesBtn().setOnMouseEntered(
+					e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getAddDataToNotesBtn().setOnMouseExited(
+					e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			
-			vehLookupViewController.getBtninfo1().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getBtninfo1().setOnMouseEntered(e -> vehLookupViewController.getBtninfo1().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getBtninfo1().setOnMouseExited(e -> vehLookupViewController.getBtninfo1().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getBtninfo1().setOnMouseEntered(e -> vehLookupViewController.getBtninfo1().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo1().setOnMouseExited(e -> vehLookupViewController.getBtninfo1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			
-			vehLookupViewController.getBtninfo2().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getBtninfo2().setOnMouseEntered(e -> vehLookupViewController.getBtninfo2().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getBtninfo2().setOnMouseExited(e -> vehLookupViewController.getBtninfo2().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getBtninfo2().setOnMouseEntered(e -> vehLookupViewController.getBtninfo2().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo2().setOnMouseExited(e -> vehLookupViewController.getBtninfo2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			
-			vehLookupViewController.getBtninfo3().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getBtninfo3().setOnMouseEntered(e -> vehLookupViewController.getBtninfo3().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getBtninfo3().setOnMouseExited(e -> vehLookupViewController.getBtninfo3().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo3().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			vehLookupViewController.getBtninfo3().setOnMouseEntered(e -> vehLookupViewController.getBtninfo3().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			vehLookupViewController.getBtninfo3().setOnMouseExited(e -> vehLookupViewController.getBtninfo3().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (pedLookupViewController != null) {
 			pedLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
@@ -534,35 +563,57 @@ public class settingsController {
 			pedLookupViewController.getInfo5().setStyle("-fx-background-color: " + secclr + ";");
 			
 			pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
+			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(
+					e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white;"));
+			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(
+					e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
 			
 			pedLookupViewController.getPedSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			pedLookupViewController.getPedSearchBtn().setOnMouseEntered(e -> pedLookupViewController.getPedSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			pedLookupViewController.getPedSearchBtn().setOnMouseExited(e -> pedLookupViewController.getPedSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
+			pedLookupViewController.getPedSearchBtn().setOnMouseEntered(
+					e -> pedLookupViewController.getPedSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
+			pedLookupViewController.getPedSearchBtn().setOnMouseExited(
+					e -> pedLookupViewController.getPedSearchBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white;"));
 			
-			pedLookupViewController.getAddDataToNotesBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getAddDataToNotesBtn().setOnMouseEntered(e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getAddDataToNotesBtn().setOnMouseExited(e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getAddDataToNotesBtn().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getAddDataToNotesBtn().setOnMouseEntered(
+					e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(
+							hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getAddDataToNotesBtn().setOnMouseExited(
+					e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(
+							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			
-			pedLookupViewController.getInfobtn1().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getInfobtn1().setOnMouseEntered(e -> pedLookupViewController.getInfobtn1().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getInfobtn1().setOnMouseExited(e -> pedLookupViewController.getInfobtn1().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getInfobtn1().setOnMouseEntered(e -> pedLookupViewController.getInfobtn1().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn1().setOnMouseExited(e -> pedLookupViewController.getInfobtn1().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			
-			pedLookupViewController.getInfobtn2().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getInfobtn2().setOnMouseEntered(e -> pedLookupViewController.getInfobtn2().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getInfobtn2().setOnMouseExited(e -> pedLookupViewController.getInfobtn2().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getInfobtn2().setOnMouseEntered(e -> pedLookupViewController.getInfobtn2().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn2().setOnMouseExited(e -> pedLookupViewController.getInfobtn2().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 			
-			pedLookupViewController.getInfobtn3().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getInfobtn3().setOnMouseEntered(e -> pedLookupViewController.getInfobtn3().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getInfobtn3().setOnMouseExited(e -> pedLookupViewController.getInfobtn3().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn3().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			pedLookupViewController.getInfobtn3().setOnMouseEntered(e -> pedLookupViewController.getInfobtn3().setStyle(
+					hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			pedLookupViewController.getInfobtn3().setOnMouseExited(e -> pedLookupViewController.getInfobtn3().setStyle(
+					nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (newReportVewController != null) {
 			newReportVewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (courtViewController != null) {
 			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasePrim1().setStyle("-fx-text-fill: " + mainclr + "; -fx-border-color: black; -fx-border-width: 0 0 1.5 0;");
+			courtViewController.getCasePrim1().setStyle(
+					"-fx-text-fill: " + mainclr + "; -fx-border-color: black; -fx-border-width: 0 0 1.5 0;");
 			courtViewController.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
 			courtViewController.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
 			courtViewController.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
@@ -594,18 +645,23 @@ public class settingsController {
 			CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
 			CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
 			
-			calloutViewController.getCalActiveList().setStyle(updateStyleProperty(calloutViewController.getCalActiveList(), "-fx-border-color", accclr));
-			calloutViewController.getCalHistoryList().setStyle(updateStyleProperty(calloutViewController.getCalHistoryList(), "-fx-border-color", accclr));
+			calloutViewController.getCalActiveList().setStyle(
+					updateStyleProperty(calloutViewController.getCalActiveList(), "-fx-border-color", accclr));
+			calloutViewController.getCalHistoryList().setStyle(
+					updateStyleProperty(calloutViewController.getCalHistoryList(), "-fx-border-color", accclr));
 			
-			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-border-color", mainclr));
-			calloutViewController.getCalfill().setStyle(updateStyleProperty(calloutViewController.getCalfill(), "-fx-border-color", mainclr));
+			calloutViewController.getActivecalfill().setStyle(
+					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-border-color", mainclr));
+			calloutViewController.getCalfill().setStyle(
+					updateStyleProperty(calloutViewController.getCalfill(), "-fx-border-color", mainclr));
 			
 			calloutViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 			
 		}
 		if (mainDesktopControllerObj != null) {
 			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
-			mainDesktopControllerObj.getTopBar().setStyle("-fx-background-color: " + ConfigReader.configRead("desktopSettings", "topBarColor") + ";");
+			mainDesktopControllerObj.getTopBar().setStyle(
+					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "topBarColor") + ";");
 			String topBarText = ConfigReader.configRead("desktopSettings", "topBarTextColor");
 			mainDesktopControllerObj.getOfficerInfoName().setStyle("-fx-text-fill: " + topBarText + ";");
 			mainDesktopControllerObj.getVersionLabel().setStyle("-fx-text-fill: " + topBarText + ";");
@@ -614,20 +670,26 @@ public class settingsController {
 			String taskBarText = ConfigReader.configRead("desktopSettings", "taskBarTextColor");
 			mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
 			mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
-			mainDesktopControllerObj.getShutdownBtn().setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
-			mainDesktopControllerObj.getButton1().setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
+			mainDesktopControllerObj.getShutdownBtn().setStyle(
+					"-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
+			mainDesktopControllerObj.getButton1().setStyle(
+					"-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
 			
-			mainDesktopControllerObj.getBottomBar().setStyle("-fx-background-color: " + ConfigReader.configRead("desktopSettings", "taskBarColor") + ";");
+			mainDesktopControllerObj.getBottomBar().setStyle(
+					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "taskBarColor") + ";");
 			for (DesktopApp desktopApp : DesktopApps) {
-				desktopApp.getAppLabel().setTextFill(Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
+				desktopApp.getAppLabel().setTextFill(
+						Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			}
 			if (mainDesktopControllerObj.getLocationDataLabel() != null) {
 				mainDesktopControllerObj.getLocationDataLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			}
 			if (isConnected) {
-				mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
+				mainDesktopControllerObj.getServerStatusLabel().setStyle(
+						"-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 			} else {
-				mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
+				mainDesktopControllerObj.getServerStatusLabel().setStyle(
+						"-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 			}
 		}
 		
@@ -662,12 +724,14 @@ public class settingsController {
 		messageLabel.setWrapText(true);
 		messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
 		
-		ImageView icon = new ImageView(new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+		ImageView icon = new ImageView(
+				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 		icon.setImage(changeImageColor(icon.getImage(), textClr));
 		icon.setFitWidth(24);
 		icon.setFitHeight(24);
 		
-		ImageView closeIcon = new ImageView(new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+		ImageView closeIcon = new ImageView(
+				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 		closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
 		closeIcon.setFitWidth(12);
 		closeIcon.setFitHeight(13);
@@ -703,6 +767,7 @@ public class settingsController {
 			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (pedLookupViewController != null) {
@@ -743,8 +808,10 @@ public class settingsController {
 			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (calloutViewController != null) {
-			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCalfill().setStyle(updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getActivecalfill().setStyle(
+					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCalfill().setStyle(
+					updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UIDarkColor));
 			
 		}
 		if (clientController != null) {
@@ -754,23 +821,46 @@ public class settingsController {
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (userManagerController != null) {
-			userManagerController.getLbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getAgencyDropDown().setStyle(updateStyleProperty(userManagerController.getAgencyDropDown(), "-fx-text-fill", UIDarkColor));
-			userManagerController.getDivisionDropDown().setStyle(updateStyleProperty(userManagerController.getDivisionDropDown(), "-fx-text-fill", UIDarkColor));
-			userManagerController.getRankDropdown().setStyle(updateStyleProperty(userManagerController.getRankDropdown(), "-fx-text-fill", UIDarkColor));
+			userManagerController.getAgency().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getRank().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getCallsign().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getDivision().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getNumber().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getName().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getUserProfileLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getUserProfileSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getEditProfileLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getEditProfileSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			userManagerController.getSavebtn().setStyle(
+					"-fx-text-fill: " + UIDarkColor + "; -fx-background-color:  rgb(0,0,0,0.1); -fx-padding: 3 20;");
+			userManagerController.getDelbtn().setStyle(
+					"-fx-text-fill: " + UIDarkColor + "; -fx-background-color:  rgb(0,0,0,0.1); -fx-padding: 3 20;");
+			
 		}
 		if (newReportVewController != null) {
-			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getCallout().setStyle(updateStyleProperty(newReportVewController.getCallout(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getCitation().setStyle(updateStyleProperty(newReportVewController.getCitation(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getDeath().setStyle(updateStyleProperty(newReportVewController.getDeath(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getImpound().setStyle(updateStyleProperty(newReportVewController.getImpound(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getIncident().setStyle(updateStyleProperty(newReportVewController.getIncident(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getPatrol().setStyle(updateStyleProperty(newReportVewController.getPatrol(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getSearch().setStyle(updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getTrafficstop().setStyle(updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UIDarkColor));
-			newReportVewController.getSelectReportTypeLabel().setStyle(updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getAccident().setStyle(
+					updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getArrest().setStyle(
+					updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getCallout().setStyle(
+					updateStyleProperty(newReportVewController.getCallout(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getCitation().setStyle(
+					updateStyleProperty(newReportVewController.getCitation(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getDeath().setStyle(
+					updateStyleProperty(newReportVewController.getDeath(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getImpound().setStyle(
+					updateStyleProperty(newReportVewController.getImpound(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getIncident().setStyle(
+					updateStyleProperty(newReportVewController.getIncident(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getPatrol().setStyle(
+					updateStyleProperty(newReportVewController.getPatrol(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getSearch().setStyle(
+					updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getTrafficstop().setStyle(
+					updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UIDarkColor));
+			newReportVewController.getSelectReportTypeLabel().setStyle(
+					updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill",
+					                    UIDarkColor));
 		}
 	}
 	
@@ -786,6 +876,7 @@ public class settingsController {
 			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
 			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
 			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt11().setStyle("-fx-text-fill: " + UILightColor + ";");
 			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (pedLookupViewController != null) {
@@ -826,8 +917,10 @@ public class settingsController {
 			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (calloutViewController != null) {
-			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCalfill().setStyle(updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UILightColor));
+			calloutViewController.getActivecalfill().setStyle(
+					updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCalfill().setStyle(
+					updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UILightColor));
 			
 		}
 		if (clientController != null) {
@@ -837,23 +930,45 @@ public class settingsController {
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (userManagerController != null) {
-			userManagerController.getLbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getAgencyDropDown().setStyle(updateStyleProperty(userManagerController.getAgencyDropDown(), "-fx-text-fill", UILightColor));
-			userManagerController.getDivisionDropDown().setStyle(updateStyleProperty(userManagerController.getDivisionDropDown(), "-fx-text-fill", UILightColor));
-			userManagerController.getRankDropdown().setStyle(updateStyleProperty(userManagerController.getRankDropdown(), "-fx-text-fill", UILightColor));
+			userManagerController.getAgency().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getRank().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getCallsign().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getDivision().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getNumber().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getName().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getUserProfileLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getUserProfileSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getEditProfileLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getEditProfileSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			userManagerController.getSavebtn().setStyle(
+					"-fx-text-fill: " + UILightColor + "; -fx-background-color:  rgb(255,255,255,0.1); -fx-padding: 3 20;");
+			userManagerController.getDelbtn().setStyle(
+					"-fx-text-fill: " + UILightColor + "; -fx-background-color:  rgb(255,255,255,0.1); -fx-padding: 3 20;");
 		}
 		if (newReportVewController != null) {
-			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UILightColor));
-			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UILightColor));
-			newReportVewController.getCallout().setStyle(updateStyleProperty(newReportVewController.getCallout(), "-fx-text-fill", UILightColor));
-			newReportVewController.getCitation().setStyle(updateStyleProperty(newReportVewController.getCitation(), "-fx-text-fill", UILightColor));
-			newReportVewController.getDeath().setStyle(updateStyleProperty(newReportVewController.getDeath(), "-fx-text-fill", UILightColor));
-			newReportVewController.getImpound().setStyle(updateStyleProperty(newReportVewController.getImpound(), "-fx-text-fill", UILightColor));
-			newReportVewController.getIncident().setStyle(updateStyleProperty(newReportVewController.getIncident(), "-fx-text-fill", UILightColor));
-			newReportVewController.getPatrol().setStyle(updateStyleProperty(newReportVewController.getPatrol(), "-fx-text-fill", UILightColor));
-			newReportVewController.getSearch().setStyle(updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UILightColor));
-			newReportVewController.getTrafficstop().setStyle(updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UILightColor));
-			newReportVewController.getSelectReportTypeLabel().setStyle(updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill", UILightColor));
+			newReportVewController.getAccident().setStyle(
+					updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UILightColor));
+			newReportVewController.getArrest().setStyle(
+					updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UILightColor));
+			newReportVewController.getCallout().setStyle(
+					updateStyleProperty(newReportVewController.getCallout(), "-fx-text-fill", UILightColor));
+			newReportVewController.getCitation().setStyle(
+					updateStyleProperty(newReportVewController.getCitation(), "-fx-text-fill", UILightColor));
+			newReportVewController.getDeath().setStyle(
+					updateStyleProperty(newReportVewController.getDeath(), "-fx-text-fill", UILightColor));
+			newReportVewController.getImpound().setStyle(
+					updateStyleProperty(newReportVewController.getImpound(), "-fx-text-fill", UILightColor));
+			newReportVewController.getIncident().setStyle(
+					updateStyleProperty(newReportVewController.getIncident(), "-fx-text-fill", UILightColor));
+			newReportVewController.getPatrol().setStyle(
+					updateStyleProperty(newReportVewController.getPatrol(), "-fx-text-fill", UILightColor));
+			newReportVewController.getSearch().setStyle(
+					updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UILightColor));
+			newReportVewController.getTrafficstop().setStyle(
+					updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UILightColor));
+			newReportVewController.getSelectReportTypeLabel().setStyle(
+					updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill",
+					                    UILightColor));
 		}
 	}
 	
@@ -952,10 +1067,12 @@ public class settingsController {
 		
 		previewNotificationBtn.setOnAction(actionEvent -> {
 			if (selectedNotification.get().equals("Information")) {
-				showNotificationInfo("Sample Info Notification", "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
+				showNotificationInfo("Sample Info Notification",
+				                     "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 			}
 			if (selectedNotification.get().equals("Warning")) {
-				NotificationManager.showNotificationWarning("Sample Warning Notification", "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
+				NotificationManager.showNotificationWarning("Sample Warning Notification",
+				                                            "Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 			}
 		});
 		
@@ -973,101 +1090,168 @@ public class settingsController {
 	private void addLocale() {
 		//Main
 		mainHeader.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
-		mainSettingsSubheader.setText(localization.getLocalizedMessage("Settings.mainSettingsSubheader", "MAIN SETTINGS"));
-		colorSettingsSubheader.setText(localization.getLocalizedMessage("Settings.colorSettingsSubheader", "COLOR SETTINGS"));
-		MiscSettingsSubheader.setText(localization.getLocalizedMessage("Settings.MiscSettingsSubheader", "MISC / SERVER SETTINGS"));
-		developerSubheader.setText(localization.getLocalizedMessage("Settings.developerSubheader", "DEVELOPER / RESET DATA"));
+		mainSettingsSubheader.setText(
+				localization.getLocalizedMessage("Settings.mainSettingsSubheader", "MAIN SETTINGS"));
+		colorSettingsSubheader.setText(
+				localization.getLocalizedMessage("Settings.colorSettingsSubheader", "COLOR SETTINGS"));
+		MiscSettingsSubheader.setText(
+				localization.getLocalizedMessage("Settings.MiscSettingsSubheader", "MISC / SERVER SETTINGS"));
+		developerSubheader.setText(
+				localization.getLocalizedMessage("Settings.developerSubheader", "DEVELOPER / RESET DATA"));
 		
 		//Window
 		winSettingsHeader.setText(localization.getLocalizedMessage("Settings.WindowSettingsHeader", "WINDOW SETTINGS"));
 		appDisLabel.setText(localization.getLocalizedMessage("Settings.AppDisLabel", "Application Display Setting"));
-		appDisLabelTT.setText(localization.getLocalizedMessage("Settings.AppDisLabelTT", "Change application window startup size"));
+		appDisLabelTT.setText(
+				localization.getLocalizedMessage("Settings.AppDisLabelTT", "Change application window startup size"));
 		aotLabel.setText(localization.getLocalizedMessage("Settings.AOTLabel", "Application Always On Top"));
-		aotLabelTT.setText(localization.getLocalizedMessage("Settings.AOTLabelTT", "Keeps application above other windows (If set to windowed fullscreen)"));
+		aotLabelTT.setText(localization.getLocalizedMessage("Settings.AOTLabelTT",
+		                                                    "Keeps application above other windows (If set to windowed fullscreen)"));
 		IDPopupsLabel.setText(localization.getLocalizedMessage("Settings.IDPopupsLabel", "Enable ID Popups"));
-		IDPopupsTT.setText(localization.getLocalizedMessage("Settings.IDPopupsTT", "Toggle whether IDs will pop up when received"));
-		IDDisplayDurLabel.setText(localization.getLocalizedMessage("Settings.IDDisplayDurLabel", "ID Display Duration"));
-		IDDisplayDurTT.setText(localization.getLocalizedMessage("Settings.IDDisplayDurTT", "Duration ID window will be displayed"));
-		enableCalloutLabel.setText(localization.getLocalizedMessage("Settings.EnableCalloutLabel", "Enable Callout Popups"));
-		enableCalloutTT.setText(localization.getLocalizedMessage("Settings.EnableCalloutTT", "Toggle whether callouts will pop up when received"));
-		CalDisplayDurLabel.setText(localization.getLocalizedMessage("Settings.CalDisplayDurLabel", "Callout Display Duration"));
-		CalDisplayDurTT.setText(localization.getLocalizedMessage("Settings.CalDisplayDurTT", "Duration callout window will be displayed"));
-		trafficStopPopupsLabel.setText(localization.getLocalizedMessage("Settings.TrafficStopPopupsLabel", "Enable Traffic Stop Popups"));
-		trafficStopPopupsTT.setText(localization.getLocalizedMessage("Settings.TrafficStopPopupsTT", "Toggle whether traffic stop info window will come up when a traffic stop is initiated"));
-		trafficStopDurLabel.setText(localization.getLocalizedMessage("Settings.TrafficStopDurLabel", "Traffic Stop Display Duration"));
-		trafficStopDurTT.setText(localization.getLocalizedMessage("Settings.TrafficStopDurTT", "Duration traffic stop window will be shown"));
+		IDPopupsTT.setText(localization.getLocalizedMessage("Settings.IDPopupsTT",
+		                                                    "Toggle whether IDs will pop up when received"));
+		IDDisplayDurLabel.setText(
+				localization.getLocalizedMessage("Settings.IDDisplayDurLabel", "ID Display Duration"));
+		IDDisplayDurTT.setText(
+				localization.getLocalizedMessage("Settings.IDDisplayDurTT", "Duration ID window will be displayed"));
+		enableCalloutLabel.setText(
+				localization.getLocalizedMessage("Settings.EnableCalloutLabel", "Enable Callout Popups"));
+		enableCalloutTT.setText(localization.getLocalizedMessage("Settings.EnableCalloutTT",
+		                                                         "Toggle whether callouts will pop up when received"));
+		CalDisplayDurLabel.setText(
+				localization.getLocalizedMessage("Settings.CalDisplayDurLabel", "Callout Display Duration"));
+		CalDisplayDurTT.setText(localization.getLocalizedMessage("Settings.CalDisplayDurTT",
+		                                                         "Duration callout window will be displayed"));
+		trafficStopPopupsLabel.setText(
+				localization.getLocalizedMessage("Settings.TrafficStopPopupsLabel", "Enable Traffic Stop Popups"));
+		trafficStopPopupsTT.setText(localization.getLocalizedMessage("Settings.TrafficStopPopupsTT",
+		                                                             "Toggle whether traffic stop info window will come up when a traffic stop is initiated"));
+		trafficStopDurLabel.setText(
+				localization.getLocalizedMessage("Settings.TrafficStopDurLabel", "Traffic Stop Display Duration"));
+		trafficStopDurTT.setText(localization.getLocalizedMessage("Settings.TrafficStopDurTT",
+		                                                          "Duration traffic stop window will be shown"));
 		
 		//Notification
-		notiSettingsHeader.setText(localization.getLocalizedMessage("Settings.NotiSettingsHeader", "NOTIFICATION SETTINGS"));
+		notiSettingsHeader.setText(
+				localization.getLocalizedMessage("Settings.NotiSettingsHeader", "NOTIFICATION SETTINGS"));
 		recNotiLabel.setText(localization.getLocalizedMessage("Settings.RecNotiLabel", "Receive Notifications"));
-		recNotiTT.setText(localization.getLocalizedMessage("Settings.RecNotiTT", "Toggle whether ALL notifications will be enabled"));
+		recNotiTT.setText(localization.getLocalizedMessage("Settings.RecNotiTT",
+		                                                   "Toggle whether ALL notifications will be enabled"));
 		fadeOutTimeLabel.setText(localization.getLocalizedMessage("Settings.FadeOutTimeLabel", "Fade Out Time"));
-		fadeOutTimeTT.setText(localization.getLocalizedMessage("Settings.FadeOutTimeTT", "Time it takes for notifications to fade away (Sec)"));
+		fadeOutTimeTT.setText(localization.getLocalizedMessage("Settings.FadeOutTimeTT",
+		                                                       "Time it takes for notifications to fade away (Sec)"));
 		displayDurLabel.setText(localization.getLocalizedMessage("Settings.DisplayDurLabel", "Display Duration"));
-		displayDurLabelTT.setText(localization.getLocalizedMessage("Settings.DisplayDurLabelTT", "Time notification is displayed before fading (Sec)"));
+		displayDurLabelTT.setText(localization.getLocalizedMessage("Settings.DisplayDurLabelTT",
+		                                                           "Time notification is displayed before fading (Sec)"));
 		selNotiLabel.setText(localization.getLocalizedMessage("Settings.SelNotiLabel", "Selected Notification"));
 		selNotiTT.setText(localization.getLocalizedMessage("Settings.SelNotiTT", "Notification to modify below"));
 		notiPosLabel.setText(localization.getLocalizedMessage("Settings.NotiPosLabel", "Position"));
 		notiPosTT.setText(localization.getLocalizedMessage("Settings.NotiPosTT", "Location of notifications"));
 		notiPrimColorLabel.setText(localization.getLocalizedMessage("Settings.NotiPrimColorLabel", "Primary Color"));
-		notiPrimColorTT.setText(localization.getLocalizedMessage("Settings.NotiPrimColorTT", "Main color of the notification"));
+		notiPrimColorTT.setText(
+				localization.getLocalizedMessage("Settings.NotiPrimColorTT", "Main color of the notification"));
 		notiTextColorLabel.setText(localization.getLocalizedMessage("Settings.NotiTextColorLabel", "Text Color"));
-		notiTextColorTT.setText(localization.getLocalizedMessage("Settings.NotiTextColorTT", "Color of the text on the notification"));
+		notiTextColorTT.setText(
+				localization.getLocalizedMessage("Settings.NotiTextColorTT", "Color of the text on the notification"));
 		notiPreviewLabel.setText(localization.getLocalizedMessage("Settings.NotiPreviewLabel", "Preview:"));
-		previewNotificationBtn.setText(localization.getLocalizedMessage("Settings.PreviewNotificationBtn", "Preview Notification"));
+		previewNotificationBtn.setText(
+				localization.getLocalizedMessage("Settings.PreviewNotificationBtn", "Preview Notification"));
 		resetNotiDefaultsBtn.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
 		saveDisplayDurBtn.setText(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		saveFadeDurBtn.setText(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		
 		//Desktop
-		desktopSetingsHeader.setText(localization.getLocalizedMessage("Settings.DesktopSettingsHeader", "DESKTOP SETTINGS"));
-		desktopUseSolidClrLabel.setText(localization.getLocalizedMessage("Settings.DesktopUseSolidClrLabel", "Use Solid Color"));
-		desktopUseSolidClrTT.setText(localization.getLocalizedMessage("Settings.DesktopUseSolidClrTT", "Desktop background will be set to a solid color"));
-		desktopBackgroundClrLabel.setText(localization.getLocalizedMessage("Settings.DesktopBackgroundClrLabel", "Desktop Background Color"));
-		desktopBackgroundClrTT.setText(localization.getLocalizedMessage("Settings.DesktopBackgroundClrTT", "Set the color of the desktop background (If solid color enabled)"));
-		useDesktopBackgroundImageLabel.setText(localization.getLocalizedMessage("Settings.UseDesktopBackgroundImageLabel", "Use Desktop Background"));
-		useDesktopBackgroundImageTT.setText(localization.getLocalizedMessage("Settings.UseDesktopBackgroundImageTT", "Desktop background will be set to a specified image"));
-		desktopImageChooserLabel.setText(localization.getLocalizedMessage("Settings.DesktopImageChooserLabel", "Desktop Image Chooser"));
-		desktopImageChooserTT.setText(localization.getLocalizedMessage("Settings.DesktopImageChooserTT", "Choose the image to use as the desktop background (Matching monitor size will work best)"));
-		chooseImageFileBtn.setText(localization.getLocalizedMessage("Settings.ChooseImageFileBtn", "Choose Image File"));
-		desktopTopBarClrLabel.setText(localization.getLocalizedMessage("Settings.DesktopTopBarClrLabel", "Top Bar Color"));
-		desktopTopBarClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarClrTT", "Set the color of the top information bar"));
-		desktopTopBarTextClrLabel.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrLabel", "Top Bar Text Color"));
-		desktopTopBarTextClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrTT", "Set the color of the text on the top bar"));
+		desktopSetingsHeader.setText(
+				localization.getLocalizedMessage("Settings.DesktopSettingsHeader", "DESKTOP SETTINGS"));
+		desktopUseSolidClrLabel.setText(
+				localization.getLocalizedMessage("Settings.DesktopUseSolidClrLabel", "Use Solid Color"));
+		desktopUseSolidClrTT.setText(localization.getLocalizedMessage("Settings.DesktopUseSolidClrTT",
+		                                                              "Desktop background will be set to a solid color"));
+		desktopBackgroundClrLabel.setText(
+				localization.getLocalizedMessage("Settings.DesktopBackgroundClrLabel", "Desktop Background Color"));
+		desktopBackgroundClrTT.setText(localization.getLocalizedMessage("Settings.DesktopBackgroundClrTT",
+		                                                                "Set the color of the desktop background (If solid color enabled)"));
+		useDesktopBackgroundImageLabel.setText(
+				localization.getLocalizedMessage("Settings.UseDesktopBackgroundImageLabel", "Use Desktop Background"));
+		useDesktopBackgroundImageTT.setText(localization.getLocalizedMessage("Settings.UseDesktopBackgroundImageTT",
+		                                                                     "Desktop background will be set to a specified image"));
+		desktopImageChooserLabel.setText(
+				localization.getLocalizedMessage("Settings.DesktopImageChooserLabel", "Desktop Image Chooser"));
+		desktopImageChooserTT.setText(localization.getLocalizedMessage("Settings.DesktopImageChooserTT",
+		                                                               "Choose the image to use as the desktop background (Matching monitor size will work best)"));
+		chooseImageFileBtn.setText(
+				localization.getLocalizedMessage("Settings.ChooseImageFileBtn", "Choose Image File"));
+		desktopTopBarClrLabel.setText(
+				localization.getLocalizedMessage("Settings.DesktopTopBarClrLabel", "Top Bar Color"));
+		desktopTopBarClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarClrTT",
+		                                                            "Set the color of the top information bar"));
+		desktopTopBarTextClrLabel.setText(
+				localization.getLocalizedMessage("Settings.DesktopTopBarTextClrLabel", "Top Bar Text Color"));
+		desktopTopBarTextClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrTT",
+		                                                                "Set the color of the text on the top bar"));
 		
-		desktopAppTextClrLabel.setText(localization.getLocalizedMessage("Settings.desktopAppTextClrLabel", "App Text Color"));
-		desktopAppTextClrTT.setText(localization.getLocalizedMessage("Settings.desktopAppTextClrTT", "Set the color of the app name text"));
+		desktopAppTextClrLabel.setText(
+				localization.getLocalizedMessage("Settings.desktopAppTextClrLabel", "App Text Color"));
+		desktopAppTextClrTT.setText(
+				localization.getLocalizedMessage("Settings.desktopAppTextClrTT", "Set the color of the app name text"));
 		
-		desktopTaskBarClrLabel.setText(localization.getLocalizedMessage("Settings.desktopTaskBarClrLabel", "Taskbar Color"));
-		desktopTaskBarClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarClrTT", "Set the color of the bottom task bar"));
+		desktopTaskBarClrLabel.setText(
+				localization.getLocalizedMessage("Settings.desktopTaskBarClrLabel", "Taskbar Color"));
+		desktopTaskBarClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarClrTT",
+		                                                             "Set the color of the bottom task bar"));
 		
-		desktopTaskBarTextClrLabel.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrLabel", "Taskbar Text Color"));
-		desktopTaskBarTextClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrTT", "Set the color of the text on the bottom taskbar"));
+		desktopTaskBarTextClrLabel.setText(
+				localization.getLocalizedMessage("Settings.desktopTaskBarTextClrLabel", "Taskbar Text Color"));
+		desktopTaskBarTextClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrTT",
+		                                                                 "Set the color of the text on the bottom taskbar"));
+		
+		inputLockKeybindLabel.setText(
+				localization.getLocalizedMessage("Settings.inputLockKeybindLabel", "Input Lock Keybind"));
+		inputLockKeybindTT.setText(localization.getLocalizedMessage("Settings.inputLockKeybindTT",
+		                                                            "Keybind to use for activating desktop input lock"));
 		
 		//Report
-		reportWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.ReportWindowCustomizationHeader", "REPORT WINDOW CUSTOMIZATION"));
-		reportDesignPresetLabel.setText(localization.getLocalizedMessage("Settings.ReportDesignPresetLabel", "Design Preset"));
-		reportDesignPresetTT.setText(localization.getLocalizedMessage("Settings.ReportDesignPresetTT", "Preset designs for reports (Replaces what you have)"));
-		reportTextColorLabel.setText(localization.getLocalizedMessage("Settings.ReportTextColorLabel", "Report Text Color"));
-		reportTextColorTT.setText(localization.getLocalizedMessage("Settings.ReportTextColorTT", "Set the text color of textfields in the report window"));
+		reportWindowCustomizationHeader.setText(
+				localization.getLocalizedMessage("Settings.ReportWindowCustomizationHeader",
+				                                 "REPORT WINDOW CUSTOMIZATION"));
+		reportDesignPresetLabel.setText(
+				localization.getLocalizedMessage("Settings.ReportDesignPresetLabel", "Design Preset"));
+		reportDesignPresetTT.setText(localization.getLocalizedMessage("Settings.ReportDesignPresetTT",
+		                                                              "Preset designs for reports (Replaces what you have)"));
+		reportTextColorLabel.setText(
+				localization.getLocalizedMessage("Settings.ReportTextColorLabel", "Report Text Color"));
+		reportTextColorTT.setText(localization.getLocalizedMessage("Settings.ReportTextColorTT",
+		                                                           "Set the text color of textfields in the report window"));
 		headingLabelReport.setText(localization.getLocalizedMessage("Settings.HeadingLabelReport", "Heading Color"));
-		headingLabelReportTT.setText(localization.getLocalizedMessage("Settings.HeadingLabelReportTT", "Set the color of the heading / subheading text"));
-		backgroundLabelReport.setText(localization.getLocalizedMessage("Settings.BackgroundLabelReport", "Background Color"));
-		backgroundLabelReportTT.setText(localization.getLocalizedMessage("Settings.BackgroundLabelReportTT", "Set the color of the report window background"));
+		headingLabelReportTT.setText(localization.getLocalizedMessage("Settings.HeadingLabelReportTT",
+		                                                              "Set the color of the heading / subheading text"));
+		backgroundLabelReport.setText(
+				localization.getLocalizedMessage("Settings.BackgroundLabelReport", "Background Color"));
+		backgroundLabelReportTT.setText(localization.getLocalizedMessage("Settings.BackgroundLabelReportTT",
+		                                                                 "Set the color of the report window background"));
 		secLabelReport.setText(localization.getLocalizedMessage("Settings.SecLabelReport", "Secondary Color"));
-		secLabelReportTT.setText(localization.getLocalizedMessage("Settings.SecLabelReportTT", "Set the color of the fields in the report window"));
+		secLabelReportTT.setText(localization.getLocalizedMessage("Settings.SecLabelReportTT",
+		                                                          "Set the color of the fields in the report window"));
 		accentLabelReport.setText(localization.getLocalizedMessage("Settings.AccentLabelReport", "Accent Color"));
-		accentLabelReportTT.setText(localization.getLocalizedMessage("Settings.AccentLabelReportTT", "Set the color when selecting a button / field"));
-		reportResetDefaultsLabel.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
-		reportResetDefaultsTT.setText(localization.getLocalizedMessage("Settings.ReportResetDefaultsTT", "Restore the default report color settings"));
-		resetReportDefaultsBtn.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
+		accentLabelReportTT.setText(localization.getLocalizedMessage("Settings.AccentLabelReportTT",
+		                                                             "Set the color when selecting a button / field"));
+		reportResetDefaultsLabel.setText(
+				localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
+		reportResetDefaultsTT.setText(localization.getLocalizedMessage("Settings.ReportResetDefaultsTT",
+		                                                               "Restore the default report color settings"));
+		resetReportDefaultsBtn.setText(
+				localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
 		
 		//Application
-		appWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.AppWindowCustomizationHeader", "APPLICATION WINDOW CUSTOMIZATION"));
+		appWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.AppWindowCustomizationHeader",
+		                                                                      "APPLICATION WINDOW CUSTOMIZATION"));
 		appPresetLabel.setText(localization.getLocalizedMessage("Settings.AppPresetLabel", "Design Preset"));
-		appPresetTT.setText(localization.getLocalizedMessage("Settings.AppPresetTT", "Preset designs for application (Replaces what you have)"));
-		appTextColorLabel.setText(localization.getLocalizedMessage("Settings.AppTextColorLabel", "Application Text Color"));
-		appTextColorTT.setText(localization.getLocalizedMessage("Settings.AppTextColorTT", "Set the text color of textfields in the application windows"));
+		appPresetTT.setText(localization.getLocalizedMessage("Settings.AppPresetTT",
+		                                                     "Preset designs for application (Replaces what you have)"));
+		appTextColorLabel.setText(
+				localization.getLocalizedMessage("Settings.AppTextColorLabel", "Application Text Color"));
+		appTextColorTT.setText(localization.getLocalizedMessage("Settings.AppTextColorTT",
+		                                                        "Set the text color of textfields in the application windows"));
 		primLabel.setText(localization.getLocalizedMessage("Settings.PrimLabel", "Primary Color"));
 		primTT.setText(localization.getLocalizedMessage("Settings.PrimTT", "Set the primary color of the application"));
 		secLabel.setText(localization.getLocalizedMessage("Settings.SecLabel", "Secondary Color"));
@@ -1075,62 +1259,93 @@ public class settingsController {
 		accLabel.setText(localization.getLocalizedMessage("Settings.AccLabel", "Accent Color"));
 		accTT.setText(localization.getLocalizedMessage("Settings.AccTT", "Set the accent color of the application"));
 		bkgLabel.setText(localization.getLocalizedMessage("Settings.BkgLabel", "Background Color"));
-		bkgTT.setText(localization.getLocalizedMessage("Settings.BkgTT", "Set the background color of the application"));
-		appResetDefaultsLabel.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
-		appResetDefaultsTT.setText(localization.getLocalizedMessage("Settings.AppResetDefaultsTT", "Restore the default application color settings"));
+		bkgTT.setText(
+				localization.getLocalizedMessage("Settings.BkgTT", "Set the background color of the application"));
+		appResetDefaultsLabel.setText(
+				localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
+		appResetDefaultsTT.setText(localization.getLocalizedMessage("Settings.AppResetDefaultsTT",
+		                                                            "Restore the default application color settings"));
 		resetDefaultsBtn.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
 		
 		//Networking
-		networkingSettingsHeader.setText(localization.getLocalizedMessage("Settings.NetworkingSettingsHeader", "SERVER / NETWORKING SETTINGS"));
-		autoConnectServerLabel.setText(localization.getLocalizedMessage("Settings.AutoConnectServerLabel", "Server Autoconnect"));
-		autoConnectServerTT.setText(localization.getLocalizedMessage("Settings.AutoConnectServerTT", "Toggler whether application will try to autoconnect"));
+		networkingSettingsHeader.setText(
+				localization.getLocalizedMessage("Settings.NetworkingSettingsHeader", "SERVER / NETWORKING SETTINGS"));
+		autoConnectServerLabel.setText(
+				localization.getLocalizedMessage("Settings.AutoConnectServerLabel", "Server Autoconnect"));
+		autoConnectServerTT.setText(localization.getLocalizedMessage("Settings.AutoConnectServerTT",
+		                                                             "Toggler whether application will try to autoconnect"));
 		broadcastPortLabel.setText(localization.getLocalizedMessage("Settings.BroadcastPortLabel", "Broadcast Port"));
-		broadcastPortTT.setText(localization.getLocalizedMessage("Settings.BroadcastPortTT", "Default port for the autoconnect broadcast"));
-		socketTimeoutLabel.setText(localization.getLocalizedMessage("Settings.SocketTimeoutLabel", "Server Socket Timeout"));
-		socketTimeoutTT.setText(localization.getLocalizedMessage("Settings.SocketTimeoutTT", "Timeout for server when connection is lost (ms)"));
-		broadcastPortField.setPromptText(localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 8888"));
-		socketTimeoutField.setPromptText(localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 10000"));
+		broadcastPortTT.setText(localization.getLocalizedMessage("Settings.BroadcastPortTT",
+		                                                         "Default port for the autoconnect broadcast"));
+		socketTimeoutLabel.setText(
+				localization.getLocalizedMessage("Settings.SocketTimeoutLabel", "Server Socket Timeout"));
+		socketTimeoutTT.setText(localization.getLocalizedMessage("Settings.SocketTimeoutTT",
+		                                                         "Timeout for server when connection is lost (ms)"));
+		broadcastPortField.setPromptText(
+				localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 8888"));
+		socketTimeoutField.setPromptText(
+				localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 10000"));
 		
 		//Audio
-		audioSettingsHeader.setText(localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO/OPTIONAL SETTINGS"));
+		audioSettingsHeader.setText(
+				localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO/OPTIONAL SETTINGS"));
 		enableSoundsLabel.setText(localization.getLocalizedMessage("Settings.EnableSoundsLabel", "Enable Sounds"));
-		enableSoundsTT.setText(localization.getLocalizedMessage("Settings.EnableSoundsTT", "Toggle whether ALL sounds will be enabled"));
-		lookupWarningSoundLabel.setText(localization.getLocalizedMessage("Settings.LookupWarningSoundLabel", "Lookup Warning Sound"));
-		lookupWarningSoundTT.setText(localization.getLocalizedMessage("Settings.LookupWarningSoundTT", "Sound when suspect has warnings when looked up"));
-		createReportSoundLabel.setText(localization.getLocalizedMessage("Settings.CreateReportSoundLabel", "Create Report Sound"));
-		createReportSoundTT.setText(localization.getLocalizedMessage("Settings.CreateReportSoundTT", "Sound when report is created"));
+		enableSoundsTT.setText(localization.getLocalizedMessage("Settings.EnableSoundsTT",
+		                                                        "Toggle whether ALL sounds will be enabled"));
+		lookupWarningSoundLabel.setText(
+				localization.getLocalizedMessage("Settings.LookupWarningSoundLabel", "Lookup Warning Sound"));
+		lookupWarningSoundTT.setText(localization.getLocalizedMessage("Settings.LookupWarningSoundTT",
+		                                                              "Sound when suspect has warnings when looked up"));
+		createReportSoundLabel.setText(
+				localization.getLocalizedMessage("Settings.CreateReportSoundLabel", "Create Report Sound"));
+		createReportSoundTT.setText(
+				localization.getLocalizedMessage("Settings.CreateReportSoundTT", "Sound when report is created"));
 		calloutSoundLabel.setText(localization.getLocalizedMessage("Settings.CalloutSoundLabel", "Callout Sound"));
-		calloutSoundTT.setText(localization.getLocalizedMessage("Settings.CalloutSoundTT", "Sound when a callout is recieved"));
+		calloutSoundTT.setText(
+				localization.getLocalizedMessage("Settings.CalloutSoundTT", "Sound when a callout is recieved"));
 		delReportLabel.setText(localization.getLocalizedMessage("Settings.DelReportLabel", "Delete Report Sound"));
 		delReportTT.setText(localization.getLocalizedMessage("Settings.DelReportTT", "Sound when report is deleted"));
 		
-		enablePedVehImages.setText(localization.getLocalizedMessage("Settings.enablePedVehImages", "Enable Ped/Veh Images"));
-		enablePedVehImagesTT.setText(localization.getLocalizedMessage("Settings.enablePedVehImagesTT", "Toggle whether ped/veh images will be shown in lookup"));
+		enablePedVehImages.setText(
+				localization.getLocalizedMessage("Settings.enablePedVehImages", "Enable Ped/Veh Images"));
+		enablePedVehImagesTT.setText(localization.getLocalizedMessage("Settings.enablePedVehImagesTT",
+		                                                              "Toggle whether ped/veh images will be shown in lookup"));
 		
-		soundPackNotDetectedLbl.setText(localization.getLocalizedMessage("Settings.soundPackNotDetectedLbl", "Sound Pack Not Detected"));
+		soundPackNotDetectedLbl.setText(
+				localization.getLocalizedMessage("Settings.soundPackNotDetectedLbl", "Sound Pack Not Detected"));
 		installSoundsBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
-		imagesNotDetectedLbl.setText(localization.getLocalizedMessage("Settings.imagesNotDetectedLbl", "Ped/Veh Images Not Detected"));
+		imagesNotDetectedLbl.setText(
+				localization.getLocalizedMessage("Settings.imagesNotDetectedLbl", "Ped/Veh Images Not Detected"));
 		installImagesBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
 		
 		//Developer
-		devSettingsHeader.setText(localization.getLocalizedMessage("Settings.DevSettingsHeader", "DEVELOPER SETTINGS / CLEAR DATA"));
+		devSettingsHeader.setText(
+				localization.getLocalizedMessage("Settings.DevSettingsHeader", "DEVELOPER SETTINGS / CLEAR DATA"));
 		clearLogsLabel.setText(localization.getLocalizedMessage("Settings.ClearLogsLabel", "Clear Logs"));
-		clearLogsTT.setText(localization.getLocalizedMessage("Settings.ClearLogsTT", "Delete all saved logs in log browser"));
+		clearLogsTT.setText(
+				localization.getLocalizedMessage("Settings.ClearLogsTT", "Delete all saved logs in log browser"));
 		clrLogsBtn.setText(localization.getLocalizedMessage("Settings.ClearLogsBtn", "CLEAR LOGS"));
-		clearSaveDataLabel.setText(localization.getLocalizedMessage("Settings.ClearSaveDataLabel", "Clear ALL Save Data"));
-		clearSaveDataTT.setText(localization.getLocalizedMessage("Settings.ClearSaveDataTT", "Delete all save data / start fresh"));
+		clearSaveDataLabel.setText(
+				localization.getLocalizedMessage("Settings.ClearSaveDataLabel", "Clear ALL Save Data"));
+		clearSaveDataTT.setText(
+				localization.getLocalizedMessage("Settings.ClearSaveDataTT", "Delete all save data / start fresh"));
 		clrSaveDataBtn.setText(localization.getLocalizedMessage("Settings.ClearSaveDataBtn", "CLEAR ALL SAVE DATA"));
-		centerWindowsLabel.setText(localization.getLocalizedMessage("Settings.CenterWindowsLabel", "Center All Windows"));
-		centerWindowsTT.setText(localization.getLocalizedMessage("Settings.CenterWindowsTT", "Center all windows on the screen in case of issues"));
+		centerWindowsLabel.setText(
+				localization.getLocalizedMessage("Settings.CenterWindowsLabel", "Center All Windows"));
+		centerWindowsTT.setText(localization.getLocalizedMessage("Settings.CenterWindowsTT",
+		                                                         "Center all windows on the screen in case of issues"));
 		centerWindowsBtn.setText(localization.getLocalizedMessage("Settings.CenterWindowsBtn", "CENTER WINDOWS"));
 		
 		clrLookupDataBtn.setText(localization.getLocalizedMessage("Settings.ClearLookupDataBtn", "CLEAR LOOKUP DATA"));
-		clearLookupDataLabel.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabel", "Clear Old Ped / Veh Data"));
-		clearLookupDataLabelTT.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabelTT", "ONLY delete saved ped / veh history data from previous lookups to free space"));
+		clearLookupDataLabel.setText(
+				localization.getLocalizedMessage("Settings.clearLookupDataLabel", "Clear Old Ped / Veh Data"));
+		clearLookupDataLabelTT.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabelTT",
+		                                                                "ONLY delete saved ped / veh history data from previous lookups to free space"));
 		
 		resetAppPosBtn.setText(localization.getLocalizedMessage("Settings.resetAppPosBtn", "RESET APP POSITIONS"));
 		resetAppPosLabel.setText(localization.getLocalizedMessage("Settings.resetAppPosLabel", "Reset App Positions"));
-		resetAppPosTT.setText(localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
+		resetAppPosTT.setText(
+				localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
 		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
@@ -1328,7 +1543,8 @@ public class settingsController {
 			topBarTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarTextColor")));
 			
 			taskBarClrPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "taskBarColor")));
-			taskBarTextClrPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "taskBarTextColor")));
+			taskBarTextClrPicker.setValue(
+					Color.valueOf(ConfigReader.configRead("desktopSettings", "taskBarTextColor")));
 			
 			appTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			secPicker.setValue(secondary);
@@ -1338,7 +1554,9 @@ public class settingsController {
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
 			
-			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase("#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase("#cccccc")) {
+			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase(
+					"#f2f2f2") || toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase(
+					"#cccccc")) {
 				bkgLabel.setStyle("-fx-text-fill: black;");
 			} else {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
@@ -1350,11 +1568,15 @@ public class settingsController {
 			secPickerReport.setValue(reportSecondary);
 			
 			if (selectedNotification.get().equals("Information")) {
-				notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
-				notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
 			} else {
-				notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
-				notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+				notiTextColorPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+				notiPrimPicker.setValue(
+						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
 			}
 			
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
@@ -1377,6 +1599,7 @@ public class settingsController {
 		});
 		notiSettingsBtn.setOnAction(actionEvent -> {
 			setActive(paneNotification);
+			System.out.println("1");
 		});
 		reportDesignBtn.setOnAction(actionEvent -> {
 			setActive(paneReport);
@@ -1411,12 +1634,6 @@ public class settingsController {
 		paneDesktop.setDisable(true);
 	}
 	
-	private void setActive(AnchorPane pane) {
-		closeWindows();
-		pane.setDisable(false);
-		pane.setVisible(true);
-	}
-	
 	private void setActive(ScrollPane pane) {
 		closeWindows();
 		pane.setDisable(false);
@@ -1428,32 +1645,44 @@ public class settingsController {
 		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
 		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
 		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
+		inputLockKeybindField.setText(ConfigReader.configRead("keybindings", "inputLock"));
 		
-		audioLookupWarningCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
+		audioLookupWarningCheckbox.setSelected(
+				ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
 		
-		audioCalloutCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
+		audioCalloutCheckbox.setSelected(
+				ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
 		
-		audioReportCreate.setSelected(ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
+		audioReportCreate.setSelected(
+				ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
 		
-		audioReportDeleteCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
+		audioReportDeleteCheckbox.setSelected(
+				ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
 		
-		enableCalloutPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
+		enableCalloutPopupsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
 		
 		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
 		
-		enableIDPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
+		enableIDPopupsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
 		
-		enableTrafficStopPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true"));
+		enableTrafficStopPopupsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true"));
 		
-		serverAutoconnectTogglebox.setSelected(ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
+		serverAutoconnectTogglebox.setSelected(
+				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
 		
 		alwaysOnTopCheckbox.setSelected(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
 		
-		solidColorToggle.setSelected(ConfigReader.configRead("desktopSettings", "useSolidColor").equalsIgnoreCase("true"));
+		solidColorToggle.setSelected(
+				ConfigReader.configRead("desktopSettings", "useSolidColor").equalsIgnoreCase("true"));
 		
-		backgroundToggle.setSelected(ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true"));
+		backgroundToggle.setSelected(
+				ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true"));
 		
-		enablePedVehImgsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
+		enablePedVehImgsCheckbox.setSelected(
+				ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 	}
 	
@@ -1569,6 +1798,40 @@ public class settingsController {
 			
 			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
 		});
+		inputLockKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = inputLockKeybindField.getText();
+			
+			String newText = text + character;
+			
+			if (newText.length() > 1) {
+				event.consume();
+				return;
+			}
+			
+			mainDesktopControllerObj.getMainDesktop().setOnKeyPressed(event2 -> {
+				KeyCode keyCode = null;
+				try {
+					keyCode = KeyCode.valueOf(ConfigReader.configRead("keybindings", "inputLock"));
+				} catch (IOException e) {
+					logError("Unable to read keybindings: ", e);
+				}
+				
+				if (event2.isControlDown() && event2.getCode() == keyCode) {
+					isInputLocked = !isInputLocked;
+					if (isInputLocked) {
+						log("Input Locked!", LogUtils.Severity.INFO);
+					} else {
+						log("Input Unlocked!", LogUtils.Severity.INFO);
+					}
+					mainDesktopControllerObj.getInputLock().setDisable(isInputLocked);
+					mainDesktopControllerObj.getMainDesktop().requestFocus();
+				}
+			});
+			ConfigWriter.configwrite("keybindings", "inputLock", newText.toUpperCase());
+			log("Wrote new inputLock keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			
+		});
 	}
 	
 	private void setupListeners() {
@@ -1670,7 +1933,8 @@ public class settingsController {
 				mainDesktopControllerObj.getTopBar1().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getTopBar2().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				if (mainDesktopControllerObj.getLocationDataLabel() != null) {
-					mainDesktopControllerObj.getLocationDataLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
+					mainDesktopControllerObj.getLocationDataLabel().setStyle(
+							"-fx-text-fill: " + toHexString(newValue) + ";");
 				}
 			}
 			ConfigWriter.configwrite("desktopSettings", "topBarTextColor", toHexString(newValue));
@@ -1682,7 +1946,8 @@ public class settingsController {
 			}
 			
 			if (mainDesktopControllerObj != null) {
-				mainDesktopControllerObj.getBottomBar().setStyle("-fx-background-color: " + toHexString(newValue) + ";");
+				mainDesktopControllerObj.getBottomBar().setStyle(
+						"-fx-background-color: " + toHexString(newValue) + ";");
 			}
 			ConfigWriter.configwrite("desktopSettings", "taskBarColor", toHexString(newValue));
 		});
@@ -1695,8 +1960,10 @@ public class settingsController {
 			if (mainDesktopControllerObj != null) {
 				mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
-				mainDesktopControllerObj.getShutdownBtn().setStyle("-fx-text-fill: " + toHexString(newValue) + "; -fx-background-color: rgb(0,0,0,0.1)");
-				mainDesktopControllerObj.getButton1().setStyle("-fx-text-fill: " + toHexString(newValue) + "; -fx-background-color: rgb(0,0,0,0.1)");
+				mainDesktopControllerObj.getShutdownBtn().setStyle(
+						"-fx-text-fill: " + toHexString(newValue) + "; -fx-background-color: rgb(0,0,0,0.1)");
+				mainDesktopControllerObj.getButton1().setStyle(
+						"-fx-text-fill: " + toHexString(newValue) + "; -fx-background-color: rgb(0,0,0,0.1)");
 			}
 			ConfigWriter.configwrite("desktopSettings", "taskBarTextColor", toHexString(newValue));
 		});
@@ -2073,12 +2340,14 @@ public class settingsController {
 				case "Information" -> {
 					selectedNotification.set("Information");
 					try {
-						notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
+						notiTextColorPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
 					try {
-						notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
+						notiPrimPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationInfoPrimary")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
@@ -2089,12 +2358,14 @@ public class settingsController {
 				case "Warning" -> {
 					selectedNotification.set("Warning");
 					try {
-						notiTextColorPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
+						notiTextColorPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationWarnTextColor")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
 					try {
-						notiPrimPicker.setValue(Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
+						notiPrimPicker.setValue(Color.valueOf(
+								ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
@@ -2110,8 +2381,10 @@ public class settingsController {
 		notiPosCombobox.setOnAction(actionEvent -> {
 			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
 			switch (selectedPosition) {
-				case "BottomLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomLeft");
-				case "BottomRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
+				case "BottomLeft" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomLeft");
+				case "BottomRight" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
 				case "TopLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopLeft");
 				case "TopRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
 			}
@@ -2136,7 +2409,8 @@ public class settingsController {
 					mainDesktopStage.setMaximized(true);
 					mainDesktopStage.centerOnScreen();
 					try {
-						mainDesktopStage.setAlwaysOnTop(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
+						mainDesktopStage.setAlwaysOnTop(
+								ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
 					} catch (IOException e) {
 						logError("Couldnt get windowAOT setting, ", e);
 					}
@@ -2146,8 +2420,10 @@ public class settingsController {
 			
 		});
 		
-		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration", notiFadeOutDurField.getText()));
-		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration", notiDisplayDurField.getText()));
+		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
+		                                                                   notiFadeOutDurField.getText()));
+		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
+		                                                                      notiDisplayDurField.getText()));
 	}
 	
 	private void handleCheckboxClick(String section, String key, ToggleButton checkbox) {

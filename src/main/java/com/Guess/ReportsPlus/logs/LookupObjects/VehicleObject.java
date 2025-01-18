@@ -47,7 +47,7 @@ public class VehicleObject {
 		String plate = vehDataMap.getOrDefault("licensePlate", "Not Found");
 		String color = getColorFromRGB(vehDataMap.getOrDefault("color", "Not Found"));
 		
-		//TODO: Not implemented yet
+		//TODO: driver not implemented yet
 		this.driver = driver;
 		
 		this.vin = vin;

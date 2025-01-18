@@ -3,6 +3,7 @@ package com.Guess.ReportsPlus.Windows.Apps;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.logs.LookupObjects.PedObject;
 import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NoteTab;
@@ -26,7 +27,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -42,14 +45,14 @@ import static com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils.ne
 import static com.Guess.ReportsPlus.util.History.IDHistory.getHistoryIDFromName;
 import static com.Guess.ReportsPlus.util.History.IDHistory.searchIDHisForName;
 import static com.Guess.ReportsPlus.util.History.Ped.PedHistoryUtils.findPedByName;
+import static com.Guess.ReportsPlus.util.History.Ped.PedHistoryUtils.findPedByNumber;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedImageFolderURL;
+import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabPedData;
 
 public class PedLookupViewController {
@@ -206,13 +209,18 @@ public class PedLookupViewController {
 	private void addLocalization() {
 		lookupmainlbl.setText(localization.getLocalizedMessage("PedLookup.MainHeader", "D.M.V Pedestrian Lookup"));
 		lbl1.setText(localization.getLocalizedMessage("PedLookup.SearchPedLabel", "Search Ped:"));
-		noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
-		noRecordFoundLabelPed.setText(localization.getLocalizedMessage("PedLookup.NoPedFoundInSystem", "No Record Found In System"));
+		noPedImageFoundlbl.setText(
+				localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+		noRecordFoundLabelPed.setText(
+				localization.getLocalizedMessage("PedLookup.NoPedFoundInSystem", "No Record Found In System"));
 		
-		addDataToNotesBtn.setText(localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
+		addDataToNotesBtn.setText(
+				localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
 		pedSearchBtn.setText(localization.getLocalizedMessage("PedLookup.SearchPedButton", "Search"));
-		probabilitySettingsBtn.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
-		infobtn3.setText(localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
+		probabilitySettingsBtn.setText(
+				localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
+		infobtn3.setText(
+				localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
 		infobtn2.setText(localization.getLocalizedMessage("PedLookup.CreateCitationButton", "Create New Citation"));
 		infobtn1.setText(localization.getLocalizedMessage("PedLookup.CreateArrestButton", "Create New Arrest"));
 		
@@ -240,50 +248,445 @@ public class PedLookupViewController {
 		ped13.setText(localization.getLocalizedMessage("PedLookup.FieldProbationStatus", "Probation Status:"));
 		ped14.setText(localization.getLocalizedMessage("PedLookup.FieldTimesStopped", "Times Stopped:"));
 		ped15.setText(localization.getLocalizedMessage("PedLookup.FieldGunLicenseStatus", "Gun License Status:"));
-		ped18.setText(localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
-		ped19.setText(localization.getLocalizedMessage("PedLookup.FieldBoatingLicenseStatus", "Boating License Status"));
-		ped20.setText(localization.getLocalizedMessage("PedLookup.FieldHuntingLicenseStatus", "Hunting License Status"));
+		ped18.setText(
+				localization.getLocalizedMessage("PedLookup.FieldFishingLicenseStatus", "Fishing License Status"));
+		ped19.setText(
+				localization.getLocalizedMessage("PedLookup.FieldBoatingLicenseStatus", "Boating License Status"));
+		ped20.setText(
+				localization.getLocalizedMessage("PedLookup.FieldHuntingLicenseStatus", "Hunting License Status"));
 		ped23.setText(localization.getLocalizedMessage("PedLookup.FieldFlags", "Flag(s):"));
 	}
 	
-	private void processPedData(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) {
-		Optional<Ped> searchedPed = Ped.PedHistoryUtils.findPedByNumber(licenseNumber);
-		Ped ped = searchedPed.orElseGet(() -> {
-			try {
-				return createNewPed(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
-			} catch (IOException e) {
-				logError("Error creating new ped: ", e);
-				return null;
-			}
-		});
-		if (ped != null) {
-			if (setPedRecordFields(ped)) {
-				try {
-					if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
-						playSound(getJarPath() + "/sounds/alert-wanted.wav");
-					}
-				} catch (IOException e) {
-					logError("Error getting configValue for playLookupWarning: ", e);
-				}
-			}
+	private void processPedData(boolean owner, String name_value, String licenseNumber_value, String modelName_value, String birthday_value, String gender_value, String address_value, String isWanted_value, String licenseStatus_value, String licenseExp_value, String weaponPermitType_value, String weaponPermitStatus_value, String weaponPermitExpiration_value, String fishPermitStatus_value, String fishPermitExpiration_value, String timesStopped_value, String huntPermitStatus_value, String huntPermitExpiration_value, String isOnParole_value, String isOnProbation_value) {
+		Optional<Ped> searchedPed;
+		if (owner) {
+			searchedPed = findPedByName(name_value);
+		} else {
+			searchedPed = findPedByNumber(licenseNumber_value);
 		}
-		pedRecordPane.setVisible(true);
-		noRecordFoundLabelPed.setVisible(false);
-	}
-	
-	private void processOwnerData(String owner, String vehPlateNum) {
-		Optional<Ped> searchedPed = findPedByName(owner);
-		Ped ped = searchedPed.orElseGet(() -> {
-			try {
-				return createOwnerPed(owner, vehPlateNum);
-			} catch (IOException e) {
-				logError("Error creating ownerPed: ", e);
-				return null;
+		
+		Ped searchedPedObject = searchedPed.orElseGet(() -> {
+			Ped ped = new Ped();
+			if (name_value != null) {
+				ped.setName(name_value);
+			} else {
+				log("ProcessPedData; name_value was null, set as ERROR", LogUtils.Severity.WARN);
+				ped.setName("ERROR");
 			}
+			if (licenseNumber_value != null) {
+				ped.setLicenseNumber(licenseNumber_value);
+			} else {
+				log("ProcessPedData; licenseNumber_value was null, generating", LogUtils.Severity.WARN);
+				ped.setLicenseNumber(generateLicenseNumber());
+			}
+			if (gender_value != null) {
+				ped.setGender(gender_value);
+			} else {
+				log("ProcessPedData; gender_value was null, generating", LogUtils.Severity.WARN);
+				ped.setGender(calculateTrueFalseProbability("50") ? "Male" : "Female");
+			}
+			if (birthday_value != null) {
+				ped.setBirthday(birthday_value);
+			} else {
+				log("ProcessPedData; birthday_value was null, generating", LogUtils.Severity.WARN);
+				ped.setBirthday(generateBirthday(23, 65));
+			}
+			if (address_value != null) {
+				ped.setAddress(address_value);
+			} else {
+				log("ProcessPedData; address_value was null, generating", LogUtils.Severity.WARN);
+				ped.setAddress(getRandomAddress());
+			}
+			if (isWanted_value != null) {
+				ped.setWantedStatus(isWanted_value);
+			} else {
+				log("ProcessPedData; isWanted_value was null, generating", LogUtils.Severity.WARN);
+				ped.setWantedStatus(calculateTrueFalseProbability("15") ? "true" : "false");
+			}
+			if (licenseStatus_value != null) {
+				ped.setLicenseStatus(licenseStatus_value);
+			} else {
+				log("ProcessPedData; licenseStatus_value was null, generating", LogUtils.Severity.WARN);
+				ped.setLicenseStatus(calculateLicenseStatus(55, 22, 23));
+			}
+			
+			try {
+				if (ped.getWantedStatus().equalsIgnoreCase("true")) {
+					try {
+						String warrant = null;
+						try {
+							warrant = getRandomCharge(chargesFilePath);
+						} catch (IOException e) {
+							logError("ProcessPedData; Error getting randomCharge: ", e);
+						}
+						if (warrant != null) {
+							String department = getRandomDepartment();
+							String number = generateLicenseNumber();
+							String issuedDate = generateExpiredLicenseExpirationDate(5);
+							ped.setOutstandingWarrants(warrant);
+							ped.setWarrantAgency(department);
+							ped.setWarrantNumber(number);
+							ped.setDateWarrantIssued(issuedDate);
+						} else {
+							ped.setOutstandingWarrants("WANTED - No details");
+						}
+					} catch (ParserConfigurationException | SAXException e) {
+						logError("ProcessPedData; Error getting random charge: ", e);
+						ped.setOutstandingWarrants("WANTED - Error retrieving details");
+					}
+				}
+			} catch (Exception e) {
+				logError("Could not set warrantStatus: ", e);
+			}
+			
+			try {
+				int totalChargePriors = 0;
+				try {
+					totalChargePriors = setArrestPriors(ped);
+				} catch (IOException e) {
+					logError("Could not fetch arrestPriors: ", e);
+				}
+				int totalCitationPriors = 0;
+				try {
+					totalCitationPriors = setCitationPriors(ped);
+				} catch (IOException e) {
+					logError("Could not fetch citationPriors: ", e);
+				}
+				
+				if (totalChargePriors >= 1) {
+					try {
+						ped.setParoleStatus(String.valueOf(calculateTrueFalseProbability(
+								ConfigReader.configRead("pedHistory", "onParoleChance"))));
+					} catch (IOException e) {
+						logError("Could not set ParoleStatus: ", e);
+					}
+					try {
+						ped.setProbationStatus(String.valueOf(calculateTrueFalseProbability(
+								ConfigReader.configRead("pedHistory", "onProbationChance"))));
+					} catch (IOException e) {
+						logError("Could not set ProbationStatus: ", e);
+					}
+				}
+				
+				//BUG: not using timesStopped since it relies on chargepriors and citationpriors
+				String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
+				ped.setTimesStopped(totalStops);
+				
+				int baseFlagFactor = 5;
+				try {
+					baseFlagFactor = Integer.parseInt(ConfigReader.configRead("pedHistory", "baseFlagProbability"));
+				} catch (IOException e) {
+					logError("Could not fetch baseFlagFactor: ", e);
+				}
+				
+				String flags = assignFlagsBasedOnPriors(totalChargePriors, baseFlagFactor, 0.9, 2);
+				
+				if (flags != null && flags.length() > 0 && !flags.equals("")) {
+					ped.setFlags(flags);
+				}
+				
+			} catch (Exception e) {
+				logError("Could not set priors: ", e);
+			}
+			
+			try {
+				if (fishPermitStatus_value != null) {
+					ped.setFishingLicenseStatus(fishPermitStatus_value);
+				} else {
+					log("ProcessPedData; fishPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					boolean hasFishingLicense = calculateTrueFalseProbability(
+							ConfigReader.configRead("pedHistory", "hasFishingLicense"));
+					
+					if (hasFishingLicense) {
+						String licstatus = calculateLicenseStatus(
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+						ped.setFishingLicenseStatus(licstatus);
+					} else {
+						log("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None",
+						    LogUtils.Severity.WARN);
+						ped.setFishingLicenseStatus("None");
+						ped.setFishingLicenseNumber("None");
+						ped.setFishingLicenseExpiration("None");
+					}
+				}
+				
+				if (fishPermitExpiration_value != null) {
+					ped.setFishingLicenseExpiration(fishPermitExpiration_value);
+				} else {
+					log("ProcessPedData; fishPermitExpiration_value was null, generating expiration",
+					    LogUtils.Severity.WARN);
+					if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
+						ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
+						ped.setFishingLicenseExpiration("Suspended License");
+					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("revoked")) {
+						ped.setFishingLicenseExpiration("Revoked License");
+					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+						ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+					} else {
+						ped.setFishingLicenseExpiration("None");
+					}
+				}
+				
+				if (ped.getFishingLicenseNumber() == null || ped.getFishingLicenseNumber().isEmpty()) {
+					log("ProcessPedData; generated fishingLicenseNumber", LogUtils.Severity.WARN);
+					ped.setFishingLicenseNumber(generateLicenseNumber());
+				}
+				
+			} catch (IOException e) {
+				logError("Could not set fishingLicenseStatus: ", e);
+			}
+			
+			try {
+				if (ped.getBoatingLicenseStatus() == null || ped.getBoatingLicenseStatus().isEmpty()) {
+					log("ProcessPedData; boating lic status is null, generating status/exp/lic#",
+					    LogUtils.Severity.WARN);
+					boolean boatLicStatus = calculateTrueFalseProbability(
+							ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
+					if (boatLicStatus) {
+						String licstatus = calculateLicenseStatus(
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+						
+						if (licstatus.equalsIgnoreCase("suspended")) {
+							ped.setBoatingLicenseExpiration("Suspended License");
+						} else if (licstatus.equalsIgnoreCase("expired")) {
+							ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+						} else {
+							ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
+						}
+						
+						ped.setBoatingLicenseStatus(licstatus);
+						ped.setBoatingLicenseNumber(generateLicenseNumber());
+					} else {
+						ped.setBoatingLicenseStatus("None");
+						ped.setBoatingLicenseNumber("None");
+						ped.setBoatingLicenseExpiration("None");
+					}
+				}
+			} catch (IOException e) {
+				logError("Could not set boatingLicenseStatus: ", e);
+			}
+			
+			try {
+				if (modelName_value != null) {
+					ped.setModel(modelName_value);
+				} else {
+					log("ProcessPedData; modelName_value is null, setting 'Not Found'", LogUtils.Severity.WARN);
+					ped.setModel("Not Found");
+				}
+			} catch (Exception e) {
+				logError("Could not set model: ", e);
+			}
+			
+			try {
+				if (fishPermitStatus_value != null) {
+					ped.setFishingLicenseStatus(fishPermitStatus_value);
+				} else {
+					log("ProcessPedData; fishPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					boolean hasFishingLicense = calculateTrueFalseProbability(
+							ConfigReader.configRead("pedHistory", "hasFishingLicense"));
+					
+					if (hasFishingLicense) {
+						String licstatus = calculateLicenseStatus(
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+						ped.setFishingLicenseStatus(licstatus);
+					} else {
+						log("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None",
+						    LogUtils.Severity.WARN);
+						ped.setFishingLicenseStatus("None");
+					}
+				}
+				
+				if (fishPermitExpiration_value != null) {
+					ped.setFishingLicenseExpiration(fishPermitExpiration_value);
+				} else {
+					log("ProcessPedData; fishPermitExpiration_value was null, generating expiration",
+					    LogUtils.Severity.WARN);
+					if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
+						ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
+						ped.setFishingLicenseExpiration("Suspended License");
+					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("revoked")) {
+						ped.setFishingLicenseExpiration("Revoked License");
+					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+						ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+					} else {
+						ped.setFishingLicenseExpiration("None");
+					}
+				}
+				
+				if (ped.getFishingLicenseNumber() == null || ped.getFishingLicenseNumber().isEmpty()) {
+					log("ProcessPedData; generated fishingLicenseNumber", LogUtils.Severity.WARN);
+					ped.setFishingLicenseNumber(generateLicenseNumber());
+				}
+				
+			} catch (IOException e) {
+				logError("Could not set fishingLicenseStatus: ", e);
+			}
+			
+			try {
+				if (weaponPermitStatus_value != null) {
+					ped.setGunLicenseStatus(weaponPermitStatus_value);
+				} else {
+					log("ProcessPedData; weaponPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					Boolean hasGunLicense = calculateTrueFalseProbability(
+							ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
+					
+					if (hasGunLicense) {
+						String gunlicstatus = calculateLicenseStatus(
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+						ped.setGunLicenseStatus(gunlicstatus);
+					} else {
+						log("ProcessPedData; hasGunLicense was false, set GunLicenseStatus None",
+						    LogUtils.Severity.WARN);
+						ped.setGunLicenseStatus("None");
+						ped.setGunLicenseExpiration("None");
+						ped.setGunLicenseNumber("None");
+						ped.setGunLicenseClass("None");
+						ped.setGunLicenseType("None");
+					}
+				}
+				
+				if (weaponPermitExpiration_value != null) {
+					ped.setGunLicenseExpiration(weaponPermitExpiration_value);
+				} else {
+					log("ProcessPedData; weaponPermitExpiration_value was null, generating expiration",
+					    LogUtils.Severity.WARN);
+					
+					if (ped.getGunLicenseStatus().equalsIgnoreCase(
+							"valid") || ped.getGunLicenseStatus().equalsIgnoreCase(
+							"expired") || ped.getGunLicenseStatus().equalsIgnoreCase(
+							"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("revoked")) {
+						
+						if (ped.getGunLicenseExpiration() == null) {
+							if (ped.getGunLicenseExpiration().equalsIgnoreCase("valid")) {
+								ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+								if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
+									log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+									ped.setGunLicenseNumber(generateLicenseNumber());
+								}
+							} else if (ped.getGunLicenseExpiration().equalsIgnoreCase("suspended")) {
+								ped.setGunLicenseExpiration("Suspended License");
+								if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
+									log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+									ped.setGunLicenseNumber(generateLicenseNumber());
+								}
+							} else if (ped.getGunLicenseExpiration().equalsIgnoreCase("revoked")) {
+								ped.setGunLicenseExpiration("Revoked License");
+							} else if (ped.getGunLicenseExpiration().equalsIgnoreCase("expired")) {
+								ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+							} else {
+								ped.setGunLicenseExpiration("None");
+							}
+						} else {
+							ped.setGunLicenseExpiration("None");
+						}
+					}
+				}
+				
+				if (weaponPermitType_value != null) {
+					ped.setGunLicenseType(weaponPermitType_value);
+				} else {
+					if (ped.getGunLicenseStatus().equalsIgnoreCase(
+							"valid") || ped.getGunLicenseStatus().equalsIgnoreCase(
+							"expired") || ped.getGunLicenseStatus().equalsIgnoreCase(
+							"revoked") || ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
+						log("ProcessPedData; weaponPermitType_value was null, generating type/class/number",
+						    LogUtils.Severity.WARN);
+						//BUG: check later
+						ped.setGunLicenseType(getGunLicenseType());
+						ped.setGunLicenseClass(getGunLicenseClass());
+						ped.setGunLicenseNumber(generateLicenseNumber());
+					} else {
+						log("ProcessPedData; gunLicenseStatus not found, setting type/class/num 'None'",
+						    LogUtils.Severity.WARN);
+						ped.setGunLicenseType("None");
+						ped.setGunLicenseClass("None");
+						ped.setGunLicenseNumber("None");
+					}
+				}
+				
+				if (huntPermitStatus_value != null) {
+					ped.setHuntingLicenseStatus(huntPermitStatus_value);
+				} else {
+					log("ProcessPedData; huntPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					boolean huntlic = calculateTrueFalseProbability(
+							ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
+					
+					if (huntlic) {
+						String licstatus = calculateLicenseStatus(
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
+								Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
+						ped.setHuntingLicenseStatus(licstatus);
+					} else {
+						log("ProcessPedData; huntlic was false, set HuntingLicenseStatus None", LogUtils.Severity.WARN);
+						ped.setHuntingLicenseStatus("None");
+						ped.setHuntingLicenseNumber("None");
+						ped.setHuntingLicenseExpiration("None");
+					}
+				}
+				
+				if (huntPermitExpiration_value != null) {
+					ped.setHuntingLicenseExpiration(huntPermitExpiration_value);
+				} else {
+					log("ProcessPedData; huntPermitExpiration_value was null, generating expiration",
+					    LogUtils.Severity.WARN);
+					if (ped.getHuntingLicenseStatus().equalsIgnoreCase(
+							"valid") || ped.getHuntingLicenseStatus().equalsIgnoreCase(
+							"expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase(
+							"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
+						
+						if (ped.getHuntingLicenseExpiration() != null) {
+							if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("valid")) {
+								ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
+								if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
+									log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+									ped.setHuntingLicenseNumber(generateLicenseNumber());
+								}
+							} else if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("suspended")) {
+								ped.setHuntingLicenseExpiration("Suspended License");
+								if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
+									log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+									ped.setHuntingLicenseNumber(generateLicenseNumber());
+								}
+							} else if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("revoked")) {
+								ped.setHuntingLicenseExpiration("Revoked License");
+							} else if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("expired")) {
+								ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+							} else {
+								ped.setHuntingLicenseExpiration("None");
+							}
+						} else {
+							ped.setHuntingLicenseExpiration("None");
+						}
+						
+					}
+				}
+				
+			} catch (IOException e) {
+				logError("Could not set gunLicenseStatus: ", e);
+			}
+			
+			try {
+				Ped.PedHistoryUtils.addPed(ped);
+			} catch (JAXBException e) {
+				logError("Error adding ped to PedHistory: ", e);
+			}
+			
+			return ped;
 		});
 		
-		if (ped != null) {
-			if (setPedRecordFields(ped)) {
+		if (searchedPedObject != null) {
+			if (setPedRecordFields(searchedPedObject)) {
 				try {
 					if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-wanted.wav");
@@ -306,7 +709,10 @@ public class PedLookupViewController {
 		pedaddressfield.setText(ped.getAddress());
 		
 		pedlicensefield.setText(ped.getLicenseStatus());
-		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase("SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase("REVOKED") || ped.getLicenseStatus().equalsIgnoreCase("NONE") || ped.getLicenseStatus().equalsIgnoreCase("UNLICENSED")) {
+		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"SUSPENDED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"REVOKED") || ped.getLicenseStatus().equalsIgnoreCase(
+				"NONE") || ped.getLicenseStatus().equalsIgnoreCase("UNLICENSED")) {
 			pedlicensefield.setStyle("-fx-text-fill: red !important;");
 			playAudio = true;
 		} else if (ped.getLicenseStatus().equalsIgnoreCase("VALID")) {
@@ -342,7 +748,10 @@ public class PedLookupViewController {
 			}
 			pedwantedfield.getStyleClass().add("valid-field");
 			
-			createWarrantInfoPopup(pedwantedfield, localization.getLocalizedMessage("PedLookup.WarrantInformationTitle", "Issued Warrant Information:"), ped.getName(), ped.getBirthday(), ped.getDateWarrantIssued(), ped.getWarrantNumber(), ped.getWarrantAgency(), ped.getOutstandingWarrants());
+			createWarrantInfoPopup(pedwantedfield, localization.getLocalizedMessage("PedLookup.WarrantInformationTitle",
+			                                                                        "Issued Warrant Information:"),
+			                       ped.getName(), ped.getBirthday(), ped.getDateWarrantIssued(), ped.getWarrantNumber(),
+			                       ped.getWarrantAgency(), ped.getOutstandingWarrants());
 		} else {
 			pedwantedfield.setText("False");
 			pedwantedfield.getStyleClass().add("text-field");
@@ -352,11 +761,14 @@ public class PedLookupViewController {
 		pedgunlicensestatusfield.getStyleClass().clear();
 		pedgunlicensestatusfield.setOnMouseClicked(null);
 		pedgunlicensestatusfield.setText(ped.getGunLicenseStatus());
-		if (ped.getGunLicenseStatus() == null || ped.getGunLicenseStatus().equalsIgnoreCase("false")) {
+		if (ped.getGunLicenseStatus() == null || ped.getGunLicenseStatus().equalsIgnoreCase(
+				"false") || ped.getGunLicenseStatus().equalsIgnoreCase(
+				"Not Found") || ped.getGunLicenseStatus().equalsIgnoreCase("None")) {
 			pedgunlicensestatusfield.setText("False");
 			pedgunlicensestatusfield.getStyleClass().add("text-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
-		} else if (ped.getGunLicenseStatus().equalsIgnoreCase("suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
+		} else if (ped.getGunLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
 			pedgunlicensestatusfield.getStyleClass().add("valid-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedgunlicensestatusfield.setText(ped.getGunLicenseStatus().toUpperCase());
@@ -381,8 +793,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for gun license info 1: ", e);
 				}
 			}
-			createGunLicenseInfoPopup(pedgunlicensestatusfield, localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle", "Gun License Information:"), ped.getName(), ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(), ped.getGunLicenseNumber(),
-			                          ped.getGunLicenseType(), ped.getGunLicenseClass());
+			createGunLicenseInfoPopup(pedgunlicensestatusfield,
+			                          localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle",
+			                                                           "Gun License Information:"), ped.getName(),
+			                          ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(),
+			                          ped.getGunLicenseNumber(), ped.getGunLicenseType(), ped.getGunLicenseClass());
 			
 		} else if (ped.getGunLicenseStatus().equalsIgnoreCase("valid")) {
 			pedgunlicensestatusfield.getStyleClass().add("valid-field");
@@ -405,8 +820,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for gun license info 2: ", e);
 				}
 			}
-			createGunLicenseInfoPopup(pedgunlicensestatusfield, localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle", "Gun License Information:"), ped.getName(), ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(), ped.getGunLicenseNumber(),
-			                          ped.getGunLicenseType(), ped.getGunLicenseClass());
+			createGunLicenseInfoPopup(pedgunlicensestatusfield,
+			                          localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle",
+			                                                           "Gun License Information:"), ped.getName(),
+			                          ped.getBirthday(), ped.getGunLicenseExpiration(), ped.getGunLicenseStatus(),
+			                          ped.getGunLicenseNumber(), ped.getGunLicenseType(), ped.getGunLicenseClass());
 			
 		}
 		
@@ -421,11 +839,14 @@ public class PedLookupViewController {
 		pedfishinglicstatusfield.getStyleClass().clear();
 		pedfishinglicstatusfield.setOnMouseClicked(null);
 		pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus());
-		if (ped.getFishingLicenseStatus() == null || ped.getFishingLicenseStatus().equalsIgnoreCase("false")) {
+		if (ped.getFishingLicenseStatus() == null || ped.getFishingLicenseStatus().equalsIgnoreCase(
+				"false") || ped.getFishingLicenseStatus().equalsIgnoreCase(
+				"Not Found") || ped.getFishingLicenseStatus().equalsIgnoreCase("None")) {
 			pedfishinglicstatusfield.setText("False");
 			pedfishinglicstatusfield.getStyleClass().add("text-field");
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
-		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended") || ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
 			pedfishinglicstatusfield.getStyleClass().add("valid-field");
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus().toUpperCase());
@@ -450,7 +871,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for fishing license info 1: ", e);
 				}
 			}
-			createLicenseInfoPopup(pedfishinglicstatusfield, localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle", "Fishing License Information:"), ped.getName(), ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(), ped.getFishingLicenseNumber());
+			createLicenseInfoPopup(pedfishinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle",
+			                                                        "Fishing License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(),
+			                       ped.getFishingLicenseNumber());
 			
 		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
 			pedfishinglicstatusfield.getStyleClass().add("valid-field");
@@ -473,7 +898,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for fishing license info 2: ", e);
 				}
 			}
-			createLicenseInfoPopup(pedfishinglicstatusfield, localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle", "Fishing License Information:"), ped.getName(), ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(), ped.getFishingLicenseNumber());
+			createLicenseInfoPopup(pedfishinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle",
+			                                                        "Fishing License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(),
+			                       ped.getFishingLicenseNumber());
 			
 		} else {
 			log("Unexpected fishing license status: " + ped.getFishingLicenseStatus(), LogUtils.Severity.ERROR);
@@ -486,11 +915,13 @@ public class PedLookupViewController {
 		
 		pedboatinglicstatusfield.getStyleClass().clear();
 		pedboatinglicstatusfield.setOnMouseClicked(null);
-		if (ped.getBoatingLicenseStatus() == null) {
+		if (ped.getBoatingLicenseStatus() == null || ped.getBoatingLicenseStatus().equalsIgnoreCase(
+				"Not Found") || ped.getBoatingLicenseStatus().equalsIgnoreCase("None")) {
 			pedboatinglicstatusfield.setText("False");
 			pedboatinglicstatusfield.getStyleClass().add("text-field");
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
-		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase("suspended") || ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
+		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
 			pedboatinglicstatusfield.getStyleClass().add("valid-field");
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedboatinglicstatusfield.setText(ped.getBoatingLicenseStatus().toUpperCase());
@@ -515,7 +946,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for boating license info 1: ", e);
 				}
 			}
-			createLicenseInfoPopup(pedboatinglicstatusfield, localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle", "Boating License Information:"), ped.getName(), ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(), ped.getBoatingLicenseNumber());
+			createLicenseInfoPopup(pedboatinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle",
+			                                                        "Boating License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(),
+			                       ped.getBoatingLicenseNumber());
 			
 		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase("valid")) {
 			pedboatinglicstatusfield.getStyleClass().add("valid-field");
@@ -538,7 +973,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for boating license info 2: ", e);
 				}
 			}
-			createLicenseInfoPopup(pedboatinglicstatusfield, localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle", "Boating License Information:"), ped.getName(), ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(), ped.getBoatingLicenseNumber());
+			createLicenseInfoPopup(pedboatinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle",
+			                                                        "Boating License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(),
+			                       ped.getBoatingLicenseNumber());
 		} else {
 			log("Unexpected boating license status: " + ped.getBoatingLicenseStatus(), LogUtils.Severity.ERROR);
 			showNotificationError("Ped Lookup", "Unexpected boating license status: " + ped.getBoatingLicenseStatus());
@@ -550,11 +989,13 @@ public class PedLookupViewController {
 		pedhuntinglicstatusfield.getStyleClass().clear();
 		pedhuntinglicstatusfield.setOnMouseClicked(null);
 		pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus());
-		if (ped.getHuntingLicenseStatus() == null) {
+		if (ped.getHuntingLicenseStatus() == null || ped.getHuntingLicenseStatus().equalsIgnoreCase(
+				"Not Found") || ped.getHuntingLicenseStatus().equalsIgnoreCase("None")) {
 			pedhuntinglicstatusfield.setText("False");
 			pedhuntinglicstatusfield.getStyleClass().add("text-field");
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
-		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
+		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase(
+				"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
 			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus().toUpperCase());
@@ -579,7 +1020,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for hunting license info 1: ", e);
 				}
 			}
-			createLicenseInfoPopup(pedhuntinglicstatusfield, localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle", "Hunting License Information:"), ped.getName(), ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(), ped.getHuntingLicenseNumber());
+			createLicenseInfoPopup(pedhuntinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle",
+			                                                        "Hunting License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(),
+			                       ped.getHuntingLicenseNumber());
 			
 		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid")) {
 			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
@@ -602,7 +1047,11 @@ public class PedLookupViewController {
 					logError("Error updating Ped for hunting license info 2: ", e);
 				}
 			}
-			createLicenseInfoPopup(pedhuntinglicstatusfield, localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle", "Hunting License Information:"), ped.getName(), ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(), ped.getHuntingLicenseNumber());
+			createLicenseInfoPopup(pedhuntinglicstatusfield,
+			                       localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle",
+			                                                        "Hunting License Information:"), ped.getName(),
+			                       ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(),
+			                       ped.getHuntingLicenseNumber());
 		} else {
 			log("Unexpected hunting license status: " + ped.getHuntingLicenseStatus(), LogUtils.Severity.ERROR);
 			showNotificationError("Ped Lookup", "Unexpected hunting license status: " + ped.getHuntingLicenseStatus());
@@ -612,7 +1061,8 @@ public class PedLookupViewController {
 		}
 		
 		pedlicnumfield.setText(ped.getLicenseNumber() != null ? ped.getLicenseNumber() : "No Data In System");
-		pedlicnumfield.setStyle(ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+		pedlicnumfield.setStyle(
+				ped.getLicenseNumber() == null ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
 		
 		String affiliations = ped.getAffiliations();
 		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
@@ -666,7 +1116,8 @@ public class PedLookupViewController {
 			try {
 				int timesStoppedValue = Integer.parseInt(timesStopped.trim());
 				pedtimesstoppedfield.setText(timesStopped);
-				pedtimesstoppedfield.setStyle(timesStoppedValue > 0 ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
+				pedtimesstoppedfield.setStyle(
+						timesStoppedValue > 0 ? "-fx-text-fill: #e65c00 !important;" : "-fx-text-fill: black;");
 			} catch (NumberFormatException e) {
 				pedtimesstoppedfield.setText("0");
 				pedtimesstoppedfield.setStyle("-fx-text-fill: black;");
@@ -682,7 +1133,8 @@ public class PedLookupViewController {
 				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
-						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+						File[] matchingFiles = pedImgFolder.listFiles(
+								(dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
 						
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
@@ -692,23 +1144,30 @@ public class PedLookupViewController {
 								String fileURI = matchingFile.toURI().toString();
 								pedImageView.setImage(new Image(fileURI));
 								noPedImageFoundlbl.setVisible(true);
-								noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
+								noPedImageFoundlbl.setText(
+										localization.getLocalizedMessage("PedLookup.PedImageFoundlbl",
+										                                 "Image Found in File:"));
 							} catch (Exception e) {
 								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 								pedImageView.setImage(defImage);
 								noPedImageFoundlbl.setVisible(true);
-								noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+								noPedImageFoundlbl.setText(
+										localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+										                                 "No Image Found In System"));
 								logError("Could not set ped image: ", e);
 							}
 						} else {
-							log("No matching image found for the model: " + pedModel + ", displaying no image found.", LogUtils.Severity.WARN);
+							log("No matching image found for the model: " + pedModel + ", displaying no image found.",
+							    LogUtils.Severity.WARN);
 							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 							pedImageView.setImage(defImage);
 							noPedImageFoundlbl.setVisible(true);
-							noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+							noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl",
+							                                                            "No Image Found In System"));
 						}
 					} else {
-						log("enablePedVehImages is disabled in settings so not displaying ped image", LogUtils.Severity.WARN);
+						log("enablePedVehImages is disabled in settings so not displaying ped image",
+						    LogUtils.Severity.WARN);
 					}
 				} catch (IOException e) {
 					logError("Could not get enablePedVehImages setting from config", e);
@@ -717,13 +1176,15 @@ public class PedLookupViewController {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 				pedImageView.setImage(defImage);
 				noPedImageFoundlbl.setVisible(true);
-				noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+				noPedImageFoundlbl.setText(
+						localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
 			}
 		} else {
 			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 			pedImageView.setImage(defImage);
 			noPedImageFoundlbl.setVisible(true);
-			noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+			noPedImageFoundlbl.setText(
+					localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
 		}
 		
 		String citationPriors = ped.getCitationPriors();
@@ -748,7 +1209,8 @@ public class PedLookupViewController {
 		try {
 			AnchorPane popupContent = new AnchorPane();
 			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
-			popupContent.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
+			popupContent.getStylesheets().add(Launcher.class.getResource(
+					"/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
 			
 			Label titleLabel = new Label(headerText);
 			titleLabel.setPadding(new Insets(0, 33, 0, 33));
@@ -761,7 +1223,8 @@ public class PedLookupViewController {
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
 			
-			ImageView exitBtn = new ImageView(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
 			exitBtn.setFitHeight(33.0);
 			exitBtn.setFitWidth(15.0);
 			exitBtn.setPickOnBounds(true);
@@ -779,7 +1242,9 @@ public class PedLookupViewController {
 			AnchorPane.setLeftAnchor(gridPane, 0.0);
 			AnchorPane.setRightAnchor(gridPane, 0.0);
 			
-			gridPane.getColumnConstraints().addAll(new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true), new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
 			for (int i = 0; i < 6; i++) {
 				gridPane.getRowConstraints().add(new RowConstraints());
 			}
@@ -822,20 +1287,24 @@ public class PedLookupViewController {
 			warrantField.setText(warrant);
 			
 			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
-			Label dobLabel = createLabel(localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
 			GridPane.setColumnIndex(dobLabel, 1);
 			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label dateIssuedLabel = createLabel(localization.getLocalizedMessage("PedLookup.DateIssuedLabel", "Date Issued:"));
+			Label dateIssuedLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateIssuedLabel", "Date Issued:"));
 			GridPane.setRowIndex(dateIssuedLabel, 2);
 			dateIssuedLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label warrantNumLabel = createLabel(localization.getLocalizedMessage("PedLookup.WarrantNumberLabel", "Warrant Number:"));
+			Label warrantNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.WarrantNumberLabel", "Warrant Number:"));
 			GridPane.setColumnIndex(warrantNumLabel, 1);
 			GridPane.setRowIndex(warrantNumLabel, 2);
 			warrantNumLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label agencyLabel = createLabel(localization.getLocalizedMessage("PedLookup.IssuingAuthorityLabel", "Issuing Authority:"));
+			Label agencyLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.IssuingAuthorityLabel", "Issuing Authority:"));
 			GridPane.setRowIndex(agencyLabel, 4);
 			agencyLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
@@ -861,7 +1330,9 @@ public class PedLookupViewController {
 				warrantLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
 			}
 			
-			gridPane.getChildren().addAll(nameField, dobField, dateIssuedField, warrantNumField, agencyField, nameLabel, dobLabel, dateIssuedLabel, warrantNumLabel, agencyLabel, warrantLabel, warrantField);
+			gridPane.getChildren().addAll(nameField, dobField, dateIssuedField, warrantNumField, agencyField, nameLabel,
+			                              dobLabel, dateIssuedLabel, warrantNumLabel, agencyLabel, warrantLabel,
+			                              warrantField);
 			
 			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
 			
@@ -935,7 +1406,8 @@ public class PedLookupViewController {
 		try {
 			AnchorPane popupContent = new AnchorPane();
 			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
-			popupContent.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
+			popupContent.getStylesheets().add(Launcher.class.getResource(
+					"/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
 			
 			Label titleLabel = new Label(headerText);
 			titleLabel.setPadding(new Insets(0, 33, 0, 33));
@@ -948,7 +1420,8 @@ public class PedLookupViewController {
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
 			
-			ImageView exitBtn = new ImageView(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
 			exitBtn.setFitHeight(33.0);
 			exitBtn.setFitWidth(15.0);
 			exitBtn.setPickOnBounds(true);
@@ -966,7 +1439,9 @@ public class PedLookupViewController {
 			AnchorPane.setLeftAnchor(gridPane, 0.0);
 			AnchorPane.setRightAnchor(gridPane, 0.0);
 			
-			gridPane.getColumnConstraints().addAll(new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true), new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
 			for (int i = 0; i < 6; i++) {
 				gridPane.getRowConstraints().add(new RowConstraints());
 			}
@@ -1002,20 +1477,24 @@ public class PedLookupViewController {
 			licNumField.setText(licnum);
 			
 			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
-			Label dobLabel = createLabel(localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
 			GridPane.setColumnIndex(dobLabel, 1);
 			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label expDateLabel = createLabel(localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
 			GridPane.setRowIndex(expDateLabel, 2);
 			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label licStatusLabel = createLabel(localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
 			GridPane.setColumnIndex(licStatusLabel, 1);
 			GridPane.setRowIndex(licStatusLabel, 2);
 			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label licNumLabel = createLabel(localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
 			GridPane.setRowIndex(licNumLabel, 4);
 			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
@@ -1035,7 +1514,8 @@ public class PedLookupViewController {
 				licNumLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
 			}
 			
-			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel, expDateLabel, licStatusLabel, licNumLabel);
+			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel,
+			                              expDateLabel, licStatusLabel, licNumLabel);
 			
 			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
 			
@@ -1109,7 +1589,8 @@ public class PedLookupViewController {
 		try {
 			AnchorPane popupContent = new AnchorPane();
 			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
-			popupContent.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/lookups/lookup.css").toExternalForm());
+			popupContent.getStylesheets().add(
+					Launcher.class.getResource("/com/Guess/ReportsPlus/css/lookups/lookup.css").toExternalForm());
 			
 			Label titleLabel = new Label(headerText);
 			titleLabel.setPadding(new Insets(0, 50, 0, 50));
@@ -1122,7 +1603,8 @@ public class PedLookupViewController {
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
 			
-			ImageView exitBtn = new ImageView(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
 			exitBtn.setFitHeight(33.0);
 			exitBtn.setFitWidth(15.0);
 			exitBtn.setPickOnBounds(true);
@@ -1140,7 +1622,9 @@ public class PedLookupViewController {
 			AnchorPane.setLeftAnchor(gridPane, 0.0);
 			AnchorPane.setRightAnchor(gridPane, 0.0);
 			
-			gridPane.getColumnConstraints().addAll(new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true), new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
 			for (int i = 0; i < 7; i++) {
 				gridPane.getRowConstraints().add(new RowConstraints());
 			}
@@ -1187,30 +1671,36 @@ public class PedLookupViewController {
 			gunLicClassField.setText(gunLicClass);
 			
 			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
-			Label dobLabel = createLabel(localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
+			Label dobLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.DateOfBirthLabel", "Date of Birth:"));
 			GridPane.setColumnIndex(dobLabel, 1);
 			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
 			dobLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label expDateLabel = createLabel(localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
 			GridPane.setRowIndex(expDateLabel, 2);
 			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label licStatusLabel = createLabel(localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseStatus", "License Status:"));
 			GridPane.setColumnIndex(licStatusLabel, 1);
 			GridPane.setRowIndex(licStatusLabel, 2);
 			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label licNumLabel = createLabel(localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldLicenseNumber", "License Number:"));
 			GridPane.setRowIndex(licNumLabel, 4);
 			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label gunLicTypeLabel = createLabel(localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type:"));
+			Label gunLicTypeLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldGunLicenseType", "Gun License Type:"));
 			GridPane.setRowIndex(gunLicTypeLabel, 4);
 			GridPane.setColumnIndex(gunLicTypeLabel, 1);
 			gunLicTypeLabel.setMinWidth(Region.USE_PREF_SIZE);
 			
-			Label gunLicClassLabel = createLabel(localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class:"));
+			Label gunLicClassLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.FieldGunLicenseClass", "Gun License Class:"));
 			GridPane.setRowIndex(gunLicClassLabel, 6);
 			GridPane.setColumnSpan(gunLicClassLabel, 2);
 			gunLicClassLabel.setMinWidth(Region.USE_PREF_SIZE);
@@ -1235,7 +1725,9 @@ public class PedLookupViewController {
 				gunLicClassLabel.setStyle("-fx-text-fill: " + UILightColor + ";");
 			}
 			
-			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel, expDateLabel, licStatusLabel, licNumLabel, gunLicTypeField, gunLicClassField, gunLicTypeLabel, gunLicClassLabel);
+			gridPane.getChildren().addAll(nameField, dobField, expField, statusField, licNumField, nameLabel, dobLabel,
+			                              expDateLabel, licStatusLabel, licNumLabel, gunLicTypeField, gunLicClassField,
+			                              gunLicTypeLabel, gunLicClassLabel);
 			
 			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
 			
@@ -1329,30 +1821,20 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	public void onPedSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		String searchedName = pedSearchField.getEditor().getText().trim();
-		if (!searchedName.isEmpty()) {
-			updateRecentSearches(recentPedSearches, pedSearchField, searchedName);
-		}
+		updateRecentSearches(recentPedSearches, pedSearchField, searchedName);
 		pedSearchField.getEditor().setText(searchedName);
 		pedSearchField.getEditor().positionCaret(pedSearchField.getEditor().getText().length());
 		
 		log("Searched: " + searchedName, LogUtils.Severity.INFO);
-		String pedFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data";
-		String carFilePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data";
 		
-		Map<String, String> pedData = grabPedData(pedFilePath, searchedName);
-		Map<String, String> ownerSearch = grabPedData(carFilePath, searchedName);
+		PedObject worldPedObject = new PedObject(
+				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
 		Optional<Ped> pedOptional = findPedByName(searchedName);
 		
-		String gender = pedData.getOrDefault("gender", "Not Found");
-		String birthday = pedData.getOrDefault("birthday", "Not Found");
-		String address = pedData.getOrDefault("address", "Not Found");
-		String isWanted = pedData.getOrDefault("iswanted", "Not Found");
-		String licenseStatus = pedData.getOrDefault("licensestatus", "Not Found");
-		String licenseNumber = pedData.getOrDefault("licensenumber", "Not Found");
-		String name = pedData.getOrDefault("name", "Not Found");
-		String pedModel = pedData.getOrDefault("pedmodel", "Not Found");
-		
-		String owner = ownerSearch.getOrDefault("owner", "Not Found");
+		Map<String, String> ownerSearch = grabPedData(
+				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedName);
+		String ownerName = ownerSearch.getOrDefault("owner", "Not Found");
+		String ownerAddress = ownerSearch.getOrDefault("ownerAddress", "Not Found");
 		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not Found");
 		
 		if (pedOptional.isPresent()) {
@@ -1365,25 +1847,53 @@ public class PedLookupViewController {
 				} catch (JAXBException e) {
 					logError("Could not save new pedModel: ", e);
 				}
-				log("Set ped as 'Not Found' since it created before pedModel was added", LogUtils.Severity.WARN);
+				log("Set pedModel as 'Not Found'", LogUtils.Severity.WARN);
 			}
-			processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
-		} else if (!name.equals("Not Found")) {
-			log("Found: [" + name + "] From WorldPed file", LogUtils.Severity.DEBUG);
-			processPedData(name, licenseNumber, gender, birthday, address, isWanted, licenseStatus, pedModel);
-		} else if (owner != null && !owner.equalsIgnoreCase("Not Found") && !owner.equalsIgnoreCase("Los Santos Police Department") && !owner.equalsIgnoreCase("Los Santos Sheriff's Office") && !owner.equalsIgnoreCase("Blaine County Sheriff's Office") && !owner.equalsIgnoreCase(
-				"San Andreas Highway Patrol")) {
-			log("Found Vehicle Owner: [" + owner + "] From WorldVeh file, plate#: " + ownerPlateNum, LogUtils.Severity.DEBUG);
-			processOwnerData(owner, ownerPlateNum);
+			
+			processPedData(false, ped.getName(), ped.getLicenseNumber(), ped.getModel(), ped.getBirthday(),
+			               ped.getGender(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), null,
+			               ped.getGunLicenseType(), ped.getGunLicenseStatus(), ped.getGunLicenseExpiration(),
+			               ped.getFishingLicenseStatus(), ped.getFishingLicenseExpiration(), ped.getTimesStopped(),
+			               ped.getHuntingLicenseStatus(), ped.getHuntingLicenseExpiration(), ped.getParoleStatus(),
+			               ped.getProbationStatus());
+			
+		} else if (!worldPedObject.getName().equals("Not Found")) {
+			log("Found: [" + worldPedObject.getName() + "] From WorldPed file", LogUtils.Severity.DEBUG);
+			
+			processPedData(false, worldPedObject.getName(), worldPedObject.getLicenseNumber(),
+			               worldPedObject.getModelName(), worldPedObject.getBirthday(), worldPedObject.getGender(),
+			               worldPedObject.getAddress(), worldPedObject.getIsWanted(), worldPedObject.getLicenseStatus(),
+			               null, worldPedObject.getWeaponPermitType(), worldPedObject.getWeaponPermitStatus(),
+			               worldPedObject.getWeaponPermitExpiration(), worldPedObject.getFishPermitStatus(),
+			               worldPedObject.getFishPermitExpiration(), worldPedObject.getTimesStopped(),
+			               worldPedObject.getHuntPermitStatus(), worldPedObject.getHuntPermitExpiration(),
+			               worldPedObject.getIsOnParole(), worldPedObject.getIsOnProbation());
+			
+		} else if (ownerName != null && !ownerName.equalsIgnoreCase("Not Found") && !ownerName.equalsIgnoreCase(
+				"Los Santos Police Department") && !ownerName.equalsIgnoreCase(
+				"Los Santos Sheriff's Office") && !ownerName.equalsIgnoreCase(
+				"Blaine County Sheriff's Office") && !ownerName.equalsIgnoreCase(
+				"San Andreas Highway Patrol") && !ownerName.equalsIgnoreCase("government")) {
+			
+			log("Found Vehicle Owner: [" + ownerName + "] From WorldVeh file, plate#: " + ownerPlateNum,
+			    LogUtils.Severity.DEBUG);
+			
+			processPedData(true, ownerName, null, null, null, null, ownerAddress, null, null, null, null, null, null,
+			               null, null, null, null, null, null, null);
+			
 		} else if (searchIDHisForName(searchedName)) {
 			log("Found Ped: [" + searchedName + "] From IDHistory (Possible Dead Ped)", LogUtils.Severity.DEBUG);
 			ID searchedNameID = getHistoryIDFromName(searchedName);
+			
 			if (searchedNameID != null) {
 				log(searchedName + " HistoryID not null", LogUtils.Severity.DEBUG);
-				String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-				Ped ped = createPed(searchedNameID.getLicenseNumber(), searchedNameID.getName(),
-				                    searchedNameID.getGender(), searchedNameID.getBirthday(),
-				                    searchedNameID.getAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
+				
+				Ped ped = new Ped();
+				ped.setLicenseNumber(searchedNameID.getLicenseNumber());
+				ped.setName(searchedNameID.getName());
+				ped.setGender(searchedNameID.getGender());
+				ped.setBirthday(searchedNameID.getBirthday());
+				ped.setAddress(searchedNameID.getAddress());
 				
 				try {
 					Ped.PedHistoryUtils.addPed(ped);
@@ -1391,7 +1901,13 @@ public class PedLookupViewController {
 					logError("Could not save new pedModel (2): ", e);
 				}
 				log("Created Dead Ped Object", LogUtils.Severity.DEBUG);
-				processPedData(ped.getName(), ped.getLicenseNumber(), ped.getGender(), ped.getBirthday(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), ped.getModel());
+				
+				processPedData(false, ped.getName(), ped.getLicenseNumber(), ped.getModel(), ped.getBirthday(),
+				               ped.getGender(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), null,
+				               ped.getGunLicenseType(), ped.getGunLicenseStatus(), ped.getGunLicenseExpiration(),
+				               ped.getFishingLicenseStatus(), ped.getFishingLicenseExpiration(), ped.getTimesStopped(),
+				               ped.getHuntingLicenseStatus(), ped.getHuntingLicenseExpiration(), ped.getParoleStatus(),
+				               ped.getProbationStatus());
 			}
 		} else {
 			log("No Ped With Name: [" + searchedName + "] Found Anywhere", LogUtils.Severity.WARN);
@@ -1402,8 +1918,11 @@ public class PedLookupViewController {
 	
 	@javafx.fxml.FXML
 	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(),
-		                                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+		                                 "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config",
+		                                 true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(
+						Objects.requireNonNull(Launcher.class.getResourceAsStream(
+								"/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 	}
 	
 	@javafx.fxml.FXML
@@ -1456,13 +1975,19 @@ public class PedLookupViewController {
 		
 		Map<String, Object> trafficCitationObj = newCitation();
 		
-		Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
+		Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
+				localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
 		
-		TextField offenderName = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		TextField offenderAge = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-		TextField offenderGender = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-		TextField offenderAddress = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-		TextField offenderDescription = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+		TextField offenderName = (TextField) citationReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField offenderAge = (TextField) citationReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+		TextField offenderGender = (TextField) citationReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+		TextField offenderAddress = (TextField) citationReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+		TextField offenderDescription = (TextField) citationReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 		
 		offenderName.setText(name);
 		offenderAge.setText(age);
@@ -1483,13 +2008,19 @@ public class PedLookupViewController {
 		
 		Map<String, Object> arrestReportObj = newArrest();
 		
-		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
+		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(
+				localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
 		
-		TextField offenderName = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		TextField offenderAge = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
-		TextField offenderGender = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
-		TextField offenderAddress = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-		TextField offenderDescription = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
+		TextField offenderName = (TextField) arrestReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField offenderAge = (TextField) arrestReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"));
+		TextField offenderGender = (TextField) arrestReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
+		TextField offenderAddress = (TextField) arrestReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
+		TextField offenderDescription = (TextField) arrestReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 		
 		offenderName.setText(name);
 		offenderAge.setText(age);
@@ -1503,7 +2034,7 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	public void pedUpdateInfo(ActionEvent actionEvent) {
 		String searchedLicenseNum = pedlicnumfield.getText();
-		Optional<Ped> optionalPed = Ped.PedHistoryUtils.findPedByNumber(searchedLicenseNum);
+		Optional<Ped> optionalPed = findPedByNumber(searchedLicenseNum);
 		
 		if (optionalPed.isPresent()) {
 			Ped ped = optionalPed.get();

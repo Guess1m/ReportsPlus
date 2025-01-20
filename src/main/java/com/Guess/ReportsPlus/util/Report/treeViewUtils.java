@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getJarPath;
 
 public class treeViewUtils {
 	

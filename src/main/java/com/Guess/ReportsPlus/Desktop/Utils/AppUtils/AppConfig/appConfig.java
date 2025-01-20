@@ -11,11 +11,11 @@ import java.util.Properties;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getDataFolderPath;
 
 public class appConfig {
 	
-	static String appConfigFilePath = getJarPath() + File.separator + "data" + File.separator + "app.properties";
+	static String appConfigFilePath = getDataFolderPath() + "app.properties";
 	
 	public static void createAppConfig() {
 		File appConfigFile = new File(appConfigFilePath);
@@ -78,7 +78,8 @@ public class appConfig {
 				try (OutputStream output = new FileOutputStream(appConfigFilePath)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
+				log("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(
+						newDatabase + "." + property), LogUtils.Severity.DEBUG);
 			} else {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}
@@ -89,39 +90,39 @@ public class appConfig {
 	
 	public static void checkAndSetDefaultAppValues() {
 		log("====================== App Config ======================", LogUtils.Severity.INFO);
-		
 		String x1 = String.valueOf(45.0);
-		checkAndSetDefaultAppValue("Notes", "x", x1);
-		checkAndSetDefaultAppValue("Notes", "y", String.valueOf(100.0 + 20));
-		checkAndSetDefaultAppValue("Log Browser", "x", x1);
-		checkAndSetDefaultAppValue("Log Browser", "y", String.valueOf(203.0 + 20));
 		checkAndSetDefaultAppValue("Callouts", "x", x1);
-		checkAndSetDefaultAppValue("Callouts", "y", String.valueOf(0.0 + 20));
+		checkAndSetDefaultAppValue("Callouts", "y", String.valueOf(20.0));
 		checkAndSetDefaultAppValue("CourtCase", "x", x1);
-		checkAndSetDefaultAppValue("CourtCase", "y", String.valueOf(310.0 + 20));
+		checkAndSetDefaultAppValue("CourtCase", "y", String.valueOf(320.0));
+		checkAndSetDefaultAppValue("Log Browser", "x", x1);
+		checkAndSetDefaultAppValue("Log Browser", "y", String.valueOf(220.0));
+		checkAndSetDefaultAppValue("Notes", "x", x1);
+		checkAndSetDefaultAppValue("Notes", "y", String.valueOf(120.0));
 		checkAndSetDefaultAppValue("Show IDs", "x", x1);
-		checkAndSetDefaultAppValue("Show IDs", "y", String.valueOf(417.0 + 20));
+		checkAndSetDefaultAppValue("Show IDs", "y", String.valueOf(420.0));
 		
-		String x2 = String.valueOf(200.0);
-		checkAndSetDefaultAppValue("Ped Lookup", "x", x2);
-		checkAndSetDefaultAppValue("Ped Lookup", "y", String.valueOf(0.0 + 20));
-		checkAndSetDefaultAppValue("Veh Lookup", "x", x2);
-		checkAndSetDefaultAppValue("Veh Lookup", "y", String.valueOf(101.0 + 20));
+		String x2 = String.valueOf(175.0);
 		checkAndSetDefaultAppValue("New Report", "x", x2);
-		checkAndSetDefaultAppValue("New Report", "y", String.valueOf(202.0 + 20));
+		checkAndSetDefaultAppValue("New Report", "y", String.valueOf(220.0));
+		checkAndSetDefaultAppValue("Ped Lookup", "x", x2);
+		checkAndSetDefaultAppValue("Ped Lookup", "y", String.valueOf(20.0));
+		checkAndSetDefaultAppValue("Veh Lookup", "x", x2);
+		checkAndSetDefaultAppValue("Veh Lookup", "y", String.valueOf(120.0));
 		
-		String x3 = String.valueOf(355.0);
+		String x3 = String.valueOf(305.0);
 		checkAndSetDefaultAppValue("Server", "x", x3);
-		checkAndSetDefaultAppValue("Server", "y", String.valueOf(0.0 + 20));
-		checkAndSetDefaultAppValue("Updates", "x", x3);
-		checkAndSetDefaultAppValue("Updates", "y", String.valueOf(100.0 + 20));
+		checkAndSetDefaultAppValue("Server", "y", String.valueOf(20.0));
 		checkAndSetDefaultAppValue("Settings", "x", x3);
-		checkAndSetDefaultAppValue("Settings", "y", String.valueOf(203.0 + 20));
+		checkAndSetDefaultAppValue("Settings", "y", String.valueOf(220.0));
+		checkAndSetDefaultAppValue("Updates", "x", x3);
+		checkAndSetDefaultAppValue("Updates", "y", String.valueOf(120.0));
 		
-		String x4 = String.valueOf(500.0);
+		String x4 = String.valueOf(420.0);
 		checkAndSetDefaultAppValue("Profile", "x", x4);
-		checkAndSetDefaultAppValue("Profile", "y", String.valueOf(0.0 + 20));
-		
+		checkAndSetDefaultAppValue("Profile", "y", String.valueOf(20.0));
+		checkAndSetDefaultAppValue("Report Statistics", "x", x4);
+		checkAndSetDefaultAppValue("Report Statistics", "y", String.valueOf(120.0));
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	

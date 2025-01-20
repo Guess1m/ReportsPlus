@@ -7,8 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainDesktop" maxHeight="-Infinity" maxWidth="-Infinity"
-            prefHeight="742.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainDesktop" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0"
             prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
             xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Desktop.mainDesktopController">
     <center>
@@ -28,12 +27,9 @@
                                         <Insets right="15.0"/>
                                     </BorderPane.margin>
                                     <children>
-                                        <Label fx:id="locationDataLabel" alignment="CENTER" graphicTextGap="2.0"
-                                               text="Sandy Shores, Blaine County" HBox.hgrow="ALWAYS">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="12.0"/>
-                                            </font>
-                                            <graphic>
+                                        <HBox fx:id="locationDataLabel" alignment="CENTER" spacing="3.0"
+                                              HBox.hgrow="ALWAYS">
+                                            <children>
                                                 <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
                                                            preserveRatio="true">
                                                     <image>
@@ -42,9 +38,30 @@
                                                     <effect>
                                                         <ColorAdjust brightness="-0.52"/>
                                                     </effect>
+                                                    <HBox.margin>
+                                                        <Insets right="3.0"/>
+                                                    </HBox.margin>
                                                 </ImageView>
-                                            </graphic>
-                                        </Label>
+                                                <Label fx:id="locationStreetLabel" alignment="CENTER"
+                                                       graphicTextGap="2.0" text="street,">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="locationAreaLabel" alignment="CENTER" graphicTextGap="2.0"
+                                                       text="area,">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="locationCountyLabel" alignment="CENTER"
+                                                       graphicTextGap="2.0" text="county">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="12.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
                                         <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78"
                                                text="v1.0.9-alpha" textOverrun="CLIP">
                                             <font>

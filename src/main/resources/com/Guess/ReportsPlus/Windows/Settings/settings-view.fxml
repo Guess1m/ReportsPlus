@@ -657,7 +657,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneDesktop" fitToHeight="true" fitToWidth="true"
+                        <ScrollPane fx:id="paneDesktop" fitToHeight="true" fitToWidth="true" visible="false"
                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
@@ -1454,7 +1454,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneNetworking" fitToHeight="true" fitToWidth="true" visible="false"
+                        <ScrollPane fx:id="paneNetworking" fitToHeight="true" fitToWidth="true"
                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
@@ -1559,6 +1559,37 @@
                                                                            HBox.hgrow="SOMETIMES"/>
                                                             </children>
                                                         </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane>
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="376.5"
+                                                                           minWidth="235.0" prefWidth="276.5"/>
+                                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="175.5"
+                                                                           minWidth="54.5" prefWidth="154.5"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="useGameTimeLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Use Game Time"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <ToggleButton fx:id="useGameTimeToggle" mnemonicParsing="false"
+                                                                      onAction="#useGameTimeClick" text="Status"
+                                                                      GridPane.columnIndex="1"
+                                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                                      GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="useGameTimeTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Toggle whether game time is used when connected"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
                                                     </children>
                                                 </GridPane>
                                             </children>

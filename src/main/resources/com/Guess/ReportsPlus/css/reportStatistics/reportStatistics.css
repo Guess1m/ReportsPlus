@@ -1,0 +1,55 @@
+AreaChart .chart-content .chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.default-color0.chart-area-symbol {
+    -fx-background-color: transparent, transparent;
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: transparent;
+}
+
+.default-color0.chart-series-area-fill {
+    -fx-fill: transparent;
+}
+
+ComboBox {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-background-color: transparent;
+}
+
+ComboBox .list-view .list-cell {
+    -fx-text-fill: black;
+    -fx-border-color: none;
+}
+
+ComboBox .combo-box-popup .list-view .list-cell {
+    -fx-background-color: rgb(255, 255, 255, 0.1);
+}
+
+ComboBox .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgb(0, 0, 0, 0.1);
+}
+
+.combo-box .scroll-bar {
+    -fx-background-color: none;
+    -fx-pref-width: 11px;
+}
+
+.combo-box .scroll-bar .increment-arrow,
+.combo-box .scroll-bar .decrement-arrow {
+    -fx-background-color: none;
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color: #5e7387;
+}
+
+.combo-box .scroll-bar .thumb:pressed {
+    -fx-background-color: #34404b;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: black;
+}

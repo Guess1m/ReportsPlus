@@ -8,7 +8,7 @@
             stylesheets="@../../css/notes/notes.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Other.NotesViewController">
     <center>
-        <HBox style="-fx-background-color: transparent;">
+        <HBox fx:id="hbox" style="-fx-background-color: transparent;">
             <children>
                 <AnchorPane fx:id="codeSelectionPane" prefHeight="200.0" prefWidth="200.0"
                             style="-fx-background-color: #f2f2f2;">
@@ -157,8 +157,7 @@
                 </AnchorPane>
                 <AnchorPane HBox.hgrow="ALWAYS">
                     <children>
-                        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="650.0" styleClass="darktabpane"
-                                 stylesheets="@../../css/settings/SettingsTabPane.css" AnchorPane.bottomAnchor="0.0"
+                        <TabPane fx:id="tabPane" prefHeight="300.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0"
                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <tabs>
                                 <Tab closable="false" text="Default">
@@ -208,13 +207,9 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                        <Button mnemonicParsing="false" onAction="#addTabBtn" prefHeight="19.0" prefWidth="26.0"
-                                style="-fx-background-color: rgb(0,0,0,0.25); -fx-padding: 0 4;" text="+"
-                                AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="6.0">
-                            <font>
-                                <Font name="Segoe UI Black" size="13.0"/>
-                            </font>
-                        </Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#addTabBtn"
+                                style="-fx-background-color: rgb(0,0,0,0.25); -fx-padding: 0 5; -fx-label-padding: 0;"
+                                styleClass="newBtn" text="+" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0"/>
                     </children>
                 </AnchorPane>
             </children>

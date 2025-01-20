@@ -196,7 +196,7 @@ public class DeathReport {
 		this.modeOfDeath = modeOfDeath;
 	}
 	
-	public String getName() {
+	public String getOfficerName() {
 		return name;
 	}
 	

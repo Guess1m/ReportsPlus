@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.currentUserFileURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.currentUserFileURL;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User {
@@ -91,7 +91,8 @@ public class User {
 			Profiles.setUserList(new java.util.ArrayList<>());
 		}
 		
-		Optional<User> existingReport = Profiles.getUserList().stream().filter(e -> e.getName().equals(User.getName())).findFirst();
+		Optional<User> existingReport = Profiles.getUserList().stream().filter(
+				e -> e.getName().equals(User.getName())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			Profiles.getUserList().remove(existingReport.get());

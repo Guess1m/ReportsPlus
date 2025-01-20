@@ -59,5 +59,7 @@ module com.Guess.ReportsPlus {
 	opens com.Guess.ReportsPlus.Desktop to javafx.fxml;
 	exports com.Guess.ReportsPlus.Windows.Apps;
 	opens com.Guess.ReportsPlus.Windows.Apps to javafx.fxml;
+	exports com.Guess.ReportsPlus.util;
+	opens com.Guess.ReportsPlus.util to jakarta.xml.bind, javafx.fxml;
 	
 }

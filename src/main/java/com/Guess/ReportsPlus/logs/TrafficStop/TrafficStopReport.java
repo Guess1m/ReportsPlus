@@ -141,7 +141,7 @@ public class TrafficStopReport {
 		Division = division;
 	}
 	
-	public String getName() {
+	public String getOfficerName() {
 		return Name;
 	}
 	

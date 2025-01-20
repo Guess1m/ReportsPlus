@@ -181,7 +181,8 @@ public class CustomWindow {
 		dropShadow.setRadius(15);
 		dropShadow.setSpread(.3);
 		windowPane.setEffect(dropShadow);
-		windowPane.setStyle("-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 0;");
+		windowPane.setStyle(
+				"-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 0;");
 		
 		if (resizable) {
 			enableResize((BorderPane) windowPane);
@@ -196,9 +197,11 @@ public class CustomWindow {
 			
 			this.getWindowPane().toFront();
 			
-			windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(window -> window.getWindowPane().toFront());
+			windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(
+					window -> window.getWindowPane().toFront());
 			
-			windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(window -> window.getWindowPane().toBack());
+			windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(
+					window -> window.getWindowPane().toBack());
 			
 			if (mainDesktopControllerObj != null) {
 				for (DesktopApp app : DesktopApps) {
@@ -338,7 +341,8 @@ public class CustomWindow {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"));
+		Image placeholderImage = new Image(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -355,7 +359,8 @@ public class CustomWindow {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/minimize.png"));
+		Image minimizeImage = new Image(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -375,7 +380,8 @@ public class CustomWindow {
 		AnchorPane.setTopAnchor(minimizeRect, 6.3);
 		
 		if (enableMaximize) {
-			Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/maximize.png"));
+			Image maximizeImage = new Image(
+					Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/maximize.png"));
 			ImageView maximizeImageView = new ImageView(maximizeImage);
 			maximizeImageView.setFitWidth(15);
 			maximizeImageView.setFitHeight(15);

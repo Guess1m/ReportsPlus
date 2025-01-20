@@ -1,14 +1,14 @@
 package com.Guess.ReportsPlus.util.Localization;
 
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.stringUtil;
+import com.Guess.ReportsPlus.util.updateStrings;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getJarPath;
 
 public class Localization {
 	
@@ -52,7 +52,8 @@ public class Localization {
 	
 	private void saveProperties() {
 		try (OutputStream output = new FileOutputStream(filePath)) {
-			properties.storeWithComments(output, "ReportPlus Localization For Version: " + stringUtil.version + "\n# Reccomended to keep capital words capital");
+			properties.storeWithComments(output,
+			                             "ReportPlus Localization For Version: " + updateStrings.version + "\n# Reccomended to keep capital words capital");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

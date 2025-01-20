@@ -12,8 +12,8 @@ import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.stringUtil;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
+import com.Guess.ReportsPlus.util.updateStrings;
 import jakarta.xml.bind.JAXBException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -37,7 +37,6 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,6 +46,7 @@ import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.a
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.MainApplication.getTime;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.scheduleOutcomeRevealsForPendingCases;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
@@ -64,6 +64,7 @@ import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
 public class mainDesktopController {
 	public static CustomWindow userManager;
 	public static DesktopApp profileAppObj;
+	public static DesktopApp reportStatisticsAppObj;
 	public static DesktopApp calloutManagerAppObj;
 	public static DesktopApp courtAppObj;
 	public static DesktopApp pedLookupAppObj;
@@ -82,8 +83,6 @@ public class mainDesktopController {
 	private AnchorPane desktopContainer;
 	@FXML
 	private VBox container;
-	@FXML
-	private Label locationDataLabel;
 	@FXML
 	private Label serverStatusLabel;
 	@FXML
@@ -122,6 +121,14 @@ public class mainDesktopController {
 	private ImageView inputLockButton;
 	@FXML
 	private BorderPane mainDesktop;
+	@FXML
+	private HBox locationDataLabel;
+	@FXML
+	private Label locationCountyLabel;
+	@FXML
+	private Label locationAreaLabel;
+	@FXML
+	private Label locationStreetLabel;
 	
 	public static void updateDesktopBackground(VBox container) {
 		if (container != null) {
@@ -241,11 +248,32 @@ public class mainDesktopController {
 		clock.setCycleCount(Animation.INDEFINITE);
 		clock.play();
 		
-		locationDataLabel.setOnMouseClicked(mouseEvent -> {
+		locationStreetLabel.setOnMouseClicked(mouseEvent -> {
 			if (getTopBarHboxRight().getChildren().contains(locationDataLabel)) {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
 				ClipboardContent content = new ClipboardContent();
-				content.putString(locationDataLabel.getText().split(",")[0]);
+				content.putString(locationStreetLabel.getText().replace(",", "").trim());
+				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				clipboard.setContent(content);
+			}
+		});
+		
+		locationAreaLabel.setOnMouseClicked(mouseEvent -> {
+			if (getTopBarHboxRight().getChildren().contains(locationDataLabel)) {
+				Clipboard clipboard = Clipboard.getSystemClipboard();
+				ClipboardContent content = new ClipboardContent();
+				content.putString(locationAreaLabel.getText().replace(",", "").trim());
+				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				clipboard.setContent(content);
+			}
+		});
+		
+		locationCountyLabel.setOnMouseClicked(mouseEvent -> {
+			if (getTopBarHboxRight().getChildren().contains(locationDataLabel)) {
+				Clipboard clipboard = Clipboard.getSystemClipboard();
+				ClipboardContent content = new ClipboardContent();
+				content.putString(locationCountyLabel.getText().replace(",", "").trim());
+				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
 				clipboard.setContent(content);
 			}
 		});
@@ -287,8 +315,8 @@ public class mainDesktopController {
 			
 			checkForUpdates();
 			
-			versionLabel.setText(stringUtil.version);
-			if (!stringUtil.version.equalsIgnoreCase(gitVersion)) {
+			versionLabel.setText(updateStrings.version);
+			if (!updateStrings.version.equalsIgnoreCase(gitVersion)) {
 				if (gitVersion == null) {
 					versionLabel.setText(
 							localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
@@ -597,11 +625,43 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, profileApp, appConfigRead("Profile", "x"), appConfigRead("Profile", "y"));
+		
+		reportStatisticsAppObj = new DesktopApp("Report Statistics", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/statistics.png"))));
+		VBox reportStatisticsApp = reportStatisticsAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow statisticWindow = WindowManager.createCustomWindow(desktopContainer,
+					                                                                "Windows/Apps/report-statistics-view.fxml",
+					                                                                "Report Statistics", true, 1, true,
+					                                                                false, taskBarApps,
+					                                                                reportStatisticsAppObj.getImage());
+					
+					ReportStatisticsController.reportStatisticsController = (ReportStatisticsController) (statisticWindow != null ? statisticWindow.controller : null);
+					
+					try {
+						settingsController.loadTheme();
+					} catch (IOException e) {
+						logError("Error loading theme from statisticWindow", e);
+					}
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, reportStatisticsApp, appConfigRead("Report Statistics", "x"),
+		                appConfigRead("Report Statistics", "y"));
+	
+		/*
+		
+			WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/report-statistics-view.fxml",
+			                                 "Test Window", true, 1, true, false, taskBarApps, new Image(
+							Objects.requireNonNull(Launcher.class.getResourceAsStream(
+									"/com/Guess/ReportsPlus/imgs/icons/Apps/notepad.png"))));
+									*/
+		
 	}
 	
 	private void updateTime() {
-		LocalTime currentTime = LocalTime.now();
-		timeLabel.setText(currentTime.format(timeFormatter));
+		timeLabel.setText(getTime(false));
 	}
 	
 	private void updateDate() {
@@ -655,10 +715,6 @@ public class mainDesktopController {
 	
 	public HBox getTaskBarApps() {
 		return taskBarApps;
-	}
-	
-	public Label getLocationDataLabel() {
-		return locationDataLabel;
 	}
 	
 	public Label getServerStatusLabel() {
@@ -719,5 +775,21 @@ public class mainDesktopController {
 	
 	public BorderPane getMainDesktop() {
 		return mainDesktop;
+	}
+	
+	public HBox getLocationDataLabel() {
+		return locationDataLabel;
+	}
+	
+	public Label getLocationAreaLabel() {
+		return locationAreaLabel;
+	}
+	
+	public Label getLocationStreetLabel() {
+		return locationStreetLabel;
+	}
+	
+	public Label getLocationCountyLabel() {
+		return locationCountyLabel;
 	}
 }

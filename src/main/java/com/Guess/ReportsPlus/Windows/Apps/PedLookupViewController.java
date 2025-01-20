@@ -7,6 +7,7 @@ import com.Guess.ReportsPlus.logs.LookupObjects.PedObject;
 import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NoteTab;
+import com.Guess.ReportsPlus.util.Misc.URLStrings;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import jakarta.xml.bind.JAXBException;
 import javafx.collections.ObservableList;
@@ -52,7 +53,6 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabPedData;
 
 public class PedLookupViewController {
@@ -315,7 +315,7 @@ public class PedLookupViewController {
 					try {
 						String warrant = null;
 						try {
-							warrant = getRandomCharge(chargesFilePath);
+							warrant = getRandomChargeWithWarrant(URLStrings.chargesFilePath);
 						} catch (IOException e) {
 							logError("ProcessPedData; Error getting randomCharge: ", e);
 						}
@@ -1049,7 +1049,7 @@ public class PedLookupViewController {
 		
 		String pedModel = ped.getModel();
 		if (pedModel != null && !pedModel.equalsIgnoreCase("Not Found")) {
-			File pedImgFolder = new File(pedImageFolderURL);
+			File pedImgFolder = new File(URLStrings.pedImageFolderURL);
 			if (pedImgFolder.exists()) {
 				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
 				try {
@@ -1748,12 +1748,10 @@ public class PedLookupViewController {
 		
 		log("Searched: " + searchedName, LogUtils.Severity.INFO);
 		
-		PedObject worldPedObject = new PedObject(
-				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldPeds.data", searchedName);
+		PedObject worldPedObject = new PedObject(getServerDataFolderPath() + "ServerWorldPeds.data", searchedName);
 		Optional<Ped> pedOptional = findPedByName(searchedName);
 		
-		Map<String, String> ownerSearch = grabPedData(
-				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedName);
+		Map<String, String> ownerSearch = grabPedData(getServerDataFolderPath() + "ServerWorldCars.data", searchedName);
 		String ownerName = ownerSearch.getOrDefault("owner", "Not Found");
 		String ownerAddress = ownerSearch.getOrDefault("owneraddress", "Not Found");
 		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not Found");

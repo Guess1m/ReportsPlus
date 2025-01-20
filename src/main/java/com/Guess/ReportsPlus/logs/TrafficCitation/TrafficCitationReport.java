@@ -80,7 +80,7 @@ public class TrafficCitationReport {
 	@XmlElement(name = "citationComments")
 	private String citationComments;
 	
-	public String getCitationArea() {
+	public String getArea() {
 		return citationArea;
 	}
 	
@@ -104,7 +104,7 @@ public class TrafficCitationReport {
 		this.citationComments = citationComments;
 	}
 	
-	public String getCitationCounty() {
+	public String getCounty() {
 		return citationCounty;
 	}
 	

@@ -1,11 +1,10 @@
 package com.Guess.ReportsPlus.logs.LookupObjects;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabVehicleData;
 
 public class VehicleObject {
@@ -26,9 +25,7 @@ public class VehicleObject {
 	public VehicleObject(String licensePlate) {
 		Map<String, String> vehDataMap = Map.of();
 		try {
-			vehDataMap = grabVehicleData(
-					getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data",
-					licensePlate);
+			vehDataMap = grabVehicleData(getServerDataFolderPath() + "ServerWorldCars.data", licensePlate);
 		} catch (IOException e) {
 			logError("Failed to load ServerWorldCars: ", e);
 		}

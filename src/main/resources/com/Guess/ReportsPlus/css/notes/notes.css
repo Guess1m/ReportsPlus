@@ -32,6 +32,16 @@
     -fx-font-size: 14;
 }
 
+.newBtn {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-border-color: rgb(40, 40, 40, 0.3);
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-size: 14;
+}
+
 .codesBtn:hover {
     -fx-background-color: rgb(200, 200, 200, 0.2);
     -fx-border-width: 0 0 1.5 0;
@@ -123,4 +133,35 @@
 
 .text-area .scroll-pane .scroll-bar:horizontal:pressed .thumb {
     -fx-background-color: #495a69;
+}
+
+
+TabPane .tab-pane {
+    -fx-background-color: white;
+}
+
+TabPane .tab {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white !important;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-width: 0 0 0 0;
+    -fx-padding: 0 10;
+}
+
+TabPane .tab-label {
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+    -fx-font-family: "Segoe UI";
+}
+
+TabPane .tab:selected .tab-label {
+    -fx-font-family: "Segoe UI SemiBold";
+}
+
+TabPane .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+TabPane .tab-header-background {
+    -fx-background-color: transparent;
 }

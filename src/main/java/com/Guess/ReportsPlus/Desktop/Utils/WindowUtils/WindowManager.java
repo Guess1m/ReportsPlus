@@ -21,13 +21,15 @@ public class WindowManager {
 	public static Map<String, double[]> windowPositions = new HashMap<>();
 	
 	public static CustomWindow createCustomWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
+		log("Creating FXML window: " + title, LogUtils.Severity.INFO);
 		if (!windows.containsKey(title)) {
 			URL fxmlUrl = Launcher.class.getResource(fileName);
 			if (fxmlUrl == null) {
 				throw new RuntimeException("FXML file not found: " + fileName);
 			}
 			
-			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root, image);
+			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root,
+			                                             image);
 			if (customWindow.getWindowPane() != null) {
 				try {
 					if (root != null) {
@@ -49,7 +51,8 @@ public class WindowManager {
 					logError("Error creating window: " + title, e);
 				}
 			} else {
-				log("WindowPane was null after creation, Window likely had an error: " + title, LogUtils.Severity.ERROR);
+				log("WindowPane was null after creation, Window likely had an error: " + title,
+				    LogUtils.Severity.ERROR);
 			}
 			return customWindow;
 			
@@ -65,13 +68,15 @@ public class WindowManager {
 				customWindow.closeWindow();
 				windows.remove(title);
 				
-				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
+				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false,
+				                          taskBarApps, image);
 			}
 		}
 		return null;
 	}
 	
 	public static void createCustomWindow(AnchorPane root, BorderPane window, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
+		log("Creating window: " + title, LogUtils.Severity.INFO);
 		if (!windows.containsKey(title)) {
 			CustomWindow customWindow = new CustomWindow(window, title, resizable, priority, taskBarApps, root, image);
 			
@@ -99,7 +104,8 @@ public class WindowManager {
 				customWindow.closeWindow();
 				windows.remove(title);
 				
-				createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
+				createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps,
+				                   image);
 			} else {
 				customWindow.bringToFront();
 			}

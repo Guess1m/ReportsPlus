@@ -10,7 +10,7 @@ import java.util.List;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.customizationURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.customizationURL;
 
 public class customizationDataLoader {
 	

@@ -2,6 +2,7 @@ package com.Guess.ReportsPlus.util.Misc;
 
 import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
 import com.Guess.ReportsPlus.util.Report.treeViewUtils;
+import com.Guess.ReportsPlus.util.updateStrings;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,7 +18,7 @@ import java.util.zip.ZipInputStream;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getJarPath;
 
 public class updateUtil {
 	public static String gitVersion;
@@ -53,10 +54,13 @@ public class updateUtil {
 				String latestVersion = reader.readLine();
 				gitVersion = latestVersion;
 				log("Git Version: " + latestVersion, Severity.INFO);
-				log("App Version: " + stringUtil.version, Severity.INFO);
+				log("App Version: " + updateStrings.version, Severity.INFO);
 				
-				if (!gitVersion.equalsIgnoreCase(stringUtil.version)) {
-					NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + " Check Updates App!");
+				if (!gitVersion.equalsIgnoreCase(updateStrings.version)) {
+					NotificationManager.showNotificationErrorPersistent("Update Available",
+					                                                    localization.getLocalizedMessage(
+							                                                    "Desktop.NewVersionAvailable",
+							                                                    "New Version Available!") + " " + gitVersion + " Check Updates App!");
 				}
 				
 				reader.close();
@@ -64,7 +68,8 @@ public class updateUtil {
 				log("Failed to fetch version file: HTTP error code " + responseCode, Severity.ERROR);
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", Severity.ERROR);
+			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.",
+			    Severity.ERROR);
 		} catch (IOException e) {
 			logError("Cant check for updates: ", e);
 		}
@@ -168,7 +173,8 @@ public class updateUtil {
 		String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
 		Path destinationFile = destinationDir.resolve(fileName);
 		
-		try (BufferedInputStream in = new BufferedInputStream(connection.getInputStream()); FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
+		try (BufferedInputStream in = new BufferedInputStream(
+				connection.getInputStream()); FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
 			
 			byte[] buffer = new byte[1024];
 			int bytesRead;

@@ -109,10 +109,13 @@ public class UserManagerController {
 		rankDropdown.setValue(rank);
 		numberField.setText(number);
 		
-		editProfileLabel.setText(localization.getLocalizedMessage("UserManager.editProfileLabel", "Edit Current Profile:"));
-		editProfileSubLabel.setText(localization.getLocalizedMessage("UserManager.editProfileSubLabel", "Switch to or edit the selected profile"));
+		editProfileLabel.setText(
+				localization.getLocalizedMessage("UserManager.editProfileLabel", "Edit Current Profile:"));
+		editProfileSubLabel.setText(localization.getLocalizedMessage("UserManager.editProfileSubLabel",
+		                                                             "Switch to or edit the selected profile"));
 		userProfileLabel.setText(localization.getLocalizedMessage("UserManager.userProfileLabel", "User Profiles:"));
-		userProfileSubLabel.setText(localization.getLocalizedMessage("UserManager.userProfileSubLabel", "These are the found user profiles"));
+		userProfileSubLabel.setText(localization.getLocalizedMessage("UserManager.userProfileSubLabel",
+		                                                             "These are the found user profiles"));
 	}
 	
 	@FXML
@@ -160,7 +163,8 @@ public class UserManagerController {
 		ConfigWriter.configwrite("userInfo", "Number", number);
 		
 		try {
-			mainDesktopControllerObj.getOfficerInfoName().setText(ConfigReader.configRead("userInfo", "Name") + ", " + ConfigReader.configRead("userInfo", "Agency"));
+			mainDesktopControllerObj.getOfficerInfoName().setText(
+					ConfigReader.configRead("userInfo", "Name") + ", " + ConfigReader.configRead("userInfo", "Agency"));
 		} catch (IOException e) {
 			logError("Unable to read userInfo name from config (2), ", e);
 		}
@@ -279,7 +283,8 @@ public class UserManagerController {
 				}
 			}
 		});
-		ObservableList<TableColumn<User, ?>> columns = FXCollections.observableArrayList(nameColumn, rankColumn, agencyColumn, divisionColumn);
+		ObservableList<TableColumn<User, ?>> columns = FXCollections.observableArrayList(nameColumn, rankColumn,
+		                                                                                 agencyColumn, divisionColumn);
 		for (TableColumn<User, ?> column : columns) {
 			column.setReorderable(false);
 			column.setEditable(false);
@@ -298,7 +303,11 @@ public class UserManagerController {
 			List<User> userList = User.loadUserProfiles().getUserList();
 			if (userList == null) {
 				try {
-					User u = new User(ConfigReader.configRead("userInfo", "Name"), ConfigReader.configRead("userInfo", "Agency"), ConfigReader.configRead("userInfo", "Division"), ConfigReader.configRead("userInfo", "Rank"), ConfigReader.configRead("userInfo", "Number"),
+					User u = new User(ConfigReader.configRead("userInfo", "Name"),
+					                  ConfigReader.configRead("userInfo", "Agency"),
+					                  ConfigReader.configRead("userInfo", "Division"),
+					                  ConfigReader.configRead("userInfo", "Rank"),
+					                  ConfigReader.configRead("userInfo", "Number"),
 					                  ConfigReader.configRead("userInfo", "Callsign"));
 					try {
 						User.addUser(u);

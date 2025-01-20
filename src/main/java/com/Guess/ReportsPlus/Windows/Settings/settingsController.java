@@ -9,9 +9,11 @@ import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.CalloutManager;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
+import com.Guess.ReportsPlus.util.Misc.URLStrings;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigRead;
@@ -43,6 +46,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.courtViewCo
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.logController;
 import static com.Guess.ReportsPlus.Windows.Apps.NewReportVewController.newReportVewController;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
+import static com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController.reportStatisticsController;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
@@ -50,14 +54,14 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.startUpdate;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
+import static com.Guess.ReportsPlus.util.updateStrings.soundList;
 
 public class settingsController {
 	
-	private static final String UILightColor = "rgb(255,255,255,0.75)";
-	private static final String UIDarkColor = "rgb(0,0,0,0.75)";
+	public static final String UILightColor = "rgb(255,255,255,0.75)";
+	public static final String UIDarkColor = "rgb(0,0,0,0.75)";
 	public static settingsController SettingsController;
 	private static AtomicReference<String> selectedNotification;
 	private boolean isInitialized = false;
@@ -470,6 +474,12 @@ public class settingsController {
 	private Label inputLockKeybindLabel;
 	@javafx.fxml.FXML
 	private TextField inputLockKeybindField;
+	@javafx.fxml.FXML
+	private ToggleButton useGameTimeToggle;
+	@javafx.fxml.FXML
+	private Label useGameTimeLabel;
+	@javafx.fxml.FXML
+	private Label useGameTimeTT;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -692,6 +702,18 @@ public class settingsController {
 						"-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 			}
 		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			Node fillNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-fill");
+			fillNode.setStyle("-fx-fill: " + hexToRgba(mainclr, 0.5) + ";");
+			Node lineNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-line");
+			lineNode.setStyle("-fx-stroke: " + accclr + ";");
+			Set<Node> symbolNodes = reportStatisticsController.getChart().lookupAll(
+					".default-color0.chart-area-symbol");
+			for (Node symbolNode : symbolNodes) {
+				symbolNode.setStyle("-fx-background-color: " + secclr + ";");
+			}
+		}
 		
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			addDarkStyles();
@@ -862,6 +884,14 @@ public class settingsController {
 					updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill",
 					                    UIDarkColor));
 		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getReportsByLabel().setStyle(
+					updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UIDarkColor));
+			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
+			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
+			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
+			node.setStyle("-fx-background-color: rgba(0,0,0,0.05), rgba(0,0,0,0.05);");
+		}
 	}
 	
 	private static void addLightStyles() {
@@ -969,6 +999,14 @@ public class settingsController {
 			newReportVewController.getSelectReportTypeLabel().setStyle(
 					updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill",
 					                    UILightColor));
+		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getReportsByLabel().setStyle(
+					updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UILightColor));
+			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UILightColor));
+			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UILightColor));
+			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
+			node.setStyle("-fx-background-color: rgba(255,255,255, 0.1), rgba(255,255,255, 0.1);");
 		}
 	}
 	
@@ -1285,6 +1323,9 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 8888"));
 		socketTimeoutField.setPromptText(
 				localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 10000"));
+		useGameTimeLabel.setText(localization.getLocalizedMessage("Settings.useGameTimeLabel", "Use Game Time"));
+		useGameTimeTT.setText(localization.getLocalizedMessage("Settings.useGameTimeTT",
+		                                                       "Toggle whether game time is used when connected"));
 		
 		//Audio
 		audioSettingsHeader.setText(
@@ -1683,6 +1724,8 @@ public class settingsController {
 		enablePedVehImgsCheckbox.setSelected(
 				ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
+		useGameTimeToggle.setSelected(
+				ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("true"));
 	}
 	
 	private void addEventFilters() {
@@ -2489,7 +2532,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void installUpdateSounds(ActionEvent actionEvent) {
 		log("Running Install/Update Sounds", LogUtils.Severity.INFO);
-		startUpdate(soundPackDownloadURL, getJarPath(), "Sounds", false);
+		startUpdate(URLStrings.soundPackDownloadURL, getJarPath(), "Sounds", false);
 		
 		if (checkSoundsInstalled()) {
 			enableSoundCheckbox.setSelected(true);
@@ -2501,7 +2544,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void installUpdateImages(ActionEvent actionEvent) {
 		log("Running Install Ped/Veh Images", LogUtils.Severity.INFO);
-		startUpdate(imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
+		startUpdate(URLStrings.imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
 		
 		if (checkImagesInstalled()) {
 			enablePedVehImgsCheckbox.setSelected(true);
@@ -2560,5 +2603,10 @@ public class settingsController {
 			desktopApp.getMainPane().setTranslateY(appY);
 			log("Reset App Position for: " + desktopApp.getName(), LogUtils.Severity.INFO);
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void useGameTimeClick(ActionEvent actionEvent) {
+		handleCheckboxClick("connectionSettings", "useGameTime", useGameTimeToggle);
 	}
 }

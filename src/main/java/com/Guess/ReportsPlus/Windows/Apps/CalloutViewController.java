@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.calloutHistoryURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.calloutHistoryURL;
 
 public class CalloutViewController {
 	

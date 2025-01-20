@@ -26,9 +26,12 @@ public class TaskbarApp {
 	private final HBox taskBarApps;
 	private final CustomWindow customWindow;
 	private final Image image;
+	private final int height = 14;
 	private ImageView appButton;
 	private BorderPane container;
-	private final int height = 14;
+	private Popup tooltipPopup = new Popup();
+	private Popup optionsPopup = new Popup();
+	private boolean optionsPopupVisible = false;
 	
 	public TaskbarApp(String name, String appTitle, HBox taskBarApps, CustomWindow customWindow, Image image) {
 		this.name = name;
@@ -40,13 +43,10 @@ public class TaskbarApp {
 		addTooltip(appButton, appTitle);
 	}
 	
-	private Popup tooltipPopup = new Popup();
-	private Popup optionsPopup = new Popup();
-	private boolean optionsPopupVisible = false;
-	
 	private void addTooltip(ImageView icon, String tooltipText) {
 		Button tooltipButton = new Button(tooltipText);
-		tooltipButton.setStyle("-fx-background-color: rgb(0,0,0,0.3); -fx-text-fill: white; -fx-padding: 5 10; -fx-border-color: #313131; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;");
+		tooltipButton.setStyle(
+				"-fx-background-color: rgb(0,0,0,0.3); -fx-text-fill: white; -fx-padding: 5 10; -fx-border-color: #313131; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;");
 		tooltipPopup.getContent().clear();
 		tooltipPopup.getContent().add(tooltipButton);
 		
@@ -59,8 +59,10 @@ public class TaskbarApp {
 		fadeOut.setToValue(0);
 		fadeOut.setOnFinished(event -> tooltipPopup.hide());
 		
-		tooltipButton.widthProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, tooltipPopup, tooltipButton));
-		tooltipButton.heightProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, tooltipPopup, tooltipButton));
+		tooltipButton.widthProperty().addListener(
+				(obs, oldVal, newVal) -> updatePopupPosition(icon, tooltipPopup, tooltipButton));
+		tooltipButton.heightProperty().addListener(
+				(obs, oldVal, newVal) -> updatePopupPosition(icon, tooltipPopup, tooltipButton));
 		
 		container.setOnMouseEntered(event -> {
 			if (!optionsPopupVisible) {
@@ -78,7 +80,8 @@ public class TaskbarApp {
 		buttonContainer.setAlignment(Pos.CENTER_LEFT);
 		buttonContainer.setSpacing(0);
 		buttonContainer.setPadding(new Insets(2, 5, 2, 5));
-		buttonContainer.setStyle("-fx-background-color: rgb(0,0,0,0.3); -fx-border-color: #313131; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;");
+		buttonContainer.setStyle(
+				"-fx-background-color: rgb(0,0,0,0.3); -fx-border-color: #313131; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;");
 		buttonContainer.getChildren().add(createStyledButton("Close", actionEvent -> {
 			customWindow.closeWindow();
 			optionsPopup.hide();
@@ -93,8 +96,10 @@ public class TaskbarApp {
 			}));
 		}
 		
-		buttonContainer.widthProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, optionsPopup, buttonContainer));
-		buttonContainer.heightProperty().addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, optionsPopup, buttonContainer));
+		buttonContainer.widthProperty().addListener(
+				(obs, oldVal, newVal) -> updatePopupPosition(icon, optionsPopup, buttonContainer));
+		buttonContainer.heightProperty().addListener(
+				(obs, oldVal, newVal) -> updatePopupPosition(icon, optionsPopup, buttonContainer));
 		
 		optionsPopup.getContent().clear();
 		optionsPopup.getContent().add(buttonContainer);

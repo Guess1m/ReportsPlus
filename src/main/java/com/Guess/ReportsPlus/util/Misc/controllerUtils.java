@@ -1,12 +1,12 @@
 package com.Guess.ReportsPlus.util.Misc;
 
-import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Report.treeViewUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
+import com.Guess.ReportsPlus.util.updateStrings;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,14 +28,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,8 +44,6 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.audioExecutor;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getDataLogsFolderPath;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 
 public class controllerUtils {
 	
@@ -83,60 +78,9 @@ public class controllerUtils {
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	
-	public static String calculateAge(String dateOfBirth) {
-		if (dateOfBirth == null || dateOfBirth.isEmpty()) {
-			log("Error calculating age, dateOfBirth is null or empty", LogUtils.Severity.ERROR);
-			return "Not Found";
-		}
-		
-		try {
-			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
-			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy", Locale.ENGLISH);
-			DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH);
-			
-			LocalDate birthDate;
-			try {
-				birthDate = LocalDate.parse(dateOfBirth, formatter1);
-			} catch (DateTimeParseException e1) {
-				try {
-					birthDate = LocalDate.parse(dateOfBirth, formatter2);
-				} catch (DateTimeParseException e2) {
-					birthDate = LocalDate.parse(dateOfBirth, formatter3);
-				}
-			}
-			
-			LocalDate currentDate = LocalDate.now();
-			if (birthDate.isAfter(currentDate)) {
-				log("Error calculating age, birthdate after current date", LogUtils.Severity.ERROR);
-				return "Not Found";
-			}
-			
-			Period age = Period.between(birthDate, currentDate);
-			return String.valueOf(age.getYears());
-		} catch (DateTimeParseException e) {
-			log("Error calculating age, improper syntax", LogUtils.Severity.ERROR);
-			return "Not Found";
-		} catch (Exception e) {
-			log("Unexpected error calculating age", LogUtils.Severity.ERROR);
-			return "Not Found";
-		}
-	}
-	
 	public static String updateStyleProperty(Node node, String property, String value) {
 		String updatedStyle = node.getStyle().replaceAll(property + ": [^;]*;", "");
 		return updatedStyle + property + ": " + value + ";";
-	}
-	
-	public static String getJarDirectoryPath() {
-		try {
-			
-			String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			
-			return new File(jarPath).getParent();
-		} catch (Exception e) {
-			logError("GetJarDirPath Exception", e);
-			return "";
-		}
 	}
 	
 	public static void updateSecondary(Color color) {
@@ -253,6 +197,16 @@ public class controllerUtils {
 	public static String toHexString(Color color) {
 		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255),
 		                     (int) (color.getBlue() * 255));
+	}
+	
+	public static Color rgbToHexString(String rgb) {
+		rgb = rgb.replace("rgb(", "").replace(")", "");
+		String[] rgbValues = rgb.split(",");
+		int red = Integer.parseInt(rgbValues[0].trim());
+		int green = Integer.parseInt(rgbValues[1].trim());
+		int blue = Integer.parseInt(rgbValues[2].trim());
+		
+		return Color.rgb(red, green, blue);
 	}
 	
 	public static void clearDataLogs() {
@@ -407,7 +361,7 @@ public class controllerUtils {
 	public static void clearConfig() {
 		try {
 			
-			String configFilePath = getJarDirectoryPath() + File.separator + "config.properties";
+			String configFilePath = getJarPath() + File.separator + "config.properties";
 			File configFile = new File(configFilePath);
 			
 			if (configFile.exists() && configFile.isFile()) {
@@ -679,7 +633,7 @@ public class controllerUtils {
 	}
 	
 	public static int setArrestPriors(Ped ped) throws IOException {
-		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+		String chargesFilePath = getDataFolderPath() + "Charges.xml";
 		List<String> priorCharges;
 		try {
 			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(
@@ -705,7 +659,7 @@ public class controllerUtils {
 	}
 	
 	public static int setCitationPriors(Ped ped) throws IOException {
-		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+		String citationsFilePath = getDataFolderPath() + "Citations.xml";
 		List<String> priorCitations;
 		try {
 			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(
@@ -821,5 +775,49 @@ public class controllerUtils {
 		
 		calloutStatusColumn.setText(null);
 		calloutStatusColumn.setGraphic(hbox);
+	}
+	
+	public static String hexToRgba(String hex, double transparency) {
+		if (hex.startsWith("#")) {
+			hex = hex.substring(1);
+		}
+		if (hex.length() != 6) {
+			throw new IllegalArgumentException("Invalid hex color string");
+		}
+		if (transparency < 0.0 || transparency > 1.0) {
+			throw new IllegalArgumentException("Transparency must be between 0.0 and 1.0");
+		}
+		
+		int r = Integer.parseInt(hex.substring(0, 2), 16);
+		int g = Integer.parseInt(hex.substring(2, 4), 16);
+		int b = Integer.parseInt(hex.substring(4, 6), 16);
+		
+		return String.format("rgb(%d, %d, %d, %.2f)", r, g, b, transparency);
+	}
+	
+	public static String getDataLogsFolderPath() {
+		return getJarPath() + File.separator + "DataLogs" + File.separator;
+	}
+	
+	public static String getDataFolderPath() {
+		return getJarPath() + File.separator + "data" + File.separator;
+	}
+	
+	public static String getServerDataFolderPath() {
+		return getJarPath() + File.separator + "serverData" + File.separator;
+	}
+	
+	public static String getJarPath() {
+		try {
+			
+			String jarPath = updateStrings.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			
+			String jarDir = new File(jarPath).getParent();
+			
+			return jarDir;
+		} catch (URISyntaxException e) {
+			logError("GetJarPath URI Syntax Error ", e);
+			return "";
+		}
 	}
 }

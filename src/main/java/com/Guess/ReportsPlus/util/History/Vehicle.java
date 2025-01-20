@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.vehicleHistoryURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.vehicleHistoryURL;
 
 @XmlRootElement(name = "vehicle")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -113,16 +113,16 @@ public class Vehicle {
 		return owner;
 	}
 	
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	
 	public String getVin() {
 		return vin;
 	}
 	
 	public void setVin(String vin) {
 		this.vin = vin;
-	}
-	
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 	
 	public String getPoliceStatus() {

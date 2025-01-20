@@ -86,7 +86,8 @@ public class ConfigReader {
 				try (OutputStream output = new FileOutputStream(configFile)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
+				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property),
+				    LogUtils.Severity.DEBUG);
 			} else {
 				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
 			}
@@ -140,7 +141,6 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "topBarColor", "#e6e6e6");
 		checkAndSetDefaultValue("desktopSettings", "topBarTextColor", "#000000");
 		checkAndSetDefaultValue("desktopSettings", "appTextColor", "#ffffff");
-		
 		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
 		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
 		
@@ -172,6 +172,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
 		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "13000");
+		checkAndSetDefaultValue("connectionSettings", "useGameTime", "true");
 		
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");

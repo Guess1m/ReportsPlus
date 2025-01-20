@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLook
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabTrafficStop;
 
 public class trafficStopController {
@@ -105,12 +104,14 @@ public class trafficStopController {
 		str.setText(localization.getLocalizedMessage("TrafficStopWindow.StreetLabel", "Traffic Stop Street:"));
 		ar.setText(localization.getLocalizedMessage("TrafficStopWindow.AreaLabel", "Traffic Stop Area:"));
 		own.setText(localization.getLocalizedMessage("TrafficStopWindow.OwnerLabel", "Registered Owner:"));
-		searchDMVButton.setText(localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
-		createTrafficStopBtn.setText(localization.getLocalizedMessage("TrafficStopWindow.CreateTrafficStopButton", "New Traffic Stop Report"));
+		searchDMVButton.setText(
+				localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
+		createTrafficStopBtn.setText(localization.getLocalizedMessage("TrafficStopWindow.CreateTrafficStopButton",
+		                                                              "New Traffic Stop Report"));
 	}
 	
 	public void updateTrafficStopFields() throws IOException {
-		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerTrafficStop.data";
+		String filePath = getServerDataFolderPath() + "ServerTrafficStop.data";
 		Map<String, String> vehData = grabTrafficStop(filePath);
 		
 		String licensePlate = vehData.getOrDefault("licenseplate", "Not Found");
@@ -153,7 +154,8 @@ public class trafficStopController {
 	}
 	
 	private void setStyleBasedOnCondition(String condition, TextInputControl control) {
-		if (condition.equalsIgnoreCase("expired") || condition.equalsIgnoreCase("suspended") || condition.equalsIgnoreCase("none") || condition.equalsIgnoreCase("true")) {
+		if (condition.equalsIgnoreCase("expired") || condition.equalsIgnoreCase(
+				"suspended") || condition.equalsIgnoreCase("none") || condition.equalsIgnoreCase("true")) {
 			control.setStyle("-fx-text-fill: red !important;");
 		} else {
 			control.setStyle("-fx-text-fill: rgb(140, 140, 140) !important;");
@@ -212,7 +214,11 @@ public class trafficStopController {
 	public void searchDMV(ActionEvent actionEvent) {
 		CustomWindow vehWindow = WindowManager.getWindow("Vehicle Lookup");
 		if (vehWindow == null) {
-			CustomWindow vehApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Apps/lookup-veh-view.fxml", "Vehicle Lookup", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), vehLookupAppObj.getImage());
+			CustomWindow vehApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+			                                                       "Windows/Apps/lookup-veh-view.fxml",
+			                                                       "Vehicle Lookup", true, 1, true, false,
+			                                                       mainDesktopControllerObj.getTaskBarApps(),
+			                                                       vehLookupAppObj.getImage());
 			if (vehApp != null && vehApp.controller != null) {
 				vehLookupViewController = (VehLookupViewController) vehApp.controller;
 			}
@@ -232,7 +238,8 @@ public class trafficStopController {
 				try {
 					vehLookupViewController.onVehSearchBtnClick(new ActionEvent());
 					vehWindow.bringToFront();
-					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV", LogUtils.Severity.DEBUG);
+					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV",
+					    LogUtils.Severity.DEBUG);
 				} catch (IOException e) {
 					logError("Error searching plate from traffic stop window plate: " + platenum.getText(), e);
 				}
@@ -243,15 +250,22 @@ public class trafficStopController {
 	@javafx.fxml.FXML
 	public void createTrafficStop(ActionEvent actionEvent) {
 		Map<String, Object> trafficStopReportObj = newTrafficStop();
-		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report") + " Map");
+		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(
+				localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle",
+				                                 "Traffic Stop Report") + " Map");
 		
-		TextField offenderNamets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		TextField plateNumberts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-		TextField modelts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-		ComboBox areats = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-		ComboBox streetts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+		TextField offenderNamets = (TextField) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField plateNumberts = (TextField) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+		TextField modelts = (TextField) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+		ComboBox areats = (ComboBox) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+		ComboBox streetts = (ComboBox) trafficStopReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
 		
-		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerTrafficStop.data";
+		String filePath = getServerDataFolderPath() + "ServerTrafficStop.data";
 		Map<String, String> vehData;
 		try {
 			vehData = grabTrafficStop(filePath);

@@ -112,4 +112,20 @@ public class recordUtils {
 		notFoundMap.put("error", "vehicle not found");
 		return notFoundMap;
 	}
+	
+	public static String extractValueByKey(String text, String keyToSearch) {
+		String[] parts = text.split("\\|");
+		for (String part : parts) {
+			String[] keyValue = part.split("=", 2);
+			if (keyValue.length == 2) {
+				String key = keyValue[0].trim();
+				String value = keyValue[1].trim();
+				if (key.equalsIgnoreCase(keyToSearch)) {
+					return value;
+				}
+			}
+		}
+		return null;
+	}
+	
 }

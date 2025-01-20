@@ -27,8 +27,8 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.handleClose;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.*;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.*;
 
@@ -104,15 +104,21 @@ public class AutoUpdaterToolController {
 				}
 			}
 		});
-		updateStatus(updateStatusLabel, localization.getLocalizedMessage("UpdatesWindow.notStartedLabel", "Not Started"), "#ab5b38");
+		updateStatus(updateStatusLabel,
+		             localization.getLocalizedMessage("UpdatesWindow.notStartedLabel", "Not Started"), "#ab5b38");
 	}
 	
 	private void updateLocale() {
-		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.intelChipCheckbox", "Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"));
-		armChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.armChipCheckbox", "Use Windows / ARM MacOS Download"));
-		startAutoUpdateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.startAutoUpdateBtn", "Start AutoUpdate"));
-		autoUpdateUtilityHeader.setText(localization.getLocalizedMessage("UpdatesWindow.autoUpdateUtilityHeader", "AutoUpdate Utility"));
-		updateServerCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.updateServerCheckbox", "Update Server (Requires you to be connected)"));
+		intelChipCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.intelChipCheckbox",
+		                                                           "Use Intel Chip MacOS Download (Only select if using a Intel chip mac)"));
+		armChipCheckbox.setText(
+				localization.getLocalizedMessage("UpdatesWindow.armChipCheckbox", "Use Windows / ARM MacOS Download"));
+		startAutoUpdateBtn.setText(
+				localization.getLocalizedMessage("UpdatesWindow.startAutoUpdateBtn", "Start AutoUpdate"));
+		autoUpdateUtilityHeader.setText(
+				localization.getLocalizedMessage("UpdatesWindow.autoUpdateUtilityHeader", "AutoUpdate Utility"));
+		updateServerCheckbox.setText(localization.getLocalizedMessage("UpdatesWindow.updateServerCheckbox",
+		                                                              "Update Server (Requires you to be connected)"));
 	}
 	
 	@FXML
@@ -148,10 +154,13 @@ public class AutoUpdaterToolController {
 			validInternetConnection = isInternetAvailable();
 			if (validInternetConnection) {
 				log("Valid Internet Connection", Severity.DEBUG);
-				updateStatus(validInternetConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
+				updateStatus(validInternetConnectionLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
 				log("Invalid Internet Connection", Severity.DEBUG);
-				updateStatus(validInternetConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				updateStatus(validInternetConnectionLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+				             "red");
 				errorsFound[0] = true;
 				errors.append("Invalid Internet Connection ");
 			}
@@ -162,7 +171,9 @@ public class AutoUpdaterToolController {
 					log("Finished Copying UpdaterJar.", Severity.DEBUG);
 				} else {
 					log("Could not copy updater", Severity.ERROR);
-					updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+					updateStatus(foundUpdateUtilityLabel,
+					             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+					             "red");
 					errors.append("Update Utility Was Not Copied, ");
 				}
 			} catch (IOException e) {
@@ -172,21 +183,27 @@ public class AutoUpdaterToolController {
 			foundUpdateUtility = checkForUpdateUtility();
 			if (foundUpdateUtility) {
 				log("Found Update Utility", Severity.DEBUG);
-				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
+				updateStatus(foundUpdateUtilityLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
 				log("Update Utility Was Not Found!", Severity.ERROR);
 				errorsFound[0] = true;
-				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				updateStatus(foundUpdateUtilityLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+				             "red");
 				errors.append("Update Utility Was Not Found, ");
 			}
 			
 			validServerConnection = isConnected;
 			if (validServerConnection) {
 				log("Valid Server Connection Found", Severity.DEBUG);
-				updateStatus(validServerConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
+				updateStatus(validServerConnectionLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
 				log("Invalid Server Connection", Severity.WARN);
-				updateStatus(validServerConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				updateStatus(validServerConnectionLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+				             "red");
 				if (updateServer[0]) {
 					errorsFound[0] = true;
 					errors.append("Server Connection Was Not Found, ");
@@ -199,7 +216,9 @@ public class AutoUpdaterToolController {
 				updateStatus(foundServerVersionLabel, foundServerDownloadVersion, "green");
 			} else {
 				log("Current Server Version Not Found!", Severity.WARN);
-				updateStatus(foundServerVersionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				updateStatus(foundServerVersionLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+				             "red");
 				if (updateServer[0]) {
 					errorsFound[0] = true;
 					errors.append("Current Server Version Not Found, ");
@@ -209,10 +228,13 @@ public class AutoUpdaterToolController {
 			foundDownloadURL = checkForDownloadURL(finalDownloadURL);
 			if (foundDownloadURL) {
 				log("Found Download URL: " + finalDownloadURL, Severity.DEBUG);
-				updateStatus(foundDownloadURLLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
+				updateStatus(foundDownloadURLLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
 				log("Download URL Was Not Found!", Severity.WARN);
-				updateStatus(foundDownloadURLLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				updateStatus(foundDownloadURLLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+				             "red");
 				errorsFound[0] = true;
 				errors.append("Download URL Was Not Found, ");
 			}
@@ -223,7 +245,9 @@ public class AutoUpdaterToolController {
 				updateStatus(foundDownloadVersionLabel, foundDownloadVersion, "green");
 			} else {
 				log("Download Version Was Not Found!", Severity.WARN);
-				updateStatus(foundDownloadVersionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
+				updateStatus(foundDownloadVersionLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"),
+				             "red");
 				errorsFound[0] = true;
 				errors.append("Download Version Was Not Found, ");
 			}
@@ -236,10 +260,15 @@ public class AutoUpdaterToolController {
 			if (errorsFound[0]) {
 				log("Update Check Finished With Errors!: " + ErrorsString, Severity.ERROR);
 				showNotificationError("AutoUpdate Utility", "Autoupdate check finished with errors!");
-				updateStatus(updateStatusLabel, localization.getLocalizedMessage("UpdatesWindow.failedAutoUpdateCheck", "Issues Found"), "red");
-				updateStatus(helpLabel, localization.getLocalizedMessage("UpdatesWindow.checksDidntPassLabel", "Can't Update:") + " " + ErrorsString, "red");
+				updateStatus(updateStatusLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.failedAutoUpdateCheck", "Issues Found"),
+				             "red");
+				updateStatus(helpLabel, localization.getLocalizedMessage("UpdatesWindow.checksDidntPassLabel",
+				                                                         "Can't Update:") + " " + ErrorsString, "red");
 			} else {
-				updateStatus(updateStatusLabel, localization.getLocalizedMessage("UpdatesWindow.successfulAutoUpdateCheck", "Successful Check!"), "green");
+				updateStatus(updateStatusLabel,
+				             localization.getLocalizedMessage("UpdatesWindow.successfulAutoUpdateCheck",
+				                                              "Successful Check!"), "green");
 				updateStatus(helpLabel, "Downloading Update..", "green");
 				
 				if (updateServer[0]) {
@@ -282,7 +311,9 @@ public class AutoUpdaterToolController {
 				String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
 				Path destinationFile = destinationDir.resolve(fileName);
 				
-				try (BufferedInputStream in = new BufferedInputStream(connection.getInputStream()); FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
+				try (BufferedInputStream in = new BufferedInputStream(
+						connection.getInputStream()); FileOutputStream out = new FileOutputStream(
+						destinationFile.toFile())) {
 					
 					byte[] buffer = new byte[8192];
 					int bytesRead;
@@ -299,7 +330,8 @@ public class AutoUpdaterToolController {
 					}
 					long end = System.currentTimeMillis();
 					long delta = end - start;
-					log("Download completed in " + Math.round(delta) + "ms. Total bytes read: " + totalBytesRead, Severity.DEBUG);
+					log("Download completed in " + Math.round(delta) + "ms. Total bytes read: " + totalBytesRead,
+					    Severity.DEBUG);
 					return true;
 				} catch (IOException e) {
 					log("Error during file download: " + e.getMessage(), Severity.ERROR);
@@ -412,7 +444,8 @@ public class AutoUpdaterToolController {
 				return null;
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", Severity.ERROR);
+			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.",
+			    Severity.ERROR);
 			return null;
 		} catch (IOException e) {
 			logError("Can't check for updates: ", e);

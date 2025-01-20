@@ -46,10 +46,10 @@ import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.CalloutManager.createLabel;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.vehImageFolderURL;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.controllerUtils.updateRecentSearches;
 import static com.Guess.ReportsPlus.util.Misc.dropdownInfo.vehicleTypes;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.vehImageFolderURL;
 
 public class VehLookupViewController {
 	public static VehLookupViewController vehLookupViewController;

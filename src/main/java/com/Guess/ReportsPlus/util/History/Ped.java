@@ -14,10 +14,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateAge;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.calculateAge;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedHistoryURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.pedHistoryURL;
 
 @XmlRootElement(name = "ped")
 @XmlAccessorType(XmlAccessType.FIELD)

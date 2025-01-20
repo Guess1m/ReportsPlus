@@ -29,77 +29,138 @@ import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewC
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.toTitleCase;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.updateTextFromNotepad;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.searchLogURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.searchLogURL;
+import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.generateReportNumber;
 
 public class SearchReportUtils {
 	
 	public static Map<String, Object> searchLayout() {
-		Map<String, Object> searchReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report"), null,
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information")), true,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2, nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.TimeLocationInfoheader", "Timestamp / Location Information"), true,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 3, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"), 5, nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 5, nestedReportUtils.FieldType.COMBO_BOX_STREET),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4, nestedReportUtils.FieldType.COMBO_BOX_AREA),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 3, nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.SearchInfoheader", "Search Information"), true, new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"), 6, nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"), 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.SearchedIndividualField", "searched individual"), 12, nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"), 6, nestedReportUtils.FieldType.COMBO_BOX_SEARCH_TYPE),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"), 6,
-		                                                                                                                                                            nestedReportUtils.FieldType.COMBO_BOX_SEARCH_METHOD))),
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldSobInfoheader", "Field Sobriety Information (If Applicable)"), false,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.TestResultField", "result"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"), 4, nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.NotesSummarySectionheader", "Notes / Summary"), true,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"), 12, nestedReportUtils.FieldType.TEXT_AREA)),
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"), 12, nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> searchReport = createReportWindow(
+				localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report"), null,
+				new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading",
+						                                 localization.getLocalizedMessage(
+								                                 "ReportWindows.OfficerInfoSectionHeading",
+								                                 "Officer Information")), true,
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.TimeLocationInfoheader",
+						                                 "Timestamp / Location Information"), true,
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 3,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 4,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"), 5,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 5,
+								nestedReportUtils.FieldType.COMBO_BOX_STREET), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4,
+						nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 3,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.SearchInfoheader", "Search Information"), true,
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.GroundsForSearchField",
+								                                 "grounds for search"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.SearchedIndividualField",
+								                                 "searched individual"), 12,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"), 6,
+								nestedReportUtils.FieldType.COMBO_BOX_SEARCH_TYPE), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"), 6,
+						nestedReportUtils.FieldType.COMBO_BOX_SEARCH_METHOD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldSobInfoheader",
+						                                 "Field Sobriety Information (If Applicable)"), false,
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.TestsConductedField",
+								                                 "test(s) conducted"), 4,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.TestResultField", "result"), 4,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.BACMeasurementField",
+								                                 "bac measurement"), 4,
+								nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.NotesSummarySectionheader", "Notes / Summary"),
+						true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"), 12,
+						nestedReportUtils.FieldType.TEXT_AREA)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"), 12,
+								nestedReportUtils.FieldType.TEXT_AREA))));
 		return searchReport;
 	}
 	
 	public static Map<String, Object> newSearch() {
 		Map<String, Object> searchReport = searchLayout();
 		
-		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get(localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
+		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport.get(
+				localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
 		
-		TextField name = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-		TextField rank = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-		TextField div = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-		TextField agen = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-		TextField num = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+		TextField name = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+		TextField rank = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+		TextField div = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+		TextField agen = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+		TextField num = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 		
-		TextField searchnum = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
-		TextField date = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-		TextField time = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-		ComboBox street = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-		ComboBox area = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-		TextField county = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+		TextField searchnum = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
+		TextField date = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+		TextField time = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+		ComboBox street = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+		ComboBox area = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+		TextField county = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 		
-		TextField grounds = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
-		TextField witness = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"));
-		TextField searchedindividual = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchedIndividualField", "searched individual"));
-		ComboBox type = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
-		ComboBox method = (ComboBox) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
+		TextField grounds = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
+		TextField witness = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.WitnessesField", "witness(s)"));
+		TextField searchedindividual = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchedIndividualField", "searched individual"));
+		ComboBox type = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
+		ComboBox method = (ComboBox) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
 		
-		TextField testconducted = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
-		TextField result = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
-		TextField bacmeasurement = (TextField) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
+		TextField testconducted = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
+		TextField result = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
+		TextField bacmeasurement = (TextField) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
 		
-		TextArea seizeditems = (TextArea) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
-		TextArea notes = (TextArea) searchReportMap.get(localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
+		TextArea seizeditems = (TextArea) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
+		TextArea notes = (TextArea) searchReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
 		
 		Label warningLabel = (Label) searchReport.get("warningLabel");
 		
@@ -113,7 +174,7 @@ public class SearchReportUtils {
 			throw new RuntimeException(e);
 		}
 		date.setText(getDate());
-		time.setText(getTime());
+		time.setText(getTime(false));
 		searchnum.setText(generateReportNumber());
 		
 		MenuButton pullnotesbtn = (MenuButton) searchReport.get("pullNotesBtn");
@@ -248,7 +309,8 @@ public class SearchReportUtils {
 			SearchReports.setSearchReportList(new java.util.ArrayList<>());
 		}
 		
-		Optional<SearchReport> existingReport = SearchReports.getSearchReportList().stream().filter(e -> e.getSearchNumber().equals(SearchReport.getSearchNumber())).findFirst();
+		Optional<SearchReport> existingReport = SearchReports.getSearchReportList().stream().filter(
+				e -> e.getSearchNumber().equals(SearchReport.getSearchNumber())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			SearchReports.getSearchReportList().remove(existingReport.get());

@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.courtDataURL;
+import static com.Guess.ReportsPlus.util.Misc.URLStrings.courtDataURL;
 
 public class CourtUtils {
 	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);
@@ -62,7 +62,8 @@ public class CourtUtils {
 			courtCases.setCaseList(new java.util.ArrayList<>());
 		}
 		
-		boolean exists = courtCases.getCaseList().stream().anyMatch(e -> e.getCaseNumber().equals(courtCase.getCaseNumber()));
+		boolean exists = courtCases.getCaseList().stream().anyMatch(
+				e -> e.getCaseNumber().equals(courtCase.getCaseNumber()));
 		
 		if (!exists) {
 			courtCases.getCaseList().add(courtCase);
@@ -141,7 +142,8 @@ public class CourtUtils {
 				isTrafficCharge = true;
 			}
 		}
-		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, outcomeProbChance, outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance, outcomeFine);
+		return calculateOutcomes(isTrafficCharge, outcomeMin, outcomeMax, outcomeTime, outcomeProbChance,
+		                         outcomeSuspChance, outcomeMinSusp, outcomeMaxSusp, outcomeRevokeChance, outcomeFine);
 	}
 	
 	public static String calculateOutcomes(boolean isTrafficCharge, String outcomeMin, String outcomeMax, String outcomeTime, String probationChance, String outcomeSuspChance, String outcomeMinSusp, String outcomeMaxSusp, String outcomeRevokeChance, String outcomeFine) {
@@ -178,19 +180,23 @@ public class CourtUtils {
 		} else {
 			if (onlyProbation) {
 				result.append("Probation: Granted. ");
-				result.append("Probation Time: ").append(Math.round(Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(minJailTime)) * random.nextDouble())).append(" months. ");
+				result.append("Probation Time: ").append(Math.round(
+						Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(
+								minJailTime)) * random.nextDouble())).append(" months. ");
 				result.append("Jail Time: Dismissed. ");
 			} else {
 				boolean probationGranted = random.nextInt(100) < Integer.parseInt(probChance);
 				
 				double jailTime = 0;
 				if (probationGranted) {
-					jailTime = Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(minJailTime)) * random.nextDouble();
+					jailTime = Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(
+							minJailTime)) * random.nextDouble();
 					jailTime = jailTime / 3;
 					result.append("Probation: Granted. ");
 					result.append("Probation Time: ").append(Math.round(jailTime * 2)).append(" months. ");
 				} else {
-					jailTime = Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(minJailTime)) * random.nextDouble();
+					jailTime = Integer.parseInt(minJailTime) + (Integer.parseInt(maxJailTime) - Integer.parseInt(
+							minJailTime)) * random.nextDouble();
 					result.append("Probation: Denied. ");
 				}
 				
@@ -208,7 +214,9 @@ public class CourtUtils {
 				result.append("License: Revoked.");
 			} else {
 				if (random.nextInt(100) < Integer.parseInt(suspChance)) {
-					int randomSuspTime = random.nextInt(Integer.parseInt(maxSuspTime) - Integer.parseInt(minSuspTime) + 1) + Integer.parseInt(minSuspTime);
+					int randomSuspTime = random.nextInt(
+							Integer.parseInt(maxSuspTime) - Integer.parseInt(minSuspTime) + 1) + Integer.parseInt(
+							minSuspTime);
 					result.append("License: Suspended.");
 					result.append("License Suspension Time: ").append(randomSuspTime).append(" months. ");
 				} else {
@@ -258,10 +266,12 @@ public class CourtUtils {
 		long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
 		
 		CourtCases courtCases = loadCourtCases();
-		Case caseToUpdate = courtCases.getCaseList().stream().filter(c -> caseNumber.equals(c.getCaseNumber())).findFirst().orElse(null);
+		Case caseToUpdate = courtCases.getCaseList().stream().filter(
+				c -> caseNumber.equals(c.getCaseNumber())).findFirst().orElse(null);
 		
 		if (caseToUpdate != null) {
-			log("Scheduled: " + caseToUpdate.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec", LogUtils.Severity.DEBUG);
+			log("Scheduled: " + caseToUpdate.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec",
+			    LogUtils.Severity.DEBUG);
 			
 			Runnable revealTask = () -> {
 				try {
@@ -269,7 +279,8 @@ public class CourtUtils {
 						caseToUpdate.setStatus("Closed");
 						modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
 						log("Case: #" + caseToUpdate.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
-						showNotificationInfo("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + ", " + caseToUpdate.getName() + ", has been closed");
+						showNotificationInfo("Court Manager",
+						                     "Case: #" + caseToUpdate.getCaseNumber() + ", " + caseToUpdate.getName() + ", has been closed");
 					}
 				} catch (JAXBException | IOException e) {
 					logError("Error processing case: #" + caseToUpdate.getCaseNumber() + ":  ", e);

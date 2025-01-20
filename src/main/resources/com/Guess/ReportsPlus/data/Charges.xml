@@ -3,6 +3,9 @@
 
         Charge Attributes:
         * "name" is the name of the charge and how it will appear in the application
+        * "can_be_warrant" specifies if the charge is eligible for use in a warrant (true/false).
+            - If left unspecified, the default value is set to true.
+            - Any charge with "Warrant" in the name is also not considered for being a warrant charge
         * "fine" defines the maximum fine for that charge
         * "fine_k" defines the maximum fine for that charge in thousands Ex: fine_k="3" would be a maximum fine of 3000
         * "probation_chance" chance of the offender recieving probation
@@ -39,8 +42,10 @@
         <Charge name="(F)Conspiracy to Commit Murder" fine_k="5" probation_chance="0" min_years="10" max_years="25"/>
     </ChargeGroup>
     <ChargeGroup name="Violent Crimes - Assault/Battery">
-        <Charge name="(M)Simple Assault" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
-        <Charge name="(M)Simple Battery" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
+        <Charge name="(M)Simple Assault" can_be_warrant="false" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Simple Battery" can_be_warrant="false" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
         <Charge name="(F)Aggravated Assault" fine_k="5" probation_chance="10" min_years="1" max_years="5"/>
         <Charge name="(F)Assault With a Deadly Weapon" fine_k="5" probation_chance="10" min_years="1" max_years="5"/>
         <Charge name="(F)Assault on Police Officer" fine_k="5" probation_chance="10" min_years="1" max_years="5"/>
@@ -54,7 +59,8 @@
         <Charge name="(F)Statutory Rape" fine_k="10" probation_chance="0" min_years="10" max_years="25"/>
         <Charge name="(F)Rape" fine_k="10" probation_chance="0" min_years="10" max_years="20"/>
         <Charge name="(F)Attempted Rape" fine_k="10" probation_chance="0" min_years="5" max_years="10"/>
-        <Charge name="(M)Lewd and Lascivious Conduct" fine_k="10" probation_chance="0" min_years="10" max_years="15"/>
+        <Charge name="(M)Lewd and Lascivious Conduct" can_be_warrant="false" fine_k="10" probation_chance="0"
+                min_years="10" max_years="15"/>
         <Charge name="(F)Sodomy of Minor" fine_k="10" probation_chance="0" min_years="10" max_years="20"/>
     </ChargeGroup>
     <ChargeGroup name="Violent Crimes - Theft/Robbery/Burglary">
@@ -71,7 +77,8 @@
         <Charge name="(F)Grand Larceny" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
         <Charge name="(F)Robbery of Unoccupied Dwelling" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
         <Charge name="(F)Attempted Robbery" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
-        <Charge name="(F)Attempted Car Theft" fine_k="5" probation_chance="0" min_years="1" max_years="5"/>
+        <Charge name="(F)Attempted Car Theft" can_be_warrant="false" fine_k="5" probation_chance="0" min_years="1"
+                max_years="5"/>
     </ChargeGroup>
     <ChargeGroup name="Violent Crimes - Arson">
         <Charge name="(F)Arson" fine_k="10" probation_chance="5" min_years="5" max_years="10"/>
@@ -86,7 +93,8 @@
         <Charge name="(F)Attempted Kidnapping" fine_k="10" probation_chance="5" min_years="1" max_years="5"/>
         <Charge name="(F)Aggravated Stalking" fine_k="10" probation_chance="0" min_years="1" max_years="5"/>
         <Charge name="(M)Stalking" fine_k="10" probation_chance="5" min_years="1" max_years="5"/>
-        <Charge name="(F)False Imprisonment" fine_k="10" probation_chance="0" min_years="5" max_years="10"/>
+        <Charge name="(F)False Imprisonment" can_be_warrant="false" fine_k="10" probation_chance="0" min_years="5"
+                max_years="10"/>
     </ChargeGroup>
     <ChargeGroup name="Violent Crimes - Protesting and Rioting">
         <Charge name="(F)Mayhem with violence" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
@@ -96,11 +104,13 @@
         <Charge name="(F)Participating in Violent Protest" fine_k="3" probation_chance="10" min_years="1"
                 max_years="5"/>
         <Charge name="(F)Inciting Violent Protest" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
-        <Charge name="(M)Unlawful Assembly" fine_k="3" probation_chance="10" min_years="1" max_years="5"/>
+        <Charge name="(M)Unlawful Assembly" can_be_warrant="false" fine_k="3" probation_chance="10" min_years="1"
+                max_years="5"/>
         <Charge name="(F)Inciting Riot" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
         <Charge name="(F)Participating in Riot" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
         <Charge name="(F)Resisting Arrest with Violence" fine_k="3" probation_chance="5" min_years="1" max_years="5"/>
-        <Charge name="(M)Failure to Disperse" fine_k="3" probation_chance="10" min_years="1" max_years="5"/>
+        <Charge name="(M)Failure to Disperse" can_be_warrant="false" fine_k="3" probation_chance="10" min_years="1"
+                max_years="5"/>
     </ChargeGroup>
     <ChargeGroup name="Violent Crimes - Firearms/Weapons">
         <Charge name="(F)Brandishing Firearm" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
@@ -119,20 +129,28 @@
         <Charge name="(M)Animal Neglect" fine="1000" probation_chance="5" min_months="6" max_months="12"/>
         <Charge name="(F)Animal Fighting" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
         <Charge name="(M)Illegal Hunting" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
-        <Charge name="(M)Hunting Without License" fine="1000" probation_chance="10" min_months="1" max_months="6"/>
-        <Charge name="(F)Beastiality" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
+        <Charge name="(M)Hunting Without License" can_be_warrant="false" fine="1000" probation_chance="10"
+                min_months="1" max_months="6"/>
+        <Charge name="(F)Beastiality" can_be_warrant="false" fine="1000" probation_chance="0" min_months="6"
+                max_months="12"/>
         <Charge name="(M)Poaching" fine="1000" probation_chance="0" min_months="6" max_months="12"/>
         <Charge name="(M)Hunting Endangered/Protected Wildlife" fine="1000" probation_chance="0" min_months="6"
                 max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Non Violent Crimes - Juvenile Crimes">
-        <Charge name="(M)Underage Drinking" fine="1000" probation_chance="90" min_months="1" max_months="6"/>
-        <Charge name="(M)Joyriding a Car" fine="1000" probation_chance="90" min_months="6" max_months="12"/>
-        <Charge name="(M)Curfew Violation" fine="500" probation_chance="90" min_months="1" max_months="3"/>
-        <Charge name="(M)Underage Purchase or Possession of Alcohol" fine="1000" probation_chance="90" min_months="1"
+        <Charge name="(M)Underage Drinking" can_be_warrant="false" fine="1000" probation_chance="90" min_months="1"
                 max_months="6"/>
-        <Charge name="(M)Illegally Purchasing Tobacco" fine="1000" probation_chance="90" min_months="1" max_months="6"/>
-        <Charge name="(F)Unauthorized Use of a Motor Vehicle" fine="1000" probation_chance="90" min_months="6"
+        <Charge name="(M)Joyriding a Car" can_be_warrant="false" fine="1000" probation_chance="90" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Curfew Violation" can_be_warrant="false" fine="500" probation_chance="90" min_months="1"
+                max_months="3"/>
+        <Charge name="(M)Underage Purchase or Possession of Alcohol" can_be_warrant="false" fine="1000"
+                probation_chance="90" min_months="1"
+                max_months="6"/>
+        <Charge name="(M)Illegally Purchasing Tobacco" can_be_warrant="false" fine="1000" probation_chance="90"
+                min_months="1" max_months="6"/>
+        <Charge name="(F)Unauthorized Use of a Motor Vehicle" can_be_warrant="false" fine="1000" probation_chance="90"
+                min_months="6"
                 max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Non Violent Crimes">
@@ -140,21 +158,26 @@
         <Charge name="(M)Bribery" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(F)Money Laundering" fine="1000" probation_chance="60" min_years="1" max_years="5"/>
         <Charge name="(F)Identity Theft" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
-        <Charge name="(M)Drunk in Public" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
-        <Charge name="(F)Drugs in Public" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
-        <Charge name="(M)Open Container in Public" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(M)Drunk in Public" can_be_warrant="false" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(F)Drugs in Public" can_be_warrant="false" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Open Container in Public" can_be_warrant="false" fine="1000" probation_chance="60"
+                min_months="6" max_months="12"/>
         <Charge name="(M)Indecent Exposure" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(M)Disorderly Conduct" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(F)Impersonating a Police Officer" fine="1000" probation_chance="60" min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Harassment" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
+        <Charge name="(M)Harassment" can_be_warrant="false" fine="1000" probation_chance="60" min_months="6"
+                max_months="12"/>
         <Charge name="(M)Making Terroristic Threats" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(M)Providing Fake Name/Id to Police" fine="1000" probation_chance="60" min_months="6"
                 max_months="12"/>
         <Charge name="(F)Assisting in Suicide" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(M)Illegal Broadcasting" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(F)Misuse of 911" fine="1000" probation_chance="60" min_months="6" max_months="12"/>
-        <Charge name="(M)Failure/Refusing to Pay Bar/Hotel Tab" fine="1000" probation_chance="60" min_months="6"
+        <Charge name="(M)Failure/Refusing to Pay Bar/Hotel Tab" can_be_warrant="false" fine="1000" probation_chance="60"
+                min_months="6"
                 max_months="12"/>
         <Charge name="(M)Failure to Pay Court Ordered Child Support/Alimony" fine="1000" probation_chance="60"
                 min_months="6" max_months="12"/>
@@ -184,26 +207,43 @@
         <Charge name="(M)Obstruction of Justice" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Possession - Drugs/Illegal Substances">
-        <Charge name="(M)Possession of Marijuana" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Cocaine" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Crack Cocaine" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Methamphetamines" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Heroin" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of LSD" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(M)Possession of Drug Paraphernalia" fine_k="5" probation_chance="30" min_months="3"
+        <Charge name="(M)Possession of Marijuana" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Cocaine" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Crack Cocaine" can_be_warrant="false" fine_k="5" probation_chance="30"
+                min_years="1" max_years="5"/>
+        <Charge name="(F)Possession of Methamphetamines" can_be_warrant="false" fine_k="5" probation_chance="30"
+                min_years="1" max_years="5"/>
+        <Charge name="(F)Possession of Heroin" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of LSD" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(M)Possession of Drug Paraphernalia" can_be_warrant="false" fine_k="5" probation_chance="30"
+                min_months="3"
                 max_months="6"/>
-        <Charge name="(F)Possession of Controlled Substance" fine_k="5" probation_chance="30" min_years="1"
+        <Charge name="(F)Possession of Controlled Substance" can_be_warrant="false" fine_k="5" probation_chance="30"
+                min_years="1"
                 max_years="5"/>
-        <Charge name="(F)Possession of Prescription Pills" fine_k="5" probation_chance="30" min_years="1"
+        <Charge name="(F)Possession of Prescription Pills" can_be_warrant="false" fine_k="5" probation_chance="30"
+                min_years="1"
                 max_years="5"/>
-        <Charge name="(F)Possession of Opium" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of MDMA" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Fentanyl" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of PCP" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Ketamine" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Ecstasy" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Steroids" fine_k="5" probation_chance="30" min_years="1" max_years="5"/>
-        <Charge name="(F)Possession of Drugs W/Intent to Distribute" fine_k="5" probation_chance="30" min_years="1"
+        <Charge name="(F)Possession of Opium" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of MDMA" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Fentanyl" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of PCP" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Ketamine" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Ecstasy" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Steroids" can_be_warrant="false" fine_k="5" probation_chance="30" min_years="1"
+                max_years="5"/>
+        <Charge name="(F)Possession of Drugs W/Intent to Distribute" can_be_warrant="false" fine_k="5"
+                probation_chance="30" min_years="1"
                 max_years="10"/>
         <Charge name="(F)Drug Trafficking (Schedule I)" fine_k="5" probation_chance="0" min_years="5" max_years="20"/>
         <Charge name="(F)Drug Trafficking (Schedule II)" fine_k="5" probation_chance="0" min_years="5" max_years="20"/>
@@ -242,41 +282,59 @@
                 max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Property - Vandalism and Destruction">
-        <Charge name="(M)Destruction of Public Property" fine="1000" probation_chance="50" min_months="6"
+        <Charge name="(M)Destruction of Public Property" can_be_warrant="false" fine="1000" probation_chance="50"
+                min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Destruction of Private Property" fine="1000" probation_chance="50" min_months="6"
+        <Charge name="(M)Destruction of Private Property" can_be_warrant="false" fine="1000" probation_chance="50"
+                min_months="6"
                 max_months="12"/>
-        <Charge name="(F)Tampering with Property Leading to Injury/Death" fine="1000" probation_chance="50"
+        <Charge name="(F)Tampering with Property Leading to Injury/Death" can_be_warrant="false" fine="5000"
+                probation_chance="50"
                 min_years="5" max_years="15"/>
-        <Charge name="(M)Vandalism of Public Property" fine="1000" probation_chance="40" min_months="6"
+        <Charge name="(M)Vandalism of Public Property" can_be_warrant="false" fine="1000" probation_chance="40"
+                min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Vandalism of Private Property" fine="1000" probation_chance="40" min_months="6"
+        <Charge name="(M)Vandalism of Private Property" can_be_warrant="false" fine="1000" probation_chance="40"
+                min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Vandalism of Government Property" fine="1000" probation_chance="40" min_months="6"
+        <Charge name="(M)Vandalism of Government Property" fine="2000" probation_chance="40" min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Trespassing" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
-        <Charge name="(M)Graffiti" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Trespassing" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Graffiti" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Property - Criminal Mischief">
-        <Charge name="(M)Mischief" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
-        <Charge name="(M)Prowling" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
-        <Charge name="(M)Loitering" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
-        <Charge name="(M)Looting" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Mischief" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Prowling" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Loitering" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Looting" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Property - Shoplifting">
-        <Charge name="(M)Shoplifting" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
-        <Charge name="(M)Petty Theft" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
-        <Charge name="(M)Retail Theft" fine="1000" probation_chance="40" min_months="6" max_months="12"/>
+        <Charge name="(M)Shoplifting" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Petty Theft" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
+        <Charge name="(M)Retail Theft" can_be_warrant="false" fine="1000" probation_chance="40" min_months="6"
+                max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Traffic Crimes">
-        <Charge name="(M)Driving Wrong Way" traffic="true" fine="1000" susp_chance="75" min_susp="12" max_susp="24"
+        <Charge name="(M)Driving Wrong Way" can_be_warrant="false" traffic="true" fine="1000" susp_chance="75"
+                min_susp="12" max_susp="24"
                 revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
-        <Charge name="(M)Reckless Driving and Endangerment" traffic="true" fine="1000" susp_chance="75"
+        <Charge name="(M)Reckless Driving and Endangerment" can_be_warrant="false" traffic="true" fine="1000"
+                susp_chance="75"
                 min_susp="12" max_susp="24" revoke_chance="90" probation_chance="50" min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Street Racing" traffic="true" fine="1000" susp_chance="100" min_susp="12" max_susp="24"
+        <Charge name="(M)Street Racing" traffic="true" can_be_warrant="false" fine="1000" susp_chance="100"
+                min_susp="12" max_susp="24"
                 revoke_chance="0" probation_chance="70" min_months="6" max_months="12"/>
-        <Charge name="(M)Leaving the Scene of an Accident" traffic="true" fine="1000" susp_chance="100"
+        <Charge name="(M)Leaving the Scene of an Accident" can_be_warrant="false" traffic="true" fine="1000"
+                susp_chance="100"
                 min_susp="12" max_susp="24" revoke_chance="0" probation_chance="60" min_months="6" max_months="12"/>
         <Charge name="(F)Evading Arrest" traffic="true" fine="1000" susp_chance="100" min_susp="12" max_susp="24"
                 revoke_chance="100" probation_chance="50" min_months="6" max_months="12"/>
@@ -295,19 +353,23 @@
                 max_susp="24" revoke_chance="0" probation_chance="50" min_years="1" max_years="5"/>
     </ChargeGroup>
     <ChargeGroup name="Traffic Crimes - DUI/DWI">
-        <Charge name="(M)Driving Under the Influence (Alcohol)" traffic="true" fine="1000" susp_chance="100"
+        <Charge name="(M)Driving Under the Influence (Alcohol)" can_be_warrant="false" traffic="true" fine="1000"
+                susp_chance="100"
                 min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
         <Charge name="(F)Driving Under the Influence (Alcohol 2nd Offense)" traffic="true" fine="1000"
                 susp_chance="0" min_susp="12" max_susp="24" revoke_chance="100" probation_chance="50" min_years="1"
                 max_years="5"/>
-        <Charge name="(M)Driving Under the Influence (Drugs)" traffic="true" fine="1000" susp_chance="100"
+        <Charge name="(M)Driving Under the Influence (Drugs)" can_be_warrant="false" traffic="true" fine="1000"
+                susp_chance="100"
                 min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
         <Charge name="(F)Driving Under the Influence (Drugs 2nd Offence)" traffic="true" fine="1000" susp_chance="0"
                 min_susp="12" max_susp="24" revoke_chance="100" probation_chance="50" min_years="1" max_years="5"/>
-        <Charge name="(M)Failure/Refusing to Provide Blood or Breath Sample" traffic="true" fine="1000"
+        <Charge name="(M)Failure/Refusing to Provide Blood or Breath Sample" can_be_warrant="false" traffic="true"
+                fine="1000"
                 susp_chance="100" min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="6"
                 max_months="12"/>
-        <Charge name="(M)Open Container in MV" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+        <Charge name="(M)Open Container in MV" can_be_warrant="false" traffic="true" fine="1000" susp_chance="100"
+                min_susp="12"
                 max_susp="24" revoke_chance="0" probation_chance="50" min_months="6" max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Traffic Crimes - License/Reg/Ins">
@@ -316,13 +378,17 @@
                 max_months="12"/>
         <Charge name="(F)Driving While License Revoked" traffic="true" fine="1000" susp_chance="0" min_susp="12"
                 max_susp="24" revoke_chance="100" probation_chance="50" min_months="1" max_months="12"/>
-        <Charge name="(M)Driving With no Registration" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+        <Charge name="(M)Driving With no Registration" can_be_warrant="false" traffic="true" fine="1000"
+                susp_chance="100" min_susp="12"
                 max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
-        <Charge name="(M)Driving With no Insurance" traffic="true" fine="1000" susp_chance="100" min_susp="12"
+        <Charge name="(M)Driving With no Insurance" can_be_warrant="false" traffic="true" fine="1000" susp_chance="100"
+                min_susp="12"
                 max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
-        <Charge name="(M)Driving With no License" traffic="true" fine="1000" susp_chance="0" min_susp="12"
+        <Charge name="(M)Driving With no License" can_be_warrant="false" traffic="true" fine="1000" susp_chance="0"
+                min_susp="12"
                 max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
-        <Charge name="(M)Failure to Present Documentation" traffic="true" fine="1000" susp_chance="100"
+        <Charge name="(M)Failure to Present Documentation" can_be_warrant="false" traffic="true" fine="1000"
+                susp_chance="100"
                 min_susp="12" max_susp="24" revoke_chance="0" probation_chance="50" min_months="1" max_months="12"/>
     </ChargeGroup>
     <ChargeGroup name="Warrants/Wanted">

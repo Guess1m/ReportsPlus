@@ -91,7 +91,22 @@ public class NewReportVewController {
 			closeWindow();
 		});
 		
-		selectReportTypeLabel.setText(localization.getLocalizedMessage("NewReportApp.selectReportTypeLabel", "Select a Report Type:"));
+		addLocale();
+	}
+	
+	private void addLocale() {
+		selectReportTypeLabel.setText(
+				localization.getLocalizedMessage("NewReportApp.selectReportTypeLabel", "Select a Report Type:"));
+		patrol.setText(localization.getLocalizedMessage("NewReportApp.patrol", "Patrol Report"));
+		search.setText(localization.getLocalizedMessage("NewReportApp.search", "Search Report"));
+		callout.setText(localization.getLocalizedMessage("NewReportApp.callout", "Callout Report"));
+		trafficstop.setText(localization.getLocalizedMessage("NewReportApp.trafficstop", "TrafficStop Report"));
+		arrest.setText(localization.getLocalizedMessage("NewReportApp.arrest", "Arrest Report"));
+		death.setText(localization.getLocalizedMessage("NewReportApp.death", "Death Report"));
+		impound.setText(localization.getLocalizedMessage("NewReportApp.impound", "Impound Report"));
+		citation.setText(localization.getLocalizedMessage("NewReportApp.citation", "Citation Report"));
+		incident.setText(localization.getLocalizedMessage("NewReportApp.incident", "Incident Report"));
+		accident.setText(localization.getLocalizedMessage("NewReportApp.accident", "Accident Report"));
 	}
 	
 	private void closeWindow() {

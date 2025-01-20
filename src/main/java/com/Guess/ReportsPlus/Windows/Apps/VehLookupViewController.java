@@ -285,7 +285,6 @@ public class VehLookupViewController {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
 			
-			//BUG: ins/reg numbers not being saved
 			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(),
 			                  vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle",
 			                  vehicle);

@@ -35,25 +35,25 @@ public class PedObject {
 			logError("Failed to load ServerWorldCars: ", e);
 		}
 		
-		this.name = pedData.getOrDefault("name", "Not Found");
-		this.licenseNumber = pedData.getOrDefault("licenseNumber", "Not Found");
-		this.modelName = pedData.getOrDefault("pedModel", "Not Found");
-		this.birthday = pedData.getOrDefault("birthday", "Not Found");
-		this.gender = pedData.getOrDefault("gender", "Not Found");
-		this.address = pedData.getOrDefault("address", "Not Found");
-		this.isWanted = pedData.getOrDefault("isWanted", "Not Found");
-		this.licenseStatus = pedData.getOrDefault("licenseStatus", "Not Found");
-		this.licenseExp = pedData.getOrDefault("licenseExpiration", "Not Found");
-		this.weaponPermitType = pedData.getOrDefault("weaponPermitType", "Not Found");
-		this.weaponPermitStatus = pedData.getOrDefault("weaponPermitStatus", "Not Found");
-		this.weaponPermitExpiration = pedData.getOrDefault("weaponPermitExpiration", "Not Found");
-		this.fishPermitStatus = pedData.getOrDefault("fishPermitStatus", "Not Found");
-		this.timesStopped = pedData.getOrDefault("timesStopped", "Not Found");
-		this.fishPermitExpiration = pedData.getOrDefault("fishPermitExpiration", "Not Found");
-		this.huntPermitStatus = pedData.getOrDefault("huntPermitStatus", "Not Found");
-		this.huntPermitExpiration = pedData.getOrDefault("huntPermitExpiration", "Not Found");
-		this.isOnParole = pedData.getOrDefault("isOnParole", "Not Found");
-		this.isOnProbation = pedData.getOrDefault("isOnProbation", "Not Found");
+		this.name = pedData.getOrDefault("name", null);
+		this.licenseNumber = pedData.getOrDefault("licensenumber", null);
+		this.modelName = pedData.getOrDefault("pedmodel", null);
+		this.birthday = pedData.getOrDefault("birthday", null);
+		this.gender = pedData.getOrDefault("gender", null);
+		this.address = pedData.getOrDefault("address", null);
+		this.isWanted = pedData.getOrDefault("iswanted", null);
+		this.licenseStatus = pedData.getOrDefault("licensestatus", null);
+		this.licenseExp = pedData.getOrDefault("licenseexpiration", null);
+		this.weaponPermitType = pedData.getOrDefault("weaponpermittype", null);
+		this.weaponPermitStatus = pedData.getOrDefault("weaponpermitstatus", null);
+		this.weaponPermitExpiration = pedData.getOrDefault("weaponpermitexpiration", null);
+		this.fishPermitStatus = pedData.getOrDefault("fishpermitstatus", null);
+		this.timesStopped = pedData.getOrDefault("timesstopped", null);
+		this.fishPermitExpiration = pedData.getOrDefault("fishpermitexpiration", null);
+		this.huntPermitStatus = pedData.getOrDefault("huntpermitstatus", null);
+		this.huntPermitExpiration = pedData.getOrDefault("huntpermitexpiration", null);
+		this.isOnParole = pedData.getOrDefault("isonparole", null);
+		this.isOnProbation = pedData.getOrDefault("isonprobation", null);
 	}
 	
 	public String getAddress() {

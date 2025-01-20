@@ -729,21 +729,6 @@ public class controllerUtils {
 		return citCount;
 	}
 	
-	public static String getGunLicenseType() throws IOException {
-		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
-		
-		if (licenseTypeSet.toLowerCase().contains("open")) {
-			return "Open Carry";
-		} else if (licenseTypeSet.toLowerCase().contains("concealed")) {
-			return "Concealed Carry";
-		} else {
-			return "Open Carry / Concealed Carry";
-		}
-	}
-	
 	public static String getGunLicenseClass() throws IOException {
 		Set<String> licenseClassSet = getPermitClassBasedOnChances(
 				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
@@ -752,79 +737,6 @@ public class controllerUtils {
 		
 		return String.join(" / ", licenseClassSet).trim();
 	}
-	
-	//TODO: remove
-	   /* public static Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
-		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
-		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-		
-		Ped ped = new Ped();
-		ped.setLicenseNumber(generateLicenseNumber());
-		ped.setName(owner);
-		ped.setGender(genderOutcome);
-		ped.setBirthday(generateBirthday(22, 60));
-		ped.setAddress(getRandomAddress());
-		ped.setWantedStatus(isWantedOutcome);
-		ped.setLicenseStatus(calculateLicenseStatus(55, 22, 23));
-		
-		if (isWantedOutcome.equalsIgnoreCase("true")) {
-			setPedWarrantStatus(ped);
-		}
-		
-		setPedPriors(ped);
-		
-		boolean fishLicStatus = calculateTrueFalseProbability(
-				ConfigReader.configRead("pedHistory", "hasFishingLicense"));
-		if (fishLicStatus) {
-			String licstatus = calculateLicenseStatus(
-					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
-					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
-					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			ped.setFishingLicenseStatus(licstatus);
-			
-			if (licstatus.equalsIgnoreCase("suspended")) {
-				ped.setFishingLicenseExpiration("Suspended License");
-			} else if (licstatus.equalsIgnoreCase("expired")) {
-				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			
-			ped.setFishingLicenseNumber(generateLicenseNumber());
-		}
-		
-		boolean boatLicStatus = calculateTrueFalseProbability(
-				ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
-		if (boatLicStatus) {
-			String licstatus = calculateLicenseStatus(
-					Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")),
-					Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
-					Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			
-			if (licstatus.equalsIgnoreCase("suspended")) {
-				ped.setBoatingLicenseExpiration("Suspended License");
-			} else if (licstatus.equalsIgnoreCase("expired")) {
-				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			ped.setBoatingLicenseStatus(licstatus);
-			ped.setBoatingLicenseNumber(generateLicenseNumber());
-		}
-		ped.setVehiclePlateNum(vehPlateNum);
-		try {
-			setGunLicenseStatus(ped);
-		} catch (IOException e) {
-			logError("Could not set gunLicenseStatus: ", e);
-		}
-		
-		try {
-			Ped.PedHistoryUtils.addPed(ped);
-		} catch (JAXBException e) {
-			logError("Error adding ped to PedHistory: ", e);
-		}
-		return ped;
-	}*/
 	
 	public static void updateRecentSearches(List<String> recentSearches, ComboBox<String> searchField, String newSearch) {
 		if (!newSearch.isEmpty()) {

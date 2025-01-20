@@ -1599,7 +1599,6 @@ public class settingsController {
 		});
 		notiSettingsBtn.setOnAction(actionEvent -> {
 			setActive(paneNotification);
-			System.out.println("1");
 		});
 		reportDesignBtn.setOnAction(actionEvent -> {
 			setActive(paneReport);

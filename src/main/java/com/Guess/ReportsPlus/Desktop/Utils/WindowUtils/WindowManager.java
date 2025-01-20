@@ -28,7 +28,6 @@ public class WindowManager {
 			}
 			
 			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root, image);
-			
 			if (customWindow.getWindowPane() != null) {
 				try {
 					if (root != null) {
@@ -56,6 +55,7 @@ public class WindowManager {
 			
 		} else {
 			CustomWindow customWindow = windows.get(title);
+			customWindow.bringToFront();
 			if (reopen) {
 				double x = customWindow.getWindowPane().getLayoutX();
 				double y = customWindow.getWindowPane().getLayoutY();
@@ -66,8 +66,6 @@ public class WindowManager {
 				windows.remove(title);
 				
 				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false, taskBarApps, image);
-			} else {
-				customWindow.bringToFront();
 			}
 		}
 		return null;

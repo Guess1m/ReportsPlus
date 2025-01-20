@@ -25,7 +25,7 @@ public class stringUtil {
 	 */
 	
 	public static final String version = "v1.3-alpha";
-	public static final String[] updatesList = {"Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Redesigned Profile App"};
+	public static final String[] updatesList = {"Completely Reworked Ped/Veh Lookup Implementation, Added Support For Policing Redefined, Added LSPDFR Default Events For ID Lookups, Fixed DesktopApps Not Bringing Window To Front, Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Redesigned Profile App"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			NEW:

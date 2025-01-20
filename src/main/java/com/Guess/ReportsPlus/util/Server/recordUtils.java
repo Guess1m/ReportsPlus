@@ -71,7 +71,7 @@ public class recordUtils {
 				}
 			}
 			
-			if (attributesMap.getOrDefault("licensePlate", "").toLowerCase().equals(normalizedLicensePlate)) {
+			if (attributesMap.getOrDefault("licenseplate", "").toLowerCase().equals(normalizedLicensePlate)) {
 				return attributesMap;
 			}
 		}
@@ -103,7 +103,7 @@ public class recordUtils {
 				}
 			}
 			
-			if (attributesMap.getOrDefault("licensePlate", "") != null) {
+			if (attributesMap.getOrDefault("licenseplate", "") != null) {
 				return attributesMap;
 			}
 		}

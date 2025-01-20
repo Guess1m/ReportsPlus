@@ -39,15 +39,14 @@ public class VehicleObject {
 		String driver = vehDataMap.getOrDefault("driver", "Not Found");
 		
 		String model = vehDataMap.getOrDefault("model", "Not Found");
-		String isStolen = vehDataMap.getOrDefault("isStolen", "Not Found");
-		String isPolice = vehDataMap.getOrDefault("isPolice", "Not Found");
+		String isStolen = vehDataMap.getOrDefault("isstolen", "Not Found");
+		String isPolice = vehDataMap.getOrDefault("ispolice", "Not Found");
 		String registration = vehDataMap.getOrDefault("registration", "Not Found");
 		String insurance = vehDataMap.getOrDefault("insurance", "Not Found");
 		String owner = vehDataMap.getOrDefault("owner", "Not Found");
-		String plate = vehDataMap.getOrDefault("licensePlate", "Not Found");
+		String plate = vehDataMap.getOrDefault("licenseplate", "Not Found");
 		String color = getColorFromRGB(vehDataMap.getOrDefault("color", "Not Found"));
 		
-		//TODO: driver not implemented yet
 		this.driver = driver;
 		
 		this.vin = vin;

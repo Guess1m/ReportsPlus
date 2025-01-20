@@ -390,7 +390,7 @@ public class PedLookupViewController {
 			}
 			
 			try {
-				if (fishPermitStatus_value != null) {
+				if (fishPermitStatus_value != null && !fishPermitStatus_value.equalsIgnoreCase("not found")) {
 					ped.setFishingLicenseStatus(fishPermitStatus_value);
 				} else {
 					log("ProcessPedData; fishPermitStatus_value was null, generating", LogUtils.Severity.WARN);
@@ -403,6 +403,9 @@ public class PedLookupViewController {
 								Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
 								Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
 						ped.setFishingLicenseStatus(licstatus);
+						
+						log("ProcessPedData; generated fishingLicenseNumber", LogUtils.Severity.WARN);
+						ped.setFishingLicenseNumber(generateLicenseNumber());
 					} else {
 						log("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None",
 						    LogUtils.Severity.WARN);
@@ -412,7 +415,7 @@ public class PedLookupViewController {
 					}
 				}
 				
-				if (fishPermitExpiration_value != null) {
+				if (fishPermitExpiration_value != null && !fishPermitExpiration_value.equalsIgnoreCase("not found")) {
 					ped.setFishingLicenseExpiration(fishPermitExpiration_value);
 				} else {
 					log("ProcessPedData; fishPermitExpiration_value was null, generating expiration",
@@ -428,11 +431,6 @@ public class PedLookupViewController {
 					} else {
 						ped.setFishingLicenseExpiration("None");
 					}
-				}
-				
-				if (ped.getFishingLicenseNumber() == null || ped.getFishingLicenseNumber().isEmpty()) {
-					log("ProcessPedData; generated fishingLicenseNumber", LogUtils.Severity.WARN);
-					ped.setFishingLicenseNumber(generateLicenseNumber());
 				}
 				
 			} catch (IOException e) {
@@ -508,14 +506,18 @@ public class PedLookupViewController {
 				} else {
 					log("ProcessPedData; fishPermitExpiration_value was null, generating expiration",
 					    LogUtils.Severity.WARN);
-					if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
-						ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
-					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
-						ped.setFishingLicenseExpiration("Suspended License");
-					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("revoked")) {
-						ped.setFishingLicenseExpiration("Revoked License");
-					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
-						ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+					if (ped.getFishingLicenseStatus() != null) {
+						if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
+							ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
+						} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
+							ped.setFishingLicenseExpiration("Suspended License");
+						} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("revoked")) {
+							ped.setFishingLicenseExpiration("Revoked License");
+						} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+							ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
+						} else {
+							ped.setFishingLicenseExpiration("None");
+						}
 					} else {
 						ped.setFishingLicenseExpiration("None");
 					}
@@ -566,26 +568,26 @@ public class PedLookupViewController {
 							"expired") || ped.getGunLicenseStatus().equalsIgnoreCase(
 							"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("revoked")) {
 						
-						if (ped.getGunLicenseExpiration() == null) {
-							if (ped.getGunLicenseExpiration().equalsIgnoreCase("valid")) {
-								ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
-								if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
-									log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
-									ped.setGunLicenseNumber(generateLicenseNumber());
-								}
-							} else if (ped.getGunLicenseExpiration().equalsIgnoreCase("suspended")) {
-								ped.setGunLicenseExpiration("Suspended License");
-								if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
-									log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
-									ped.setGunLicenseNumber(generateLicenseNumber());
-								}
-							} else if (ped.getGunLicenseExpiration().equalsIgnoreCase("revoked")) {
-								ped.setGunLicenseExpiration("Revoked License");
-							} else if (ped.getGunLicenseExpiration().equalsIgnoreCase("expired")) {
-								ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-							} else {
-								ped.setGunLicenseExpiration("None");
+						if (ped.getGunLicenseStatus().equalsIgnoreCase("valid")) {
+							ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
+							if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
+								log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+								ped.setGunLicenseNumber(generateLicenseNumber());
 							}
+						} else if (ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
+							ped.setGunLicenseExpiration("Suspended License");
+							if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
+								log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+								ped.setGunLicenseNumber(generateLicenseNumber());
+							}
+						} else if (ped.getGunLicenseStatus().equalsIgnoreCase("revoked")) {
+							ped.setGunLicenseExpiration("Revoked License");
+							if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
+								log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+								ped.setGunLicenseNumber(generateLicenseNumber());
+							}
+						} else if (ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
+							ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
 						} else {
 							ped.setGunLicenseExpiration("None");
 						}
@@ -595,23 +597,19 @@ public class PedLookupViewController {
 				if (weaponPermitType_value != null) {
 					ped.setGunLicenseType(weaponPermitType_value);
 				} else {
-					if (ped.getGunLicenseStatus().equalsIgnoreCase(
-							"valid") || ped.getGunLicenseStatus().equalsIgnoreCase(
-							"expired") || ped.getGunLicenseStatus().equalsIgnoreCase(
-							"revoked") || ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
-						log("ProcessPedData; weaponPermitType_value was null, generating type/class/number",
-						    LogUtils.Severity.WARN);
-						//BUG: check later
-						ped.setGunLicenseType(getGunLicenseType());
-						ped.setGunLicenseClass(getGunLicenseClass());
-						ped.setGunLicenseNumber(generateLicenseNumber());
-					} else {
-						log("ProcessPedData; gunLicenseStatus not found, setting type/class/num 'None'",
-						    LogUtils.Severity.WARN);
-						ped.setGunLicenseType("None");
-						ped.setGunLicenseClass("None");
-						ped.setGunLicenseNumber("None");
-					}
+					log("ProcessPedData; weaponPermitType_value is null, setting type 'None'", LogUtils.Severity.WARN);
+					ped.setGunLicenseType("None");
+				}
+				
+				if (ped.getGunLicenseStatus().equalsIgnoreCase("valid") || ped.getGunLicenseStatus().equalsIgnoreCase(
+						"expired") || ped.getGunLicenseStatus().equalsIgnoreCase(
+						"revoked") || ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
+					log("ProcessPedData; weaponPermitType_value was null, generating type/class/number",
+					    LogUtils.Severity.WARN);
+					String licclass = getGunLicenseClass();
+					String number = generateLicenseNumber();
+					ped.setGunLicenseClass(licclass);
+					ped.setGunLicenseNumber(number);
 				}
 				
 				if (huntPermitStatus_value != null) {
@@ -645,30 +643,29 @@ public class PedLookupViewController {
 							"expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase(
 							"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
 						
-						if (ped.getHuntingLicenseExpiration() != null) {
-							if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("valid")) {
-								ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
-								if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
-									log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
-									ped.setHuntingLicenseNumber(generateLicenseNumber());
-								}
-							} else if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("suspended")) {
-								ped.setHuntingLicenseExpiration("Suspended License");
-								if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
-									log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
-									ped.setHuntingLicenseNumber(generateLicenseNumber());
-								}
-							} else if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("revoked")) {
-								ped.setHuntingLicenseExpiration("Revoked License");
-							} else if (ped.getHuntingLicenseExpiration().equalsIgnoreCase("expired")) {
-								ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-							} else {
-								ped.setHuntingLicenseExpiration("None");
+						if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid")) {
+							ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
+							if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
+								log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+								ped.setHuntingLicenseNumber(generateLicenseNumber());
 							}
+						} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended")) {
+							ped.setHuntingLicenseExpiration("Suspended License");
+							if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
+								log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+								ped.setHuntingLicenseNumber(generateLicenseNumber());
+							}
+						} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
+							ped.setHuntingLicenseExpiration("Revoked License");
+							if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
+								log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+								ped.setHuntingLicenseNumber(generateLicenseNumber());
+							}
+						} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
+							ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
 						} else {
 							ped.setHuntingLicenseExpiration("None");
 						}
-						
 					}
 				}
 				
@@ -768,31 +765,12 @@ public class PedLookupViewController {
 			pedgunlicensestatusfield.getStyleClass().add("text-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: black !important;");
 		} else if (ped.getGunLicenseStatus().equalsIgnoreCase(
-				"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
+				"suspended") || ped.getGunLicenseStatus().equalsIgnoreCase(
+				"revoked") || ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
 			pedgunlicensestatusfield.getStyleClass().add("valid-field");
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedgunlicensestatusfield.setText(ped.getGunLicenseStatus().toUpperCase());
 			
-			boolean updated = false;
-			if (ped.getGunLicenseExpiration() == null) {
-				if (ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
-					ped.setGunLicenseExpiration("Suspended License");
-				} else if (ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
-					ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-				}
-				updated = true;
-			}
-			if (ped.getGunLicenseNumber() == null) {
-				ped.setGunLicenseNumber(generateLicenseNumber());
-				updated = true;
-			}
-			if (updated) {
-				try {
-					Ped.PedHistoryUtils.addPed(ped);
-				} catch (JAXBException e) {
-					logError("Error updating Ped for gun license info 1: ", e);
-				}
-			}
 			createGunLicenseInfoPopup(pedgunlicensestatusfield,
 			                          localization.getLocalizedMessage("PedLookup.GunLicenseInfoTitle",
 			                                                           "Gun License Information:"), ped.getName(),
@@ -846,31 +824,12 @@ public class PedLookupViewController {
 			pedfishinglicstatusfield.getStyleClass().add("text-field");
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		} else if (ped.getFishingLicenseStatus().equalsIgnoreCase(
-				"suspended") || ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
+				"suspended") || ped.getFishingLicenseStatus().equalsIgnoreCase(
+				"expired") || ped.getFishingLicenseStatus().equalsIgnoreCase("revoked")) {
 			pedfishinglicstatusfield.getStyleClass().add("valid-field");
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedfishinglicstatusfield.setText(ped.getFishingLicenseStatus().toUpperCase());
 			
-			boolean updated = false;
-			if (ped.getFishingLicenseExpiration() == null) {
-				if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
-					ped.setFishingLicenseExpiration("Suspended License");
-				} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("expired")) {
-					ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-				}
-				updated = true;
-			}
-			if (ped.getFishingLicenseNumber() == null) {
-				ped.setFishingLicenseNumber(generateLicenseNumber());
-				updated = true;
-			}
-			if (updated) {
-				try {
-					Ped.PedHistoryUtils.addPed(ped);
-				} catch (JAXBException e) {
-					logError("Error updating Ped for fishing license info 1: ", e);
-				}
-			}
 			createLicenseInfoPopup(pedfishinglicstatusfield,
 			                       localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle",
 			                                                        "Fishing License Information:"), ped.getName(),
@@ -921,31 +880,12 @@ public class PedLookupViewController {
 			pedboatinglicstatusfield.getStyleClass().add("text-field");
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase(
-				"suspended") || ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
+				"suspended") || ped.getBoatingLicenseStatus().equalsIgnoreCase(
+				"expired") || ped.getBoatingLicenseStatus().equalsIgnoreCase("revoked")) {
 			pedboatinglicstatusfield.getStyleClass().add("valid-field");
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedboatinglicstatusfield.setText(ped.getBoatingLicenseStatus().toUpperCase());
 			
-			boolean updated = false;
-			if (ped.getBoatingLicenseExpiration() == null) {
-				if (ped.getBoatingLicenseStatus().equalsIgnoreCase("suspended")) {
-					ped.setBoatingLicenseExpiration("Suspended License");
-				} else if (ped.getBoatingLicenseStatus().equalsIgnoreCase("expired")) {
-					ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-				}
-				updated = true;
-			}
-			if (ped.getBoatingLicenseNumber() == null) {
-				ped.setBoatingLicenseNumber(generateLicenseNumber());
-				updated = true;
-			}
-			if (updated) {
-				try {
-					Ped.PedHistoryUtils.addPed(ped);
-				} catch (JAXBException e) {
-					logError("Error updating Ped for boating license info 1: ", e);
-				}
-			}
 			createLicenseInfoPopup(pedboatinglicstatusfield,
 			                       localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle",
 			                                                        "Boating License Information:"), ped.getName(),
@@ -995,31 +935,12 @@ public class PedLookupViewController {
 			pedhuntinglicstatusfield.getStyleClass().add("text-field");
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: black !important;");
 		} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase(
-				"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
+				"suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase(
+				"expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
 			pedhuntinglicstatusfield.getStyleClass().add("valid-field");
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: orange !important;");
 			pedhuntinglicstatusfield.setText(ped.getHuntingLicenseStatus().toUpperCase());
 			
-			boolean updated = false;
-			if (ped.getHuntingLicenseExpiration() == null) {
-				if (ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended")) {
-					ped.setHuntingLicenseExpiration("Suspended License");
-				} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
-					ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-				}
-				updated = true;
-			}
-			if (ped.getHuntingLicenseNumber() == null) {
-				ped.setHuntingLicenseNumber(generateLicenseNumber());
-				updated = true;
-			}
-			if (updated) {
-				try {
-					Ped.PedHistoryUtils.addPed(ped);
-				} catch (JAXBException e) {
-					logError("Error updating Ped for hunting license info 1: ", e);
-				}
-			}
 			createLicenseInfoPopup(pedhuntinglicstatusfield,
 			                       localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle",
 			                                                        "Hunting License Information:"), ped.getName(),
@@ -1834,7 +1755,7 @@ public class PedLookupViewController {
 		Map<String, String> ownerSearch = grabPedData(
 				getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedName);
 		String ownerName = ownerSearch.getOrDefault("owner", "Not Found");
-		String ownerAddress = ownerSearch.getOrDefault("ownerAddress", "Not Found");
+		String ownerAddress = ownerSearch.getOrDefault("owneraddress", "Not Found");
 		String ownerPlateNum = ownerSearch.getOrDefault("licenseplate", "Not Found");
 		
 		if (pedOptional.isPresent()) {
@@ -1857,7 +1778,7 @@ public class PedLookupViewController {
 			               ped.getHuntingLicenseStatus(), ped.getHuntingLicenseExpiration(), ped.getParoleStatus(),
 			               ped.getProbationStatus());
 			
-		} else if (!worldPedObject.getName().equals("Not Found")) {
+		} else if (worldPedObject.getName() != null && !worldPedObject.getName().equals("Not Found")) {
 			log("Found: [" + worldPedObject.getName() + "] From WorldPed file", LogUtils.Severity.DEBUG);
 			
 			processPedData(false, worldPedObject.getName(), worldPedObject.getLicenseNumber(),

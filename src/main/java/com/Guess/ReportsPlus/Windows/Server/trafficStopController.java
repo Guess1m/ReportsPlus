@@ -113,10 +113,10 @@ public class trafficStopController {
 		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerTrafficStop.data";
 		Map<String, String> vehData = grabTrafficStop(filePath);
 		
-		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
+		String licensePlate = vehData.getOrDefault("licenseplate", "Not Found");
 		String model = vehData.getOrDefault("model", "Not Found");
-		String isStolen = vehData.getOrDefault("isStolen", "Not Found");
-		String isPolice = vehData.getOrDefault("isPolice", "Not Found");
+		String isStolen = vehData.getOrDefault("isstolen", "Not Found");
+		String isPolice = vehData.getOrDefault("ispolice", "Not Found");
 		String registration = vehData.getOrDefault("registration", "Not Found");
 		String insurance = vehData.getOrDefault("insurance", "Not Found");
 		String colorValue = vehData.getOrDefault("color", "Not Found");
@@ -259,7 +259,7 @@ public class trafficStopController {
 			throw new RuntimeException(e);
 		}
 		
-		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
+		String licensePlate = vehData.getOrDefault("licenseplate", "Not Found");
 		String model = vehData.getOrDefault("model", "Not Found");
 		String owner = vehData.getOrDefault("owner", "Not Found");
 		String street = vehData.getOrDefault("street", "Not Found");

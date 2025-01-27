@@ -1,7 +1,7 @@
 package com.Guess.ReportsPlus.Windows.Server;
 
-import com.Guess.ReportsPlus.util.Misc.CalloutManager;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -18,12 +18,12 @@ import java.util.List;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
-import static com.Guess.ReportsPlus.util.Misc.CalloutManager.loadActiveCallouts;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.URLStrings.calloutDataURL;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getServerDataFolderPath;
+import static com.Guess.ReportsPlus.util.Other.CalloutManager.loadActiveCallouts;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.calloutWindow;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutDataURL;
 
 public class calloutController {
 	
@@ -188,9 +188,7 @@ public class calloutController {
 		PauseTransition pause = new PauseTransition(Duration.seconds(2));
 		pause.setOnFinished(event -> {
 			log("Added Callout To Active as: " + status, LogUtils.Severity.INFO);
-			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
-			                          priorityField.getText(), streetField.getText(), areaField.getText(),
-			                          countyField.getText(), timeField.getText(), dateField.getText(), status);
+			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status);
 			calloutWindow.closeWindow();
 			
 			if (calloutViewController != null) {

@@ -95,8 +95,7 @@ public class NewReportVewController {
 	}
 	
 	private void addLocale() {
-		selectReportTypeLabel.setText(
-				localization.getLocalizedMessage("NewReportApp.selectReportTypeLabel", "Select a Report Type:"));
+		selectReportTypeLabel.setText(localization.getLocalizedMessage("NewReportApp.selectReportTypeLabel", "Select a Report Type:"));
 		patrol.setText(localization.getLocalizedMessage("NewReportApp.patrol", "Patrol Report"));
 		search.setText(localization.getLocalizedMessage("NewReportApp.search", "Search Report"));
 		callout.setText(localization.getLocalizedMessage("NewReportApp.callout", "Callout Report"));

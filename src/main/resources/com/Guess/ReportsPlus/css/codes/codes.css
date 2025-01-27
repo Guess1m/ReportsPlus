@@ -1,5 +1,5 @@
 .button {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-padding: 0;
     -fx-label-padding: 0;
     -fx-background-radius: 7px;
@@ -10,7 +10,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold" !important;
     -fx-font-size: 16px;
@@ -18,7 +18,7 @@
 }
 
 .button:pressed {
-    -fx-background-color: #34404b;
+    -fx-background-color: #34404B;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 16px;

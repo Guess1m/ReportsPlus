@@ -31,7 +31,7 @@
 }
 
 .othertextarea .scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-min-height: 15px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .othertextarea .scroll-pane .scroll-bar:horizontal .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-min-width: 15px;
 }
 
@@ -60,9 +60,9 @@
 }
 
 .othertextarea .scroll-pane .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
 }
 
 .othertextarea .scroll-pane .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
 }

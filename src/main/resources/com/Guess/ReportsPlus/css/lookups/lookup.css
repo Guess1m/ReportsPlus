@@ -1,11 +1,11 @@
 .Heading {
-    -fx-text-fill: #5e7387;
+    -fx-text-fill: #5E7387;
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 25;
 }
 
 .SubHeading {
-    -fx-text-fill: #5e7387;
+    -fx-text-fill: #5E7387;
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 20;
 }
@@ -13,21 +13,21 @@
 .Banner {
     -fx-font-family: "Segoe UI Black";
     -fx-text-fill: white;
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-font-size: 16px;
 }
 
 .accentBtn {
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-font-size: 12px;
 }
 
 .searchBtn {
     -fx-font-family: "Segoe UI Black";
     -fx-text-fill: white;
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-font-size: 14px;
     -fx-label-padding: 0;
     -fx-padding: 0;
@@ -63,7 +63,6 @@
     -fx-underline: true;
 }
 
-
 .combo-boxType {
     -fx-text-fill: yellow !important;
     -fx-font-family: "Roboto";
@@ -78,7 +77,7 @@
 }
 
 .combo-boxType .list-cell {
-    -fx-text-fill: #e65c00 !important;
+    -fx-text-fill: #E65C00 !important;
     -fx-background-color: transparent;
 }
 
@@ -97,7 +96,6 @@
 .combo-boxType .combo-box-popup .list-cell:filled:selected {
     -fx-background-color: rgb(0, 0, 0, 0.3);
 }
-
 
 .combo-boxVehicle {
     -fx-text-fill: black !important;
@@ -127,7 +125,6 @@
 .combo-boxVehicle .combo-box-popup .list-cell:filled:selected {
     -fx-background-color: rgb(0, 0, 0, 0.3);
 }
-
 
 .combo-boxSearch {
     -fx-text-fill: black !important;

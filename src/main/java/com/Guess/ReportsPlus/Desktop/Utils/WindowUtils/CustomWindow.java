@@ -129,12 +129,22 @@ public class CustomWindow {
 		pane.setOnMouseMoved(event -> {
 			double x = event.getX();
 			double y = event.getY();
+			double paneWidth = pane.getWidth();
+			double paneHeight = pane.getHeight();
 			
-			if (x > pane.getWidth() - resizeMargin && y > pane.getHeight() - resizeMargin) {
+			boolean right = x > paneWidth - resizeMargin;
+			boolean bottom = y > paneHeight - resizeMargin;
+			boolean left = x < resizeMargin;
+			
+			if (right && bottom) {
 				pane.setCursor(javafx.scene.Cursor.SE_RESIZE);
-			} else if (x > pane.getWidth() - resizeMargin) {
+			} else if (left && bottom) {
+				pane.setCursor(javafx.scene.Cursor.SW_RESIZE);
+			} else if (right) {
 				pane.setCursor(javafx.scene.Cursor.E_RESIZE);
-			} else if (y > pane.getHeight() - resizeMargin) {
+			} else if (left) {
+				pane.setCursor(javafx.scene.Cursor.W_RESIZE);
+			} else if (bottom) {
 				pane.setCursor(javafx.scene.Cursor.S_RESIZE);
 			} else {
 				pane.setCursor(javafx.scene.Cursor.DEFAULT);
@@ -144,14 +154,13 @@ public class CustomWindow {
 		pane.setOnMouseDragged(event -> {
 			double x = event.getX();
 			double y = event.getY();
-			
-			double maxWidth = root.getWidth() - pane.getLayoutX();
+			double paneX = pane.getLayoutX();
+			double maxWidth = root.getWidth() - paneX;
 			double maxHeight = root.getHeight() - pane.getLayoutY();
 			
 			if (pane.getCursor() == javafx.scene.Cursor.SE_RESIZE) {
 				double newWidth = Math.min(Math.max(x, 50), maxWidth);
 				double newHeight = Math.min(Math.max(y, 50), maxHeight);
-				
 				pane.setPrefSize(newWidth, newHeight);
 			} else if (pane.getCursor() == javafx.scene.Cursor.E_RESIZE) {
 				double newWidth = Math.min(Math.max(x, 50), maxWidth);
@@ -159,6 +168,17 @@ public class CustomWindow {
 			} else if (pane.getCursor() == javafx.scene.Cursor.S_RESIZE) {
 				double newHeight = Math.min(Math.max(y, 50), maxHeight);
 				pane.setPrefHeight(newHeight);
+			} else if (pane.getCursor() == javafx.scene.Cursor.W_RESIZE) {
+				double newWidth = Math.min(Math.max(pane.getWidth() - x, 50), paneX + pane.getWidth());
+				double newX = paneX + (pane.getWidth() - newWidth);
+				pane.setPrefWidth(newWidth);
+				pane.setLayoutX(newX);
+			} else if (pane.getCursor() == javafx.scene.Cursor.SW_RESIZE) {
+				double newWidth = Math.min(Math.max(pane.getWidth() - x, 50), paneX + pane.getWidth());
+				double newHeight = Math.min(Math.max(y, 50), maxHeight);
+				double newX = paneX + (pane.getWidth() - newWidth);
+				pane.setPrefSize(newWidth, newHeight);
+				pane.setLayoutX(newX);
 			}
 			
 			keepWithinBounds();
@@ -181,8 +201,7 @@ public class CustomWindow {
 		dropShadow.setRadius(15);
 		dropShadow.setSpread(.3);
 		windowPane.setEffect(dropShadow);
-		windowPane.setStyle(
-				"-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 0;");
+		windowPane.setStyle("-fx-border-color: black; -fx-background-color: white; -fx-border-width: 1; -fx-background-radius: 0;");
 		
 		if (resizable) {
 			enableResize((BorderPane) windowPane);
@@ -197,11 +216,9 @@ public class CustomWindow {
 			
 			this.getWindowPane().toFront();
 			
-			windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(
-					window -> window.getWindowPane().toFront());
+			windows.values().stream().filter(window -> window.getPriority() > currentPriority).forEach(window -> window.getWindowPane().toFront());
 			
-			windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(
-					window -> window.getWindowPane().toBack());
+			windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(window -> window.getWindowPane().toBack());
 			
 			if (mainDesktopControllerObj != null) {
 				for (DesktopApp app : DesktopApps) {
@@ -341,8 +358,7 @@ public class CustomWindow {
 		titleBar.setMinHeight(30);
 		titleBar.setStyle("-fx-background-color: #383838;");
 		
-		Image placeholderImage = new Image(
-				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"));
+		Image placeholderImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"));
 		ImageView placeholderImageView = new ImageView(placeholderImage);
 		placeholderImageView.setFitWidth(49);
 		placeholderImageView.setFitHeight(49);
@@ -359,8 +375,7 @@ public class CustomWindow {
 		AnchorPane.setTopAnchor(closeImageView, 7.0);
 		closeImageView.setEffect(colorAdjust);
 		
-		Image minimizeImage = new Image(
-				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/minimize.png"));
+		Image minimizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/minimize.png"));
 		ImageView minimizeImageView = new ImageView(minimizeImage);
 		minimizeImageView.setFitWidth(15);
 		minimizeImageView.setFitHeight(15);
@@ -380,8 +395,7 @@ public class CustomWindow {
 		AnchorPane.setTopAnchor(minimizeRect, 6.3);
 		
 		if (enableMaximize) {
-			Image maximizeImage = new Image(
-					Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/maximize.png"));
+			Image maximizeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/maximize.png"));
 			ImageView maximizeImageView = new ImageView(maximizeImage);
 			maximizeImageView.setFitWidth(15);
 			maximizeImageView.setFitHeight(15);

@@ -14,13 +14,12 @@
     -fx-padding: 0 10px 0 10;
 }
 
-
 .incidentformButton:hover {
     -fx-background-color: #546778;
     -fx-border-width: 0;
 }
 
 .incidentformButton:pressed {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
     -fx-border-width: 0;
 }

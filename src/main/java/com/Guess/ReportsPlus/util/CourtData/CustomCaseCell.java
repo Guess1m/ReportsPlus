@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.toHexString;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.toHexString;
 
 public class CustomCaseCell extends GridPane {
 	private final Label caseNumLabel;

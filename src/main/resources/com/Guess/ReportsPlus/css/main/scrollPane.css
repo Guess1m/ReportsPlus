@@ -13,7 +13,7 @@
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-min-height: 14px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
     -fx-min-width: 14px;
 }
 
@@ -42,9 +42,9 @@
 }
 
 .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #34404b;
+    -fx-background-color: #34404B;
 }
 
 .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #34404b;
+    -fx-background-color: #34404B;
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.URLStrings.vehicleHistoryURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehicleHistoryURL;
 
 @XmlRootElement(name = "vehicle")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -252,8 +252,7 @@ public class Vehicle {
 				Vehicles.setVehicleList(new java.util.ArrayList<>());
 			}
 			
-			Optional<Vehicle> existingReport = Vehicles.getVehicleList().stream().filter(
-					e -> e.getPlateNumber().equals(Vehicle.getPlateNumber())).findFirst();
+			Optional<Vehicle> existingReport = Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equals(Vehicle.getPlateNumber())).findFirst();
 			
 			if (existingReport.isPresent()) {
 				Vehicles.getVehicleList().remove(existingReport.get());
@@ -276,8 +275,7 @@ public class Vehicle {
 			}
 			
 			if (Vehicles.getVehicleList() != null) {
-				return Vehicles.getVehicleList().stream().filter(
-						e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
+				return Vehicles.getVehicleList().stream().filter(e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
 			}
 			
 			return Optional.empty();

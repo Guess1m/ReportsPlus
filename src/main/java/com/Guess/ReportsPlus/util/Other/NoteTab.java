@@ -1,4 +1,4 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Other;
 
 public class NoteTab {
 	private String tabName;

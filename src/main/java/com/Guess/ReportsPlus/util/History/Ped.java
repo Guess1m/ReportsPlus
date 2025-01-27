@@ -17,7 +17,7 @@ import java.util.Optional;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateAge;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.URLStrings.pedHistoryURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.pedHistoryURL;
 
 @XmlRootElement(name = "ped")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -493,8 +493,7 @@ public class Ped {
 				Peds.setPedList(new java.util.ArrayList<>());
 			}
 			
-			Optional<Ped> existingReport = Peds.getPedList().stream().filter(
-					e -> e.getLicenseNumber().equals(Ped.getLicenseNumber())).findFirst();
+			Optional<Ped> existingReport = Peds.getPedList().stream().filter(e -> e.getLicenseNumber().equals(Ped.getLicenseNumber())).findFirst();
 			
 			if (existingReport.isPresent()) {
 				Peds.getPedList().remove(existingReport.get());

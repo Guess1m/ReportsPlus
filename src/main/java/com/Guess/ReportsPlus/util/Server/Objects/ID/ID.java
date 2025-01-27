@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.URLStrings.currentIDFileURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.currentIDFileURL;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ID {
@@ -72,8 +72,7 @@ public class ID {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
 		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(
-				e -> e.getName().equals(ID.getName())).findFirst();
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName())).findFirst();
 		
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());

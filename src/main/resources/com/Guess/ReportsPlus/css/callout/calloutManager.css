@@ -18,7 +18,7 @@
 }
 
 .combo-boxCal:focused {
-    -fx-border-color: #5e7387;
+    -fx-border-color: #5E7387;
     -fx-border-width: 0 0 3px 0;
     -fx-effect: none;
 }
@@ -47,11 +47,11 @@
 }
 
 .combo-boxCal .scroll-bar .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
 }
 
 .combo-boxCal .scroll-bar .thumb:pressed {
-    -fx-background-color: #34404b;
+    -fx-background-color: #34404B;
 }
 
 .combo-boxCal .list-cell {

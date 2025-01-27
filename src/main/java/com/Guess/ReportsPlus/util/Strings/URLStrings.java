@@ -1,4 +1,6 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Strings;
+
+import com.Guess.ReportsPlus.util.Other.controllerUtils;
 
 import java.io.File;
 

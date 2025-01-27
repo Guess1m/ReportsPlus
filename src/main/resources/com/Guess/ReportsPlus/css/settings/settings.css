@@ -30,7 +30,7 @@
 }
 
 .AuxButton:pressed {
-    -fx-background-color: #39813b;
+    -fx-background-color: #39813B;
     -fx-text-fill: white;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .toggle-button {
-    -fx-background-color: #ff4d4d;
+    -fx-background-color: #FF4D4D;
     -fx-text-fill: white;
     -fx-border-color: transparent;
     -fx-background-radius: 15;
@@ -100,7 +100,7 @@
 }
 
 .toggle-button:hover {
-    -fx-background-color: #ff6666;
+    -fx-background-color: #F66;
 }
 
 .toggle-button:selected:hover {
@@ -171,11 +171,11 @@
 }
 
 .combo-box .scroll-bar .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
 }
 
 .combo-box .scroll-bar .thumb:pressed {
-    -fx-background-color: #34404b;
+    -fx-background-color: #34404B;
 }
 
 .combo-box .list-cell {

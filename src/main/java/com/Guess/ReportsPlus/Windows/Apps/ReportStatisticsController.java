@@ -35,8 +35,8 @@ import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.loadSearchRepo
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.loadTrafficStopReports;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.hexToRgba;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.rgbToHexString;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.hexToRgba;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.rgbToHexString;
 
 public class ReportStatisticsController {
 	public static ReportStatisticsController reportStatisticsController;
@@ -77,8 +77,7 @@ public class ReportStatisticsController {
 						counts.put(value, counts.getOrDefault(value, 0) + 1);
 					}
 				} catch (Exception e) {
-					log("Report: [" + report.getClass().getSimpleName() + "] missing method: " + getMethod,
-					    LogUtils.Severity.WARN);
+					log("[ReportStats] Report: [" + report.getClass().getSimpleName() + "] missing method: " + getMethod, LogUtils.Severity.WARN);
 				}
 			}
 		}
@@ -88,7 +87,7 @@ public class ReportStatisticsController {
 	private HashMap<String, Integer> parseLogReports(String getMethod) {
 		HashMap<String, Integer> counts = new HashMap<>();
 		try {
-			log("Starting to parse all reports for method: [" + getMethod + "]", LogUtils.Severity.INFO);
+			log("[ReportStats] Starting to parse all reports for method: [" + getMethod + "]", LogUtils.Severity.INFO);
 			mergeCounts(counts, parseReport(loadAccidentReports().getAccidentReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadArrestReports().getArrestReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadCalloutReports().getCalloutReportList(), getMethod));
@@ -97,15 +96,13 @@ public class ReportStatisticsController {
 			mergeCounts(counts, parseReport(loadIncidentReports().getIncidentReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadPatrolReports().getPatrolReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadSearchReports().getSearchReportList(), getMethod));
-			mergeCounts(counts,
-			            parseReport(TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList(),
-			                        getMethod));
+			mergeCounts(counts, parseReport(TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadTrafficStopReports().getTrafficStopReportList(), getMethod));
 			
 		} catch (JAXBException e) {
 			logError("Error parsing reports: ", e);
 		}
-		log("Finished parsing all reports for [" + getMethod + "]; " + counts, LogUtils.Severity.INFO);
+		log("[ReportStats] Finished parsing all reports for [" + getMethod + "]; " + counts, LogUtils.Severity.INFO);
 		return counts;
 	}
 	
@@ -158,16 +155,16 @@ public class ReportStatisticsController {
 			switch (choice) {
 				case "Officer":
 					updateChartPane("getOfficerName");
-					log("Using getOfficerName for chartdata", LogUtils.Severity.INFO);
+					log("[ReportStats] Using getOfficerName for chartdata", LogUtils.Severity.INFO);
 					break;
 				case "County":
 					updateChartPane("getCounty");
-					log("Using getCounty for chartdata", LogUtils.Severity.INFO);
+					log("[ReportStats] Using getCounty for chartdata", LogUtils.Severity.INFO);
 					break;
 				case "Area":
 				default:
 					updateChartPane("getArea");
-					log("Using getArea for chartdata", LogUtils.Severity.INFO);
+					log("[ReportStats] Using getArea for chartdata", LogUtils.Severity.INFO);
 					break;
 			}
 		});
@@ -176,24 +173,24 @@ public class ReportStatisticsController {
 	}
 	
 	private void updateChartPane(String getMethod) {
-		log("Running updateChartPane: [" + getMethod + "]", LogUtils.Severity.DEBUG);
+		log("Running ChartUpdate For: [" + getMethod + "]", LogUtils.Severity.DEBUG);
 		ArrayList<Node> nodes = new ArrayList<>();
 		for (Node node : borderPane.getChildren()) {
 			if (node instanceof AreaChart) {
-				log("Added AreaChart Node to delete list", LogUtils.Severity.DEBUG);
+				log("[ReportStats] Added AreaChart Node to delete list", LogUtils.Severity.DEBUG);
 				nodes.add(node);
 			}
 		}
 		if (nodes.size() > 0) {
 			borderPane.getChildren().remove(nodes.get(0));
-			log("Removed old AreaChart Node", LogUtils.Severity.DEBUG);
+			log("[ReportStats] Removed old AreaChart Node", LogUtils.Severity.DEBUG);
 		}
 		
 		AreaChart<String, Number> chart = createChart(getMethod);
 		try {
 			updateChart(chart);
 		} catch (IOException e) {
-			logError("Error updating chart config: ", e);
+			logError("[ReportStats] Error updating chart config: ", e);
 		}
 		
 		chart.setLegendVisible(false);

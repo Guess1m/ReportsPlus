@@ -1,5 +1,6 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Strings;
 
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.URLStrings.customizationURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.customizationURL;
 
 public class customizationDataLoader {
 	

@@ -40,6 +40,6 @@
 }
 
 .incidentformButton:pressed {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
     -fx-border-width: 0;
 }

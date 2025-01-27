@@ -4,13 +4,11 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.updateStrings;
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import javafx.event.ActionEvent;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
@@ -26,7 +24,7 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
-import static com.Guess.ReportsPlus.util.updateStrings.version;
+import static com.Guess.ReportsPlus.util.Strings.updateStrings.version;
 
 public class updatesController {
 	
@@ -80,33 +78,25 @@ public class updatesController {
 			hbox.setVisible(false);
 		}
 		
-		updateBtn.setText(
-				localization.getLocalizedMessage("UpdatesWindow.launchAutoUpdateBtn", "Launch Update Utility (BETA)"));
-		currentverlabel.setText(
-				localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
+		updateBtn.setText(localization.getLocalizedMessage("UpdatesWindow.launchAutoUpdateBtn", "Launch Update Utility (BETA)"));
+		currentverlabel.setText(localization.getLocalizedMessage("UpdatesWindow.CurrentVersionLabel", "Current Version:"));
 		changeloglabel.setText(localization.getLocalizedMessage("UpdatesWindow.ChangelogLabel", "Changelog"));
-		mostrecentlabel.setText(
-				localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
+		mostrecentlabel.setText(localization.getLocalizedMessage("UpdatesWindow.MostRecentLabel", "Most Recent Version:"));
 		verinfolabel.setText(localization.getLocalizedMessage("UpdatesWindow.VersionInfoLabel", "Version Information"));
-		localeChangesBtn.setText(version + " " + localization.getLocalizedMessage("UpdatesWindow.LocaleChangesButton",
-		                                                                          "Locale Changes"));
+		localeChangesBtn.setText(version + " " + localization.getLocalizedMessage("UpdatesWindow.LocaleChangesButton", "Locale Changes"));
 	}
 	
 	private void checkUpdates() {
 		currentVer.setText(version);
 		if (gitVersion == null) {
-			showNotificationErrorPersistent("Version Error",
-			                                "Unable to find latest GIT version, check network connection!");
+			showNotificationErrorPersistent("Version Error", "Unable to find latest GIT version, check network connection!");
 			return;
 		}
 		
 		if (!version.equals(gitVersion)) {
-			recentVer.setText(Objects.requireNonNullElse(gitVersion,
-			                                             localization.getLocalizedMessage("Desktop.NewVersionAvailable",
-			                                                                              "New Version Available!")));
+			recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!")));
 			recentVer.setStyle("-fx-text-fill: red;");
-			showNotificationError("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable",
-			                                                                           "New Version Available!") + " " + gitVersion + ". You can try autoupdating!");
+			showNotificationError("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + ". You can try autoupdating!");
 			updateAvailable = true;
 		} else {
 			recentVer.setText(gitVersion);
@@ -116,11 +106,7 @@ public class updatesController {
 	@javafx.fxml.FXML
 	public void LaunchUpdater(ActionEvent actionEvent) {
 		if (updateAvailable) {
-			CustomWindow updaterToolWindow = WindowManager.createCustomWindow(
-					mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/autoUpdater-tool.fxml",
-					"AutoUpdate Utility", true, 2, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(
-							Objects.requireNonNull(
-									Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"))));
+			CustomWindow updaterToolWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/autoUpdater-tool.fxml", "AutoUpdate Utility", true, 2, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"))));
 		}
 	}
 	
@@ -157,6 +143,13 @@ public class updatesController {
 					textArea.setMinHeight(500);
 					VBox.setVgrow(textArea, Priority.ALWAYS);
 					currentText.setLength(0);
+				}
+				
+				if (!line.toLowerCase().startsWith("version: " + version.toLowerCase())) {
+					Separator separator = new Separator();
+					separator.setOrientation(Orientation.HORIZONTAL);
+					separator.setStyle("-fx-padding: 40 0 40 0;");
+					vbox.getChildren().add(separator);
 				}
 				
 				Label versionLabel = new Label(line);

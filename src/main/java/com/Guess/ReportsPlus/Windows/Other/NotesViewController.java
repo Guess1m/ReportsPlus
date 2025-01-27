@@ -5,7 +5,7 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.NoteTab;
+import com.Guess.ReportsPlus.util.Other.NoteTab;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -114,7 +114,7 @@ public class NotesViewController {
 					String modeToggleStyle;
 					if (notepadMode.equals("Dark")) {
 						modeToggle.setSelected(true);
-						notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+						notepadStyle = "-fx-background-color: #666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
 						modeToggleStyle = "-fx-background-color: white;";
 						noteArea.setStyle(notepadStyle);
 						modeToggle.setStyle(modeToggleStyle);
@@ -126,8 +126,7 @@ public class NotesViewController {
 						modeToggle.setStyle(modeToggleStyle);
 					}
 				} else {
-					noteArea.setStyle(
-							"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+					noteArea.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 					modeToggle.setStyle("-fx-background-color: grey;");
 				}
 			}
@@ -145,27 +144,22 @@ public class NotesViewController {
 						if (ConfigReader.configRead("notepad", "notepadMode").equals("Light")) {
 							ConfigWriter.configwrite("notepad", "notepadMode", "Dark");
 							if (noteArea != null) {
-								noteArea.setStyle(
-										"-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
+								noteArea.setStyle("-fx-background-color: #666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
 							}
-							modeToggle.setStyle(
-									"-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 0; -fx-border-radius: 0;");
+							modeToggle.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 0; -fx-border-radius: 0;");
 							notesViewController.getCodeSelectionPane().setStyle("-fx-background-color: gray;");
 							notesViewController.getCodevbox().setStyle("-fx-background-color: rgb(200,200,200,1);");
 							notesViewController.getBorderPane().setStyle("-fx-background-color: gray;");
-							notesViewController.getCodeSelectionlbl().setStyle("-fx-text-fill: #e2e2e2;");
+							notesViewController.getCodeSelectionlbl().setStyle("-fx-text-fill: #E2E2E2;");
 						} else {
 							if (ConfigReader.configRead("notepad", "notepadMode").equals("Dark")) {
 								ConfigWriter.configwrite("notepad", "notepadMode", "Light");
 								if (noteArea != null) {
-									noteArea.setStyle(
-											"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+									noteArea.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 								}
 								modeToggle.setStyle("-fx-background-color: grey;");
-								notesViewController.getCodeSelectionPane().setStyle(
-										"-fx-background-color: rgb(240,240,240,0.1);");
-								notesViewController.getCodevbox().setStyle(
-										"-fx-background-color: rgb(210,210,210,0.3);");
+								notesViewController.getCodeSelectionPane().setStyle("-fx-background-color: rgb(240,240,240,0.1);");
+								notesViewController.getCodevbox().setStyle("-fx-background-color: rgb(210,210,210,0.3);");
 								notesViewController.getBorderPane().setStyle("-fx-background-color: white;");
 								notesViewController.getCodeSelectionlbl().setStyle("-fx-text-fill: gray;");
 							}
@@ -184,14 +178,10 @@ public class NotesViewController {
 						
 						Timeline timeline = new Timeline();
 						
-						KeyValue keyValuePrefHeight = new KeyValue(
-								notesViewController.getCodeSelectionPane().prefWidthProperty(), toWidth);
-						KeyValue keyValueMaxHeight = new KeyValue(
-								notesViewController.getCodeSelectionPane().maxWidthProperty(), toWidth);
-						KeyValue keyValueMinHeight = new KeyValue(
-								notesViewController.getCodeSelectionPane().minWidthProperty(), toWidth);
-						KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
-						                                 keyValueMinHeight);
+						KeyValue keyValuePrefHeight = new KeyValue(notesViewController.getCodeSelectionPane().prefWidthProperty(), toWidth);
+						KeyValue keyValueMaxHeight = new KeyValue(notesViewController.getCodeSelectionPane().maxWidthProperty(), toWidth);
+						KeyValue keyValueMinHeight = new KeyValue(notesViewController.getCodeSelectionPane().minWidthProperty(), toWidth);
+						KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 						
 						timeline.getKeyFrames().add(keyFrame);
 						
@@ -203,14 +193,10 @@ public class NotesViewController {
 						
 						Timeline timeline = new Timeline();
 						
-						KeyValue keyValuePrefHeight = new KeyValue(
-								notesViewController.getCodeSelectionPane().prefWidthProperty(), toWidth);
-						KeyValue keyValueMaxHeight = new KeyValue(
-								notesViewController.getCodeSelectionPane().maxWidthProperty(), toWidth);
-						KeyValue keyValueMinHeight = new KeyValue(
-								notesViewController.getCodeSelectionPane().minWidthProperty(), toWidth);
-						KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
-						                                 keyValueMinHeight);
+						KeyValue keyValuePrefHeight = new KeyValue(notesViewController.getCodeSelectionPane().prefWidthProperty(), toWidth);
+						KeyValue keyValueMaxHeight = new KeyValue(notesViewController.getCodeSelectionPane().maxWidthProperty(), toWidth);
+						KeyValue keyValueMinHeight = new KeyValue(notesViewController.getCodeSelectionPane().minWidthProperty(), toWidth);
+						KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 						
 						timeline.getKeyFrames().add(keyFrame);
 						
@@ -270,12 +256,12 @@ public class NotesViewController {
 			String modeToggleStyle;
 			if (notepadMode.equals("Dark")) {
 				modeToggle.setSelected(true);
-				notepadStyle = "-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
+				notepadStyle = "-fx-background-color: #666; -fx-text-fill: white; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;";
 				modeToggleStyle = "-fx-background-color: white;";
 				codeSelectionPane.setStyle("-fx-background-color: gray;");
 				codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
 				borderPane.setStyle("-fx-background-color: gray;");
-				codeSelectionlbl.setStyle("-fx-text-fill: #f2f2f2;");
+				codeSelectionlbl.setStyle("-fx-text-fill: #F2F2F2;");
 				notepadTextArea.setStyle(notepadStyle);
 				modeToggle.setStyle(modeToggleStyle);
 			} else if (notepadMode.equals("Light")) {
@@ -290,15 +276,13 @@ public class NotesViewController {
 				modeToggle.setStyle(modeToggleStyle);
 			}
 		} else {
-			notepadTextArea.setStyle(
-					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+			notepadTextArea.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 		}
 		
 		clearbtnnotepad.setText(localization.getLocalizedMessage("NotesWindow.ClearNotesButton", "Clear"));
 		codesbtnnotepad.setText(localization.getLocalizedMessage("NotesWindow.CodesButton", "Codes"));
-		codeSelectionlbl.setText(
-				localization.getLocalizedMessage("NotesWindow.CodeSelectionHeading", "Code Selection Menu"));
+		codeSelectionlbl.setText(localization.getLocalizedMessage("NotesWindow.CodeSelectionHeading", "Code Selection Menu"));
 	}
 	
 	public BorderPane getBorderPane() {
@@ -329,17 +313,15 @@ public class NotesViewController {
 	public void onDarkModeToggle() throws IOException {
 		if (ConfigReader.configRead("notepad", "notepadMode").equals("Light")) {
 			ConfigWriter.configwrite("notepad", "notepadMode", "Dark");
-			notepadTextArea.setStyle(
-					"-fx-background-color: #666666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
+			notepadTextArea.setStyle("-fx-background-color: #666; -fx-text-fill: white; -fx-border-color: transparent;-fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: white; -fx-background-radius: 0; -fx-border-radius: 0;");
 			codeSelectionPane.setStyle("-fx-background-color: gray;");
 			codevbox.setStyle("-fx-background-color: rgb(200,200,200,1);");
 			borderPane.setStyle("-fx-background-color: gray;");
-			codeSelectionlbl.setStyle("-fx-text-fill: #e2e2e2;");
+			codeSelectionlbl.setStyle("-fx-text-fill: #E2E2E2;");
 		} else if (ConfigReader.configRead("notepad", "notepadMode").equals("Dark")) {
 			ConfigWriter.configwrite("notepad", "notepadMode", "Light");
-			notepadTextArea.setStyle(
-					"-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
+			notepadTextArea.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-text-fill: black; -fx-border-color: transparent; -fx-background-radius: 0; -fx-border-radius: 0;");
 			modeToggle.setStyle("-fx-background-color: grey;");
 			codeSelectionPane.setStyle("-fx-background-color: rgb(240,240,240,0.1);");
 			codevbox.setStyle("-fx-background-color: rgb(210,210,210,0.3);");
@@ -356,11 +338,7 @@ public class NotesViewController {
 	@javafx.fxml.FXML
 	public void oncodesclick() {
 		if (mainDesktopControllerObj != null) {
-			codesWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
-			                                               "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 1,
-			                                               true, false, mainDesktopControllerObj.getTaskBarApps(),
-			                                               new Image(Launcher.class.getResourceAsStream(
-					                                               "/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png")));
+			codesWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/codes-window.fxml", "Notepad Codes", false, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png")));
 		}
 	}
 	
@@ -375,8 +353,7 @@ public class NotesViewController {
 			KeyValue keyValuePrefHeight = new KeyValue(codeSelectionPane.prefWidthProperty(), toWidth);
 			KeyValue keyValueMaxHeight = new KeyValue(codeSelectionPane.maxWidthProperty(), toWidth);
 			KeyValue keyValueMinHeight = new KeyValue(codeSelectionPane.minWidthProperty(), toWidth);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 			
 			timeline.getKeyFrames().add(keyFrame);
 			
@@ -391,8 +368,7 @@ public class NotesViewController {
 			KeyValue keyValuePrefHeight = new KeyValue(codeSelectionPane.prefWidthProperty(), toWidth);
 			KeyValue keyValueMaxHeight = new KeyValue(codeSelectionPane.maxWidthProperty(), toWidth);
 			KeyValue keyValueMinHeight = new KeyValue(codeSelectionPane.minWidthProperty(), toWidth);
-			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight,
-			                                 keyValueMinHeight);
+			KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2), keyValuePrefHeight, keyValueMaxHeight, keyValueMinHeight);
 			
 			timeline.getKeyFrames().add(keyFrame);
 			

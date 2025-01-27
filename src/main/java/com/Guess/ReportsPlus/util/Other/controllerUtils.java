@@ -1,12 +1,13 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Other;
 
 import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.History.Ped;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.treeViewUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
-import com.Guess.ReportsPlus.util.updateStrings;
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,8 +59,7 @@ public class controllerUtils {
 			for (String word : words) {
 				if (word.length() > 0) {
 					String lowerCasedWord = word.toLowerCase();
-					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(
-							lowerCasedWord.substring(1)).append(" ");
+					titleCased.append(Character.toUpperCase(lowerCasedWord.charAt(0))).append(lowerCasedWord.substring(1)).append(" ");
 				}
 			}
 			return titleCased.toString().trim();
@@ -69,12 +69,18 @@ public class controllerUtils {
 	
 	public static void getOperatingSystemAndArch() {
 		log("====================== System Info ======================", LogUtils.Severity.INFO);
+		log("----- OS Info -----", LogUtils.Severity.INFO);
 		log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.DEBUG);
+		log("Operating System Version: " + System.getProperty("os.version"), LogUtils.Severity.DEBUG);
 		log("Operating System Architecture: " + System.getProperty("os.arch"), LogUtils.Severity.DEBUG);
+		log("----- Java Info -----", LogUtils.Severity.INFO);
 		log("Java Version: " + System.getProperty("java.version"), LogUtils.Severity.DEBUG);
 		log("Java Runtime Version: " + System.getProperty("java.runtime.version"), LogUtils.Severity.DEBUG);
 		log("Java Home Directory: " + System.getProperty("java.home"), LogUtils.Severity.DEBUG);
 		log("Java Class Version: " + System.getProperty("java.class.version"), LogUtils.Severity.DEBUG);
+		log("JVM Name: " + System.getProperty("java.vm.name"), LogUtils.Severity.DEBUG);
+		log("JVM Vendor: " + System.getProperty("java.vm.vendor"), LogUtils.Severity.DEBUG);
+		log("JVM Version: " + System.getProperty("java.vm.version"), LogUtils.Severity.DEBUG);
 		log("=========================================================", LogUtils.Severity.INFO);
 	}
 	
@@ -195,8 +201,7 @@ public class controllerUtils {
 	}
 	
 	public static String toHexString(Color color) {
-		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255),
-		                     (int) (color.getBlue() * 255));
+		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
 	}
 	
 	public static Color rgbToHexString(String rgb) {
@@ -332,8 +337,7 @@ public class controllerUtils {
 		dialog.setTitle("Confirm Action");
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		
-		Label messageLabel = new Label(
-				"Are you sure you want to perform this action?\nThis will remove all save data including logs and config.");
+		Label messageLabel = new Label("Are you sure you want to perform this action?\nThis will remove all save data including logs and config.");
 		Button yesButton = new Button("Yes");
 		yesButton.setOnAction(e -> {
 			dialog.setResult(true);
@@ -610,8 +614,7 @@ public class controllerUtils {
 			String[] items = text.split("\\|");
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
-					Label label = new Label(
-							localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
+					Label label = new Label(localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
 					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
 					labels.add(label);
 				}
@@ -636,11 +639,7 @@ public class controllerUtils {
 		String chargesFilePath = getDataFolderPath() + "Charges.xml";
 		List<String> priorCharges;
 		try {
-			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
+			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
 		} catch (ParserConfigurationException | SAXException e) {
 			logError("Error parsing XML file: " + chargesFilePath, e);
 			throw new RuntimeException(e);
@@ -662,11 +661,7 @@ public class controllerUtils {
 		String citationsFilePath = getDataFolderPath() + "Citations.xml";
 		List<String> priorCitations;
 		try {
-			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(
-					ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
+			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
 		} catch (ParserConfigurationException | SAXException e) {
 			throw new RuntimeException(e);
 		}
@@ -684,10 +679,7 @@ public class controllerUtils {
 	}
 	
 	public static String getGunLicenseClass() throws IOException {
-		Set<String> licenseClassSet = getPermitClassBasedOnChances(
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
-				Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
+		Set<String> licenseClassSet = getPermitClassBasedOnChances(Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")), Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")), Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
 		
 		return String.join(" / ", licenseClassSet).trim();
 	}
@@ -757,8 +749,7 @@ public class controllerUtils {
 		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourcePathCustomization)) {
 			if (inputStream != null) {
 				
-				Path destinationPathCitations = destinationDir.resolve(
-						Paths.get(sourcePathCustomization).getFileName());
+				Path destinationPathCitations = destinationDir.resolve(Paths.get(sourcePathCustomization).getFileName());
 				
 				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
 			} else {

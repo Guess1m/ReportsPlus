@@ -23,7 +23,6 @@ ProgressBar .track {
     -fx-background-color: rgb(255, 0, 0, 0.7);
 }
 
-
 TableView .filler {
     -fx-background-color: transparent;
 }

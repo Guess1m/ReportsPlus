@@ -1,5 +1,5 @@
 .calloutTABLE {
-    -fx-background-color: #323c41;
+    -fx-background-color: #323C41;
     -fx-text-fill: white;
 }
 
@@ -16,7 +16,7 @@
 
 .calloutTABLE .column-header-background .label {
     -fx-background-color: transparent;
-    -fx-text-fill: #cccccc;
+    -fx-text-fill: #CCC;
     -fx-font-size: 16.2px;
     -fx-padding: 5px;
     -fx-font-family: "Segoe UI Black";
@@ -25,7 +25,7 @@
 .calloutTABLE .column-header {
     -fx-background-color: #383838;
     -fx-border-width: 0 0 0 0;
-    -fx-border-color: #d2d9e0;
+    -fx-border-color: #D2D9E0;
 }
 
 .calloutTABLE .table-cell {
@@ -42,7 +42,7 @@
 }
 
 .calloutTABLE .table-row-cell:odd {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #F2F2F2;
 }
 
 .calloutTABLE .table-row-cell:even {
@@ -70,7 +70,7 @@
 
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .thumb,
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
-    -fx-background-color: #8c8c8c;
+    -fx-background-color: #8C8C8C;
 
 }
 
@@ -85,7 +85,7 @@
 }
 
 .viewerLabel {
-    -fx-text-fill: #cdcdcd;
+    -fx-text-fill: #CDCDCD;
     -fx-font-family: "Segoe UI SemiBold";
     -fx-font-size: 27px;
 }

@@ -1,14 +1,17 @@
 package com.Guess.ReportsPlus.Desktop.Utils.AppUtils;
 
+import com.Guess.ReportsPlus.Launcher;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
@@ -20,6 +23,7 @@ public class DesktopApp {
 	private final Image image;
 	private Label appLabel;
 	private VBox mainPane;
+	private ImageView alertImage;
 	
 	public DesktopApp(String name, Image image) {
 		this.name = name;
@@ -38,10 +42,26 @@ public class DesktopApp {
 		
 		Button appButton = createImageButton(image);
 		
-		BorderPane borderPaneLabel = new BorderPane();
+		alertImage = new ImageView();
+		Image warningImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/warning.png"));
+		alertImage.setImage(warningImage);
+		alertImage.setFitWidth(15);
+		alertImage.setFitHeight(15);
+		alertImage.setVisible(false);
 		
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setHue(0.0);
+		colorAdjust.setSaturation(0.8);
+		alertImage.setEffect(colorAdjust);
+		
+		StackPane stackPane = new StackPane();
+		stackPane.getChildren().addAll(appButton, alertImage);
+		StackPane.setAlignment(alertImage, Pos.TOP_RIGHT);
+		StackPane.setMargin(alertImage, new Insets(0, 17, 0, 0));
+		
+		BorderPane borderPaneLabel = new BorderPane();
 		appLabel = new Label(name);
-		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill:  white; -fx-font-size: 15px;");
+		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill: white; -fx-font-size: 15px;");
 		appLabel.setMouseTransparent(true);
 		appLabel.setAlignment(Pos.BOTTOM_CENTER);
 		appLabel.setTextAlignment(TextAlignment.CENTER);
@@ -50,7 +70,7 @@ public class DesktopApp {
 		appLabel.setMinWidth(100);
 		borderPaneLabel.setCenter(appLabel);
 		
-		mainVbox.getChildren().add(appButton);
+		mainVbox.getChildren().add(stackPane);
 		mainVbox.getChildren().add(borderPaneLabel);
 		
 		setUpDragEvents(appButton, mainVbox);
@@ -103,5 +123,11 @@ public class DesktopApp {
 	
 	public Label getAppLabel() {
 		return appLabel;
+	}
+	
+	public void setAlertVisibility(boolean visible) {
+		if (alertImage != null) {
+			alertImage.setVisible(visible);
+		}
 	}
 }

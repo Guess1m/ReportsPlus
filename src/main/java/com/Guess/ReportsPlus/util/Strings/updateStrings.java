@@ -1,4 +1,4 @@
-package com.Guess.ReportsPlus.util;
+package com.Guess.ReportsPlus.util.Strings;
 
 public class updateStrings {
 	/*
@@ -18,21 +18,11 @@ public class updateStrings {
 	 */
 	
 	public static final String version = "v1.4.0-alpha";
-	public static final String[] updatesList = {"Completely Reworked Ped/Veh Lookup Implementation", "New ReportStatistics App To View Some Statistics", "Support For 'can_be_warrant' Tag In Charges.xml", "Added Support For Policing Redefined", "Locale For 'New Report' App", "Get Time Directly From Game When Connected", "Option To Use GTA Game Time When Connected", "Copy Street/Area/County Individually", "Added LSPDFR Default Events For ID Lookups", "Fixed DesktopApps Not Bringing Window To Front", "Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Redesigned Profile App", "Snap DesktopApps / New Default Positions", "Fixed Notes Tabs Styling", "Fix ReportWindow Localization For Notes", "Updated Default App Positions", "Updated Default Charges.xml", "Show Previous Version(s) Locale In Locale Updates"};
+	public static final String[] updatesList = {"Completely Reworked Ped/Veh Lookup Logic", "New ReportStatistics App To View Some Statistics", "Support For 'can_be_warrant' Tag In Charges.xml", "Synchronized Offences/Outcomes Scrolling In CourtCase", "Added Resizing From Right Side Of Windows", "Added Support For Ped Variations To Fix Images Not Matching", "Added Support For Policing Redefined", "Added Different Citation Types; Non-Printed, Parking, Printed", "Locale For 'New Report' App", "Fixed 'Pull From Notes' Styling", "Get Time Directly From Game When Connected", "Option To Use GTA Game Time When Connected", "Copy Street/Area/County Individually", "Added LSPDFR Default Events For ID Lookups", "Fixed DesktopApps Not Bringing Window To Front", "Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Redesigned Profile App", "Snap DesktopApps / New Default Positions", "Fixed Notes Tabs Styling", "Fix ReportWindow Localization For Notes", "Updated Default App Positions", "Updated Default Charges.xml", "UpdatesApp Warning Notification When Update Available", "Show Previous Version(s) Locale In Locale Updates", "Better Thread Handling/Logging; Especially For Updates"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			Version: v1.4.0-alpha
 			NEW:
-				UserManager.editProfileLabel=Edit Current Profile:
-				UserManager.editProfileSubLabel=Switch to or edit the selected profile
-				UserManager.userProfileLabel=User Profiles:
-				UserManager.userProfileSubLabel=These are the found user profiles
-				Settings.inputLockKeybindLabel=Input Lock Keybind
-				Settings.inputLockKeybindTT=Keybind to use for activating desktop input lock
-				VehicleLookup.FieldVIN=Registered VIN:
-				ReportStatistics.reportsByLabel=Reports By:
-				Settings.useGameTimeLabel=Use Game Time
-				Settings.useGameTimeTT=Toggle whether game time is used when connected
 				NewReportApp.patrol=Patrol Report
 				NewReportApp.search=Search Report
 				NewReportApp.callout=Callout Report
@@ -43,6 +33,20 @@ public class updateStrings {
 				NewReportApp.citation=Citation Report
 				NewReportApp.incident=Incident Report
 				NewReportApp.accident=Accident Report
+				UserManager.editProfileLabel=Edit Current Profile:
+				UserManager.editProfileSubLabel=Switch to or edit the selected profile
+				UserManager.userProfileLabel=User Profiles:
+				UserManager.userProfileSubLabel=These are the found user profiles
+				ReportWindows.CitationTypePrompt=Citation Type
+				ReportWindows.CitationTypePrinted=Printed Citation
+				ReportWindows.CitationTypeNonPrinted=Non-Printed
+				ReportWindows.CitationTypeParking=Parking Citation
+				Settings.inputLockKeybindLabel=Input Lock Keybind
+				Settings.inputLockKeybindTT=Keybind to use for activating desktop input lock
+				Settings.useGameTimeLabel=Use Game Time
+				Settings.useGameTimeTT=Toggle whether game time is used when connected
+				VehicleLookup.FieldVIN=Registered VIN:
+				ReportStatistics.reportsByLabel=Reports By:
 			
 			REMOVED:
 				UserManager.MainHeader=Edit Officer Data:

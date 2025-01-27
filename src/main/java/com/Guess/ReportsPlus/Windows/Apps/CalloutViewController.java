@@ -1,7 +1,7 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
-import com.Guess.ReportsPlus.util.Misc.CalloutManager;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.URLStrings.calloutHistoryURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutHistoryURL;
 
 public class CalloutViewController {
 	

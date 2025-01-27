@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getServerDataFolderPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabVehicleData;
 
 public class VehicleObject {

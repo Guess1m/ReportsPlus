@@ -4,8 +4,8 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Localization.Localization;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.URLStrings;
-import com.Guess.ReportsPlus.util.Misc.controllerUtils;
+import com.Guess.ReportsPlus.util.Other.controllerUtils;
+import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import javafx.scene.text.Font;
 
 import java.io.File;

@@ -13,7 +13,7 @@
 }
 
 .formField3:focused {
-    -fx-border-color: #e6e6e6;
+    -fx-border-color: #E6E6E6;
     -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;

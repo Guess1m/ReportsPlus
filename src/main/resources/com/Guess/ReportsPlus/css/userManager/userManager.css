@@ -60,11 +60,11 @@ GridPane {
 }
 
 .combo-box .scroll-bar .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
 }
 
 .combo-box .scroll-bar .thumb:pressed {
-    -fx-background-color: #34404b;
+    -fx-background-color: #34404B;
 }
 
 .combo-box .list-cell {

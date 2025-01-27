@@ -1,4 +1,4 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Other;
 
 import com.Guess.ReportsPlus.logs.Accident.AccidentReport;
 import com.Guess.ReportsPlus.logs.Arrest.ArrestReport;
@@ -20,7 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.setSmallColumnWidth;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.setSmallColumnWidth;
 
 public class InitTableColumns {
 	public static String commonTableFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Segoe UI\";";
@@ -57,14 +57,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -131,8 +128,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(
-				deathReportNumberColumn, statusColumn, decedentColumn, causeOfDeathColumn, modeOfDeathColumn);
+		ObservableList<TableColumn<DeathReport, ?>> deathReportColumns = FXCollections.observableArrayList(deathReportNumberColumn, statusColumn, decedentColumn, causeOfDeathColumn, modeOfDeathColumn);
 		
 		tableview.getColumns().addAll(deathReportColumns);
 		
@@ -177,14 +173,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -234,8 +227,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(
-				impoundNumberColumn, statusColumn, impoundPlateNumberColumn, ownerNameColumn);
+		ObservableList<TableColumn<ImpoundReport, ?>> impoundColumns = FXCollections.observableArrayList(impoundNumberColumn, statusColumn, impoundPlateNumberColumn, ownerNameColumn);
 		
 		tableview.getColumns().addAll(impoundColumns);
 		
@@ -280,14 +272,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -375,9 +364,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(
-				patrolNumberColumn, statusColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn,
-				officerNameColumn);
+		ObservableList<TableColumn<PatrolReport, ?>> patrolColumns = FXCollections.observableArrayList(patrolNumberColumn, statusColumn, patrolLengthColumn, patrolStartTimeColumn, patrolStopTimeColumn, officerNameColumn);
 		
 		tableview.getColumns().addAll(patrolColumns);
 		
@@ -422,14 +409,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -498,8 +482,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(
-				citationNumberColumn, statusColumn, citationDate, offenderNameColumn, offenderVehicleModelColumn);
+		ObservableList<TableColumn<TrafficCitationReport, ?>> citationColumns = FXCollections.observableArrayList(citationNumberColumn, statusColumn, citationDate, offenderNameColumn, offenderVehicleModelColumn);
 		
 		tableview.getColumns().addAll(citationColumns);
 		
@@ -544,14 +527,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -601,8 +581,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(
-				arrestNumberColumn, statusColumn, arrestDateColumn, arresteeNameColumn);
+		ObservableList<TableColumn<ArrestReport, ?>> arrestColumns = FXCollections.observableArrayList(arrestNumberColumn, statusColumn, arrestDateColumn, arresteeNameColumn);
 		
 		tableview.getColumns().addAll(arrestColumns);
 		
@@ -647,14 +626,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -704,8 +680,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(
-				incidentNumberColumn, statusColumn, incidentWitnessesColumn, incidentVictimsColumn);
+		ObservableList<TableColumn<IncidentReport, ?>> incidentColumns = FXCollections.observableArrayList(incidentNumberColumn, statusColumn, incidentWitnessesColumn, incidentVictimsColumn);
 		
 		tableview.getColumns().addAll(incidentColumns);
 		
@@ -750,14 +725,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -826,8 +798,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(
-				searchNumberColumn, statusColumn, searchedPersonsColumn, searchTypeColumn, searchMethodColumn);
+		ObservableList<TableColumn<SearchReport, ?>> searchColumns = FXCollections.observableArrayList(searchNumberColumn, statusColumn, searchedPersonsColumn, searchTypeColumn, searchMethodColumn);
 		
 		tableview.getColumns().addAll(searchColumns);
 		
@@ -871,14 +842,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -945,8 +913,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(
-				stopNumberColumn, statusColumn, plateNumberColumn, operatorNameColumn, modelColumn);
+		ObservableList<TableColumn<TrafficStopReport, ?>> trafficStopColumns = FXCollections.observableArrayList(stopNumberColumn, statusColumn, plateNumberColumn, operatorNameColumn, modelColumn);
 		
 		tableview.getColumns().addAll(trafficStopColumns);
 		for (TableColumn<TrafficStopReport, ?> column : trafficStopColumns) {
@@ -991,14 +958,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -1065,11 +1029,7 @@ public class InitTableColumns {
 			}
 		});
 		
-		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn,
-		                                                                                          statusColumn,
-		                                                                                          responseGradeColumn,
-		                                                                                          responseTypeColumn,
-		                                                                                          areaColumn);
+		ObservableList<TableColumn<CalloutReport, ?>> columns = FXCollections.observableArrayList(calloutNumberColumn, statusColumn, responseGradeColumn, responseTypeColumn, areaColumn);
 		for (TableColumn<CalloutReport, ?> column : columns) {
 			column.setReorderable(false);
 			column.setEditable(false);
@@ -1098,14 +1058,11 @@ public class InitTableColumns {
 					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Reopened")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Pending")) {
-						label.setStyle(
-								baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+						label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
 					} else if (item.trim().equalsIgnoreCase("Cancelled")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
 					} else {
@@ -1135,12 +1092,7 @@ public class InitTableColumns {
 		controllerUtils.setColumnAlignment(roadConditionsColumn, Pos.CENTER_LEFT, "Conditions:");
 		roadConditionsColumn.setCellValueFactory(new PropertyValueFactory<>("RoadConditions"));
 		
-		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn,
-		                                                                                           statusColumn,
-		                                                                                           plateNumberColumn,
-		                                                                                           ownerNameColumn,
-		                                                                                           streetColumn,
-		                                                                                           roadConditionsColumn);
+		ObservableList<TableColumn<AccidentReport, ?>> columns = FXCollections.observableArrayList(accidentNumberColumn, statusColumn, plateNumberColumn, ownerNameColumn, streetColumn, roadConditionsColumn);
 		tableview.getColumns().addAll(columns);
 		for (TableColumn<AccidentReport, ?> column : columns) {
 			column.setReorderable(false);

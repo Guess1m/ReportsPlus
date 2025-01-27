@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import static com.Guess.ReportsPlus.MainApplication.getDate;
 import static com.Guess.ReportsPlus.MainApplication.getTime;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getOperatingSystemAndArch;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getOperatingSystemAndArch;
 
 public class LogUtils {
 	
@@ -59,8 +59,7 @@ public class LogUtils {
 	}
 	
 	public static void endLog() {
-		System.out.println("----------------------------- END LOG [" + MainApplication.getTime(
-				true) + "] -----------------------------");
+		System.out.println("----------------------------- END LOG [" + MainApplication.getTime(true) + "] -----------------------------");
 		System.out.println();
 	}
 	

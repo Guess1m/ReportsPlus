@@ -3,7 +3,7 @@ package com.Guess.ReportsPlus;
 import com.Guess.ReportsPlus.Desktop.mainDesktopController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.URLStrings;
+import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getServerDataFolderPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
 
@@ -41,8 +41,7 @@ public class MainApplication extends Application {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a", Locale.ENGLISH);
 		
 		try {
-			if (systemTime || !isConnected || ConfigReader.configRead("connectionSettings",
-			                                                          "useGameTime").equalsIgnoreCase("false")) {
+			if (systemTime || !isConnected || ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("false")) {
 				return currentTime.format(formatter);
 			}
 		} catch (IOException e) {
@@ -83,8 +82,7 @@ public class MainApplication extends Application {
 		mainDesktopControllerObj = fxmlLoader.getController();
 		primaryStage.setTitle("ReportsPlus Desktop");
 		primaryStage.setScene(scene);
-		primaryStage.getIcons().add(
-				new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
+		primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
 		mainDesktopStage = primaryStage;
 		
 		String windowConfig = ConfigReader.configRead("uiSettings", "windowDisplaySetting");

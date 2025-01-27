@@ -29,7 +29,7 @@
 
 .comboboxnew-popup .list-view .list-cell {
     -fx-text-fill: black;
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #F2F2F2;
     -fx-border-color: transparent;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .comboboxnew .scroll-bar {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #F2F2F2;
     -fx-pref-width: 11px;
 }
 
@@ -56,22 +56,22 @@
 }
 
 .comboboxnew .scroll-bar .thumb {
-    -fx-background-color: #5e7387;
+    -fx-background-color: #5E7387;
 }
 
 .comboboxnew .scroll-bar .thumb:pressed {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
 }
 
 .comboboxnew:focused {
-    -fx-border-color: #e6e6e6;
+    -fx-border-color: #E6E6E6;
     -fx-border-width: 0 0 3px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;
 }
 
 .comboboxnew .text-field:focused {
-    -fx-border-color: #e6e6e6;
+    -fx-border-color: #E6E6E6;
     -fx-border-width: 0 0 0.55px 0;
     -fx-background-color: rgb(242, 242, 242);
     -fx-effect: none;

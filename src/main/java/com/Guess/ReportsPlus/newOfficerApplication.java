@@ -18,8 +18,7 @@ public class newOfficerApplication extends Application {
 		Scene scene = new Scene(fxmlLoader.load());
 		primaryStage.setTitle("ReportsPlus Login");
 		primaryStage.setScene(scene);
-		primaryStage.getIcons().add(
-				new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
+		primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
 		primaryStage.show();
 		
 		primaryStage.setMaximized(true);

@@ -8,41 +8,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="398.0"
-            prefWidth="508.0" stylesheets="@../../css/reportStatistics/reportStatistics.css"
-            xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController">
+<BorderPane xmlns:fx = "http://javafx.com/fxml/1" fx:id = "root" prefHeight = "398.0"
+            prefWidth = "508.0" stylesheets = "@../../css/reportStatistics/reportStatistics.css"
+            xmlns = "http://javafx.com/javafx/21"
+            fx:controller = "com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController">
     <center>
         <AnchorPane fx:id="mainPane">
             <children>
-                <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
-                            AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                <BorderPane fx:id = "borderPane" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0"
+                            AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
                     <top>
                         <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
                             <children>
                                 <Label fx:id="reportsByLabel" text="Reports By:">
                                     <font>
-                                        <Font name="Segoe UI Black" size="14.0"/>
+                                        <Font name = "Segoe UI Black" size = "14.0" />
                                     </font>
                                 </Label>
-                                <ComboBox fx:id="reportsByCombobox" HBox.hgrow="ALWAYS"/>
+                                <ComboBox fx:id = "reportsByCombobox" HBox.hgrow = "ALWAYS" />
                             </children>
                         </HBox>
                     </top>
                     <center>
                         <AreaChart BorderPane.alignment="CENTER">
                             <xAxis>
-                                <CategoryAxis side="BOTTOM"/>
+                                <CategoryAxis side = "BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT"/>
+                                <NumberAxis side = "LEFT" />
                             </yAxis>
                         </AreaChart>
                     </center>
                 </BorderPane>
             </children>
             <padding>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom = "3.0" left = "3.0" right = "3.0" top = "3.0" />
             </padding>
         </AnchorPane>
     </center>

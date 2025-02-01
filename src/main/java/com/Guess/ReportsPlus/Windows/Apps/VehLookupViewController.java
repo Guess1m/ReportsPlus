@@ -30,7 +30,10 @@ import javafx.stage.Popup;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -111,8 +114,6 @@ public class VehLookupViewController {
 	@javafx.fxml.FXML
 	private Label plt9;
 	@javafx.fxml.FXML
-	private Button probabilitySettingsBtn;
-	@javafx.fxml.FXML
 	private TextField vehinspectionfield;
 	@javafx.fxml.FXML
 	private ScrollPane vehPane;
@@ -166,7 +167,6 @@ public class VehLookupViewController {
 		
 		vehSearchBtn.setText(localization.getLocalizedMessage("VehicleLookup.SearchButton", "Search"));
 		addDataToNotesBtn.setText(localization.getLocalizedMessage("VehicleLookup.AddDataToNotesBtn", "Add Data To Notes"));
-		probabilitySettingsBtn.setText(localization.getLocalizedMessage("VehicleLookup.ProbabilitySettingsBtn", "Probability Settings"));
 		
 		btninfo3.setText(localization.getLocalizedMessage("VehicleLookup.OwnerLookupBtn", "Owner Lookup"));
 		btninfo2.setText(localization.getLocalizedMessage("VehicleLookup.CreateImpoundReportBtn", "Create Impound Report"));
@@ -659,11 +659,6 @@ public class VehLookupViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
-	}
-	
-	@javafx.fxml.FXML
 	public void vehcreateimpreport(ActionEvent actionEvent) {
 		String plate = vehplatefield2.getText().trim();
 		String model = vehmodelfield.getText().trim();
@@ -806,10 +801,6 @@ public class VehLookupViewController {
 	
 	public Label getPlt9() {
 		return plt9;
-	}
-	
-	public Button getProbabilitySettingsBtn() {
-		return probabilitySettingsBtn;
 	}
 	
 	public AnchorPane getLookupPane() {

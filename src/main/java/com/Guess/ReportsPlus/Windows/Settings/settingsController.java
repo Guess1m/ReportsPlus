@@ -2,6 +2,7 @@ package com.Guess.ReportsPlus.Windows.Settings;
 
 import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
 import com.Guess.ReportsPlus.config.ConfigReader;
@@ -50,7 +51,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.NewReportVewController.newRepor
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController.reportStatisticsController;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
-import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
+import static com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController.newUserManagerController;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -483,6 +484,8 @@ public class settingsController {
 	private Label useGameTimeLabel;
 	@javafx.fxml.FXML
 	private Label useGameTimeTT;
+	@javafx.fxml.FXML
+	private Button probabilitySettingsButton;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -504,8 +507,12 @@ public class settingsController {
 		if (trafficStopController.trafficStopController != null) {
 			trafficStopController.trafficStopController.getRoot().setStyle("-fx-background-color: " + bkgclr);
 		}
-		if (userManagerController != null) {
-			userManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		if (newUserManagerController != null) {
+			newUserManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			newUserManagerController.getHeader().setStyle("-fx-text-fill: " + mainclr + ";");
+			newUserManagerController.getNewUserBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			newUserManagerController.getNewUserBtn().setOnMouseEntered(e -> newUserManagerController.getNewUserBtn().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			newUserManagerController.getNewUserBtn().setOnMouseExited(e -> newUserManagerController.getNewUserBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (vehLookupViewController != null) {
 			vehLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
@@ -516,10 +523,6 @@ public class settingsController {
 			
 			vehLookupViewController.getInfo1().setStyle("-fx-background-color: " + secclr + ";");
 			vehLookupViewController.getInfo2().setStyle("-fx-background-color: " + secclr + ";");
-			
-			vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
 			
 			vehLookupViewController.getVehSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			vehLookupViewController.getVehSearchBtn().setOnMouseEntered(e -> vehLookupViewController.getVehSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
@@ -553,10 +556,6 @@ public class settingsController {
 			pedLookupViewController.getInfo3().setStyle("-fx-background-color: " + secclr + ";");
 			pedLookupViewController.getInfo4().setStyle("-fx-background-color: " + secclr + ";");
 			pedLookupViewController.getInfo5().setStyle("-fx-background-color: " + secclr + ";");
-			
-			pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
 			
 			pedLookupViewController.getPedSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			pedLookupViewController.getPedSearchBtn().setOnMouseEntered(e -> pedLookupViewController.getPedSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
@@ -786,21 +785,6 @@ public class settingsController {
 			clientController.getLbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
-		if (userManagerController != null) {
-			userManagerController.getAgency().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getRank().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getCallsign().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getDivision().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getNumber().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getName().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getUserProfileLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getUserProfileSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getEditProfileLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getEditProfileSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getSavebtn().setStyle("-fx-text-fill: " + UIDarkColor + "; -fx-background-color:  rgb(0,0,0,0.1); -fx-padding: 3 20;");
-			userManagerController.getDelbtn().setStyle("-fx-text-fill: " + UIDarkColor + "; -fx-background-color:  rgb(0,0,0,0.1); -fx-padding: 3 20;");
-			
-		}
 		if (newReportVewController != null) {
 			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UIDarkColor));
 			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UIDarkColor));
@@ -885,20 +869,6 @@ public class settingsController {
 			clientController.getLbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
 			clientController.getLbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-		if (userManagerController != null) {
-			userManagerController.getAgency().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getRank().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getCallsign().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getDivision().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getNumber().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getName().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getUserProfileLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getUserProfileSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getEditProfileLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getEditProfileSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getSavebtn().setStyle("-fx-text-fill: " + UILightColor + "; -fx-background-color:  rgb(255,255,255,0.1); -fx-padding: 3 20;");
-			userManagerController.getDelbtn().setStyle("-fx-text-fill: " + UILightColor + "; -fx-background-color:  rgb(255,255,255,0.1); -fx-padding: 3 20;");
 		}
 		if (newReportVewController != null) {
 			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UILightColor));
@@ -1201,6 +1171,8 @@ public class settingsController {
 		resetAppPosBtn.setText(localization.getLocalizedMessage("Settings.resetAppPosBtn", "RESET APP POSITIONS"));
 		resetAppPosLabel.setText(localization.getLocalizedMessage("Settings.resetAppPosLabel", "Reset App Positions"));
 		resetAppPosTT.setText(localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
+		
+		probabilitySettingsButton.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
 		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
@@ -2418,4 +2390,8 @@ public class settingsController {
 		handleCheckboxClick("connectionSettings", "useGameTime", useGameTimeToggle);
 	}
 	
+	@javafx.fxml.FXML
+	public void probabilitySettingsButton(ActionEvent actionEvent) {
+		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+	}
 }

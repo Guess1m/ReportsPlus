@@ -234,6 +234,7 @@ public class ClientUtils {
 						default:
 							log("Received unknown message: " + fromServer, LogUtils.Severity.DEBUG);
 							break;
+						
 					}
 				}
 			} catch (SocketTimeoutException e) {

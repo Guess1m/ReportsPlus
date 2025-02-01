@@ -89,6 +89,14 @@ public class CustomWindow {
 		this.taskbarApp = new TaskbarApp(title, title, taskBarApps, this, image);
 	}
 	
+	public void setSize(double width, double height) {
+		Platform.runLater(() -> {
+			windowPane.setPrefWidth(width);
+			windowPane.setPrefHeight(height);
+			keepWithinBounds();
+		});
+	}
+	
 	private void addMainStageResizeListener() {
 		root.widthProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
 		root.heightProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
@@ -159,22 +167,22 @@ public class CustomWindow {
 			double maxHeight = root.getHeight() - pane.getLayoutY();
 			
 			if (pane.getCursor() == javafx.scene.Cursor.SE_RESIZE) {
-				double newWidth = Math.min(Math.max(x, 50), maxWidth);
+				double newWidth = Math.min(Math.max(x, 400), maxWidth);
 				double newHeight = Math.min(Math.max(y, 50), maxHeight);
 				pane.setPrefSize(newWidth, newHeight);
 			} else if (pane.getCursor() == javafx.scene.Cursor.E_RESIZE) {
-				double newWidth = Math.min(Math.max(x, 50), maxWidth);
+				double newWidth = Math.min(Math.max(x, 400), maxWidth);
 				pane.setPrefWidth(newWidth);
 			} else if (pane.getCursor() == javafx.scene.Cursor.S_RESIZE) {
 				double newHeight = Math.min(Math.max(y, 50), maxHeight);
 				pane.setPrefHeight(newHeight);
 			} else if (pane.getCursor() == javafx.scene.Cursor.W_RESIZE) {
-				double newWidth = Math.min(Math.max(pane.getWidth() - x, 50), paneX + pane.getWidth());
-				double newX = paneX + (pane.getWidth() - newWidth);
+				double newWidth = Math.min(Math.max(pane.getPrefWidth() - x, 400), pane.getLayoutX() + pane.getPrefWidth());
+				double newX = pane.getLayoutX() + (pane.getPrefWidth() - newWidth);
 				pane.setPrefWidth(newWidth);
 				pane.setLayoutX(newX);
 			} else if (pane.getCursor() == javafx.scene.Cursor.SW_RESIZE) {
-				double newWidth = Math.min(Math.max(pane.getWidth() - x, 50), paneX + pane.getWidth());
+				double newWidth = Math.min(Math.max(pane.getPrefWidth() - x, 400), paneX + pane.getPrefWidth());
 				double newHeight = Math.min(Math.max(y, 50), maxHeight);
 				double newX = paneX + (pane.getWidth() - newWidth);
 				pane.setPrefSize(newWidth, newHeight);
@@ -288,17 +296,18 @@ public class CustomWindow {
 	
 	public void centerOnDesktop() {
 		if (windowPane != null) {
-			double stageWidth = root.getWidth();
-			double stageHeight = root.getHeight();
-			
-			double windowWidth = windowPane.getPrefWidth();
-			double windowHeight = windowPane.getPrefHeight();
-			
-			double x = (stageWidth - windowWidth) / 2;
-			double y = (stageHeight - windowHeight) / 2;
-			
-			windowPane.setLayoutX(x);
-			windowPane.setLayoutY(y);
+			Platform.runLater(() -> {
+				windowPane.applyCss();
+				windowPane.layout();
+				double stageWidth = root.getWidth();
+				double stageHeight = root.getHeight();
+				double windowWidth = windowPane.getPrefWidth();
+				double windowHeight = windowPane.getPrefHeight();
+				double x = (stageWidth - windowWidth) / 2;
+				double y = (stageHeight - windowHeight) / 2;
+				windowPane.setLayoutX(x);
+				windowPane.setLayoutY(y);
+			});
 		}
 	}
 	
@@ -306,6 +315,9 @@ public class CustomWindow {
 		Platform.runLater(() -> {
 			double[] position = {windowPane.getLayoutX(), windowPane.getLayoutY()};
 			windowPositions.put(title, position);
+			
+			double[] size = {windowPane.getWidth(), windowPane.getHeight()};
+			windowSizes.put(title, size);
 			
 			windows.remove(title);
 			
@@ -466,8 +478,10 @@ public class CustomWindow {
 	}
 	
 	public void setPosition(double x, double y) {
-		this.getWindowPane().setLayoutX(x);
-		this.getWindowPane().setLayoutY(y);
+		if (windowPane != null) {
+			windowPane.setLayoutX(x);
+			windowPane.setLayoutY(y);
+		}
 	}
 	
 	public Image getImage() {

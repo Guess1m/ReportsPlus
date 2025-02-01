@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
-import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.LookupObjects.PedObject;
@@ -38,7 +37,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.*;
 import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils.newArrest;
@@ -160,8 +158,6 @@ public class PedLookupViewController {
 	@javafx.fxml.FXML
 	private ListView pedarrestpriorslistview;
 	@javafx.fxml.FXML
-	private Button probabilitySettingsBtn;
-	@javafx.fxml.FXML
 	private AnchorPane pedLookupPane;
 	@javafx.fxml.FXML
 	private AnchorPane lookupPane;
@@ -214,7 +210,6 @@ public class PedLookupViewController {
 		
 		addDataToNotesBtn.setText(localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
 		pedSearchBtn.setText(localization.getLocalizedMessage("PedLookup.SearchPedButton", "Search"));
-		probabilitySettingsBtn.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
 		infobtn3.setText(localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
 		infobtn2.setText(localization.getLocalizedMessage("PedLookup.CreateCitationButton", "Create New Citation"));
 		infobtn1.setText(localization.getLocalizedMessage("PedLookup.CreateArrestButton", "Create New Arrest"));
@@ -975,7 +970,8 @@ public class PedLookupViewController {
 				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
-						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.toLowerCase().equalsIgnoreCase(pedModel + ".jpg"));
+						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
+						
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
 							log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
@@ -986,18 +982,36 @@ public class PedLookupViewController {
 								noPedImageFoundlbl.setVisible(true);
 								noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
 							} catch (Exception e) {
-								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-								pedImageView.setImage(defImage);
-								noPedImageFoundlbl.setVisible(true);
-								noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+								setDefaultPedImage();
 								logError("Could not set ped image: ", e);
 							}
 						} else {
-							log("No matching image found for the model: " + pedModel + ", displaying no image found.", LogUtils.Severity.WARN);
-							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-							pedImageView.setImage(defImage);
-							noPedImageFoundlbl.setVisible(true);
-							noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+							log("No matching image found for the model: " + pedModel + ", trying to use base image", LogUtils.Severity.WARN);
+							
+							// Extract base model from brackets
+							Pattern pattern = Pattern.compile("\\[([^\\]]+)\\]");
+							Matcher matcher = pattern.matcher(pedModel);
+							String fallbackModel;
+							
+							if (matcher.find()) {
+								fallbackModel = "[" + matcher.group(1) + "][0][0]";
+								log("Extracted base model: " + fallbackModel, LogUtils.Severity.DEBUG);
+								
+								File[] fallbackFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(fallbackModel + ".jpg"));
+								if (fallbackFiles != null && fallbackFiles.length > 0) {
+									File fallbackFile = fallbackFiles[0];
+									log("Using base model image: " + fallbackFile.getName(), LogUtils.Severity.INFO);
+									try {
+										String fileURI = fallbackFile.toURI().toString();
+										pedImageView.setImage(new Image(fileURI));
+										noPedImageFoundlbl.setVisible(true);
+										noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.PedImageFoundlbl", "Image Found in File:"));
+									} catch (Exception e) {
+										setDefaultPedImage();
+										logError("Could not set ped image [2]: ", e);
+									}
+								}
+							}
 						}
 					} else {
 						log("enablePedVehImages is disabled in settings so not displaying ped image", LogUtils.Severity.WARN);
@@ -1006,16 +1020,10 @@ public class PedLookupViewController {
 					logError("Could not get enablePedVehImages setting from config", e);
 				}
 			} else {
-				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-				pedImageView.setImage(defImage);
-				noPedImageFoundlbl.setVisible(true);
-				noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+				setDefaultPedImage();
 			}
 		} else {
-			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-			pedImageView.setImage(defImage);
-			noPedImageFoundlbl.setVisible(true);
-			noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
+			setDefaultPedImage();
 		}
 		
 		String citationPriors = ped.getCitationPriors();
@@ -1034,6 +1042,13 @@ public class PedLookupViewController {
 		pedcitationpriorslistview.setItems(citPriors);
 		
 		return playAudio;
+	}
+	
+	private void setDefaultPedImage() {
+		Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+		pedImageView.setImage(defImage);
+		noPedImageFoundlbl.setVisible(true);
+		noPedImageFoundlbl.setText(localization.getLocalizedMessage("PedLookup.NoPedImageFoundlbl", "No Image Found In System"));
 	}
 	
 	public void createWarrantInfoPopup(TextField label, String headerText, String name, String dob, String issuedDate, String warrantNumber, String agency, String warrant) {
@@ -1685,11 +1700,6 @@ public class PedLookupViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
-	}
-	
-	@javafx.fxml.FXML
 	public void pedAddDataToNotes(ActionEvent actionEvent) throws IOException {
 		if (!noRecordFoundLabelPed.isVisible()) {
 			String name = "";
@@ -1933,10 +1943,6 @@ public class PedLookupViewController {
 	
 	public Label getLookupmainlbl() {
 		return lookupmainlbl;
-	}
-	
-	public Button getProbabilitySettingsBtn() {
-		return probabilitySettingsBtn;
 	}
 	
 	public AnchorPane getPedLookupPane() {

@@ -39,6 +39,8 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.findXMLValue;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.parseTreeXML;
 
+//TODO: controlsfx searchable combobox
+
 public class reportUtil {
 	private static String getPrimaryColor() {
 		String primaryColor;

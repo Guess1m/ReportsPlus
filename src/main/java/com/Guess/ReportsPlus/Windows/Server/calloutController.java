@@ -166,7 +166,7 @@ public class calloutController {
 		}
 		
 		calloutInfoTitle.setText(localization.getLocalizedMessage("CalloutPopup.MainHeading", "Callout Information"));
-		num.setText(localization.getLocalizedMessage("CalloutPopup.NumberLabel", "Number:"));
+		num.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		typ.setText(localization.getLocalizedMessage("CalloutPopup.TypeLabel", "Type:"));
 		dat.setText(localization.getLocalizedMessage("CalloutPopup.DateLabel", "Date:"));
 		tim.setText(localization.getLocalizedMessage("CalloutPopup.TimeLabel", "Time:"));

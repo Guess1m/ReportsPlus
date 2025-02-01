@@ -383,7 +383,7 @@ public class CalloutManager {
 		
 		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
 		
-		Label numberLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNum", "Number:"));
+		Label numberLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		gridPane.add(numberLabel, 0, 0);
 		gridPane.add(new Label(number), 1, 0);
 		

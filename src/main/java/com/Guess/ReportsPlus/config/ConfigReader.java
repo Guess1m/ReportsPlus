@@ -143,6 +143,9 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
 		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
 		
+		checkAndSetDefaultValue("desktopSettings", "saveWindowPosition", "true");
+		checkAndSetDefaultValue("desktopSettings", "saveWindowSize", "true");
+		
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");
 		checkAndSetDefaultValue("misc", "IDDuration", "infinite");

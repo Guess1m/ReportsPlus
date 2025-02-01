@@ -5,7 +5,7 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Apps.*;
-import com.Guess.ReportsPlus.Windows.Misc.UserManagerController;
+import com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController;
 import com.Guess.ReportsPlus.Windows.Other.NotesViewController;
 import com.Guess.ReportsPlus.Windows.Server.ClientController;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
@@ -50,7 +50,7 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.getTime;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.scheduleOutcomeRevealsForPendingCases;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
-import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
+import static com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController.newUserManagerController;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesTabList;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.SettingsController;
@@ -63,7 +63,6 @@ import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
 
 public class mainDesktopController {
-	public static CustomWindow userManager;
 	public static DesktopApp profileAppObj;
 	public static DesktopApp reportStatisticsAppObj;
 	public static DesktopApp calloutManagerAppObj;
@@ -550,12 +549,12 @@ public class mainDesktopController {
 		VBox profileApp = profileAppObj.createDesktopApp(mouseEvent -> {
 			if (!editableDesktop) {
 				if (mouseEvent.getClickCount() == 2) {
-					userManager = WindowManager.createCustomWindow(desktopContainer, "Windows/Misc/user-manager.fxml", "Profile", true, 1, true, false, taskBarApps, profileAppObj.getImage());
-					userManagerController = (UserManagerController) (userManager != null ? userManager.controller : null);
+					CustomWindow userManager = WindowManager.createCustomWindow(desktopContainer, "Windows/Misc/new-user-manager.fxml", "Profile", true, 1, true, false, taskBarApps, profileAppObj.getImage());
+					newUserManagerController = (NewUserManagerController) (userManager != null ? userManager.controller : null);
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
-						logError("Error loading theme from editUser", e);
+						logError("Error loading theme from userManager", e);
 					}
 				}
 			}

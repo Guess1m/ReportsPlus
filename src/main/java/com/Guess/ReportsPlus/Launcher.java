@@ -66,6 +66,9 @@ public class Launcher {
 	}
 	
 	public static void loadFonts() {
+		System.setProperty("prism.lcdtext", "false");
+		System.setProperty("prism.text", "t2k");
+		
 		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
 		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
 		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);

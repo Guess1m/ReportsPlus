@@ -30,6 +30,8 @@ public class MainApplication extends Application {
 	public static mainDesktopController mainDesktopControllerObj;
 	public static Stage mainDesktopStage;
 	
+	//TODO: implement sending test file
+	
 	public static String getDate() {
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
@@ -38,7 +40,7 @@ public class MainApplication extends Application {
 	
 	public static String getTime(boolean systemTime) {
 		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a", Locale.ENGLISH);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 		
 		try {
 			if (systemTime || !isConnected || ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("false")) {

@@ -104,6 +104,23 @@ public class User {
 		saveUserProfiles(Profiles);
 	}
 	
+	public static User getUser(String name) {
+		Profiles userProfiles = null;
+		try {
+			userProfiles = loadUserProfiles();
+		} catch (JAXBException e) {
+			logError("Error loading Profiles [2]: ", e);
+		}
+		if (userProfiles.getUserList() != null) {
+			for (User user : userProfiles.getUserList()) {
+				if (user.getName().equals(name)) {
+					return user;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public String getAgency() {
 		return agency;
 	}

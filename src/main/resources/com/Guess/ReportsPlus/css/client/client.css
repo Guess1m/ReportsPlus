@@ -1,6 +1,6 @@
 .text-field {
     -fx-text-fill: black !important;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 13px;
     -fx-background-color: rgb(242, 242, 242, 0.6);
     -fx-prompt-text-fill: rgb(50, 50, 50, 0.5) !important;
@@ -20,7 +20,7 @@
 
 .connField {
     -fx-text-fill: green !important;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 13px;
     -fx-background-color: rgb(242, 242, 242, 0.6);
     -fx-prompt-text-fill: red !important;
@@ -42,20 +42,20 @@
     -fx-padding: 8px 16px;
     -fx-background-radius: 7px;
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 16px;
 
 }
 
 .button:hover {
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 16px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 5, 0, 0, 0);
 }
 
 .button:pressed {
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 16px;
 }

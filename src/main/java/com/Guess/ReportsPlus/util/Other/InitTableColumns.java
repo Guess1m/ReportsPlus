@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.setSmallColumnWidth;
 
 public class InitTableColumns {
-	public static String commonTableFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Segoe UI\";";
+	public static String commonTableFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Inter 24pt Regular\";";
 	
 	public static void initializeDeathReportColumns(TableView tableview) {
 		TableColumn<DeathReport, String> deathReportNumberColumn = new TableColumn<>("Report #:");
@@ -37,7 +37,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -54,7 +54,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -153,7 +153,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -170,7 +170,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -252,7 +252,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -269,7 +269,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -389,7 +389,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -406,7 +406,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -507,7 +507,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -524,7 +524,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -606,7 +606,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -623,7 +623,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -705,7 +705,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -722,7 +722,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -822,7 +822,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -839,7 +839,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -938,7 +938,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					label.setStyle(commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle(commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";");
 					setGraphic(label);
 				}
 			}
@@ -955,7 +955,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
@@ -1055,7 +1055,7 @@ public class InitTableColumns {
 					setGraphic(null);
 				} else {
 					Label label = new Label(item);
-					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Segoe UI Semibold\";";
+					String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize + "-fx-font-family: \"Inter 28pt Medium\";";
 					
 					if (item.trim().equalsIgnoreCase("In Progress")) {
 						label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");

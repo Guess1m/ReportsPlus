@@ -1,31 +1,31 @@
 .Heading {
     -fx-text-fill: #5E7387;
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 25;
 }
 
 .SubHeading {
     -fx-text-fill: #5E7387;
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 20;
 }
 
 .Banner {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-text-fill: white;
     -fx-background-color: #5E7387;
     -fx-font-size: 16px;
 }
 
 .accentBtn {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-text-fill: white;
     -fx-background-color: #5E7387;
     -fx-font-size: 12px;
 }
 
 .searchBtn {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-text-fill: white;
     -fx-background-color: #5E7387;
     -fx-font-size: 14px;

@@ -505,7 +505,7 @@ public class VehLookupViewController {
 			titleLabel.setPrefHeight(33.0);
 			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 			titleLabel.setTextFill(Paint.valueOf("WHITE"));
-			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			titleLabel.setFont(new Font("Inter 28pt Bold", 17.0));
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);

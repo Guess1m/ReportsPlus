@@ -9,7 +9,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
-import com.Guess.ReportsPlus.util.Misc.WorkerThread;
+import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import javafx.concurrent.Task;
@@ -496,9 +496,7 @@ public class settingsController {
 		String nonTransparentBtn = "-fx-background-color: " + mainclr + ";";
 		
 		if (clientController != null) {
-			clientController.getStatusLabel().setStyle("-fx-background-color: " + mainclr + ";");
 			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
-			clientController.getMainHeader().setStyle("-fx-background-color: " + mainclr + ";");
 			clientController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (settingsController.SettingsController != null) {

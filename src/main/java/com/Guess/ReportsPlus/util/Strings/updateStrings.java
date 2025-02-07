@@ -18,7 +18,7 @@ public class updateStrings {
 	 */
 	
 	public static final String version = "v1.4.0-alpha";
-	public static final String[] updatesList = {"Completely Reworked Ped/Veh Lookup Logic", "New ReportStatistics App To View Some Statistics", "Complete Server Redesign", "Support For 'can_be_warrant' Tag In Charges.xml", "Synchronized Offences/Outcomes Scrolling In CourtCase", "Added Resizing From Left Side Of Windows", "Added Support For Ped Variations To Fix Images Not Matching", "Server Config Setting For Opening As Utility (Prevent AltTabbing)", "Added Support For Policing Redefined", "Added Different Citation Types; Non-Printed, Parking, Printed", "Locale For 'New Report' App", "Fixed 'Pull From Notes' Styling", "Get Time Directly From Game When Connected", "Dynamic Window Sizing Based Off Monitor Size", "Option To Use GTA Game Time When Connected", "Copy Street/Area/County Individually", "Added LSPDFR Default Events For ID Lookups", "Fixed DesktopApps Not Bringing Window To Front", "Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Redesigned Profile App", "Snap DesktopApps / New Default Positions", "Fixed Notes Tabs Styling", "Fix ReportWindow Localization For Notes", "Updated Default App Positions", "Updated Default Charges.xml", "UpdatesApp Warning Notification When Update Available", "Show Previous Version(s) Locale In Locale Updates", "Better Thread Handling/Logging; Especially For Updates", "Option To Save Window Positions/Sizes", "Moved Probability Settings Button To Developer Settings"};
+	public static final String[] updatesList = {"Completely Reworked Ped/Veh Lookup Logic", "Migrated Server/Application Font To Inter", "New ReportStatistics App To View Some Statistics", "Complete Server Redesign", "Support For 'can_be_warrant' Tag In Charges.xml", "Synchronized Offences/Outcomes Scrolling In CourtCase", "Added Resizing From Left Side Of Windows", "Added Support For Ped Variations To Fix Images Not Matching", "Working PR Ped/Vehicle Check Events", "Server Config Setting For Opening As Utility (Prevent AltTabbing)", "Added Support For Policing Redefined", "Added Notification Stacking", "Added Different Citation Types; Non-Printed, Parking, Printed", "Locale For 'New Report' App", "Fixed 'Pull From Notes' Styling", "Get Time Directly From Game When Connected", "Dynamic Window Sizing Based Off Monitor Size", "Option To Use GTA Game Time When Connected", "Copy Street/Area/County Individually", "Added LSPDFR Default Events For ID Lookups", "Fixed DesktopApps Not Bringing Window To Front", "Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Fixed Server/Application Icons", "Redesigned Profile App", "Snap DesktopApps / New Default Positions", "Fixed Notes Tabs Styling", "Fix ReportWindow Localization For Notes", "Updated Default App Positions", "Better Layouts In Settings", "Updated Default Charges.xml", "UpdatesApp Warning Notification When Update Available", "Show Previous Version(s) Locale In Locale Updates", "Better Thread Handling/Logging; Especially For Updates", "Option To Save Window Positions/Sizes", "Support For Ped Base Images If Variant Not Found", "Moved Probability Settings Button To Developer Settings"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			Version: v1.4.0-alpha
@@ -57,6 +57,7 @@ public class updateStrings {
 				UserManager.NumberFieldPrompt
 				Callout_Manager.CalloutNum
 				CalloutPopup.NumberLabel
+				ServerConnectionWindow.ClientHeading
 			
 			Version: v1.3-alpha
 			NEW:
@@ -87,6 +88,7 @@ public class updateStrings {
 				UpdatesWindow.launchAutoUpdateBtn=Launch Update Utility (BETA)
 				LogBrowser.SubHeading=Log Browser
 				LogBrowser.reportDatabaseLabel=Report Database
+				Desktop.CheckedLabel=Checked:
 			
 			REMOVED:
 				Desktop.CreateReportButton=Create Report

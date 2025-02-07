@@ -299,7 +299,7 @@ public class CalloutManager {
 		Button closeBtn = new Button(localization.getLocalizedMessage("Callout_Manager.CloseCalloutButton", "Close Callout"));
 		String def = null;
 		try {
-			def = "-fx-background-color: " + controllerUtils.hexToRgba(ConfigReader.configRead("uiColors", "secondaryColor"), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
+			def = "-fx-background-color: " + controllerUtils.hexToRgba(ConfigReader.configRead("uiColors", "secondaryColor"), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Inter 28pt Medium\"; -fx-padding: 3 10 3 10;";
 		} catch (IOException e) {
 			logError("Error loading uiColors.secondaryColor (2): ", e);
 		}
@@ -421,7 +421,7 @@ public class CalloutManager {
 		
 		String def = null;
 		try {
-			def = "-fx-background-color: " + controllerUtils.hexToRgba(ConfigReader.configRead("uiColors", "secondaryColor"), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
+			def = "-fx-background-color: " + controllerUtils.hexToRgba(ConfigReader.configRead("uiColors", "secondaryColor"), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Inter 28pt Medium\"; -fx-padding: 3 13 3 13;";
 		} catch (IOException e) {
 			logError("Error loading uiColors.secondaryColor : ", e);
 		}

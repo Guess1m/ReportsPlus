@@ -4,7 +4,7 @@
     -fx-label-padding: 0;
     -fx-background-radius: 7px;
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 16px;
 
 }
@@ -12,7 +12,7 @@
 .button:hover {
     -fx-background-color: #495A69;
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 16px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
@@ -20,6 +20,6 @@
 .button:pressed {
     -fx-background-color: #34404B;
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 16px;
 }

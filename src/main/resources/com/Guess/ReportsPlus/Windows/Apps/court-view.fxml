@@ -18,7 +18,8 @@
                     <items>
                         <ListView fx:id = "caseList" maxWidth = "320.0" minWidth = "50.0"
                                   stylesheets = "@../../css/main/listView.css" />
-                        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;">
+                        <ScrollPane fitToHeight = "true" fitToWidth = "true"
+                                    style = "-fx-background-color: transparent;">
                             <content>
                                 <StackPane>
                                     <children>
@@ -31,19 +32,20 @@
                                                        AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0"
                                                        AnchorPane.topAnchor = "0.0">
                                                     <font>
-                                                        <Font name = "Segoe UI Black" size = "26.0" />
+                                                        <Font name = "Inter 28pt Bold" size = "26.0" />
                                                     </font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="courtInfoPane" style="-fx-background-color: transparent;">
+                                        <AnchorPane fx:id = "courtInfoPane"
+                                                    style = "-fx-background-color: transparent;">
                                             <children>
                                                 <VBox layoutX = "15.0" spacing = "5.0"
                                                       style = "-fx-background-color: transparent;"
                                                       AnchorPane.bottomAnchor = "10.0" AnchorPane.leftAnchor = "10.0"
                                                       AnchorPane.rightAnchor = "10.0" AnchorPane.topAnchor = "5.0">
                                                     <children>
-                                                        <AnchorPane VBox.vgrow="NEVER">
+                                                        <AnchorPane VBox.vgrow = "NEVER">
                                                             <children>
                                                                 <BorderPane layoutY = "5.0"
                                                                             AnchorPane.bottomAnchor = "0.0"
@@ -54,7 +56,7 @@
                                                                         <Label fx:id = "casePrim1" alignment = "CENTER"
                                                                                text = "COURT CASE REPORT">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "20.0" />
                                                                             </font>
                                                                         </Label>
@@ -65,7 +67,7 @@
                                                                 <Insets bottom = "5.0" />
                                                             </VBox.margin>
                                                         </AnchorPane>
-                                                        <GridPane hgap="5.0" vgap="10.0" VBox.vgrow="SOMETIMES">
+                                                        <GridPane hgap = "5.0" vgap = "10.0" VBox.vgrow = "SOMETIMES">
                                                             <columnConstraints>
                                                                 <ColumnConstraints hgrow = "NEVER"
                                                                                    minWidth = "-Infinity" />
@@ -92,9 +94,9 @@
                                                                         <Insets left = "10.0" right = "10.0" />
                                                                     </GridPane.margin>
                                                                 </TextField>
-                                                                <Label fx:id="caselbl1" text="CASE#:">
+                                                                <Label fx:id = "caselbl1" text = "CASE#:">
                                                                     <font>
-                                                                        <Font name = "Segoe UI Semibold"
+                                                                        <Font name = "Inter 28pt Medium"
                                                                               size = "14.0" />
                                                                     </font>
                                                                     <GridPane.margin>
@@ -111,7 +113,7 @@
                                                                 <Label fx:id = "caselbl2" text = "COURT DATE:"
                                                                        GridPane.columnIndex = "2">
                                                                     <font>
-                                                                        <Font name = "Segoe UI Semibold"
+                                                                        <Font name = "Inter 28pt Medium"
                                                                               size = "14.0" />
                                                                     </font>
                                                                     <GridPane.margin>
@@ -175,14 +177,14 @@
                                                                                GridPane.columnSpan = "2"
                                                                                GridPane.halignment = "LEFT">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "18.0" />
                                                                             </font>
                                                                         </Label>
                                                                         <Label fx:id = "caselbl4" text = "NAME:"
                                                                                GridPane.rowIndex = "1">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -192,7 +194,7 @@
                                                                         <Label fx:id = "caselbl6" text = "AGE/DOB:"
                                                                                GridPane.rowIndex = "2">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -222,7 +224,7 @@
                                                                         <Label fx:id = "caselbl7" text = "GENDER:"
                                                                                GridPane.rowIndex = "4">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -233,7 +235,7 @@
                                                                                GridPane.columnSpan = "2"
                                                                                GridPane.rowIndex = "3">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -295,14 +297,14 @@
                                                                                GridPane.columnSpan = "2"
                                                                                GridPane.halignment = "LEFT">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "18.0" />
                                                                             </font>
                                                                         </Label>
                                                                         <Label fx:id = "caselbl9" text = "STREET:"
                                                                                GridPane.rowIndex = "1">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -323,7 +325,7 @@
                                                                         <Label fx:id = "caselbl10" text = "AREA:"
                                                                                GridPane.rowIndex = "2">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -333,7 +335,7 @@
                                                                         <Label fx:id = "caselbl11" text = "COUNTY:"
                                                                                GridPane.rowIndex = "3">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                             <GridPane.margin>
@@ -363,7 +365,7 @@
                                                                 <Insets top = "15.0" />
                                                             </VBox.margin>
                                                         </Separator>
-                                                        <GridPane vgap="25.0" VBox.vgrow="SOMETIMES">
+                                                        <GridPane vgap = "25.0" VBox.vgrow = "SOMETIMES">
                                                             <columnConstraints>
                                                                 <ColumnConstraints hgrow = "SOMETIMES"
                                                                                    minWidth = "10.0" />
@@ -376,11 +378,11 @@
                                                                                 vgrow = "SOMETIMES" />
                                                             </rowConstraints>
                                                             <children>
-                                                                <VBox spacing="5.0">
+                                                                <VBox spacing = "5.0">
                                                                     <children>
-                                                                        <Label fx:id="caselbl12" text="CASE NOTES:">
+                                                                        <Label fx:id = "caselbl12" text = "CASE NOTES:">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "14.0" />
                                                                             </font>
                                                                         </Label>
@@ -413,7 +415,7 @@
                                                                                        AnchorPane.leftAnchor = "10.0"
                                                                                        AnchorPane.topAnchor = "5.0">
                                                                                     <font>
-                                                                                        <Font name = "Segoe UI Black"
+                                                                                        <Font name = "Inter 28pt Bold"
                                                                                               size = "16.0" />
                                                                                     </font>
                                                                                 </Label>
@@ -446,7 +448,7 @@
                                                                                        AnchorPane.leftAnchor = "10.0"
                                                                                        AnchorPane.topAnchor = "5.0">
                                                                                     <font>
-                                                                                        <Font name = "Segoe UI Black"
+                                                                                        <Font name = "Inter 28pt Bold"
                                                                                               size = "16.0" />
                                                                                     </font>
                                                                                 </Label>
@@ -501,7 +503,7 @@
                                                                                style = "-fx-text-fill: black;"
                                                                                GridPane.columnIndex = "1">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "13.0" />
                                                                             </font>
                                                                         </Label>
@@ -511,7 +513,7 @@
                                                                                GridPane.columnIndex = "1"
                                                                                GridPane.rowIndex = "1">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "13.0" />
                                                                             </font>
                                                                         </Label>
@@ -521,7 +523,7 @@
                                                                                GridPane.columnIndex = "1"
                                                                                GridPane.rowIndex = "2">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "13.0" />
                                                                             </font>
                                                                         </Label>
@@ -531,7 +533,7 @@
                                                                                GridPane.columnIndex = "1"
                                                                                GridPane.rowIndex = "3">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "13.0" />
                                                                             </font>
                                                                         </Label>
@@ -541,14 +543,14 @@
                                                                                GridPane.columnIndex = "1"
                                                                                GridPane.rowIndex = "4">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "13.0" />
                                                                             </font>
                                                                         </Label>
                                                                         <Label fx:id = "casesec1" alignment = "CENTER"
                                                                                text = "Fine Total:">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "14.5" />
                                                                             </font>
                                                                         </Label>
@@ -556,7 +558,7 @@
                                                                                text = "Total Jail Time:"
                                                                                GridPane.rowIndex = "1">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "14.5" />
                                                                             </font>
                                                                         </Label>
@@ -564,7 +566,7 @@
                                                                                text = "Total Probation Time:"
                                                                                GridPane.rowIndex = "2">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "14.5" />
                                                                             </font>
                                                                         </Label>
@@ -572,7 +574,7 @@
                                                                                text = "License Status:"
                                                                                GridPane.rowIndex = "3">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "14.5" />
                                                                             </font>
                                                                         </Label>
@@ -581,7 +583,7 @@
                                                                                text = "Suspension Duration:"
                                                                                GridPane.rowIndex = "4">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Black"
+                                                                                <Font name = "Inter 28pt Bold"
                                                                                       size = "14.5" />
                                                                             </font>
                                                                         </Label>
@@ -592,7 +594,7 @@
                                                                        AnchorPane.leftAnchor = "8.0"
                                                                        AnchorPane.topAnchor = "5.0">
                                                                     <font>
-                                                                        <Font name = "Segoe UI Black" size = "18.0" />
+                                                                        <Font name = "Inter 28pt Bold" size = "18.0" />
                                                                     </font>
                                                                 </Label>
                                                                 <Separator layoutX = "195.0" layoutY = "12.0"
@@ -619,7 +621,7 @@
                                                                         style = "-fx-background-color: rgb(0,0,0,0.1); -fx-background-insets: 1; -fx-border-radius: 5px; -fx-background-radius: 5; -fx-padding: 5px 10px;"
                                                                         text = "Show Outcome(s)">
                                                                     <font>
-                                                                        <Font name = "Segoe UI Semibold"
+                                                                        <Font name = "Inter 28pt Medium"
                                                                               size = "12.0" />
                                                                     </font>
                                                                 </Button>
@@ -630,7 +632,7 @@
                                                                         style = "-fx-background-color: rgb(0,0,0,0.1); -fx-background-insets: 1; -fx-border-radius: 5px; -fx-background-radius: 5; -fx-padding: 5px 10px;"
                                                                         text = "Delete Case">
                                                                     <font>
-                                                                        <Font name = "Segoe UI Semibold"
+                                                                        <Font name = "Inter 28pt Medium"
                                                                               size = "12.0" />
                                                                     </font>
                                                                 </Button>

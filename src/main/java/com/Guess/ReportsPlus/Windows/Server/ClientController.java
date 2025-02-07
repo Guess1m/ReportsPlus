@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,8 +37,6 @@ public class ClientController {
 	@javafx.fxml.FXML
 	private Button connectBtn;
 	@javafx.fxml.FXML
-	private AnchorPane mainHeader;
-	@javafx.fxml.FXML
 	private Label lbl1;
 	@javafx.fxml.FXML
 	private Label lbl4;
@@ -47,8 +44,6 @@ public class ClientController {
 	private Label lbl2;
 	@javafx.fxml.FXML
 	private Label lbl3;
-	@javafx.fxml.FXML
-	private Label clientLabel;
 	@javafx.fxml.FXML
 	private Button helpbtn;
 	
@@ -82,7 +77,6 @@ public class ClientController {
 	}
 	
 	private void addLocalization() {
-		clientLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.ClientHeading", "Client"));
 		lbl1.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputPortLabel", "Input Port:"));
 		lbl2.setText(localization.getLocalizedMessage("ServerConnectionWindow.ConnectionIPV4Label", "Connection IPV4:"));
 		lbl3.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputAddressLabel", "Input Address:"));
@@ -163,10 +157,6 @@ public class ClientController {
 	
 	public TextField getPortField() {
 		return portField;
-	}
-	
-	public AnchorPane getMainHeader() {
-		return mainHeader;
 	}
 	
 	public Button getConnectBtn() {

@@ -11,9 +11,10 @@
             stylesheets = "@../../css/settings/settings.css" xmlns = "http://javafx.com/javafx/21"
             fx:controller = "com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <center>
-        <SplitPane dividerPositions="0.31831610044313147" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions = "0.31831610044313147" BorderPane.alignment = "CENTER">
             <items>
-                <VBox maxWidth="230.0" prefWidth="190.0" spacing="6.0" style="-fx-background-color: rgb(0,0,0,0.08);">
+                <VBox maxWidth = "230.0" prefWidth = "190.0" spacing = "6.0"
+                      style = "-fx-background-color: rgb(0,0,0,0.08);">
                     <children>
                         <AnchorPane>
                             <children>
@@ -30,12 +31,12 @@
                                        styleClass = "settingsLabel" text = "Settings" />
                             </children>
                         </AnchorPane>
-                        <Label fx:id="mainSettingsSubheader" styleClass="heading" text="MAIN SETTINGS">
+                        <Label fx:id = "mainSettingsSubheader" styleClass = "heading" text = "MAIN SETTINGS">
                             <VBox.margin>
                                 <Insets left = "15.0" top = "5.0" />
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth = "200.0" style = "-fx-background-color: rgb(0,0,0,0.2);">
                             <VBox.margin>
                                 <Insets left = "10.0" right = "10.0" top = "-7.0" />
                             </VBox.margin>
@@ -61,12 +62,12 @@
                                         text = "Desktop Settings" />
                             </center>
                         </BorderPane>
-                        <Label fx:id="colorSettingsSubheader" styleClass="heading" text="COLOR SETTINGS">
+                        <Label fx:id = "colorSettingsSubheader" styleClass = "heading" text = "COLOR SETTINGS">
                             <VBox.margin>
                                 <Insets left = "15.0" top = "20.0" />
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth = "200.0" style = "-fx-background-color: rgb(0,0,0,0.2);">
                             <VBox.margin>
                                 <Insets left = "10.0" right = "10.0" top = "-7.0" />
                             </VBox.margin>
@@ -88,12 +89,12 @@
                                         text = "Application Design" />
                             </center>
                         </BorderPane>
-                        <Label fx:id="MiscSettingsSubheader" styleClass="heading" text="MISC / SERVER SETTINGS">
+                        <Label fx:id = "MiscSettingsSubheader" styleClass = "heading" text = "MISC / SERVER SETTINGS">
                             <VBox.margin>
                                 <Insets left = "15.0" top = "20.0" />
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth = "200.0" style = "-fx-background-color: rgb(0,0,0,0.2);">
                             <VBox.margin>
                                 <Insets left = "10.0" right = "10.0" top = "-7.0" />
                             </VBox.margin>
@@ -112,12 +113,12 @@
                                         text = "Audio / Optionals" />
                             </center>
                         </BorderPane>
-                        <Label fx:id="developerSubheader" styleClass="heading" text="DEVELOPER / RESET DATA">
+                        <Label fx:id = "developerSubheader" styleClass = "heading" text = "DEVELOPER / RESET DATA">
                             <VBox.margin>
                                 <Insets left = "15.0" top = "20.0" />
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth = "200.0" style = "-fx-background-color: rgb(0,0,0,0.2);">
                             <VBox.margin>
                                 <Insets left = "10.0" right = "10.0" top = "-7.0" />
                             </VBox.margin>
@@ -131,7 +132,7 @@
                         </BorderPane>
                     </children>
                 </VBox>
-                <AnchorPane style="-fx-background-color: transparent;">
+                <AnchorPane style = "-fx-background-color: transparent;">
                     <children>
                         <ScrollPane fx:id = "paneWindow" fitToHeight = "true" fitToWidth = "true" visible = "false"
                                     AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0"
@@ -142,17 +143,18 @@
                                         <Label fx:id = "winSettingsHeader" alignment = "CENTER"
                                                styleClass = "settingsLabel" text = "WINDOW SETTINGS"
                                                AnchorPane.leftAnchor = "15.0" AnchorPane.topAnchor = "10.0" />
-                                        <VBox AnchorPane.bottomAnchor = "25.0" AnchorPane.leftAnchor = "25.0"
-                                              AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "40.0">
+                                        <VBox spacing = "30.0" AnchorPane.bottomAnchor = "25.0"
+                                              AnchorPane.leftAnchor = "25.0" AnchorPane.rightAnchor = "0.0"
+                                              AnchorPane.topAnchor = "45.0">
                                             <children>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "appDisLabel" alignment = "CENTER"
@@ -177,14 +179,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" prefWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "aotLabel" alignment = "CENTER"
@@ -210,14 +212,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "IDPopupsLabel" alignment = "CENTER"
@@ -243,14 +245,14 @@
                                                         <Insets top = "5.0" />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "IDDisplayDurLabel" alignment = "CENTER"
@@ -274,14 +276,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "enableCalloutLabel" alignment = "CENTER"
@@ -307,14 +309,14 @@
                                                         <Insets top = "5.0" />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "CalDisplayDurLabel" alignment = "CENTER"
@@ -339,14 +341,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" prefWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints minHeight = "10.0" vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "trafficStopPopupsLabel" alignment = "CENTER"
@@ -374,14 +376,14 @@
                                                         <Insets top = "5.0" />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "trafficStopDurLabel" alignment = "CENTER"
@@ -421,19 +423,18 @@
                                                layoutY = "14.0" styleClass = "settingsLabel"
                                                text = "NOTIFICATION SETTINGS" AnchorPane.leftAnchor = "15.0"
                                                AnchorPane.topAnchor = "10.0" />
-                                        <VBox layoutX = "25.0" layoutY = "47.5" spacing = "25.0"
+                                        <VBox layoutX = "25.0" layoutY = "47.5" spacing = "35.0"
                                               AnchorPane.bottomAnchor = "20.0" AnchorPane.leftAnchor = "25.0"
-                                              AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "20.0">
+                                              AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "50.0">
                                             <children>
-                                                <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "recNotiLabel" alignment = "CENTER"
@@ -455,14 +456,14 @@
                                                         </Label>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "fadeOutTimeLabel" alignment = "CENTER"
@@ -492,14 +493,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "displayDurLabel" alignment = "CENTER"
@@ -529,14 +530,15 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <AnchorPane VBox.vgrow = "SOMETIMES" />
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "160.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "selNotiLabel" alignment = "CENTER"
@@ -560,14 +562,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "notiPosLabel" alignment = "CENTER"
@@ -586,14 +588,14 @@
                                                                   GridPane.valignment = "CENTER" />
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "notiPrimColorLabel" alignment = "CENTER"
@@ -614,14 +616,14 @@
                                                                      GridPane.valignment = "CENTER" />
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "NEVER" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "notiTextColorLabel" alignment = "CENTER"
@@ -643,8 +645,9 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <BorderPane fx:id = "notiDisplayPane" prefHeight = "93.0"
-                                                            scaleShape = "false" VBox.vgrow = "SOMETIMES">
+                                                <BorderPane fx:id = "notiDisplayPane" minHeight = "-Infinity"
+                                                            prefHeight = "93.0" scaleShape = "false"
+                                                            VBox.vgrow = "SOMETIMES">
                                                     <top>
                                                         <Label fx:id = "notiPreviewLabel" styleClass = "paneHeading"
                                                                text = "Preview:" BorderPane.alignment = "CENTER_LEFT">
@@ -660,7 +663,7 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </BorderPane>
-                                                <HBox alignment="CENTER" spacing="45.0" VBox.vgrow="SOMETIMES">
+                                                <HBox alignment = "CENTER" spacing = "45.0" VBox.vgrow = "SOMETIMES">
                                                     <children>
                                                         <Button fx:id = "previewNotificationBtn"
                                                                 mnemonicParsing = "false" text = "Preview Notification"
@@ -690,16 +693,17 @@
                                                AnchorPane.leftAnchor = "15.0" AnchorPane.topAnchor = "10.0" />
                                         <VBox layoutX = "25.0" layoutY = "50.0" spacing = "35.0"
                                               AnchorPane.bottomAnchor = "25.0" AnchorPane.leftAnchor = "25.0"
-                                              AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "55.0">
+                                              AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "45.0">
                                             <children>
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity"
+                                                          VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "210.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "inputLockKeybindLabel" alignment = "CENTER"
@@ -718,9 +722,10 @@
                                                               GridPane.columnSpan = "2147483647"
                                                               GridPane.rowSpan = "2147483647">
                                                             <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                <Label text = "Control +" HBox.hgrow = "NEVER">
                                                                     <font>
-                                                                        <Font name = "Segoe UI" size = "13.0" />
+                                                                        <Font name = "Inter 24pt Regular"
+                                                                              size = "13.0" />
                                                                     </font>
                                                                 </Label>
                                                                 <TextField fx:id = "inputLockKeybindField"
@@ -732,14 +737,15 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane />
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity"
+                                                          VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopUseSolidClrLabel" alignment = "CENTER"
@@ -766,14 +772,15 @@
                                                         </Label>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity"
+                                                          VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" prefWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopBackgroundClrLabel" alignment = "CENTER"
@@ -800,14 +807,15 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity"
+                                                          VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "useDesktopBackgroundImageLabel"
@@ -833,14 +841,14 @@
                                                         </Label>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane minHeight = "-Infinity" VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" prefWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopImageChooserLabel" alignment = "CENTER"
@@ -864,14 +872,15 @@
                                                                 GridPane.valignment = "CENTER" />
                                                     </children>
                                                 </GridPane>
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity"
+                                                          VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopAppTextClrLabel" alignment = "CENTER"
@@ -900,8 +909,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopTopBarClrLabel" alignment = "CENTER"
@@ -922,14 +931,15 @@
                                                                      GridPane.valignment = "CENTER" />
                                                     </children>
                                                 </GridPane>
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity"
+                                                          VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopTopBarTextClrLabel" alignment = "CENTER"
@@ -951,14 +961,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane />
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopTaskBarClrLabel" alignment = "CENTER"
@@ -979,14 +989,14 @@
                                                                      GridPane.valignment = "CENTER" />
                                                     </children>
                                                 </GridPane>
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                <GridPane maxHeight = "65.0" minHeight = "-Infinity">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "desktopTaskBarTextClrLabel" alignment = "CENTER"
@@ -1025,18 +1035,18 @@
                                         <Label fx:id = "reportWindowCustomizationHeader" alignment = "CENTER"
                                                styleClass = "settingsLabel" text = "REPORT WINDOW CUSTOMIZATION"
                                                AnchorPane.leftAnchor = "15.0" AnchorPane.topAnchor = "10.0" />
-                                        <VBox spacing = "45.0" AnchorPane.bottomAnchor = "20.0"
+                                        <VBox spacing = "35.0" AnchorPane.bottomAnchor = "20.0"
                                               AnchorPane.leftAnchor = "25.0" AnchorPane.rightAnchor = "0.0"
-                                              AnchorPane.topAnchor = "65.0">
+                                              AnchorPane.topAnchor = "45.0">
                                             <children>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "reportDesignPresetLabel" alignment = "CENTER"
@@ -1059,14 +1069,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "reportTextColorLabel" alignment = "CENTER"
@@ -1090,14 +1100,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "headingLabelReport" alignment = "CENTER"
@@ -1121,14 +1131,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "backgroundLabelReport" alignment = "CENTER"
@@ -1152,14 +1162,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "secLabelReport" alignment = "CENTER"
@@ -1183,14 +1193,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "accentLabelReport" alignment = "CENTER"
@@ -1215,14 +1225,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "reportResetDefaultsLabel" alignment = "CENTER"
@@ -1263,18 +1273,18 @@
                                         <Label fx:id = "appWindowCustomizationHeader" alignment = "CENTER"
                                                styleClass = "settingsLabel" text = "APPLICATION WINDOW CUSTOMIZATION"
                                                AnchorPane.leftAnchor = "15.0" AnchorPane.topAnchor = "10.0" />
-                                        <VBox spacing = "45.0" AnchorPane.bottomAnchor = "25.0"
+                                        <VBox spacing = "35.0" AnchorPane.bottomAnchor = "25.0"
                                               AnchorPane.leftAnchor = "25.0" AnchorPane.rightAnchor = "0.0"
-                                              AnchorPane.topAnchor = "65.0">
+                                              AnchorPane.topAnchor = "45.0">
                                             <children>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "appPresetLabel" alignment = "CENTER"
@@ -1300,14 +1310,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "appTextColorLabel" alignment = "CENTER"
@@ -1332,14 +1342,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "primLabel" alignment = "CENTER"
@@ -1362,14 +1372,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "secLabel" alignment = "CENTER"
@@ -1392,14 +1402,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "accLabel" alignment = "CENTER"
@@ -1422,14 +1432,14 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "bkgLabel" alignment = "CENTER"
@@ -1453,14 +1463,14 @@
                                                     </children>
                                                 </GridPane>
                                                 <AnchorPane VBox.vgrow = "SOMETIMES" />
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "appResetDefaultsLabel" alignment = "CENTER"
@@ -1511,8 +1521,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "autoConnectServerLabel" alignment = "CENTER"
@@ -1541,8 +1551,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "broadcastPortLabel" alignment = "CENTER"
@@ -1574,8 +1584,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "socketTimeoutLabel" alignment = "CENTER"
@@ -1609,8 +1619,8 @@
                                                                            minWidth = "54.5" prefWidth = "154.5" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "useGameTimeLabel" alignment = "CENTER"
@@ -1661,8 +1671,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "soundPackNotDetectedLbl" alignment = "CENTER"
@@ -1692,8 +1702,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "imagesNotDetectedLbl" alignment = "CENTER"
@@ -1716,14 +1726,14 @@
                                                         <Insets right = "25.0" />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "enableSoundsLabel" alignment = "CENTER"
@@ -1749,14 +1759,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "enablePedVehImages" alignment = "CENTER"
@@ -1779,19 +1789,19 @@
                                                         </Label>
                                                     </children>
                                                 </GridPane>
-                                                <AnchorPane VBox.vgrow="SOMETIMES">
+                                                <AnchorPane VBox.vgrow = "SOMETIMES">
                                                     <VBox.margin>
                                                         <Insets bottom = "-10.0" top = "-10.0" />
                                                     </VBox.margin>
                                                 </AnchorPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "lookupWarningSoundLabel" alignment = "CENTER"
@@ -1817,14 +1827,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "createReportSoundLabel" alignment = "CENTER"
@@ -1850,14 +1860,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "calloutSoundLabel" alignment = "CENTER"
@@ -1883,14 +1893,14 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </GridPane>
-                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                <GridPane VBox.vgrow = "SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "delReportLabel" alignment = "CENTER"
@@ -1922,7 +1932,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id = "paneDeveloper" fitToHeight = "true" fitToWidth = "true"
+                        <ScrollPane fx:id = "paneDeveloper" fitToHeight = "true" fitToWidth = "true" visible = "false"
                                     AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0"
                                     AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
                             <content>
@@ -1941,8 +1951,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "clearLogsLabel" alignment = "CENTER"
@@ -1972,8 +1982,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "clearSaveDataLabel" alignment = "CENTER"
@@ -2004,8 +2014,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "clearLookupDataLabel" alignment = "CENTER"
@@ -2028,14 +2038,14 @@
                                                                 GridPane.valignment = "CENTER" />
                                                     </children>
                                                 </GridPane>
-                                                <GridPane layoutX="10.0" layoutY="10.0">
+                                                <GridPane layoutX = "10.0" layoutY = "10.0">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow = "SOMETIMES" minWidth = "235.0" />
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "centerWindowsLabel" alignment = "CENTER"
@@ -2062,8 +2072,8 @@
                                                         <ColumnConstraints hgrow = "ALWAYS" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
-                                                        <RowConstraints vgrow = "NEVER" />
+                                                        <RowConstraints minHeight = "-Infinity" vgrow = "SOMETIMES" />
+                                                        <RowConstraints minHeight = "-Infinity" />
                                                     </rowConstraints>
                                                     <children>
                                                         <Label fx:id = "resetAppPosLabel" alignment = "CENTER"

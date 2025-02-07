@@ -9,7 +9,7 @@
             stylesheets = "@../../css/lookups/lookup.css" xmlns = "http://javafx.com/javafx/21"
             fx:controller = "com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController">
     <center>
-        <AnchorPane fx:id="lookupPane">
+        <AnchorPane fx:id = "lookupPane">
             <children>
                 <VBox style = "-fx-background-color: transparent;" AnchorPane.bottomAnchor = "0.0"
                       AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
@@ -20,7 +20,7 @@
                                        textAlignment = "CENTER" textFill = "#5e7387" textOverrun = "WORD_ELLIPSIS"
                                        wrapText = "true" BorderPane.alignment = "CENTER">
                                     <font>
-                                        <Font name = "Segoe UI Black" size = "25.0" />
+                                        <Font name = "Inter 28pt Bold" size = "25.0" />
                                     </font>
                                     <BorderPane.margin>
                                         <Insets left = "15.0" />
@@ -32,7 +32,7 @@
                                     style = "-fx-background-color: transparent;"
                                     stylesheets = "@../../css/main/scrollPane.css">
                             <content>
-                                <AnchorPane fx:id="pedLookupPane" style="-fx-background-color: transparent;">
+                                <AnchorPane fx:id = "pedLookupPane" style = "-fx-background-color: transparent;">
                                     <children>
                                         <AnchorPane fx:id = "pedRecordPane" layoutX = "15.0" layoutY = "65.0"
                                                     prefHeight = "432.0" prefWidth = "857.0"
@@ -93,7 +93,7 @@
                                                                                 vgrow = "SOMETIMES" />
                                                             </rowConstraints>
                                                             <children>
-                                                                <AnchorPane GridPane.rowIndex="1">
+                                                                <AnchorPane GridPane.rowIndex = "1">
                                                                     <children>
                                                                         <TextField fx:id = "pedfnamefield"
                                                                                    editable = "false" layoutX = "13.0"
@@ -107,7 +107,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -128,13 +128,13 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <AnchorPane GridPane.rowIndex="4">
+                                                                <AnchorPane GridPane.rowIndex = "4">
                                                                     <children>
                                                                         <TextField fx:id = "pedwantedfield"
                                                                                    editable = "false" layoutX = "26.0"
@@ -148,7 +148,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -170,7 +170,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -191,7 +191,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -212,13 +212,13 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <AnchorPane GridPane.columnSpan="4">
+                                                                <AnchorPane GridPane.columnSpan = "4">
                                                                     <children>
                                                                         <Label fx:id = "info1" alignment = "CENTER"
                                                                                prefHeight = "35.0" prefWidth = "747.0"
@@ -247,7 +247,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -269,7 +269,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -290,7 +290,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -312,7 +312,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -334,7 +334,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -356,13 +356,13 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
                                                                     </children>
                                                                 </AnchorPane>
-                                                                <AnchorPane GridPane.rowIndex="6">
+                                                                <AnchorPane GridPane.rowIndex = "6">
                                                                     <children>
                                                                         <TextField fx:id = "pedboatinglicstatusfield"
                                                                                    editable = "false" layoutX = "26.0"
@@ -377,7 +377,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -399,7 +399,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -414,7 +414,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "-5.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -450,7 +450,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "-5.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -534,7 +534,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -555,7 +555,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -579,18 +579,19 @@
                                                                             GridPane.rowIndex = "1"
                                                                             GridPane.rowSpan = "2">
                                                                     <center>
-                                                                        <StackPane BorderPane.alignment="CENTER">
+                                                                        <StackPane BorderPane.alignment = "CENTER">
                                                                             <children>
                                                                                 <VBox>
                                                                                     <children>
-                                                                                        <BorderPane VBox.vgrow="NEVER">
+                                                                                        <BorderPane
+                                                                                                VBox.vgrow = "NEVER">
                                                                                             <center>
                                                                                                 <Label fx:id = "noPedImageFoundlbl"
                                                                                                        alignment = "CENTER"
                                                                                                        text = "No Image Found In System"
                                                                                                        textOverrun = "WORD_ELLIPSIS">
                                                                                                     <font>
-                                                                                                        <Font name = "Segoe UI Black"
+                                                                                                        <Font name = "Inter 28pt Bold"
                                                                                                               size = "13.0" />
                                                                                                     </font>
                                                                                                 </Label>
@@ -599,7 +600,8 @@
                                                                                                 <Insets bottom = "3.0" />
                                                                                             </VBox.margin>
                                                                                         </BorderPane>
-                                                                                        <BorderPane VBox.vgrow="ALWAYS">
+                                                                                        <BorderPane
+                                                                                                VBox.vgrow = "ALWAYS">
                                                                                             <center>
                                                                                                 <ImageView
                                                                                                         fx:id = "pedImageView"
@@ -633,7 +635,7 @@
                                                                                AnchorPane.leftAnchor = "0.0"
                                                                                AnchorPane.topAnchor = "0.0">
                                                                             <font>
-                                                                                <Font name = "Segoe UI Semibold"
+                                                                                <Font name = "Inter 28pt Medium"
                                                                                       size = "16.0" />
                                                                             </font>
                                                                         </Label>
@@ -669,13 +671,13 @@
                                                                                        AnchorPane.leftAnchor = "0.0"
                                                                                        AnchorPane.topAnchor = "0.0">
                                                                                     <font>
-                                                                                        <Font name = "Segoe UI Semibold"
+                                                                                        <Font name = "Inter 28pt Medium"
                                                                                               size = "16.0" />
                                                                                     </font>
                                                                                 </Label>
                                                                             </children>
                                                                         </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="1">
+                                                                        <AnchorPane GridPane.columnIndex = "1">
                                                                             <children>
                                                                                 <TextField fx:id = "pedaliasfield"
                                                                                            layoutX = "26.0"
@@ -690,7 +692,7 @@
                                                                                        AnchorPane.leftAnchor = "0.0"
                                                                                        AnchorPane.topAnchor = "0.0">
                                                                                     <font>
-                                                                                        <Font name = "Segoe UI Semibold"
+                                                                                        <Font name = "Inter 28pt Medium"
                                                                                               size = "16.0" />
                                                                                     </font>
                                                                                 </Label>
@@ -724,11 +726,11 @@
                                         </AnchorPane>
                                         <Label fx:id = "noRecordFoundLabelPed" alignment = "CENTER" layoutX = "386.0"
                                                layoutY = "221.0"
-                                               style = "-fx-font-size: 20; -fx-text-fill: #4D4D4D; -fx-font-family: &quot;Segoe UI Black&quot;;"
+                                               style = "-fx-font-size: 20; -fx-text-fill: #4D4D4D; -fx-font-family: &quot;Inter 28pt Bold&quot;;"
                                                text = "No Record In System." textAlignment = "CENTER" visible = "false"
                                                AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0">
                                             <font>
-                                                <Font name = "Segoe UI Black" size = "20.0" />
+                                                <Font name = "Inter 28pt Bold" size = "20.0" />
                                             </font>
                                         </Label>
                                         <GridPane layoutX = "45.0" layoutY = "15.0" AnchorPane.leftAnchor = "20.0"
@@ -748,10 +750,10 @@
                                                        textAlignment = "CENTER" textFill = "#5e7387"
                                                        textOverrun = "WORD_ELLIPSIS">
                                                     <font>
-                                                        <Font name = "Segoe UI Black" size = "20.0" />
+                                                        <Font name = "Inter 28pt Bold" size = "20.0" />
                                                     </font>
                                                 </Label>
-                                                <AnchorPane GridPane.columnIndex="1">
+                                                <AnchorPane GridPane.columnIndex = "1">
                                                     <GridPane.margin>
                                                         <Insets left = "10.0" right = "10.0" />
                                                     </GridPane.margin>
@@ -774,10 +776,10 @@
                                                         <Insets />
                                                     </GridPane.margin>
                                                     <font>
-                                                        <Font name = "Segoe UI Black" size = "13.0" />
+                                                        <Font name = "Inter 28pt Bold" size = "13.0" />
                                                     </font>
                                                 </Button>
-                                                <BorderPane GridPane.columnIndex="3">
+                                                <BorderPane GridPane.columnIndex = "3">
                                                     <center>
                                                         <Button fx:id = "addDataToNotesBtn" mnemonicParsing = "false"
                                                                 onAction = "#pedAddDataToNotes" opacity = "0.73"

@@ -377,7 +377,10 @@ public class CustomWindow {
 		AnchorPane.setLeftAnchor(placeholderImageView, 0.0);
 		AnchorPane.setTopAnchor(placeholderImageView, -10.0);
 		AnchorPane.setBottomAnchor(placeholderImageView, -10.0);
-		placeholderImageView.setEffect(colorAdjust);
+		
+		ColorAdjust colorAdjust1 = new ColorAdjust();
+		colorAdjust1.setBrightness(0.5);
+		placeholderImageView.setEffect(colorAdjust1);
 		
 		Image closeImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png"));
 		ImageView closeImageView = new ImageView(closeImage);

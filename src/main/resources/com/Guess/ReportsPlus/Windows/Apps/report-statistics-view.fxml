@@ -13,16 +13,16 @@
             xmlns = "http://javafx.com/javafx/21"
             fx:controller = "com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController">
     <center>
-        <AnchorPane fx:id="mainPane">
+        <AnchorPane fx:id = "mainPane">
             <children>
                 <BorderPane fx:id = "borderPane" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0"
                             AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
                     <top>
-                        <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+                        <HBox alignment = "CENTER" spacing = "10.0" BorderPane.alignment = "CENTER">
                             <children>
-                                <Label fx:id="reportsByLabel" text="Reports By:">
+                                <Label fx:id = "reportsByLabel" text = "Reports By:">
                                     <font>
-                                        <Font name = "Segoe UI Black" size = "14.0" />
+                                        <Font name = "Inter 28pt Bold" size = "14.0" />
                                     </font>
                                 </Label>
                                 <ComboBox fx:id = "reportsByCombobox" HBox.hgrow = "ALWAYS" />
@@ -30,7 +30,7 @@
                         </HBox>
                     </top>
                     <center>
-                        <AreaChart BorderPane.alignment="CENTER">
+                        <AreaChart BorderPane.alignment = "CENTER">
                             <xAxis>
                                 <CategoryAxis side = "BOTTOM" />
                             </xAxis>

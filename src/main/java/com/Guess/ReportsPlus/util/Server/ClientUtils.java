@@ -10,7 +10,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
-import com.Guess.ReportsPlus.util.Misc.WorkerThread;
+import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import com.Guess.ReportsPlus.util.Other.controllerUtils;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
@@ -34,7 +34,9 @@ import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.serverLookupURL;
 import static com.Guess.ReportsPlus.util.Strings.updateStrings.version;
 
 public class ClientUtils {
@@ -87,6 +89,7 @@ public class ClientUtils {
 				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
 				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
 			} catch (IOException e) {
+				sendMessageToServer("SHUTDOWN");
 				isConnected = false;
 				notifyStatusChanged(isConnected);
 				log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
@@ -190,37 +193,43 @@ public class ClientUtils {
 							break label;
 						
 						case "UPDATE_GAME_DATA":
-							log("Received Location update", LogUtils.Severity.DEBUG);
+							log("Received Location Update", LogUtils.Severity.DEBUG);
 							receiveFileFromServer(1024, "ServerGameData.data");
 							runUpdateLocation();
 							break;
 						
 						case "UPDATE_ID":
-							log("Received ID update", LogUtils.Severity.DEBUG);
+							log("Received ID Update", LogUtils.Severity.DEBUG);
 							receiveFileFromServer(4096, "ServerCurrentID.xml");
 							runUpdateID();
 							break;
 						
 						case "UPDATE_CALLOUT":
-							log("Received Callout update", LogUtils.Severity.DEBUG);
-							receiveFileFromServer(2048, "ServerCallout.xml");
+							log("Received Callout Update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(1024, "ServerCallout.xml");
 							runUpdateCallout();
 							break;
 						
 						case "UPDATE_WORLD_PED":
-							log("Received World Ped update", LogUtils.Severity.DEBUG);
+							log("Received World Ped Update", LogUtils.Severity.DEBUG);
 							receiveFileFromServer(4096, "ServerWorldPeds.data");
 							break;
 						
 						case "UPDATE_TRAFFIC_STOP":
-							log("Received Traffic Stop update", LogUtils.Severity.DEBUG);
-							receiveFileFromServer(2048, "ServerTrafficStop.data");
+							log("Received Traffic Stop Update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(1024, "ServerTrafficStop.data");
 							runTrafficStopUpdate();
 							break;
 						
 						case "UPDATE_WORLD_VEH":
-							log("Received World Veh update", LogUtils.Severity.DEBUG);
+							log("Received World Vehicle Update", LogUtils.Severity.DEBUG);
 							receiveFileFromServer(4096, "ServerWorldCars.data");
+							break;
+						
+						case "UPDATE_LOOKUP":
+							log("Received Lookup Update", LogUtils.Severity.DEBUG);
+							receiveFileFromServer(256, "ServerLookup.data");
+							runLookupUpdate();
 							break;
 						
 						case "HEARTBEAT":
@@ -238,6 +247,7 @@ public class ClientUtils {
 					}
 				}
 			} catch (SocketTimeoutException e) {
+				sendMessageToServer("SHUTDOWN");
 				isConnected = false;
 				notifyStatusChanged(isConnected);
 				try {
@@ -246,6 +256,7 @@ public class ClientUtils {
 					logError("Could not getSoTimeout: ", e);
 				}
 			} catch (IOException e) {
+				sendMessageToServer("SHUTDOWN");
 				isConnected = false;
 				notifyStatusChanged(isConnected);
 				log("Error reading from server: " + e.getMessage(), LogUtils.Severity.ERROR);
@@ -255,8 +266,37 @@ public class ClientUtils {
 		messageReceiverThread.start();
 	}
 	
+	private static void runLookupUpdate() {
+		log("Running Lookup Update", LogUtils.Severity.INFO);
+		File lookupFile = new File(serverLookupURL);
+		if (!lookupFile.exists()) {
+			log("No lookup data file found", LogUtils.Severity.ERROR);
+			return;
+		}
+		String lookupFileContent = "";
+		try {
+			lookupFileContent = Files.readString(Paths.get(URLStrings.serverLookupURL));
+		} catch (IOException e) {
+			logError("Error reading lookupFile Content", e);
+		}
+		if (mainDesktopControllerObj != null && lookupFileContent.length() > 0) {
+			String finalLookupFileContent = lookupFileContent;
+			Platform.runLater(() -> {
+				if (!mainDesktopControllerObj.getTopBarHboxRight().getChildren().contains(mainDesktopControllerObj.getLookupLabel())) {
+					mainDesktopControllerObj.getTopBarHboxRight().getChildren().add(mainDesktopControllerObj.getLookupLabel());
+					mainDesktopControllerObj.getLookupLabel().toBack();
+				}
+				mainDesktopControllerObj.getLookupLabel().setText(localization.getLocalizedMessage("Desktop.CheckedLabel", "Checked:") + " " + finalLookupFileContent);
+				showNotificationInfo("Ped / Vehicle Check", "Ran check for: [" + finalLookupFileContent + "]");
+			});
+		} else {
+			log("lookupFile content is null; not updating", LogUtils.Severity.ERROR);
+		}
+	}
+	
 	public static void disconnectFromService() {
 		try {
+			sendMessageToServer("SHUTDOWN");
 			isConnected = false;
 			notifyStatusChanged(isConnected);
 			if (socket != null && !socket.isClosed()) {
@@ -290,6 +330,11 @@ public class ClientUtils {
 		try (DatagramSocket socket = new DatagramSocket(broadCastPort, InetAddress.getByName("0.0.0.0"))) {
 			socket.setBroadcast(true);
 			while (true) {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					logError("Error sleeping: ", e);
+				}
 				if (!isConnected) {
 					byte[] buffer = new byte[256];
 					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
@@ -304,17 +349,20 @@ public class ClientUtils {
 						log("Discovered server at " + serverAddress + ":" + serverPort, LogUtils.Severity.INFO);
 						try {
 							connectToService(serverAddress, serverPort);
+							return;
 						} catch (IOException e) {
 							log("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage(), LogUtils.Severity.ERROR);
+							return;
 						}
 					}
 				} else {
 					log("Already connected", LogUtils.Severity.WARN);
-					break;
+					return;
 				}
 			}
 		} catch (IOException e) {
 			log("Error listening for broadcasts: " + e.getMessage(), LogUtils.Severity.ERROR);
+			return;
 		}
 	}
 	

@@ -988,7 +988,6 @@ public class PedLookupViewController {
 						} else {
 							log("No matching image found for the model: " + pedModel + ", trying to use base image", LogUtils.Severity.WARN);
 							
-							// Extract base model from brackets
 							Pattern pattern = Pattern.compile("\\[([^\\]]+)\\]");
 							Matcher matcher = pattern.matcher(pedModel);
 							String fallbackModel;
@@ -1063,7 +1062,7 @@ public class PedLookupViewController {
 			titleLabel.setPrefHeight(33.0);
 			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 			titleLabel.setTextFill(Paint.valueOf("WHITE"));
-			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			titleLabel.setFont(new Font("Inter 28pt Bold", 17.0));
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
@@ -1250,7 +1249,7 @@ public class PedLookupViewController {
 			titleLabel.setPrefHeight(33.0);
 			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 			titleLabel.setTextFill(Paint.valueOf("WHITE"));
-			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			titleLabel.setFont(new Font("Inter 28pt Bold", 17.0));
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
@@ -1424,7 +1423,7 @@ public class PedLookupViewController {
 			titleLabel.setPrefHeight(33.0);
 			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 			titleLabel.setTextFill(Paint.valueOf("WHITE"));
-			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			titleLabel.setFont(new Font("Inter 28pt Bold", 17.0));
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
@@ -1614,7 +1613,7 @@ public class PedLookupViewController {
 	
 	private Label createLabel(String text) {
 		Label label = new Label(text);
-		label.setFont(new Font("Segoe UI Black", 12.0));
+		label.setFont(new Font("Inter 28pt Bold", 12.0));
 		
 		final String UILightColor = "rgba(255,255,255,0.75)";
 		final String UIDarkColor = "rgba(0,0,0,0.75)";

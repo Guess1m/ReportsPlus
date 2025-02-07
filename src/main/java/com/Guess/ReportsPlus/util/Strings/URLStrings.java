@@ -25,6 +25,7 @@ public class URLStrings {
 	public static final String currentIDFileURL = controllerUtils.getServerDataFolderPath() + "ServerCurrentID.xml";
 	public static final String currentLocationFileURL = controllerUtils.getServerDataFolderPath() + "ServerLocation.data";
 	public static final String serverGameDataFileURL = controllerUtils.getServerDataFolderPath() + "ServerGameData.data";
+	public static final String serverLookupURL = controllerUtils.getServerDataFolderPath() + "ServerLookup.data";
 	public static final String IDHistoryURL = controllerUtils.getDataFolderPath() + "IDHistory.xml";
 	public static final String currentUserFileURL = controllerUtils.getDataFolderPath() + "UserProfiles.xml";
 	public static final String pedImageFolderURL = controllerUtils.getJarPath() + File.separator + "images" + File.separator + "peds";

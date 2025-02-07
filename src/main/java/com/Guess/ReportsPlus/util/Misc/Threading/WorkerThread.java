@@ -1,6 +1,6 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Misc.Threading;
 
-import com.Guess.ReportsPlus.util.Misc.Threading.ThreadManager;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 
@@ -11,6 +11,8 @@ public class WorkerThread extends Thread {
 	public WorkerThread(String name, Runnable runnable) {
 		this.name = name;
 		this.runnable = runnable;
+		
+		this.setName(name);
 	}
 	
 	@Override

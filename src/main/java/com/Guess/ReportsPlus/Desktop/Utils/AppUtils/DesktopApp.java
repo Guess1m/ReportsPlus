@@ -61,7 +61,7 @@ public class DesktopApp {
 		
 		BorderPane borderPaneLabel = new BorderPane();
 		appLabel = new Label(name);
-		appLabel.setStyle("-fx-font-family: 'Segoe UI Semibold'; -fx-text-fill: white; -fx-font-size: 15px;");
+		appLabel.setStyle("-fx-font-family: 'Inter 28pt Medium'; -fx-text-fill: white; -fx-font-size: 15px;");
 		appLabel.setMouseTransparent(true);
 		appLabel.setAlignment(Pos.BOTTOM_CENTER);
 		appLabel.setTextAlignment(TextAlignment.CENTER);

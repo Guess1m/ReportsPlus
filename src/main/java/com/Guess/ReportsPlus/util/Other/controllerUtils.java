@@ -600,7 +600,7 @@ public class controllerUtils {
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
 					Label label = new Label(item.trim());
-					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					labels.add(label);
 				}
 			}
@@ -615,7 +615,7 @@ public class controllerUtils {
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
 					Label label = new Label(localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
-					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					labels.add(label);
 				}
 			}

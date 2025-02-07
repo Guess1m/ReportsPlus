@@ -21,7 +21,7 @@
     -fx-text-fill: #CCC;
     -fx-font-size: 16.2px;
     -fx-padding: 5px;
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
 }
 
 .calloutTABLE .column-header {
@@ -32,7 +32,7 @@
 
 .calloutTABLE .table-cell {
     -fx-text-fill: black;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Inter 24pt Regular";
     -fx-alignment: center;
     -fx-padding: 0 30px;
 }
@@ -82,12 +82,12 @@
 
 .databaseReportLabel {
     -fx-text-fill: white;
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 30px;
 }
 
 .viewerLabel {
     -fx-text-fill: #CDCDCD;
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 24px;
 }

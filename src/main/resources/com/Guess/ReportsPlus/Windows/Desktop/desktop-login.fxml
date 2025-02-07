@@ -6,119 +6,127 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="577.0" prefWidth="998.0"
-            style="-fx-background-color: #306494;" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.Guess.ReportsPlus.Desktop.desktopLoginController">
+<BorderPane xmlns:fx = "http://javafx.com/fxml/1" prefHeight = "577.0" prefWidth = "998.0"
+            style = "-fx-background-color: #306494;" xmlns = "http://javafx.com/javafx/21"
+            fx:controller = "com.Guess.ReportsPlus.Desktop.desktopLoginController">
     <center>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="352.0" prefWidth="558.0">
+        <AnchorPane maxHeight = "-Infinity" maxWidth = "-Infinity" prefHeight = "352.0" prefWidth = "558.0">
             <children>
-                <AnchorPane fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="325.0" minWidth="558.0"
-                            prefHeight="325.0" prefWidth="558.0"
-                            style="-fx-background-color: rgb(255,255,255,0.9); -fx-background-radius: 15;">
+                <AnchorPane fx:id = "vbox" maxHeight = "-Infinity" maxWidth = "-Infinity" minHeight = "325.0"
+                            minWidth = "558.0"
+                            prefHeight = "325.0" prefWidth = "558.0"
+                            style = "-fx-background-color: rgb(255,255,255,0.9); -fx-background-radius: 15;">
                     <children>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0"
-                                    stylesheets="@../../css/userManager/userManager.css" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane prefHeight = "200.0" prefWidth = "200.0"
+                                    stylesheets = "@../../css/userManager/userManager.css"
+                                    AnchorPane.bottomAnchor = "0.0"
+                                    AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0"
+                                    AnchorPane.topAnchor = "0.0">
                             <center>
-                                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="519.0"
-                                      spacing="10.0" BorderPane.alignment="CENTER">
+                                <VBox minHeight = "-Infinity" minWidth = "-Infinity" prefHeight = "182.0"
+                                      prefWidth = "519.0"
+                                      spacing = "10.0" BorderPane.alignment = "CENTER">
                                     <children>
                                         <AnchorPane>
                                             <children>
-                                                <GridPane hgap="15.0" AnchorPane.leftAnchor="0.0"
-                                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <GridPane hgap = "15.0" AnchorPane.leftAnchor = "0.0"
+                                                          AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
                                                     <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                                           percentWidth="65.0"/>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                                        <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0"
+                                                                           percentWidth = "65.0" />
+                                                        <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0" />
                                                     </columnConstraints>
                                                     <rowConstraints>
-                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <TextField fx:id="nameField" maxHeight="-Infinity"
-                                                                   minHeight="-Infinity" minWidth="-Infinity"
-                                                                   prefHeight="38.0" prefWidth="328.0"
-                                                                   promptText="Name">
+                                                        <TextField fx:id = "nameField" maxHeight = "-Infinity"
+                                                                   minHeight = "-Infinity" minWidth = "-Infinity"
+                                                                   prefHeight = "38.0" prefWidth = "328.0"
+                                                                   promptText = "Name">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="19.0"/>
+                                                                <Font name = "Inter 28pt Medium" size = "19.0" />
                                                             </font>
                                                         </TextField>
-                                                        <TextField fx:id="numberField" maxHeight="-Infinity"
-                                                                   minHeight="-Infinity" minWidth="-Infinity"
-                                                                   prefHeight="38.0" prefWidth="175.0"
-                                                                   promptText="Number" GridPane.columnIndex="1">
+                                                        <TextField fx:id = "numberField" maxHeight = "-Infinity"
+                                                                   minHeight = "-Infinity" minWidth = "-Infinity"
+                                                                   prefHeight = "38.0" prefWidth = "175.0"
+                                                                   promptText = "Number" GridPane.columnIndex = "1">
                                                             <font>
-                                                                <Font name="Segoe UI Semibold" size="19.0"/>
+                                                                <Font name = "Inter 28pt Medium" size = "19.0" />
                                                             </font>
                                                         </TextField>
                                                     </children>
                                                 </GridPane>
-                                                <ComboBox fx:id="rankDropdown" layoutY="48.0" maxHeight="-Infinity"
-                                                          minHeight="-Infinity" minWidth="-Infinity"
-                                                          visibleRowCount="14" AnchorPane.leftAnchor="0.0"
-                                                          AnchorPane.rightAnchor="0.0"/>
-                                                <ComboBox fx:id="agencyDropDown" layoutY="96.0" maxHeight="-Infinity"
-                                                          minHeight="-Infinity" minWidth="-Infinity"
-                                                          visibleRowCount="14" AnchorPane.leftAnchor="0.0"
-                                                          AnchorPane.rightAnchor="0.0"/>
-                                                <ComboBox fx:id="divisionDropDown" layoutY="144.0" maxHeight="-Infinity"
-                                                          minHeight="-Infinity" minWidth="-Infinity"
-                                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                                                <ComboBox fx:id = "rankDropdown" layoutY = "48.0"
+                                                          maxHeight = "-Infinity"
+                                                          minHeight = "-Infinity" minWidth = "-Infinity"
+                                                          visibleRowCount = "14" AnchorPane.leftAnchor = "0.0"
+                                                          AnchorPane.rightAnchor = "0.0" />
+                                                <ComboBox fx:id = "agencyDropDown" layoutY = "96.0"
+                                                          maxHeight = "-Infinity"
+                                                          minHeight = "-Infinity" minWidth = "-Infinity"
+                                                          visibleRowCount = "14" AnchorPane.leftAnchor = "0.0"
+                                                          AnchorPane.rightAnchor = "0.0" />
+                                                <ComboBox fx:id = "divisionDropDown" layoutY = "144.0"
+                                                          maxHeight = "-Infinity"
+                                                          minHeight = "-Infinity" minWidth = "-Infinity"
+                                                          AnchorPane.leftAnchor = "0.0"
+                                                          AnchorPane.rightAnchor = "0.0" />
                                             </children>
                                         </AnchorPane>
                                     </children>
                                 </VBox>
                             </center>
                             <top>
-                                <Label fx:id="mainHeader" alignment="CENTER" text="ReportsPlus Officer Login"
-                                       textFill="#515151" BorderPane.alignment="CENTER">
+                                <Label fx:id = "mainHeader" alignment = "CENTER" text = "ReportsPlus Officer Login"
+                                       textFill = "#515151" BorderPane.alignment = "CENTER">
                                     <font>
-                                        <Font name="Segoe UI Black" size="29.0"/>
+                                        <Font name = "Inter 28pt Bold" size = "29.0" />
                                     </font>
                                     <padding>
-                                        <Insets bottom="15.0"/>
+                                        <Insets bottom = "15.0" />
                                     </padding>
                                 </Label>
                             </top>
                             <bottom>
-                                <AnchorPane BorderPane.alignment="CENTER">
+                                <AnchorPane BorderPane.alignment = "CENTER">
                                     <children>
-                                        <Button fx:id="loginBtn" defaultButton="true" layoutX="137.0"
-                                                maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                                minWidth="-Infinity" mnemonicParsing="false"
-                                                onAction="#loginButtonClick" prefHeight="41.0" prefWidth="97.0"
-                                                style="-fx-background-color: rgb(0,0,0,0.6); -fx-background-radius: 5;"
-                                                text="LOGIN" textFill="WHITE" AnchorPane.bottomAnchor="0.0"
-                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <Button fx:id = "loginBtn" defaultButton = "true" layoutX = "137.0"
+                                                maxHeight = "-Infinity" maxWidth = "-Infinity" minHeight = "-Infinity"
+                                                minWidth = "-Infinity" mnemonicParsing = "false"
+                                                onAction = "#loginButtonClick" prefHeight = "41.0" prefWidth = "97.0"
+                                                style = "-fx-background-color: rgb(0,0,0,0.6); -fx-background-radius: 5;"
+                                                text = "LOGIN" textFill = "WHITE" AnchorPane.bottomAnchor = "0.0"
+                                                AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
                                             <font>
-                                                <Font name="Segoe UI Black" size="17.0"/>
+                                                <Font name = "Inter 28pt Bold" size = "17.0" />
                                             </font>
                                         </Button>
-                                        <Label fx:id="incompleteLabel" alignment="CENTER_RIGHT" layoutY="1.0"
-                                               prefHeight="41.0" prefWidth="439.0"
-                                               text="Please Fill Out the Form Completely." textAlignment="CENTER"
-                                               textFill="#ff3c3c" visible="false" AnchorPane.bottomAnchor="0.0"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="119.0"
-                                               AnchorPane.topAnchor="0.0">
+                                        <Label fx:id = "incompleteLabel" alignment = "CENTER_RIGHT" layoutY = "1.0"
+                                               prefHeight = "41.0" prefWidth = "439.0"
+                                               text = "Please Fill Out the Form Completely." textAlignment = "CENTER"
+                                               textFill = "#ff3c3c" visible = "false" AnchorPane.bottomAnchor = "0.0"
+                                               AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "119.0"
+                                               AnchorPane.topAnchor = "0.0">
                                             <font>
-                                                <Font name="Segui UI" size="16.0"/>
+                                                <Font name = "Inter 24pt Regular" size = "16.0" />
                                             </font>
                                         </Label>
                                     </children>
                                 </AnchorPane>
                             </bottom>
                             <padding>
-                                <Insets bottom="15.0" left="10.0" right="10.0" top="10.0"/>
+                                <Insets bottom = "15.0" left = "10.0" right = "10.0" top = "10.0" />
                             </padding>
                         </BorderPane>
                     </children>
                 </AnchorPane>
             </children>
             <effect>
-                <DropShadow height="50.49" radius="42.4325" width="121.24">
+                <DropShadow height = "50.49" radius = "42.4325" width = "121.24">
                     <color>
-                        <Color opacity="0.3881453275680542"/>
+                        <Color opacity = "0.3881453275680542" />
                     </color>
                 </DropShadow>
             </effect>

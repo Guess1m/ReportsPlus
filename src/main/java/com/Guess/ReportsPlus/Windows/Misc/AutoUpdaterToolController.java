@@ -4,7 +4,7 @@ import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
-import com.Guess.ReportsPlus.util.Misc.WorkerThread;
+import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;

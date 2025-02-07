@@ -123,7 +123,7 @@ public class NewUserManagerController {
 	@FXML
 	public void createUserBtn(ActionEvent actionEvent) {
 		Label newUserLabel = new Label(localization.getLocalizedMessage("UserManager.newProfileLabel", "Name:"));
-		newUserLabel.setFont(Font.font("Segoe UI Semibold", 14));
+		newUserLabel.setFont(Font.font("Inter 28pt Medium", 14));
 		
 		TextField newUserName = new TextField();
 		newUserName.setPrefWidth(180);
@@ -192,7 +192,7 @@ class UserProfile {
 		gridPane.setVgap(5);
 		
 		Label bannerName = new Label(name);
-		bannerName.setFont(Font.font("Segoe UI Black", 15));
+		bannerName.setFont(Font.font("Inter 28pt Bold", 15));
 		try {
 			bannerName.setStyle("-fx-text-fill: " + ConfigReader.configRead("uiColors", "mainColor") + ";");
 		} catch (IOException e) {
@@ -201,11 +201,11 @@ class UserProfile {
 		
 		Label bannerRank = new Label(rank);
 		bannerRank.setOpacity(0.71);
-		bannerRank.setFont(Font.font("Segoe UI Semibold", 12));
+		bannerRank.setFont(Font.font("Inter 28pt Medium", 12));
 		
 		Label bannerAgency = new Label(agency);
 		bannerAgency.setOpacity(0.8);
-		bannerAgency.setFont(Font.font("Segoe UI Black", 14));
+		bannerAgency.setFont(Font.font("Inter 28pt Bold", 14));
 		try {
 			bannerAgency.setStyle("-fx-text-fill: " + ConfigReader.configRead("uiColors", "secondaryColor") + ";");
 		} catch (IOException e) {
@@ -214,7 +214,7 @@ class UserProfile {
 		
 		Label bannerDivision = new Label(division);
 		bannerDivision.setOpacity(0.71);
-		bannerDivision.setFont(Font.font("Segoe UI Semibold", 12));
+		bannerDivision.setFont(Font.font("Inter 28pt Medium", 12));
 		
 		try {
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
@@ -286,7 +286,7 @@ class EditProfileDropdown {
 		AnchorPane.setTopAnchor(profileVbox, 0.0);
 		
 		Label editProfileLabel = new Label(localization.getLocalizedMessage("UserManager.editProfileLabel", "Edit Profile:"));
-		editProfileLabel.setFont(Font.font("Segoe UI Black", 15));
+		editProfileLabel.setFont(Font.font("Inter 28pt Bold", 15));
 		try {
 			editProfileLabel.setStyle("-fx-text-fill: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 		} catch (IOException e) {
@@ -299,7 +299,7 @@ class EditProfileDropdown {
 		HBox.setHgrow(numberVbox, Priority.ALWAYS);
 		Label numberLabel = new Label(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		numberLabel.setOpacity(0.7);
-		numberLabel.setFont(Font.font("Segoe UI", 13));
+		numberLabel.setFont(Font.font("Inter 24pt Regular", 13));
 		TextField numberField = new TextField();
 		numberVbox.getChildren().addAll(numberLabel, numberField);
 		
@@ -307,7 +307,7 @@ class EditProfileDropdown {
 		HBox.setHgrow(callsignVbox, Priority.ALWAYS);
 		Label callsignLabel = new Label(localization.getLocalizedMessage("UserManager.CallsignLabel", "Callsign:"));
 		callsignLabel.setOpacity(0.7);
-		callsignLabel.setFont(Font.font("Segoe UI", 13));
+		callsignLabel.setFont(Font.font("Inter 24pt Regular", 13));
 		TextField callsignField = new TextField();
 		callsignVbox.getChildren().addAll(callsignLabel, callsignField);
 		
@@ -316,7 +316,7 @@ class EditProfileDropdown {
 		
 		Label rankLabel = new Label(localization.getLocalizedMessage("UserManager.RankLabel", "Rank:"));
 		rankLabel.setOpacity(0.7);
-		rankLabel.setFont(Font.font("Segoe UI", 13));
+		rankLabel.setFont(Font.font("Inter 24pt Regular", 13));
 		rankLabel.setPadding(new Insets(0, 0, -5, 20));
 		
 		ComboBox<String> rankDropdown = new ComboBox<>();
@@ -331,7 +331,7 @@ class EditProfileDropdown {
 		
 		Label divisionLabel = new Label(localization.getLocalizedMessage("UserManager.DivisionLabel", "Division:"));
 		divisionLabel.setOpacity(0.7);
-		divisionLabel.setFont(Font.font("Segoe UI", 13));
+		divisionLabel.setFont(Font.font("Inter 24pt Regular", 13));
 		divisionLabel.setPadding(new Insets(0, 0, -5, 20));
 		
 		ComboBox<String> divisionDropdown = new ComboBox<>();
@@ -346,7 +346,7 @@ class EditProfileDropdown {
 		
 		Label agencyLabel = new Label(localization.getLocalizedMessage("UserManager.Agencylabel", "Agency:"));
 		agencyLabel.setOpacity(0.7);
-		agencyLabel.setFont(Font.font("Segoe UI", 13));
+		agencyLabel.setFont(Font.font("Inter 24pt Regular", 13));
 		agencyLabel.setPadding(new Insets(0, 0, -5, 20));
 		
 		ComboBox<String> agencyDropdown = new ComboBox<>();
@@ -364,14 +364,14 @@ class EditProfileDropdown {
 		deleteButton.setOnMouseEntered(e -> deleteButton.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		deleteButton.setOnMouseExited(e -> deleteButton.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		
-		deleteButton.setFont(Font.font("Segoe UI Semibold", 13));
+		deleteButton.setFont(Font.font("Inter 28pt Medium", 13));
 		
 		Button saveButton = new Button(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		saveButton.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
 		saveButton.setOnMouseEntered(e -> saveButton.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		saveButton.setOnMouseExited(e -> saveButton.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		
-		saveButton.setFont(Font.font("Segoe UI Semibold", 13));
+		saveButton.setFont(Font.font("Inter 28pt Medium", 13));
 		
 		statusLabel = new Label();
 		statusLabel.setVisible(false);
@@ -382,7 +382,7 @@ class EditProfileDropdown {
 		actionButtonsHBox.setAlignment(Pos.CENTER);
 		
 		Label statusLabel = new Label();
-		statusLabel.setFont(Font.font("Segoe UI Semibold", 13));
+		statusLabel.setFont(Font.font("Inter 28pt Medium", 13));
 		BorderPane profileActionsPane = new BorderPane();
 		profileActionsPane.setCenter(statusLabel);
 		profileActionsPane.setRight(actionButtonsHBox);

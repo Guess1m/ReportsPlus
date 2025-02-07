@@ -3,7 +3,7 @@
     -fx-padding: 4px 15px;
     -fx-background-radius: 5px;
     -fx-text-fill: rgb(50, 50, 50, 0.7);
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 13px;
 }
 
@@ -20,7 +20,7 @@
     -fx-padding: 3px 14px;
     -fx-background-radius: 7px;
     -fx-text-fill: rgb(50, 50, 50, 0.7);
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 13px;
 }
 
@@ -38,7 +38,7 @@
     -fx-background-color: transparent;
     -fx-background-radius: 7px;
     -fx-text-fill: rgb(80, 80, 80, 0.9);
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 14px;
     -fx-padding: 2px 4px;
 }
@@ -47,7 +47,7 @@
     -fx-background-color: white;
     -fx-background-radius: 7px;
     -fx-text-fill: black;
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 14px;
 }
 
@@ -55,30 +55,30 @@
     -fx-background-color: rgb(0, 0, 0, 0.07);
     -fx-background-radius: 7px;
     -fx-text-fill: black;
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 14px;
 }
 
 .settingsLabel {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 20px;
     -fx-text-fill: rgb(75, 75, 75);
 }
 
 .paneHeading {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 17px;
     -fx-text-fill: rgb(100, 100, 100);
 }
 
 .paneSubtext {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 10px;
     -fx-text-fill: rgb(130, 130, 130, 0.85);
 }
 
 .heading {
-    -fx-font-family: "Segoe UI Black";
+    -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 11px;
     -fx-text-fill: rgb(100, 100, 100, 0.6);
 }
@@ -112,7 +112,7 @@
 }
 
 .text-field {
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 12px;
     -fx-text-fill: rgb(50, 50, 50);
     -fx-prompt-text-fill: rgb(50, 50, 50, 0.3);
@@ -130,7 +130,7 @@
 }
 
 .combo-box {
-    -fx-font-family: "Segoe UI SemiBold" !important;
+    -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 12px;
     -fx-text-fill: rgb(50, 50, 50);
     -fx-prompt-text-fill: rgb(50, 50, 50, 0.3);

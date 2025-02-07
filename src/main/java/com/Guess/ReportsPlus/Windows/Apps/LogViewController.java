@@ -193,7 +193,7 @@ public class LogViewController {
 				otherPane.setStyle("-fx-background-color: transparent;");
 				for (Node node : otherPane.getChildren()) {
 					if (node instanceof Label) {
-						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+						node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					}
 				}
 			}
@@ -202,7 +202,7 @@ public class LogViewController {
 			callout.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
 			for (Node node : callout.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 				}
 			}
 		});
@@ -382,7 +382,7 @@ public class LogViewController {
 			pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 				}
 			}
 		});
@@ -394,7 +394,7 @@ public class LogViewController {
 			pane.setStyle("-fx-background-color: transparent;");
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 				}
 			}
 		});
@@ -410,7 +410,7 @@ public class LogViewController {
 				otherPane.setStyle("-fx-background-color: transparent;");
 				for (Node node : otherPane.getChildren()) {
 					if (node instanceof Label) {
-						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+						node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					}
 				}
 			}
@@ -419,7 +419,7 @@ public class LogViewController {
 			pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 				}
 			}
 		});

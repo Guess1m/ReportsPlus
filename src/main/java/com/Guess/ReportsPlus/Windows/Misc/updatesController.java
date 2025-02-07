@@ -64,7 +64,7 @@ public class updatesController {
 		updates.forEach(string -> {
 			Label label = new Label("* " + string);
 			label.setMinWidth(Region.USE_PREF_SIZE);
-			label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Segoe UI\";");
+			label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Inter 24pt Regular\";");
 			changelogBox.getChildren().add(label);
 		});
 		

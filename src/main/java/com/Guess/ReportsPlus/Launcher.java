@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.*;
 import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
@@ -69,13 +71,10 @@ public class Launcher {
 		System.setProperty("prism.lcdtext", "false");
 		System.setProperty("prism.text", "t2k");
 		
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguibl.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/seguisb.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Blanka-Regular.otf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Roboto Bold.ttf"), 14);
-		Font.loadFont(Launcher.class.getResourceAsStream("fonts/Segoe UI Semibold.ttf"), 14);
+		ArrayList<Font> fonts = new ArrayList<>(Arrays.asList(Font.loadFont(Launcher.class.getResource("fonts/InterBold.ttf").toExternalForm(), 28), Font.loadFont(Launcher.class.getResource("fonts/InterRegular.ttf").toExternalForm(), 28), Font.loadFont(Launcher.class.getResource("fonts/InterSemibold.ttf").toExternalForm(), 28)));
+		for (Font f : fonts) {
+			log("initialization; Loaded font: [" + f.getName() + "] Family: [" + f.getFamily() + "] Style: [" + f.getStyle() + "]", LogUtils.Severity.INFO);
+		}
 	}
 	
 	private static void deleteFiles() {

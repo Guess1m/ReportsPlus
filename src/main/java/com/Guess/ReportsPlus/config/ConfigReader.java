@@ -114,8 +114,8 @@ public class ConfigReader {
 		
 		// Notification Settings
 		checkAndSetDefaultValue("notificationSettings", "enabled", "true");
-		checkAndSetDefaultValue("notificationSettings", "displayDuration", "2.2");
-		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.5");
+		checkAndSetDefaultValue("notificationSettings", "displayDuration", "3.5");
+		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "2.5");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "BottomRight");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "fadeOutDuration");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "displayDuration");

@@ -12,7 +12,7 @@ import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.WorkerThread;
+import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import jakarta.xml.bind.JAXBException;
@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
@@ -56,8 +57,7 @@ import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientContro
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.SettingsController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.*;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.checkForUpdates;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
@@ -93,8 +93,6 @@ public class mainDesktopController {
 	private AnchorPane topBar;
 	@FXML
 	private Label timeLabel;
-	private DateTimeFormatter timeFormatter;
-	private DateTimeFormatter dateFormatter;
 	@FXML
 	private Label dateLabel;
 	@FXML
@@ -131,6 +129,8 @@ public class mainDesktopController {
 	private Label locationAreaLabel;
 	@FXML
 	private Label locationStreetLabel;
+	@FXML
+	private Label lookupLabel;
 	
 	public static void updateDesktopBackground(VBox container) {
 		if (container != null) {
@@ -214,6 +214,7 @@ public class mainDesktopController {
 		updateDesktopBackground(container);
 		
 		getTopBarHboxRight().getChildren().remove(locationDataLabel);
+		getTopBarHboxRight().getChildren().remove(lookupLabel);
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equalsIgnoreCase("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
@@ -225,9 +226,6 @@ public class mainDesktopController {
 		addApps();
 		
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
-		
-		timeFormatter = DateTimeFormatter.ofPattern("HH:mm a");
-		dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		
 		updateTime();
 		updateDate();
@@ -266,6 +264,17 @@ public class mainDesktopController {
 			}
 		});
 		
+		lookupLabel.setOnMouseClicked(mouseEvent -> {
+			if (getTopBarHboxRight().getChildren().contains(lookupLabel)) {
+				Clipboard clipboard = Clipboard.getSystemClipboard();
+				ClipboardContent content = new ClipboardContent();
+				String split = lookupLabel.getText().replace(localization.getLocalizedMessage("Desktop.CheckedLabel", "Checked:") + " ", "");
+				content.putString(split.trim());
+				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				clipboard.setContent(content);
+			}
+		});
+		
 		try {
 			if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true")) {
 				log("Searching For Server...", LogUtils.Severity.DEBUG);
@@ -298,6 +307,8 @@ public class mainDesktopController {
 		addLocale();
 		
 		Platform.runLater(() -> {
+			configureNotificationPane();
+			
 			try {
 				settingsController.loadTheme();
 			} catch (IOException e) {
@@ -322,6 +333,7 @@ public class mainDesktopController {
 				handleClose();
 			});
 			stge.show();
+			
 		});
 		
 		getMainDesktop().setOnKeyPressed(event2 -> {
@@ -343,6 +355,22 @@ public class mainDesktopController {
 				getMainDesktop().requestFocus();
 			}
 		});
+	}
+	
+	private void configureNotificationPane() {
+		notificationContainerScrollPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
+		notificationContainerScrollPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+		notificationContainerScrollPane.setFitToHeight(true);
+		notificationContainerScrollPane.setFitToWidth(true);
+		notificationContainerScrollPane.setContent(notificationContainer);
+		notificationContainerScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		notificationContainerScrollPane.setHmax(0);
+		notificationContainerScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		
+		notificationContainerScrollPane.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/main/transparentScrollPane.css").toExternalForm());
+		desktopContainer.getChildren().add(notificationContainerScrollPane);
+		
+		notificationContainer.setStyle("-fx-background-color: transparent;");
 	}
 	
 	private void addLocale() {
@@ -595,6 +623,8 @@ public class mainDesktopController {
 	
 	private void updateDate() {
 		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		
 		dateLabel.setText(currentDate.format(dateFormatter));
 	}
 	
@@ -607,6 +637,7 @@ public class mainDesktopController {
 	private void updateConnectionStatus(boolean isConnected) {
 		if (!isConnected) {
 			getTopBarHboxRight().getChildren().remove(locationDataLabel);
+			getTopBarHboxRight().getChildren().remove(lookupLabel);
 			showNotificationWarning("Server Connection", "Server Disconnected");
 			log("No Connection", LogUtils.Severity.WARN);
 			serverStatusLabel.setText("No Connection");
@@ -617,6 +648,18 @@ public class mainDesktopController {
 				clientController.getStatusLabel().setText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
 				clientController.getStatusLabel().setStyle("-fx-background-color: #FF5E5E;");
 				serverStatusLabel.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
+			}
+			try {
+				if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true")) {
+					log("Searching For Server...", LogUtils.Severity.DEBUG);
+					Runnable serverBroadcastTask = () -> {
+						ClientUtils.listenForServerBroadcasts();
+					};
+					WorkerThread serverBroadcastThread = new WorkerThread("ServerBroadcastThread", serverBroadcastTask);
+					serverBroadcastThread.start();
+				}
+			} catch (IOException e) {
+				logError("Not able to read serverautoconnect: ", e);
 			}
 		} else {
 			serverStatusLabel.setText("Connected");
@@ -690,6 +733,10 @@ public class mainDesktopController {
 	
 	public GridPane getBottomBar() {
 		return bottomBar;
+	}
+	
+	public Label getLookupLabel() {
+		return lookupLabel;
 	}
 	
 	public Button getShutdownBtn() {

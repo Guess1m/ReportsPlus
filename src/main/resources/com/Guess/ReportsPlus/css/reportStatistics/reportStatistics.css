@@ -15,7 +15,7 @@ AreaChart .chart-content .chart-plot-background {
 }
 
 ComboBox {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-background-color: transparent;
 }
 

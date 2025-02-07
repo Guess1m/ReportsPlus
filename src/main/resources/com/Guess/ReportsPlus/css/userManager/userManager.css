@@ -1,6 +1,6 @@
 .text-field {
     -fx-text-fill: black !important;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 13px;
     -fx-background-color: rgb(200, 200, 200, 0.3);
     -fx-prompt-text-fill: rgb(40, 40, 40, 0.3) !important;
@@ -25,7 +25,7 @@ GridPane {
 
 .combo-box {
     -fx-text-fill: black !important;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 13px;
     -fx-background-color: rgb(200, 200, 200, 0.3);
     -fx-prompt-text-fill: rgb(40, 40, 40, 0.3) !important;
@@ -108,7 +108,7 @@ TableView .column-header-background .label {
     -fx-background-color: transparent;
     -fx-text-fill: #232323;
     -fx-font-size: 12px;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
 }
 
 TableView .column-header {
@@ -118,7 +118,7 @@ TableView .column-header {
 
 TableView .table-cell {
     -fx-text-fill: #262626;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Inter 24pt Regular";
     -fx-alignment: center;
     -fx-padding: 0 5.5 0 5.5;
     -fx-border-width: 0 0 0 0;

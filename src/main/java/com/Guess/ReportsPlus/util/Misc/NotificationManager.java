@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,8 +30,9 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.changeImageColor;
 
 public class NotificationManager {
 	public static final ArrayList<AnchorPane> currentNotifications = new ArrayList<>();
+	public static final ScrollPane notificationContainerScrollPane = new ScrollPane();
+	public static final VBox notificationContainer = new VBox(10);
 	private static final Queue<Notification> notificationQueue = new LinkedList<>();
-	private static boolean isNotificationShowing = false;
 	
 	public static void showNotificationInfo(String title, String message) {
 		enqueueNotification(new Notification(NotificationType.INFO, title, message));
@@ -56,13 +58,12 @@ public class NotificationManager {
 	}
 	
 	private static void showNextNotification() {
-		if (isNotificationShowing || notificationQueue.isEmpty()) {
+		if (notificationQueue.isEmpty()) {
 			return;
 		}
 		
 		Notification notification = notificationQueue.poll();
 		if (notification != null) {
-			isNotificationShowing = true;
 			displayNotification(notification);
 		}
 	}
@@ -93,7 +94,7 @@ public class NotificationManager {
 					
 					Label messageLabel = new Label(notification.message);
 					messageLabel.setWrapText(true);
-					messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
+					messageLabel.setStyle("-fx-font-family: Inter 24pt Regular; -fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
 					
 					ImageView icon = new ImageView(new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 					icon.setImage(changeImageColor(icon.getImage(), textClr));
@@ -121,52 +122,67 @@ public class NotificationManager {
 					
 					AnchorPane anchorPane = new AnchorPane(mainBox);
 					
-					mainDesktopControllerObj.getDesktopContainer().getChildren().add(anchorPane);
+					notificationContainer.getChildren().add(0, anchorPane);
+					notificationContainerScrollPane.setVvalue(0.0);
 					currentNotifications.add(anchorPane);
 					
-					String configPosition = "BottomLeft";
+					String configPosition = "BottomRight";
 					try {
 						configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
 					} catch (IOException e) {
 						logError("Could not pull notificationPosition from config: ", e);
 					}
 					
+					AnchorPane.clearConstraints(mainBox);
+					AnchorPane.clearConstraints(notificationContainerScrollPane);
+					
 					switch (configPosition) {
 						case "BottomLeft" -> {
-							AnchorPane.setBottomAnchor(anchorPane, 20.0);
-							AnchorPane.setLeftAnchor(anchorPane, 20.0);
+							AnchorPane.setBottomAnchor(notificationContainerScrollPane, 20.0);
+							AnchorPane.setLeftAnchor(notificationContainerScrollPane, 20.0);
+							notificationContainer.setAlignment(Pos.BOTTOM_LEFT);
+							AnchorPane.setBottomAnchor(mainBox, 0.0);
+							AnchorPane.setLeftAnchor(mainBox, 0.0);
 						}
 						case "BottomRight" -> {
-							AnchorPane.setBottomAnchor(anchorPane, 20.0);
-							AnchorPane.setRightAnchor(anchorPane, 20.0);
+							AnchorPane.setBottomAnchor(notificationContainerScrollPane, 20.0);
+							AnchorPane.setRightAnchor(notificationContainerScrollPane, 20.0);
+							notificationContainer.setAlignment(Pos.BOTTOM_RIGHT);
+							AnchorPane.setBottomAnchor(mainBox, 0.0);
+							AnchorPane.setRightAnchor(mainBox, 0.0);
 						}
 						case "TopLeft" -> {
-							AnchorPane.setTopAnchor(anchorPane, 20.0);
-							AnchorPane.setLeftAnchor(anchorPane, 20.0);
+							AnchorPane.setTopAnchor(notificationContainerScrollPane, 20.0);
+							AnchorPane.setLeftAnchor(notificationContainerScrollPane, 20.0);
+							notificationContainer.setAlignment(Pos.TOP_LEFT);
+							AnchorPane.setTopAnchor(mainBox, 0.0);
+							AnchorPane.setLeftAnchor(mainBox, 0.0);
 						}
 						case "TopRight" -> {
-							AnchorPane.setTopAnchor(anchorPane, 20.0);
-							AnchorPane.setRightAnchor(anchorPane, 20.0);
+							AnchorPane.setTopAnchor(notificationContainerScrollPane, 20.0);
+							AnchorPane.setRightAnchor(notificationContainerScrollPane, 20.0);
+							notificationContainer.setAlignment(Pos.TOP_RIGHT);
+							AnchorPane.setTopAnchor(mainBox, 0.0);
+							AnchorPane.setRightAnchor(mainBox, 0.0);
 						}
 					}
 					
-					anchorPane.toFront();
+					notificationContainerScrollPane.setMaxHeight(mainDesktopControllerObj.getDesktopContainer().getHeight() - 50);
 					
 					closeButton.setOnAction(event -> {
-						mainDesktopControllerObj.getDesktopContainer().getChildren().remove(anchorPane);
+						notificationContainer.getChildren().remove(anchorPane);
 						currentNotifications.remove(anchorPane);
-						isNotificationShowing = false;
 						showNextNotification();
 					});
 					
 					if (notification.type != NotificationType.ERROR_PERSISTENT) {
-						String displayDuration = "1.2";
+						String displayDuration = "3.5";
 						try {
 							displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
 						} catch (IOException e) {
 							logError("Could not pull displayDuration from config: ", e);
 						}
-						String fadeDuration = "1.7";
+						String fadeDuration = "2.5";
 						try {
 							fadeDuration = ConfigReader.configRead("notificationSettings", "fadeOutDuration");
 						} catch (IOException e) {
@@ -180,9 +196,8 @@ public class NotificationManager {
 							fadeOutTransition.setFromValue(1);
 							fadeOutTransition.setToValue(0);
 							fadeOutTransition.setOnFinished(e -> {
-								mainDesktopControllerObj.getDesktopContainer().getChildren().remove(anchorPane);
+								notificationContainer.getChildren().remove(anchorPane);
 								currentNotifications.remove(anchorPane);
-								isNotificationShowing = false;
 								showNextNotification();
 							});
 							fadeOutTransition.play();

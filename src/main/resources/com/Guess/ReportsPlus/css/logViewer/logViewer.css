@@ -47,7 +47,7 @@ TableView .column-header-background .label {
     -fx-background-color: transparent;
     -fx-text-fill: #232323;
     -fx-font-size: 12px;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
 }
 
 TableView .column-header {
@@ -57,7 +57,7 @@ TableView .column-header {
 
 TableView .table-cell {
     -fx-text-fill: #262626;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Inter 24pt Regular";
     -fx-alignment: center;
     -fx-padding: 0 5.5 0 5.5;
     -fx-border-width: 0 0 0 0;

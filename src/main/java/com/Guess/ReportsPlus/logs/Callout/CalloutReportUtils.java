@@ -37,7 +37,48 @@ import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutLogURL;
 public class CalloutReportUtils {
 	
 	public static Map<String, Object> calloutLayout() {
-		Map<String, Object> calloutReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report"), null, new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig("Location Information", true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 5, nestedReportUtils.FieldType.COMBO_BOX_STREET), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 3, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("CalloutPopup.MainHeading", "Callout Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")), 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"), 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"), 4, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12, nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> calloutReport = createReportWindow(
+				localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report"), null,
+				new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading",
+						                                 "Officer Information"), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5,
+						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2,
+						nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6,
+						nestedReportUtils.FieldType.TEXT_FIELD))),
+				new nestedReportUtils.SectionConfig("Location Information", new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 5,
+								nestedReportUtils.FieldType.COMBO_BOX_STREET), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4,
+						nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 3,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("CalloutPopup.MainHeading", "Callout Information"),
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 4,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"), 4,
+						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"), 4,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"),
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12,
+								nestedReportUtils.FieldType.TEXT_AREA))));
 		return calloutReport;
 	}
 	
@@ -58,7 +99,8 @@ public class CalloutReportUtils {
 		ComboBox calloutstreet = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
 		TextField calloutdate = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 		TextField callouttime = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-		TextField callouttype = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+		TextField callouttype = (TextField) calloutReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 		TextField calloutcode = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 		
 		try {

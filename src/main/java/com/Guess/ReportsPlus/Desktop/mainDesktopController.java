@@ -4,6 +4,7 @@ import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.LayoutBuilderController;
 import com.Guess.ReportsPlus.Windows.Apps.*;
 import com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController;
 import com.Guess.ReportsPlus.Windows.Other.NotesViewController;
@@ -65,6 +66,7 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
 public class mainDesktopController {
 	public static DesktopApp profileAppObj;
 	public static DesktopApp reportStatisticsAppObj;
+	public static DesktopApp layoutBuilderAppObj;
 	public static DesktopApp calloutManagerAppObj;
 	public static DesktopApp courtAppObj;
 	public static DesktopApp pedLookupAppObj;
@@ -606,15 +608,25 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, reportStatisticsApp, appConfigRead("Report Statistics", "x"), appConfigRead("Report Statistics", "y"));
-	
-		/*
 		
-			WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/report-statistics-view.fxml",
-			                                 "Test Window", true, 1, true, false, taskBarApps, new Image(
-							Objects.requireNonNull(Launcher.class.getResourceAsStream(
-									"/com/Guess/ReportsPlus/imgs/icons/Apps/notepad.png"))));
-									*/
-		
+		//TODO: finish implementing
+		layoutBuilderAppObj = new DesktopApp("Layout Builder", new Image(Objects.requireNonNull(
+				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/statistics.png"))));
+		VBox layoutBuilderApp = layoutBuilderAppObj.createDesktopApp(mouseEvent -> {
+			if (!editableDesktop) {
+				if (mouseEvent.getClickCount() == 2) {
+					CustomWindow layoutWindow = WindowManager.createCustomWindow(desktopContainer,
+					                                                             "Windows/layout-builder-view.fxml",
+					                                                             "Layout Builder", true, 1, true, false,
+					                                                             taskBarApps,
+					                                                             reportStatisticsAppObj.getImage());
+					
+					LayoutBuilderController.layoutBuilderController = (LayoutBuilderController) (layoutWindow != null ? layoutWindow.controller : null);
+					
+				}
+			}
+		});
+		addAppToDesktop(desktopContainer, layoutBuilderApp, 600, 300);
 	}
 	
 	private void updateTime() {

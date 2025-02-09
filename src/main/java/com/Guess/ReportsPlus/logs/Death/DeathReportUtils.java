@@ -37,7 +37,71 @@ import static com.Guess.ReportsPlus.util.Strings.URLStrings.DeathReportLogURL;
 public class DeathReportUtils {
 	
 	public static Map<String, Object> deathReportLayout() {
-		Map<String, Object> deathReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report"), null, new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.LocationInfoSectionHeading", "Location / Timestamp Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 4, nestedReportUtils.FieldType.COMBO_BOX_STREET), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4, nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"), 2, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader", "Deceased Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"), 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"), 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"), 4, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"), 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.DeathInfoSectionHeader", "Death Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"), 6, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"), 12, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"), 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12, nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> deathReport = createReportWindow(
+				localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report"), null,
+				new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading",
+						                                 "Officer Information"), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5,
+						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2,
+						nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.LocationInfoSectionHeading",
+						                                 "Location / Timestamp Information"),
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 4,
+								nestedReportUtils.FieldType.COMBO_BOX_STREET), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4,
+								nestedReportUtils.FieldType.COMBO_BOX_AREA), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 4,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 5,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5,
+						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"), 2,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader",
+						                                 "Deceased Information"), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"),
+								4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"), 4,
+						nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"), 4,
+						nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"), 6,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.DeathInfoSectionHeader", "Death Information"),
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"),
+								12, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
+						new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"), 6,
+								nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"), 6,
+						nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"),
+						new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12,
+								nestedReportUtils.FieldType.TEXT_AREA))));
 		return deathReport;
 	}
 	

@@ -474,6 +474,11 @@ public class VehLookupViewController {
 						}
 					} else {
 						log("enablePedVehImages is disabled in settings so not displaying veh image", LogUtils.Severity.WARN);
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+						vehImageView.setImage(defImage);
+						noVehImageFoundlbl.setVisible(true);
+						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
+						                                                            "No Image Found In System"));
 					}
 				} catch (IOException e) {
 					logError("Error getting configValue for playLookupWarning: ", e);
@@ -490,7 +495,6 @@ public class VehLookupViewController {
 			noVehImageFoundlbl.setVisible(true);
 			noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 		}
-		
 	}
 	
 	public void createRegInsInfoPopup(TextField label, String headerText, String name, String exp, String status, String licnum) {
@@ -671,7 +675,8 @@ public class VehLookupViewController {
 		TextField offenderNameimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField plateNumberimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 		TextField modelimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-		ComboBox vehType = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+		ComboBox vehType = (ComboBox) impoundReportMap.get(
+				localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 		
 		plateNumberimp.setText(plate);
 		modelimp.setText(model);

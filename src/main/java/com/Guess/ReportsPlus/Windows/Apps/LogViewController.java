@@ -544,7 +544,8 @@ public class LogViewController {
 				ComboBox calloutstreet = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
 				TextField calloutdate = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField callouttime = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-				TextField callouttype = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				TextField callouttype = (TextField) calloutReportMap.get(
+						localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 				TextField calloutcode = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 				
 				officername.setText(calloutReport.getOfficerName());
@@ -704,7 +705,8 @@ public class LogViewController {
 				TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 				
 				ComboBox colorts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				ComboBox typets = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				ComboBox typets = (ComboBox) trafficStopReportMap.get(
+						localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 				TextField plateNumberts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 				TextField otherInfots = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 				TextField modelts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
@@ -903,7 +905,8 @@ public class LogViewController {
 				TextField time = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
 				ComboBox color = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				ComboBox type = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				ComboBox type = (ComboBox) impoundReportMap.get(
+						localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 				TextField plateNumber = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 				TextField model = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				
@@ -1000,7 +1003,8 @@ public class LogViewController {
 				TextField time = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
 				ComboBox color = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				ComboBox type = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				ComboBox type = (ComboBox) citationReportMap.get(
+						localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 				TextField plateNumber = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 				TextField otherInfo = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 				TextField model = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
@@ -1318,7 +1322,8 @@ public class LogViewController {
 				TextField offenderDescription = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 				TextField model = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				TextField plateNumber = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-				ComboBox type = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
+				ComboBox type = (ComboBox) accidentReportMap.get(
+						localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 				ComboBox color = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 				TextArea notes = (TextArea) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				

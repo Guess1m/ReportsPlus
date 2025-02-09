@@ -50,6 +50,154 @@ public class controllerUtils {
 	
 	private static final String[][] keys = {{"-name", "-na", "-n", "-fullname", "-fname"}, {"-number", "-num", "-nu"}, {"-age", "-years", "-birthdate", "-a", "-dob"}, {"-address", "-addr", "-place", "-add", "-ad"}, {"-model", "-mod", "-mo", "-m"}, {"-plate", "-platenum", "-plt", "-p"}, {"-gender", "-sex", "-g", "-gen"}, {"-area", "-region", "-zone", "-ar"}, {"-county", "-cty", "-cnty", "-ct", "-c"}, {"-notes", "-nts", "-note", "-comments", "-cmts"}, {"-description", "-des", "-desc", "-d"}, {"-searchitems", "-si", "-search", "-srch", "-items",}, {"-street", "-st", "-road", "-dr", "-strt"}, {"-type", "-typ", "-tpe"}};
 	
+	private static Map<String, String> pullNotesValues(String notepad) {
+		Map<String, String> values = new HashMap<>();
+		String text = notepad;
+		
+		// Extract values for predefined keys
+		for (String[] keyGroup : keys) {
+			for (String key : keyGroup) {
+				String value = extractValue(text, key);
+				if (value != null) {
+					for (String k : keyGroup) {
+						values.put(k, value); // Store value under all known aliases
+					}
+					break;
+				}
+			}
+		}
+		
+		// Extract values for keys that are not in the predefined keys array
+		Pattern pattern = Pattern.compile("(-\\w+)\\s+([^\\-]+)");
+		Matcher matcher = pattern.matcher(text);
+		
+		while (matcher.find()) {
+			String key = matcher.group(1).trim();   // Key (e.g., "-num")
+			String value = matcher.group(2).trim(); // Value (e.g., "3")
+			
+			if (!values.containsKey(key)) { // Only add if not already extracted via predefined keys
+				values.put(key, value);
+			}
+		}
+		
+		return values;
+	}
+	
+	private static String extractValue(String text, String key) {
+		Pattern pattern = Pattern.compile(key + "\\s+(.*?)(?=\\s+-|$)");
+		Matcher matcher = pattern.matcher(text);
+		if (matcher.find()) {
+			return matcher.group(1);
+		}
+		return null;
+	}
+	
+	public static void updateTextFromNotepad(TextField textField, TextArea notepadText, String... keys) {
+		
+		// Get values from notepad
+		Map<String, String> values = pullNotesValues(notepadText.getText());
+		
+		String extractedValue = null;
+		
+		// Loop through the provided keys to extract corresponding values
+		for (String key : keys) {
+			extractedValue = values.get(key);
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+			
+			// Check for alternative keys (if any) by looping through map entries
+			for (Map.Entry<String, String> entry : values.entrySet()) {
+				for (String altKey : entry.getKey().split("\\|")) {
+					if (altKey.equals(key)) {
+						extractedValue = entry.getValue();
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
+					}
+				}
+				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+					break;
+				}
+			}
+			
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+		}
+		
+		// If a valid extracted value is found, update the TextField
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			textField.setText(extractedValue);
+		}
+	}
+	
+	public static void updateTextFromNotepad(TextArea textArea, TextArea notepadText, String... keys) {
+		Map<String, String> values = pullNotesValues(notepadText.getText());
+		String extractedValue = null;
+		
+		for (String key : keys) {
+			extractedValue = values.get(key);
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+			
+			for (Map.Entry<String, String> entry : values.entrySet()) {
+				for (String altKey : entry.getKey().split("\\|")) {
+					if (altKey.equals(key)) {
+						extractedValue = entry.getValue();
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
+					}
+				}
+				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+					break;
+				}
+			}
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+		}
+		
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			textArea.setText(extractedValue);
+		}
+	}
+	
+	public static void updateTextFromNotepad(ComboBox comboBox, TextArea notepadText, String... keys) {
+		Map<String, String> values = pullNotesValues(notepadText.getText());
+		String extractedValue = null;
+		
+		for (String key : keys) {
+			extractedValue = values.get(key);
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+			
+			for (Map.Entry<String, String> entry : values.entrySet()) {
+				for (String altKey : entry.getKey().split("\\|")) {
+					if (altKey.equals(key)) {
+						extractedValue = entry.getValue();
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
+					}
+				}
+				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+					break;
+				}
+			}
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+		}
+		
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			comboBox.setValue(extractedValue);
+		}
+	}
+	
 	public static String toTitleCase(String input) {
 		if (input != null && !input.isEmpty()) {
 			
@@ -383,133 +531,6 @@ public class controllerUtils {
 			logError("Error Clearing Config", e);
 		} finally {
 			Platform.exit();
-		}
-	}
-	
-	private static Map<String, String> pullNotesValues(String notepad) {
-		String text = notepad;
-		Map<String, String> values = new HashMap<>();
-		
-		for (String[] keyGroup : keys) {
-			for (String key : keyGroup) {
-				String value = extractValue(text, key);
-				if (value != null) {
-					for (String k : keyGroup) {
-						values.put(k, value);
-					}
-					break;
-				}
-			}
-		}
-		
-		return values;
-	}
-	
-	private static String extractValue(String text, String key) {
-		Pattern pattern = Pattern.compile(key + "\\s+(.*?)(?=\\s+-|$)");
-		Matcher matcher = pattern.matcher(text);
-		if (matcher.find()) {
-			return matcher.group(1);
-		}
-		return null;
-	}
-	
-	public static void updateTextFromNotepad(TextField textField, TextArea notepadText, String... keys) {
-		Map<String, String> values = pullNotesValues(notepadText.getText());
-		String extractedValue = null;
-		
-		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-				break;
-			}
-			
-			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey().split("\\|")) {
-					if (altKey.equals(key)) {
-						extractedValue = entry.getValue();
-						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-							break;
-						}
-					}
-				}
-				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-					break;
-				}
-			}
-			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-				break;
-			}
-		}
-		
-		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-			textField.setText(extractedValue);
-		}
-	}
-	
-	public static void updateTextFromNotepad(TextArea textArea, TextArea notepadText, String... keys) {
-		Map<String, String> values = pullNotesValues(notepadText.getText());
-		String extractedValue = null;
-		
-		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-				break;
-			}
-			
-			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey().split("\\|")) {
-					if (altKey.equals(key)) {
-						extractedValue = entry.getValue();
-						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-							break;
-						}
-					}
-				}
-				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-					break;
-				}
-			}
-			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-				break;
-			}
-		}
-		
-		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-			textArea.setText(extractedValue);
-		}
-	}
-	
-	public static void updateTextFromNotepad(ComboBox comboBox, TextArea notepadText, String... keys) {
-		Map<String, String> values = pullNotesValues(notepadText.getText());
-		String extractedValue = null;
-		
-		for (String key : keys) {
-			extractedValue = values.get(key);
-			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-				break;
-			}
-			
-			for (Map.Entry<String, String> entry : values.entrySet()) {
-				for (String altKey : entry.getKey().split("\\|")) {
-					if (altKey.equals(key)) {
-						extractedValue = entry.getValue();
-						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-							break;
-						}
-					}
-				}
-				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-					break;
-				}
-			}
-			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-				break;
-			}
-		}
-		
-		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
-			comboBox.setValue(extractedValue);
 		}
 	}
 	

@@ -1014,6 +1014,7 @@ public class PedLookupViewController {
 						}
 					} else {
 						log("enablePedVehImages is disabled in settings so not displaying ped image", LogUtils.Severity.WARN);
+						setDefaultPedImage();
 					}
 				} catch (IOException e) {
 					logError("Could not get enablePedVehImages setting from config", e);

@@ -1,9 +1,12 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Other;
 
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.Callout.CalloutReportUtils;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
+import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -17,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,6 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 
 public class CalloutManager {
 	
@@ -197,7 +200,7 @@ public class CalloutManager {
 		try {
 			listView.getItems().clear();
 			
-			File xmlFile = new File(calloutDataURL);
+			File xmlFile = new File(URLStrings.calloutDataURL);
 			if (!xmlFile.exists() || xmlFile.length() == 0) {
 				return;
 			}
@@ -278,11 +281,11 @@ public class CalloutManager {
 		statusDropdown.setOnAction(actionEvent -> {
 			String selected = statusDropdown.getSelectionModel().getSelectedItem().toString();
 			if (selected.equals("Responded")) {
-				setValueByNumber(calloutDataURL, number, "Status", "Responded");
+				setValueByNumber(URLStrings.calloutDataURL, number, "Status", "Responded");
 				statusVal.setText("Responded");
 				statusVal.setStyle("-fx-text-fill: green;");
 			} else if (selected.equals("Not Responded")) {
-				setValueByNumber(calloutDataURL, number, "Status", "Not Responded");
+				setValueByNumber(URLStrings.calloutDataURL, number, "Status", "Not Responded");
 				statusVal.setText("Not Responded");
 				statusVal.setStyle("-fx-text-fill: red;");
 			}
@@ -294,25 +297,30 @@ public class CalloutManager {
 		gridPane.add(statusPane, 2, 1, 2, 2);
 		
 		Button closeBtn = new Button(localization.getLocalizedMessage("Callout_Manager.CloseCalloutButton", "Close Callout"));
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 10 3 10;";
+		String def = null;
+		try {
+			def = "-fx-background-color: " + controllerUtils.hexToRgba(ConfigReader.configRead("uiColors", "secondaryColor"), 0.5) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Inter 28pt Medium\"; -fx-padding: 3 10 3 10;";
+		} catch (IOException e) {
+			logError("Error loading uiColors.secondaryColor (2): ", e);
+		}
 		closeBtn.setStyle(def);
 		GridPane.setHalignment(closeBtn, HPos.RIGHT);
 		GridPane.setValignment(closeBtn, VPos.CENTER);
 		
-		String number1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Number");
-		String type1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Type");
-		String desc1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Description");
-		String message1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Message");
-		String priority1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Priority");
-		String street1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Street");
-		String area1 = CalloutManager.getValueByNumber(calloutDataURL, number, "Area");
-		String county1 = CalloutManager.getValueByNumber(calloutDataURL, number, "County");
-		String startdate1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartDate");
-		String starttime1 = CalloutManager.getValueByNumber(calloutDataURL, number, "StartTime");
+		String number1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Number");
+		String type1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Type");
+		String desc1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Description");
+		String message1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Message");
+		String priority1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Priority");
+		String street1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Street");
+		String area1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "Area");
+		String county1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "County");
+		String startdate1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "StartDate");
+		String starttime1 = CalloutManager.getValueByNumber(URLStrings.calloutDataURL, number, "StartTime");
 		
 		closeBtn.setOnAction(actionEvent -> {
-			addCallout(calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1, starttime1, startdate1, statusVal.getText());
-			deleteCallout(calloutDataURL, number);
+			addCallout(URLStrings.calloutHistoryURL, number1, type1, desc1, message1, priority1, street1, area1, county1, starttime1, startdate1, statusVal.getText());
+			deleteCallout(URLStrings.calloutDataURL, number);
 			if (calloutViewController != null) {
 				CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
 				CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
@@ -329,7 +337,7 @@ public class CalloutManager {
 			try {
 				listView.getItems().clear();
 				
-				File xmlFile = new File(calloutHistoryURL);
+				File xmlFile = new File(URLStrings.calloutHistoryURL);
 				if (!xmlFile.exists() || xmlFile.length() == 0) {
 					return;
 				}
@@ -375,7 +383,7 @@ public class CalloutManager {
 		
 		gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7);
 		
-		Label numberLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNum", "Number:"));
+		Label numberLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		gridPane.add(numberLabel, 0, 0);
 		gridPane.add(new Label(number), 1, 0);
 		
@@ -411,7 +419,12 @@ public class CalloutManager {
 		GridPane.setRowSpan(actionButton, 1);
 		actionButton.setPadding(new Insets(5, 10, 5, 10));
 		
-		String def = "-fx-background-color: " + hexToRgba(getSecondaryColor(), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Segoe UI SemiBold\"; -fx-padding: 3 13 3 13;";
+		String def = null;
+		try {
+			def = "-fx-background-color: " + controllerUtils.hexToRgba(ConfigReader.configRead("uiColors", "secondaryColor"), 0.7) + "; -fx-border-color: rgb(100,100,100,0.1); -fx-text-fill: white; -fx-font-family: \"Inter 28pt Medium\"; -fx-padding: 3 13 3 13;";
+		} catch (IOException e) {
+			logError("Error loading uiColors.secondaryColor : ", e);
+		}
 		actionButton.setStyle(def);
 		actionButton.setMinWidth(Region.USE_COMPUTED_SIZE);
 		
@@ -431,16 +444,16 @@ public class CalloutManager {
 			TextField callouttype = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 			TextField calloutcode = (TextField) callout.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 			
-			String number1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Number");
-			String type1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Type");
-			String desc1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Description");
-			String message1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Message");
-			String priority1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Priority");
-			String street1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Street");
-			String area1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "Area");
-			String county1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "County");
-			String startdate1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "StartDate");
-			String starttime1 = CalloutManager.getValueByNumber(calloutHistoryURL, number, "StartTime");
+			String number1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Number");
+			String type1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Type");
+			String desc1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Description");
+			String message1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Message");
+			String priority1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Priority");
+			String street1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Street");
+			String area1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "Area");
+			String county1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "County");
+			String startdate1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "StartDate");
+			String starttime1 = CalloutManager.getValueByNumber(URLStrings.calloutHistoryURL, number, "StartTime");
 			calloutnum.setText(number1);
 			calloutarea.setValue(area1);
 			calloutnotes.setText(desc1);

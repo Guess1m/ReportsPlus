@@ -114,8 +114,8 @@ public class ConfigReader {
 		
 		// Notification Settings
 		checkAndSetDefaultValue("notificationSettings", "enabled", "true");
-		checkAndSetDefaultValue("notificationSettings", "displayDuration", "2.2");
-		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "1.5");
+		checkAndSetDefaultValue("notificationSettings", "displayDuration", "3.5");
+		checkAndSetDefaultValue("notificationSettings", "fadeOutDuration", "2.5");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "BottomRight");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "fadeOutDuration");
 		checkAndSetDefaultValue("notificationSettings", "notificationPosition", "displayDuration");
@@ -140,9 +140,11 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "topBarColor", "#e6e6e6");
 		checkAndSetDefaultValue("desktopSettings", "topBarTextColor", "#000000");
 		checkAndSetDefaultValue("desktopSettings", "appTextColor", "#ffffff");
-		
 		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
 		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
+		
+		checkAndSetDefaultValue("desktopSettings", "saveWindowPosition", "true");
+		checkAndSetDefaultValue("desktopSettings", "saveWindowSize", "true");
 		
 		// Miscellaneous
 		checkAndSetDefaultValue("misc", "calloutDuration", "7");
@@ -172,6 +174,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "lastPortConnection", "");
 		checkAndSetDefaultValue("connectionSettings", "broadcastPort", "8888");
 		checkAndSetDefaultValue("connectionSettings", "socketTimeout", "13000");
+		checkAndSetDefaultValue("connectionSettings", "useGameTime", "true");
 		
 		// Report Settings
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
@@ -217,6 +220,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistoryGunPermitClass", "shotgunChance", "22");
 		
 		checkAndSetDefaultValue("update", "type", "client");
+		checkAndSetDefaultValue("keybindings", "inputLock", "H");
 		
 		log("=========================================================", LogUtils.Severity.INFO);
 	}

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.IDHistoryURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.IDHistoryURL;
 
 public class IDHistory {
 	

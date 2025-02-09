@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.toHexString;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.toHexString;
 
 public class CustomCaseCell extends GridPane {
 	private final Label caseNumLabel;
@@ -49,10 +49,10 @@ public class CustomCaseCell extends GridPane {
 		
 		this.getRowConstraints().addAll(row1, row2);
 		
-		caseNumLabel = createLabel("", "Segoe UI Black", 12.0, 0, 0);
-		nameLabel = createLabel("", "Segoe UI Black", 12.0, 0, 1);
-		offenceDateLabel = createLabel("", "Segoe UI Semibold", 12.0, 1, 0);
-		offenceTimeLabel = createLabel("", "Segoe UI Semibold", 12.0, 1, 1);
+		caseNumLabel = createLabel("", "Inter 28pt Bold", 12.0, 0, 0);
+		nameLabel = createLabel("", "Inter 28pt Bold", 12.0, 0, 1);
+		offenceDateLabel = createLabel("", "Inter 28pt Medium", 12.0, 1, 0);
+		offenceTimeLabel = createLabel("", "Inter 28pt Medium", 12.0, 1, 1);
 		
 		this.getChildren().addAll(caseNumLabel, nameLabel, offenceDateLabel, offenceTimeLabel);
 	}

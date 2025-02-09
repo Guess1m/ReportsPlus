@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,8 +37,6 @@ public class ClientController {
 	@javafx.fxml.FXML
 	private Button connectBtn;
 	@javafx.fxml.FXML
-	private AnchorPane mainHeader;
-	@javafx.fxml.FXML
 	private Label lbl1;
 	@javafx.fxml.FXML
 	private Label lbl4;
@@ -47,8 +44,6 @@ public class ClientController {
 	private Label lbl2;
 	@javafx.fxml.FXML
 	private Label lbl3;
-	@javafx.fxml.FXML
-	private Label clientLabel;
 	@javafx.fxml.FXML
 	private Button helpbtn;
 	
@@ -76,13 +71,12 @@ public class ClientController {
 				statusLabel.setStyle("-fx-background-color: green;");
 			} else {
 				statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
-				statusLabel.setStyle("-fx-background-color: #ff5e5e;");
+				statusLabel.setStyle("-fx-background-color: #FF5E5E;");
 			}
 		});
 	}
 	
 	private void addLocalization() {
-		clientLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.ClientHeading", "Client"));
 		lbl1.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputPortLabel", "Input Port:"));
 		lbl2.setText(localization.getLocalizedMessage("ServerConnectionWindow.ConnectionIPV4Label", "Connection IPV4:"));
 		lbl3.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputAddressLabel", "Input Address:"));
@@ -125,11 +119,7 @@ public class ClientController {
 		Alert helpDialog = new Alert(Alert.AlertType.INFORMATION);
 		helpDialog.setTitle(localization.getLocalizedMessage("ServerConnectionWindow.Help", "Help"));
 		helpDialog.setHeaderText(localization.getLocalizedMessage("ServerConnectionWindow.HowTo", "How To Use The Client"));
-		helpDialog.setContentText(
-				localization.getLocalizedMessage("ServerConnectionWindow.HelpLineOne", "1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.") + "\n\n" + localization.getLocalizedMessage(
-						"ServerConnectionWindow.HelpLineTwo", "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.") + "\n\n" + localization.getLocalizedMessage("ServerConnectionWindow.HelpLineThree",
-				                                                                                                                                                                                                                  "3. The top right field is the internal IP of the server the client is connected to.") + "\n\n" + localization.getLocalizedMessage(
-						"ServerConnectionWindow.HelpLineFour", "4. The bottom right field is the port of the established connection.") + "\n\n");
+		helpDialog.setContentText(localization.getLocalizedMessage("ServerConnectionWindow.HelpLineOne", "1. The top left field is the port you would like to connect to use to connect to the server. This must match the port that the server was started with.") + "\n\n" + localization.getLocalizedMessage("ServerConnectionWindow.HelpLineTwo", "2. The bottom left field is the internal IP to connect to. This number needs to match the internal IP of the server.") + "\n\n" + localization.getLocalizedMessage("ServerConnectionWindow.HelpLineThree", "3. The top right field is the internal IP of the server the client is connected to.") + "\n\n" + localization.getLocalizedMessage("ServerConnectionWindow.HelpLineFour", "4. The bottom right field is the port of the established connection.") + "\n\n");
 		
 		helpDialog.initOwner(owner);
 		helpDialog.initModality(Modality.APPLICATION_MODAL);
@@ -167,10 +157,6 @@ public class ClientController {
 	
 	public TextField getPortField() {
 		return portField;
-	}
-	
-	public AnchorPane getMainHeader() {
-		return mainHeader;
 	}
 	
 	public Button getConnectBtn() {

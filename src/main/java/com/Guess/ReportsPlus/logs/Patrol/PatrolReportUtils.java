@@ -14,7 +14,6 @@ import javafx.animation.PauseTransition;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -30,35 +29,15 @@ import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewC
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.toTitleCase;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.updateTextFromNotepad;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.patrolLogURL;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.generateReportNumber;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.patrolLogURL;
 
 public class PatrolReportUtils {
 	
 	public static Map<String, Object> patrolLayout() {
-		Map<String, Object> patrolReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report"), null, new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information"), true,
-		                                                                                                                                                                                      new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(
-				                                                                                                                                                                                      localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5,
-				                                                                                                                                                                                      nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-				                                                                                                                                                                                      localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5,
-				                                                                                                                                                                                      nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(
-				                                                                                                                                                                                      localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2,
-				                                                                                                                                                                                      nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, nestedReportUtils.FieldType.TEXT_FIELD),
-				                                                      new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.ShiftInfoheader", "Shift Information"), true,
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.StartTimeField", "starttime"), 3, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.StopTimeField", "stoptime"), 4, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.PatrolNumField", "patrolnumber"), 5, nestedReportUtils.FieldType.TEXT_FIELD)),
-		                                                                                          new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.LengthField", "length"), 3, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 3, nestedReportUtils.FieldType.TEXT_FIELD),
-		                                                                                                                          new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"), 6, nestedReportUtils.FieldType.TEXT_FIELD))),
-		                                                      new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.PatrolNotesheader", "Patrol Notes"), true, new nestedReportUtils.RowConfig(
-				                                                      new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")), 12, nestedReportUtils.FieldType.TEXT_AREA))));
+		Map<String, Object> patrolReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report"), null, new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.ShiftInfoheader", "Shift Information"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.StartTimeField", "starttime"), 3, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.StopTimeField", "stoptime"), 4, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.PatrolNumField", "patrolnumber"), 5, nestedReportUtils.FieldType.TEXT_FIELD)), new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.LengthField", "length"), 3, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 3, nestedReportUtils.FieldType.TEXT_FIELD), new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"), 6, nestedReportUtils.FieldType.TEXT_FIELD))), new nestedReportUtils.SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), true, new nestedReportUtils.RowConfig(new nestedReportUtils.FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12, nestedReportUtils.FieldType.TEXT_AREA))));
 		return patrolReport;
 	}
 	
@@ -73,14 +52,12 @@ public class PatrolReportUtils {
 		TextField agen = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField num = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 		TextField patrolnum = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.PatrolNumField", "patrolnumber"));
-		TextArea notes = (TextArea) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+		TextArea notes = (TextArea) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 		TextField date = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 		TextField starttime = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.StartTimeField", "starttime"));
 		TextField stoptime = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.StopTimeField", "stoptime"));
 		TextField length = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.LengthField", "length"));
 		TextField vehicle = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"));
-		
-		BorderPane root = (BorderPane) patrolReport.get("root");
 		
 		Label warningLabel = (Label) patrolReport.get("warningLabel");
 		
@@ -93,7 +70,7 @@ public class PatrolReportUtils {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		stoptime.setText(getTime());
+		stoptime.setText(getTime(false));
 		date.setText(getDate());
 		patrolnum.setText(generateReportNumber());
 		
@@ -128,7 +105,7 @@ public class PatrolReportUtils {
 			if (patrolnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Patrol Number can't be empty!");
-				warningLabel.setStyle("-fx-font-family: \"Segoe UI Black\"; -fx-text-fill: red;");
+				warningLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-text-fill: red;");
 				PauseTransition pause = new PauseTransition(Duration.seconds(2));
 				pause.setOnFinished(e -> warningLabel.setVisible(false));
 				pause.play();

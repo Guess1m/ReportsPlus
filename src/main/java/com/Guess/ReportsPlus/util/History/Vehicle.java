@@ -1,5 +1,6 @@
 package com.Guess.ReportsPlus.util.History;
 
+import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -11,12 +12,13 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.vehicleHistoryURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehicleHistoryURL;
 
 @XmlRootElement(name = "vehicle")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -60,6 +62,9 @@ public class Vehicle {
 	
 	@XmlElement(name = "Type")
 	private String type;
+	
+	@XmlElement(name = "Vin")
+	private String vin;
 	
 	@XmlElement(name = "Inspection")
 	private String inspection;
@@ -110,6 +115,14 @@ public class Vehicle {
 	
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+	
+	public String getVin() {
+		return vin;
+	}
+	
+	public void setVin(String vin) {
+		this.vin = vin;
 	}
 	
 	public String getPoliceStatus() {
@@ -194,7 +207,13 @@ public class Vehicle {
 	
 	public static class VehicleHistoryUtils {
 		
-		public static String generateInspectionStatus(int validChance) {
+		public static String generateInspectionStatus() {
+			int validChance = 85;
+			try {
+				validChance = Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"));
+			} catch (IOException e) {
+				logError("Error reading vehicleHistory.hasValidInspection: ", e);
+			}
 			if (validChance < 0 || validChance > 100) {
 				throw new IllegalArgumentException("Chance must be between 0 and 100 for Veh. inspection.");
 			}

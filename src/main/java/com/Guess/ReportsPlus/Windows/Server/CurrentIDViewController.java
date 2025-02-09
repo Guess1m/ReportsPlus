@@ -21,13 +21,15 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.History.IDHistory.addServerIDToHistoryIfNotExists;
 import static com.Guess.ReportsPlus.util.History.IDHistory.checkAllHistoryIDsClosed;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.pedImageFolderURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.pedImageFolderURL;
 
 public class CurrentIDViewController {
 	
@@ -102,9 +104,30 @@ public class CurrentIDViewController {
 							logError("Could not set ped image: ", e);
 						}
 					} else {
-						log("No matching pedImage found for the model: " + pedModel, LogUtils.Severity.WARN);
-						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-						pedImageView.setImage(defImage);
+						log("No matching pedImage found for the model: " + pedModel + " Trying base image for ID..", LogUtils.Severity.WARN);
+						
+						Pattern pattern = Pattern.compile("\\[([^\\]]+)\\]");
+						Matcher matcher = pattern.matcher(pedModel);
+						String fallbackModel;
+						
+						if (matcher.find()) {
+							fallbackModel = "[" + matcher.group(1) + "][0][0]";
+							log("Extracted base model for ID: " + fallbackModel, LogUtils.Severity.DEBUG);
+							
+							File[] fallbackFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(fallbackModel + ".jpg"));
+							if (fallbackFiles != null && fallbackFiles.length > 0) {
+								File fallbackFile = fallbackFiles[0];
+								log("Using base model image for ID: " + fallbackFile.getName(), LogUtils.Severity.INFO);
+								try {
+									String fileURI = fallbackFile.toURI().toString();
+									pedImageView.setImage(new Image(fileURI));
+								} catch (Exception e) {
+									Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+									pedImageView.setImage(defImage);
+									logError("Could not set ped image for ID: ", e);
+								}
+							}
+						}
 					}
 				} else {
 					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
@@ -159,8 +182,8 @@ public class CurrentIDViewController {
 							String gender = historyID.getGender();
 							String address = historyID.getAddress();
 							String pedModel = historyID.getPedModel();
-							String genNum1 = generateRandomNumber();
-							String genNum2 = generateRandomNumber();
+							String genNum1 = historyID.getLicenseNumber();
+							String genNum2 = "San Andreas ID";
 							String fullName = firstName + " " + lastName;
 							
 							FXMLLoader loader = new FXMLLoader(Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));

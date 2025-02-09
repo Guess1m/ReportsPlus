@@ -67,10 +67,10 @@ import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.newSearch;
 import static com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.InitTableColumns.*;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.InitTableColumns.*;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addChargesToTable;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addCitationsToTable;
 
@@ -193,7 +193,7 @@ public class LogViewController {
 				otherPane.setStyle("-fx-background-color: transparent;");
 				for (Node node : otherPane.getChildren()) {
 					if (node instanceof Label) {
-						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+						node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					}
 				}
 			}
@@ -202,7 +202,7 @@ public class LogViewController {
 			callout.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
 			for (Node node : callout.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 				}
 			}
 		});
@@ -382,7 +382,7 @@ public class LogViewController {
 			pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 				}
 			}
 		});
@@ -394,7 +394,7 @@ public class LogViewController {
 			pane.setStyle("-fx-background-color: transparent;");
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 				}
 			}
 		});
@@ -410,7 +410,7 @@ public class LogViewController {
 				otherPane.setStyle("-fx-background-color: transparent;");
 				for (Node node : otherPane.getChildren()) {
 					if (node instanceof Label) {
-						node.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+						node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					}
 				}
 			}
@@ -419,7 +419,7 @@ public class LogViewController {
 			pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Label) {
-					node.setStyle("-fx-font-family: \"Segoe UI Black\";");
+					node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 				}
 			}
 		});
@@ -454,13 +454,13 @@ public class LogViewController {
 				TextField causeofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"));
 				TextField modeofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"));
 				TextField witnesses = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
-				TextArea notes = (TextArea) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) deathReport1.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				TextField timeofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"));
 				TextField dateofdeath = (TextField) deathReport1.get(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"));
 				
 				timeofdeath.setText(deathReport.getTimeOfDeath());
 				dateofdeath.setText(deathReport.getDateOfDeath());
-				name.setText(deathReport.getName());
+				name.setText(deathReport.getOfficerName());
 				rank.setText(deathReport.getRank());
 				div.setText(deathReport.getDivision());
 				agen.setText(deathReport.getAgency());
@@ -539,7 +539,7 @@ public class LogViewController {
 				TextField officernum = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				TextField calloutnum = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num"));
 				ComboBox calloutarea = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-				TextArea calloutnotes = (TextArea) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea calloutnotes = (TextArea) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				TextField calloutcounty = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
 				ComboBox calloutstreet = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
 				TextField calloutdate = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
@@ -547,7 +547,7 @@ public class LogViewController {
 				TextField callouttype = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
 				TextField calloutcode = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 				
-				officername.setText(calloutReport.getName());
+				officername.setText(calloutReport.getOfficerName());
 				officerrank.setText(calloutReport.getRank());
 				officerdiv.setText(calloutReport.getDivision());
 				officeragen.setText(calloutReport.getAgency());
@@ -619,7 +619,7 @@ public class LogViewController {
 				TextField agen = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField num = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
 				TextField patrolnum = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.PatrolNumField", "patrolnumber"));
-				TextArea notes = (TextArea) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				TextField date = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField starttime = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.StartTimeField", "starttime"));
 				TextField stoptime = (TextField) patrolReportMap.get(localization.getLocalizedMessage("ReportWindows.StopTimeField", "stoptime"));
@@ -716,7 +716,7 @@ public class LogViewController {
 				TextField datets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField timets = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 				
-				TextArea notests = (TextArea) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notests = (TextArea) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				
 				stopnumts.setText(trafficStopReport.getStopNumber());
 				datets.setText(trafficStopReport.getDate());
@@ -732,7 +732,7 @@ public class LogViewController {
 				countyts.setText(trafficStopReport.getCounty());
 				
 				offenderNamets.setText(trafficStopReport.getOperatorName());
-				officernamets.setText(trafficStopReport.getName());
+				officernamets.setText(trafficStopReport.getOfficerName());
 				officerdivts.setText(trafficStopReport.getDivision());
 				officeragents.setText(trafficStopReport.getAgency());
 				officernumarrestts.setText(trafficStopReport.getNumber());
@@ -814,7 +814,7 @@ public class LogViewController {
 				TextArea statement = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.StatementField", "statement"));
 				
 				TextArea summary = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.IncidentSummaryField", "summary"));
-				TextArea notes = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) incidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				
 				name.setText(incidentReport.getOfficerName());
 				incidentnum.setText(incidentReport.getIncidentNumber());
@@ -824,8 +824,8 @@ public class LogViewController {
 				num.setText(incidentReport.getOfficerNumber());
 				
 				street.getEditor().setText(incidentReport.getIncidentStreet());
-				area.setValue(incidentReport.getIncidentArea());
-				county.setText(incidentReport.getIncidentCounty());
+				area.setValue(incidentReport.getArea());
+				county.setText(incidentReport.getCounty());
 				suspects.setText(incidentReport.getIncidentWitnesses());
 				vicwit.setText(incidentReport.getIncidentVictims());
 				statement.setText(incidentReport.getIncidentStatement());
@@ -907,7 +907,7 @@ public class LogViewController {
 				TextField plateNumber = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 				TextField model = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				
-				TextArea notes = (TextArea) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				
 				num.setText(impoundReport.getImpoundNumber());
 				date.setText(impoundReport.getImpoundDate());
@@ -1005,7 +1005,7 @@ public class LogViewController {
 				TextField otherInfo = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 				TextField model = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 				
-				TextArea notes = (TextArea) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				
 				officername.setText(trafficCitationReport.getOfficerName());
 				officerrank.setText(trafficCitationReport.getOfficerRank());
@@ -1013,8 +1013,8 @@ public class LogViewController {
 				officeragen.setText(trafficCitationReport.getOfficerAgency());
 				officernum.setText(trafficCitationReport.getOfficerNumber());
 				street.setValue(trafficCitationReport.getCitationStreet());
-				area.setValue(trafficCitationReport.getCitationArea());
-				county.setText(trafficCitationReport.getCitationCounty());
+				area.setValue(trafficCitationReport.getArea());
+				county.setText(trafficCitationReport.getCounty());
 				type.setValue(trafficCitationReport.getOffenderVehicleType());
 				color.setValue(trafficCitationReport.getOffenderVehicleColor());
 				date.setText(trafficCitationReport.getCitationDate());
@@ -1119,8 +1119,8 @@ public class LogViewController {
 				num.setText(searchReport.getOfficerNumber());
 				
 				street.getEditor().setText(searchReport.getSearchStreet());
-				area.setValue(searchReport.getSearchArea());
-				county.setText(searchReport.getSearchCounty());
+				area.setValue(searchReport.getArea());
+				county.setText(searchReport.getCounty());
 				
 				testconducted.setText(searchReport.getTestsConducted());
 				grounds.setText(searchReport.getSearchGrounds());
@@ -1213,7 +1213,7 @@ public class LogViewController {
 				TextField taserdep = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTaserDeployed", "taser deployed (Y/N)"));
 				TextField othermedinfo = (TextField) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOtherInformation", "other information"));
 				
-				TextArea notes = (TextArea) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) arrestReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				
 				arrestnum.setText(arrestReport.getArrestNumber());
 				officername.setText(arrestReport.getOfficerName());
@@ -1227,11 +1227,11 @@ public class LogViewController {
 				offenderAddress.setText(arrestReport.getArresteeHomeAddress());
 				offenderDescription.setText(arrestReport.getArresteeDescription());
 				street.getEditor().setText(arrestReport.getArrestStreet());
-				county.setText(arrestReport.getArrestCounty());
+				county.setText(arrestReport.getCounty());
 				ambulancereq.setText(arrestReport.getAmbulanceYesNo());
 				taserdep.setText(arrestReport.getTaserYesNo());
 				othermedinfo.setText(arrestReport.getArresteeMedicalInformation());
-				area.setValue(arrestReport.getArrestArea());
+				area.setValue(arrestReport.getArea());
 				date.setText(arrestReport.getArrestDate());
 				time.setText(arrestReport.getArrestTime());
 				notes.setText(arrestReport.getArrestDetails());
@@ -1320,7 +1320,7 @@ public class LogViewController {
 				TextField plateNumber = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 				ComboBox type = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", localization.getLocalizedMessage("ReportWindows.FieldType", "type")));
 				ComboBox color = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-				TextArea notes = (TextArea) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
+				TextArea notes = (TextArea) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 				
 				accidentnum.setText(accidentReport.getAccidentNumber());
 				name.setText(accidentReport.getOfficerName());

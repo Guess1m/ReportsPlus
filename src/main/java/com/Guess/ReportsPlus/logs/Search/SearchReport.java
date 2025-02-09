@@ -131,7 +131,7 @@ public class SearchReport {
 		this.officerRank = officerRank;
 	}
 	
-	public String getSearchArea() {
+	public String getArea() {
 		return searchArea;
 	}
 	
@@ -139,7 +139,7 @@ public class SearchReport {
 		this.searchArea = searchArea;
 	}
 	
-	public String getSearchCounty() {
+	public String getCounty() {
 		return searchCounty;
 	}
 	

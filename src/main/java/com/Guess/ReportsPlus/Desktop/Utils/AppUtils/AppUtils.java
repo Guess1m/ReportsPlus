@@ -27,8 +27,15 @@ public class AppUtils {
 	
 	private static void handleMouseDragged(MouseEvent event, VBox pane) {
 		if (editableDesktop) {
-			pane.setTranslateX(event.getSceneX() - xOffset);
-			pane.setTranslateY(event.getSceneY() - yOffset);
+			double newX = event.getSceneX() - xOffset;
+			double newY = event.getSceneY() - yOffset;
+			
+			double roundedX = Math.round(newX / 5) * 5;
+			double roundedY = Math.round(newY / 5) * 5;
+			
+			pane.setTranslateX(roundedX);
+			pane.setTranslateY(roundedY);
 		}
 	}
+	
 }

@@ -90,7 +90,7 @@ public class ArrestReport {
 		this.ambulanceYesNo = ambulanceYesNo;
 	}
 	
-	public String getArrestArea() {
+	public String getArea() {
 		return arrestArea;
 	}
 	
@@ -106,7 +106,7 @@ public class ArrestReport {
 		this.arrestCharges = arrestCharges;
 	}
 	
-	public String getArrestCounty() {
+	public String getCounty() {
 		return arrestCounty;
 	}
 	

@@ -1,7 +1,7 @@
 package com.Guess.ReportsPlus.Windows.Server;
 
-import com.Guess.ReportsPlus.util.Misc.CalloutManager;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -18,12 +18,12 @@ import java.util.List;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
-import static com.Guess.ReportsPlus.util.Misc.CalloutManager.loadActiveCallouts;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.calloutDataURL;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.CalloutManager.loadActiveCallouts;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.calloutWindow;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutDataURL;
 
 public class calloutController {
 	
@@ -78,7 +78,7 @@ public class calloutController {
 	private Label tim;
 	
 	public static Callout getCallout() {
-		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerCallout.xml";
+		String filePath = getServerDataFolderPath() + "ServerCallout.xml";
 		File file = new File(filePath);
 		
 		if (!file.exists()) {
@@ -166,7 +166,7 @@ public class calloutController {
 		}
 		
 		calloutInfoTitle.setText(localization.getLocalizedMessage("CalloutPopup.MainHeading", "Callout Information"));
-		num.setText(localization.getLocalizedMessage("CalloutPopup.NumberLabel", "Number:"));
+		num.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		typ.setText(localization.getLocalizedMessage("CalloutPopup.TypeLabel", "Type:"));
 		dat.setText(localization.getLocalizedMessage("CalloutPopup.DateLabel", "Date:"));
 		tim.setText(localization.getLocalizedMessage("CalloutPopup.TimeLabel", "Time:"));

@@ -7,7 +7,7 @@
 }
 
 .paneoptions > .title {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 19;
     -fx-background-color: transparent;
     -fx-padding: 6;
@@ -17,7 +17,7 @@
 }
 
 .paneoptions:expanded > .title {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 19;
     -fx-background-color: #383838;
 }

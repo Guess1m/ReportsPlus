@@ -54,7 +54,7 @@ public class CalloutReport {
 	@XmlElement(name = "Area")
 	private String area;
 	
-	public String getName() {
+	public String getOfficerName() {
 		return name;
 	}
 	

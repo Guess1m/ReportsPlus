@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import static com.Guess.ReportsPlus.MainApplication.getDate;
 import static com.Guess.ReportsPlus.MainApplication.getTime;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.getOperatingSystemAndArch;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getOperatingSystemAndArch;
 
 public class LogUtils {
 	
@@ -31,7 +31,7 @@ public class LogUtils {
 			logError("Unable to create output.log file, Check folder permissions: ", e);
 		}
 		
-		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("ERROR: ", e));
+		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("ERROR: " + e.getClass().getSimpleName(), e));
 	}
 	
 	private static String checkFolderPermissions(Path folderPath) {
@@ -59,17 +59,17 @@ public class LogUtils {
 	}
 	
 	public static void endLog() {
-		System.out.println("----------------------------- END LOG [" + MainApplication.getTime() + "] -----------------------------");
+		System.out.println("----------------------------- END LOG [" + MainApplication.getTime(true) + "] -----------------------------");
 		System.out.println();
 	}
 	
 	public static void log(String message, Severity severity) {
-		String logMessage = "[" + getDate() + "] [" + getTime() + "] [" + severity + "] " + message;
+		String logMessage = "[" + getDate() + "] [" + getTime(true) + "] [" + severity + "] " + message;
 		System.out.println(logMessage);
 	}
 	
 	public static void logError(String message, Throwable e) {
-		String errorMessage = "*** [" + getDate() + "] [" + getTime() + "] [ERROR] " + message;
+		String errorMessage = "*** [" + getDate() + "] [" + getTime(true) + "] [ERROR] " + message;
 		System.err.println(errorMessage);
 		e.printStackTrace(System.err);
 		System.err.println("***");

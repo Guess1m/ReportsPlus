@@ -2,19 +2,26 @@ package com.Guess.ReportsPlus.Windows.Settings;
 
 import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.CalloutManager;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
+import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
+import com.Guess.ReportsPlus.util.Other.CalloutManager;
+import com.Guess.ReportsPlus.util.Strings.URLStrings;
+import com.Guess.ReportsPlus.util.Localization.LanguageConfigManager;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -25,13 +32,16 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigRead;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
+import static com.Guess.ReportsPlus.Desktop.mainDesktopController.isInputLocked;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopBackground;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
@@ -41,25 +51,27 @@ import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.courtViewCo
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.logController;
 import static com.Guess.ReportsPlus.Windows.Apps.NewReportVewController.newReportVewController;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
+import static com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController.reportStatisticsController;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
-import static com.Guess.ReportsPlus.Windows.Misc.UserManagerController.userManagerController;
+import static com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController.newUserManagerController;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.startUpdate;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
+import static com.Guess.ReportsPlus.util.Strings.updateStrings.soundList;
 
 public class settingsController {
 	
-	private static final String UILightColor = "rgb(255,255,255,0.75)";
-	private static final String UIDarkColor = "rgb(0,0,0,0.75)";
+	public static final String UILightColor = "rgb(255,255,255,0.75)";
+	public static final String UIDarkColor = "rgb(0,0,0,0.75)";
 	public static settingsController SettingsController;
 	private static AtomicReference<String> selectedNotification;
+	private static boolean soundPackInstalled = false;
 	private boolean isInitialized = false;
-	private boolean soundPackInstalled = false;
 	private boolean imgPackInstalled = false;
 	
 	@javafx.fxml.FXML
@@ -121,20 +133,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private TextField socketTimeoutField;
 	@javafx.fxml.FXML
-	private AnchorPane paneAudio;
-	@javafx.fxml.FXML
-	private AnchorPane paneApplication;
-	@javafx.fxml.FXML
-	private AnchorPane paneDeveloper;
-	@javafx.fxml.FXML
-	private AnchorPane paneNotification;
-	@javafx.fxml.FXML
-	private AnchorPane paneReport;
-	@javafx.fxml.FXML
-	private AnchorPane paneWindow;
-	@javafx.fxml.FXML
-	private AnchorPane paneNetworking;
-	@javafx.fxml.FXML
 	private ComboBox notiPosCombobox;
 	@javafx.fxml.FXML
 	private Button resetNotiDefaultsBtn;
@@ -193,6 +191,8 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private ComboBox trafficStopDurComboBox;
 	@javafx.fxml.FXML
+	private ComboBox ChgLanguageComboBox;
+	@javafx.fxml.FXML
 	private ComboBox windowDisplaySettingCombobox;
 	@javafx.fxml.FXML
 	private ToggleButton alwaysOnTopCheckbox;
@@ -239,6 +239,8 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private Label trafficStopDurLabel;
 	@javafx.fxml.FXML
+	private Label ChgLanguageLabel;
+	@javafx.fxml.FXML
 	private Label appDisLabelTT;
 	@javafx.fxml.FXML
 	private Label enableCalloutTT;
@@ -246,6 +248,8 @@ public class settingsController {
 	private Label CalDisplayDurLabel;
 	@javafx.fxml.FXML
 	private Label trafficStopDurTT;
+	@javafx.fxml.FXML
+	private Label ChgLanguageTT;
 	@javafx.fxml.FXML
 	private Label appDisLabel;
 	@javafx.fxml.FXML
@@ -462,6 +466,34 @@ public class settingsController {
 	private Button resetAppPosBtn;
 	@javafx.fxml.FXML
 	private Label resetAppPosLabel;
+	@javafx.fxml.FXML
+	private ScrollPane paneWindow;
+	@javafx.fxml.FXML
+	private ScrollPane paneAudio;
+	@javafx.fxml.FXML
+	private ScrollPane paneNotification;
+	@javafx.fxml.FXML
+	private ScrollPane paneApplication;
+	@javafx.fxml.FXML
+	private ScrollPane paneDeveloper;
+	@javafx.fxml.FXML
+	private ScrollPane paneReport;
+	@javafx.fxml.FXML
+	private ScrollPane paneNetworking;
+	@javafx.fxml.FXML
+	private Label inputLockKeybindTT;
+	@javafx.fxml.FXML
+	private Label inputLockKeybindLabel;
+	@javafx.fxml.FXML
+	private TextField inputLockKeybindField;
+	@javafx.fxml.FXML
+	private ToggleButton useGameTimeToggle;
+	@javafx.fxml.FXML
+	private Label useGameTimeLabel;
+	@javafx.fxml.FXML
+	private Label useGameTimeTT;
+	@javafx.fxml.FXML
+	private Button probabilitySettingsButton;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -472,9 +504,7 @@ public class settingsController {
 		String nonTransparentBtn = "-fx-background-color: " + mainclr + ";";
 		
 		if (clientController != null) {
-			clientController.getStatusLabel().setStyle("-fx-background-color: " + mainclr + ";");
 			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
-			clientController.getMainHeader().setStyle("-fx-background-color: " + mainclr + ";");
 			clientController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (settingsController.SettingsController != null) {
@@ -483,8 +513,12 @@ public class settingsController {
 		if (trafficStopController.trafficStopController != null) {
 			trafficStopController.trafficStopController.getRoot().setStyle("-fx-background-color: " + bkgclr);
 		}
-		if (userManagerController != null) {
-			userManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		if (newUserManagerController != null) {
+			newUserManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			newUserManagerController.getHeader().setStyle("-fx-text-fill: " + mainclr + ";");
+			newUserManagerController.getNewUserBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			newUserManagerController.getNewUserBtn().setOnMouseEntered(e -> newUserManagerController.getNewUserBtn().setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			newUserManagerController.getNewUserBtn().setOnMouseExited(e -> newUserManagerController.getNewUserBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
 		if (vehLookupViewController != null) {
 			vehLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
@@ -495,10 +529,6 @@ public class settingsController {
 			
 			vehLookupViewController.getInfo1().setStyle("-fx-background-color: " + secclr + ";");
 			vehLookupViewController.getInfo2().setStyle("-fx-background-color: " + secclr + ";");
-			
-			vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			vehLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(e -> vehLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
 			
 			vehLookupViewController.getVehSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			vehLookupViewController.getVehSearchBtn().setOnMouseEntered(e -> vehLookupViewController.getVehSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
@@ -532,10 +562,6 @@ public class settingsController {
 			pedLookupViewController.getInfo3().setStyle("-fx-background-color: " + secclr + ";");
 			pedLookupViewController.getInfo4().setStyle("-fx-background-color: " + secclr + ";");
 			pedLookupViewController.getInfo5().setStyle("-fx-background-color: " + secclr + ";");
-			
-			pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseEntered(e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			pedLookupViewController.getProbabilitySettingsBtn().setOnMouseExited(e -> pedLookupViewController.getProbabilitySettingsBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
 			
 			pedLookupViewController.getPedSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
 			pedLookupViewController.getPedSearchBtn().setOnMouseEntered(e -> pedLookupViewController.getPedSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
@@ -630,6 +656,17 @@ public class settingsController {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 			}
 		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			Node fillNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-fill");
+			fillNode.setStyle("-fx-fill: " + hexToRgba(mainclr, 0.5) + ";");
+			Node lineNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-line");
+			lineNode.setStyle("-fx-stroke: " + accclr + ";");
+			Set<Node> symbolNodes = reportStatisticsController.getChart().lookupAll(".default-color0.chart-area-symbol");
+			for (Node symbolNode : symbolNodes) {
+				symbolNode.setStyle("-fx-background-color: " + secclr + ";");
+			}
+		}
 		
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			addDarkStyles();
@@ -703,6 +740,7 @@ public class settingsController {
 			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			vehLookupViewController.getPlt11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
 		if (pedLookupViewController != null) {
@@ -753,12 +791,6 @@ public class settingsController {
 			clientController.getLbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
-		if (userManagerController != null) {
-			userManagerController.getLbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			userManagerController.getAgencyDropDown().setStyle(updateStyleProperty(userManagerController.getAgencyDropDown(), "-fx-text-fill", UIDarkColor));
-			userManagerController.getDivisionDropDown().setStyle(updateStyleProperty(userManagerController.getDivisionDropDown(), "-fx-text-fill", UIDarkColor));
-			userManagerController.getRankDropdown().setStyle(updateStyleProperty(userManagerController.getRankDropdown(), "-fx-text-fill", UIDarkColor));
-		}
 		if (newReportVewController != null) {
 			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UIDarkColor));
 			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UIDarkColor));
@@ -771,6 +803,13 @@ public class settingsController {
 			newReportVewController.getSearch().setStyle(updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UIDarkColor));
 			newReportVewController.getTrafficstop().setStyle(updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UIDarkColor));
 			newReportVewController.getSelectReportTypeLabel().setStyle(updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill", UIDarkColor));
+		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getReportsByLabel().setStyle(updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UIDarkColor));
+			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
+			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
+			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
+			node.setStyle("-fx-background-color: rgba(0,0,0,0.05), rgba(0,0,0,0.05);");
 		}
 	}
 	
@@ -786,6 +825,7 @@ public class settingsController {
 			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
 			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
 			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			vehLookupViewController.getPlt11().setStyle("-fx-text-fill: " + UILightColor + ";");
 			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
 		if (pedLookupViewController != null) {
@@ -836,12 +876,6 @@ public class settingsController {
 			clientController.getLbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
-		if (userManagerController != null) {
-			userManagerController.getLbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			userManagerController.getAgencyDropDown().setStyle(updateStyleProperty(userManagerController.getAgencyDropDown(), "-fx-text-fill", UILightColor));
-			userManagerController.getDivisionDropDown().setStyle(updateStyleProperty(userManagerController.getDivisionDropDown(), "-fx-text-fill", UILightColor));
-			userManagerController.getRankDropdown().setStyle(updateStyleProperty(userManagerController.getRankDropdown(), "-fx-text-fill", UILightColor));
-		}
 		if (newReportVewController != null) {
 			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UILightColor));
 			newReportVewController.getArrest().setStyle(updateStyleProperty(newReportVewController.getArrest(), "-fx-text-fill", UILightColor));
@@ -854,6 +888,13 @@ public class settingsController {
 			newReportVewController.getSearch().setStyle(updateStyleProperty(newReportVewController.getSearch(), "-fx-text-fill", UILightColor));
 			newReportVewController.getTrafficstop().setStyle(updateStyleProperty(newReportVewController.getTrafficstop(), "-fx-text-fill", UILightColor));
 			newReportVewController.getSelectReportTypeLabel().setStyle(updateStyleProperty(newReportVewController.getSelectReportTypeLabel(), "-fx-text-fill", UILightColor));
+		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getReportsByLabel().setStyle(updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UILightColor));
+			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UILightColor));
+			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UILightColor));
+			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
+			node.setStyle("-fx-background-color: rgba(255,255,255, 0.1), rgba(255,255,255, 0.1);");
 		}
 	}
 	
@@ -923,7 +964,7 @@ public class settingsController {
 			installImagesPane.toBack();
 		}
 		
-		log("Ped/Veh Images Installed: " + imgsInstalled, LogUtils.Severity.DEBUG);
+		log("Pedestrian/Vehicle Images Installed: " + imgsInstalled, LogUtils.Severity.DEBUG);
 		return imgsInstalled;
 	}
 	
@@ -996,6 +1037,8 @@ public class settingsController {
 		trafficStopPopupsTT.setText(localization.getLocalizedMessage("Settings.TrafficStopPopupsTT", "Toggle whether traffic stop info window will come up when a traffic stop is initiated"));
 		trafficStopDurLabel.setText(localization.getLocalizedMessage("Settings.TrafficStopDurLabel", "Traffic Stop Display Duration"));
 		trafficStopDurTT.setText(localization.getLocalizedMessage("Settings.TrafficStopDurTT", "Duration traffic stop window will be shown"));
+		ChgLanguageLabel.setText(localization.getLocalizedMessage("Settings.ChgLanguageLabel","Languages"));
+		ChgLanguageTT.setText(localization.getLocalizedMessage("Settings.ChgLanguageTT","Change languages here"));
 		
 		//Notification
 		notiSettingsHeader.setText(localization.getLocalizedMessage("Settings.NotiSettingsHeader", "NOTIFICATION SETTINGS"));
@@ -1044,6 +1087,9 @@ public class settingsController {
 		desktopTaskBarTextClrLabel.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrLabel", "Taskbar Text Color"));
 		desktopTaskBarTextClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrTT", "Set the color of the text on the bottom taskbar"));
 		
+		inputLockKeybindLabel.setText(localization.getLocalizedMessage("Settings.inputLockKeybindLabel", "Input Lock Keybind"));
+		inputLockKeybindTT.setText(localization.getLocalizedMessage("Settings.inputLockKeybindTT", "Keybind to use for activating desktop input lock"));
+		
 		//Report
 		reportWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.ReportWindowCustomizationHeader", "REPORT WINDOW CUSTOMIZATION"));
 		reportDesignPresetLabel.setText(localization.getLocalizedMessage("Settings.ReportDesignPresetLabel", "Design Preset"));
@@ -1090,6 +1136,8 @@ public class settingsController {
 		socketTimeoutTT.setText(localization.getLocalizedMessage("Settings.SocketTimeoutTT", "Timeout for server when connection is lost (ms)"));
 		broadcastPortField.setPromptText(localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 8888"));
 		socketTimeoutField.setPromptText(localization.getLocalizedMessage("Settings.DefaultLabel", "Default:" + " 10000"));
+		useGameTimeLabel.setText(localization.getLocalizedMessage("Settings.useGameTimeLabel", "Use Game Time"));
+		useGameTimeTT.setText(localization.getLocalizedMessage("Settings.useGameTimeTT", "Toggle whether game time is used when connected"));
 		
 		//Audio
 		audioSettingsHeader.setText(localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO/OPTIONAL SETTINGS"));
@@ -1131,6 +1179,8 @@ public class settingsController {
 		resetAppPosBtn.setText(localization.getLocalizedMessage("Settings.resetAppPosBtn", "RESET APP POSITIONS"));
 		resetAppPosLabel.setText(localization.getLocalizedMessage("Settings.resetAppPosLabel", "Reset App Positions"));
 		resetAppPosTT.setText(localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
+		
+		probabilitySettingsButton.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
 		
 		//LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
@@ -1411,12 +1461,6 @@ public class settingsController {
 		paneDesktop.setDisable(true);
 	}
 	
-	private void setActive(AnchorPane pane) {
-		closeWindows();
-		pane.setDisable(false);
-		pane.setVisible(true);
-	}
-	
 	private void setActive(ScrollPane pane) {
 		closeWindows();
 		pane.setDisable(false);
@@ -1428,6 +1472,7 @@ public class settingsController {
 		notiFadeOutDurField.setText(ConfigReader.configRead("notificationSettings", "fadeOutDuration"));
 		broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
 		socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
+		inputLockKeybindField.setText(ConfigReader.configRead("keybindings", "inputLock"));
 		
 		audioLookupWarningCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
 		
@@ -1455,6 +1500,7 @@ public class settingsController {
 		
 		enablePedVehImgsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
+		useGameTimeToggle.setSelected(ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("true"));
 	}
 	
 	private void addEventFilters() {
@@ -1568,6 +1614,40 @@ public class settingsController {
 			}
 			
 			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
+		});
+		inputLockKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+			String character = event.getCharacter();
+			String text = inputLockKeybindField.getText();
+			
+			String newText = text + character;
+			
+			if (newText.length() > 1) {
+				event.consume();
+				return;
+			}
+			
+			mainDesktopControllerObj.getMainDesktop().setOnKeyPressed(event2 -> {
+				KeyCode keyCode = null;
+				try {
+					keyCode = KeyCode.valueOf(ConfigReader.configRead("keybindings", "inputLock"));
+				} catch (IOException e) {
+					logError("Unable to read keybindings: ", e);
+				}
+				
+				if (event2.isControlDown() && event2.getCode() == keyCode) {
+					isInputLocked = !isInputLocked;
+					if (isInputLocked) {
+						log("Input Locked!", LogUtils.Severity.INFO);
+					} else {
+						log("Input Unlocked!", LogUtils.Severity.INFO);
+					}
+					mainDesktopControllerObj.getInputLock().setDisable(isInputLocked);
+					mainDesktopControllerObj.getMainDesktop().requestFocus();
+				}
+			});
+			ConfigWriter.configwrite("keybindings", "inputLock", newText.toUpperCase());
+			log("Wrote new inputLock keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			
 		});
 	}
 	
@@ -2061,7 +2141,16 @@ public class settingsController {
 			String selectedDur = (String) trafficStopDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "TrafficStopDuration", selectedDur);
 		});
-		
+
+		LanguageConfigManager LanguageConfigManager = new LanguageConfigManager();
+		List<String> supportedLanguages = LanguageConfigManager.getLanguageCodes();
+		ChgLanguageComboBox.getItems().addAll(supportedLanguages);
+		ChgLanguageComboBox.setValue(ConfigReader.configRead("userInfo","languageDuration"));
+		ChgLanguageComboBox.setOnAction(actionEvent -> {
+			String selectedDur = (String) ChgLanguageComboBox.getSelectionModel().getSelectedItem();
+			ConfigWriter.configwrite("userInfo", "languageDuration", selectedDur);
+		});
+
 		String[] notifications = {"Information", "Warning"};
 		selectedNotification = new AtomicReference<>("Information");
 		notificationComboBox.getItems().addAll(notifications);
@@ -2110,8 +2199,10 @@ public class settingsController {
 		notiPosCombobox.setOnAction(actionEvent -> {
 			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
 			switch (selectedPosition) {
-				case "BottomLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomLeft");
-				case "BottomRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
+				case "BottomLeft" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomLeft");
+				case "BottomRight" ->
+						ConfigWriter.configwrite("notificationSettings", "notificationPosition", "BottomRight");
 				case "TopLeft" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopLeft");
 				case "TopRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
 			}
@@ -2213,26 +2304,50 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void installUpdateSounds(ActionEvent actionEvent) {
+		String beforeText = installSoundsBtn.getText();
 		log("Running Install/Update Sounds", LogUtils.Severity.INFO);
-		startUpdate(soundPackDownloadURL, getJarPath(), "Sounds", false);
+		installSoundsBtn.setText("Installing..");
+		Task<Boolean> updateTask = startUpdate(URLStrings.soundPackDownloadURL, getJarPath(), "Sounds", false);
+		updateTask.setOnSucceeded(event -> {
+			if (updateTask.getValue()) {
+				if (checkSoundsInstalled()) {
+					enableSoundCheckbox.setSelected(true);
+					ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
+					showNotificationInfo("Updater", "Successfully Installed Latest SoundPack!");
+				}
+			} else {
+				log("Install/Update Sounds Error!", LogUtils.Severity.ERROR);
+				showNotificationError("Error", "Install/Update Sounds Error, Check Logs!");
+			}
+			installSoundsBtn.setText(beforeText);
+		});
 		
-		if (checkSoundsInstalled()) {
-			enableSoundCheckbox.setSelected(true);
-			ConfigWriter.configwrite("uiSettings", "enableSounds", "true");
-			showNotificationInfo("Updater", "Successfully Installed Latest SoundPack!");
-		}
+		WorkerThread updateThread = new WorkerThread("SoundUpdateThread", updateTask);
+		updateThread.start();
 	}
 	
 	@javafx.fxml.FXML
 	public void installUpdateImages(ActionEvent actionEvent) {
+		String beforeText = installImagesBtn.getText();
 		log("Running Install Ped/Veh Images", LogUtils.Severity.INFO);
-		startUpdate(imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
+		installImagesBtn.setText("Installing..");
+		Task<Boolean> updateTask = startUpdate(URLStrings.imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
+		updateTask.setOnSucceeded(event -> {
+			if (updateTask.getValue()) {
+				if (checkImagesInstalled()) {
+					enablePedVehImgsCheckbox.setSelected(true);
+					ConfigWriter.configwrite("uiSettings", "enablePedVehImages", "true");
+					showNotificationInfo("Updater", "Successfully Installed Ped/Vehicle Image Pack!");
+				}
+			} else {
+				log("Install/Update Ped/Veh Images Error!", LogUtils.Severity.ERROR);
+				showNotificationError("Error", "Install/Update Ped/Veh Images Error, Check Logs!");
+			}
+			installImagesBtn.setText(beforeText);
+		});
 		
-		if (checkImagesInstalled()) {
-			enablePedVehImgsCheckbox.setSelected(true);
-			ConfigWriter.configwrite("uiSettings", "enablePedVehImages", "true");
-			showNotificationInfo("Updater", "Successfully Installed Ped/Vehicle Image Pack!");
-		}
+		WorkerThread updateThread = new WorkerThread("SoundUpdateThread", updateTask);
+		updateThread.start();
 	}
 	
 	@javafx.fxml.FXML
@@ -2285,5 +2400,15 @@ public class settingsController {
 			desktopApp.getMainPane().setTranslateY(appY);
 			log("Reset App Position for: " + desktopApp.getName(), LogUtils.Severity.INFO);
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void useGameTimeClick(ActionEvent actionEvent) {
+		handleCheckboxClick("connectionSettings", "useGameTime", useGameTimeToggle);
+	}
+	
+	@javafx.fxml.FXML
+	public void probabilitySettingsButton(ActionEvent actionEvent) {
+		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 	}
 }

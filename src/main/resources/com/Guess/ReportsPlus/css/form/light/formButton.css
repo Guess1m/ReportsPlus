@@ -3,7 +3,7 @@
     -fx-border-width: 1;
     -fx-border-color: rgb(1, 1, 1, 0.2);
     -fx-text-fill: black !important;
-    -fx-font-family: "Segoe UI SemiBold";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 16px;
 }
 
@@ -14,13 +14,12 @@
     -fx-padding: 0 10px 0 10;
 }
 
-
 .incidentformButton:hover {
     -fx-background-color: #546778;
     -fx-border-width: 0;
 }
 
 .incidentformButton:pressed {
-    -fx-background-color: #495a69;
+    -fx-background-color: #495A69;
     -fx-border-width: 0;
 }

@@ -23,7 +23,7 @@ public class recordUtils {
 		byte[] encodedBytes = Files.readAllBytes(path);
 		String data = new String(encodedBytes);
 		
-		String[] pedestrians = data.split(",");
+		String[] pedestrians = data.split("\\|");
 		for (String pedestrian : pedestrians) {
 			Map<String, String> attributesMap = new HashMap<>();
 			String[] attributes = pedestrian.split("&");
@@ -58,7 +58,7 @@ public class recordUtils {
 		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
 		String data = new String(encodedBytes);
 		
-		String[] vehicles = data.split(",");
+		String[] vehicles = data.split("\\|");
 		for (String vehicle : vehicles) {
 			Map<String, String> attributesMap = new HashMap<>();
 			String[] attributes = vehicle.split("&");
@@ -71,7 +71,7 @@ public class recordUtils {
 				}
 			}
 			
-			if (attributesMap.getOrDefault("licensePlate", "").toLowerCase().equals(normalizedLicensePlate)) {
+			if (attributesMap.getOrDefault("licenseplate", "").toLowerCase().equals(normalizedLicensePlate)) {
 				return attributesMap;
 			}
 		}
@@ -90,7 +90,7 @@ public class recordUtils {
 		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
 		String data = new String(encodedBytes);
 		
-		String[] vehicles = data.split(",");
+		String[] vehicles = data.split("\\|");
 		for (String vehicle : vehicles) {
 			Map<String, String> attributesMap = new HashMap<>();
 			String[] attributes = vehicle.split("&");
@@ -103,7 +103,7 @@ public class recordUtils {
 				}
 			}
 			
-			if (attributesMap.getOrDefault("licensePlate", "") != null) {
+			if (attributesMap.getOrDefault("licenseplate", "") != null) {
 				return attributesMap;
 			}
 		}
@@ -112,4 +112,20 @@ public class recordUtils {
 		notFoundMap.put("error", "vehicle not found");
 		return notFoundMap;
 	}
+	
+	public static String extractValueByKey(String text, String keyToSearch) {
+		String[] parts = text.split("\\|");
+		for (String part : parts) {
+			String[] keyValue = part.split("=", 2);
+			if (keyValue.length == 2) {
+				String key = keyValue[0].trim();
+				String value = keyValue[1].trim();
+				if (key.equalsIgnoreCase(keyToSearch)) {
+					return value;
+				}
+			}
+		}
+		return null;
+	}
+	
 }

@@ -4,29 +4,27 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.stringUtil;
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import javafx.event.ActionEvent;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.version;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
+import static com.Guess.ReportsPlus.util.Strings.updateStrings.version;
 
 public class updatesController {
 	
@@ -61,12 +59,12 @@ public class updatesController {
 		verChangelog.setText(version);
 		hbox.setVisible(false);
 		
-		updates.addAll(List.of(stringUtil.updatesList));
+		updates.addAll(List.of(updateStrings.updatesList));
 		
 		updates.forEach(string -> {
 			Label label = new Label("* " + string);
 			label.setMinWidth(Region.USE_PREF_SIZE);
-			label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Segoe UI\";");
+			label.setStyle("-fx-text-fill:  #5A72A0; -fx-font-family: \"Inter 24pt Regular\";");
 			changelogBox.getChildren().add(label);
 		});
 		
@@ -108,65 +106,15 @@ public class updatesController {
 	@javafx.fxml.FXML
 	public void LaunchUpdater(ActionEvent actionEvent) {
 		if (updateAvailable) {
-			CustomWindow updaterToolWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/autoUpdater-tool.fxml", "AutoUpdate Utility", true, 2, true, true, mainDesktopControllerObj.getTaskBarApps(),
-			                                                                  new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"))));
+			CustomWindow updaterToolWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/autoUpdater-tool.fxml", "AutoUpdate Utility", true, 2, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png"))));
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void localeChangesClick(ActionEvent actionEvent) {
-		String changes = stringUtil.localeChanges;
+		String changes = updateStrings.localeChanges;
 		
-		Map<String, Map<String, String>> categorizedChanges = parseAndCategorizeChanges(changes);
-		
-		StringBuilder formattedChanges = new StringBuilder();
-		
-		formattedChanges.append("NEW:\n");
-		categorizedChanges.get("NEW").forEach((key, value) -> formattedChanges.append(key).append(" = ").append(value).append("\n"));
-		
-		formattedChanges.append("\nREMOVED:\n");
-		categorizedChanges.get("REMOVED").forEach((key, value) -> formattedChanges.append(key).append("\n")); // No value for removed items
-		
-		formattedChanges.append("\nCHANGED:\n");
-		categorizedChanges.get("CHANGED").forEach((key, value) -> formattedChanges.append(key).append(" -> ").append(value).append("\n"));
-		
-		showChangesWindow(formattedChanges.toString());
-	}
-	
-	private Map<String, Map<String, String>> parseAndCategorizeChanges(String changes) {
-		Map<String, Map<String, String>> categorizedChanges = new LinkedHashMap<>();
-		categorizedChanges.put("NEW", new LinkedHashMap<>());
-		categorizedChanges.put("REMOVED", new LinkedHashMap<>());
-		categorizedChanges.put("CHANGED", new LinkedHashMap<>());
-		
-		String currentCategory = null;
-		
-		String[] lines = changes.split("\n");
-		for (String line : lines) {
-			line = line.trim();
-			if (line.isEmpty()) {
-				continue;
-			}
-			
-			if (line.equalsIgnoreCase("NEW:")) {
-				currentCategory = "NEW";
-			} else if (line.equalsIgnoreCase("REMOVED:")) {
-				currentCategory = "REMOVED";
-			} else if (line.equalsIgnoreCase("CHANGED:")) {
-				currentCategory = "CHANGED";
-			} else if (currentCategory != null) {
-				if (currentCategory.equals("NEW") || currentCategory.equals("CHANGED")) {
-					String[] parts = line.split("=", 2);
-					String key = parts[0].trim();
-					String value = parts.length > 1 ? parts[1].trim() : "";
-					categorizedChanges.get(currentCategory).put(key, value);
-				} else if (currentCategory.equals("REMOVED")) {
-					categorizedChanges.get("REMOVED").put(line, "");
-				}
-			}
-		}
-		
-		return categorizedChanges;
+		showChangesWindow(changes);
 	}
 	
 	private void showChangesWindow(String changes) {
@@ -174,19 +122,68 @@ public class updatesController {
 		stage.setTitle("Locale Changes");
 		stage.initModality(Modality.APPLICATION_MODAL);
 		
-		TextArea textArea = new TextArea(changes);
-		textArea.setWrapText(true);
-		textArea.setEditable(false);
+		VBox vbox = new VBox();
+		vbox.setSpacing(15);
 		
-		VBox vbox = new VBox(textArea);
-		VBox.setVgrow(textArea, javafx.scene.layout.Priority.ALWAYS);
+		String[] lines = changes.split("\n");
 		
-		Scene scene = new Scene(vbox, 600, 500);
+		StringBuilder currentText = new StringBuilder();
+		boolean inVersionSection = false;
+		
+		for (String line : lines) {
+			line = line.trim();
+			
+			if (line.toLowerCase().startsWith("version:")) {
+				if (inVersionSection) {
+					TextArea textArea = new TextArea(currentText.toString());
+					textArea.setWrapText(false);
+					textArea.setEditable(false);
+					textArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+					vbox.getChildren().add(textArea);
+					textArea.setMinHeight(500);
+					VBox.setVgrow(textArea, Priority.ALWAYS);
+					currentText.setLength(0);
+				}
+				
+				if (!line.toLowerCase().startsWith("version: " + version.toLowerCase())) {
+					Separator separator = new Separator();
+					separator.setOrientation(Orientation.HORIZONTAL);
+					separator.setStyle("-fx-padding: 40 0 40 0;");
+					vbox.getChildren().add(separator);
+				}
+				
+				Label versionLabel = new Label(line);
+				versionLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16;");
+				vbox.getChildren().add(versionLabel);
+				
+				inVersionSection = true;
+			} else {
+				if (inVersionSection) {
+					currentText.append(line).append("\n");
+				}
+			}
+		}
+		
+		if (currentText.length() > 0) {
+			TextArea textArea = new TextArea(currentText.toString());
+			textArea.setWrapText(true);
+			textArea.setEditable(false);
+			textArea.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+			vbox.getChildren().add(textArea);
+			textArea.setMinHeight(500);
+			VBox.setVgrow(textArea, Priority.ALWAYS);
+		}
+		
+		ScrollPane scrollPane = new ScrollPane(vbox);
+		scrollPane.setStyle("-fx-padding: 30;");
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
+		
+		Scene scene = new Scene(scrollPane, 600, 500);
 		stage.setScene(scene);
 		
 		stage.setFullScreen(false);
 		stage.setAlwaysOnTop(true);
 		stage.showAndWait();
 	}
-	
 }

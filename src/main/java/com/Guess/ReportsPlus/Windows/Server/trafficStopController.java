@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLook
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabTrafficStop;
 
 public class trafficStopController {
@@ -110,13 +109,13 @@ public class trafficStopController {
 	}
 	
 	public void updateTrafficStopFields() throws IOException {
-		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerTrafficStop.data";
+		String filePath = getServerDataFolderPath() + "ServerTrafficStop.data";
 		Map<String, String> vehData = grabTrafficStop(filePath);
 		
-		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
+		String licensePlate = vehData.getOrDefault("licenseplate", "Not Found");
 		String model = vehData.getOrDefault("model", "Not Found");
-		String isStolen = vehData.getOrDefault("isStolen", "Not Found");
-		String isPolice = vehData.getOrDefault("isPolice", "Not Found");
+		String isStolen = vehData.getOrDefault("isstolen", "Not Found");
+		String isPolice = vehData.getOrDefault("ispolice", "Not Found");
 		String registration = vehData.getOrDefault("registration", "Not Found");
 		String insurance = vehData.getOrDefault("insurance", "Not Found");
 		String colorValue = vehData.getOrDefault("color", "Not Found");
@@ -251,7 +250,7 @@ public class trafficStopController {
 		ComboBox areats = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		ComboBox streetts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
 		
-		String filePath = getJarPath() + File.separator + "serverData" + File.separator + "ServerTrafficStop.data";
+		String filePath = getServerDataFolderPath() + "ServerTrafficStop.data";
 		Map<String, String> vehData;
 		try {
 			vehData = grabTrafficStop(filePath);
@@ -259,7 +258,7 @@ public class trafficStopController {
 			throw new RuntimeException(e);
 		}
 		
-		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
+		String licensePlate = vehData.getOrDefault("licenseplate", "Not Found");
 		String model = vehData.getOrDefault("model", "Not Found");
 		String owner = vehData.getOrDefault("owner", "Not Found");
 		String street = vehData.getOrDefault("street", "Not Found");

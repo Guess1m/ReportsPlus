@@ -7,6 +7,7 @@ import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
 import com.Guess.ReportsPlus.util.CourtData.CustomCaseCell;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBException;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +32,7 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.*;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 
 public class CourtViewController {
 	
@@ -168,7 +169,7 @@ public class CourtViewController {
 				courtViewController.caseLicenseStatLabel.setStyle("-fx-text-fill: gray;");
 			} else if (licenseStatusList.contains("Suspended")) {
 				licenseStatus = "Suspended";
-				courtViewController.caseLicenseStatLabel.setStyle("-fx-text-fill: #cc5200;");
+				courtViewController.caseLicenseStatLabel.setStyle("-fx-text-fill: #CC5200;");
 			} else if (licenseStatusList.contains("Revoked")) {
 				licenseStatus = "Revoked";
 				courtViewController.caseLicenseStatLabel.setStyle("-fx-text-fill: red;");
@@ -192,7 +193,7 @@ public class CourtViewController {
 				if (outcomeProbation.contains("years")) {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: red;");
 				} else if (outcomeProbation.contains("months") && Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
-					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: #cc5200;");
+					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: #CC5200;");
 				} else {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
 				}
@@ -208,11 +209,11 @@ public class CourtViewController {
 					if (outcomeSuspension.contains("years") && Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
 						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: red;");
 					} else {
-						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
+						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: #CC5200;");
 					}
 					courtViewController.caseSuspensionDuration.setText(outcomeSuspension);
 				} else {
-					courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: #cc5200;");
+					courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: #CC5200;");
 					courtViewController.caseSuspensionDuration.setText("License Revoked");
 				}
 			} else {
@@ -227,7 +228,7 @@ public class CourtViewController {
 				courtViewController.caseTotalLabel.setStyle("-fx-text-fill: red;");
 				courtViewController.caseTotalLabel.setText("$" + fineTotal + ".00");
 			} else if (fineTotal > 700) {
-				courtViewController.caseTotalLabel.setStyle("-fx-text-fill: #cc5200;");
+				courtViewController.caseTotalLabel.setStyle("-fx-text-fill: #CC5200;");
 				courtViewController.caseTotalLabel.setText("$" + fineTotal + ".00");
 			} else if (fineTotal > 0) {
 				courtViewController.caseTotalLabel.setStyle("-fx-text-fill: black;");
@@ -352,7 +353,37 @@ public class CourtViewController {
 		revealOutcomeBtn.setText(localization.getLocalizedMessage("CourtView.ShowOutcomesButton", "Show Outcome(s)"));
 		deleteCaseBtn.setText(localization.getLocalizedMessage("CourtView.DeleteCaseButton", "Delete Case"));
 		
+		synchronizeScrolling(caseOutcomesListView, caseOffencesListView);
+		
 		noCourtCaseSelectedlbl.setText(localization.getLocalizedMessage("CourtView.NoCaseFoundLabel", "No Court Case Selected."));
+	}
+	
+	private void synchronizeScrolling(ListView<?> listView1, ListView<?> listView2) {
+		listView1.skinProperty().addListener((obs, oldSkin, newSkin) -> {
+			ScrollBar scrollBar1 = getVerticalScrollBar(listView1);
+			ScrollBar scrollBar2 = getVerticalScrollBar(listView2);
+			if (scrollBar1 != null && scrollBar2 != null) {
+				bindScrollBars(scrollBar1, scrollBar2);
+			}
+		});
+		
+		listView2.skinProperty().addListener((obs, oldSkin, newSkin) -> {
+			ScrollBar scrollBar1 = getVerticalScrollBar(listView1);
+			ScrollBar scrollBar2 = getVerticalScrollBar(listView2);
+			if (scrollBar1 != null && scrollBar2 != null) {
+				bindScrollBars(scrollBar1, scrollBar2);
+			}
+		});
+	}
+	
+	private ScrollBar getVerticalScrollBar(ListView<?> listView) {
+		return listView.lookupAll(".scroll-bar").stream().filter(node -> node instanceof ScrollBar).map(node -> (ScrollBar) node).filter(scrollBar -> scrollBar.getOrientation() == javafx.geometry.Orientation.VERTICAL).findFirst().orElse(null);
+	}
+	
+	private void bindScrollBars(ScrollBar scrollBar1, ScrollBar scrollBar2) {
+		DoubleProperty v1 = scrollBar1.valueProperty();
+		DoubleProperty v2 = scrollBar2.valueProperty();
+		v1.bindBidirectional(v2);
 	}
 	
 	public void loadCaseLabels(ListView<String> listView) {

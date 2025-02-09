@@ -191,7 +191,7 @@ public class ProbabilitySettingsController {
 			licenseProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				licenseProbabilityLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED");
-				licenseProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				licenseProbabilityLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return false;
@@ -202,7 +202,7 @@ public class ProbabilitySettingsController {
 			licenseProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				licenseProbabilityLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED");
-				licenseProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				licenseProbabilityLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return true;
@@ -218,7 +218,7 @@ public class ProbabilitySettingsController {
 			chargeProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				chargeProbabilityLabel.setText("ALL FOUR MUST ADD UP TO 100 COMBINED");
-				chargeProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				chargeProbabilityLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return false;
@@ -229,7 +229,7 @@ public class ProbabilitySettingsController {
 			chargeProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				chargeProbabilityLabel.setText("ALL FOUR MUST ADD UP TO 100 COMBINED");
-				chargeProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				chargeProbabilityLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return true;
@@ -245,7 +245,7 @@ public class ProbabilitySettingsController {
 			citationProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				citationProbabilityLabel.setText("ALL FOUR MUST ADD UP TO 100 COMBINED");
-				citationProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				citationProbabilityLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return false;
@@ -256,7 +256,7 @@ public class ProbabilitySettingsController {
 			citationProbabilityLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				citationProbabilityLabel.setText("ALL FOUR MUST ADD UP TO 100 COMBINED");
-				citationProbabilityLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				citationProbabilityLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return true;
@@ -272,7 +272,7 @@ public class ProbabilitySettingsController {
 			permitTypeLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				permitTypeLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED");
-				permitTypeLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				permitTypeLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return false;
@@ -283,7 +283,7 @@ public class ProbabilitySettingsController {
 			permitTypeLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				permitTypeLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED");
-				permitTypeLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				permitTypeLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return true;
@@ -299,7 +299,7 @@ public class ProbabilitySettingsController {
 			permitClassLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				permitClassLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED (Ped Can Have Multiple)");
-				permitClassLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				permitClassLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return false;
@@ -310,7 +310,7 @@ public class ProbabilitySettingsController {
 			permitClassLabel.setVisible(true);
 			Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(3.5), evt -> {
 				permitClassLabel.setText("ALL THREE MUST ADD UP TO 100 COMBINED (Ped Can Have Multiple)");
-				permitClassLabel.setStyle("-fx-text-fill: #ffa3a3;");
+				permitClassLabel.setStyle("-fx-text-fill: #FFA3A3;");
 			}));
 			timeline1.play();
 			return true;

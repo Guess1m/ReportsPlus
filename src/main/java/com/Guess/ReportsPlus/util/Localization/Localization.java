@@ -1,26 +1,28 @@
 package com.Guess.ReportsPlus.util.Localization;
 
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.stringUtil;
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
 public class Localization {
-	
+
 	private final CommentedProperties properties = new CommentedProperties();
-	private final String filePath = getJarPath() + "/locale/locale.properties";
+	private final String filePath = getJarPath() + "/locale/" + LanguageConfigManager.generateLocalizedFileName();
 	
 	public Localization() {
 		loadProperties();
 	}
 	
 	private void loadProperties() {
-		File file = new File(filePath);
+
+		LanguageConfigManager.checkAndSetLanguageConfig(true);
+        File file = new File(filePath);
 		File localizationFolder = new File(getJarPath() + "/locale");
 		if (!localizationFolder.exists()) {
 			localizationFolder.mkdirs();
@@ -52,7 +54,7 @@ public class Localization {
 	
 	private void saveProperties() {
 		try (OutputStream output = new FileOutputStream(filePath)) {
-			properties.storeWithComments(output, "ReportPlus Localization For Version: " + stringUtil.version + "\n# Reccomended to keep capital words capital");
+			properties.storeWithComments(output, "ReportPlus Localization For Version: " + updateStrings.version + "\n# Reccomended to keep capital words capital");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

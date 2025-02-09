@@ -4,6 +4,7 @@ import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
+import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -27,9 +28,9 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.handleClose;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.*;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.*;
 
 public class AutoUpdaterToolController {
@@ -336,9 +337,9 @@ public class AutoUpdaterToolController {
 			}
 		});
 		
-		Thread thread = new Thread(downloadTask);
-		thread.setDaemon(true);
-		thread.start();
+		WorkerThread downloadTaskThread = new WorkerThread("DownloadTaskThread", downloadTask);
+		downloadTaskThread.setDaemon(true);
+		downloadTaskThread.start();
 		
 	}
 	

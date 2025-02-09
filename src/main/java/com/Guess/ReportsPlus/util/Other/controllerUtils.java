@@ -1,21 +1,24 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Other;
 
-import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.History.Ped;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.treeViewUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
-import jakarta.xml.bind.JAXBException;
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -26,14 +29,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,7 +45,6 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.audioExecutor;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.*;
 
 public class controllerUtils {
 	
@@ -70,69 +69,24 @@ public class controllerUtils {
 	
 	public static void getOperatingSystemAndArch() {
 		log("====================== System Info ======================", LogUtils.Severity.INFO);
+		log("----- OS Info -----", LogUtils.Severity.INFO);
 		log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.DEBUG);
+		log("Operating System Version: " + System.getProperty("os.version"), LogUtils.Severity.DEBUG);
 		log("Operating System Architecture: " + System.getProperty("os.arch"), LogUtils.Severity.DEBUG);
+		log("----- Java Info -----", LogUtils.Severity.INFO);
 		log("Java Version: " + System.getProperty("java.version"), LogUtils.Severity.DEBUG);
 		log("Java Runtime Version: " + System.getProperty("java.runtime.version"), LogUtils.Severity.DEBUG);
 		log("Java Home Directory: " + System.getProperty("java.home"), LogUtils.Severity.DEBUG);
 		log("Java Class Version: " + System.getProperty("java.class.version"), LogUtils.Severity.DEBUG);
+		log("JVM Name: " + System.getProperty("java.vm.name"), LogUtils.Severity.DEBUG);
+		log("JVM Vendor: " + System.getProperty("java.vm.vendor"), LogUtils.Severity.DEBUG);
+		log("JVM Version: " + System.getProperty("java.vm.version"), LogUtils.Severity.DEBUG);
 		log("=========================================================", LogUtils.Severity.INFO);
-	}
-	
-	public static String calculateAge(String dateOfBirth) {
-		if (dateOfBirth == null || dateOfBirth.isEmpty()) {
-			log("Error calculating age, dateOfBirth is null or empty", LogUtils.Severity.ERROR);
-			return "Not Found";
-		}
-		
-		try {
-			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
-			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy", Locale.ENGLISH);
-			DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH);
-			
-			LocalDate birthDate;
-			try {
-				birthDate = LocalDate.parse(dateOfBirth, formatter1);
-			} catch (DateTimeParseException e1) {
-				try {
-					birthDate = LocalDate.parse(dateOfBirth, formatter2);
-				} catch (DateTimeParseException e2) {
-					birthDate = LocalDate.parse(dateOfBirth, formatter3);
-				}
-			}
-			
-			LocalDate currentDate = LocalDate.now();
-			if (birthDate.isAfter(currentDate)) {
-				log("Error calculating age, birthdate after current date", LogUtils.Severity.ERROR);
-				return "Not Found";
-			}
-			
-			Period age = Period.between(birthDate, currentDate);
-			return String.valueOf(age.getYears());
-		} catch (DateTimeParseException e) {
-			log("Error calculating age, improper syntax", LogUtils.Severity.ERROR);
-			return "Not Found";
-		} catch (Exception e) {
-			log("Unexpected error calculating age", LogUtils.Severity.ERROR);
-			return "Not Found";
-		}
 	}
 	
 	public static String updateStyleProperty(Node node, String property, String value) {
 		String updatedStyle = node.getStyle().replaceAll(property + ": [^;]*;", "");
 		return updatedStyle + property + ": " + value + ";";
-	}
-	
-	public static String getJarDirectoryPath() {
-		try {
-			
-			String jarPath = Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			
-			return new File(jarPath).getParent();
-		} catch (Exception e) {
-			logError("GetJarDirPath Exception", e);
-			return "";
-		}
 	}
 	
 	public static void updateSecondary(Color color) {
@@ -242,12 +196,22 @@ public class controllerUtils {
 	}
 	
 	public static void setSmallColumnWidth(TableColumn column) {
-		double minColumnWidthSmall = 150.0;
+		double minColumnWidthSmall = 160.0;
 		column.setMaxWidth(minColumnWidthSmall);
 	}
 	
 	public static String toHexString(Color color) {
 		return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
+	}
+	
+	public static Color rgbToHexString(String rgb) {
+		rgb = rgb.replace("rgb(", "").replace(")", "");
+		String[] rgbValues = rgb.split(",");
+		int red = Integer.parseInt(rgbValues[0].trim());
+		int green = Integer.parseInt(rgbValues[1].trim());
+		int blue = Integer.parseInt(rgbValues[2].trim());
+		
+		return Color.rgb(red, green, blue);
 	}
 	
 	public static void clearDataLogs() {
@@ -401,7 +365,7 @@ public class controllerUtils {
 	public static void clearConfig() {
 		try {
 			
-			String configFilePath = getJarDirectoryPath() + File.separator + "config.properties";
+			String configFilePath = getJarPath() + File.separator + "config.properties";
 			File configFile = new File(configFilePath);
 			
 			if (configFile.exists() && configFile.isFile()) {
@@ -636,7 +600,7 @@ public class controllerUtils {
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
 					Label label = new Label(item.trim());
-					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					labels.add(label);
 				}
 			}
@@ -651,7 +615,7 @@ public class controllerUtils {
 			for (String item : items) {
 				if (!item.trim().isEmpty()) {
 					Label label = new Label(localization.getLocalizedMessage("CourtView.PendingTrialLabel", "Pending Trial"));
-					label.setStyle("-fx-font-family: \"Segoe UI Semibold\";");
+					label.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
 					labels.add(label);
 				}
 			}
@@ -671,63 +635,13 @@ public class controllerUtils {
 		return fineTotal;
 	}
 	
-	public static Ped createPed(String licenseNumber, String name, String gender, String birthday, String address, String isWanted, String licenseStatus) {
-		Ped ped = new Ped();
-		ped.setLicenseNumber(licenseNumber);
-		ped.setName(name);
-		ped.setGender(gender);
-		ped.setBirthday(birthday);
-		ped.setAddress(address);
-		ped.setWantedStatus(isWanted);
-		ped.setLicenseStatus(licenseStatus);
-		return ped;
-	}
-	
-	public static void setGunLicenseStatus(Ped ped) throws IOException {
-		Boolean hasGunLicense = calculateTrueFalseProbability(ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
-		
-		if (hasGunLicense) {
-			String gunlicstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			ped.setGunLicenseStatus(gunlicstatus);
-			
-			if (gunlicstatus.equalsIgnoreCase("suspended")) {
-				ped.setGunLicenseExpiration("Suspended License");
-			} else if (gunlicstatus.equalsIgnoreCase("expired")) {
-				ped.setGunLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			
-			ped.setGunLicenseType(getGunLicenseType());
-			ped.setGunLicenseClass(getGunLicenseClass());
-			ped.setGunLicenseNumber(generateLicenseNumber());
-			
-			boolean huntlic = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
-			if (huntlic) {
-				String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
-				                                          Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-				ped.setHuntingLicenseStatus(licstatus);
-				
-				if (licstatus.equalsIgnoreCase("suspended")) {
-					ped.setHuntingLicenseExpiration("Suspended License");
-				} else if (licstatus.equalsIgnoreCase("expired")) {
-					ped.setHuntingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-				} else {
-					ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
-				}
-				
-				ped.setHuntingLicenseNumber(generateLicenseNumber());
-			}
-		}
-	}
-	
 	public static int setArrestPriors(Ped ped) throws IOException {
-		String chargesFilePath = getJarPath() + File.separator + "data" + File.separator + "Charges.xml";
+		String chargesFilePath = getDataFolderPath() + "Charges.xml";
 		List<String> priorCharges;
 		try {
-			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")),
-			                                Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
+			priorCharges = getRandomCharges(chargesFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceNoCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceMinimalCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceFewCharges")), Double.parseDouble(ConfigReader.configRead("pedHistoryArrest", "chanceManyCharges")));
 		} catch (ParserConfigurationException | SAXException e) {
+			logError("Error parsing XML file: " + chargesFilePath, e);
 			throw new RuntimeException(e);
 		}
 		StringBuilder stringBuilder = new StringBuilder();
@@ -744,11 +658,10 @@ public class controllerUtils {
 	}
 	
 	public static int setCitationPriors(Ped ped) throws IOException {
-		String citationsFilePath = getJarPath() + File.separator + "data" + File.separator + "Citations.xml";
+		String citationsFilePath = getDataFolderPath() + "Citations.xml";
 		List<String> priorCitations;
 		try {
-			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")),
-			                                    Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
+			priorCitations = getRandomCitations(citationsFilePath, Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceNoCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceMinimalCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceFewCitations")), Double.parseDouble(ConfigReader.configRead("pedHistoryCitation", "chanceManyCitations")));
 		} catch (ParserConfigurationException | SAXException e) {
 			throw new RuntimeException(e);
 		}
@@ -765,219 +678,21 @@ public class controllerUtils {
 		return citCount;
 	}
 	
-	public static String getGunLicenseType() throws IOException {
-		String licenseTypeSet = String.valueOf(getPermitTypeBasedOnChances(Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "concealedCarryChance")), Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "openCarryChance")),
-		                                                                   Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitType", "bothChance"))));
-		
-		if (licenseTypeSet.toLowerCase().contains("open")) {
-			return "Open Carry";
-		} else if (licenseTypeSet.toLowerCase().contains("concealed")) {
-			return "Concealed Carry";
-		} else {
-			return "Open Carry / Concealed Carry";
-		}
-	}
-	
 	public static String getGunLicenseClass() throws IOException {
-		Set<String> licenseClassSet = getPermitClassBasedOnChances(Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")), Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")),
-		                                                           Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
+		Set<String> licenseClassSet = getPermitClassBasedOnChances(Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "handgunChance")), Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "shotgunChance")), Integer.parseInt(ConfigReader.configRead("pedHistoryGunPermitClass", "longgunChance")));
 		
 		return String.join(" / ", licenseClassSet).trim();
 	}
 	
-	public static void setPedPriors(Ped ped) {
-		int totalChargePriors = 0;
-		try {
-			totalChargePriors = setArrestPriors(ped);
-		} catch (IOException e) {
-			logError("Could not fetch arrestPriors: ", e);
-		}
-		int totalCitationPriors = 0;
-		try {
-			totalCitationPriors = setCitationPriors(ped);
-		} catch (IOException e) {
-			logError("Could not fetch citationPriors: ", e);
-		}
-		
-		if (totalChargePriors >= 1) {
-			try {
-				ped.setParoleStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance"))));
-			} catch (IOException e) {
-				logError("Could not set ParoleStatus: ", e);
-			}
-			try {
-				ped.setProbationStatus(String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance"))));
-			} catch (IOException e) {
-				logError("Could not set ProbationStatus: ", e);
-			}
-		}
-		
-		String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
-		
-		int baseFlagFactor = 5;
-		try {
-			baseFlagFactor = Integer.parseInt(ConfigReader.configRead("pedHistory", "baseFlagProbability"));
-		} catch (IOException e) {
-			logError("Could not fetch baseFlagFactor: ", e);
-		}
-		
-		String flags = assignFlagsBasedOnPriors(totalChargePriors, baseFlagFactor, 0.9, 2);
-		
-		if (flags != null && flags.length() > 0 && !flags.equals("")) {
-			ped.setFlags(flags);
-		}
-		
-		ped.setTimesStopped(totalStops);
-	}
-	
-	public static Ped createNewPed(String name, String licenseNumber, String gender, String birthday, String address, String isWanted, String licenseStatus, String pedModel) throws IOException {
-		Ped ped = createPed(licenseNumber, name, gender, birthday, address, isWanted, licenseStatus);
-		
-		if (isWanted.equalsIgnoreCase("true")) {
-			setPedWarrantStatus(ped);
-		}
-		
-		setPedPriors(ped);
-		
-		boolean fishLicStatus = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
-		if (fishLicStatus) {
-			String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			ped.setFishingLicenseStatus(licstatus);
-			
-			if (licstatus.equalsIgnoreCase("suspended")) {
-				ped.setFishingLicenseExpiration("Suspended License");
-			} else if (licstatus.equalsIgnoreCase("expired")) {
-				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			
-			ped.setFishingLicenseNumber(generateLicenseNumber());
-		}
-		
-		boolean boatLicStatus = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
-		if (boatLicStatus) {
-			String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			
-			if (licstatus.equalsIgnoreCase("suspended")) {
-				ped.setBoatingLicenseExpiration("Suspended License");
-			} else if (licstatus.equalsIgnoreCase("expired")) {
-				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			
-			ped.setBoatingLicenseStatus(licstatus);
-			ped.setBoatingLicenseNumber(generateLicenseNumber());
-		}
-		
-		if (!pedModel.equalsIgnoreCase("Not Found")) {
-			ped.setModel(pedModel);
-		} else {
-			log("ped model is 'Not Found' so not adding", Severity.WARN);
-		}
-		try {
-			setGunLicenseStatus(ped);
-		} catch (IOException e) {
-			logError("Could not set gunLicenseStatus: ", e);
-		}
-		
-		try {
-			Ped.PedHistoryUtils.addPed(ped);
-		} catch (JAXBException e) {
-			logError("Error adding ped to PedHistory: ", e);
-		}
-		return ped;
-	}
-	
-	public static void setPedWarrantStatus(Ped ped) {
-		try {
-			String warrant = null;
-			try {
-				warrant = getRandomCharge(chargesFilePath);
-			} catch (IOException e) {
-				logError("Error getting randomCharge: ", e);
-			}
-			if (warrant != null) {
-				String department = getRandomDepartment();
-				String number = generateLicenseNumber();
-				String issuedDate = generateExpiredLicenseExpirationDate(5);
-				ped.setOutstandingWarrants(warrant);
-				ped.setWarrantAgency(department);
-				ped.setWarrantNumber(number);
-				ped.setDateWarrantIssued(issuedDate);
-			} else {
-				ped.setOutstandingWarrants("WANTED - No details");
-			}
-		} catch (ParserConfigurationException | SAXException e) {
-			logError("Error getting random charge: ", e);
-			ped.setOutstandingWarrants("WANTED - Error retrieving details");
-		}
-	}
-	
-	public static Ped createOwnerPed(String owner, String vehPlateNum) throws IOException {
-		String genderOutcome = calculateTrueFalseProbability("50") ? "Male" : "Female";
-		String isWantedOutcome = calculateTrueFalseProbability("15") ? "true" : "false";
-		Ped ped = createPed(generateLicenseNumber(), owner, genderOutcome, generateBirthday(22, 60), getRandomAddress(), isWantedOutcome, calculateLicenseStatus(55, 22, 23));
-		
-		if (isWantedOutcome.equalsIgnoreCase("true")) {
-			setPedWarrantStatus(ped);
-		}
-		
-		setPedPriors(ped);
-		
-		boolean fishLicStatus = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
-		if (fishLicStatus) {
-			String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			ped.setFishingLicenseStatus(licstatus);
-			
-			if (licstatus.equalsIgnoreCase("suspended")) {
-				ped.setFishingLicenseExpiration("Suspended License");
-			} else if (licstatus.equalsIgnoreCase("expired")) {
-				ped.setFishingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			
-			ped.setFishingLicenseNumber(generateLicenseNumber());
-		}
-		
-		boolean boatLicStatus = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
-		if (boatLicStatus) {
-			String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
-			
-			if (licstatus.equalsIgnoreCase("suspended")) {
-				ped.setBoatingLicenseExpiration("Suspended License");
-			} else if (licstatus.equalsIgnoreCase("expired")) {
-				ped.setBoatingLicenseExpiration(generateExpiredLicenseExpirationDate(3));
-			} else {
-				ped.setBoatingLicenseExpiration(generateValidLicenseExpirationDate());
-			}
-			ped.setBoatingLicenseStatus(licstatus);
-			ped.setBoatingLicenseNumber(generateLicenseNumber());
-		}
-		ped.setVehiclePlateNum(vehPlateNum);
-		try {
-			setGunLicenseStatus(ped);
-		} catch (IOException e) {
-			logError("Could not set gunLicenseStatus: ", e);
-		}
-		
-		try {
-			Ped.PedHistoryUtils.addPed(ped);
-		} catch (JAXBException e) {
-			logError("Error adding ped to PedHistory: ", e);
-		}
-		return ped;
-	}
-	
 	public static void updateRecentSearches(List<String> recentSearches, ComboBox<String> searchField, String newSearch) {
-		recentSearches.remove(newSearch);
-		recentSearches.add(0, newSearch);
-		if (recentSearches.size() > 5) {
-			recentSearches.remove(5);
+		if (!newSearch.isEmpty()) {
+			recentSearches.remove(newSearch);
+			recentSearches.add(0, newSearch);
+			if (recentSearches.size() > 5) {
+				recentSearches.remove(5);
+			}
+			searchField.getItems().setAll(recentSearches);
 		}
-		searchField.getItems().setAll(recentSearches);
 	}
 	
 	public static void copyChargeDataFile() throws IOException {
@@ -1040,6 +755,60 @@ public class controllerUtils {
 			} else {
 				log("Resource not found: " + sourcePathCustomization, Severity.ERROR);
 			}
+		}
+	}
+	
+	public static void setColumnAlignment(TableColumn<?, String> calloutStatusColumn, Pos position, String text) {
+		Label label = new Label(text);
+		HBox hbox = new HBox(label);
+		hbox.setAlignment(position);
+		hbox.setPadding(new Insets(0, 0, 0, 5));
+		
+		calloutStatusColumn.setText(null);
+		calloutStatusColumn.setGraphic(hbox);
+	}
+	
+	public static String hexToRgba(String hex, double transparency) {
+		if (hex.startsWith("#")) {
+			hex = hex.substring(1);
+		}
+		if (hex.length() != 6) {
+			throw new IllegalArgumentException("Invalid hex color string");
+		}
+		if (transparency < 0.0 || transparency > 1.0) {
+			throw new IllegalArgumentException("Transparency must be between 0.0 and 1.0");
+		}
+		
+		int r = Integer.parseInt(hex.substring(0, 2), 16);
+		int g = Integer.parseInt(hex.substring(2, 4), 16);
+		int b = Integer.parseInt(hex.substring(4, 6), 16);
+		
+		return String.format("rgb(%d, %d, %d, %.2f)", r, g, b, transparency);
+	}
+	
+	public static String getDataLogsFolderPath() {
+		return getJarPath() + File.separator + "DataLogs" + File.separator;
+	}
+	
+	public static String getDataFolderPath() {
+		return getJarPath() + File.separator + "data" + File.separator;
+	}
+	
+	public static String getServerDataFolderPath() {
+		return getJarPath() + File.separator + "serverData" + File.separator;
+	}
+	
+	public static String getJarPath() {
+		try {
+			
+			String jarPath = updateStrings.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+			
+			String jarDir = new File(jarPath).getParent();
+			
+			return jarDir;
+		} catch (URISyntaxException e) {
+			logError("GetJarPath URI Syntax Error ", e);
+			return "";
 		}
 	}
 }

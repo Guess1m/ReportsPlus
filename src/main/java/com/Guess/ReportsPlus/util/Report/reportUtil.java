@@ -4,9 +4,8 @@ import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.ChargesData;
 import com.Guess.ReportsPlus.logs.CitationsData;
-import com.Guess.ReportsPlus.util.Misc.AutoCompleteComboBoxListener;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.dropdownInfo;
+import com.Guess.ReportsPlus.util.Strings.dropdownInfo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
@@ -36,9 +35,11 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.findXMLValue;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.parseTreeXML;
+
+//TODO: controlsfx searchable combobox
 
 public class reportUtil {
 	private static String getPrimaryColor() {
@@ -88,7 +89,7 @@ public class reportUtil {
 		
 		Label warningLabel = new Label("Please fill out the form");
 		warningLabel.setVisible(false);
-		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: 'Segoe UI'; -fx-font-size: 14;");
+		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: 'Inter 24pt Regular'; -fx-font-size: 14;");
 		
 		for (int i = 0; i < 12; i++) {
 			ColumnConstraints column = new ColumnConstraints();
@@ -97,10 +98,10 @@ public class reportUtil {
 		}
 		
 		Label mainHeaderLabel = new Label(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
-		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-text-fill: " + placeholder + "; -fx-font-family: \"Segoe UI Black\";");
+		mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Bold\";");
 		
 		Label statusLabel = new Label(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:") + " ");
-		statusLabel.setStyle("-fx-font-size: 15.5px;-fx-text-fill: " + placeholder + "; -fx-font-family: \"Segoe UI Semibold\";");
+		statusLabel.setStyle("-fx-font-size: 15.5px;-fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Medium\";");
 		
 		ComboBox<String> statusValue = new ComboBox<>();
 		statusValue.getStyleClass().add("comboboxnew");
@@ -123,15 +124,15 @@ public class reportUtil {
 					setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
 				} else {
 					if (item.equals("Closed")) {
-						setStyle("-fx-text-fill: #ff8e69;");
+						setStyle("-fx-text-fill: #FF8E69;");
 					} else if (item.equals("In Progress")) {
-						setStyle("-fx-text-fill: #79afff;");
+						setStyle("-fx-text-fill: #79AFFF;");
 					} else if (item.equals("Reopened")) {
-						setStyle("-fx-text-fill: #b05ef3;");
+						setStyle("-fx-text-fill: #B05EF3;");
 					} else if (item.equals("Pending")) {
-						setStyle("-fx-text-fill: #f3c95e;");
+						setStyle("-fx-text-fill: #F3C95E;");
 					} else if (item.equals("Cancelled")) {
-						setStyle("-fx-text-fill: #f35645;");
+						setStyle("-fx-text-fill: #F35645;");
 					} else {
 						setStyle("-fx-text-fill: " + placeholder + ";");
 					}
@@ -162,7 +163,7 @@ public class reportUtil {
 		for (nestedReportUtils.SectionConfig sectionConfig : sectionConfigs) {
 			
 			Label sectionLabel = new Label(sectionConfig.getSectionTitle());
-			sectionLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: " + placeholder + "; -fx-font-family: 'Segoe UI Black'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+			sectionLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: " + placeholder + "; -fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 			gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
 			rowIndex++;
 			
@@ -205,13 +206,12 @@ public class reportUtil {
 		MenuButton pullNotesBtn = new MenuButton(localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
 		pullNotesBtn.setMinWidth(Region.USE_PREF_SIZE);
 		pullNotesBtn.getStyleClass().add("incidentformButton");
-		pullNotesBtn.setStyle("-fx-padding: 15;");
-		pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor());
+		pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-padding: 5px 2px;");
 		pullNotesBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
-				pullNotesBtn.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+				pullNotesBtn.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-padding: 5px 2px;");
 			} else {
-				pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+				pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-padding: 5px 2px;");
 			}
 		});
 		
@@ -229,7 +229,7 @@ public class reportUtil {
 			}
 		});
 		
-		HBox buttonBox = new HBox(10, delBtn, pullNotesBtn, warningLabel, submitBtn);
+		HBox buttonBox = new HBox(10, delBtn, warningLabel, pullNotesBtn, submitBtn);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 		VBox root = new VBox(10, topHeaderGridPane, gridPane);
 		
@@ -691,14 +691,43 @@ public class reportUtil {
 					
 					gridPane.add(citationTableView, additionalColumnIndex, rowIndex + 4, remainingColumns, 1);
 					
+					ComboBox<String> citationTypeDropdown = new ComboBox<>();
+					citationTypeDropdown.getStyleClass().add("comboboxnew");
+					citationTypeDropdown.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+					citationTypeDropdown.focusedProperty().addListener((observable, oldValue, newValue) -> {
+						if (newValue) {
+							citationTypeDropdown.setStyle("-fx-background-color: " + getSecondaryColor() + ";");
+						} else {
+							citationTypeDropdown.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
+						}
+					});
+					citationTypeDropdown.getItems().addAll(localization.getLocalizedMessage("ReportWindows.CitationTypeNonPrinted", "Non-Printed"), localization.getLocalizedMessage("ReportWindows.CitationTypePrinted", "Printed Citation"), localization.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation"));
+					citationTypeDropdown.setPromptText(localization.getLocalizedMessage("ReportWindows.CitationTypePrompt", "Citation Type"));
+					citationTypeDropdown.setButtonCell(new ListCell() {
+						@Override
+						protected void updateItem(Object item, boolean empty) {
+							super.updateItem(item, empty);
+							if (empty || item == null) {
+								setStyle("-fx-text-fill: derive(-fx-control-inner-background,-40%)");
+							} else {
+								setStyle("-fx-text-fill: " + placeholder + ";");
+								setText(item.toString());
+							}
+						}
+					});
+					citationTypeDropdown.setMaxWidth(Double.MAX_VALUE);
+					
+					gridPane.add(citationTypeDropdown, additionalColumnIndex, rowIndex + 5, remainingColumns, 1);
+					
 					fieldsMap.put("CitationNameField", citationNameField);
 					fieldsMap.put("CitationFineField", citationFineField);
 					fieldsMap.put("AddButton", addButton);
 					fieldsMap.put("RemoveButton", removeButton);
+					fieldsMap.put("CitationType", citationTypeDropdown);
 					fieldsMap.put("CitationTableView", citationTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), treeView);
 					
-					citationInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Segoe UI Black'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					citationInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					addButton.getStyleClass().add("incidentformButton");
 					addButton.setStyle("-fx-padding: 15;");
 					addButton.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -866,7 +895,7 @@ public class reportUtil {
 					chargeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 					chargeTableView.getStyleClass().add("calloutTABLE");
 					
-					TableColumn<ChargesData, String> chargeColumn = new TableColumn<>("Charge");
+					TableColumn<ChargesData, String> chargeColumn = new TableColumn<>(localization.getLocalizedMessage("ReportWindows.chargeColumn", "Charge"));
 					chargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
 					chargeTableView.setTableMenuButtonVisible(false);
 					
@@ -892,7 +921,7 @@ public class reportUtil {
 					fieldsMap.put("ChargeTableView", chargeTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 					
-					chargeInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Segoe UI Black'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+					chargeInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					addButton2.getStyleClass().add("incidentformButton");
 					addButton2.setStyle("-fx-padding: 15;");
 					addButton2.setStyle("-fx-background-color: " + getPrimaryColor());

@@ -1,4 +1,4 @@
-package com.Guess.ReportsPlus.util.Misc;
+package com.Guess.ReportsPlus.util.Report;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

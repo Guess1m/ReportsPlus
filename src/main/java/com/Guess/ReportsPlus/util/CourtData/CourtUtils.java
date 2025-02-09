@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.courtDataURL;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.courtDataURL;
 
 public class CourtUtils {
 	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(1);

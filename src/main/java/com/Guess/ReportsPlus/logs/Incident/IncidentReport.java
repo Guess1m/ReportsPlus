@@ -75,7 +75,7 @@ public class IncidentReport {
 		this.incidentActionsTaken = incidentActionsTaken;
 	}
 	
-	public String getIncidentArea() {
+	public String getArea() {
 		return incidentArea;
 	}
 	
@@ -83,7 +83,7 @@ public class IncidentReport {
 		this.incidentArea = incidentArea;
 	}
 	
-	public String getIncidentCounty() {
+	public String getCounty() {
 		return incidentCounty;
 	}
 	

@@ -5,9 +5,10 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.logs.LookupObjects.VehicleObject;
 import com.Guess.ReportsPlus.util.History.Vehicle;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Misc.NoteTab;
+import com.Guess.ReportsPlus.util.Other.NoteTab;
 import jakarta.xml.bind.JAXBException;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
@@ -29,7 +30,10 @@ import javafx.stage.Popup;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -42,17 +46,15 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
 import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.generateInspectionStatus;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.CalloutManager.createLabel;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.controllerUtils.updateRecentSearches;
-import static com.Guess.ReportsPlus.util.Misc.dropdownInfo.vehicleTypes;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.getJarPath;
-import static com.Guess.ReportsPlus.util.Misc.stringUtil.vehImageFolderURL;
-import static com.Guess.ReportsPlus.util.Server.recordUtils.grabVehicleData;
+import static com.Guess.ReportsPlus.util.Other.CalloutManager.createLabel;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateRecentSearches;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehImageFolderURL;
+import static com.Guess.ReportsPlus.util.Strings.dropdownInfo.vehicleTypes;
 
 public class VehLookupViewController {
-	
 	public static VehLookupViewController vehLookupViewController;
 	private final List<String> recentVehicleSearches = new ArrayList<>();
 	@javafx.fxml.FXML
@@ -112,8 +114,6 @@ public class VehLookupViewController {
 	@javafx.fxml.FXML
 	private Label plt9;
 	@javafx.fxml.FXML
-	private Button probabilitySettingsBtn;
-	@javafx.fxml.FXML
 	private TextField vehinspectionfield;
 	@javafx.fxml.FXML
 	private ScrollPane vehPane;
@@ -135,6 +135,10 @@ public class VehLookupViewController {
 	private Label info2;
 	@javafx.fxml.FXML
 	private Button btninfo3;
+	@javafx.fxml.FXML
+	private Label plt11;
+	@javafx.fxml.FXML
+	private TextField vehvinfield;
 	
 	public void initialize() {
 		noVehImageFoundlbl.setVisible(false);
@@ -163,7 +167,6 @@ public class VehLookupViewController {
 		
 		vehSearchBtn.setText(localization.getLocalizedMessage("VehicleLookup.SearchButton", "Search"));
 		addDataToNotesBtn.setText(localization.getLocalizedMessage("VehicleLookup.AddDataToNotesBtn", "Add Data To Notes"));
-		probabilitySettingsBtn.setText(localization.getLocalizedMessage("VehicleLookup.ProbabilitySettingsBtn", "Probability Settings"));
 		
 		btninfo3.setText(localization.getLocalizedMessage("VehicleLookup.OwnerLookupBtn", "Owner Lookup"));
 		btninfo2.setText(localization.getLocalizedMessage("VehicleLookup.CreateImpoundReportBtn", "Create Impound Report"));
@@ -182,46 +185,49 @@ public class VehLookupViewController {
 		plt8.setText(localization.getLocalizedMessage("VehicleLookup.FieldPoliceVehicle", "Police Vehicle:"));
 		plt9.setText(localization.getLocalizedMessage("VehicleLookup.FieldInspectionStatus", "Inspection Status:"));
 		plt10.setText(localization.getLocalizedMessage("VehicleLookup.FieldType", "Vehicle Type:"));
+		plt11.setText(localization.getLocalizedMessage("VehicleLookup.FieldVIN", "Registered VIN:"));
 		
 	}
 	
 	@javafx.fxml.FXML
 	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		boolean playAudio = false;
+		boolean foundVehicle = false;
 		String searchedPlate = vehSearchField.getEditor().getText().trim();
-		if (!searchedPlate.isEmpty()) {
-			updateRecentSearches(recentVehicleSearches, vehSearchField, searchedPlate);
-		}
+		updateRecentSearches(recentVehicleSearches, vehSearchField, searchedPlate);
 		vehSearchField.getEditor().setText(searchedPlate);
 		vehSearchField.getEditor().positionCaret(vehSearchField.getEditor().getText().length());
 		
-		log("Searched: " + searchedPlate, LogUtils.Severity.INFO);
-		Map<String, String> vehData = grabVehicleData(getJarPath() + File.separator + "serverData" + File.separator + "ServerWorldCars.data", searchedPlate);
-		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
+		log("Searched Plate#: " + searchedPlate, LogUtils.Severity.INFO);
 		
-		String model = vehData.getOrDefault("model", "Not Found");
-		String isStolen = vehData.getOrDefault("isStolen", "Not Found");
-		String isPolice = vehData.getOrDefault("isPolice", "Not Found");
-		String registration = vehData.getOrDefault("registration", "Not Found");
-		String insurance = vehData.getOrDefault("insurance", "Not Found");
-		String colorValue = vehData.getOrDefault("color", "Not Found");
-		String owner = vehData.getOrDefault("owner", "Not Found");
-		String[] rgb = colorValue.split("-");
-		String color = "Not Found";
+		Optional<Vehicle> historyVehicle = findVehicleByNumber(searchedPlate);
+		VehicleObject worldVehicle = new VehicleObject(searchedPlate);
 		
-		String licensePlate = vehData.getOrDefault("licensePlate", "Not Found");
-		
-		if (vehOptional.isPresent()) {
+		// A Vehicle exists in either the history file or worldVeh file
+		if (historyVehicle.isPresent() || !worldVehicle.getPlate().equalsIgnoreCase("Not Found")) {
+			foundVehicle = true;
 			vehtypecombobox.getItems().clear();
 			vehtypecombobox.getItems().addAll(vehicleTypes);
-			
-			log("Found: " + searchedPlate + " From VehHistory file", LogUtils.Severity.DEBUG);
 			vehRecordPane.setVisible(true);
 			noRecordFoundLabelVeh.setVisible(false);
-			Vehicle vehicle = vehOptional.get();
+		} else {
+			// A Vehicle does not exist in either history file or worldVeh file
+			log("No Vehicle With Plate: [" + searchedPlate + "] Found Anywhere", LogUtils.Severity.WARN);
+			vehRecordPane.setVisible(false);
+			noRecordFoundLabelVeh.setVisible(true);
+			return;
+		}
+		
+		log("Found Vehicle: " + foundVehicle, LogUtils.Severity.INFO);
+		
+		// Check if vehicle is present in vehHistory
+		if (historyVehicle.isPresent()) {
+			log("Found: " + searchedPlate + " From VehHistory file", LogUtils.Severity.DEBUG);
+			
+			Vehicle vehicle = historyVehicle.get();
 			
 			if (vehicle.getInspection() == null) {
-				vehicle.setInspection(generateInspectionStatus(Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
+				vehicle.setInspection(generateInspectionStatus());
 				try {
 					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
 				} catch (JAXBException e) {
@@ -239,7 +245,15 @@ public class VehLookupViewController {
 				}
 				log("Set vehType as '" + vehicle.getType() + "' since it created before pedModel was added", LogUtils.Severity.WARN);
 			}
+			
 			vehtypecombobox.setValue(vehicle.getType());
+			vehownerfield.setText(vehicle.getOwner());
+			vehvinfield.setText(vehicle.getVin());
+			vehpolicefield.setText(vehicle.getPoliceStatus());
+			vehinspectionfield.setText(vehicle.getInspection());
+			vehplatefield2.setText(vehicle.getPlateNumber());
+			vehmodelfield.setText(vehicle.getModel());
+			vehstolenfield.setText(vehicle.getStolenStatus());
 			
 			vehtypecombobox.getStyleClass().remove("combo-boxType");
 			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
@@ -249,147 +263,23 @@ public class VehLookupViewController {
 				vehtypecombobox.getStyleClass().add("combo-boxVehicle");
 			}
 			
-			vehplatefield2.setText(vehicle.getPlateNumber());
-			vehmodelfield.setText(vehicle.getModel());
-			vehstolenfield.setText(vehicle.getStolenStatus());
 			if (vehicle.getStolenStatus().equalsIgnoreCase("true")) {
 				vehstolenfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 			} else {
 				vehstolenfield.setStyle("-fx-text-fill: black !important;");
 			}
-			vehownerfield.setText(vehicle.getOwner());
 			
-			vehregfield.getStyleClass().clear();
-			vehregfield.setOnMouseClicked(null);
-			vehregfield.setText(vehicle.getRegistration());
-			if (vehicle.getRegistration() == null) {
-				vehregfield.setText("None");
-				vehregfield.getStyleClass().add("text-field");
-				vehregfield.setStyle("-fx-text-fill: black !important;");
-			} else if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase("none")) {
-				vehregfield.getStyleClass().add("valid-field");
-				vehregfield.setStyle("-fx-text-fill: red !important;");
-				vehregfield.setText(vehicle.getRegistration().toUpperCase());
-				
-				boolean updated = false;
-				if (vehicle.getRegistrationExpiration() == null) {
-					if (vehicle.getRegistration().equalsIgnoreCase("expired")) {
-						vehicle.setRegistrationExpiration(generateExpiredLicenseExpirationDate(3));
-					} else if (vehicle.getRegistration().equalsIgnoreCase("None")) {
-						vehicle.setRegistrationExpiration("None");
-					}
-					updated = true;
-				}
-				if (vehicle.getRegistrationNumber() == null) {
-					vehicle.setRegistrationNumber(generateLicenseNumber());
-					if (vehicle.getRegistration().equalsIgnoreCase("None")) {
-						vehicle.setRegistrationNumber("None");
-					}
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for registration info 1: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehregfield, localization.getLocalizedMessage("VehLookup.RegistrationInfoTitle", "Registration Information:"), vehicle.getOwner(), vehicle.getRegistrationExpiration(), vehicle.getRegistration(), vehicle.getRegistrationNumber());
-				
-			} else if (vehicle.getRegistration().equalsIgnoreCase("valid")) {
-				vehregfield.getStyleClass().add("valid-field");
-				vehregfield.setStyle("-fx-text-fill: #006600 !important;");
-				vehregfield.setText("Valid");
-				
-				boolean updated = false;
-				if (vehicle.getRegistrationExpiration() == null) {
-					vehicle.setRegistrationExpiration(generateValidLicenseExpirationDate());
-					updated = true;
-				}
-				if (vehicle.getRegistrationNumber() == null) {
-					vehicle.setRegistrationNumber(generateLicenseNumber());
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for registration info 2: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehregfield, localization.getLocalizedMessage("VehLookup.RegistrationInfoTitle", "Registration Information:"), vehicle.getOwner(), vehicle.getRegistrationExpiration(), vehicle.getRegistration(), vehicle.getRegistrationNumber());
-			}
-			
-			vehinspectionfield.setText(vehicle.getInspection());
 			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase("invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
 			
-			vehinsfield.getStyleClass().clear();
-			vehinsfield.setOnMouseClicked(null);
-			vehinsfield.setText(vehicle.getInsurance());
-			if (vehicle.getInsurance() == null) {
-				vehinsfield.setText("None");
-				vehinsfield.getStyleClass().add("text-field");
-				vehinsfield.setStyle("-fx-text-fill: black !important;");
-			} else if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase("none")) {
-				vehinsfield.getStyleClass().add("valid-field");
-				vehinsfield.setStyle("-fx-text-fill: red !important;");
-				vehinsfield.setText(vehicle.getInsurance().toUpperCase());
-				
-				boolean updated = false;
-				if (vehicle.getInsuranceExpiration() == null) {
-					if (vehicle.getInsurance().equalsIgnoreCase("expired")) {
-						vehicle.setInsuranceExpiration(generateExpiredLicenseExpirationDate(3));
-					} else if (vehicle.getInsurance().equalsIgnoreCase("None")) {
-						vehicle.setInsuranceExpiration("None");
-					}
-					updated = true;
-				}
-				if (vehicle.getInsuranceNumber() == null) {
-					vehicle.setInsuranceNumber(generateLicenseNumber());
-					if (vehicle.getInsurance().equalsIgnoreCase("None")) {
-						vehicle.setInsuranceNumber("None");
-					}
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for Insurance info 1: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehinsfield, localization.getLocalizedMessage("VehLookup.InsuranceInfoTitle", "Insurance Information:"), vehicle.getOwner(), vehicle.getInsuranceExpiration(), vehicle.getInsurance(), vehicle.getInsuranceNumber());
-				
-			} else if (vehicle.getInsurance().equalsIgnoreCase("valid")) {
-				vehinsfield.getStyleClass().add("valid-field");
-				vehinsfield.setStyle("-fx-text-fill: #006600 !important;");
-				vehinsfield.setText("Valid");
-				
-				boolean updated = false;
-				if (vehicle.getInsuranceExpiration() == null) {
-					vehicle.setInsuranceExpiration(generateValidLicenseExpirationDate());
-					updated = true;
-				}
-				if (vehicle.getInsuranceNumber() == null) {
-					vehicle.setInsuranceNumber(generateLicenseNumber());
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for insurance info 2: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehinsfield, localization.getLocalizedMessage("VehLookup.InsuranceInfoTitle", "Insurance Information:"), vehicle.getOwner(), vehicle.getInsuranceExpiration(), vehicle.getInsurance(), vehicle.getInsuranceNumber());
-			}
+			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(), vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle", vehicle);
 			
-			vehpolicefield.setText(vehicle.getPoliceStatus());
+			updateVehicleInfo(vehinsfield, vehicle.getInsurance(), vehicle.getInsuranceExpiration(), vehicle.getInsuranceNumber(), "Insurance", "VehLookup.InsuranceInfoTitle", vehicle);
+			
 			if (vehicle.getPoliceStatus().equalsIgnoreCase("true")) {
 				vehpolicefield.setStyle("-fx-text-fill: green !important;");
 			} else {
@@ -401,75 +291,30 @@ public class VehLookupViewController {
 				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
 				vehnocolorlabel.setVisible(true);
-				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
+				vehcolordisplay.setStyle("-fx-background-color: #F2F2F2;" + "-fx-border-color: grey;");
 			}
 			
-			String vehModelString = vehicle.getModel();
-			if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")) {
-				File pedImgFolder = new File(vehImageFolderURL);
-				if (pedImgFolder.exists()) {
-					log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
-					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
-						
-						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
-						
-						if (matchingFiles != null && matchingFiles.length > 0) {
-							File matchingFile = matchingFiles[0];
-							log("Matching vehImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
-							
-							try {
-								String fileURI = matchingFile.toURI().toString();
-								vehImageView.setImage(new Image(fileURI));
-								noVehImageFoundlbl.setVisible(true);
-								noVehImageFoundlbl.setText("Vehicle Model Found On File:");
-							} catch (Exception e) {
-								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-								vehImageView.setImage(defImage);
-								noVehImageFoundlbl.setVisible(true);
-								noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
-								logError("Could not set vehImage: ", e);
-							}
-						} else {
-							log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.", LogUtils.Severity.WARN);
-							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-							vehImageView.setImage(defImage);
-							noVehImageFoundlbl.setVisible(true);
-							noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
-						}
-					} else {
-						log("enablePedVehImages is disabled in settings so not displaying veh image (2)", LogUtils.Severity.WARN);
-					}
-				} else {
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-					vehImageView.setImage(defImage);
-					noVehImageFoundlbl.setVisible(true);
-					noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
-				}
-			} else {
-				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-				vehImageView.setImage(defImage);
-				noVehImageFoundlbl.setVisible(true);
-				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
-			}
+			runModelUpdate(vehicle.getModel());
 			
-		} else if (!licensePlate.equals("Not Found")) {
+			// Check if vehicle present in worldVeh
+		} else if (!worldVehicle.getPlate().equalsIgnoreCase("Not Found")) {
 			log("Found: " + searchedPlate + " From WorldVeh file", LogUtils.Severity.DEBUG);
-			vehRecordPane.setVisible(true);
-			noRecordFoundLabelVeh.setVisible(false);
-			if (rgb.length == 3) {
-				color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
-			}
+			
 			Vehicle vehicle = new Vehicle();
-			vehicle.setPlateNumber(licensePlate);
+			vehicle.setPlateNumber(worldVehicle.getPlate());
 			vehicle.setType("N/A");
-			vehicle.setColor(color);
-			vehicle.setModel(model);
-			vehicle.setOwner(owner);
-			vehicle.setInsurance(insurance);
-			vehicle.setPoliceStatus(isPolice);
-			vehicle.setStolenStatus(isStolen);
-			vehicle.setRegistration(registration);
-			vehicle.setInspection(generateInspectionStatus(Integer.parseInt(ConfigReader.configRead("vehicleHistory", "hasValidInspection"))));
+			vehicle.setColor(worldVehicle.getColor());
+			vehicle.setModel(worldVehicle.getModel());
+			vehicle.setOwner(worldVehicle.getOwner());
+			vehicle.setInsurance(worldVehicle.getInsurance());
+			vehicle.setPoliceStatus(worldVehicle.getIsPolice());
+			vehicle.setVin(worldVehicle.getVin());
+			vehicle.setStolenStatus(worldVehicle.getIsStolen());
+			vehicle.setRegistration(worldVehicle.getRegistration());
+			vehicle.setInsuranceExpiration(worldVehicle.getInsuranceDate());
+			vehicle.setRegistrationExpiration(worldVehicle.getRegistrationDate());
+			vehicle.setInspection(generateInspectionStatus());
+			
 			try {
 				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
 			} catch (JAXBException e) {
@@ -485,128 +330,14 @@ public class VehLookupViewController {
 				vehstolenfield.setStyle("-fx-text-fill: black !important;");
 			}
 			vehownerfield.setText(vehicle.getOwner());
+			vehvinfield.setText(vehicle.getVin());
 			
-			vehregfield.getStyleClass().clear();
-			vehregfield.setOnMouseClicked(null);
-			vehregfield.setText(vehicle.getRegistration());
-			if (vehicle.getRegistration() == null) {
-				vehregfield.setText("None");
-				vehregfield.getStyleClass().add("text-field");
-				vehregfield.setStyle("-fx-text-fill: black !important;");
-			} else if (vehicle.getRegistration().equalsIgnoreCase("expired") || vehicle.getRegistration().equalsIgnoreCase("none")) {
-				vehregfield.getStyleClass().add("valid-field");
-				vehregfield.setStyle("-fx-text-fill: red !important;");
-				vehregfield.setText(vehicle.getRegistration().toUpperCase());
-				
-				boolean updated = false;
-				if (vehicle.getRegistrationExpiration() == null) {
-					if (vehicle.getRegistration().equalsIgnoreCase("expired")) {
-						vehicle.setRegistrationExpiration(generateExpiredLicenseExpirationDate(3));
-					} else if (vehicle.getRegistration().equalsIgnoreCase("None")) {
-						vehicle.setRegistrationExpiration("None");
-					}
-					updated = true;
-				}
-				if (vehicle.getRegistrationNumber() == null) {
-					vehicle.setRegistrationNumber(generateLicenseNumber());
-					if (vehicle.getRegistration().equalsIgnoreCase("None")) {
-						vehicle.setRegistrationNumber("None");
-					}
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for registration info 1: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehregfield, localization.getLocalizedMessage("VehLookup.RegistrationInfoTitle", "Registration Information:"), vehicle.getOwner(), vehicle.getRegistrationExpiration(), vehicle.getRegistration(), vehicle.getRegistrationNumber());
-				
-			} else if (vehicle.getRegistration().equalsIgnoreCase("valid")) {
-				vehregfield.getStyleClass().add("valid-field");
-				vehregfield.setStyle("-fx-text-fill: #006600 !important;");
-				vehregfield.setText("Valid");
-				
-				boolean updated = false;
-				if (vehicle.getRegistrationExpiration() == null) {
-					vehicle.setRegistrationExpiration(generateValidLicenseExpirationDate());
-					updated = true;
-				}
-				if (vehicle.getRegistrationNumber() == null) {
-					vehicle.setRegistrationNumber(generateLicenseNumber());
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for registration info 2: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehregfield, localization.getLocalizedMessage("VehLookup.RegistrationInfoTitle", "Registration Information:"), vehicle.getOwner(), vehicle.getRegistrationExpiration(), vehicle.getRegistration(), vehicle.getRegistrationNumber());
-			}
+			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
+			vehtypecombobox.getStyleClass().add("combo-boxType");
 			
-			vehinsfield.getStyleClass().clear();
-			vehinsfield.setOnMouseClicked(null);
-			vehinsfield.setText(vehicle.getInsurance());
-			if (vehicle.getInsurance() == null) {
-				vehinsfield.setText("None");
-				vehinsfield.getStyleClass().add("text-field");
-				vehinsfield.setStyle("-fx-text-fill: black !important;");
-			} else if (vehicle.getInsurance().equalsIgnoreCase("expired") || vehicle.getInsurance().equalsIgnoreCase("none")) {
-				vehinsfield.getStyleClass().add("valid-field");
-				vehinsfield.setStyle("-fx-text-fill: red !important;");
-				vehinsfield.setText(vehicle.getInsurance().toUpperCase());
-				
-				boolean updated = false;
-				if (vehicle.getInsuranceExpiration() == null) {
-					if (vehicle.getInsurance().equalsIgnoreCase("expired")) {
-						vehicle.setInsuranceExpiration(generateExpiredLicenseExpirationDate(3));
-					} else if (vehicle.getInsurance().equalsIgnoreCase("None")) {
-						vehicle.setInsuranceExpiration("None");
-					}
-					updated = true;
-				}
-				if (vehicle.getInsuranceNumber() == null) {
-					vehicle.setInsuranceNumber(generateLicenseNumber());
-					if (vehicle.getInsurance().equalsIgnoreCase("None")) {
-						vehicle.setInsuranceNumber("None");
-					}
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for Insurance info 1: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehinsfield, localization.getLocalizedMessage("VehLookup.InsuranceInfoTitle", "Insurance Information:"), vehicle.getOwner(), vehicle.getInsuranceExpiration(), vehicle.getInsurance(), vehicle.getInsuranceNumber());
-				
-			} else if (vehicle.getInsurance().equalsIgnoreCase("valid")) {
-				vehinsfield.getStyleClass().add("valid-field");
-				vehinsfield.setStyle("-fx-text-fill: #006600 !important;");
-				vehinsfield.setText("Valid");
-				
-				boolean updated = false;
-				if (vehicle.getInsuranceExpiration() == null) {
-					vehicle.setInsuranceExpiration(generateValidLicenseExpirationDate());
-					updated = true;
-				}
-				if (vehicle.getInsuranceNumber() == null) {
-					vehicle.setInsuranceNumber(generateLicenseNumber());
-					updated = true;
-				}
-				if (updated) {
-					try {
-						Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-					} catch (JAXBException e) {
-						logError("Error updating Vehicle for insurance info 2: ", e);
-					}
-				}
-				createRegInsInfoPopup(vehinsfield, localization.getLocalizedMessage("VehLookup.InsuranceInfoTitle", "Insurance Information:"), vehicle.getOwner(), vehicle.getInsuranceExpiration(), vehicle.getInsurance(), vehicle.getInsuranceNumber());
-			}
+			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(), vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle", vehicle);
+			
+			updateVehicleInfo(vehinsfield, vehicle.getInsurance(), vehicle.getInsuranceExpiration(), vehicle.getInsuranceNumber(), "Insurance", "VehLookup.InsuranceInfoTitle", vehicle);
 			
 			vehinspectionfield.setText(vehicle.getInspection());
 			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase("invalid")) {
@@ -626,17 +357,94 @@ public class VehLookupViewController {
 				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
 				vehnocolorlabel.setVisible(true);
-				vehcolordisplay.setStyle("-fx-background-color: #f2f2f2;" + "-fx-border-color: grey;");
+				vehcolordisplay.setStyle("-fx-background-color: #F2F2F2;" + "-fx-border-color: grey;");
 			}
-			vehtypecombobox.getItems().clear();
-			vehtypecombobox.getItems().addAll(vehicleTypes);
 			vehtypecombobox.setValue(vehicle.getType());
 			
-			String vehModelString = vehicle.getModel();
-			if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")) {
-				File pedImgFolder = new File(vehImageFolderURL);
-				if (pedImgFolder.exists()) {
-					log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
+			runModelUpdate(worldVehicle.getModel());
+		}
+		
+		// Play audio if a warning was found
+		if (playAudio) {
+			try {
+				if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
+					playSound(getJarPath() + "/sounds/alert-wanted.wav");
+				}
+			} catch (IOException e) {
+				logError("Error getting configValue for playLookupWarning: ", e);
+			}
+		}
+	}
+	
+	private void updateVehicleInfo(TextField field, String info, String expirationMethod, String numberMethod, String infoType, String infoTitle, Vehicle vehicle) {
+		field.getStyleClass().clear();
+		field.setOnMouseClicked(null);
+		field.setText(info);
+		
+		if (info == null) {
+			field.setText("None");
+			field.getStyleClass().add("text-field");
+			field.setStyle("-fx-text-fill: black !important;");
+		} else if (info.equalsIgnoreCase("expired") || info.equalsIgnoreCase("none") || info.equalsIgnoreCase("revoked")) {
+			field.getStyleClass().add("valid-field");
+			field.setStyle("-fx-text-fill: red !important;");
+			field.setText(info.toUpperCase());
+			
+			boolean updated = false;
+			if (expirationMethod == null) {
+				if (info.equalsIgnoreCase("expired")) {
+					expirationMethod = generateExpiredLicenseExpirationDate(3);
+				} else if (info.equalsIgnoreCase("None") || info.equalsIgnoreCase("revoked")) {
+					expirationMethod = "None";
+				}
+				updated = true;
+			}
+			if (numberMethod == null) {
+				numberMethod = generateLicenseNumber();
+				if (info.equalsIgnoreCase("None") || info.equalsIgnoreCase("revoked")) {
+					numberMethod = "None";
+				}
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+				} catch (JAXBException e) {
+					logError("Error updating Vehicle for " + infoType + " info: ", e);
+				}
+			}
+			createRegInsInfoPopup(field, localization.getLocalizedMessage(infoTitle, infoType + " Information:"), vehicle.getOwner(), expirationMethod, info, numberMethod);
+		} else if (info.equalsIgnoreCase("valid")) {
+			field.getStyleClass().add("valid-field");
+			field.setStyle("-fx-text-fill: #060 !important;");
+			field.setText("Valid");
+			
+			boolean updated = false;
+			if (expirationMethod == null) {
+				expirationMethod = generateValidLicenseExpirationDate();
+				updated = true;
+			}
+			if (numberMethod == null) {
+				numberMethod = generateLicenseNumber();
+				updated = true;
+			}
+			if (updated) {
+				try {
+					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
+				} catch (JAXBException e) {
+					logError("Error updating Vehicle for " + infoType + " info: ", e);
+				}
+			}
+			createRegInsInfoPopup(field, localization.getLocalizedMessage(infoTitle, infoType + " Information:"), vehicle.getOwner(), expirationMethod, info, numberMethod);
+		}
+	}
+	
+	private void runModelUpdate(String vehModelString) {
+		if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")) {
+			File pedImgFolder = new File(vehImageFolderURL);
+			if (pedImgFolder.exists()) {
+				log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
+				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
 						
 						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
@@ -667,11 +475,8 @@ public class VehLookupViewController {
 					} else {
 						log("enablePedVehImages is disabled in settings so not displaying veh image", LogUtils.Severity.WARN);
 					}
-				} else {
-					Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
-					vehImageView.setImage(defImage);
-					noVehImageFoundlbl.setVisible(true);
-					noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+				} catch (IOException e) {
+					logError("Error getting configValue for playLookupWarning: ", e);
 				}
 			} else {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
@@ -679,21 +484,13 @@ public class VehLookupViewController {
 				noVehImageFoundlbl.setVisible(true);
 				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 			}
-			
 		} else {
-			log("No Vehicle With Plate: [" + searchedPlate + "] Found Anywhere", LogUtils.Severity.WARN);
-			vehRecordPane.setVisible(false);
-			noRecordFoundLabelVeh.setVisible(true);
+			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+			vehImageView.setImage(defImage);
+			noVehImageFoundlbl.setVisible(true);
+			noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 		}
-		if (playAudio) {
-			try {
-				if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
-					playSound(getJarPath() + "/sounds/alert-wanted.wav");
-				}
-			} catch (IOException e) {
-				logError("Error getting configValue for playLookupWarning: ", e);
-			}
-		}
+		
 	}
 	
 	public void createRegInsInfoPopup(TextField label, String headerText, String name, String exp, String status, String licnum) {
@@ -708,7 +505,7 @@ public class VehLookupViewController {
 			titleLabel.setPrefHeight(33.0);
 			titleLabel.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "accentColor") + ";");
 			titleLabel.setTextFill(Paint.valueOf("WHITE"));
-			titleLabel.setFont(new Font("Segoe UI Black", 17.0));
+			titleLabel.setFont(new Font("Inter 28pt Bold", 17.0));
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
@@ -862,12 +659,6 @@ public class VehLookupViewController {
 	}
 	
 	@javafx.fxml.FXML
-	public void onLookupProbabilitySettingsClick(ActionEvent actionEvent) {
-		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Settings/probability-settings-view.fxml", "Lookup Probability Config", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(),
-		                                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
-	}
-	
-	@javafx.fxml.FXML
 	public void vehcreateimpreport(ActionEvent actionEvent) {
 		String plate = vehplatefield2.getText().trim();
 		String model = vehmodelfield.getText().trim();
@@ -1012,10 +803,6 @@ public class VehLookupViewController {
 		return plt9;
 	}
 	
-	public Button getProbabilitySettingsBtn() {
-		return probabilitySettingsBtn;
-	}
-	
 	public AnchorPane getLookupPane() {
 		return lookupPane;
 	}
@@ -1046,6 +833,10 @@ public class VehLookupViewController {
 	
 	public ComboBox getVehSearchField() {
 		return vehSearchField;
+	}
+	
+	public Label getPlt11() {
+		return plt11;
 	}
 	
 	@javafx.fxml.FXML

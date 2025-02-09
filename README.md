@@ -22,6 +22,9 @@
 - This is not a window that opens in game such as something like CompuLite, it is an external application which connects
   to your game to be able to receive actual game data.
 
+
+- For a more convenient way to change the language, please refer to the language folder. The default language is locale.properties. Instructions: Place locale_xx.properties in the local folder, and the program will automatically read it. Please log in and make changes in the settings.
+
 ## Prerequisites
 
 Ensure you have the following installed:

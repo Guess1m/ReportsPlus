@@ -11,16 +11,18 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
 public class Localization {
-	
+
 	private final CommentedProperties properties = new CommentedProperties();
-	private final String filePath = getJarPath() + "/locale/locale.properties";
+	private final String filePath = getJarPath() + "/locale/" + LanguageConfigManager.generateLocalizedFileName();
 	
 	public Localization() {
 		loadProperties();
 	}
 	
 	private void loadProperties() {
-		File file = new File(filePath);
+
+		LanguageConfigManager.checkAndSetLanguageConfig(true);
+        File file = new File(filePath);
 		File localizationFolder = new File(getJarPath() + "/locale");
 		if (!localizationFolder.exists()) {
 			localizationFolder.mkdirs();

@@ -10,15 +10,15 @@ import java.util.List;
 @XmlRootElement(name = "patrolReportLogs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PatrolReports {
-	
-	@XmlElement(name = "logs")
-	private List<PatrolReport> patrolReportList;
-	
-	public List<PatrolReport> getPatrolReportList() {
-		return patrolReportList;
-	}
-	
-	public void setPatrolReportList(List<PatrolReport> patrolReportList) {
-		this.patrolReportList = patrolReportList;
-	}
+
+    @XmlElement(name = "logs")
+    private List<PatrolReport> patrolReportList;
+
+    public List<PatrolReport> getPatrolReportList() {
+        return patrolReportList;
+    }
+
+    public void setPatrolReportList(List<PatrolReport> patrolReportList) {
+        this.patrolReportList = patrolReportList;
+    }
 }

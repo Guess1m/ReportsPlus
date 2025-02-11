@@ -1,0 +1,56 @@
+Label {
+    -fx-font-family: "Inter 24pt Regular";
+}
+
+TextField {
+    -fx-font-family: "Inter 24pt Regular";
+}
+
+Button {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-border-color: rgba(128, 128, 128, 0.37);
+    -fx-border-radius: 7px;
+    -fx-background-radius: 7px;
+    -fx-font-family: "Inter 24pt Regular";
+}
+
+Button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.15);
+}
+
+Button:selected {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.removeButton:hover {
+    -fx-background-color: rgba(149, 13, 0, 0.15);
+}
+
+.addButton:hover {
+    -fx-background-color: rgba(0, 149, 2, 0.15);
+}
+
+.moveButton {
+    -fx-padding: 3 6;
+    -fx-font-size: 10px;
+}
+
+.moveButton:hover {
+    -fx-background-color: rgba(0, 92, 149, 0.15);
+}
+
+ComboBox {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-border-color: rgba(128, 128, 128, 0.37);
+    -fx-border-radius: 7px;
+    -fx-background-radius: 7px;
+    -fx-font-family: "Inter 24pt Regular";
+}
+
+ComboBox:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.15);
+}
+
+ComboBox:selected {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}

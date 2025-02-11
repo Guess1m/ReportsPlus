@@ -7,139 +7,139 @@
         * "arrestable" defines if the citation is arrestable
 -->
 <Citations>
-    <CitationGroup name = "Public Violations">
-        <Citation name = "Public Intoxication" fine = "1000" />
-        <Citation name = "Public Urination" fine = "500" />
-        <Citation name = "Graffiti" fine = "1000" />
-        <Citation name = "Littering" fine = "489" />
-        <Citation name = "Loitering" fine = "350" />
-        <Citation name = "Indecent Exposure" fine = "600" />
-        <Citation name = "Disturbing the Peace" fine = "1000" />
-        <Citation name = "Trespassing" fine = "800" />
-        <Citation name = "Smoking Violation" fine = "150" />
-        <Citation name = "Illegal Camping" fine = "900" />
-        <Citation name = "Open Container" fine = "366" />
-        <Citation name = "Personal use of Marijuana (less than 10g)" fine = "150" />
-        <Citation name = "Personal use of Marijuana (more than 10g)" fine = "300" />
+    <CitationGroup name="Public Violations">
+        <Citation name="Public Intoxication" fine="1000"/>
+        <Citation name="Public Urination" fine="500"/>
+        <Citation name="Graffiti" fine="1000"/>
+        <Citation name="Littering" fine="489"/>
+        <Citation name="Loitering" fine="350"/>
+        <Citation name="Indecent Exposure" fine="600"/>
+        <Citation name="Disturbing the Peace" fine="1000"/>
+        <Citation name="Trespassing" fine="800"/>
+        <Citation name="Smoking Violation" fine="150"/>
+        <Citation name="Illegal Camping" fine="900"/>
+        <Citation name="Open Container" fine="366"/>
+        <Citation name="Personal use of Marijuana (less than 10g)" fine="150"/>
+        <Citation name="Personal use of Marijuana (more than 10g)" fine="300"/>
     </CitationGroup>
-    <CitationGroup name = "Speeding Citations">
-        <Citation name = "Speeding (Under 10)" fine = "260" />
-        <Citation name = "Speeding (Between 10-15)" fine = "370" />
-        <Citation name = "Speeding (Between 16-30)" fine = "500" />
-        <Citation name = "Speeding (Over 30+)" fine = "700" arrestable = "true" />
-        <Citation name = "Racing on highway" fine = "1000" />
+    <CitationGroup name="Speeding Citations">
+        <Citation name="Speeding (Under 10)" fine="260"/>
+        <Citation name="Speeding (Between 10-15)" fine="370"/>
+        <Citation name="Speeding (Between 16-30)" fine="500"/>
+        <Citation name="Speeding (Over 30+)" fine="700" arrestable="true"/>
+        <Citation name="Racing on highway" fine="1000"/>
     </CitationGroup>
-    <CitationGroup name = "Moving Violations">
-        <Citation name = "Improper Lane Change" fine = "238" />
-        <Citation name = "Improper Passing" fine = "237" />
-        <Citation name = "Improper Turn" fine = "237" />
-        <Citation name = "Improper U-Turn" fine = "237" />
-        <Citation name = "Violation of Right of Way" fine = "237" />
-        <Citation name = "Careless Driving" fine = "300" />
-        <Citation name = "Following too Closely" fine = "237" />
-        <Citation name = "Failure to Signal" fine = "237" />
-        <Citation name = "Failure to Yield" fine = "238" />
-        <Citation name = "Failure to Yield to Emergency Vehicle" fine = "490" />
-        <Citation name = "Impeding Flow of Traffic" fine = "237" />
-        <Citation name = "At Fault in an Accident" fine = "300" />
-        <Citation name = "Failure to Stop at a Traffic Signal" fine = "490" />
-        <Citation name = "Running a Stop Sign" fine = "238" />
-        <Citation name = "Crossing over a center divider, median or gore" fine = "350" />
-        <Citation name = "Driving on the Shoulder (Illegal under certain conditions)" fine = "250" />
-        <Citation name = "Failure to Secure Load to Truck or Lorry" fine = "250" />
-        <Citation name = "Operating Motorcycle/ATV without a helmet" fine = "250" />
-        <Citation name = "Operating a Telecommunications Device while Driving" fine = "162" />
-        <Citation name = "Excessive Acceleration" fine = "190" />
-        <Citation name = "Riding Bicycle on Roadway" fine = "196" />
-        <Citation name = "Operating Vehicle in Bicycle Lane" fine = "237" />
+    <CitationGroup name="Moving Violations">
+        <Citation name="Improper Lane Change" fine="238"/>
+        <Citation name="Improper Passing" fine="237"/>
+        <Citation name="Improper Turn" fine="237"/>
+        <Citation name="Improper U-Turn" fine="237"/>
+        <Citation name="Violation of Right of Way" fine="237"/>
+        <Citation name="Careless Driving" fine="300"/>
+        <Citation name="Following too Closely" fine="237"/>
+        <Citation name="Failure to Signal" fine="237"/>
+        <Citation name="Failure to Yield" fine="238"/>
+        <Citation name="Failure to Yield to Emergency Vehicle" fine="490"/>
+        <Citation name="Impeding Flow of Traffic" fine="237"/>
+        <Citation name="At Fault in an Accident" fine="300"/>
+        <Citation name="Failure to Stop at a Traffic Signal" fine="490"/>
+        <Citation name="Running a Stop Sign" fine="238"/>
+        <Citation name="Crossing over a center divider, median or gore" fine="350"/>
+        <Citation name="Driving on the Shoulder (Illegal under certain conditions)" fine="250"/>
+        <Citation name="Failure to Secure Load to Truck or Lorry" fine="250"/>
+        <Citation name="Operating Motorcycle/ATV without a helmet" fine="250"/>
+        <Citation name="Operating a Telecommunications Device while Driving" fine="162"/>
+        <Citation name="Excessive Acceleration" fine="190"/>
+        <Citation name="Riding Bicycle on Roadway" fine="196"/>
+        <Citation name="Operating Vehicle in Bicycle Lane" fine="237"/>
     </CitationGroup>
-    <CitationGroup name = "Moving Violations (Arrestable)">
-        <Citation name = "Driving Wrong Way" fine = "400" arrestable = "true" />
-        <Citation name = "Reckless Driving" fine = "350" arrestable = "true" />
-        <Citation name = "Leaving the Scene of an Accident" fine = "300" arrestable = "true" />
-        <Citation name = "DWLS/R With Knowlege" fine = "400" arrestable = "true" />
-        <Citation name = "Driving under the Influence" fine = "1500" arrestable = "true" />
+    <CitationGroup name="Moving Violations (Arrestable)">
+        <Citation name="Driving Wrong Way" fine="400" arrestable="true"/>
+        <Citation name="Reckless Driving" fine="350" arrestable="true"/>
+        <Citation name="Leaving the Scene of an Accident" fine="300" arrestable="true"/>
+        <Citation name="DWLS/R With Knowlege" fine="400" arrestable="true"/>
+        <Citation name="Driving under the Influence" fine="1500" arrestable="true"/>
     </CitationGroup>
-    <CitationGroup name = "Non-Moving Violations">
-        <Citation name = "Unworthy Road Vehicle" fine = "600" />
-        <Citation name = "Improper Lighting" fine = "237" />
-        <Citation name = "Safety Belt Violation" fine = "162" />
-        <Citation name = "Illegal Tint" fine = "110" />
-        <Citation name = "Illegal Underglow Color" fine = "110" />
-        <Citation name = "License Plate Display Failure" fine = "196" />
-        <Citation name = "No Light at Night" fine = "237" />
-        <Citation name = "Open Container in Vehicle" fine = "250" />
-        <Citation name = "Headset or Earplugs on While Driving" fine = "179" />
+    <CitationGroup name="Non-Moving Violations">
+        <Citation name="Unworthy Road Vehicle" fine="600"/>
+        <Citation name="Improper Lighting" fine="237"/>
+        <Citation name="Safety Belt Violation" fine="162"/>
+        <Citation name="Illegal Tint" fine="110"/>
+        <Citation name="Illegal Underglow Color" fine="110"/>
+        <Citation name="License Plate Display Failure" fine="196"/>
+        <Citation name="No Light at Night" fine="237"/>
+        <Citation name="Open Container in Vehicle" fine="250"/>
+        <Citation name="Headset or Earplugs on While Driving" fine="179"/>
     </CitationGroup>
-    <CitationGroup name = "License/Reg/Ins">
-        <Citation name = "Failure to Present/No Insurance" fine = "900" />
-        <Citation name = "Expired Insurance" fine = "600" />
-        <Citation name = "Expired Insurance (> 30 days)" fine = "300" />
-        <Citation name = "Failure to Present/No Registration" fine = "284" />
-        <Citation name = "Expired Registration" fine = "196" />
-        <Citation name = "Expired Registration (> 30 days)" fine = "290" />
-        <Citation name = "Expired Drivers License" fine = "237" />
-        <Citation name = "Expired Drivers License (> 30 days)" fine = "237" />
-        <Citation name = "No Drivers License (NTA Traffic Court)" fine = "401" />
-        <Citation name = "Expired Vehicle Tag" fine = "200" />
-        <Citation name = "Expired Vehicle Tag (> 30 days)" fine = "250" />
-        <Citation name = "DWLS/R Without Knowlege (NTA Traffic Court)" fine = "400" />
-        <Citation name = "Notice to Appear/NTA Traffic" fine = "0" />
+    <CitationGroup name="License/Reg/Ins">
+        <Citation name="Failure to Present/No Insurance" fine="900"/>
+        <Citation name="Expired Insurance" fine="600"/>
+        <Citation name="Expired Insurance (> 30 days)" fine="300"/>
+        <Citation name="Failure to Present/No Registration" fine="284"/>
+        <Citation name="Expired Registration" fine="196"/>
+        <Citation name="Expired Registration (> 30 days)" fine="290"/>
+        <Citation name="Expired Drivers License" fine="237"/>
+        <Citation name="Expired Drivers License (> 30 days)" fine="237"/>
+        <Citation name="No Drivers License (NTA Traffic Court)" fine="401"/>
+        <Citation name="Expired Vehicle Tag" fine="200"/>
+        <Citation name="Expired Vehicle Tag (> 30 days)" fine="250"/>
+        <Citation name="DWLS/R Without Knowlege (NTA Traffic Court)" fine="400"/>
+        <Citation name="Notice to Appear/NTA Traffic" fine="0"/>
     </CitationGroup>
-    <CitationGroup name = "Parking Violations">
-        <Citation name = "Blocking Fire Hydrant" fine = "65" />
-        <Citation name = "Parking in Fire Lane" fine = "80" />
-        <Citation name = "Expired Meter" fine = "65" />
-        <Citation name = "Expired Parking Permit" fine = "65" />
-        <Citation name = "No/Improperly Displayed Parking Permit" fine = "65" />
-        <Citation name = "Violation of Posted No Parking Signs" fine = "65" />
-        <Citation name = "Violation of Timed Parking Zone" fine = "65" />
-        <Citation name = "Blocking Driveway/Crosswalk/Sidewalk" fine = "65" />
-        <Citation name = "Parking/Obstructing Bike Lane" fine = "65" />
-        <Citation name = "Parking Against Oncoming Traffic" fine = "65" />
-        <Citation name = "Parking in Bus Zone" fine = "250" />
-        <Citation name = "Double Parking" fine = "65" />
-        <Citation name = "Parking in Disabled Zone" fine = "421" />
-        <Citation name = "Parking in Disabled Zone-2nd Violation" fine = "625" />
-        <Citation name = "Parking in Disabled Zone-3rd Violation" fine = "825" />
+    <CitationGroup name="Parking Violations">
+        <Citation name="Blocking Fire Hydrant" fine="65"/>
+        <Citation name="Parking in Fire Lane" fine="80"/>
+        <Citation name="Expired Meter" fine="65"/>
+        <Citation name="Expired Parking Permit" fine="65"/>
+        <Citation name="No/Improperly Displayed Parking Permit" fine="65"/>
+        <Citation name="Violation of Posted No Parking Signs" fine="65"/>
+        <Citation name="Violation of Timed Parking Zone" fine="65"/>
+        <Citation name="Blocking Driveway/Crosswalk/Sidewalk" fine="65"/>
+        <Citation name="Parking/Obstructing Bike Lane" fine="65"/>
+        <Citation name="Parking Against Oncoming Traffic" fine="65"/>
+        <Citation name="Parking in Bus Zone" fine="250"/>
+        <Citation name="Double Parking" fine="65"/>
+        <Citation name="Parking in Disabled Zone" fine="421"/>
+        <Citation name="Parking in Disabled Zone-2nd Violation" fine="625"/>
+        <Citation name="Parking in Disabled Zone-3rd Violation" fine="825"/>
     </CitationGroup>
-    <CitationGroup name = "Boating Citations">
-        <Citation name = "Vessel Does Not Meet Standards" fine = "280" />
-        <Citation name = "Failure to Yield to Blue Light or Siren" fine = "280" />
-        <Citation name = "Invalid Vessel Registration" fine = "192" />
-        <Citation name = "Insufficient Flotation Devices" fine = "1710" />
-        <Citation name = "Exceeding Maximum Occupancy on Vessel" fine = "1710" />
-        <Citation name = "Boating in No-Boating Zone" fine = "1425" />
-        <Citation name = "Unlawful Vessel Speeding" fine = "280" />
-        <Citation name = "Negligent Operation of a Vessel" fine = "1300" />
-        <Citation name = "Negligent Operation–Under Influence of Liquor or Drugs" fine = "2735" />
-        <Citation name = "Illegal Discharge of Sewage" fine = "1300" />
+    <CitationGroup name="Boating Citations">
+        <Citation name="Vessel Does Not Meet Standards" fine="280"/>
+        <Citation name="Failure to Yield to Blue Light or Siren" fine="280"/>
+        <Citation name="Invalid Vessel Registration" fine="192"/>
+        <Citation name="Insufficient Flotation Devices" fine="1710"/>
+        <Citation name="Exceeding Maximum Occupancy on Vessel" fine="1710"/>
+        <Citation name="Boating in No-Boating Zone" fine="1425"/>
+        <Citation name="Unlawful Vessel Speeding" fine="280"/>
+        <Citation name="Negligent Operation of a Vessel" fine="1300"/>
+        <Citation name="Negligent Operation–Under Influence of Liquor or Drugs" fine="2735"/>
+        <Citation name="Illegal Discharge of Sewage" fine="1300"/>
     </CitationGroup>
-    <CitationGroup name = "Warnings">
-        <Citation name = "Unlawful Speed Warning" fine = "0" />
-        <Citation name = "Safety Belt Warning" fine = "0" />
-        <Citation name = "Turn Signal Warning" fine = "0" />
-        <Citation name = "Improper Passing Warning" fine = "0" />
-        <Citation name = "Illegal Tint Warning" fine = "0" />
-        <Citation name = "Illegal Underglow Color Warning" fine = "0" />
-        <Citation name = "Illegal U-Turn Warning" fine = "0" />
-        <Citation name = "Improper Lighting Warning" fine = "0" />
-        <Citation name = "Distracted Driving Warning" fine = "0" />
-        <Citation name = "No Light at Night Warning" fine = "0" />
-        <Citation name = "Parking Violation Warning" fine = "0" />
-        <Citation name = "Failure to Yield Warning" fine = "0" />
-        <Citation name = "Running a Stop Sign/ traffic Signal Warning" fine = "0" />
-        <Citation name = "Improper Turn/U-Turn Warning" fine = "0" />
-        <Citation name = "Excessive Acceleration Warning" fine = "0" />
-        <Citation name = "Tailgating Warning" fine = "0" />
-        <Citation name = "Jaywalking Warning" fine = "0" />
-        <Citation name = "Littering Warning" fine = "0" />
-        <Citation name = "Open Container in Public Warning" fine = "0" />
-        <Citation name = "Broken Head or Tail Light Warning" fine = "0" />
-        <Citation name = "Loitering Warning" fine = "0" />
-        <Citation name = "Trespassing Warning" fine = "0" />
-        <Citation name = "Expired Registration Warning" fine = "0" />
-        <Citation name = "Expired License Warning" fine = "0" />
-        <Citation name = "Expired Insurance Warning" fine = "0" />
+    <CitationGroup name="Warnings">
+        <Citation name="Unlawful Speed Warning" fine="0"/>
+        <Citation name="Safety Belt Warning" fine="0"/>
+        <Citation name="Turn Signal Warning" fine="0"/>
+        <Citation name="Improper Passing Warning" fine="0"/>
+        <Citation name="Illegal Tint Warning" fine="0"/>
+        <Citation name="Illegal Underglow Color Warning" fine="0"/>
+        <Citation name="Illegal U-Turn Warning" fine="0"/>
+        <Citation name="Improper Lighting Warning" fine="0"/>
+        <Citation name="Distracted Driving Warning" fine="0"/>
+        <Citation name="No Light at Night Warning" fine="0"/>
+        <Citation name="Parking Violation Warning" fine="0"/>
+        <Citation name="Failure to Yield Warning" fine="0"/>
+        <Citation name="Running a Stop Sign/ traffic Signal Warning" fine="0"/>
+        <Citation name="Improper Turn/U-Turn Warning" fine="0"/>
+        <Citation name="Excessive Acceleration Warning" fine="0"/>
+        <Citation name="Tailgating Warning" fine="0"/>
+        <Citation name="Jaywalking Warning" fine="0"/>
+        <Citation name="Littering Warning" fine="0"/>
+        <Citation name="Open Container in Public Warning" fine="0"/>
+        <Citation name="Broken Head or Tail Light Warning" fine="0"/>
+        <Citation name="Loitering Warning" fine="0"/>
+        <Citation name="Trespassing Warning" fine="0"/>
+        <Citation name="Expired Registration Warning" fine="0"/>
+        <Citation name="Expired License Warning" fine="0"/>
+        <Citation name="Expired Insurance Warning" fine="0"/>
     </CitationGroup>
 </Citations>

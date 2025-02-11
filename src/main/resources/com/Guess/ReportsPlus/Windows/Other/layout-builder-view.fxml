@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="800.0"
+            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController">
+    <center>
+        <AnchorPane>
+            <children>
+                <VBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+                      AnchorPane.topAnchor="10">
+                    <children>
+                        <HBox spacing="30.0">
+                            <children>
+                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Custom Layout Designer"
+                                       HBox.hgrow="NEVER"/>
+                                <TextField fx:id="reportTitleField" promptText="Report Title" HBox.hgrow="SOMETIMES"/>
+                                <Button fx:id="customDropdownButton" mnemonicParsing="false"
+                                        text="Create Custom Dropdown"/>
+                                <Button fx:id="importExportButton" mnemonicParsing="false" text="Import / Export"/>
+                            </children>
+                        </HBox>
+                        <ScrollPane fitToHeight="true" fitToWidth="true"
+                                    style="-fx-border-color: black; -fx-border-radius: 7;"
+                                    stylesheets="@../../css/main/transparentScrollPane.css" VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox spacing="10.0" style="-fx-background-color: rgba(0,0,0,0.02);">
+                                    <children>
+                                        <VBox fx:id="sectionContainer" spacing="10">
+                                            <padding>
+                                                <Insets bottom="10" left="10" right="10" top="10"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="transferContainer" spacing="10">
+                                            <padding>
+                                                <Insets bottom="10" left="10" right="10" top="10"/>
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                        <BorderPane>
+                            <right>
+                                <Button fx:id="buildLayoutButton" text="View Report Layout"
+                                        BorderPane.alignment="CENTER"/>
+                            </right>
+                            <left>
+                                <HBox spacing="10" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Button fx:id="addSectionButton" text="Add Section"/>
+                                        <Button fx:id="addTransferButton" text="Add Transfer"/>
+                                    </children>
+                                </HBox>
+                            </left>
+                        </BorderPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

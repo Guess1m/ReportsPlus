@@ -1,113 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx = "http://javafx.com/fxml/1" fx:id = "root" prefHeight = "398.0" prefWidth = "346.0"
-            xmlns = "http://javafx.com/javafx/21"
-            fx:controller = "com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="425.0" prefWidth="360.0"
+            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
     <center>
-        <AnchorPane fx:id = "mainPane">
+        <AnchorPane fx:id="mainPane">
             <children>
-                <VBox layoutY = "10.0" AnchorPane.bottomAnchor = "15.0" AnchorPane.leftAnchor = "10.0"
-                      AnchorPane.rightAnchor = "10.0" AnchorPane.topAnchor = "15.0">
-                    <children>
-                        <BorderPane>
-                            <center>
-                                <Label fx:id = "selectReportTypeLabel" text = "Select a Report Type:">
-                                    <font>
-                                        <Font name = "Inter 28pt Bold" size = "18.0" />
-                                    </font>
-                                </Label>
-                            </center>
-                        </BorderPane>
-                        <GridPane hgap = "5.0" vgap = "5.0" VBox.vgrow = "ALWAYS">
+                <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="15.0"
+                            stylesheets="@../../css/main/transparentScrollPane.css" AnchorPane.bottomAnchor="10.0"
+                            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <content>
+                        <VBox>
                             <children>
-                                <Button fx:id = "accident"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Accident Report" GridPane.columnIndex = "0" GridPane.rowIndex = "0">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "arrest"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Arrest Report" GridPane.columnIndex = "1" GridPane.rowIndex = "0">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "callout"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Callout Report" GridPane.columnIndex = "1" GridPane.rowIndex = "4">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "death"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Death Report" GridPane.columnIndex = "0" GridPane.rowIndex = "1">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "impound"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Impound Report" GridPane.columnIndex = "1" GridPane.rowIndex = "1">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "incident"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Incident Report" GridPane.rowIndex = "4">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "patrol"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Patrol Report" GridPane.columnIndex = "0" GridPane.rowIndex = "2">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "search"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Search Report" GridPane.columnIndex = "1" GridPane.rowIndex = "2">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "citation"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Traffic Citation" GridPane.rowIndex = "3">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
-                                <Button fx:id = "trafficstop"
-                                        style = "-fx-background-color: rgb(0,0,0,0.2); -fx-background-radius: 7;"
-                                        text = "Traffic Stop" GridPane.columnIndex = "1" GridPane.rowIndex = "3">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
-                                    </font>
-                                </Button>
+                                <BorderPane VBox.vgrow="SOMETIMES">
+                                    <top>
+                                        <Label fx:id="selectReportTypeLabel" text="Select a Report Type:"
+                                               BorderPane.alignment="CENTER">
+                                            <font>
+                                                <Font name="Inter 28pt Bold" size="18.0"/>
+                                            </font>
+                                            <BorderPane.margin>
+                                                <Insets/>
+                                            </BorderPane.margin>
+                                        </Label>
+                                    </top>
+                                    <center>
+                                        <GridPane hgap="5.0" vgap="10.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button fx:id="accident" text="Accident Report" GridPane.columnIndex="0"
+                                                        GridPane.rowIndex="0">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="arrest" text="Arrest Report" GridPane.columnIndex="1"
+                                                        GridPane.rowIndex="0">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="callout" text="Callout Report" GridPane.columnIndex="1"
+                                                        GridPane.rowIndex="4">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="death" text="Death Report" GridPane.columnIndex="0"
+                                                        GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="impound" text="Impound Report" GridPane.columnIndex="1"
+                                                        GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="incident" text="Incident Report" GridPane.rowIndex="4">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="patrol" text="Patrol Report" GridPane.columnIndex="0"
+                                                        GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="search" text="Search Report" GridPane.columnIndex="1"
+                                                        GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="citation" text="Traffic Citation" GridPane.rowIndex="3">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button fx:id="trafficstop" text="Traffic Stop" GridPane.columnIndex="1"
+                                                        GridPane.rowIndex="3">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="13.0"/>
+                                                    </font>
+                                                </Button>
+                                            </children>
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <BorderPane.margin>
+                                                <Insets bottom="5.0" top="5.0"/>
+                                            </BorderPane.margin>
+                                        </GridPane>
+                                    </center>
+                                </BorderPane>
+                                <BorderPane VBox.vgrow="SOMETIMES">
+                                    <top>
+                                        <Label fx:id="customReportsLabel" text="Custom Reports:"
+                                               BorderPane.alignment="CENTER">
+                                            <font>
+                                                <Font name="Inter 28pt Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                    </top>
+                                    <center>
+                                        <GridPane fx:id="customReportsGrid" alignment="CENTER" hgap="5.0" vgap="10.0"
+                                                  BorderPane.alignment="CENTER">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+                                            </columnConstraints>
+                                            <BorderPane.margin>
+                                                <Insets/>
+                                            </BorderPane.margin>
+                                            <padding>
+                                                <Insets bottom="15.0" top="15.0"/>
+                                            </padding>
+                                        </GridPane>
+                                    </center>
+                                    <VBox.margin>
+                                        <Insets top="15.0"/>
+                                    </VBox.margin>
+                                    <bottom>
+                                        <Button fx:id="createNewReportBtn" mnemonicParsing="false"
+                                                onAction="#createReportButton" text="Create New Report"
+                                                BorderPane.alignment="CENTER_RIGHT">
+                                            <BorderPane.margin>
+                                                <Insets top="5.0"/>
+                                            </BorderPane.margin>
+                                        </Button>
+                                    </bottom>
+                                </BorderPane>
                             </children>
-                            <columnConstraints>
-                                <ColumnConstraints halignment = "CENTER" hgrow = "SOMETIMES" />
-                                <ColumnConstraints halignment = "CENTER" hgrow = "SOMETIMES" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints vgrow = "SOMETIMES" />
-                                <RowConstraints vgrow = "SOMETIMES" />
-                                <RowConstraints vgrow = "SOMETIMES" />
-                                <RowConstraints vgrow = "SOMETIMES" />
-                                <RowConstraints minHeight = "10.0" prefHeight = "30.0" vgrow = "SOMETIMES" />
-                            </rowConstraints>
-                        </GridPane>
-                    </children>
-                </VBox>
+                        </VBox>
+                    </content>
+                </ScrollPane>
             </children>
         </AnchorPane>
     </center>

@@ -875,4 +875,19 @@ public class VehLookupViewController {
             }
         }
     }
+
+    // Dont rename
+    public TextField getVehplatefield2() {
+        return vehplatefield2;
+    }
+
+    // Dont rename
+    public TextField getVehmodelfield() {
+        return vehmodelfield;
+    }
+
+    // Dont rename
+    public ComboBox getVehtypecombobox() {
+        return vehtypecombobox;
+    }
 }

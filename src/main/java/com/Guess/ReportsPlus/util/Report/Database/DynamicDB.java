@@ -2,10 +2,6 @@ package com.Guess.ReportsPlus.util.Report.Database;
 
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -63,8 +59,7 @@ public class DynamicDB {
         Map<String, String> columnsDefinition = new LinkedHashMap<>();
 
         String sql = "SELECT sql FROM sqlite_master WHERE type='table' AND name=?";
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath);
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, tableName);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -80,40 +75,39 @@ public class DynamicDB {
     }
 
     private static void parseColumnDefinitions(String createTableSql, Map<String, String> columnsDefinition) {
-
         int start = createTableSql.indexOf('(');
         int end = createTableSql.lastIndexOf(')');
         if (start == -1 || end == -1) return;
 
         String columnsPart = createTableSql.substring(start + 1, end).trim();
-        String[] definitions = columnsPart.split(",");
+        String[] definitions = columnsPart.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
         for (String def : definitions) {
             def = def.trim();
-
             if (def.startsWith("PRIMARY KEY") || def.startsWith("FOREIGN KEY") || def.startsWith("CHECK")) {
                 continue;
             }
 
-            String[] parts = def.split("\\s+", 2);
-            if (parts.length < 2) continue;
+            // Handle quoted column names
+            String columnName;
+            String columnDef;
+            if (def.startsWith("\"")) {
+                int endQuote = def.indexOf("\"", 1);
+                columnName = def.substring(1, endQuote);
+                columnDef = def.substring(endQuote + 1).trim();
+            } else {
+                int firstSpace = def.indexOf(" ");
+                columnName = def.substring(0, firstSpace);
+                columnDef = def.substring(firstSpace + 1).trim();
+            }
 
-            String columnName = parts[0].replaceAll("[\"`]", "");
-            String columnDef = parts[1].trim();
             columnsDefinition.put(columnName, columnDef);
         }
     }
 
-    public static boolean databaseExists(String dbFilePath) {
-        String fullPath = dbFilePath.endsWith(".db") ? dbFilePath : dbFilePath + ".db";
-        File dbFile = new File(fullPath);
-        return dbFile.exists();
-    }
-
     public static boolean tableExists(String dbFilePath, String tableName) throws SQLException {
         String fullPath = dbFilePath.endsWith(".db") ? dbFilePath : dbFilePath + ".db";
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath);
-             PreparedStatement ps = conn.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name=?")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath); PreparedStatement ps = conn.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name=?")) {
             ps.setString(1, tableName);
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
@@ -126,9 +120,7 @@ public class DynamicDB {
         List<String> pkColumns = new ArrayList<>();
 
         String pragmaSql = "PRAGMA table_info(" + tableName + ")";
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(pragmaSql)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(pragmaSql)) {
 
             while (rs.next()) {
 
@@ -148,36 +140,6 @@ public class DynamicDB {
         return String.join(", ", pkColumns);
     }
 
-    public boolean tableExists(String tableName) throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            throw new SQLException("Connection is not established.");
-        }
-        String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, tableName);
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
-            }
-        }
-    }
-
-    public void deleteDB() throws IOException {
-        try {
-            close();
-        } catch (SQLException e) {
-            logError("Error closing connection during database deletion", e);
-        }
-
-        File dbFile = new File(dbFilePath);
-        if (dbFile.exists()) {
-            boolean isDeleted = dbFile.delete();
-            if (!isDeleted) {
-                throw new IOException("Failed to delete database file: " + dbFilePath);
-            }
-            log("Deleted database file: " + dbFilePath, LogUtils.Severity.DEBUG);
-        }
-    }
-
     public boolean initDB() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -191,12 +153,18 @@ public class DynamicDB {
         }
     }
 
+    private String escapeIdentifier(String identifier) {
+        return "\"" + identifier.replace("\"", "\"\"") + "\"";
+    }
+
     private void createTableIfNotExists() {
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
-        sql.append(tableName).append(" (");
+        sql.append(escapeIdentifier(tableName)).append(" (");
 
         for (Map.Entry<String, String> entry : columnsDefinition.entrySet()) {
-            sql.append(entry.getKey()).append(" ").append(entry.getValue());
+            String escapedColumn = escapeIdentifier(entry.getKey());
+            sql.append(escapedColumn).append(" ").append(entry.getValue());
+
             if (entry.getKey().equals(primaryKeyColumn)) {
                 sql.append(" PRIMARY KEY");
             }
@@ -215,14 +183,14 @@ public class DynamicDB {
     }
 
     public void addOrReplaceRecord(Map<String, Object> record) throws SQLException {
-
         validateRecord(record);
         Object pkValue = record.get(primaryKeyColumn);
         if (pkValue == null) {
             logError("Record must contain a value for primary key column: " + primaryKeyColumn, new IllegalArgumentException());
         }
 
-        String checkSQL = "SELECT COUNT(*) FROM " + tableName + " WHERE " + primaryKeyColumn + " = ?";
+        String checkSQL = "SELECT COUNT(*) FROM " + escapeIdentifier(tableName) + " WHERE " + escapeIdentifier(primaryKeyColumn) + " = ?";
+
         try (PreparedStatement ps = connection.prepareStatement(checkSQL)) {
             ps.setObject(1, pkValue);
             ResultSet rs = ps.executeQuery();
@@ -247,16 +215,17 @@ public class DynamicDB {
 
         for (String col : columnsDefinition.keySet()) {
             if (record.containsKey(col)) {
-                columnsPart.append(col).append(", ");
+                columnsPart.append(escapeIdentifier(col)).append(", ");
                 valuesPart.append("?, ");
                 values.add(record.get(col));
             }
         }
+
         if (columnsPart.length() > 0) {
             columnsPart.setLength(columnsPart.length() - 2);
             valuesPart.setLength(valuesPart.length() - 2);
         }
-        String sql = "INSERT INTO " + tableName + " (" + columnsPart + ") VALUES (" + valuesPart + ")";
+        String sql = "INSERT INTO " + escapeIdentifier(tableName) + " (" + columnsPart + ") VALUES (" + valuesPart + ")";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             for (int i = 0; i < values.size(); i++) {
                 ps.setObject(i + 1, values.get(i));
@@ -274,14 +243,14 @@ public class DynamicDB {
                 continue;
             }
             if (record.containsKey(col)) {
-                setClause.append(col).append(" = ?, ");
+                setClause.append(escapeIdentifier(col)).append(" = ?, ");
                 values.add(record.get(col));
             }
         }
         if (setClause.length() > 0) {
             setClause.setLength(setClause.length() - 2);
         }
-        String sql = "UPDATE " + tableName + " SET " + setClause + " WHERE " + primaryKeyColumn + " = ?";
+        String sql = "UPDATE " + escapeIdentifier(tableName) + " SET " + setClause + " WHERE " + escapeIdentifier(primaryKeyColumn) + " = ?";
         values.add(record.get(primaryKeyColumn));
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             for (int i = 0; i < values.size(); i++) {
@@ -294,47 +263,8 @@ public class DynamicDB {
         }
     }
 
-    public void modifyRecord(Map<String, Object> record) throws SQLException {
-
-        validateRecord(record);
-
-        Object pkValue = record.get(primaryKeyColumn);
-        if (pkValue == null) {
-            logError("Record must contain a value for primary key column: " + primaryKeyColumn, new IllegalArgumentException());
-        }
-        String checkSQL = "SELECT COUNT(*) FROM " + tableName + " WHERE " + primaryKeyColumn + " = ?";
-        try (PreparedStatement ps = connection.prepareStatement(checkSQL)) {
-            ps.setObject(1, pkValue);
-            ResultSet rs = ps.executeQuery();
-            boolean exists = false;
-            if (rs.next()) {
-                exists = rs.getInt(1) > 0;
-            }
-            rs.close();
-            if (exists) {
-                updateRecord(record);
-                log("Record: " + record + " modified in table: " + tableName, LogUtils.Severity.INFO);
-            } else {
-                log("Record not found for primary key: " + primaryKeyColumn, LogUtils.Severity.WARN);
-            }
-        }
-    }
-
-    public void deleteRecord(Object pkValue) throws SQLException {
-        String sql = "DELETE FROM " + tableName + " WHERE " + primaryKeyColumn + " = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setObject(1, pkValue);
-            int affected = ps.executeUpdate();
-            if (affected > 0) {
-                log("Record deleted for primary key: " + primaryKeyColumn, LogUtils.Severity.INFO);
-            } else {
-                log("Record not found for primary key: " + primaryKeyColumn, LogUtils.Severity.WARN);
-            }
-        }
-    }
-
     public Map<String, Object> getRecord(Object pkValue) throws SQLException {
-        String sql = "SELECT * FROM " + tableName + " WHERE " + primaryKeyColumn + " = ?";
+        String sql = "SELECT * FROM " + escapeIdentifier(tableName) + " WHERE " + escapeIdentifier(primaryKeyColumn) + " = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setObject(1, pkValue);
             ResultSet rs = ps.executeQuery();
@@ -353,7 +283,7 @@ public class DynamicDB {
 
     public List<Map<String, Object>> getAllRecords() throws SQLException {
         List<Map<String, Object>> records = new ArrayList<>();
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM " + escapeIdentifier(tableName);
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Map<String, Object> record = new LinkedHashMap<>();
@@ -401,135 +331,6 @@ public class DynamicDB {
                     break;
             }
         }
-    }
-
-    public void beginTransaction() throws SQLException {
-        connection.setAutoCommit(false);
-        log("Transaction started", LogUtils.Severity.DEBUG);
-    }
-
-    public void commitTransaction() throws SQLException {
-        connection.commit();
-        connection.setAutoCommit(true);
-        log("Transaction committed", LogUtils.Severity.DEBUG);
-    }
-
-    public void rollbackTransaction() throws SQLException {
-        connection.rollback();
-        connection.setAutoCommit(true);
-        log("Transaction rolled back", LogUtils.Severity.DEBUG);
-    }
-
-    public void addOrReplaceRecords(List<Map<String, Object>> records) throws SQLException {
-        if (records == null || records.isEmpty()) {
-            return;
-        }
-        beginTransaction();
-        try {
-            for (Map<String, Object> record : records) {
-                addOrReplaceRecord(record);
-            }
-            commitTransaction();
-        } catch (SQLException e) {
-            rollbackTransaction();
-            throw e;
-        }
-    }
-
-    public List<String> getTables() throws SQLException {
-        List<String> tables = new ArrayList<>();
-        String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'";
-
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                tables.add(rs.getString("name"));
-            }
-        }
-        return tables;
-    }
-
-    public List<Map<String, Object>> executeCustomQuery(String sql, List<Object> parameters) throws SQLException {
-        List<Map<String, Object>> results = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            if (parameters != null) {
-                for (int i = 0; i < parameters.size(); i++) {
-                    ps.setObject(i + 1, parameters.get(i));
-                }
-            }
-            try (ResultSet rs = ps.executeQuery()) {
-                ResultSetMetaData meta = rs.getMetaData();
-                int columnCount = meta.getColumnCount();
-                while (rs.next()) {
-                    Map<String, Object> row = new LinkedHashMap<>();
-                    for (int i = 1; i <= columnCount; i++) {
-                        String colName = meta.getColumnName(i);
-                        row.put(colName, rs.getObject(i));
-                    }
-                    results.add(row);
-                }
-            }
-        }
-        return results;
-    }
-
-    public void dropTable() throws SQLException {
-        String sql = "DROP TABLE IF EXISTS " + tableName;
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-            log("Table: " + tableName + " dropped", LogUtils.Severity.INFO);
-        }
-    }
-
-    public void clearTable() throws SQLException {
-        String sql = "DELETE FROM " + tableName;
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-            log("Table: " + tableName + " cleared", LogUtils.Severity.INFO);
-        }
-    }
-
-    public void alterTableAddColumn(String columnName, String columnType) throws SQLException {
-        String sql = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnType;
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-
-            columnsDefinition.put(columnName, columnType);
-            log("Column: " + columnName + " added to table: " + tableName, LogUtils.Severity.INFO);
-        }
-    }
-
-    public Map<String, String> getTableSchema() throws SQLException {
-        Map<String, String> schema = new LinkedHashMap<>();
-        String sql = "PRAGMA table_info(" + tableName + ")";
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                String name = rs.getString("name");
-                String type = rs.getString("type");
-                schema.put(name, type);
-            }
-        }
-        return schema;
-    }
-
-    public void exportToCSV(String filePath) throws SQLException, IOException {
-        List<Map<String, Object>> records = getAllRecords();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-
-            String header = String.join(",", columnsDefinition.keySet());
-            writer.write(header);
-            writer.newLine();
-
-            for (Map<String, Object> record : records) {
-                List<String> values = new ArrayList<>();
-                for (String col : columnsDefinition.keySet()) {
-                    Object value = record.get(col);
-                    values.add(value != null ? value.toString() : "");
-                }
-                writer.write(String.join(",", values));
-                writer.newLine();
-            }
-        }
-        log("Data exported to: " + filePath, LogUtils.Severity.INFO);
     }
 
     public void close() throws SQLException {

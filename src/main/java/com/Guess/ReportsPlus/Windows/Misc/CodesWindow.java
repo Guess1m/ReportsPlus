@@ -11,6 +11,7 @@ import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.codesWindo
 
 public class CodesWindow {
     Boolean isToggled = false;
+
     @javafx.fxml.FXML
     private BorderPane root;
     @javafx.fxml.FXML

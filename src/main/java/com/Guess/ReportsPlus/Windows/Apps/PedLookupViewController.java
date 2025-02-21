@@ -1953,14 +1953,6 @@ public class PedLookupViewController {
         return lookupPane;
     }
 
-    public TextField getPedlnamefield() {
-        return pedlnamefield;
-    }
-
-    public TextField getPedfnamefield() {
-        return pedfnamefield;
-    }
-
     public AnchorPane getPedRecordPane() {
         return pedRecordPane;
     }
@@ -2012,4 +2004,35 @@ public class PedLookupViewController {
     public Button getInfobtn3() {
         return infobtn3;
     }
+
+    // Dont rename
+    public TextField getPeddobfield() {
+        return peddobfield;
+    }
+
+    // Dont rename
+    public TextField getPedgenfield() {
+        return pedgenfield;
+    }
+
+    // Dont rename
+    public TextField getPedaddressfield() {
+        return pedaddressfield;
+    }
+
+    // Dont rename
+    public TextField getPeddescfield() {
+        return peddescfield;
+    }
+
+    // Dont rename
+    public TextField getPedlnamefield() {
+        return pedlnamefield;
+    }
+
+    // Dont rename
+    public TextField getPedfnamefield() {
+        return pedfnamefield;
+    }
+
 }

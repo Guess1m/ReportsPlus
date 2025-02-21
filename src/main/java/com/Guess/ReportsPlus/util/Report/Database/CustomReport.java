@@ -3,7 +3,7 @@ package com.Guess.ReportsPlus.util.Report.Database;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils;
 import javafx.animation.PauseTransition;
@@ -41,7 +41,7 @@ public class CustomReport {
         createFolderIfNotExists(dataFolderPath);
 
         if (reportTitle.isEmpty()) {
-            log("LayoutBuilder; Report Title Field is Empty", LogUtils.Severity.ERROR);
+            log("CustomReport; Report Title Field is Empty", Severity.ERROR);
             return;
         }
 
@@ -50,12 +50,12 @@ public class CustomReport {
             dbManager = new DynamicDB(dataFolderPath + reportTitle, "data", dataTablePrimaryKey, reportSchema);
             dbManager.initDB();
         } catch (Exception e2) {
-            logError("Failed to extract field names", e2);
+            logError("CustomReport; Failed to extract field names", e2);
         } finally {
             try {
                 dbManager.close();
             } catch (SQLException e2) {
-                logError("Failed to close database connection, null", e2);
+                logError("CustomReport; Failed to close database connection, null", e2);
             }
         }
 
@@ -63,33 +63,33 @@ public class CustomReport {
         String transferContent = null;
         DynamicDB DatabaseLayout = new DynamicDB(dataFolderPath + reportTitle, "layout", "key", layoutScheme);
         if (DatabaseLayout.initDB()) {
-            log("LayoutBuilder: Layout Database for: [" + reportTitle + "] Initialized", LogUtils.Severity.INFO);
+            log("CustomReport; Layout Database for: [" + reportTitle + "] Initialized", Severity.INFO);
             try {
                 Map<String, Object> layoutRecord = DatabaseLayout.getRecord("1");
                 if (layoutRecord != null) {
                     Object layoutValue = layoutRecord.get("layoutData");
                     layoutContent = (String) layoutValue;
                 } else {
-                    log("layout record null for report: " + reportTitle, LogUtils.Severity.ERROR);
+                    log("CustomReport; layout record null for report: " + reportTitle, Severity.ERROR);
                 }
                 Map<String, Object> transferRecord = DatabaseLayout.getRecord("2");
                 if (transferRecord != null) {
                     Object layoutValue = transferRecord.get("transferData");
                     transferContent = (String) layoutValue;
                 } else {
-                    log("transfer record null for report: " + reportTitle, LogUtils.Severity.ERROR);
+                    log("CustomReport; transfer record null for report: " + reportTitle, Severity.ERROR);
                 }
             } catch (SQLException e2) {
-                logError("Error adding/replacing record: " + layoutScheme, e2);
+                logError("CustomReport; Error adding/replacing record: " + layoutScheme, e2);
             } finally {
                 try {
                     DatabaseLayout.close();
                 } catch (SQLException e2) {
-                    logError("Error closing Database: [" + DatabaseLayout.getTableName() + "]", e2);
+                    logError("CustomReport; Error closing Database: [" + DatabaseLayout.getTableName() + "]", e2);
                 }
             }
         } else {
-            log("LayoutBuilder: Layout Database not initialized!", LogUtils.Severity.ERROR);
+            log("CustomReport; Layout Database not initialized!", Severity.ERROR);
             showNotificationError("Report Creation Utility", "Error initializing layout database!");
         }
 
@@ -109,11 +109,11 @@ public class CustomReport {
                 .flatMap(List::stream)
                 .filter(type -> type.equalsIgnoreCase("NUMBER_FIELD"))
                 .count() != 1) {
-            log("LayoutBuilder: Exactly one NUMBER_FIELD is required, found: " + newMap.getOrDefault("selectedType", new HashMap<>()).values().stream()
+            log("CustomReport; Exactly one NUMBER_FIELD is required, found: " + newMap.getOrDefault("selectedType", new HashMap<>()).values().stream()
                             .flatMap(List::stream)
                             .filter(type -> type.equalsIgnoreCase("NUMBER_FIELD"))
                             .count(),
-                    LogUtils.Severity.ERROR);
+                    Severity.ERROR);
             newMap.put("selectedType", null);
             return;
         }
@@ -128,15 +128,15 @@ public class CustomReport {
                     if (dataFolder.exists() && dataFolder.isDirectory()) {
                         File[] files = dataFolder.listFiles((dir, filen) -> filen.endsWith(".db"));
                         if (files != null && files.length != 0) {
-                            log("CustomReport; Searching for [" + values[2] + "] Found " + files.length + " Database(s)", LogUtils.Severity.INFO);
+                            log("CustomReport; Searching for [" + values[2] + "] Found " + files.length + " Database(s)", Severity.INFO);
                             boolean found = false;
                             for (File dbFile : files) {
                                 String fileNameWithoutExt = dbFile.getName().replaceFirst("[.][^.]+$", "");
                                 if (fileNameWithoutExt.equals(values[2])) {
                                     String dbFilePath = dbFile.getAbsolutePath();
-                                    log("CustomReport; [" + dbFile.getName() + "] Being Checked", LogUtils.Severity.INFO);
+                                    log("CustomReport; [" + dbFile.getName() + "] Being Checked", Severity.INFO);
                                     if (isValidDatabase(dbFilePath, dbFile.getName())) {
-                                        log("CustomReport; [" + dbFile.getName() + "] Valid", LogUtils.Severity.INFO);
+                                        log("CustomReport; [" + dbFile.getName() + "] Valid", Severity.INFO);
 
                                         String data = null;
                                         try {
@@ -145,7 +145,7 @@ public class CustomReport {
                                             logError("Error getting primary key column [2]", e);
                                         }
 
-                                        log("NewReport; Clicked Database: " + dbFile.getName(), LogUtils.Severity.DEBUG);
+                                        log("CustomReport; Clicked Database: " + dbFile.getName(), Severity.DEBUG);
                                         createFolderIfNotExists(getCustomDataLogsFolderPath());
 
                                         Map<String, String> transferLayoutScheme = null;
@@ -154,7 +154,7 @@ public class CustomReport {
                                             transferLayoutScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "layout");
                                             transferSchema = DynamicDB.getTableColumnsDefinition(dbFilePath, "data");
                                         } catch (SQLException e2) {
-                                            logError("Failed to extract field names", e2);
+                                            logError("CustomReport; Failed to extract field names", e2);
                                         }
 
                                         CustomReport customReport = new CustomReport(values[2], data, transferLayoutScheme, transferSchema);
@@ -187,13 +187,13 @@ public class CustomReport {
 
                                         found = true;
                                     } else {
-                                        log("CustomReport; Invalid database file: " + dbFilePath, LogUtils.Severity.WARN);
+                                        log("CustomReport; Invalid database file: " + dbFilePath, Severity.WARN);
                                     }
                                 }
                             }
                             if (!found) {
                                 showNotificationWarning("Report Creation Utility", "Database [" + values[2] + "] not found!");
-                                log("CustomReport; [" + values[2] + "] Not found", LogUtils.Severity.WARN);
+                                log("CustomReport; [" + values[2] + "] Not found", Severity.WARN);
                             }
                         }
                     }
@@ -238,16 +238,16 @@ public class CustomReport {
                     if (noteArea != null) {
                         menuItem.setOnAction(event3 -> {
                             if (newMap == null) {
-                                log("LayoutBuilder; newMap is null", LogUtils.Severity.ERROR);
+                                log("CustomReport; newMap is null", Severity.ERROR);
                                 return;
                             }
                             for (String field : newMap.getOrDefault("nodeType", new HashMap<>()).keySet()) {
-                                log("LayoutBuilder; Processing field: " + field, LogUtils.Severity.DEBUG);
+                                log("CustomReport; Processing field: " + field, Severity.DEBUG);
 
                                 Object fieldValue = reportMap.get(field);
 
                                 if (fieldValue == null) {
-                                    log("LayoutBuilder; Field is null: " + field, LogUtils.Severity.ERROR);
+                                    log("CustomReport; Field is null: " + field, Severity.ERROR);
                                     continue;
                                 }
 
@@ -270,8 +270,8 @@ public class CustomReport {
                                 } else if (fieldValue instanceof TextArea) {
                                     updateTextFromNotepad((TextArea) fieldValue, noteArea, "-" + key);
                                 } else {
-                                    log("LayoutBuilder; Unknown field type: " + fieldValue.getClass().getSimpleName(),
-                                            LogUtils.Severity.ERROR);
+                                    log("CustomReport; Unknown field type: " + fieldValue.getClass().getSimpleName(),
+                                            Severity.ERROR);
                                 }
                             }
                         });
@@ -288,6 +288,15 @@ public class CustomReport {
 
             String identifier = null;
 
+            for (String fieldName : reportMap.keySet()) {
+                Object field = reportMap.get(fieldName);
+                if (field instanceof ComboBox<?> comboBox) {
+                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
+                        comboBox.getSelectionModel().selectFirst();
+                    }
+                }
+            }
+
             for (String field : fieldNames.keySet()) {
                 String selectedType = selectedTypes.getOrDefault(field, List.of()).isEmpty() ? "" : selectedTypes.get(field).get(0);
                 if ("NUMBER_FIELD".equalsIgnoreCase(selectedType)) {
@@ -299,66 +308,63 @@ public class CustomReport {
                             PauseTransition pause = new PauseTransition(Duration.seconds(2));
                             pause.setOnFinished(e2 -> warningLabel.setVisible(false));
                             pause.play();
-                            log("LayoutBuilder: Number field blank, returning", LogUtils.Severity.WARN);
+                            log("CustomReport; Number field blank, returning", Severity.WARN);
                             return;
                         } else {
                             identifier = field;
-                            log("Set identifier for report [" + reportTitle + "] to: " + identifier, LogUtils.Severity.DEBUG);
+                            log("CustomReport; Set identifier for report [" + reportTitle + "] to: " + identifier, Severity.DEBUG);
                         }
                     }
                 }
 
                 Object f = reportMap.get(field);
                 if (f == null) {
-                    log("Field " + field + " not found in map: " + reportMap, LogUtils.Severity.ERROR);
+                    log("CustomReport; Field " + field + " not found in map: " + reportMap, Severity.ERROR);
                 }
 
                 if (f instanceof ComboBox<?>) {
                     if (selectedType.equalsIgnoreCase("combo_box_street") || selectedType.equalsIgnoreCase("combo_box_area")) {
                         reportRecord.put(field, toTitleCase(((ComboBox) f).getEditor().getText().trim()));
                     } else {
-                        reportRecord.put(field, ((ComboBox) f).getValue().toString().trim());
+                        if (((ComboBox) f).getValue() == null) {
+                            log("CustomReport; Field " + field + " is null, putting N/A", Severity.WARN);
+                            reportRecord.put(field, "N/A");
+                        } else {
+                            reportRecord.put(field, ((ComboBox) f).getValue().toString().trim());
+                        }
                     }
                 } else if (f instanceof TextField) {
                     reportRecord.put(field, toTitleCase(((TextInputControl) f).getText().trim()));
                 } else if (f instanceof TextArea) {
                     reportRecord.put(field, ((TextInputControl) f).getText().trim());
                 } else {
-                    log("Unknown field type: " + f.getClass().getSimpleName(), LogUtils.Severity.ERROR);
+                    log("CustomReport; Unknown field type: " + f.getClass().getSimpleName(), Severity.ERROR);
                 }
             }
 
-            reportRecord.put("status", statusValue.getValue().trim());
-            for (String fieldName : reportMap.keySet()) {
-                Object field = reportMap.get(fieldName);
-                if (field instanceof ComboBox<?> comboBox) {
-                    if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-                        comboBox.getSelectionModel().selectFirst();
-                    }
-                }
-            }
+            reportRecord.put("report_status", statusValue.getValue().trim());
 
             if (identifier == null) {
-                log("LayoutBuilder: Identifier is null", LogUtils.Severity.ERROR);
+                log("CustomReport; Identifier is null", Severity.ERROR);
                 return;
             }
 
             DynamicDB Database = new DynamicDB(dataFolderPath + reportTitle, "data", dataTablePrimaryKey, reportSchema);
             if (Database.initDB()) {
-                log("LayoutBuilder: Database initialized", LogUtils.Severity.INFO);
+                log("CustomReport; Database initialized", Severity.INFO);
                 try {
                     Database.addOrReplaceRecord(reportRecord);
                 } catch (SQLException e2) {
-                    logError("Error adding/replacing record: " + reportRecord, e2);
+                    logError("CustomReport; Error adding/replacing record: " + reportRecord, e2);
                 } finally {
                     try {
                         Database.close();
                     } catch (SQLException e2) {
-                        logError("Error closing Database: [" + Database.getTableName() + "]", e2);
+                        logError("CustomReport; Error closing Database: [" + Database.getTableName() + "]", e2);
                     }
                 }
             } else {
-                log("LayoutBuilder: Database not initialized!", LogUtils.Severity.ERROR);
+                log("CustomReport; Database not initialized!", Severity.ERROR);
                 showNotificationError("Report Creation Utility", "Error initializing database!");
             }
 
@@ -367,7 +373,7 @@ public class CustomReport {
                     playSound(getJarPath() + "/sounds/alert-success.wav");
                 }
             } catch (IOException e) {
-                logError("Error getting configValue for playCreateReport: ", e);
+                logError("CustomReport; Error getting configValue for playCreateReport: ", e);
             }
 
             LogViewController.needRefresh.set(1);

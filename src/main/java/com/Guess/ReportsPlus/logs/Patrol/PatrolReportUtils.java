@@ -34,6 +34,8 @@ import static com.Guess.ReportsPlus.util.Strings.URLStrings.patrolLogURL;
 public class PatrolReportUtils {
 
     public static Map<String, Object> patrolLayout() {
+        ;
+
         Map<String, Object> patrolReport = createReportWindow(
                 localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report"), null,
                 new SectionConfig(
@@ -117,7 +119,6 @@ public class PatrolReportUtils {
         });
 
         Button submitBtn = (Button) patrolReport.get("submitBtn");
-
         ComboBox<String> statusValue = (ComboBox) patrolReport.get("statusValue");
 
         submitBtn.setOnAction(event -> {
@@ -175,6 +176,7 @@ public class PatrolReportUtils {
                 }
             }
         });
+
         return patrolReport;
     }
 

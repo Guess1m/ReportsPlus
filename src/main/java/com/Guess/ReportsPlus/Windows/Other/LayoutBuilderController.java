@@ -90,9 +90,7 @@ public class LayoutBuilderController {
                             if (fieldConfigs != null && fieldConfigs.isArray()) {
                                 for (JsonNode configNode : fieldConfigs) {
                                     JsonNode fieldTypeNode = configNode.get("fieldType");
-                                    if (fieldTypeNode != null
-                                            && fieldTypeNode.isTextual()
-                                            && "NUMBER_FIELD".equals(fieldTypeNode.asText())) {
+                                    if (fieldTypeNode != null && fieldTypeNode.isTextual() && "NUMBER_FIELD".equals(fieldTypeNode.asText())) {
                                         JsonNode fieldNameNode = configNode.get("fieldName");
                                         if (fieldNameNode != null && fieldNameNode.isTextual()) {
                                             return fieldNameNode.asText();
@@ -154,27 +152,17 @@ public class LayoutBuilderController {
                         String nodeType = fieldConfig.get("nodeType").asText();
                         String fieldType = fieldConfig.get("fieldType").asText();
                         String dropdownType = fieldConfig.get("dropdownType").asText();
-                        String populateKey = fieldConfig.has("populateKey") && !fieldConfig.get("populateKey").isNull()
-                                ? fieldConfig.get("populateKey").asText()
-                                : "null";
+                        String populateKey = fieldConfig.has("populateKey") && !fieldConfig.get("populateKey").isNull() ? fieldConfig.get("populateKey").asText() : "null";
 
-                        map.computeIfAbsent("dropdownType", k -> new HashMap<>())
-                                .computeIfAbsent(fieldName, k -> new ArrayList<>()).add(dropdownType);
+                        map.computeIfAbsent("dropdownType", k -> new HashMap<>()).computeIfAbsent(fieldName, k -> new ArrayList<>()).add(dropdownType);
 
-                        map.computeIfAbsent("fieldNames", k -> new HashMap<>())
-                                .computeIfAbsent(fieldName, k -> new ArrayList<>());
+                        map.computeIfAbsent("fieldNames", k -> new HashMap<>()).computeIfAbsent(fieldName, k -> new ArrayList<>());
 
-                        map.computeIfAbsent("nodeType", k -> new HashMap<>())
-                                .computeIfAbsent(fieldName, k -> new ArrayList<>())
-                                .add(nodeType);
+                        map.computeIfAbsent("nodeType", k -> new HashMap<>()).computeIfAbsent(fieldName, k -> new ArrayList<>()).add(nodeType);
 
-                        map.computeIfAbsent("selectedType", k -> new HashMap<>())
-                                .computeIfAbsent(fieldName, k -> new ArrayList<>())
-                                .add(fieldType);
+                        map.computeIfAbsent("selectedType", k -> new HashMap<>()).computeIfAbsent(fieldName, k -> new ArrayList<>()).add(fieldType);
 
-                        map.computeIfAbsent("keyMap", k -> new HashMap<>())
-                                .computeIfAbsent(populateKey, k -> new ArrayList<>())
-                                .add(fieldName);
+                        map.computeIfAbsent("keyMap", k -> new HashMap<>()).computeIfAbsent(populateKey, k -> new ArrayList<>()).add(fieldName);
                     }
                 }
             }
@@ -188,9 +176,8 @@ public class LayoutBuilderController {
     public static List<SectionConfig> loadLayoutFromJSON(String data) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            List<SectionConfig> layout = objectMapper.readValue(data,
-                    new TypeReference<List<SectionConfig>>() {
-                    });
+            List<SectionConfig> layout = objectMapper.readValue(data, new TypeReference<List<SectionConfig>>() {
+            });
             return layout;
         } catch (IOException e) {
             e.printStackTrace();
@@ -228,8 +215,7 @@ public class LayoutBuilderController {
         Label titleLabel = new Label(localization.getLocalizedMessage("ImportExport.title", "JSON Import/Export"));
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: #2c3e50;");
 
-        Label descriptionLabel = new Label(localization.getLocalizedMessage("ImportExport.description",
-                "Import or export layout configuration from/to JSON format"));
+        Label descriptionLabel = new Label(localization.getLocalizedMessage("ImportExport.description", "Import or export layout configuration from/to JSON format"));
         descriptionLabel.setWrapText(true);
         descriptionLabel.setStyle("-fx-text-fill: #7f8c8d;");
 
@@ -267,38 +253,18 @@ public class LayoutBuilderController {
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        buttonContainer.getChildren().addAll(
-                fileButtons,
-                spacer,
-                importButtonBox
-        );
+        buttonContainer.getChildren().addAll(fileButtons, spacer, importButtonBox);
         importButtonBox.getChildren().add(importButton);
 
-        layout.getChildren().addAll(
-                titleLabel,
-                descriptionLabel,
-                jsonScrollPane,
-                buttonContainer
-        );
+        layout.getChildren().addAll(titleLabel, descriptionLabel, jsonScrollPane, buttonContainer);
 
         BorderPane window = new BorderPane();
         window.setCenter(layout);
         window.setPrefSize(700, 400);
 
-        window.getStylesheets().add(Launcher.class.getResource(
-                "/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
+        window.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
 
-        addDropdownWindow = createCustomWindow(
-                mainDesktopControllerObj.getDesktopContainer(),
-                window,
-                localization.getLocalizedMessage("ImportExport.windowTitle", "Layout Import/Export"),
-                true,
-                1,
-                true,
-                true,
-                mainDesktopControllerObj.getTaskBarApps(),
-                new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))
-                ));
+        addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window, localization.getLocalizedMessage("ImportExport.windowTitle", "Layout Import/Export"), true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
     }
 
     private void handleImport(TextArea jsonTextArea) {
@@ -623,28 +589,13 @@ public class LayoutBuilderController {
 
         layout.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
 
-        layout.getChildren().addAll(
-                dropdownSelector,
-                dropdownTitleLabel,
-                dropdownTitleField,
-                dropdownItemsLabel,
-                dropdownScrollPane,
-                addItemBtn,
-                buttonBox
-        );
+        layout.getChildren().addAll(dropdownSelector, dropdownTitleLabel, dropdownTitleField, dropdownItemsLabel, dropdownScrollPane, addItemBtn, buttonBox);
 
         BorderPane window = new BorderPane();
         window.setCenter(layout);
         window.setPrefSize(400, 500);
 
-        addDropdownWindow = createCustomWindow(
-                mainDesktopControllerObj.getDesktopContainer(),
-                window,
-                localization.getLocalizedMessage("DropdownCreator.windowTitle", "Dropdown Manager"),
-                false,
-                1, true, true, mainDesktopControllerObj.getTaskBarApps(),
-                new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png")))
-        );
+        addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window, localization.getLocalizedMessage("DropdownCreator.windowTitle", "Dropdown Manager"), false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
     }
 
     public String saveLayoutToJSON() {
@@ -687,8 +638,7 @@ public class LayoutBuilderController {
                 ElementPane elementPane = (ElementPane) node;
                 String fieldName = elementPane.elementNameField.getText().trim();
                 String fieldReport = elementPane.reportComboBox.getValue().trim();
-                FieldConfig fieldConfig = new FieldConfig("transfer_" + fieldName + "_" + fieldReport, 12,
-                        FieldType.TRANSFER_BUTTON);
+                FieldConfig fieldConfig = new FieldConfig("transfer_" + fieldName + "_" + fieldReport, 12, FieldType.TRANSFER_BUTTON);
                 fieldConfig.setNodeType("BUTTON");
                 rowConfigs.add(new RowConfig(fieldConfig));
             }
@@ -723,7 +673,7 @@ public class LayoutBuilderController {
         String reportTitle = reportTitleField.getText().trim();
 
         if (!validateFields()) {
-            log("LayoutBuilder; Could not validate fields", LogUtils.Severity.ERROR);
+            log("LayoutBuilder; " + "Could not validate fields", LogUtils.Severity.ERROR);
             return;
         }
         String dataFolderPath = getCustomDataLogsFolderPath();
@@ -746,22 +696,16 @@ public class LayoutBuilderController {
 
         Map<String, Map<String, List<String>>> newMap = parseAndPopulateMap(data);
 
-        var numFieldCount = newMap.getOrDefault("selectedType", new HashMap<>()).values().stream()
-                .flatMap(List::stream)
-                .filter(type -> type.equalsIgnoreCase("NUMBER_FIELD"))
-                .count();
+        var numFieldCount = newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream).filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count();
         if (numFieldCount != 1) {
             showNotificationWarning("Report Creation Utility", "Exactly one NUMBER_FIELD is required, found: " + numFieldCount);
-            log("LayoutBuilder; Exactly one NUMBER_FIELD is required, found: " + numFieldCount,
-                    LogUtils.Severity.ERROR);
+            log("LayoutBuilder; Exactly one NUMBER_FIELD is required, found: " + numFieldCount, LogUtils.Severity.ERROR);
             newMap.put("selectedType", null);
             return;
         }
 
-        Map<String, Object> reportWindow = createReportWindow(reportTitle, transferConfig,
-                layout.toArray(new SectionConfig[0]));
-        Map<String, Object> reportMap = (Map<String, Object>) reportWindow.get(
-                reportTitle + " Map");
+        Map<String, Object> reportWindow = createReportWindow(reportTitle, transferConfig, layout.toArray(new SectionConfig[0]));
+        Map<String, Object> reportMap = (Map<String, Object>) reportWindow.get(reportTitle + " Map");
 
         MenuButton pullNotesBtn = (MenuButton) reportWindow.get("pullNotesBtn");
         Button submitBtn = (Button) reportWindow.get("submitBtn");
@@ -821,12 +765,7 @@ public class LayoutBuilderController {
                                     continue;
                                 }
 
-                                String key = newMap.getOrDefault("keyMap", new HashMap<>())
-                                        .entrySet().stream()
-                                        .filter(entry -> entry.getValue().contains(field))
-                                        .map(Map.Entry::getKey)
-                                        .findFirst()
-                                        .orElse(null);
+                                String key = newMap.getOrDefault("keyMap", new HashMap<>()).entrySet().stream().filter(entry -> entry.getValue().contains(field)).map(Map.Entry::getKey).findFirst().orElse(null);
 
                                 if (key == null) {
                                     continue;
@@ -835,13 +774,11 @@ public class LayoutBuilderController {
                                 if (fieldValue instanceof TextField) {
                                     updateTextFromNotepad((TextField) fieldValue, noteArea, "-" + key);
                                 } else if (fieldValue instanceof ComboBox) {
-                                    updateTextFromNotepad(((ComboBox<?>) fieldValue).getEditor(), noteArea,
-                                            "-" + key);
+                                    updateTextFromNotepad(((ComboBox<?>) fieldValue).getEditor(), noteArea, "-" + key);
                                 } else if (fieldValue instanceof TextArea) {
                                     updateTextFromNotepad((TextArea) fieldValue, noteArea, "-" + key);
                                 } else {
-                                    log("LayoutBuilder; Unknown field type: " + fieldValue.getClass().getSimpleName(),
-                                            LogUtils.Severity.ERROR);
+                                    log("LayoutBuilder; Unknown field type: " + fieldValue.getClass().getSimpleName(), LogUtils.Severity.ERROR);
                                 }
                             }
                         });
@@ -868,7 +805,7 @@ public class LayoutBuilderController {
             DynamicDB dbManager = null;
             try {
                 reportSchema = extractFieldNames(data);
-                reportSchema.put("status", "TEXT");
+                reportSchema.put("report_status", "TEXT");
                 dbManager = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "data", extractNumberField(data), reportSchema);
                 dbManager.initDB();
             } catch (Exception e) {
@@ -1036,32 +973,29 @@ public class LayoutBuilderController {
                             if (fieldNode instanceof FieldPane) {
                                 FieldPane fieldPane = (FieldPane) fieldNode;
                                 String fieldName = fieldPane.fieldNameField.getText().trim();
+                                String normalizedFieldName = fieldName.toLowerCase();
 
                                 if (fieldName.isEmpty()) {
                                     log("Field Name cannot be empty.", LogUtils.Severity.ERROR);
                                     showNotificationWarning("Report Creation Utility", "Field Name cannot be empty.");
                                     return false;
                                 }
-                                if (containsNumbers(fieldName)) {
-                                    log("Field Name cannot contain numbers.", LogUtils.Severity.ERROR);
-                                    showNotificationWarning("Report Creation Utility", "Field Name cannot contain numbers.");
+                                if (!fieldName.matches("^[\\w ]+$")) {
+                                    showNotificationWarning("Invalid Characters", "Use only letters, and underscores");
                                     return false;
                                 }
-                                if (fieldName.contains(" ")) {
-                                    log("Field Name cannot contain spaces.", LogUtils.Severity.ERROR);
-                                    showNotificationWarning("Report Creation Utility", "Field Name cannot contain spaces.");
+                                if (fieldName.equalsIgnoreCase("report_status")) {
+                                    log("Field Name cannot be 'report_status'.", LogUtils.Severity.ERROR);
+                                    showNotificationWarning("Report Creation Utility", "Field Name cannot be 'report_status' (RESERVED)");
+                                }
+                                if (usedNames.contains(normalizedFieldName)) {
+                                    showNotificationWarning("Duplicate Field", "Field name '" + fieldName + "' conflicts with another");
+                                    log("Duplicate field name: " + fieldName, LogUtils.Severity.ERROR);
                                     return false;
                                 }
-                                if (usedNames.contains(fieldName)) {
-                                    showNotificationWarning("Report Creation Utility", "Field Name must be unique.");
-                                    log("LayoutBuilder; Duplicate Field Name: " + fieldName, LogUtils.Severity.ERROR);
-                                    return false;
-                                }
-                                usedNames.add(fieldName);
+                                usedNames.add(normalizedFieldName);
 
-                                String fieldType = fieldPane.fieldTypeComboBox.getValue() != null
-                                        ? fieldPane.fieldTypeComboBox.getValue().trim()
-                                        : "";
+                                String fieldType = fieldPane.fieldTypeComboBox.getValue() != null ? fieldPane.fieldTypeComboBox.getValue().trim() : "";
                                 if (fieldType.isEmpty()) {
                                     log("Field Type ComboBox cannot be empty.", LogUtils.Severity.ERROR);
                                     showNotificationWarning("Report Creation Utility", "Field Type ComboBox cannot be empty.");
@@ -1075,6 +1009,18 @@ public class LayoutBuilderController {
                                 if (fieldType.contains(" ")) {
                                     log("Field Type cannot contain spaces.", LogUtils.Severity.ERROR);
                                     showNotificationWarning("Report Creation Utility", "Field Type cannot contain spaces.");
+                                    return false;
+                                }
+
+                                String keyFieldName = fieldPane.populateKeyField.getText().trim();
+                                if (containsNumbers(keyFieldName)) {
+                                    log("Key Field cannot contain numbers.", LogUtils.Severity.ERROR);
+                                    showNotificationWarning("Report Creation Utility", "Key Field cannot contain numbers.");
+                                    return false;
+                                }
+                                if (keyFieldName.contains(" ")) {
+                                    log("Key Field cannot contain spaces.", LogUtils.Severity.ERROR);
+                                    showNotificationWarning("Report Creation Utility", "Key Field cannot contain spaces.");
                                     return false;
                                 }
                             }
@@ -1124,10 +1070,7 @@ public class LayoutBuilderController {
             removeSectionButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove") + " " + localization.getLocalizedMessage("ReportWindows.SectionButton", "Section"));
             removeSectionButton.getStyleClass().add("removeButton");
             removeSectionButton.setOnAction(event -> sectionContainer.getChildren().remove(this));
-            header.getChildren().addAll(
-                    new Label(localization.getLocalizedMessage("ReportWindows.SectionButton", "Section") + ":"), sectionTitleField,
-                    moveUpButton, moveDownButton, removeSectionButton
-            );
+            header.getChildren().addAll(new Label(localization.getLocalizedMessage("ReportWindows.SectionButton", "Section") + ":"), sectionTitleField, moveUpButton, moveDownButton, removeSectionButton);
             rowContainer = new VBox(5);
             rowContainer.setStyle("-fx-background-color: transparent;");
             addRowButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " " + localization.getLocalizedMessage("ReportWindows.RowButton", "Row"));
@@ -1235,8 +1178,7 @@ public class LayoutBuilderController {
             for (FieldPane field : fields) {
                 int currentValue = field.widthSpinner.getValue();
                 int allowedMax = currentValue + remaining;
-                field.widthSpinner.setValueFactory(
-                        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, allowedMax, currentValue));
+                field.widthSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, allowedMax, currentValue));
             }
             addFieldButton.setDisable(remaining == 0);
         }
@@ -1280,9 +1222,7 @@ public class LayoutBuilderController {
 
             fieldTypeComboBox = new ComboBox<>();
             fieldTypeComboBox.getItems().add("NUMBER_FIELD");
-            fieldTypeComboBox.getItems().addAll("TEXT_FIELD", "CUSTOM_DROPDOWN", "COMBO_BOX_STREET", "COMBO_BOX_AREA", "COUNTY_FIELD",
-                    "TEXT_AREA", "TIME_FIELD", "DATE_FIELD", "OFFICER_NAME", "OFFICER_RANK",
-                    "OFFICER_DIVISION", "OFFICER_AGENCY", "OFFICER_NUMBER", "OFFICER_CALLSIGN");
+            fieldTypeComboBox.getItems().addAll("TEXT_FIELD", "CUSTOM_DROPDOWN", "COMBO_BOX_STREET", "COMBO_BOX_AREA", "COUNTY_FIELD", "TEXT_AREA", "TIME_FIELD", "DATE_FIELD", "OFFICER_NAME", "OFFICER_RANK", "OFFICER_DIVISION", "OFFICER_AGENCY", "OFFICER_NUMBER", "OFFICER_CALLSIGN");
             fieldTypeComboBox.getSelectionModel().selectFirst();
 
             fieldTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
@@ -1311,8 +1251,7 @@ public class LayoutBuilderController {
             });
             removeFieldButton.getStyleClass().add("removeButton");
 
-            fieldRow.getChildren().addAll(new Label(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name") + ": "), fieldNameField, new Label("Populate Key:"),
-                    populateKeyField, new Label(localization.getLocalizedMessage("ReportWindows.WidthLabel", "Width:")), widthSpinner, new Label(localization.getLocalizedMessage("ReportWindows.TypeLabel", "Type:")), fieldTypeComboBox, removeFieldButton);
+            fieldRow.getChildren().addAll(new Label(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name") + ": "), fieldNameField, new Label("Populate Key:"), populateKeyField, new Label(localization.getLocalizedMessage("ReportWindows.WidthLabel", "Width:")), widthSpinner, new Label(localization.getLocalizedMessage("ReportWindows.TypeLabel", "Type:")), fieldTypeComboBox, removeFieldButton);
             getChildren().add(fieldRow);
         }
 
@@ -1432,8 +1371,7 @@ public class LayoutBuilderController {
                     parent.getChildren().add(index + 1, this);
                 }
             });
-            getChildren().addAll(new Label(localization.getLocalizedMessage("ReportWindows.ElementButton", "Element") + ":"), elementNameField, new Label(localization.getLocalizedMessage("ReportWindows.ReportLabel", "Report") + ":"), reportComboBox,
-                    removeElementButton, moveUpButton, moveDownButton);
+            getChildren().addAll(new Label(localization.getLocalizedMessage("ReportWindows.ElementButton", "Element") + ":"), elementNameField, new Label(localization.getLocalizedMessage("ReportWindows.ReportLabel", "Report") + ":"), reportComboBox, removeElementButton, moveUpButton, moveDownButton);
         }
 
     }

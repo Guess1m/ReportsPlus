@@ -28,13 +28,29 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
-import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
-import static com.Guess.ReportsPlus.util.Report.reportUtil.generateReportNumber;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.*;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.DeathReportLogURL;
 
 public class DeathReportUtils {
 
     public static Map<String, Object> deathReportLayout() {
+        SectionConfig decedentInfoSection = new SectionConfig(
+                localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader",
+                        "Deceased Information"), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"),
+                        4, FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"), 4,
+                FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"), 4,
+                FieldType.TEXT_FIELD)), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"), 6,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"), 6,
+                FieldType.TEXT_FIELD)));
+        decedentInfoSection.setHasButton(true);
+
         Map<String, Object> deathReport = createReportWindow(
                 localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report"), null,
                 new SectionConfig(
@@ -67,21 +83,7 @@ public class DeathReportUtils {
                         localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5,
                         FieldType.TIME_FIELD), new FieldConfig(
                         localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"), 2,
-                        FieldType.NUMBER_FIELD))), new SectionConfig(
-                        localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader",
-                                "Deceased Information"), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"),
-                                4, FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"), 4,
-                        FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"), 4,
-                        FieldType.TEXT_FIELD)), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"), 6,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"), 6,
-                        FieldType.TEXT_FIELD))), new SectionConfig(
+                        FieldType.NUMBER_FIELD))), decedentInfoSection, new SectionConfig(
                         localization.getLocalizedMessage("ReportWindows.DeathInfoSectionHeader", "Death Information"),
                         new RowConfig(new FieldConfig(
                                 localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"), 6,
@@ -234,6 +236,20 @@ public class DeathReportUtils {
                     window.closeWindow();
                 }
             }
+        });
+
+        Button pullDecedentInfoBtn = (Button) deathReport.get(localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader",
+                "Deceased Information") + "_button");
+
+        pullDecedentInfoBtn.setOnAction(event -> {
+            String fulln = pullValueFromReport("ped", "Pedfnamefield") + " " + pullValueFromReport("ped", "Pedlnamefield");
+            if (!fulln.trim().isEmpty()) {
+                decedent.setText(fulln);
+            }
+            age.setText(pullValueFromReport("ped", "Peddobfield"));
+            gender.setText(pullValueFromReport("ped", "Pedgenfield"));
+            address.setText(pullValueFromReport("ped", "Pedaddressfield"));
+            description.setText(pullValueFromReport("ped", "Peddescfield"));
         });
 
         return deathReport;

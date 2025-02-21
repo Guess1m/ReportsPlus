@@ -23,6 +23,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,8 @@ import java.util.regex.Pattern;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createCustomWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.*;
+import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
+import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
@@ -74,6 +78,8 @@ public class reportUtil {
     }
 
     public static Map<String, Object> createReportWindow(String reportName, nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {
+        Map<String, Object> mainMap = new HashMap<>();
+
         String placeholder;
         try {
             placeholder = ConfigReader.configRead("reportSettings", "reportHeading");
@@ -98,15 +104,11 @@ public class reportUtil {
             gridPane.getColumnConstraints().add(column);
         }
 
-        Label mainHeaderLabel = new Label(
-                localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
-        mainHeaderLabel.setStyle(
-                "-fx-font-size: 29px; -fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Bold\";");
+        Label mainHeaderLabel = new Label(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
+        mainHeaderLabel.setStyle("-fx-font-size: 29px; -fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Bold\";");
 
-        Label statusLabel = new Label(
-                localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:") + " ");
-        statusLabel.setStyle(
-                "-fx-font-size: 15.5px;-fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Medium\";");
+        Label statusLabel = new Label(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:") + " ");
+        statusLabel.setStyle("-fx-font-size: 15.5px;-fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Medium\";");
 
         ComboBox<String> statusValue = new ComboBox<>();
         statusValue.getStyleClass().add("comboboxnew");
@@ -166,11 +168,28 @@ public class reportUtil {
         int rowIndex = 1;
 
         for (nestedReportUtils.SectionConfig sectionConfig : sectionConfigs) {
+            HBox labelContainer = new HBox();
+            labelContainer.setSpacing(10);
 
             Label sectionLabel = new Label(sectionConfig.getSectionTitle());
-            sectionLabel.setStyle(
-                    "-fx-font-size: 16px; -fx-text-fill: " + placeholder + "; -fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
-            gridPane.add(sectionLabel, 0, rowIndex, 12, 1);
+            sectionLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: " + placeholder + "; -fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+            labelContainer.getChildren().add(sectionLabel);
+
+            if (sectionConfig.hasButton()) {
+                Button button = new Button(localization.getLocalizedMessage("ReportWindows.PullFromLookup", "Pull From Lookup"));
+                labelContainer.getChildren().add(button);
+                button.getStyleClass().add("incidentformButton");
+                button.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-font-size: 10;");
+                button.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue) {
+                        button.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-font-size: 10;");
+                    } else {
+                        button.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-font-size: 10;");
+                    }
+                });
+                mainMap.put(sectionConfig.getSectionTitle() + "_button", button);
+            }
+            gridPane.add(labelContainer, 0, rowIndex, 12, 1);
             rowIndex++;
 
             for (nestedReportUtils.RowConfig rowConfig : sectionConfig.getRowConfigs()) {
@@ -197,8 +216,7 @@ public class reportUtil {
             }
         }
 
-        Button submitBtn = new Button(
-                localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
+        Button submitBtn = new Button(localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
         submitBtn.setMinWidth(Region.USE_PREF_SIZE);
         submitBtn.getStyleClass().add("incidentformButton");
         submitBtn.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -210,8 +228,7 @@ public class reportUtil {
             }
         });
 
-        MenuButton pullNotesBtn = new MenuButton(
-                localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
+        MenuButton pullNotesBtn = new MenuButton(localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
         pullNotesBtn.setMinWidth(Region.USE_PREF_SIZE);
         pullNotesBtn.getStyleClass().add("incidentformButton");
         pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-padding: 5px 2px;");
@@ -223,8 +240,7 @@ public class reportUtil {
             }
         });
 
-        Button delBtn = new Button(
-                localization.getLocalizedMessage("ReportWindows.DeleteReportButton", "Delete Report"));
+        Button delBtn = new Button(localization.getLocalizedMessage("ReportWindows.DeleteReportButton", "Delete Report"));
         delBtn.setVisible(false);
         delBtn.setDisable(true);
         delBtn.getStyleClass().add("incidentformButton");
@@ -232,11 +248,9 @@ public class reportUtil {
         delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
         delBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                delBtn.setStyle(
-                        "-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+                delBtn.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
             } else {
-                delBtn.setStyle(
-                        "-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
+                delBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
             }
         });
 
@@ -283,12 +297,9 @@ public class reportUtil {
             accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
             accordion.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
-            paneGrid.setStyle(
-                    "-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-            accordion.setStyle(
-                    "-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
-            titledPane.setStyle(
-                    "-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+            paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+            accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
+            titledPane.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + ";");
 
             root.getChildren().addAll(spacerPane1, titledPane, spacerPane2);
         }
@@ -306,65 +317,47 @@ public class reportUtil {
 
         try {
             if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/formFields.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/formTextArea.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/formButton.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/formComboBox.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/Logscrollpane.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/tableCss.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/light/formTitledPane.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formFields.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formTextArea.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formButton.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formComboBox.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/Logscrollpane.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/tableCss.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formTitledPane.css").toExternalForm());
             } else {
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/formFields.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/formTextArea.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/formButton.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/formComboBox.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/Logscrollpane.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/tableCss.css").toExternalForm());
-                mainRoot.getStylesheets().add(Launcher.class.getResource(
-                        "/com/Guess/ReportsPlus/css/form/dark/formTitledPane.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formFields.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formTextArea.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formButton.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formComboBox.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/Logscrollpane.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/tableCss.css").toExternalForm());
+                mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formTitledPane.css").toExternalForm());
             }
         } catch (IOException e) {
             logError("Could not add stylesheets to reports: ", e);
         }
 
         scrollPane.getStyleClass().add("formPane");
-        scrollPane.setStyle(
-                "-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
+        scrollPane.setStyle("-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
 
-        Map<String, Object> result = new HashMap<>();
-        result.put(reportName + " Map", fieldsMap);
+        mainMap.put(reportName + " Map", fieldsMap);
 
-        result.put("delBtn", delBtn);
-        result.put("pullNotesBtn", pullNotesBtn);
-        result.put("statusValue", statusValue);
-        result.put("warningLabel", warningLabel);
-        result.put("submitBtn", submitBtn);
-        result.put("root", mainRoot);
+        mainMap.put("delBtn", delBtn);
+        mainMap.put("pullNotesBtn", pullNotesBtn);
+        mainMap.put("statusValue", statusValue);
+        mainMap.put("warningLabel", warningLabel);
+        mainMap.put("submitBtn", submitBtn);
+        mainMap.put("root", mainRoot);
 
-        BorderPane root1 = (BorderPane) result.get("root");
+        BorderPane root1 = (BorderPane) mainMap.get("root");
         StringProperty reportNameProperty = new SimpleStringProperty(reportName);
         root1.getProperties().put("reportName", reportNameProperty);
 
         mainRoot.setPrefHeight(570.0);
         mainRoot.setPrefWidth(780.0);
 
-        createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false,
-                mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
-                        Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
-        return result;
+        createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
+        return mainMap;
     }
 
     private static void addRowToGridPane(GridPane gridPane, nestedReportUtils.RowConfig rowConfig, int rowIndex, Map<String, Object> fieldsMap) {
@@ -405,8 +398,7 @@ public class reportUtil {
                     textField.setStyle("-fx-background-color: " + getPrimaryColor());
 
                     textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-                        textField.setStyle(
-                                "-fx-background-color: " + (newValue ? getSecondaryColor() : getPrimaryColor()) + ";");
+                        textField.setStyle("-fx-background-color: " + (newValue ? getSecondaryColor() : getPrimaryColor()) + ";");
                     });
 
                     textField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -441,8 +433,7 @@ public class reportUtil {
                             textField.setText(getTime(false));
                         }
                     } catch (Exception e) {
-                        logError("Could not set text from config for fieldName [" + fieldConfig.getFieldName() + "]: ",
-                                e);
+                        logError("Could not set text from config for fieldName [" + fieldConfig.getFieldName() + "]: ", e);
                     }
                     break;
                 case CUSTOM_DROPDOWN:
@@ -565,8 +556,7 @@ public class reportUtil {
                     treeView.setMaxHeight(350);
 
                     TextField searchCitationField = new TextField();
-                    searchCitationField.setPromptText(
-                            localization.getLocalizedMessage("ReportWindows.SearchCitationPrompt", "Search Citation"));
+                    searchCitationField.setPromptText(localization.getLocalizedMessage("ReportWindows.SearchCitationPrompt", "Search Citation"));
                     searchCitationField.setStyle("-fx-background-color: " + getPrimaryColor());
                     searchCitationField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
@@ -612,20 +602,14 @@ public class reportUtil {
                     expandTreeItem(rootItem);
 
                     TextField citationNameField = new TextField();
-                    citationNameField.setPromptText(
-                            localization.getLocalizedMessage("ReportWindows.CitationNamePrompt", "Citation Name"));
+                    citationNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.CitationNamePrompt", "Citation Name"));
                     TextField citationFineField = new TextField();
-                    citationFineField.setPromptText(
-                            localization.getLocalizedMessage("ReportWindows.CitationMaxFinePrompt",
-                                    "Citation Maximum Fine"));
+                    citationFineField.setPromptText(localization.getLocalizedMessage("ReportWindows.CitationMaxFinePrompt", "Citation Maximum Fine"));
 
                     Button addButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
-                    Button removeButton = new Button(
-                            localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
+                    Button removeButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
 
-                    Label citationInfoLabel = new Label(
-                            localization.getLocalizedMessage("ReportWindows.CitationInformationHeader",
-                                    "Citation Information"));
+                    Label citationInfoLabel = new Label(localization.getLocalizedMessage("ReportWindows.CitationInformationHeader", "Citation Information"));
                     citationInfoLabel.setAlignment(Pos.CENTER);
 
                     TableView<CitationsData> citationTableView = new TableView<>();
@@ -664,12 +648,8 @@ public class reportUtil {
                             citationTypeDropdown.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
                         }
                     });
-                    citationTypeDropdown.getItems().addAll(
-                            localization.getLocalizedMessage("ReportWindows.CitationTypeNonPrinted", "Non-Printed"),
-                            localization.getLocalizedMessage("ReportWindows.CitationTypePrinted", "Printed Citation"),
-                            localization.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation"));
-                    citationTypeDropdown.setPromptText(
-                            localization.getLocalizedMessage("ReportWindows.CitationTypePrompt", "Citation Type"));
+                    citationTypeDropdown.getItems().addAll(localization.getLocalizedMessage("ReportWindows.CitationTypeNonPrinted", "Non-Printed"), localization.getLocalizedMessage("ReportWindows.CitationTypePrinted", "Printed Citation"), localization.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation"));
+                    citationTypeDropdown.setPromptText(localization.getLocalizedMessage("ReportWindows.CitationTypePrompt", "Citation Type"));
                     citationTypeDropdown.setButtonCell(new ListCell() {
                         @Override
                         protected void updateItem(Object item, boolean empty) {
@@ -694,8 +674,7 @@ public class reportUtil {
                     fieldsMap.put("CitationTableView", citationTableView);
                     fieldsMap.put(fieldConfig.getFieldName(), treeView);
 
-                    citationInfoLabel.setStyle(
-                            "-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+                    citationInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
                     addButton.getStyleClass().add("incidentformButton");
                     addButton.setStyle("-fx-padding: 15;");
                     addButton.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -746,8 +725,7 @@ public class reportUtil {
                         TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
                         if (selectedItem != null && selectedItem.isLeaf()) {
                             citationNameField.setText(selectedItem.getValue());
-                            citationFineField.setText(
-                                    findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
+                            citationFineField.setText(findXMLValue(selectedItem.getValue(), "fine", "data/Citations.xml"));
                         } else {
                             citationNameField.setText("");
                             citationFineField.setText("");
@@ -762,8 +740,7 @@ public class reportUtil {
                             if (fine != null) {
                                 formData = new CitationsData(citation);
                             } else {
-                                log("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText(),
-                                        LogUtils.Severity.DEBUG);
+                                log("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText(), LogUtils.Severity.DEBUG);
                                 formData = new CitationsData(citation + " MaxFine:" + citationFineField.getText());
                             }
 
@@ -807,8 +784,7 @@ public class reportUtil {
                     chargestreeView.setMaxHeight(350);
 
                     TextField searchChargeField = new TextField();
-                    searchChargeField.setPromptText(
-                            localization.getLocalizedMessage("ReportWindows.SearchChargePrompt", "Search Charge"));
+                    searchChargeField.setPromptText(localization.getLocalizedMessage("ReportWindows.SearchChargePrompt", "Search Charge"));
                     searchChargeField.setStyle("-fx-background-color: " + getPrimaryColor());
                     searchChargeField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue) {
@@ -854,24 +830,19 @@ public class reportUtil {
 
                     TextField chargeNameField = new TextField();
                     chargeNameField.setEditable(false);
-                    chargeNameField.setPromptText(
-                            localization.getLocalizedMessage("ReportWindows.ChargeNamePrompt", "Charge Name"));
+                    chargeNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.ChargeNamePrompt", "Charge Name"));
 
                     Button addButton2 = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
-                    Button removeButton2 = new Button(
-                            localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
+                    Button removeButton2 = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
 
-                    Label chargeInfoLabel = new Label(
-                            localization.getLocalizedMessage("ReportWindows.ChargeInformationHeader",
-                                    "Charge Information"));
+                    Label chargeInfoLabel = new Label(localization.getLocalizedMessage("ReportWindows.ChargeInformationHeader", "Charge Information"));
                     chargeInfoLabel.setAlignment(Pos.CENTER);
 
                     TableView<ChargesData> chargeTableView = new TableView<>();
                     chargeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
                     chargeTableView.getStyleClass().add("calloutTABLE");
 
-                    TableColumn<ChargesData, String> chargeColumn = new TableColumn<>(
-                            localization.getLocalizedMessage("ReportWindows.chargeColumn", "Charge"));
+                    TableColumn<ChargesData, String> chargeColumn = new TableColumn<>(localization.getLocalizedMessage("ReportWindows.chargeColumn", "Charge"));
                     chargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
                     chargeTableView.setTableMenuButtonVisible(false);
 
@@ -897,8 +868,7 @@ public class reportUtil {
                     fieldsMap.put("ChargeTableView", chargeTableView);
                     fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
 
-                    chargeInfoLabel.setStyle(
-                            "-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
+                    chargeInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder + ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
                     addButton2.getStyleClass().add("incidentformButton");
                     addButton2.setStyle("-fx-padding: 15;");
                     addButton2.setStyle("-fx-background-color: " + getPrimaryColor());
@@ -1033,5 +1003,55 @@ public class reportUtil {
             DeathReportNumber.append(digit);
         }
         return DeathReportNumber.toString();
+    }
+
+    public static String pullValueFromReport(String lookupType, String key) {
+        Object object = null;
+        String lowerLookup = lookupType.toLowerCase();
+
+        switch (lowerLookup) {
+            case "ped":
+                if (pedLookupViewController != null && pedLookupViewController.getPedRecordPane().isVisible()) {
+                    object = pedLookupViewController;
+                }
+                break;
+            case "veh":
+                if (vehLookupViewController != null && vehLookupViewController.getVehLookupPane().isVisible()) {
+                    object = vehLookupViewController;
+                }
+                break;
+            default:
+                log("Unknown lookup type: " + lookupType, LogUtils.Severity.ERROR);
+                return "";
+        }
+
+        if (object == null) {
+            log("Object is null", LogUtils.Severity.ERROR);
+            return "";
+        }
+
+        try {
+            Method method = object.getClass().getMethod("get" + key);
+            Object value = method.invoke(object);
+
+            if (value instanceof TextInputControl) {
+                return ((TextInputControl) value).getText();
+            }
+            if (value instanceof ComboBox) {
+                ComboBox<?> comboBox = (ComboBox<?>) value;
+                if (comboBox.isEditable()) {
+                    return comboBox.getEditor().getText() != null ? comboBox.getEditor().getText() : "";
+                }
+                return comboBox.getValue() != null ? comboBox.getValue().toString() : "";
+            }
+            return value != null ? value.toString() : "";
+        } catch (NoSuchMethodException e) {
+            logError("Method: get" + key + " does not exist or error: ", e);
+        } catch (InvocationTargetException e) {
+            logError("Invocation error for method: get" + key + " Trace:", e);
+        } catch (IllegalAccessException e) {
+            logError("Illegal access error for method: get" + key + " Trace:", e);
+        }
+        return "";
     }
 }

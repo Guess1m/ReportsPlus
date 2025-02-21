@@ -29,11 +29,46 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.pullValueFromReport;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.accidentLogURL;
 
 public class AccidentReportUtils {
 
     public static Map<String, Object> accidentLayout() {
+        SectionConfig offenderInfoSection = new SectionConfig(
+                localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
+                        "Offender Information"), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"), 4,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"), 4,
+                FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"), 4,
+                FieldType.TEXT_FIELD)), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress",
+                                "offender address"), 6,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
+                        "offender description"), 6,
+                FieldType.TEXT_FIELD)));
+        offenderInfoSection.setHasButton(true);
+
+        SectionConfig vehInfoSection = new SectionConfig(
+                localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
+                        "Offender Vehicle Information"),
+                new RowConfig(new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldModel", "model"), 6,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"), 6,
+                        FieldType.TEXT_FIELD)), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 7,
+                        FieldType.COMBO_BOX_TYPE), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 5,
+                FieldType.COMBO_BOX_COLOR)));
+        vehInfoSection.setHasButton(true);
+
         Map<String, Object> accidentReport = createReportWindow(
                 localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report"), null,
                 new SectionConfig(
@@ -88,35 +123,7 @@ public class AccidentReportUtils {
                                 FieldType.TEXT_FIELD)), new RowConfig(
                         new FieldConfig(
                                 localization.getLocalizedMessage("ReportWindows.AccidentDamagesField", "damages"), 12,
-                                FieldType.TEXT_FIELD))), new SectionConfig(
-                        localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
-                                "Offender Information"), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"), 4,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"), 4,
-                        FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"), 4,
-                        FieldType.TEXT_FIELD)), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress",
-                                        "offender address"), 6,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-                                "offender description"), 6,
-                        FieldType.TEXT_FIELD))), new SectionConfig(
-                        localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
-                                "Offender Vehicle Information"),
-                        new RowConfig(new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldModel", "model"), 6,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"), 6,
-                                FieldType.TEXT_FIELD)), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 7,
-                                FieldType.COMBO_BOX_TYPE), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 5,
-                        FieldType.COMBO_BOX_COLOR))), new SectionConfig(
+                                FieldType.TEXT_FIELD))), offenderInfoSection, vehInfoSection, new SectionConfig(
                         localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"),
                         new RowConfig(new FieldConfig(
                                 localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12,
@@ -297,6 +304,33 @@ public class AccidentReportUtils {
                 }
             }
         });
+
+        Button offenderInfoBtn = (Button) accidentReport.get(localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
+                "Offender Information") + "_button");
+
+        Button vehInfoBtn = (Button) accidentReport.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
+                "Offender Vehicle Information") + "_button");
+
+        offenderInfoBtn.setOnAction(event -> {
+            String fulln = pullValueFromReport("ped", "Pedfnamefield") + " " + pullValueFromReport("ped", "Pedlnamefield");
+            if (!fulln.trim().isEmpty()) {
+                offenderName.setText(fulln);
+            }
+            offenderAge.setText(pullValueFromReport("ped", "Peddobfield"));
+            offenderGender.setText(pullValueFromReport("ped", "Pedgenfield"));
+            offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
+            offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
+        });
+
+        vehInfoBtn.setOnAction(event -> {
+            plateNumber.setText(pullValueFromReport("veh", "Vehplatefield2"));
+            model.setText(pullValueFromReport("veh", "Vehmodelfield"));
+            String typ = pullValueFromReport("veh", "Vehtypecombobox");
+            if (!typ.trim().isEmpty()) {
+                type.setValue(typ);
+            }
+        });
+
         return accidentReport;
     }
 

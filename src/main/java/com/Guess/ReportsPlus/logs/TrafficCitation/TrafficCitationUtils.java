@@ -42,8 +42,7 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
-import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
-import static com.Guess.ReportsPlus.util.Report.reportUtil.extractMaxFine;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.*;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.findXMLValue;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.trafficCitationLogURL;
@@ -51,6 +50,44 @@ import static com.Guess.ReportsPlus.util.Strings.URLStrings.trafficCitationLogUR
 public class TrafficCitationUtils {
 
     public static Map<String, Object> citationLayout() {
+        SectionConfig offenderInfoSection = new SectionConfig(
+                localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
+                        "Offender Information"), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"), 4,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"), 4,
+                FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"), 4,
+                FieldType.TEXT_FIELD)), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress",
+                                "offender address"), 6,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
+                        "offender description"), 6,
+                FieldType.TEXT_FIELD)));
+        offenderInfoSection.setHasButton(true);
+
+        SectionConfig vehicleInfoSection = new SectionConfig(
+                localization.getLocalizedMessage("ReportWindows.CitationVehicleInfoHeading",
+                        "(If Applicable) Offender Vehicle Information"),
+                new RowConfig(new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldModel", "model"), 4,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"), 4,
+                        FieldType.TEXT_FIELD), new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 4,
+                        FieldType.COMBO_BOX_COLOR)), new RowConfig(
+                new FieldConfig(
+                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 4,
+                        FieldType.COMBO_BOX_TYPE), new FieldConfig(
+                localization.getLocalizedMessage("ReportWindows.OtherInfoField",
+                        localization.getLocalizedMessage(
+                                "ReportWindows.OtherInfoField", "other info")), 8,
+                FieldType.TEXT_FIELD)));
+        vehicleInfoSection.setHasButton(true);
+
         Map<String, Object> citationReport = createReportWindow(
                 localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report"),
                 new TransferConfig(
@@ -88,39 +125,7 @@ public class TrafficCitationUtils {
                         localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5,
                         FieldType.TIME_FIELD), new FieldConfig(
                         localization.getLocalizedMessage("ReportWindows.CitationNumField", "citation number"), 2,
-                        FieldType.NUMBER_FIELD))), new SectionConfig(
-                        localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
-                                "Offender Information"), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"), 4,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldOffenderAge", "offender age"), 4,
-                        FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"), 4,
-                        FieldType.TEXT_FIELD)), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress",
-                                        "offender address"), 6,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
-                                "offender description"), 6,
-                        FieldType.TEXT_FIELD))), new SectionConfig(
-                        localization.getLocalizedMessage("ReportWindows.CitationVehicleInfoHeading",
-                                "(If Applicable) Offender Vehicle Information"),
-                        new RowConfig(new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldModel", "model"), 4,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"), 4,
-                                FieldType.TEXT_FIELD), new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 4,
-                                FieldType.COMBO_BOX_COLOR)), new RowConfig(
-                        new FieldConfig(
-                                localization.getLocalizedMessage("ReportWindows.FieldType", "type"), 4,
-                                FieldType.COMBO_BOX_TYPE), new FieldConfig(
-                        localization.getLocalizedMessage("ReportWindows.OtherInfoField",
-                                localization.getLocalizedMessage(
-                                        "ReportWindows.OtherInfoField", "other info")), 8,
-                        FieldType.TEXT_FIELD))), new SectionConfig(
+                        FieldType.NUMBER_FIELD))), offenderInfoSection, vehicleInfoSection, new SectionConfig(
                         localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"),
                         new RowConfig(new FieldConfig(
                                 localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"), 12,
@@ -465,6 +470,33 @@ public class TrafficCitationUtils {
                 }
             }
         });
+
+        Button offenderInfoBtn = (Button) citationReport.get(localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading",
+                "Offender Information") + "_button");
+
+        Button vehInfoBtn = (Button) citationReport.get(localization.getLocalizedMessage("ReportWindows.CitationVehicleInfoHeading",
+                "(If Applicable) Offender Vehicle Information") + "_button");
+
+        offenderInfoBtn.setOnAction(event -> {
+            String fulln = pullValueFromReport("ped", "Pedfnamefield") + " " + pullValueFromReport("ped", "Pedlnamefield");
+            if (!fulln.trim().isEmpty()) {
+                offenderName.setText(fulln);
+            }
+            offenderAge.setText(pullValueFromReport("ped", "Peddobfield"));
+            offenderGender.setText(pullValueFromReport("ped", "Pedgenfield"));
+            offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
+            offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
+        });
+
+        vehInfoBtn.setOnAction(event -> {
+            plateNumber.setText(pullValueFromReport("veh", "Vehplatefield2"));
+            model.setText(pullValueFromReport("veh", "Vehmodelfield"));
+            String typ = pullValueFromReport("veh", "Vehtypecombobox");
+            if (!typ.trim().isEmpty()) {
+                type.setValue(typ);
+            }
+        });
+
         return citationReport;
     }
 

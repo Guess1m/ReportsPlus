@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="471e6b40-c482-4933-8752-d2f6f635a0ab" name="Changes" comment="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Guess1mPC &lt;no-reply@example.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2tUwocL52NpcFa5raFBoK2jdXHJ" />
+  <component name="ProjectViewState">
+    <option name="compactDirectories" value="true" />
+    <option name="flattenModules" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortKey" value="BY_TIME_DESCENDING" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FlexibleTableViewExample (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.FlexibleTableViewExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean,install,-P,mac-arm64].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Development&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.Guess.ReportsPlus" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+      <command value="mvn clean install -P mac-arm64" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.Guess.ReportsPlus.Launcher" />
+      <module name="ReportsPlus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.Guess.ReportsPlus.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows">
+      <option name="closed" value="true" />
+      <created>1740367155669</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740367155669</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="471e6b40-c482-4933-8752-d2f6f635a0ab" name="Changes" comment="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+      <created>1740420138000</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740420138000</updated>
+      <workItem from="1740420139668" duration="2662000" />
+      <workItem from="1740532262410" duration="118000" />
+      <workItem from="1740591751686" duration="10044000" />
+      <workItem from="1740619731359" duration="2195000" />
+    </task>
+    <task id="LOCAL-00002" summary="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows">
+      <option name="closed" value="true" />
+      <created>1740621923249</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1740621923249</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- v1.4.1-alpha&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+  </component>
+</project>

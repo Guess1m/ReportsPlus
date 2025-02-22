@@ -34,6 +34,7 @@ import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getW
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.getNextIndex;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.needCourtRefresh;
+import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.citationLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.*;
@@ -462,7 +463,7 @@ public class TrafficCitationUtils {
                 } catch (IOException e) {
                     logError("Error getting configValue for playCreateReport: ", e);
                 }
-                LogViewController.needRefresh.set(1);
+                citationLogUpdate();
 
                 CustomWindow window = getWindow("Citation Report");
                 if (window != null) {

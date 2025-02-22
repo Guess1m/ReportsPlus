@@ -76,6 +76,7 @@ public class mainDesktopController {
     public static DesktopApp settingsAppObj;
     public static DesktopApp updatesAppObj;
     public static CustomWindow newReportWindow;
+    public static CustomWindow logapp;
     public static boolean isInputLocked = false;
 
     @FXML
@@ -437,7 +438,7 @@ public class mainDesktopController {
         VBox logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
             if (!editableDesktop) {
                 if (mouseEvent.getClickCount() == 2) {
-                    CustomWindow logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer", true, 1, true, false, taskBarApps, logBrowserAppObj.getImage());
+                    logapp = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/log-view.fxml", "Log Viewer", true, 1, true, false, taskBarApps, logBrowserAppObj.getImage());
                     if (logapp != null && logapp.controller != null) {
                         LogViewController.logController = (LogViewController) logapp.controller;
                     }

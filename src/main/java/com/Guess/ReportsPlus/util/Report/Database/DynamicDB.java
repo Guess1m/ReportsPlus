@@ -88,7 +88,6 @@ public class DynamicDB {
                 continue;
             }
 
-            // Handle quoted column names
             String columnName;
             String columnDef;
             if (def.startsWith("\"")) {
@@ -140,6 +139,29 @@ public class DynamicDB {
         return String.join(", ", pkColumns);
     }
 
+    public void addColumnIfNotExists(String columnName, String columnType) throws SQLException {
+        boolean columnExists = false;
+        String pragmaSql = "PRAGMA table_info(" + escapeIdentifier(tableName) + ")";
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(pragmaSql)) {
+            while (rs.next()) {
+                if (rs.getString("name").equalsIgnoreCase(columnName)) {
+                    columnExists = true;
+                    break;
+                }
+            }
+        }
+
+        if (!columnExists) {
+            String sql = String.format("ALTER TABLE %s ADD COLUMN %s %s", escapeIdentifier(tableName), escapeIdentifier(columnName), columnType);
+
+            try (Statement stmt = connection.createStatement()) {
+                stmt.executeUpdate(sql);
+                columnsDefinition.put(columnName, columnType);
+                log("Added column " + columnName + " to table " + tableName, LogUtils.Severity.INFO);
+            }
+        }
+    }
+
     public boolean initDB() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -149,6 +171,28 @@ public class DynamicDB {
             return true;
         } catch (Exception e) {
             logError("Error connecting to database", e);
+            return false;
+        }
+    }
+
+    public boolean deleteRecord(String dbFilePath, String tableName, String primaryKeyColumn, Object pkValue) {
+        String fullPath = dbFilePath.endsWith(".db") ? dbFilePath : dbFilePath + ".db";
+        String url = "jdbc:sqlite:" + fullPath;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            String sql = "DELETE FROM " + escapeIdentifier(tableName) + " WHERE " + escapeIdentifier(primaryKeyColumn) + " = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setObject(1, pkValue);
+                int affectedRows = ps.executeUpdate();
+                if (affectedRows > 0) {
+                    log("Deleted record with " + primaryKeyColumn + " = " + pkValue + " from " + tableName, LogUtils.Severity.INFO);
+                    return true;
+                } else {
+                    log("No record found with " + primaryKeyColumn + " = " + pkValue + " in " + tableName, LogUtils.Severity.WARN);
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            logError("Error deleting record from " + tableName + " with " + primaryKeyColumn + " = " + pkValue, e);
             return false;
         }
     }

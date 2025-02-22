@@ -4,421 +4,351 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx = "http://javafx.com/fxml/1" fx:id = "root" prefHeight = "576.0" prefWidth = "747.0"
-            stylesheets = "@../../css/logViewer/logViewer.css" xmlns = "http://javafx.com/javafx/21"
-            fx:controller = "com.Guess.ReportsPlus.Windows.Apps.LogViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="531.0" prefWidth="747.0"
+            stylesheets="@../../css/logViewer/logViewer.css" xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="com.Guess.ReportsPlus.Windows.Apps.LogViewController">
     <center>
-        <AnchorPane fx:id = "logPane">
+        <AnchorPane fx:id="logPane">
             <children>
-                <HBox layoutX = "5.0" layoutY = "5.0" spacing = "1.0" AnchorPane.bottomAnchor = "0.0"
-                      AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+                <HBox layoutX="5.0" layoutY="5.0" spacing="1.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <VBox maxWidth = "220.0" minWidth = "-Infinity" spacing = "9.0"
-                              style = "-fx-background-color: rgb(255,255,255,0.4);" HBox.hgrow = "ALWAYS">
-                            <children>
-                                <Label text = "ReportsPlus">
-                                    <font>
-                                        <Font name = "Inter 28pt Bold" size = "18.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets left = "25.0" right = "25.0" />
-                                    </padding>
-                                </Label>
-                                <Label fx:id = "subHeading" text = "Report Database">
-                                    <font>
-                                        <Font name = "Inter 28pt Medium" size = "11.0" />
-                                    </font>
-                                    <VBox.margin>
-                                        <Insets top = "-9.0" />
-                                    </VBox.margin>
-                                    <padding>
-                                        <Insets left = "25.0" right = "25.0" />
-                                    </padding>
-                                </Label>
-                                <Separator maxHeight = "2.0" opacity = "0.57">
-                                    <VBox.margin>
-                                        <Insets left = "10.0" right = "10.0" />
-                                    </VBox.margin>
-                                </Separator>
-                                <Label text = "REPORT TYPE:" textFill = "#6b6b6b">
-                                    <font>
-                                        <Font name = "Inter 28pt Bold" size = "9.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets left = "25.0" right = "25.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets top = "17.0" />
-                                    </VBox.margin>
-                                </Label>
-                                <BorderPane fx:id = "callout">
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                    <center>
-                                        <Label text = "Callout" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                </BorderPane>
-                                <BorderPane fx:id = "trafficStop">
-                                    <center>
-                                        <Label text = "Traffic Stop" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "incident">
-                                    <center>
-                                        <Label text = "Incident" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "search">
-                                    <center>
-                                        <Label text = "Search" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "arrest">
-                                    <center>
-                                        <Label text = "Arrest" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "patrol">
-                                    <center>
-                                        <Label text = "Patrol" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "citation">
-                                    <center>
-                                        <Label text = "Citation" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "impound">
-                                    <center>
-                                        <Label text = "Impound" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "death">
-                                    <center>
-                                        <Label text = "Death" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                                <BorderPane fx:id = "accident">
-                                    <center>
-                                        <Label text = "Accident" BorderPane.alignment = "CENTER">
-                                            <font>
-                                                <Font name = "Inter 28pt Medium" size = "13.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets left = "15.0" right = "15.0" />
-                                            </padding>
-                                        </Label>
-                                    </center>
-                                    <padding>
-                                        <Insets bottom = "5.0" top = "5.0" />
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets left = "10.0" />
-                                    </VBox.margin>
-                                </BorderPane>
-                            </children>
+                        <ScrollPane fx:id="sp" blendMode="SRC_ATOP" fitToHeight="true" fitToWidth="true"
+                                    focusTraversable="false" hbarPolicy="NEVER" maxWidth="220.0" minWidth="180.0"
+                                    prefWidth="180.0" stylesheets="@../../css/main/transparentScrollPane.css"
+                                    HBox.hgrow="NEVER">
                             <HBox.margin>
-                                <Insets bottom = "-5.0" left = "-5.0" top = "-5.0" />
+                                <Insets/>
                             </HBox.margin>
-                            <padding>
-                                <Insets bottom = "10.0" top = "10.0" />
-                            </padding>
-                        </VBox>
-                        <VBox HBox.hgrow = "ALWAYS">
+                            <content>
+                                <VBox maxWidth="220.0" minWidth="-Infinity" spacing="20.0"
+                                      style="-fx-background-color: rgb(255,255,255,0.4);">
+                                    <children>
+                                        <Label text="ReportsPlus">
+                                            <font>
+                                                <Font name="Inter 28pt Bold" size="18.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="25.0" right="25.0"/>
+                                            </padding>
+                                        </Label>
+                                        <Label fx:id="subHeading" text="Report Database">
+                                            <font>
+                                                <Font name="Inter 28pt Medium" size="11.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="-20.0"/>
+                                            </VBox.margin>
+                                            <padding>
+                                                <Insets left="25.0" right="25.0"/>
+                                            </padding>
+                                        </Label>
+                                        <Separator maxHeight="2.0" opacity="0.57">
+                                            <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="-14.0"/>
+                                            </VBox.margin>
+                                        </Separator>
+                                        <TitledPane fx:id="reportsTitlePane" expanded="false" text="Reports">
+                                            <content>
+                                                <VBox alignment="TOP_CENTER" spacing="15.0"
+                                                      style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                                                    <children>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Search">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Accident">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button" text="Death">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Impound">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Citation">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Patrol">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Arrest">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Incident">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Traffic Stop">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <Label alignment="CENTER" styleClass="side-button"
+                                                               text="Callout">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="15.0" right="15.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                            </content>
+                                            <VBox.margin>
+                                                <Insets left="10.0" right="10.0"/>
+                                            </VBox.margin>
+                                        </TitledPane>
+                                        <TitledPane fx:id="customReportsTitlePane" expanded="false"
+                                                    text="Custom Reports">
+                                            <content>
+                                                <VBox fx:id="customReportsVBox" alignment="TOP_CENTER" spacing="15.0"
+                                                      style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
+                                            </content>
+                                            <VBox.margin>
+                                                <Insets left="10.0" right="10.0"/>
+                                            </VBox.margin>
+                                        </TitledPane>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" top="10.0"/>
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                        <VBox HBox.hgrow="ALWAYS">
                             <children>
-                                <BorderPane style = "-fx-background-color: rgb(0,0,0,0.025);">
+                                <BorderPane style="-fx-background-color: rgb(0,0,0,0.025);" VBox.vgrow="NEVER">
                                     <center>
-                                        <GridPane hgap = "30.0">
+                                        <GridPane hgap="20.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0" />
-                                                <ColumnConstraints hgrow = "ALWAYS" minWidth = "10.0" />
-                                                <ColumnConstraints hgrow = "ALWAYS" minWidth = "10.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+                                                                   percentWidth="26.0"/>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="36.0"/>
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints vgrow = "NEVER" />
+                                                <RowConstraints vgrow="NEVER"/>
                                             </rowConstraints>
                                             <children>
-                                                <VBox spacing = "5.0"
-                                                      style = "-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;">
+                                                <VBox spacing="5.0"
+                                                      style="-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;">
                                                     <children>
-                                                        <Label fx:id = "totalReportsHeader" minWidth = "10.0"
-                                                               text = "Total Reports:">
+                                                        <Label fx:id="totalReportsHeader" minWidth="10.0"
+                                                               text="Total Reports:">
                                                             <font>
-                                                                <Font name = "Inter 28pt Bold" size = "13.0" />
+                                                                <Font name="Inter 28pt Bold" size="13.0"/>
                                                             </font>
                                                         </Label>
-                                                        <Label fx:id = "totalReportsLabel" minWidth = "-Infinity"
-                                                               text = "25">
+                                                        <Label fx:id="totalReportsLabel" minWidth="-Infinity" text="0">
                                                             <padding>
-                                                                <Insets left = "10.0" />
+                                                                <Insets left="10.0"/>
                                                             </padding>
                                                             <font>
-                                                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                                                <Font name="Inter 28pt Medium" size="13.0"/>
                                                             </font>
                                                         </Label>
                                                     </children>
                                                     <padding>
-                                                        <Insets bottom = "10.0" left = "10.0" right = "10.0"
-                                                                top = "10.0" />
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                                     </padding>
                                                 </VBox>
-                                                <VBox spacing = "5.0"
-                                                      style = "-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;"
-                                                      GridPane.columnIndex = "1">
+                                                <VBox spacing="5.0"
+                                                      style="-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;"
+                                                      GridPane.columnIndex="1">
                                                     <children>
-                                                        <Label fx:id = "reportsInProgressHeader" minWidth = "10.0"
-                                                               text = "Reports In Progress:">
+                                                        <Label fx:id="reportsInProgressHeader" minWidth="10.0"
+                                                               text="Reports In Progress:">
                                                             <font>
-                                                                <Font name = "Inter 28pt Bold" size = "13.0" />
+                                                                <Font name="Inter 28pt Bold" size="13.0"/>
                                                             </font>
                                                         </Label>
-                                                        <HBox spacing = "35.0">
+                                                        <HBox spacing="35.0">
                                                             <children>
-                                                                <Label fx:id = "reportsInProgressLabel"
-                                                                       minWidth = "-Infinity" text = "5">
+                                                                <Label fx:id="reportsInProgressLabel"
+                                                                       minWidth="-Infinity" text="0">
                                                                     <padding>
-                                                                        <Insets left = "10.0" />
+                                                                        <Insets left="10.0"/>
                                                                     </padding>
                                                                     <font>
-                                                                        <Font name = "Inter 28pt Medium"
-                                                                              size = "13.0" />
+                                                                        <Font name="Inter 28pt Medium" size="13.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <AnchorPane HBox.hgrow = "ALWAYS">
+                                                                <AnchorPane HBox.hgrow="ALWAYS">
                                                                     <children>
-                                                                        <ProgressBar fx:id = "reportsInProgressBar"
-                                                                                     maxHeight = "11.0"
-                                                                                     progress = "0.44"
-                                                                                     styleClass = "progress-bar-InProgress"
-                                                                                     AnchorPane.leftAnchor = "0.0"
-                                                                                     AnchorPane.rightAnchor = "0.0"
-                                                                                     AnchorPane.topAnchor = "3.0" />
+                                                                        <ProgressBar fx:id="reportsInProgressBar"
+                                                                                     maxHeight="11.0" progress="0.0"
+                                                                                     styleClass="progress-bar-InProgress"
+                                                                                     AnchorPane.leftAnchor="0.0"
+                                                                                     AnchorPane.rightAnchor="0.0"
+                                                                                     AnchorPane.topAnchor="3.0"/>
                                                                     </children>
                                                                 </AnchorPane>
                                                             </children>
                                                         </HBox>
                                                     </children>
                                                     <padding>
-                                                        <Insets bottom = "10.0" left = "10.0" right = "10.0"
-                                                                top = "10.0" />
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                                     </padding>
                                                 </VBox>
-                                                <VBox spacing = "5.0"
-                                                      style = "-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;"
-                                                      GridPane.columnIndex = "2">
+                                                <VBox spacing="5.0"
+                                                      style="-fx-background-color: rgb(255,255,255,0.6); -fx-background-radius: 7;"
+                                                      GridPane.columnIndex="2">
                                                     <children>
-                                                        <Label fx:id = "closedReportsHeader" minWidth = "10.0"
-                                                               text = "Reports Closed:">
+                                                        <Label fx:id="closedReportsHeader" minWidth="10.0"
+                                                               text="Reports Closed:">
                                                             <font>
-                                                                <Font name = "Inter 28pt Bold" size = "13.0" />
+                                                                <Font name="Inter 28pt Bold" size="13.0"/>
                                                             </font>
                                                         </Label>
-                                                        <HBox spacing = "35.0">
+                                                        <HBox spacing="35.0">
                                                             <children>
-                                                                <Label fx:id = "closedReportsLabel"
-                                                                       minWidth = "-Infinity" text = "20">
+                                                                <Label fx:id="closedReportsLabel" minWidth="-Infinity"
+                                                                       text="0">
                                                                     <HBox.margin>
-                                                                        <Insets left = "10.0" />
+                                                                        <Insets left="10.0"/>
                                                                     </HBox.margin>
                                                                     <font>
-                                                                        <Font name = "Inter 28pt Medium"
-                                                                              size = "13.0" />
+                                                                        <Font name="Inter 28pt Medium" size="13.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <AnchorPane HBox.hgrow = "ALWAYS">
+                                                                <AnchorPane HBox.hgrow="ALWAYS">
                                                                     <children>
-                                                                        <ProgressBar fx:id = "closedReportsProgressBar"
-                                                                                     maxHeight = "11.0"
-                                                                                     progress = "0.8"
-                                                                                     styleClass = "progress-bar-Closed"
-                                                                                     AnchorPane.leftAnchor = "0.0"
-                                                                                     AnchorPane.rightAnchor = "0.0"
-                                                                                     AnchorPane.topAnchor = "3.0" />
+                                                                        <ProgressBar fx:id="closedReportsProgressBar"
+                                                                                     maxHeight="11.0" progress="0.0"
+                                                                                     styleClass="progress-bar-Closed"
+                                                                                     AnchorPane.leftAnchor="0.0"
+                                                                                     AnchorPane.rightAnchor="0.0"
+                                                                                     AnchorPane.topAnchor="3.0"/>
                                                                     </children>
                                                                 </AnchorPane>
                                                             </children>
                                                         </HBox>
                                                     </children>
                                                     <padding>
-                                                        <Insets bottom = "10.0" left = "10.0" right = "10.0"
-                                                                top = "10.0" />
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                                     </padding>
                                                 </VBox>
                                             </children>
                                         </GridPane>
                                     </center>
                                     <padding>
-                                        <Insets bottom = "15.0" left = "30.0" right = "30.0" top = "15.0" />
+                                        <Insets bottom="15.0" left="30.0" right="30.0" top="15.0"/>
                                     </padding>
                                 </BorderPane>
-                                <StackPane fx:id = "tableStackPane" VBox.vgrow = "ALWAYS">
+                                <StackPane fx:id="tableStackPane" VBox.vgrow="SOMETIMES">
                                     <children>
-                                        <TableView fx:id = "trafficStopTable" onMouseClicked = "#onTrafficStopRowClick">
+                                        <TableView fx:id="trafficStopTable" onMouseClicked="#onTrafficStopRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "incidentTable" onMouseClicked = "#onIncidentRowClick">
+                                        <TableView fx:id="incidentTable" onMouseClicked="#onIncidentRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "searchTable" onMouseClicked = "#onSearchRowClick">
+                                        <TableView fx:id="searchTable" onMouseClicked="#onSearchRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "arrestTable" onMouseClicked = "#onArrestRowClick">
+                                        <TableView fx:id="arrestTable" onMouseClicked="#onArrestRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "patrolTable" onMouseClicked = "#onPatrolRowClick">
+                                        <TableView fx:id="patrolTable" onMouseClicked="#onPatrolRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "citationTable" onMouseClicked = "#onCitationRowClick">
+                                        <TableView fx:id="citationTable" onMouseClicked="#onCitationRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "impoundTable" onMouseClicked = "#onImpoundRowClick">
+                                        <TableView fx:id="impoundTable" onMouseClicked="#onImpoundRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "deathReportTable" onMouseClicked = "#onDeathReportRowClick">
+                                        <TableView fx:id="deathReportTable" onMouseClicked="#onDeathReportRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "accidentReportTable"
-                                                   onMouseClicked = "#onAccidentReportRowClick">
+                                        <TableView fx:id="accidentReportTable"
+                                                   onMouseClicked="#onAccidentReportRowClick" visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
-                                        <TableView fx:id = "calloutTable" onMouseClicked = "#onCalloutRowClick">
+                                        <TableView fx:id="calloutTable" onMouseClicked="#onCalloutRowClick"
+                                                   visible="false">
                                             <columnResizePolicy>
-                                                <TableView fx:constant = "CONSTRAINED_RESIZE_POLICY" />
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                             </columnResizePolicy>
                                         </TableView>
+                                        <BorderPane fx:id="customReportPane"/>
                                     </children>
                                     <VBox.margin>
                                         <Insets />
@@ -430,7 +360,7 @@
                 </HBox>
             </children>
             <padding>
-                <Insets bottom = "5.0" left = "5.0" right = "5.0" top = "5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </AnchorPane>
     </center>

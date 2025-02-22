@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.util.Report.Database;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
-import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
@@ -33,10 +32,11 @@ import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.getValuesForField;
 
 public class CustomReport {
+    Map<String, Object> reportWindowMap;
     Map<String, Map<String, List<String>>> mainMap;
     Map<String, Object> reportMap;
 
-    public CustomReport(String reportTitle, String dataTablePrimaryKey, Map<String, String> layoutScheme, Map<String, String> reportSchema) {
+    public CustomReport(String reportTitle, String dataTablePrimaryKey, Map<String, String> layoutScheme, Map<String, String> reportSchema, Map<String, Object> pullFromRecord, Map<String, Map<String, List<String>>> elementMap) {
         String dataFolderPath = getCustomDataLogsFolderPath();
         createFolderIfNotExists(dataFolderPath);
 
@@ -97,23 +97,15 @@ public class CustomReport {
         var layout = loadLayoutFromJSON(layoutContent);
         nestedReportUtils.TransferConfig transferConfig = loadTransferConfigFromJSON(transferContent);
 
-        Map<String, Object> reportWindow = createReportWindow(reportTitle, transferConfig,
-                layout.toArray(new nestedReportUtils.SectionConfig[0]));
-        Map<String, Object> reportMap = (Map<String, Object>) reportWindow.get(
-                reportTitle + " Map");
+        Map<String, Object> reportWindow = createReportWindow(reportTitle, transferConfig, layout.toArray(new nestedReportUtils.SectionConfig[0]));
+        Map<String, Object> reportMap = (Map<String, Object>) reportWindow.get(reportTitle + " Map");
 
+        this.reportWindowMap = reportWindow;
         this.mainMap = newMap;
         this.reportMap = reportMap;
 
-        if (newMap.getOrDefault("selectedType", new HashMap<>()).values().stream()
-                .flatMap(List::stream)
-                .filter(type -> type.equalsIgnoreCase("NUMBER_FIELD"))
-                .count() != 1) {
-            log("CustomReport; Exactly one NUMBER_FIELD is required, found: " + newMap.getOrDefault("selectedType", new HashMap<>()).values().stream()
-                            .flatMap(List::stream)
-                            .filter(type -> type.equalsIgnoreCase("NUMBER_FIELD"))
-                            .count(),
-                    Severity.ERROR);
+        if (newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream).filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count() != 1) {
+            log("CustomReport; Exactly one NUMBER_FIELD is required, found: " + newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream).filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count(), Severity.ERROR);
             newMap.put("selectedType", null);
             return;
         }
@@ -157,7 +149,7 @@ public class CustomReport {
                                             logError("CustomReport; Failed to extract field names", e2);
                                         }
 
-                                        CustomReport customReport = new CustomReport(values[2], data, transferLayoutScheme, transferSchema);
+                                        CustomReport customReport = new CustomReport(values[2], data, transferLayoutScheme, transferSchema, null, null);
 
                                         Map<String, Map<String, List<String>>> customReportMap = customReport.getMainMap();
                                         Map<String, Object> customReportUIMap = customReport.getReportMap();
@@ -212,7 +204,9 @@ public class CustomReport {
                     if (value != null) {
                         Object component = reportMap.get(key);
                         if (component instanceof ComboBox box) {
-                            box.getItems().addAll(getValuesForField(value));
+                            if (!value.equalsIgnoreCase("null")) {
+                                box.getItems().addAll(getValuesForField(value));
+                            }
                         }
                     }
                 }
@@ -251,12 +245,7 @@ public class CustomReport {
                                     continue;
                                 }
 
-                                String key = newMap.getOrDefault("keyMap", new HashMap<>())
-                                        .entrySet().stream()
-                                        .filter(entry -> entry.getValue().contains(field))
-                                        .map(Map.Entry::getKey)
-                                        .findFirst()
-                                        .orElse(null);
+                                String key = newMap.getOrDefault("keyMap", new HashMap<>()).entrySet().stream().filter(entry -> entry.getValue().contains(field)).map(Map.Entry::getKey).findFirst().orElse(null);
 
                                 if (key == null) {
                                     continue;
@@ -265,13 +254,11 @@ public class CustomReport {
                                 if (fieldValue instanceof TextField) {
                                     updateTextFromNotepad((TextField) fieldValue, noteArea, "-" + key);
                                 } else if (fieldValue instanceof ComboBox) {
-                                    updateTextFromNotepad(((ComboBox<?>) fieldValue).getEditor(), noteArea,
-                                            "-" + key);
+                                    updateTextFromNotepad(((ComboBox<?>) fieldValue).getEditor(), noteArea, "-" + key);
                                 } else if (fieldValue instanceof TextArea) {
                                     updateTextFromNotepad((TextArea) fieldValue, noteArea, "-" + key);
                                 } else {
-                                    log("CustomReport; Unknown field type: " + fieldValue.getClass().getSimpleName(),
-                                            Severity.ERROR);
+                                    log("CustomReport; Unknown field type: " + fieldValue.getClass().getSimpleName(), Severity.ERROR);
                                 }
                             }
                         });
@@ -279,7 +266,6 @@ public class CustomReport {
                 }
             }
         });
-
         submitBtn.setOnAction(submitEvent -> {
             Map<String, List<String>> selectedTypes = newMap.getOrDefault("selectedType", new HashMap<>());
             Map<String, List<String>> fieldNames = newMap.getOrDefault("fieldNames", new HashMap<>());
@@ -376,7 +362,7 @@ public class CustomReport {
                 logError("CustomReport; Error getting configValue for playCreateReport: ", e);
             }
 
-            LogViewController.needRefresh.set(1);
+            //TODO: update logs here when new reports are added
 
             NotificationManager.showNotificationInfo("Report Manager", "A new " + reportTitle + " has been submitted.");
             CustomWindow window = getWindow(reportTitle);
@@ -384,6 +370,17 @@ public class CustomReport {
                 window.closeWindow();
             }
         });
+
+        if (pullFromRecord != null && elementMap != null) {
+            for (String fieldName : pullFromRecord.keySet()) {
+                Object field = reportMap.get(fieldName);
+                setTextInUIComponent(field, pullFromRecord.get(fieldName).toString(), elementMap.get("selectedType").get(fieldName));
+            }
+        }
+    }
+
+    public Map<String, Object> getReportWindowMap() {
+        return reportWindowMap;
     }
 
     private String extractTextFromUIComponent(Object uiComponent, List<String> selectedType) {

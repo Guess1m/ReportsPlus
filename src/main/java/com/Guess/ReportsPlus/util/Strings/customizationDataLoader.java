@@ -13,6 +13,7 @@ import java.util.*;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.*;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.customDropdownURL;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.customizationURL;
 
 public class customizationDataLoader {
@@ -288,6 +289,7 @@ public class customizationDataLoader {
             "Golf Cart",
             "Go-Kart"
     );
+
     public static List<String> divisions = new ArrayList<>();
     public static List<String> agencies = new ArrayList<>();
     public static List<String> ranks = new ArrayList<>();
@@ -298,12 +300,92 @@ public class customizationDataLoader {
     public static List<String> areaList = new ArrayList<>();
     public static List<String> streets = new ArrayList<>();
 
+    private static final Set<String> DEFAULT_FIELDS = new HashSet<>(Arrays.asList(
+            "agencies", "streets", "ranks", "divisions", "areaList", "searchMethods", "searchTypes", "carColors", "vehicleTypes"
+    ));
+
     static {
         try {
             log("Loading data from Json...", LogUtils.Severity.INFO);
             loadDataFromJson();
+            processCustomFields();
         } catch (IOException e) {
             logError("Error Loading data from Json: ", e);
+        }
+    }
+
+    private static void processCustomFields() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        File customFile = new File(customDropdownURL);
+
+        if (!customFile.exists()) {
+            return;
+        }
+
+        ObjectNode rootNode;
+        try {
+            rootNode = (ObjectNode) mapper.readTree(customFile);
+        } catch (IOException e) {
+            logError("Error reading custom dropdown file: ", e);
+            throw e;
+        }
+
+        boolean modified = false;
+
+        Iterator<Map.Entry<String, JsonNode>> fields = rootNode.fields();
+        while (fields.hasNext()) {
+            Map.Entry<String, JsonNode> field = fields.next();
+            String fieldName = field.getKey();
+            JsonNode node = field.getValue();
+
+            if (node.isArray()) {
+                ArrayNode arrayNode = (ArrayNode) node;
+                boolean hasNA = false;
+                int naIndex = -1;
+
+                for (int i = 0; i < arrayNode.size(); i++) {
+                    String value = arrayNode.get(i).asText();
+                    if ("N/A".equalsIgnoreCase(value)) {
+                        hasNA = true;
+                        naIndex = i;
+                        break;
+                    }
+                }
+
+                if (hasNA) {
+                    if (naIndex != 0) {
+                        arrayNode.remove(naIndex);
+                        arrayNode.insert(0, "N/A");
+                        modified = true;
+                    }
+                } else {
+                    arrayNode.insert(0, "N/A");
+                    modified = true;
+                }
+
+                List<Integer> duplicates = new ArrayList<>();
+                for (int i = 1; i < arrayNode.size(); i++) {
+                    String value = arrayNode.get(i).asText();
+                    if ("N/A".equalsIgnoreCase(value)) {
+                        duplicates.add(i);
+                    }
+                }
+                for (int i = duplicates.size() - 1; i >= 0; i--) {
+                    int index = duplicates.get(i);
+                    arrayNode.remove(index);
+                    modified = true;
+                }
+            }
+        }
+
+        if (modified) {
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, rootNode);
+                log("Updated custom fields to ensure 'N/A' is first.", LogUtils.Severity.INFO);
+            } catch (IOException e) {
+                logError("Failed to update custom fields file: ", e);
+                throw e;
+            }
         }
     }
 
@@ -400,8 +482,7 @@ public class customizationDataLoader {
         loadSection(rootNode, "searchTypes", searchTypes);
         loadSection(rootNode, "searchMethods", searchMethods);
         loadSection(rootNode, "areaList", areaList);
-
-        log("Loaded values from Json.", LogUtils.Severity.INFO);
+        log("Loaded values from customization.json.", LogUtils.Severity.INFO);
     }
 
     public static boolean addCustomField(String fieldName, List<String> values) throws IOException {
@@ -415,91 +496,72 @@ public class customizationDataLoader {
             showNotificationWarning("Customization Utility", "Field Values list is null or empty");
             return false;
         }
+        if (DEFAULT_FIELDS.contains(fieldName)) {
+            log("Field name '" + fieldName + "' is a default field and cannot be added as custom.", LogUtils.Severity.ERROR);
+            showNotificationWarning("Customization Utility", "Cannot add default field as custom.");
+            return false;
+        }
+
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(customizationURL);
-        ObjectNode rootNode;
-        if (file.exists()) {
+        File customFile = new File(customDropdownURL);
+        ObjectNode customRoot;
+
+        if (customFile.exists()) {
             try {
-                rootNode = (ObjectNode) mapper.readTree(file);
+                customRoot = (ObjectNode) mapper.readTree(customFile);
             } catch (Exception e) {
-                logError("Error parsing customization.json: ", e);
-                showNotificationError("Customization Utility", "Error parsing customization.json: " + e);
+                logError("Error parsing custom dropdown file: ", e);
+                showNotificationError("Customization Utility", "Error parsing custom dropdown file: " + e);
                 return false;
             }
         } else {
-            rootNode = mapper.createObjectNode();
+            customRoot = mapper.createObjectNode();
         }
-        if (rootNode.has(fieldName)) {
-            log("Field '" + fieldName + "' already exists in customization.json", LogUtils.Severity.INFO);
-            showNotificationWarning("Customization Utility", "Field '" + fieldName + "' already exists in customization.json");
+
+        if (customRoot.has(fieldName)) {
+            log("Field '" + fieldName + "' already exists in custom dropdown file.", LogUtils.Severity.INFO);
+            showNotificationWarning("Customization Utility", "Field '" + fieldName + "' already exists.");
             return false;
         }
+
         ArrayNode arrayNode = mapper.createArrayNode();
-        arrayNode.add("N/A");
         Set<String> addedValues = new HashSet<>();
+
+        arrayNode.add("N/A");
+        addedValues.add("N/A");
+
         for (String value : values) {
             if (value == null || value.trim().isEmpty()) {
                 continue;
             }
             String trimmedValue = value.trim();
-            if ("N/A".equals(trimmedValue) || addedValues.contains(trimmedValue)) {
+            if ("N/A".equalsIgnoreCase(trimmedValue)) {
                 continue;
             }
-            arrayNode.add(trimmedValue);
-            addedValues.add(trimmedValue);
+            if (!addedValues.contains(trimmedValue)) {
+                arrayNode.add(trimmedValue);
+                addedValues.add(trimmedValue);
+            }
         }
-        rootNode.set(fieldName, arrayNode);
-        File parent = file.getParentFile();
-        if (parent != null) {
-            parent.mkdirs();
+        if (arrayNode.size() == 0) {
+            arrayNode.add("N/A");
         }
+        customRoot.set(fieldName, arrayNode);
+
         try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
-            log("Added custom field '" + fieldName + "' to customization.json", LogUtils.Severity.INFO);
-            showNotificationInfo("Customization Utility", "Added custom field '" + fieldName + "' to customization.json");
+            File parentDir = customFile.getParentFile();
+            if (parentDir != null) {
+                parentDir.mkdirs();
+            }
+            mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, customRoot);
+            log("Added custom field '" + fieldName + "' to custom dropdown file.", LogUtils.Severity.INFO);
+            showNotificationInfo("Customization Utility", "Added custom field '" + fieldName + "'.");
             return true;
         } catch (IOException e) {
-            logError("Failed to write customization.json: ", e);
-            showNotificationError("Customization Utility", "Failed to write customization.json: " + e);
+            logError("Failed to write custom dropdown file: ", e);
+            showNotificationError("Customization Utility", "Failed to write custom dropdown file: " + e);
             throw e;
         }
-    }
-
-    private static void loadSection(JsonNode rootNode, String sectionName, List<String> targetList) {
-        targetList.clear();
-        JsonNode sectionNode = rootNode.get(sectionName);
-        if (sectionNode != null && sectionNode.isArray()) {
-            sectionNode.forEach(node -> targetList.add(node.asText()));
-        }
-    }
-
-    public static List<String> getCustomizationFields() {
-        try {
-            List<String> fields = new ArrayList<>();
-            ObjectMapper mapper = new ObjectMapper();
-            File file = new File(customizationURL);
-            if (!file.exists()) {
-                log("customization.json does not exist, returning empty field list", LogUtils.Severity.INFO);
-                return fields;
-            }
-            Set<String> defaultFields = new HashSet<>(Arrays.asList("agencies", "streets", "ranks", "divisions", "areaList", "searchMethods", "searchTypes", "carColors", "vehicleTypes"));
-            JsonNode rootNode = mapper.readTree(file);
-            if (rootNode.isObject()) {
-                Iterator<String> fieldNames = rootNode.fieldNames();
-                while (fieldNames.hasNext()) {
-                    String fieldName = fieldNames.next();
-                    if (!defaultFields.contains(fieldName)) {
-                        fields.add(fieldName);
-                    }
-                }
-            } else {
-                log("customization.json is not a valid JSON object", LogUtils.Severity.ERROR);
-            }
-            return fields;
-        } catch (Exception e) {
-            logError("Error loading fields from customization.json: ", e);
-        }
-        return null;
     }
 
     public static List<String> getValuesForField(String fieldName) {
@@ -524,42 +586,95 @@ public class customizationDataLoader {
                 return new ArrayList<>(vehicleTypes);
             default:
                 ObjectMapper mapper = new ObjectMapper();
-                File file = new File(customizationURL);
-                if (!file.exists()) {
-                    log("customization.json does not exist, returning empty field list", LogUtils.Severity.WARN);
+                File customFile = new File(customDropdownURL);
+                if (!customFile.exists()) {
+                    log("Custom dropdown file does not exist", LogUtils.Severity.WARN);
                     return Collections.emptyList();
                 }
                 try {
-                    JsonNode rootNode = mapper.readTree(file);
+                    JsonNode rootNode = mapper.readTree(customFile);
                     JsonNode fieldNode = rootNode.get(fieldName);
                     if (fieldNode != null && fieldNode.isArray()) {
                         List<String> values = new ArrayList<>();
                         fieldNode.forEach(node -> values.add(node.asText()));
                         return values;
                     } else {
-                        log("Dropdown Option: '" + fieldName + "' not found in customization.json, returning blank collection", LogUtils.Severity.ERROR);
+                        log("Field '" + fieldName + "' not found in custom dropdown file.", LogUtils.Severity.ERROR);
+                        showNotificationWarning("Customization Utility", "Field '" + fieldName + "' not found in custom dropdown file.");
                         return Collections.emptyList();
                     }
                 } catch (IOException e) {
-                    logError("Error reading customization.json for field '" + fieldName + "': ", e);
+                    logError("Error reading custom dropdown file: ", e);
                     return Collections.emptyList();
                 }
         }
     }
 
-    public static boolean deleteCustomField(String fieldName) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(customizationURL);
-
-        if (!file.exists()) return false;
-
-        ObjectNode root = (ObjectNode) mapper.readTree(file);
-        if (!root.has(fieldName)) return false;
-
-        root.remove(fieldName);
-        mapper.writerWithDefaultPrettyPrinter().writeValue(file, root);
-
-        return true;
+    public static List<String> getCustomizationFields() {
+        try {
+            List<String> fields = new ArrayList<>();
+            ObjectMapper mapper = new ObjectMapper();
+            File customFile = new File(customDropdownURL);
+            if (!customFile.exists()) {
+                return fields;
+            }
+            JsonNode rootNode = mapper.readTree(customFile);
+            if (rootNode.isObject()) {
+                Iterator<String> fieldNames = rootNode.fieldNames();
+                while (fieldNames.hasNext()) {
+                    fields.add(fieldNames.next());
+                }
+            } else {
+                log("Custom dropdown file is not a valid JSON object", LogUtils.Severity.ERROR);
+            }
+            return fields;
+        } catch (Exception e) {
+            logError("Error loading fields from custom dropdown file: ", e);
+            return Collections.emptyList();
+        }
     }
 
+    public static boolean deleteCustomField(String fieldName) throws IOException {
+        if (DEFAULT_FIELDS.contains(fieldName)) {
+            log("Cannot delete default field '" + fieldName + "'.", LogUtils.Severity.ERROR);
+            return false;
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        File customFile = new File(customDropdownURL);
+
+        if (!customFile.exists()) {
+            return false;
+        }
+
+        ObjectNode root;
+        try {
+            root = (ObjectNode) mapper.readTree(customFile);
+        } catch (IOException e) {
+            logError("Error reading custom dropdown file: ", e);
+            throw e;
+        }
+
+        if (!root.has(fieldName)) {
+            return false;
+        }
+
+        root.remove(fieldName);
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, root);
+            log("Deleted custom field '" + fieldName + "' from custom dropdown file.", LogUtils.Severity.INFO);
+            return true;
+        } catch (IOException e) {
+            logError("Failed to delete field from custom dropdown file: ", e);
+            throw e;
+        }
+    }
+
+    private static void loadSection(JsonNode rootNode, String section, List<String> target) {
+        target.clear();
+        JsonNode node = rootNode.get(section);
+        if (node != null && node.isArray()) {
+            node.elements().forEachRemaining(element -> target.add(element.asText()));
+        }
+    }
 }

@@ -1,3 +1,25 @@
+TitledPane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+TitledPane .title {
+    -fx-background-color: rgb(255, 255, 255, 0.6);
+    -fx-background-radius: 5;
+    -fx-padding: 8 10;
+    -fx-border-color: transparent;
+}
+
+TitledPane .title .text {
+    -fx-font-family: "Inter 28pt Medium";
+}
+
+TitledPane .content {
+    -fx-background-color: rgba(255, 255, 255, 0.34);
+    -fx-border-color: transparent;
+    -fx-background-radius: 10;
+}
+
 ScrollPane {
     -fx-background-color: transparent;
 }
@@ -106,4 +128,31 @@ TableView > .virtual-flow > .scroll-bar:vertical > .thumb {
 TableView > .virtual-flow > .scroll-bar:horizontal > .thumb:pressed,
 TableView > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
     -fx-background-color: #262626;
+}
+
+.small-button {
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-border-color: rgba(128, 128, 128, 0.18);
+    -fx-background-color: rgba(0, 0, 0, 0.02);
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+    -fx-padding: 3 10;
+}
+
+.side-button {
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-border-color: rgba(128, 128, 128, 0.18);
+    -fx-background-color: rgba(0, 0, 0, 0.02);
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+    -fx-min-width: 85;
+    -fx-padding: 6;
+}
+
+.side-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.07);
+}
+
+.side-button:selected {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }

@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.Other;
 
-import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.History.Ped;
@@ -42,6 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.*;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.audioExecutor;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
@@ -333,7 +333,17 @@ public class controllerUtils {
         dialog.showAndWait().ifPresent(result -> {
             if (result) {
                 clearDataLogs();
-                LogViewController.needRefresh.set(1);
+
+                calloutLogUpdate();
+                patrolLogUpdate();
+                arrestLogUpdate();
+                citationLogUpdate();
+                trafficStopLogUpdate();
+                searchLogUpdate();
+                incidentLogUpdate();
+                deathReportLogUpdate();
+                impoundLogUpdate();
+                accidentReportUpdate();
             }
         });
     }

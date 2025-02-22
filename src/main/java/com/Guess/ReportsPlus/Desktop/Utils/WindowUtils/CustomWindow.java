@@ -97,6 +97,14 @@ public class CustomWindow {
         });
     }
 
+    public double getWidth() {
+        return windowPane.getPrefWidth();
+    }
+
+    public double getHeight() {
+        return windowPane.getPrefHeight();
+    }
+
     private void addMainStageResizeListener() {
         root.widthProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
         root.heightProperty().addListener((obs, oldVal, newVal) -> keepWithinBounds());
@@ -116,10 +124,10 @@ public class CustomWindow {
             double windowHeight = windowPane.getLayoutBounds().getHeight();
 
             if (windowX + windowWidth > mainStageWidth) {
-                windowPane.setLayoutX(mainStageWidth - windowWidth);
+                windowPane.setLayoutX(Math.round(mainStageWidth - windowWidth));
             }
             if (windowY + windowHeight > mainStageHeight) {
-                windowPane.setLayoutY(mainStageHeight - windowHeight);
+                windowPane.setLayoutY(Math.round(mainStageHeight - windowHeight));
             }
 
             if (windowX < 0) {
@@ -169,7 +177,7 @@ public class CustomWindow {
             if (pane.getCursor() == javafx.scene.Cursor.SE_RESIZE) {
                 double newWidth = Math.min(Math.max(x, 400), maxWidth);
                 double newHeight = Math.min(Math.max(y, 50), maxHeight);
-                pane.setPrefSize(newWidth, newHeight);
+                pane.setPrefSize(Math.round(newWidth), Math.round(newHeight));
             } else if (pane.getCursor() == javafx.scene.Cursor.E_RESIZE) {
                 double newWidth = Math.min(Math.max(x, 400), maxWidth);
                 pane.setPrefWidth(newWidth);
@@ -180,13 +188,13 @@ public class CustomWindow {
                 double newWidth = Math.min(Math.max(pane.getPrefWidth() - x, 400), pane.getLayoutX() + pane.getPrefWidth());
                 double newX = pane.getLayoutX() + (pane.getPrefWidth() - newWidth);
                 pane.setPrefWidth(newWidth);
-                pane.setLayoutX(newX);
+                pane.setLayoutX(Math.round(newX));
             } else if (pane.getCursor() == javafx.scene.Cursor.SW_RESIZE) {
                 double newWidth = Math.min(Math.max(pane.getPrefWidth() - x, 400), paneX + pane.getPrefWidth());
                 double newHeight = Math.min(Math.max(y, 50), maxHeight);
                 double newX = paneX + (pane.getWidth() - newWidth);
                 pane.setPrefSize(newWidth, newHeight);
-                pane.setLayoutX(newX);
+                pane.setLayoutX(Math.round(newX));
             }
 
             keepWithinBounds();
@@ -286,11 +294,11 @@ public class CustomWindow {
         isMaximized = true;
     }
 
-    private void restoreWindowSize() {
+    public void restoreWindowSize() {
         windowPane.setPrefWidth(originalWidth);
         windowPane.setPrefHeight(originalHeight);
-        windowPane.setLayoutX(originalX);
-        windowPane.setLayoutY(originalY);
+        windowPane.setLayoutX(Math.round(originalX));
+        windowPane.setLayoutY(Math.round(originalY));
         isMaximized = false;
     }
 
@@ -305,8 +313,8 @@ public class CustomWindow {
                 double windowHeight = windowPane.getPrefHeight();
                 double x = (stageWidth - windowWidth) / 2;
                 double y = (stageHeight - windowHeight) / 2;
-                windowPane.setLayoutX(x);
-                windowPane.setLayoutY(y);
+                windowPane.setLayoutX(Math.round(x));
+                windowPane.setLayoutY(Math.round(y));
             });
         }
     }
@@ -463,8 +471,8 @@ public class CustomWindow {
                 newY = maxHeight;
             }
 
-            windowPane.setLayoutX(newX);
-            windowPane.setLayoutY(newY);
+            windowPane.setLayoutX(Math.round(newX));
+            windowPane.setLayoutY(Math.round(newY));
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
@@ -482,8 +490,8 @@ public class CustomWindow {
 
     public void setPosition(double x, double y) {
         if (windowPane != null) {
-            windowPane.setLayoutX(x);
-            windowPane.setLayoutY(y);
+            windowPane.setLayoutX(Math.round(x));
+            windowPane.setLayoutY(Math.round(y));
         }
     }
 

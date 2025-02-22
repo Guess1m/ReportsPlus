@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.incidentLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
@@ -193,7 +194,7 @@ public class IncidentReportUtils {
                 } catch (IOException e) {
                     logError("Error getting configValue for playCreateReport: ", e);
                 }
-                LogViewController.needRefresh.set(1);
+                incidentLogUpdate();
 
                 NotificationManager.showNotificationInfo("Report Manager", "A new Incident Report has been submitted.");
                 CustomWindow window = getWindow("Incident Report");

@@ -34,28 +34,28 @@ import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReport;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReports;
+import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.util.Report.Database.CustomReport;
+import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import jakarta.xml.bind.JAXBException;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
+import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.*;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.parseAndPopulateMap;
 import static com.Guess.ReportsPlus.logs.Accident.AccidentReportUtils.newAccident;
 import static com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils.newArrest;
 import static com.Guess.ReportsPlus.logs.Callout.CalloutReportUtils.newCallout;
@@ -67,87 +67,82 @@ import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.newSearch;
 import static com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Other.InitTableColumns.*;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
+import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getPrimaryKeyColumn;
+import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.isValidDatabase;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addChargesToTable;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addCitationsToTable;
 
 public class LogViewController {
     public static LogViewController logController;
-    public static SimpleIntegerProperty needRefresh = new SimpleIntegerProperty();
-    List<BorderPane> sideButtons = new ArrayList<>();
-    private BorderPane activePane;
+    TableView currentTable;
 
-    @javafx.fxml.FXML
+    /*TODO: Locale for logviewer
+     *
+     * TODO: Database not closing properly somewhere; fix
+     *  */
+
+    @FXML
     private AnchorPane logPane;
-    @javafx.fxml.FXML
+    @FXML
     private TableView trafficStopTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView arrestTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView deathReportTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView impoundTable;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane root;
-    @javafx.fxml.FXML
+    @FXML
     private TableView citationTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView calloutTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView patrolTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView accidentReportTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView incidentTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableView searchTable;
-    @javafx.fxml.FXML
+    @FXML
     private Label reportsInProgressLabel;
-    @javafx.fxml.FXML
+    @FXML
     private Label totalReportsHeader;
-    @javafx.fxml.FXML
+    @FXML
     private Label totalReportsLabel;
-    @javafx.fxml.FXML
+    @FXML
     private ProgressBar closedReportsProgressBar;
-    @javafx.fxml.FXML
+    @FXML
     private Label closedReportsHeader;
-    @javafx.fxml.FXML
+    @FXML
     private Label reportsInProgressHeader;
-    @javafx.fxml.FXML
+    @FXML
     private Label closedReportsLabel;
-    @javafx.fxml.FXML
-    private BorderPane callout;
-    @javafx.fxml.FXML
-    private BorderPane arrest;
-    @javafx.fxml.FXML
-    private BorderPane death;
-    @javafx.fxml.FXML
-    private BorderPane accident;
-    @javafx.fxml.FXML
-    private BorderPane search;
-    @javafx.fxml.FXML
-    private BorderPane patrol;
-    @javafx.fxml.FXML
-    private BorderPane trafficStop;
-    @javafx.fxml.FXML
-    private BorderPane citation;
-    @javafx.fxml.FXML
-    private BorderPane impound;
-    @javafx.fxml.FXML
-    private BorderPane incident;
-    @javafx.fxml.FXML
+    @FXML
     private StackPane tableStackPane;
-    @javafx.fxml.FXML
+    @FXML
     private ProgressBar reportsInProgressBar;
-    @javafx.fxml.FXML
+    @FXML
     private Label subHeading;
+    @FXML
+    private TitledPane customReportsTitlePane;
+    @FXML
+    private TitledPane reportsTitlePane;
+    @FXML
+    private ScrollPane sp;
+    @FXML
+    private VBox customReportsVBox;
+    @FXML
+    private BorderPane customReportPane;
 
     public void initialize() {
-        sideButtons.addAll(Arrays.asList(callout, arrest, death, accident, search, patrol, trafficStop, citation, impound, incident));
-
         initializeCalloutColumns(calloutTable);
         initializeArrestColumns(arrestTable);
         initializeCitationColumns(citationTable);
@@ -158,274 +153,631 @@ public class LogViewController {
         initializeTrafficStopColumns(trafficStopTable);
         initializeDeathReportColumns(deathReportTable);
         initializeAccidentColumns(accidentReportTable);
-        loadLogs();
-
-        needRefresh.set(0);
-        needRefresh.addListener((obs, oldValue, newValue) -> {
-            if (newValue.equals(1)) {
-                loadLogs();
-                needRefresh.set(0);
-            }
-        });
-
-        addHoverListener(calloutTable, callout);
-        addHoverListener(arrestTable, arrest);
-        addHoverListener(deathReportTable, death);
-        addHoverListener(accidentReportTable, accident);
-        addHoverListener(searchTable, search);
-        addHoverListener(patrolTable, patrol);
-        addHoverListener(trafficStopTable, trafficStop);
-        addHoverListener(citationTable, citation);
-        addHoverListener(impoundTable, impound);
-        addHoverListener(incidentTable, incident);
 
         Platform.runLater(() -> {
-            List<Node> nodesToRemove = new ArrayList<>();
-            for (Node table : tableStackPane.getChildren()) {
-                if (table instanceof TableView) {
-                    nodesToRemove.add(table);
-                }
-            }
-
-            setActive(calloutTable, callout);
-
-            for (BorderPane otherPane : sideButtons) {
-                otherPane.setStyle("-fx-background-color: transparent;");
-                for (Node node : otherPane.getChildren()) {
-                    if (node instanceof Label) {
-                        node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
-                    }
-                }
-            }
-
-            activePane = callout;
-            callout.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
-            for (Node node : callout.getChildren()) {
-                if (node instanceof Label) {
-                    node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
-                }
-            }
+            loadLogs();
         });
 
         subHeading.setText(localization.getLocalizedMessage("LogBrowser.reportDatabaseLabel", "Report Database"));
     }
 
-    private void loadLogs() {
-        try {
-            ImpoundReports impoundReports = ImpoundReportUtils.loadImpoundReports();
-            List<ImpoundReport> impoundReportslist = impoundReports.getImpoundReportList();
-            impoundLogUpdate(impoundReportslist);
-        } catch (JAXBException e) {
-            logError("Error loading ImpoundReports: ", e);
-        }
+    public void loadLogs() {
+        impoundLogUpdate();
+        citationLogUpdate();
+        patrolLogUpdate();
+        arrestLogUpdate();
+        searchLogUpdate();
+        incidentLogUpdate();
+        trafficStopLogUpdate();
+        calloutLogUpdate();
+        deathReportLogUpdate();
+        accidentReportUpdate();
 
-        try {
-            TrafficCitationReports trafficCitationReports = TrafficCitationUtils.loadTrafficCitationReports();
-            List<TrafficCitationReport> trafficCitationList = trafficCitationReports.getTrafficCitationReportList();
-            citationLogUpdate(trafficCitationList);
-        } catch (JAXBException e) {
-            logError("Error loading TrafficCitationReports: ", e);
-        }
+        String dataFolderPath = getCustomDataLogsFolderPath();
+        createFolderIfNotExists(dataFolderPath);
+        File dataFolder = new File(dataFolderPath);
+        if (dataFolder.exists() && dataFolder.isDirectory()) {
+            customReportsVBox.getChildren().clear();
 
-        try {
-            PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
-            List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
-            patrolLogUpdate(patrolReportList);
-        } catch (JAXBException e) {
-            logError("Error loading PatrolReports: ", e);
-        }
+            File[] files = dataFolder.listFiles((dir, filen) -> filen.endsWith(".db"));
+            if (files != null && files.length != 0) {
+                log("LogViewer; Found " + files.length + " Database(s)", LogUtils.Severity.INFO);
+                for (File dbFile : files) {
+                    String fileNameWithoutExt = dbFile.getName().replaceFirst("[.][^.]+$", "");
+                    String dbFilePath = dbFile.getAbsolutePath();
+                    log("LogViewer; [" + dbFile.getName() + "] Being Checked", LogUtils.Severity.INFO);
 
-        try {
-            ArrestReports arrestReports = ArrestReportUtils.loadArrestReports();
-            List<ArrestReport> arrestReportList = arrestReports.getArrestReportList();
-            arrestLogUpdate(arrestReportList);
-        } catch (JAXBException e) {
-            logError("Error loading ArrestReport: ", e);
-        }
+                    if (isValidDatabase(dbFilePath, dbFile.getName())) {
+                        log("LogViewer; [" + dbFile.getName() + "] Valid", LogUtils.Severity.INFO);
 
-        try {
-            SearchReports searchReports = SearchReportUtils.loadSearchReports();
-            List<SearchReport> searchReportsList1 = searchReports.getSearchReportList();
-            searchLogUpdate(searchReportsList1);
-        } catch (JAXBException e) {
-            logError("Error loading SearchReports: ", e);
-        }
+                        Button reportBtn = new Button();
+                        reportBtn.setText(fileNameWithoutExt);
+                        reportBtn.getStyleClass().add("side-button");
+                        reportBtn.setOnAction(event -> {
+                            loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
+                        });
 
-        try {
-            IncidentReports incidentReports = IncidentReportUtils.loadIncidentReports();
-            List<IncidentReport> incidentReportList1 = incidentReports.getIncidentReportList();
-            incidentLogUpdate(incidentReportList1);
-        } catch (JAXBException e) {
-            logError("Error loading IncidentReports: ", e);
-        }
+                        customReportsVBox.getChildren().add(reportBtn);
 
-        try {
-            TrafficStopReports trafficStopReports = TrafficStopReportUtils.loadTrafficStopReports();
-            List<TrafficStopReport> trafficStopReportList = trafficStopReports.getTrafficStopReportList();
-            trafficStopLogUpdate(trafficStopReportList);
-        } catch (JAXBException e) {
-            logError("Error loading TrafficStopReports: ", e);
-        }
-
-        try {
-            CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
-            List<CalloutReport> calloutReportListl = calloutReports.getCalloutReportList();
-            calloutLogUpdate(calloutReportListl);
-        } catch (JAXBException e) {
-            logError("Error loading CalloutReports: ", e);
-        }
-
-        try {
-            DeathReports deathReports = DeathReportUtils.loadDeathReports();
-            List<DeathReport> deathReportList = deathReports.getDeathReportList();
-            deathReportUpdate(deathReportList);
-        } catch (JAXBException e) {
-            logError("Error loading DeathReports: ", e);
-        }
-
-        try {
-            AccidentReports accidentReports = AccidentReportUtils.loadAccidentReports();
-            List<AccidentReport> accidentReportsList = accidentReports.getAccidentReportList();
-            accidentReportUpdate(accidentReportsList);
-        } catch (JAXBException e) {
-            logError("Error loading accidentReports: ", e);
-        }
-    }
-
-    public void calloutLogUpdate(List<CalloutReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        calloutTable.getItems().clear();
-        calloutTable.getItems().addAll(logEntries);
-    }
-
-    public void citationLogUpdate(List<TrafficCitationReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        citationTable.getItems().clear();
-        citationTable.getItems().addAll(logEntries);
-    }
-
-    public void patrolLogUpdate(List<PatrolReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        patrolTable.getItems().clear();
-        patrolTable.getItems().addAll(logEntries);
-    }
-
-    public void arrestLogUpdate(List<ArrestReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        arrestTable.getItems().clear();
-        arrestTable.getItems().addAll(logEntries);
-    }
-
-    public void searchLogUpdate(List<SearchReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        searchTable.getItems().clear();
-        searchTable.getItems().addAll(logEntries);
-    }
-
-    public void incidentLogUpdate(List<IncidentReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        incidentTable.getItems().clear();
-        incidentTable.getItems().addAll(logEntries);
-    }
-
-    public void trafficStopLogUpdate(List<TrafficStopReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        trafficStopTable.getItems().clear();
-        trafficStopTable.getItems().addAll(logEntries);
-    }
-
-    public void impoundLogUpdate(List<ImpoundReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-        impoundTable.getItems().clear();
-        impoundTable.getItems().addAll(logEntries);
-    }
-
-    public void deathReportUpdate(List<DeathReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-
-        deathReportTable.getItems().clear();
-        deathReportTable.getItems().addAll(logEntries);
-    }
-
-    public void accidentReportUpdate(List<AccidentReport> logEntries) {
-        if (logEntries == null) {
-            logEntries = new ArrayList<>();
-        }
-
-        accidentReportTable.getItems().clear();
-        accidentReportTable.getItems().addAll(logEntries);
-    }
-
-    private void addHoverListener(TableView table, BorderPane pane) {
-        pane.setOnMouseEntered(event -> {
-            if (activePane == pane) {
-                return;
-            }
-            pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
-            for (Node node : pane.getChildren()) {
-                if (node instanceof Label) {
-                    node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
-                }
-            }
-        });
-
-        pane.setOnMouseExited(event -> {
-            if (activePane == pane) {
-                return;
-            }
-            pane.setStyle("-fx-background-color: transparent;");
-            for (Node node : pane.getChildren()) {
-                if (node instanceof Label) {
-                    node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
-                }
-            }
-        });
-
-        pane.setOnMouseClicked(event -> {
-
-            if (activePane == pane) {
-                return;
-            }
-            setActive(table, pane);
-
-            for (BorderPane otherPane : sideButtons) {
-                otherPane.setStyle("-fx-background-color: transparent;");
-                for (Node node : otherPane.getChildren()) {
-                    if (node instanceof Label) {
-                        node.setStyle("-fx-font-family: \"Inter 28pt Medium\";");
+                    } else {
+                        log("LogViewer; Invalid database file: " + dbFilePath, LogUtils.Severity.WARN);
                     }
                 }
             }
+        }
+    }
 
-            activePane = pane;
-            pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
-            for (Node node : pane.getChildren()) {
-                if (node instanceof Label) {
-                    node.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
+    private void loadTableForCustomReport(String dbFilePath, String fileNameWithoutExt) {
+        Platform.runLater(() -> {
+            String dataFolderPath = getCustomDataLogsFolderPath();
+
+            String reportTitle = fileNameWithoutExt.trim();
+
+             /*
+       TODO: Store the columnLayoutData here
+        *  - If there is a valid columnLayoutData, load that
+        *  - Else, create a columnLayoutData and add it to layout table
+        *
+        * Column wont exist for columnLayoutData, so create that column
+      */
+
+            currentTable = null;
+            customReportPane.getChildren().clear();
+
+            currentTable = new TableView();
+            currentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            currentTable.getColumns().clear();
+            currentTable.getItems().clear();
+            customReportPane.setCenter(currentTable);
+
+            Map<String, String> layoutScheme = null;
+            try {
+                layoutScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "layout");
+            } catch (SQLException e2) {
+                logError("LogViewer; Failed to extract field names", e2);
+            }
+
+            String layoutContent = null;
+            String columnLayoutContent = null;
+            DynamicDB DatabaseLayout = new DynamicDB(dataFolderPath + reportTitle, "layout", "key", layoutScheme);
+            if (DatabaseLayout.initDB()) {
+                log("LogViewer; Layout Database for: [" + reportTitle + "] Initialized", LogUtils.Severity.INFO);
+                try {
+                    Map<String, Object> layoutRecord = DatabaseLayout.getRecord("1");
+                    if (layoutRecord != null) {
+                        Object layoutValue = layoutRecord.get("layoutData");
+                        layoutContent = (String) layoutValue;
+                    } else {
+                        log("LogViewer; layout record null for report: " + reportTitle, LogUtils.Severity.ERROR);
+                    }
+                    Map<String, Object> columnLayoutRecord = DatabaseLayout.getRecord("3");
+                    if (columnLayoutRecord != null) {
+                        Object layoutValue = columnLayoutRecord.get("columnLayoutData");
+                        columnLayoutContent = (String) layoutValue;
+                    } else {
+                        log("LogViewer; columnLayoutData record null for report: " + reportTitle, LogUtils.Severity.ERROR);
+                        DatabaseLayout.addColumnIfNotExists("columnLayoutData", "TEXT");
+                        Map<String, Object> columnRecord = new HashMap<>();
+                        columnRecord.put("key", "3");
+                        if (layoutContent != null) {
+                            StringBuilder columnLayoutBuilder = new StringBuilder();
+                            Map<String, Map<String, List<String>>> elementMap = parseAndPopulateMap(layoutContent);
+                            Map<String, List<String>> fieldNames = elementMap.getOrDefault("fieldNames", new HashMap<>());
+                            for (String key : fieldNames.keySet()) {
+                                columnLayoutBuilder.append(key + "=true");
+                                columnLayoutBuilder.append(",");
+                            }
+                            columnLayoutBuilder.append("report_status=true");
+
+                            columnLayoutContent = columnLayoutBuilder.toString();
+                            columnRecord.put("columnLayoutData", columnLayoutBuilder.toString());
+                            DatabaseLayout.addOrReplaceRecord(columnRecord);
+                        }
+                    }
+                } catch (SQLException e2) {
+                    logError("LogViewer; Error adding/replacing record: " + layoutScheme, e2);
+                } finally {
+                    try {
+                        DatabaseLayout.close();
+                    } catch (SQLException e2) {
+                        logError("LogViewer; Error closing Database: [" + DatabaseLayout.getTableName() + "]", e2);
+                    }
+                }
+            } else {
+                log("LogViewer; Layout Database not initialized!", LogUtils.Severity.ERROR);
+                showNotificationError("Report Creation Utility", "Error initializing layout database!");
+            }
+
+            if (columnLayoutContent != null) {
+                try {
+
+                    List<String> allColumns = new ArrayList<>(Arrays.asList(columnLayoutContent.split(",")));
+                    List<String> visibleColumns = new ArrayList<>();
+                    List<String> hiddenColumns = new ArrayList<>();
+
+                    for (String column : allColumns) {
+                        String[] parts = column.split("=");
+                        if (parts.length == 2) {
+                            if (parts[1].equals("true")) {
+                                visibleColumns.add(parts[0]);
+                            } else {
+                                hiddenColumns.add(parts[0]);
+                            }
+                        }
+                    }
+
+                    for (String columnName : visibleColumns) {
+                        TableColumn<Map<String, Object>, String> column = new TableColumn<>(columnName);
+                        column.setCellValueFactory(param -> {
+                            Object value = param.getValue().get(columnName);
+                            return new SimpleStringProperty(value != null ? value.toString() : "");
+                        });
+
+                        currentTable.getColumns().add(column);
+                    }
+
+                    Map<String, String> dataScheme = null;
+                    try {
+                        dataScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "data");
+                    } catch (SQLException e2) {
+                        logError("LogViewer; Failed to extract field names data table", e2);
+                    }
+                    String foundPrimaryKeyDataTable = null;
+                    try {
+                        foundPrimaryKeyDataTable = getPrimaryKeyColumn(dbFilePath, "data");
+                    } catch (SQLException e) {
+                        logError("LogViewer; Error getting primary key column [4]", e);
+                    }
+                    DynamicDB databaseData = new DynamicDB(dataFolderPath + reportTitle, "data", foundPrimaryKeyDataTable, dataScheme);
+                    if (databaseData.initDB()) {
+                        log("LogViewer; data Database for: [" + reportTitle + "] Initialized", LogUtils.Severity.INFO);
+                        try {
+                            currentTable.getItems().setAll(databaseData.getAllRecords());
+
+                            //TODO: Get status_field and make it look like that in the other report tables
+                            Map<String, String> finalDataScheme = dataScheme;
+                            Map<String, String> finalLayoutScheme = layoutScheme;
+                            String finalFoundPrimaryKeyDataTable = foundPrimaryKeyDataTable;
+                            String finalLayoutContent = layoutContent;
+                            currentTable.setRowFactory(tableView -> {
+                                TableRow<Map<String, Object>> row = new TableRow<>();
+                                row.setOnMouseClicked(mouseEvent -> {
+                                    if (mouseEvent.getClickCount() == 1 && !row.isEmpty()) {
+                                        Map<String, Object> record = row.getItem();
+
+                                        Map<String, Map<String, List<String>>> elementMap = parseAndPopulateMap(finalLayoutContent);
+
+                                        CustomReport customReport = new CustomReport(reportTitle, finalFoundPrimaryKeyDataTable, finalLayoutScheme, finalDataScheme, record, elementMap);
+
+                                        Map<String, List<String>> selectedTypes = customReport.getMainMap().getOrDefault("selectedType", new HashMap<>());
+                                        Map<String, List<String>> fieldNames = customReport.getMainMap().getOrDefault("fieldNames", new HashMap<>());
+
+                                        String reportNum = "";
+                                        for (String field : fieldNames.keySet()) {
+                                            String selectedType = selectedTypes.getOrDefault(field, List.of()).isEmpty() ? "" : selectedTypes.get(field).get(0);
+                                            if ("NUMBER_FIELD".equalsIgnoreCase(selectedType)) {
+                                                reportNum = record.get(field).toString();
+                                                TextField number_field = (TextField) customReport.getReportMap().get(field);
+                                                number_field.setEditable(false);
+                                            }
+                                        }
+
+                                        Button delBtn = (Button) customReport.getReportWindowMap().get("delBtn");
+                                        delBtn.setVisible(true);
+                                        delBtn.setDisable(false);
+                                        String numToDelete = reportNum;
+                                        delBtn.setOnAction(actionEvent -> {
+                                            databaseData.deleteRecord(dbFilePath, "data", finalFoundPrimaryKeyDataTable, numToDelete);
+                                            CustomWindow window = getWindow(reportTitle);
+                                            if (window != null) {
+                                                window.closeWindow();
+                                            }
+                                            try {
+                                                if (ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true")) {
+                                                    playSound(getJarPath() + "/sounds/alert-delete.wav");
+                                                }
+                                            } catch (IOException e) {
+                                                logError("Error getting configValue for playDeleteReport: ", e);
+                                            }
+                                            showNotificationInfo("Report Manager", "Deleted [" + reportTitle + "] #: " + numToDelete);
+
+                                        });
+
+                                        MenuButton pullnotesbtn = (MenuButton) customReport.getReportWindowMap().get("pullNotesBtn");
+                                        pullnotesbtn.setVisible(false);
+
+                                        ComboBox<String> statusValue = (ComboBox<String>) customReport.getReportWindowMap().get("statusValue");
+                                        statusValue.setValue("Reopened");
+
+                                        Button submitBtn = (Button) customReport.getReportWindowMap().get("submitBtn");
+                                        submitBtn.setText("Update Information");
+
+                                    }
+                                });
+                                return row;
+                            });
+
+                        } finally {
+                            try {
+                                databaseData.close();
+                            } catch (SQLException e2) {
+                                logError("LogViewer; Error closing Database: [" + databaseData.getTableName() + "]", e2);
+                            }
+                        }
+                    } else {
+                        log("LogViewer; data Database not initialized!", LogUtils.Severity.ERROR);
+                        showNotificationError("Report Creation Utility", "Error initializing data database!");
+                    }
+
+                    HBox tableSettingsHbox = new HBox(10);
+                    TitledPane titledPane = new TitledPane(localization.getLocalizedMessage("LogBrowser.TableSettings", "Table Settings"), tableSettingsHbox);
+                    titledPane.setStyle("-fx-background-color: rgba(255,255,255,0.25);");
+
+                    VBox visibleColumnsBox = new VBox(5);
+                    visibleColumnsBox.setMaxHeight(200);
+                    Label visibleLabel = new Label(localization.getLocalizedMessage("LogBrowser.VisibleColumns", "Visible Columns"));
+                    ListView<String> visibleColumnsList = new ListView<>();
+                    visibleColumnsBox.getChildren().addAll(visibleLabel, visibleColumnsList);
+
+                    VBox hiddenColumnsBox = new VBox(5);
+                    hiddenColumnsBox.setMaxHeight(200);
+                    Label hiddenLabel = new Label(localization.getLocalizedMessage("LogBrowser.HiddenColumns", "Hidden Columns"));
+                    ListView<String> hiddenColumnsList = new ListView<>();
+                    hiddenColumnsBox.getChildren().addAll(hiddenLabel, hiddenColumnsList);
+
+                    VBox controlButtons = new VBox(5);
+                    Button moveRightBtn = new Button("→");
+                    Button moveLeftBtn = new Button("←");
+                    Button moveUpBtn = new Button("↑");
+                    Button moveDownBtn = new Button("↓");
+                    Button refreshBtn = new Button(localization.getLocalizedMessage("LogBrowser.Refresh", "Refresh"));
+                    moveRightBtn.getStyleClass().add("small-button");
+                    moveLeftBtn.getStyleClass().add("small-button");
+                    moveUpBtn.getStyleClass().add("small-button");
+                    moveDownBtn.getStyleClass().add("small-button");
+                    refreshBtn.getStyleClass().add("small-button");
+
+                    String buttonStyle = "-fx-font-weight: bold; -fx-min-width: 40px;";
+                    moveRightBtn.setStyle(buttonStyle);
+                    moveLeftBtn.setStyle(buttonStyle);
+                    moveUpBtn.setStyle(buttonStyle);
+                    moveDownBtn.setStyle(buttonStyle);
+
+                    controlButtons.getChildren().addAll(moveUpBtn, moveDownBtn, moveLeftBtn, moveRightBtn, refreshBtn);
+                    controlButtons.setAlignment(Pos.CENTER);
+
+                    ObservableList<String> visibleItems = FXCollections.observableArrayList(visibleColumns);
+                    ObservableList<String> hiddenItems = FXCollections.observableArrayList(hiddenColumns);
+                    visibleColumnsList.setItems(visibleItems);
+                    hiddenColumnsList.setItems(hiddenItems);
+
+                    HBox.setHgrow(visibleColumnsBox, Priority.SOMETIMES);
+                    HBox.setHgrow(hiddenColumnsBox, Priority.SOMETIMES);
+                    HBox.setHgrow(controlButtons, Priority.NEVER);
+                    controlButtons.setMinWidth(Region.USE_PREF_SIZE);
+
+                    tableSettingsHbox.getChildren().addAll(visibleColumnsBox, controlButtons, hiddenColumnsBox);
+
+                    Map<String, String> finalLayoutScheme1 = layoutScheme;
+                    moveLeftBtn.setOnAction(e -> {
+                        String selected = hiddenColumnsList.getSelectionModel().getSelectedItem();
+                        if (selected != null) {
+                            handleShowColumn(selected, allColumns, dataFolderPath, reportTitle, finalLayoutScheme1, dbFilePath, fileNameWithoutExt, visibleColumnsList, hiddenColumnsList, visibleItems, hiddenItems);
+                        }
+                    });
+
+                    moveRightBtn.setOnAction(e -> {
+                        String selected = visibleColumnsList.getSelectionModel().getSelectedItem();
+                        if (selected != null) {
+                            handleHideColumn(selected, allColumns, dataFolderPath, reportTitle, finalLayoutScheme1, dbFilePath, fileNameWithoutExt, visibleColumnsList, hiddenColumnsList, visibleItems, hiddenItems);
+                        }
+                    });
+
+                    moveUpBtn.setOnAction(e -> {
+                        String selected = visibleColumnsList.getSelectionModel().getSelectedItem();
+                        if (selected != null) {
+                            handleMoveColumn(selected, -1, allColumns, dataFolderPath, reportTitle, finalLayoutScheme1, dbFilePath, fileNameWithoutExt, visibleColumnsList, hiddenColumnsList, visibleItems, hiddenItems);
+                        }
+                    });
+
+                    moveDownBtn.setOnAction(e -> {
+                        String selected = visibleColumnsList.getSelectionModel().getSelectedItem();
+                        if (selected != null) {
+                            handleMoveColumn(selected, 1, allColumns, dataFolderPath, reportTitle, finalLayoutScheme1, dbFilePath, fileNameWithoutExt, visibleColumnsList, hiddenColumnsList, visibleItems, hiddenItems);
+                        }
+                    });
+
+                    refreshBtn.setOnAction(e -> loadTableForCustomReport(dbFilePath, fileNameWithoutExt));
+
+                    customReportPane.setBottom(titledPane);
+
+                } catch (Exception e) {
+                    logError("LogViewer; Failed to initialize report columns", e);
                 }
             }
         });
     }
 
-    @javafx.fxml.FXML
+    private void refresh(ListView<String> visibleColumns, ListView<String> hiddenColumns, ObservableList<String> visibleItems, ObservableList<String> hiddenItems, List<String> allColumns) {
+        List<String> currentVisible = new ArrayList<>();
+        List<String> currentHidden = new ArrayList<>();
+
+        for (String entry : allColumns) {
+            String[] parts = entry.split("=");
+            if (parts.length == 2) {
+                if (parts[1].equals("true")) {
+                    currentVisible.add(parts[0]);
+                } else {
+                    currentHidden.add(parts[0]);
+                }
+            }
+        }
+
+        visibleItems.setAll(currentVisible);
+        hiddenItems.setAll(currentHidden);
+        visibleColumns.refresh();
+        hiddenColumns.refresh();
+    }
+
+    private void updateColumnLayout(List<String> allColumns, String dataFolderPath, String reportTitle, Map<String, String> layoutScheme) {
+        DynamicDB dbLayout = new DynamicDB(dataFolderPath + reportTitle, "layout", "key", layoutScheme);
+        try {
+            if (dbLayout.initDB()) {
+                Map<String, Object> record = new HashMap<>();
+                record.put("key", "3");
+                record.put("columnLayoutData", String.join(",", allColumns));
+                dbLayout.addOrReplaceRecord(record);
+            }
+        } catch (SQLException ex) {
+            logError("Error updating column layout", ex);
+        }
+        List<String> currentVisible = new ArrayList<>();
+        List<String> currentHidden = new ArrayList<>();
+
+        for (String entry : allColumns) {
+            String[] parts = entry.split("=");
+            if (parts.length == 2) {
+                if (parts[1].equals("true")) {
+                    currentVisible.add(parts[0]);
+                } else {
+                    currentHidden.add(parts[0]);
+                }
+            }
+        }
+    }
+
+    private void handleShowColumn(String columnName, List<String> allColumns, String dataFolderPath, String reportTitle, Map<String, String> layoutScheme, String dbFilePath, String fileNameWithoutExt, ListView<String> visibleColumns, ListView<String> hiddenColumns, ObservableList<String> visibleItems, ObservableList<String> hiddenItems) {
+        if (columnName == null) return;
+
+        for (int i = 0; i < allColumns.size(); i++) {
+            String entry = allColumns.get(i);
+            if (entry.startsWith(columnName + "=")) {
+                allColumns.set(i, columnName + "=true");
+                break;
+            }
+        }
+
+        updateColumnLayout(allColumns, dataFolderPath, reportTitle, layoutScheme);
+        loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
+
+        refresh(visibleColumns, hiddenColumns, visibleItems, hiddenItems, allColumns);
+
+    }
+
+    private void handleHideColumn(String columnName, List<String> allColumns, String dataFolderPath, String reportTitle, Map<String, String> layoutScheme, String dbFilePath, String fileNameWithoutExt, ListView<String> visibleColumns, ListView<String> hiddenColumns, ObservableList<String> visibleItems, ObservableList<String> hiddenItems) {
+        if (columnName == null) return;
+
+        for (int i = 0; i < allColumns.size(); i++) {
+            String entry = allColumns.get(i);
+            if (entry.startsWith(columnName + "=")) {
+                allColumns.set(i, columnName + "=false");
+                break;
+            }
+        }
+
+        updateColumnLayout(allColumns, dataFolderPath, reportTitle, layoutScheme);
+        loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
+
+        refresh(visibleColumns, hiddenColumns, visibleItems, hiddenItems, allColumns);
+    }
+
+    private void handleMoveColumn(String columnName, int direction, List<String> allColumns, String dataFolderPath, String reportTitle, Map<String, String> layoutScheme, String dbFilePath, String fileNameWithoutExt, ListView<String> visibleColumns, ListView<String> hiddenColumns, ObservableList<String> visibleItems, ObservableList<String> hiddenItems) {
+        log("Attempting to move column: " + columnName + " (direction: " + direction + ")", LogUtils.Severity.DEBUG);
+        log("Current column layout: " + allColumns, LogUtils.Severity.DEBUG);
+
+        if (columnName == null || columnName.isEmpty()) {
+            log("Move operation aborted: No column selected", LogUtils.Severity.WARN);
+            return;
+        }
+
+        List<Integer> visibleIndices = new ArrayList<>();
+        for (int i = 0; i < allColumns.size(); i++) {
+            if (allColumns.get(i).endsWith("=true")) {
+                visibleIndices.add(i);
+            }
+        }
+
+        log("Visible columns indices: " + visibleIndices, LogUtils.Severity.DEBUG);
+
+        int currentVisibleIndex = -1;
+        for (int i = 0; i < visibleIndices.size(); i++) {
+            int physicalIndex = visibleIndices.get(i);
+            if (allColumns.get(physicalIndex).startsWith(columnName + "=")) {
+                currentVisibleIndex = i;
+                break;
+            }
+        }
+
+        if (currentVisibleIndex == -1) {
+            log("Move failed: Column not found in visible columns - " + columnName, LogUtils.Severity.ERROR);
+            return;
+        }
+
+        int newVisibleIndex = currentVisibleIndex + direction;
+        if (newVisibleIndex < 0 || newVisibleIndex >= visibleIndices.size()) {
+            log("Move out of bounds: " + newVisibleIndex + " (visible columns count: " + visibleIndices.size() + ")", LogUtils.Severity.WARN);
+            return;
+        }
+
+        int currentPhysicalIndex = visibleIndices.get(currentVisibleIndex);
+        int newPhysicalIndex = visibleIndices.get(newVisibleIndex);
+
+        log(String.format("Moving from physical index %d to %d", currentPhysicalIndex, newPhysicalIndex), LogUtils.Severity.DEBUG);
+
+        Collections.swap(allColumns, currentPhysicalIndex, newPhysicalIndex);
+
+        log("Updated column layout: " + allColumns, LogUtils.Severity.DEBUG);
+
+        try {
+            updateColumnLayout(allColumns, dataFolderPath, reportTitle, layoutScheme);
+            log("Successfully moved column: " + columnName, LogUtils.Severity.INFO);
+        } catch (Exception e) {
+            logError("Failed to update column layout after move", e);
+            return;
+        }
+
+        log("Refreshing table view...", LogUtils.Severity.DEBUG);
+        loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
+
+        refresh(visibleColumns, hiddenColumns, visibleItems, hiddenItems, allColumns);
+
+    }
+
+    public static void patrolLogUpdate() {
+        if (logController == null) {
+            return;
+        }
+        try {
+            PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
+            List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
+            if (patrolReportList == null) {
+                patrolReportList = new ArrayList<>();
+            }
+            logController.getPatrolTable().getItems().clear();
+            logController.getPatrolTable().getItems().addAll(patrolReportList);
+        } catch (JAXBException e) {
+            logError("Error loading PatrolReports: ", e);
+        }
+    }
+
+    public static void calloutLogUpdate() {
+        if (logController == null) return;
+        try {
+            CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
+            List<CalloutReport> logEntries = calloutReports.getCalloutReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getCalloutTable().getItems().clear();
+            logController.getCalloutTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading CalloutReports: ", e);
+        }
+    }
+
+    public static void citationLogUpdate() {
+        if (logController == null) return;
+        try {
+            TrafficCitationReports reports = TrafficCitationUtils.loadTrafficCitationReports();
+            List<TrafficCitationReport> logEntries = reports.getTrafficCitationReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getCitationTable().getItems().clear();
+            logController.getCitationTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading TrafficCitationReports: ", e);
+        }
+    }
+
+    public static void arrestLogUpdate() {
+        if (logController == null) return;
+        try {
+            ArrestReports reports = ArrestReportUtils.loadArrestReports();
+            List<ArrestReport> logEntries = reports.getArrestReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getArrestTable().getItems().clear();
+            logController.getArrestTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading ArrestReports: ", e);
+        }
+    }
+
+    public static void searchLogUpdate() {
+        if (logController == null) return;
+        try {
+            SearchReports reports = SearchReportUtils.loadSearchReports();
+            List<SearchReport> logEntries = reports.getSearchReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getSearchTable().getItems().clear();
+            logController.getSearchTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading SearchReports: ", e);
+        }
+    }
+
+    public static void incidentLogUpdate() {
+        if (logController == null) return;
+        try {
+            IncidentReports reports = IncidentReportUtils.loadIncidentReports();
+            List<IncidentReport> logEntries = reports.getIncidentReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getIncidentTable().getItems().clear();
+            logController.getIncidentTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading IncidentReports: ", e);
+        }
+    }
+
+    public static void trafficStopLogUpdate() {
+        if (logController == null) return;
+        try {
+            TrafficStopReports reports = TrafficStopReportUtils.loadTrafficStopReports();
+            List<TrafficStopReport> logEntries = reports.getTrafficStopReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getTrafficStopTable().getItems().clear();
+            logController.getTrafficStopTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading TrafficStopReports: ", e);
+        }
+    }
+
+    public static void impoundLogUpdate() {
+        if (logController == null) return;
+        try {
+            ImpoundReports reports = ImpoundReportUtils.loadImpoundReports();
+            List<ImpoundReport> logEntries = reports.getImpoundReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getImpoundTable().getItems().clear();
+            logController.getImpoundTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading ImpoundReports: ", e);
+        }
+    }
+
+    public static void deathReportLogUpdate() {
+        if (logController == null) return;
+        try {
+            DeathReports reports = DeathReportUtils.loadDeathReports();
+            List<DeathReport> logEntries = reports.getDeathReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getDeathReportTable().getItems().clear();
+            logController.getDeathReportTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading DeathReports: ", e);
+        }
+    }
+
+    public static void accidentReportUpdate() {
+        if (logController == null) return;
+        try {
+            AccidentReports reports = AccidentReportUtils.loadAccidentReports();
+            List<AccidentReport> logEntries = reports.getAccidentReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getAccidentReportTable().getItems().clear();
+            logController.getAccidentReportTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading AccidentReports: ", e);
+        }
+    }
+
+    @FXML
     public void onDeathReportRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
@@ -503,7 +855,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    deathReportLogUpdate();
                 });
 
                 deathNum.setEditable(false);
@@ -521,7 +873,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onCalloutRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
@@ -544,8 +896,7 @@ public class LogViewController {
                 ComboBox calloutstreet = (ComboBox) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
                 TextField calloutdate = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
                 TextField callouttime = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-                TextField callouttype = (TextField) calloutReportMap.get(
-                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+                TextField callouttype = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
                 TextField calloutcode = (TextField) calloutReportMap.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
 
                 officername.setText(calloutReport.getOfficerName());
@@ -588,7 +939,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    calloutLogUpdate();
                 });
 
                 MenuButton pullnotesbtn = (MenuButton) calloutReportObj.get("pullNotesBtn");
@@ -603,7 +954,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onPatrolRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             PatrolReport patrolReport = (PatrolReport) patrolTable.getSelectionModel().getSelectedItem();
@@ -640,7 +991,6 @@ public class LogViewController {
                 vehicle.setText(patrolReport.getOfficerVehicle());
                 notes.setText(patrolReport.getPatrolComments());
 
-                BorderPane root = (BorderPane) patrolReportObj.get("root");
                 Button delBtn = (Button) patrolReportObj.get("delBtn");
                 delBtn.setVisible(true);
                 delBtn.setDisable(false);
@@ -663,7 +1013,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    patrolLogUpdate();
                 });
 
                 MenuButton pullnotesbtn = (MenuButton) patrolReportObj.get("pullNotesBtn");
@@ -681,7 +1031,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onTrafficStopRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             TrafficStopReport trafficStopReport = (TrafficStopReport) trafficStopTable.getSelectionModel().getSelectedItem();
@@ -705,8 +1055,7 @@ public class LogViewController {
                 TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
 
                 ComboBox colorts = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-                ComboBox typets = (ComboBox) trafficStopReportMap.get(
-                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+                ComboBox typets = (ComboBox) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
                 TextField plateNumberts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
                 TextField otherInfots = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
                 TextField modelts = (TextField) trafficStopReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
@@ -768,7 +1117,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    trafficStopLogUpdate();
 
                 });
 
@@ -787,7 +1136,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onIncidentRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             IncidentReport incidentReport = (IncidentReport) incidentTable.getSelectionModel().getSelectedItem();
@@ -859,7 +1208,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    incidentLogUpdate();
 
                 });
 
@@ -878,7 +1227,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onImpoundRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             ImpoundReport impoundReport = (ImpoundReport) impoundTable.getSelectionModel().getSelectedItem();
@@ -905,8 +1254,7 @@ public class LogViewController {
                 TextField time = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 
                 ComboBox color = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-                ComboBox type = (ComboBox) impoundReportMap.get(
-                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+                ComboBox type = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
                 TextField plateNumber = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
                 TextField model = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 
@@ -954,7 +1302,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    impoundLogUpdate();
 
                 });
 
@@ -973,7 +1321,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onCitationRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             TrafficCitationReport trafficCitationReport = (TrafficCitationReport) citationTable.getSelectionModel().getSelectedItem();
@@ -1003,8 +1351,7 @@ public class LogViewController {
                 TextField time = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
 
                 ComboBox color = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
-                ComboBox type = (ComboBox) citationReportMap.get(
-                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+                ComboBox type = (ComboBox) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
                 TextField plateNumber = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
                 TextField otherInfo = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
                 TextField model = (TextField) citationReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
@@ -1056,7 +1403,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    citationLogUpdate();
 
                 });
 
@@ -1081,7 +1428,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onSearchRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
@@ -1165,7 +1512,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    searchLogUpdate();
 
                 });
 
@@ -1184,7 +1531,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onArrestRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
@@ -1263,7 +1610,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    arrestLogUpdate();
 
                 });
 
@@ -1288,7 +1635,7 @@ public class LogViewController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void onAccidentReportRowClick(MouseEvent event) {
         if (event.getClickCount() == 1) {
             AccidentReport accidentReport = (AccidentReport) accidentReportTable.getSelectionModel().getSelectedItem();
@@ -1322,8 +1669,7 @@ public class LogViewController {
                 TextField offenderDescription = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
                 TextField model = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
                 TextField plateNumber = (TextField) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-                ComboBox type = (ComboBox) accidentReportMap.get(
-                        localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+                ComboBox type = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
                 ComboBox color = (ComboBox) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
                 TextArea notes = (TextArea) accidentReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
 
@@ -1378,7 +1724,7 @@ public class LogViewController {
                     } catch (IOException e) {
                         logError("Error getting configValue for playDeleteReport: ", e);
                     }
-                    needRefresh.set(1);
+                    accidentReportUpdate();
 
                 });
 
@@ -1395,52 +1741,6 @@ public class LogViewController {
                 accidentReportTable.getSelectionModel().clearSelection();
             }
         }
-    }
-
-    private <T> void setActive(TableView<T> table, BorderPane sideButton) {
-        tableStackPane.getChildren().clear();
-        tableStackPane.getChildren().add(table);
-
-        ObservableList<T> items = table.getItems();
-
-        long closed = 0, inProg = 0, pending = 0, cancelled = 0, reOpen = 0;
-
-        for (T item : items) {
-            try {
-                Method getStatusMethod = item.getClass().getMethod("getStatus");
-                String status = (String) getStatusMethod.invoke(item);
-
-                if ("Closed".equalsIgnoreCase(status)) {
-                    closed++;
-                } else if ("In Progress".equalsIgnoreCase(status)) {
-                    inProg++;
-                } else if ("Pending".equalsIgnoreCase(status)) {
-                    pending++;
-                } else if ("Cancelled".equalsIgnoreCase(status)) {
-                    cancelled++;
-                } else if ("Reopened".equalsIgnoreCase(status)) {
-                    reOpen++;
-                }
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                logError("Could not obtain getStatus method for update: ", e);
-            }
-        }
-
-        long totalReports = (closed + inProg + reOpen + pending + cancelled);
-        long totalInProgress = (reOpen + inProg + pending);
-        long totalClosed = (closed + cancelled);
-
-        double closedPercentage = ((double) totalClosed / totalReports) * 100;
-        double inProgressPercentage = ((double) totalInProgress / totalReports) * 100;
-
-        closedReportsProgressBar.setProgress(closedPercentage / 100);
-        reportsInProgressBar.setProgress(inProgressPercentage / 100);
-
-        reportsInProgressLabel.setText(String.valueOf(totalInProgress));
-        closedReportsLabel.setText(String.valueOf(totalClosed));
-        totalReportsLabel.setText(String.valueOf(totalReports));
-
-        activePane = sideButton;
     }
 
     public TableView getArrestTable() {

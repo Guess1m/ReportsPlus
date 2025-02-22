@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -41,11 +42,6 @@ import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.*;
 
 public class LayoutBuilderController {
-    /*TODO: Finish LayoutBuilder
-     *  1) Add locale
-     *  3) Importing transfer / layout json
-     *  3) Add place to export layout
-     * */
 
     public static LayoutBuilderController layoutBuilderController;
     CustomWindow addDropdownWindow = null;
@@ -267,36 +263,6 @@ public class LayoutBuilderController {
         addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window, localization.getLocalizedMessage("ImportExport.windowTitle", "Layout Import/Export"), true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
     }
 
-    private void handleImport(TextArea jsonTextArea) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            FullLayoutConfig config = mapper.readValue(jsonTextArea.getText(), FullLayoutConfig.class);
-
-            if (!validateJsonStructure(jsonTextArea.getText())) {
-                logError("Invalid JSON format", new IllegalArgumentException("Invalid JSON Structure"));
-            }
-
-            sectionContainer.getChildren().clear();
-            transferContainer.getChildren().clear();
-
-            if (config.getLayout() != null) {
-                for (SectionConfig sectionConfig : config.getLayout()) {
-                    SectionPane sectionPane = createSectionPaneFromConfig(sectionConfig);
-                    sectionContainer.getChildren().add(sectionPane);
-                }
-            }
-
-            if (config.getTransfer() != null) {
-                TransferPane transferPane = createTransferPaneFromConfig(config.getTransfer());
-                transferContainer.getChildren().add(transferPane);
-            }
-
-            showNotificationInfo("Import Successful", "Configuration loaded successfully");
-        } catch (Exception e) {
-            showNotificationWarning("Import Error", "Invalid JSON format: " + e.getMessage());
-        }
-    }
-
     private void loadJsonFromFile(TextArea jsonTextArea) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(localization.getLocalizedMessage("ImportExport.openFileTitle", "Open JSON File"));
@@ -349,77 +315,6 @@ public class LayoutBuilderController {
             log("File save canceled", LogUtils.Severity.WARN);
             showNotificationWarning("Save Error", "File save canceled");
         }
-    }
-
-    private boolean validateJsonStructure(String json) {
-        try {
-            JsonNode root = new ObjectMapper().readTree(json);
-            return root.has("layout") || root.has("transfer");
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    private SectionPane createSectionPaneFromConfig(SectionConfig config) {
-        SectionPane pane = new SectionPane();
-        pane.sectionTitleField.setText(config.getSectionTitle());
-        for (RowConfig rowConfig : config.getRowConfigs()) {
-            RowPane rowPane = createRowPaneFromConfig(rowConfig);
-            pane.rowContainer.getChildren().add(rowPane);
-        }
-        return pane;
-    }
-
-    private RowPane createRowPaneFromConfig(RowConfig config) {
-        RowPane pane = new RowPane();
-        for (FieldConfig fieldConfig : config.getFieldConfigs()) {
-            FieldPane fieldPane = createFieldPaneFromConfig(fieldConfig);
-            pane.fieldContainer.getChildren().add(fieldPane);
-        }
-        pane.recalcWidthLimits();
-        return pane;
-    }
-
-    private FieldPane createFieldPaneFromConfig(FieldConfig config) {
-        FieldPane pane = new FieldPane(config.getSize());
-        pane.fieldNameField.setText(config.getFieldName());
-        if (config.getPopulateKey() != null) {
-            pane.populateKeyField.setText(config.getPopulateKey());
-        }
-        pane.fieldTypeComboBox.setValue(config.getFieldType().name());
-
-        if (config.getFieldType() == FieldType.CUSTOM_DROPDOWN) {
-            pane.customDropdownComboBox.setValue(config.getDropdownType());
-        }
-        return pane;
-    }
-
-    private TransferPane createTransferPaneFromConfig(TransferConfig config) {
-        TransferPane pane = new TransferPane();
-        pane.transferNameField.setText(config.getTitle());
-        for (RowConfig rowConfig : config.getRowConfigs()) {
-
-            FieldConfig elementConfig = rowConfig.getFieldConfigs()[0];
-            ElementPane elementPane = createElementPaneFromConfig(elementConfig);
-            pane.elementContainer.getChildren().add(elementPane);
-        }
-        return pane;
-    }
-
-    private ElementPane createElementPaneFromConfig(FieldConfig config) {
-        ElementPane pane = new ElementPane();
-
-        String[] parts = config.getFieldName().split("_");
-        if (parts.length >= 3) {
-            pane.elementNameField.setText(parts[1]);
-            String reportName = parts[2];
-            pane.reportComboBox.setValue(reportName);
-
-            if (!pane.reportComboBox.getItems().contains(reportName)) {
-                pane.reportComboBox.getItems().add(reportName);
-            }
-        }
-        return pane;
     }
 
     private void openCustomDropdownWindow() {
@@ -723,7 +618,9 @@ public class LayoutBuilderController {
                     if (value != null) {
                         Object component = reportMap.get(key);
                         if (component instanceof ComboBox box) {
-                            box.getItems().addAll(getValuesForField(value));
+                            if (!value.equalsIgnoreCase("null")) {
+                                box.getItems().addAll(getValuesForField(value));
+                            }
                         }
                     }
                 }
@@ -1032,6 +929,126 @@ public class LayoutBuilderController {
         return true;
     }
 
+    private TransferPane createTransferPaneFromConfig(TransferConfig config) {
+        TransferPane pane = new TransferPane();
+        pane.transferNameField.setText(config.getTitle());
+        for (RowConfig rowConfig : config.getRowConfigs()) {
+
+            FieldConfig elementConfig = rowConfig.getFieldConfigs()[0];
+            ElementPane elementPane = createElementPaneFromConfig(elementConfig);
+            pane.elementContainer.getChildren().add(elementPane);
+        }
+        return pane;
+    }
+
+    private ElementPane createElementPaneFromConfig(FieldConfig config) {
+        ElementPane pane = new ElementPane();
+
+        String[] parts = config.getFieldName().split("_");
+        if (parts.length >= 3) {
+            pane.elementNameField.setText(parts[1]);
+            String reportName = parts[2];
+            pane.reportComboBox.setValue(reportName);
+
+            if (!pane.reportComboBox.getItems().contains(reportName)) {
+                pane.reportComboBox.getItems().add(reportName);
+            }
+        }
+        return pane;
+    }
+
+    private boolean validateJsonStructure(String json) {
+        try {
+            JsonNode root = new ObjectMapper().readTree(json);
+            return root.has("layout") || root.has("transfer");
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    private void handleImport(TextArea jsonTextArea) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            FullLayoutConfig config = mapper.readValue(jsonTextArea.getText(), FullLayoutConfig.class);
+
+            if (!validateJsonStructure(jsonTextArea.getText())) {
+                logError("Invalid JSON format", new IllegalArgumentException("Invalid JSON Structure"));
+            }
+
+            sectionContainer.getChildren().clear();
+            transferContainer.getChildren().clear();
+
+            if (config.getLayout() != null) {
+                for (SectionConfig sectionConfig : config.getLayout()) {
+                    SectionPane sectionPane = createSectionPaneFromConfig(sectionConfig);
+                    sectionContainer.getChildren().add(sectionPane);
+                }
+            }
+
+            if (config.getTransfer() != null) {
+                TransferPane transferPane = createTransferPaneFromConfig(config.getTransfer());
+                transferContainer.getChildren().add(transferPane);
+            }
+
+            Platform.runLater(() -> {
+                for (Node sectionNode : sectionContainer.getChildren()) {
+                    if (sectionNode instanceof SectionPane) {
+                        SectionPane sectionPane = (SectionPane) sectionNode;
+                        for (Node rowNode : sectionPane.rowContainer.getChildren()) {
+                            if (rowNode instanceof RowPane) {
+                                ((RowPane) rowNode).recalcWidthLimits();
+                            }
+                        }
+                    }
+                }
+            });
+
+            showNotificationInfo("Import Successful", "Configuration loaded successfully");
+        } catch (Exception e) {
+            showNotificationWarning("Import Error", "Invalid JSON format: " + e.getMessage());
+        }
+    }
+
+    private SectionPane createSectionPaneFromConfig(SectionConfig config) {
+        SectionPane pane = new SectionPane();
+        pane.sectionTitleField.setText(config.getSectionTitle());
+        for (RowConfig rowConfig : config.getRowConfigs()) {
+            RowPane rowPane = createRowPaneFromConfig(rowConfig);
+            pane.rowContainer.getChildren().add(rowPane);
+        }
+        return pane;
+    }
+
+    private RowPane createRowPaneFromConfig(RowConfig config) {
+        RowPane pane = new RowPane();
+        for (FieldConfig fieldConfig : config.getFieldConfigs()) {
+            FieldPane fieldPane = createFieldPaneFromConfig(fieldConfig);
+            pane.fieldContainer.getChildren().add(fieldPane);
+        }
+        pane.recalcWidthLimits();
+        return pane;
+    }
+
+    private FieldPane createFieldPaneFromConfig(FieldConfig config) {
+        FieldPane pane = new FieldPane(config.getSize());
+        pane.fieldNameField.setText(config.getFieldName());
+        if (config.getPopulateKey() != null) {
+            pane.populateKeyField.setText(config.getPopulateKey());
+        }
+        pane.fieldTypeComboBox.setValue(config.getFieldType().name());
+
+        if (config.getFieldType() == FieldType.CUSTOM_DROPDOWN) {
+            pane.customDropdownComboBox.setValue(config.getDropdownType());
+        }
+
+        pane.widthSpinner.valueProperty().addListener((obs, oldVal, newVal) -> {
+            RowPane rowPane = (RowPane) pane.getParent().getParent();
+            rowPane.recalcWidthLimits();
+        });
+
+        return pane;
+    }
+
     private class SectionPane extends VBox {
         private TextField sectionTitleField;
         private VBox rowContainer;
@@ -1048,6 +1065,8 @@ public class LayoutBuilderController {
 
             Button moveUpButton = new Button("↑");
             Button moveDownButton = new Button("↓");
+            moveUpButton.setFocusTraversable(false);
+            moveDownButton.setFocusTraversable(false);
             moveUpButton.getStyleClass().add("moveButton");
             moveDownButton.getStyleClass().add("moveButton");
 
@@ -1068,6 +1087,7 @@ public class LayoutBuilderController {
             });
 
             removeSectionButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove") + " " + localization.getLocalizedMessage("ReportWindows.SectionButton", "Section"));
+            removeSectionButton.setFocusTraversable(false);
             removeSectionButton.getStyleClass().add("removeButton");
             removeSectionButton.setOnAction(event -> sectionContainer.getChildren().remove(this));
             header.getChildren().addAll(new Label(localization.getLocalizedMessage("ReportWindows.SectionButton", "Section") + ":"), sectionTitleField, moveUpButton, moveDownButton, removeSectionButton);
@@ -1076,6 +1096,8 @@ public class LayoutBuilderController {
             addRowButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " " + localization.getLocalizedMessage("ReportWindows.RowButton", "Row"));
             addRowButton.getStyleClass().add("addButton");
             addRowButton.setOnAction(event -> addRow());
+
+            addRowButton.setFocusTraversable(false);
             getChildren().addAll(header, rowContainer, addRowButton);
         }
 
@@ -1122,6 +1144,11 @@ public class LayoutBuilderController {
             Button moveDownButton = new Button("↓");
             moveUpButton.getStyleClass().add("moveButton");
             moveDownButton.getStyleClass().add("moveButton");
+
+            moveUpButton.setFocusTraversable(false);
+            moveDownButton.setFocusTraversable(false);
+            removeRowButton.setFocusTraversable(false);
+            addFieldButton.setFocusTraversable(false);
 
             moveUpButton.setOnAction(event -> {
                 VBox parent = (VBox) getParent();
@@ -1202,6 +1229,8 @@ public class LayoutBuilderController {
         private ComboBox<String> fieldTypeComboBox;
         private ComboBox<String> customDropdownComboBox;
         private Button removeFieldButton;
+        private Button moveLeftButton;
+        private Button moveRightButton;
 
         FieldPane() {
             this(5);
@@ -1243,6 +1272,7 @@ public class LayoutBuilderController {
             });
 
             removeFieldButton = new Button("Remove Field");
+            removeFieldButton.setMinWidth(USE_PREF_SIZE);
             removeFieldButton.setOnAction(event -> {
                 HBox parent = (HBox) getParent();
                 parent.getChildren().remove(this);
@@ -1251,8 +1281,41 @@ public class LayoutBuilderController {
             });
             removeFieldButton.getStyleClass().add("removeButton");
 
-            fieldRow.getChildren().addAll(new Label(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name") + ": "), fieldNameField, new Label("Populate Key:"), populateKeyField, new Label(localization.getLocalizedMessage("ReportWindows.WidthLabel", "Width:")), widthSpinner, new Label(localization.getLocalizedMessage("ReportWindows.TypeLabel", "Type:")), fieldTypeComboBox, removeFieldButton);
+            moveLeftButton = new Button("←");
+            moveRightButton = new Button("→");
+            moveLeftButton.setMinWidth(USE_PREF_SIZE);
+            moveRightButton.setMinWidth(USE_PREF_SIZE);
+            moveLeftButton.getStyleClass().add("moveButton");
+            moveRightButton.getStyleClass().add("moveButton");
+
+            moveLeftButton.setFocusTraversable(false);
+            moveRightButton.setFocusTraversable(false);
+            removeFieldButton.setFocusTraversable(false);
+            widthSpinner.setFocusTraversable(false);
+            fieldTypeComboBox.setFocusTraversable(false);
+            if (customDropdownComboBox != null) customDropdownComboBox.setFocusTraversable(false);
+
+            HBox buttonBox = new HBox(5, moveLeftButton, moveRightButton, removeFieldButton);
+
+            fieldRow.getChildren().addAll(new Label(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name") + ": "), fieldNameField, new Label("Populate Key:"), populateKeyField, new Label(localization.getLocalizedMessage("ReportWindows.WidthLabel", "Width:")), widthSpinner, new Label(localization.getLocalizedMessage("ReportWindows.TypeLabel", "Type:")), fieldTypeComboBox, buttonBox);
+
+            moveLeftButton.setOnAction(event -> moveField(-1));
+            moveRightButton.setOnAction(event -> moveField(1));
+
             getChildren().add(fieldRow);
+        }
+
+        private void moveField(int direction) {
+            HBox parentHBox = (HBox) getParent();
+            if (parentHBox == null) return;
+
+            int currentIndex = parentHBox.getChildren().indexOf(this);
+            int newIndex = currentIndex + direction;
+
+            if (newIndex >= 0 && newIndex < parentHBox.getChildren().size()) {
+                parentHBox.getChildren().remove(currentIndex);
+                parentHBox.getChildren().add(newIndex, this);
+            }
         }
 
         private FieldConfig buildFieldConfig() {
@@ -1303,6 +1366,8 @@ public class LayoutBuilderController {
             addElementButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " " + localization.getLocalizedMessage("ReportWindows.ElementButton", "Element"));
             addElementButton.getStyleClass().add("addButton");
             addElementButton.setOnAction(event -> addElement());
+            addElementButton.setFocusTraversable(false);
+            removeTransferButton.setFocusTraversable(false);
             getChildren().addAll(header, elementContainer, addElementButton);
         }
 
@@ -1353,6 +1418,11 @@ public class LayoutBuilderController {
             Button moveDownButton = new Button("↓");
             moveUpButton.getStyleClass().add("moveButton");
             moveDownButton.getStyleClass().add("moveButton");
+
+            moveUpButton.setFocusTraversable(false);
+            moveDownButton.setFocusTraversable(false);
+            removeElementButton.setFocusTraversable(false);
+            reportComboBox.setFocusTraversable(false);
 
             moveUpButton.setOnAction(event -> {
                 VBox parent = (VBox) getParent();

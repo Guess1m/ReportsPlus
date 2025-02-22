@@ -529,11 +529,13 @@ public class ClientUtils {
                         logError("Error updating traffic stop fields from UPDATE_TRAFFIC_STOP, ", e);
                     }
                 }
-                try {
-                    settingsController.loadTheme();
-                } catch (IOException e) {
-                    logError("Error loading theme from trafficStop", e);
-                }
+                Platform.runLater(() -> {
+                    try {
+                        settingsController.loadTheme();
+                    } catch (IOException e) {
+                        logError("Error loading theme from trafficStop", e);
+                    }
+                });
 
                 try {
                     if (!ConfigReader.configRead("misc", "TrafficStopDuration").equals("infinite")) {

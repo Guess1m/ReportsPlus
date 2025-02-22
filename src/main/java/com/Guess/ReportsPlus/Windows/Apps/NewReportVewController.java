@@ -43,6 +43,8 @@ import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.isValidDataba
 
 public class NewReportVewController {
 
+    /*TODO: fix weird bug with css when clicking bkg also hovering btns*/
+
     public static NewReportVewController newReportVewController;
 
     @javafx.fxml.FXML
@@ -184,7 +186,7 @@ public class NewReportVewController {
                         logError("Failed to extract field names", e2);
                     }
 
-                    new CustomReport(reportTitle, finalData, layoutScheme, reportSchema);
+                    new CustomReport(reportTitle, finalData, layoutScheme, reportSchema, null, null);
 
                     closeWindow();
                 });

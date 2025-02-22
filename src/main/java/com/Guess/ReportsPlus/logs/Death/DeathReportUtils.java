@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.deathReportLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
@@ -228,7 +229,7 @@ public class DeathReportUtils {
                 } catch (IOException e) {
                     logError("Error getting configValue for playCreateReport: ", e);
                 }
-                LogViewController.needRefresh.set(1);
+                deathReportLogUpdate();
                 NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.");
 
                 CustomWindow window = getWindow("Death Report");

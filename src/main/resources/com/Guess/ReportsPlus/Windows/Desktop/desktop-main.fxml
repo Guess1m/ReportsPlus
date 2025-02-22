@@ -7,118 +7,115 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx = "http://javafx.com/fxml/1" fx:id = "mainDesktop" maxHeight = "-Infinity" maxWidth = "-Infinity"
-            prefWidth = "811.0" style = "-fx-background-color: transparent;" stylesheets = ""
-            prefHeight = "742.0" xmlns = "http://javafx.com/javafx/21"
-            fx:controller = "com.Guess.ReportsPlus.Desktop.mainDesktopController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainDesktop" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0"
+            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
+            xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.Guess.ReportsPlus.Desktop.mainDesktopController">
     <center>
-        <VBox fx:id = "container">
+        <VBox fx:id="container">
             <children>
-                <AnchorPane fx:id = "topBar" maxHeight = "-Infinity" minHeight = "-Infinity" minWidth = "-Infinity"
-                            prefHeight = "25.0" prefWidth = "811.0"
-                            style = "-fx-background-color: rgb(230,230,230,0.9); -fx-border-width: 0 0 0.5 0; -fx-border-color: gray;"
-                            VBox.vgrow = "NEVER">
+                <AnchorPane fx:id="topBar" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                            prefHeight="25.0" prefWidth="811.0"
+                            style="-fx-background-color: rgb(230,230,230,0.9); -fx-border-width: 0 0 0.5 0; -fx-border-color: gray;"
+                            VBox.vgrow="NEVER">
                     <children>
-                        <BorderPane prefHeight = "200.0" prefWidth = "200.0" AnchorPane.bottomAnchor = "0.0"
-                                    AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0"
-                                    AnchorPane.topAnchor = "0.0">
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <right>
-                                <HBox fx:id = "topBarHboxRight" alignment = "CENTER" spacing = "20.0"
-                                      BorderPane.alignment = "CENTER_RIGHT">
+                                <HBox fx:id="topBarHboxRight" alignment="CENTER" spacing="20.0"
+                                      BorderPane.alignment="CENTER_RIGHT">
                                     <BorderPane.margin>
-                                        <Insets right = "15.0" />
+                                        <Insets right="15.0"/>
                                     </BorderPane.margin>
                                     <children>
-                                        <Label fx:id = "lookupLabel" alignment = "CENTER"
-                                               style = "-fx-font-family: Inter 24pt Regular;" text = "data"
-                                               textOverrun = "CLIP">
+                                        <Label fx:id="lookupLabel" alignment="CENTER"
+                                               style="-fx-font-family: Inter 24pt Regular;" text="data"
+                                               textOverrun="CLIP">
                                             <font>
-                                                <Font name = "Inter 28pt Bold" size = "12.5" />
+                                                <Font name="Inter 28pt Bold" size="12.5"/>
                                             </font>
                                         </Label>
-                                        <HBox fx:id = "locationDataLabel" alignment = "CENTER" spacing = "3.0"
-                                              HBox.hgrow = "ALWAYS">
+                                        <HBox fx:id="locationDataLabel" alignment="CENTER" spacing="3.0"
+                                              HBox.hgrow="ALWAYS">
                                             <children>
-                                                <ImageView fitHeight = "19.0" fitWidth = "14.0" pickOnBounds = "true"
-                                                           preserveRatio = "true">
+                                                <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true"
+                                                           preserveRatio="true">
                                                     <image>
-                                                        <Image url = "@../../imgs/icons/location.png" />
+                                                        <Image url="@../../imgs/icons/location.png"/>
                                                     </image>
                                                     <effect>
-                                                        <ColorAdjust brightness = "-0.52" />
+                                                        <ColorAdjust brightness="-0.52"/>
                                                     </effect>
                                                     <HBox.margin>
-                                                        <Insets right = "3.0" />
+                                                        <Insets right="3.0"/>
                                                     </HBox.margin>
                                                 </ImageView>
-                                                <Label fx:id = "locationStreetLabel" alignment = "CENTER"
-                                                       graphicTextGap = "2.0"
-                                                       style = "-fx-font-family: Inter 24pt Regular;" text = "street,">
+                                                <Label fx:id="locationStreetLabel" alignment="CENTER"
+                                                       graphicTextGap="2.0" style="-fx-font-family: Inter 24pt Regular;"
+                                                       text="street,">
                                                     <font>
-                                                        <Font name = "Inter 28pt Medium" size = "12.0" />
+                                                        <Font name="Inter 28pt Medium" size="12.0"/>
                                                     </font>
                                                 </Label>
-                                                <Label fx:id = "locationAreaLabel" alignment = "CENTER"
-                                                       graphicTextGap = "2.0"
-                                                       style = "-fx-font-family: Inter 24pt Regular;" text = "area,">
+                                                <Label fx:id="locationAreaLabel" alignment="CENTER" graphicTextGap="2.0"
+                                                       style="-fx-font-family: Inter 24pt Regular;" text="area,">
                                                     <font>
-                                                        <Font name = "Inter 28pt Medium" size = "12.0" />
+                                                        <Font name="Inter 28pt Medium" size="12.0"/>
                                                     </font>
                                                 </Label>
-                                                <Label fx:id = "locationCountyLabel" alignment = "CENTER"
-                                                       graphicTextGap = "2.0"
-                                                       style = "-fx-font-family: Inter 24pt Regular;" text = "county">
+                                                <Label fx:id="locationCountyLabel" alignment="CENTER"
+                                                       graphicTextGap="2.0" style="-fx-font-family: Inter 24pt Regular;"
+                                                       text="county">
                                                     <font>
-                                                        <Font name = "Inter 28pt Medium" size = "12.0" />
+                                                        <Font name="Inter 28pt Medium" size="12.0"/>
                                                     </font>
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <Label fx:id = "versionLabel" alignment = "CENTER" opacity = "0.78"
-                                               style = "-fx-font-family: Inter 28pt Medium;" text = "v1.0.9-alpha"
-                                               textOverrun = "CLIP">
+                                        <Label fx:id="versionLabel" alignment="CENTER" opacity="0.78"
+                                               style="-fx-font-family: Inter 28pt Medium;" text="v1.0.9-alpha"
+                                               textOverrun="CLIP">
                                             <font>
-                                                <Font name = "Inter 28pt Bold" size = "12.5" />
+                                                <Font name="Inter 28pt Bold" size="12.5"/>
                                             </font>
                                         </Label>
-                                        <ImageView fx:id = "inputLockButton" fitHeight = "15.0" fitWidth = "15.0"
-                                                   pickOnBounds = "true" preserveRatio = "true" HBox.hgrow = "NEVER">
+                                        <ImageView fx:id="inputLockButton" fitHeight="15.0" fitWidth="15.0"
+                                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
                                             <image>
-                                                <Image url = "@../../imgs/icons/lock.png" />
+                                                <Image url="@../../imgs/icons/lock.png"/>
                                             </image>
                                         </ImageView>
                                     </children>
                                 </HBox>
                             </right>
                             <left>
-                                <HBox alignment = "CENTER" spacing = "3.5" BorderPane.alignment = "CENTER">
+                                <HBox alignment="CENTER" spacing="3.5" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Label fx:id = "topBar1" alignment = "CENTER" text = "Server Status:"
-                                               textAlignment = "CENTER" textOverrun = "CLIP" HBox.hgrow = "ALWAYS">
+                                        <Label fx:id="topBar1" alignment="CENTER" text="Server Status:"
+                                               textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="ALWAYS">
                                             <font>
-                                                <Font name = "Inter 28pt Bold" size = "12.0" />
+                                                <Font name="Inter 28pt Bold" size="12.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id = "serverStatusLabel" alignment = "CENTER" text = "Not Connected"
-                                               textAlignment = "CENTER" textFill = "#c90000" textOverrun = "CLIP"
-                                               HBox.hgrow = "ALWAYS">
+                                        <Label fx:id="serverStatusLabel" alignment="CENTER" text="Not Connected"
+                                               textAlignment="CENTER" textFill="#c90000" textOverrun="CLIP"
+                                               HBox.hgrow="ALWAYS">
                                             <font>
-                                                <Font name = "Inter 28pt Medium" size = "12.0" />
+                                                <Font name="Inter 28pt Medium" size="12.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id = "topBar2" alignment = "CENTER" text = "Logged In:"
-                                               textAlignment = "CENTER" textOverrun = "CLIP" HBox.hgrow = "ALWAYS">
+                                        <Label fx:id="topBar2" alignment="CENTER" text="Logged In:"
+                                               textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="ALWAYS">
                                             <font>
-                                                <Font name = "Inter 28pt Bold" size = "12.0" />
+                                                <Font name="Inter 28pt Bold" size="12.0"/>
                                             </font>
                                             <HBox.margin>
-                                                <Insets left = "30.0" />
+                                                <Insets left="30.0"/>
                                             </HBox.margin>
                                         </Label>
-                                        <Label fx:id = "officerInfoName" alignment = "CENTER" textAlignment = "CENTER"
-                                               textOverrun = "CLIP" HBox.hgrow = "ALWAYS">
+                                        <Label fx:id="officerInfoName" alignment="CENTER" textAlignment="CENTER"
+                                               textOverrun="CLIP" HBox.hgrow="ALWAYS">
                                             <font>
-                                                <Font name = "Inter 28pt Medium" size = "12.0" />
+                                                <Font name="Inter 28pt Medium" size="12.0"/>
                                             </font>
                                             <HBox.margin>
                                                 <Insets />
@@ -126,31 +123,30 @@
                                         </Label>
                                     </children>
                                     <BorderPane.margin>
-                                        <Insets left = "20.0" />
+                                        <Insets left="20.0"/>
                                     </BorderPane.margin>
                                 </HBox>
                             </left>
                         </BorderPane>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id = "inputLock" style = "-fx-background-color: transparent;" VBox.vgrow = "ALWAYS">
+                <AnchorPane fx:id="inputLock" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                     <children>
-                        <AnchorPane fx:id = "desktopContainer" AnchorPane.bottomAnchor = "0.0"
-                                    AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0"
-                                    AnchorPane.topAnchor = "0.0">
+                        <AnchorPane fx:id="desktopContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <HBox fx:id = "infoHBox" alignment = "CENTER" layoutY = "10.0" mouseTransparent = "true"
-                                      spacing = "10.0" AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0"
-                                      AnchorPane.topAnchor = "10.0">
+                                <HBox fx:id="infoHBox" alignment="CENTER" layoutY="10.0" mouseTransparent="true"
+                                      spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Label fx:id = "infoLabelLeft">
+                                        <Label fx:id="infoLabelLeft">
                                             <font>
-                                                <Font name = "Inter 28pt Bold" size = "15.0" />
+                                                <Font name="Inter 28pt Bold" size="15.0"/>
                                             </font>
                                         </Label>
-                                        <Label fx:id = "infoLabelRight">
+                                        <Label fx:id="infoLabelRight">
                                             <font>
-                                                <Font name = "Inter 28pt Bold" size = "15.0" />
+                                                <Font name="Inter 28pt Bold" size="15.0"/>
                                             </font>
                                         </Label>
                                     </children>
@@ -159,62 +155,61 @@
                         </AnchorPane>
                     </children>
                 </AnchorPane>
-                <GridPane fx:id = "bottomBar" maxHeight = "-Infinity" minHeight = "45.0" opacity = "0.8"
-                          prefHeight = "45.0" VBox.vgrow = "NEVER">
+                <GridPane fx:id="bottomBar" maxHeight="-Infinity" minHeight="45.0" opacity="0.8" prefHeight="45.0"
+                          VBox.vgrow="NEVER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow = "SOMETIMES" minWidth = "10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight = "10.0" vgrow = "SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <VBox alignment = "CENTER_RIGHT" GridPane.columnSpan = "2147483647"
-                              GridPane.rowSpan = "2147483647">
+                        <VBox alignment="CENTER_RIGHT" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
                             <children>
-                                <Label fx:id = "dateLabel" alignment = "CENTER" graphicTextGap = "5.5" text = "Date">
+                                <Label fx:id="dateLabel" alignment="CENTER" graphicTextGap="5.5" text="Date">
                                     <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
+                                        <Font name="Inter 28pt Medium" size="13.0"/>
                                     </font>
                                 </Label>
-                                <Label fx:id = "timeLabel" alignment = "CENTER" graphicTextGap = "5.0" text = "Time">
+                                <Label fx:id="timeLabel" alignment="CENTER" graphicTextGap="5.0" text="Time">
                                     <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
+                                        <Font name="Inter 28pt Medium" size="13.0"/>
                                     </font>
                                 </Label>
                             </children>
                             <GridPane.margin>
-                                <Insets right = "20.0" />
+                                <Insets right="20.0"/>
                             </GridPane.margin>
                         </VBox>
-                        <HBox alignment = "CENTER_LEFT" spacing = "15.0">
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
-                                <Button fx:id = "shutdownBtn" focusTraversable = "false" mnemonicParsing = "false"
-                                        onAction = "#shutdownButtonPress"
-                                        style = "-fx-background-color: rgb(0,0,0,0.1);" text = "Shutdown">
+                                <Button fx:id="shutdownBtn" focusTraversable="false" mnemonicParsing="false"
+                                        onAction="#shutdownButtonPress" style="-fx-background-color: rgb(0,0,0,0.1);"
+                                        text="Shutdown">
                                     <font>
-                                        <Font name = "Inter 28pt Bold" size = "10.0" />
+                                        <Font name="Inter 28pt Bold" size="10.0"/>
                                     </font>
                                 </Button>
-                                <Button fx:id = "button1" focusTraversable = "false" mnemonicParsing = "false"
-                                        style = "-fx-background-color: rgb(0,0,0,0.1);" text = "Edit Mode">
+                                <Button fx:id="button1" focusTraversable="false" mnemonicParsing="false"
+                                        style="-fx-background-color: rgb(0,0,0,0.1);" text="Edit Mode">
                                     <font>
-                                        <Font name = "Inter 28pt Bold" size = "10.0" />
+                                        <Font name="Inter 28pt Bold" size="10.0"/>
                                     </font>
                                 </Button>
                             </children>
                             <GridPane.margin>
-                                <Insets left = "20.0" />
+                                <Insets left="20.0"/>
                             </GridPane.margin>
                         </HBox>
-                        <BorderPane fx:id = "taskBar" maxHeight = "-Infinity" maxWidth = "0.0" minHeight = "-Infinity"
-                                    prefHeight = "45.0" style = "-fx-background-radius: 20 20 0 0;"
-                                    GridPane.columnSpan = "2147483647" GridPane.halignment = "CENTER"
-                                    GridPane.hgrow = "ALWAYS" GridPane.valignment = "CENTER" GridPane.vgrow = "NEVER">
+                        <BorderPane fx:id="taskBar" maxHeight="-Infinity" maxWidth="0.0" minHeight="-Infinity"
+                                    prefHeight="45.0" style="-fx-background-radius: 20 20 0 0;"
+                                    GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
+                                    GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                             <center>
-                                <HBox fx:id = "taskBarApps" alignment = "CENTER" spacing = "12.0"
-                                      BorderPane.alignment = "CENTER">
+                                <HBox fx:id="taskBarApps" alignment="CENTER" spacing="12.0"
+                                      BorderPane.alignment="CENTER">
                                     <padding>
-                                        <Insets bottom = "3.0" left = "5.0" right = "5.0" top = "3.0" />
+                                        <Insets bottom="3.0" left="5.0" right="5.0" top="3.0"/>
                                     </padding>
                                 </HBox>
                             </center>

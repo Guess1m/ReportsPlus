@@ -252,32 +252,6 @@ public class DynamicDB {
         log("Record: " + record + " added or replaced in table: " + tableName, LogUtils.Severity.INFO);
     }
 
-    private void insertRecord(Map<String, Object> record) throws SQLException {
-        StringBuilder columnsPart = new StringBuilder();
-        StringBuilder valuesPart = new StringBuilder();
-        List<Object> values = new ArrayList<>();
-
-        for (String col : columnsDefinition.keySet()) {
-            if (record.containsKey(col)) {
-                columnsPart.append(escapeIdentifier(col)).append(", ");
-                valuesPart.append("?, ");
-                values.add(record.get(col));
-            }
-        }
-
-        if (columnsPart.length() > 0) {
-            columnsPart.setLength(columnsPart.length() - 2);
-            valuesPart.setLength(valuesPart.length() - 2);
-        }
-        String sql = "INSERT INTO " + escapeIdentifier(tableName) + " (" + columnsPart + ") VALUES (" + valuesPart + ")";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            for (int i = 0; i < values.size(); i++) {
-                ps.setObject(i + 1, values.get(i));
-            }
-            ps.executeUpdate();
-        }
-    }
-
     private void updateRecord(Map<String, Object> record) throws SQLException {
         StringBuilder setClause = new StringBuilder();
         List<Object> values = new ArrayList<>();
@@ -304,6 +278,32 @@ public class DynamicDB {
             if (affected == 0) {
                 logError("No record updated; record not found for primary key: " + primaryKeyColumn, new SQLException());
             }
+        }
+    }
+
+    private void insertRecord(Map<String, Object> record) throws SQLException {
+        StringBuilder columnsPart = new StringBuilder();
+        StringBuilder valuesPart = new StringBuilder();
+        List<Object> values = new ArrayList<>();
+
+        for (String col : columnsDefinition.keySet()) {
+            if (record.containsKey(col)) {
+                columnsPart.append(escapeIdentifier(col)).append(", ");
+                valuesPart.append("?, ");
+                values.add(record.get(col));
+            }
+        }
+
+        if (columnsPart.length() > 0) {
+            columnsPart.setLength(columnsPart.length() - 2);
+            valuesPart.setLength(valuesPart.length() - 2);
+        }
+        String sql = "INSERT INTO " + escapeIdentifier(tableName) + " (" + columnsPart + ") VALUES (" + valuesPart + ")";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            for (int i = 0; i < values.size(); i++) {
+                ps.setObject(i + 1, values.get(i));
+            }
+            ps.executeUpdate();
         }
     }
 

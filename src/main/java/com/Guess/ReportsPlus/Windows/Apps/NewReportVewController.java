@@ -43,8 +43,6 @@ import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.isValidDataba
 
 public class NewReportVewController {
 
-    /*TODO: fix weird bug with css when clicking bkg also hovering btns*/
-
     public static NewReportVewController newReportVewController;
 
     @javafx.fxml.FXML

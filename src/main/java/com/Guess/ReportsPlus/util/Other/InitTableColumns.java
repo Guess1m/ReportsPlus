@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.setSmallColumnWidth;
 
 public class InitTableColumns {
-    public static String commonTableFontSize = "-fx-font-size: 11; -fx-font-weight: bold; -fx-font-family: \"Inter 24pt Regular\";";
+    public static String commonTableFontSize = "-fx-font-size: 12; -fx-font-family: \"Inter 24pt Regular\";";
 
     public static void initializeDeathReportColumns(TableView tableview) {
         TableColumn<DeathReport, String> deathReportNumberColumn = new TableColumn<>("Report #:");

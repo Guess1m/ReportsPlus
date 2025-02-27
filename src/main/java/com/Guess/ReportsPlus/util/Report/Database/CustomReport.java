@@ -362,7 +362,7 @@ public class CustomReport {
                 logError("CustomReport; Error getting configValue for playCreateReport: ", e);
             }
 
-            //TODO: update logs here when new reports are added
+            //BUG: implement updating logs here when new reports are added
 
             NotificationManager.showNotificationInfo("Report Manager", "A new " + reportTitle + " has been submitted.");
             CustomWindow window = getWindow(reportTitle);

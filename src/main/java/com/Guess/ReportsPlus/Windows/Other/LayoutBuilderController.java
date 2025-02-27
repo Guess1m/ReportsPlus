@@ -774,9 +774,9 @@ public class LayoutBuilderController {
     private boolean validateFields() {
         Set<String> usedNames = new HashSet<>();
         String reportTitle = reportTitleField.getText().trim();
-        if (reportTitle.isEmpty() || containsNumbers(reportTitle)) {
-            showNotificationWarning("Report Creation Utility", "Report Title Field is Empty or Contains Numbers");
-            log("LayoutBuilder; Report Title Field is Empty or Contains Numbers", LogUtils.Severity.ERROR);
+        if (reportTitle.isEmpty()) {
+            showNotificationWarning("Report Creation Utility", "Report Title Field is Empty");
+            log("LayoutBuilder; Report Title Field is Empty", LogUtils.Severity.ERROR);
             return false;
         }
         if (usedNames.contains(reportTitle)) {

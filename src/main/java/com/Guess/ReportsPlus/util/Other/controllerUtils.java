@@ -212,7 +212,7 @@ public class controllerUtils {
     public static void getOperatingSystemAndArch() {
         log("====================== System Info ======================", LogUtils.Severity.INFO);
         log("----- OS Info -----", LogUtils.Severity.INFO);
-        log("Jar Path: " + getJarPath(), LogUtils.Severity.DEBUG); //TODO: add jar path to server logging
+        log("Jar Path: " + getJarPath(), LogUtils.Severity.DEBUG);
         log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.DEBUG);
         log("Operating System Version: " + System.getProperty("os.version"), LogUtils.Severity.DEBUG);
         log("Operating System Architecture: " + System.getProperty("os.arch"), LogUtils.Severity.DEBUG);

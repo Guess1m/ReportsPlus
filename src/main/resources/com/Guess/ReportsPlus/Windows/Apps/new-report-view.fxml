@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="425.0" prefWidth="360.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="500.0" prefWidth="400.0"
             stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
     <center>
@@ -18,8 +18,9 @@
                             <children>
                                 <BorderPane VBox.vgrow="SOMETIMES">
                                     <top>
-                                        <Label fx:id="selectReportTypeLabel" text="Select a Report Type:"
-                                               BorderPane.alignment="CENTER">
+                                        <Label fx:id="selectReportTypeLabel"
+                                               style="-fx-font-family: &quot;Inter 28pt Bold&quot;; -fx-font-size: 18;"
+                                               text="Select a Report Type:" BorderPane.alignment="CENTER">
                                             <font>
                                                 <Font name="Inter 28pt Bold" size="18.0"/>
                                             </font>
@@ -109,8 +110,9 @@
                                 </BorderPane>
                                 <BorderPane VBox.vgrow="SOMETIMES">
                                     <top>
-                                        <Label fx:id="customReportsLabel" text="Custom Reports:"
-                                               BorderPane.alignment="CENTER">
+                                        <Label fx:id="customReportsLabel"
+                                               style="-fx-font-family: &quot;Inter 28pt Bold&quot;; -fx-font-size: 18;"
+                                               text="Custom Reports:" BorderPane.alignment="CENTER">
                                             <font>
                                                 <Font name="Inter 28pt Bold" size="18.0"/>
                                             </font>

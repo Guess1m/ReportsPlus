@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AIAssistantCustomInstructionsStorage">
+    <option name="instructions">
+      <map>
+        <entry key="AIAssistant.VCS.GenerateCommitMessage">
+          <value>
+            <AIAssistantStoredInstruction>
+              <option name="actionId" value="AIAssistant.VCS.GenerateCommitMessage" />
+              <option name="content" value="Start every new change with -. Every new change should be no longer than a few words. The first line should always be v1.0.9-alpha. Ignore changes to .fxml files. An example of what I want is below:&#10;- v1.1-alpha&#10;- {change 1}&#10;- {change 2}&#10;etc." />
+            </AIAssistantStoredInstruction>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="471e6b40-c482-4933-8752-d2f6f635a0ab" name="Changes" comment="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,23 +33,67 @@
       </list>
     </option>
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Guess1mMAC &lt;rp@no-reply.com&gt;" />
         <option value="Guess1mPC &lt;no-reply@example.com&gt;" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="Development" />
+                    <option name="lastUsedInstant" value="1739908951" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="fork/fastwalkergy/Development" />
+                    <option name="lastUsedInstant" value="1739908289" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1736651476" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="v1.3-development" />
+                    <option name="lastUsedInstant" value="1735226159" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2tUwocL52NpcFa5raFBoK2jdXHJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="compactDirectories" value="true" />
     <option name="flattenModules" value="true" />
-    <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
   <component name="PropertiesComponent">{
@@ -43,6 +103,7 @@
     &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
     &quot;Maven.ReportsPlus [clean,install,-P,mac-arm64].executor&quot;: &quot;Run&quot;,
     &quot;Maven.ReportsPlus [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
@@ -56,6 +117,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -66,8 +128,9 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean install" />
       <command value="mvn clean install -P mac-arm64" />
+      <command value="mvn clean" />
+      <command value="mvn clean install" />
     </option>
   </component>
   <component name="RunManager">
@@ -93,50 +156,834 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows">
-      <option name="closed" value="true" />
-      <created>1740367155669</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1740367155669</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
-      <changelist id="471e6b40-c482-4933-8752-d2f6f635a0ab" name="Changes" comment="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
-      <created>1740420138000</created>
+      <changelist id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="" />
+      <created>1718137994176</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1740420138000</updated>
-      <workItem from="1740420139668" duration="2662000" />
-      <workItem from="1740532262410" duration="118000" />
-      <workItem from="1740591751686" duration="10044000" />
-      <workItem from="1740619731359" duration="2195000" />
+      <updated>1718137994176</updated>
+      <workItem from="1725323318816" duration="195000" />
+      <workItem from="1725324749286" duration="40000" />
+      <workItem from="1725462269477" duration="237000" />
+      <workItem from="1725462718759" duration="4000" />
+      <workItem from="1725462728638" duration="4000" />
+      <workItem from="1725474270125" duration="2435000" />
+      <workItem from="1725646578501" duration="5280000" />
+      <workItem from="1725710720971" duration="1389000" />
+      <workItem from="1725889444520" duration="223000" />
+      <workItem from="1725894761269" duration="350000" />
+      <workItem from="1725989590490" duration="60000" />
+      <workItem from="1726000080346" duration="33000" />
+      <workItem from="1726068575627" duration="21000" />
+      <workItem from="1726263051315" duration="127000" />
+      <workItem from="1726263820403" duration="1554000" />
+      <workItem from="1726265782842" duration="43000" />
+      <workItem from="1726265831642" duration="536000" />
+      <workItem from="1726266575861" duration="37000" />
+      <workItem from="1726266882844" duration="533000" />
+      <workItem from="1726425831975" duration="17000" />
+      <workItem from="1726518978449" duration="4000" />
+      <workItem from="1726518991173" duration="602000" />
+      <workItem from="1726519986997" duration="70000" />
+      <workItem from="1726593346682" duration="7000" />
+      <workItem from="1726593362072" duration="1058000" />
+      <workItem from="1726602727913" duration="2485000" />
+      <workItem from="1726671290448" duration="2824000" />
+      <workItem from="1726685159260" duration="6836000" />
+      <workItem from="1726765382193" duration="1521000" />
+      <workItem from="1726843900681" duration="3297000" />
+      <workItem from="1726862122122" duration="3074000" />
+      <workItem from="1727113887280" duration="151000" />
+      <workItem from="1727114047435" duration="1359000" />
+      <workItem from="1727117267790" duration="3525000" />
+      <workItem from="1727195939130" duration="2173000" />
+      <workItem from="1727287552262" duration="957000" />
+      <workItem from="1727305687078" duration="1203000" />
+      <workItem from="1727369108660" duration="3185000" />
+      <workItem from="1727449341327" duration="2910000" />
+      <workItem from="1727465213544" duration="5205000" />
+      <workItem from="1727538062740" duration="1446000" />
+      <workItem from="1727619564400" duration="328000" />
+      <workItem from="1727633918321" duration="390000" />
+      <workItem from="1727707986509" duration="3414000" />
+      <workItem from="1727725356864" duration="4676000" />
+      <workItem from="1727790345667" duration="28000" />
+      <workItem from="1727814703751" duration="4979000" />
+      <workItem from="1727835413995" duration="2323000" />
+      <workItem from="1727880935802" duration="8000" />
+      <workItem from="1727881117295" duration="1373000" />
+      <workItem from="1727894029663" duration="11237000" />
+      <workItem from="1727972937234" duration="587000" />
+      <workItem from="1727974641315" duration="998000" />
+      <workItem from="1728053585746" duration="3500000" />
+      <workItem from="1728067336052" duration="5157000" />
+      <workItem from="1728434188849" duration="6619000" />
+      <workItem from="1728485963795" duration="2991000" />
+      <workItem from="1728496269139" duration="2870000" />
+      <workItem from="1728499781006" duration="2483000" />
+      <workItem from="1728503784726" duration="29000" />
+      <workItem from="1728506044471" duration="49000" />
+      <workItem from="1728568018152" duration="1347000" />
+      <workItem from="1728579070607" duration="937000" />
+      <workItem from="1728587822280" duration="5620000" />
+      <workItem from="1728594979231" duration="8000" />
+      <workItem from="1728670544610" duration="8612000" />
+      <workItem from="1728682094217" duration="2266000" />
+      <workItem from="1728919737279" duration="5756000" />
+      <workItem from="1728926457900" duration="1000" />
+      <workItem from="1728934793998" duration="115000" />
+      <workItem from="1728936797828" duration="147000" />
+      <workItem from="1728937986542" duration="3000" />
+      <workItem from="1728938004204" duration="32000" />
+      <workItem from="1728946441920" duration="395000" />
+      <workItem from="1728952514595" duration="2076000" />
+      <workItem from="1728954603624" duration="456000" />
+      <workItem from="1729019947737" duration="2124000" />
+      <workItem from="1729092993942" duration="768000" />
+      <workItem from="1729106480874" duration="5367000" />
+      <workItem from="1729175305929" duration="4999000" />
+      <workItem from="1729202698149" duration="1000" />
+      <workItem from="1729208770589" duration="3271000" />
+      <workItem from="1729212739225" duration="2709000" />
+      <workItem from="1729217474980" duration="83000" />
+      <workItem from="1729354281859" duration="18000" />
+      <workItem from="1729384277857" duration="47000" />
+      <workItem from="1729384433755" duration="4499000" />
+      <workItem from="1729449673914" duration="971000" />
+      <workItem from="1729522685868" duration="252000" />
+      <workItem from="1729523837249" duration="1835000" />
+      <workItem from="1729541398973" duration="3166000" />
+      <workItem from="1729626010112" duration="454000" />
+      <workItem from="1729697658266" duration="609000" />
+      <workItem from="1729706121069" duration="1815000" />
+      <workItem from="1729715314836" duration="1487000" />
+      <workItem from="1729799207378" duration="3999000" />
+      <workItem from="1729819635455" duration="30000" />
+      <workItem from="1729820155821" duration="267000" />
+      <workItem from="1729868036132" duration="3006000" />
+      <workItem from="1730127674829" duration="3030000" />
+      <workItem from="1730138650759" duration="1393000" />
+      <workItem from="1730314170317" duration="4451000" />
+      <workItem from="1730474988609" duration="13000" />
+      <workItem from="1730475007423" duration="1024000" />
+      <workItem from="1730489473196" duration="2847000" />
+      <workItem from="1730752536762" duration="437000" />
+      <workItem from="1730753505077" duration="3743000" />
+      <workItem from="1730831989890" duration="189000" />
+      <workItem from="1731011549993" duration="17000" />
+      <workItem from="1731101328030" duration="1652000" />
+      <workItem from="1731166658713" duration="3642000" />
+      <workItem from="1731251036311" duration="2103000" />
+      <workItem from="1731342745481" duration="778000" />
+      <workItem from="1731355209061" duration="824000" />
+      <workItem from="1731385064799" duration="1369000" />
+      <workItem from="1731431995873" duration="3211000" />
+      <workItem from="1731515512502" duration="994000" />
+      <workItem from="1731525146832" duration="91000" />
+      <workItem from="1731531849145" duration="311000" />
+      <workItem from="1731532427547" duration="531000" />
+      <workItem from="1731544209450" duration="1188000" />
+      <workItem from="1731550015643" duration="131000" />
+      <workItem from="1731550156432" duration="867000" />
+      <workItem from="1731618028433" duration="3591000" />
+      <workItem from="1731696569549" duration="4776000" />
+      <workItem from="1731703661249" duration="1250000" />
+      <workItem from="1731708294019" duration="5039000" />
+      <workItem from="1731779519222" duration="1210000" />
+      <workItem from="1731961120123" duration="776000" />
+      <workItem from="1731966276595" duration="179000" />
+      <workItem from="1732038615353" duration="388000" />
+      <workItem from="1732048042687" duration="718000" />
+      <workItem from="1732048951271" duration="3953000" />
+      <workItem from="1732052981206" duration="612000" />
+      <workItem from="1732053601009" duration="25000" />
+      <workItem from="1732118717868" duration="2823000" />
+      <workItem from="1732135238001" duration="7000" />
+      <workItem from="1732135308873" duration="2420000" />
+      <workItem from="1732158132138" duration="3109000" />
+      <workItem from="1732197838335" duration="1174000" />
+      <workItem from="1732222199750" duration="939000" />
+      <workItem from="1732235959505" duration="1215000" />
+      <workItem from="1732289531481" duration="2660000" />
+      <workItem from="1732297086839" duration="110000" />
+      <workItem from="1732297231039" duration="783000" />
+      <workItem from="1732304864670" duration="950000" />
+      <workItem from="1732317198562" duration="490000" />
+      <workItem from="1732379771511" duration="5751000" />
+      <workItem from="1732408112768" duration="334000" />
+      <workItem from="1732408463729" duration="13000" />
+      <workItem from="1732410349373" duration="1803000" />
+      <workItem from="1732814676611" duration="2020000" />
+      <workItem from="1732897066846" duration="244000" />
+      <workItem from="1732919403223" duration="7294000" />
+      <workItem from="1732984071603" duration="40000" />
+      <workItem from="1732996164416" duration="515000" />
+      <workItem from="1732997761861" duration="41000" />
+      <workItem from="1733000300112" duration="1053000" />
+      <workItem from="1733188198468" duration="181000" />
+      <workItem from="1733260701155" duration="1551000" />
+      <workItem from="1733354526086" duration="208000" />
+      <workItem from="1733355612899" duration="3563000" />
+      <workItem from="1733368656088" duration="59000" />
+      <workItem from="1733370378641" duration="882000" />
+      <workItem from="1733371326262" duration="314000" />
+      <workItem from="1733371648819" duration="185000" />
+      <workItem from="1733371848214" duration="74000" />
+      <workItem from="1733410212681" duration="109000" />
+      <workItem from="1733423035183" duration="3949000" />
+      <workItem from="1733429051007" duration="37000" />
+      <workItem from="1733429097031" duration="941000" />
+      <workItem from="1733456734217" duration="499000" />
+      <workItem from="1733490536348" duration="600000" />
+      <workItem from="1733928501517" duration="1590000" />
+      <workItem from="1734120174143" duration="69000" />
+      <workItem from="1734120256228" duration="5000" />
+      <workItem from="1734120763977" duration="2881000" />
+      <workItem from="1734124771958" duration="27000" />
+      <workItem from="1734136745194" duration="734000" />
+      <workItem from="1734216644313" duration="1998000" />
+      <workItem from="1734303765264" duration="58000" />
+      <workItem from="1734303839673" duration="12027000" />
+      <workItem from="1734391065267" duration="1759000" />
+      <workItem from="1734456731977" duration="41000" />
+      <workItem from="1734469059641" duration="181000" />
+      <workItem from="1734470715154" duration="805000" />
+      <workItem from="1734530715779" duration="38000" />
+      <workItem from="1734540478605" duration="60000" />
+      <workItem from="1734541163019" duration="613000" />
+      <workItem from="1734551570817" duration="625000" />
+      <workItem from="1734618277909" duration="51000" />
+      <workItem from="1734621387563" duration="808000" />
+      <workItem from="1734624463148" duration="759000" />
+      <workItem from="1735221745846" duration="761000" />
+      <workItem from="1735226150947" duration="957000" />
+      <workItem from="1735236173129" duration="718000" />
+      <workItem from="1735241755224" duration="53000" />
+      <workItem from="1735247565677" duration="1588000" />
+      <workItem from="1735326014262" duration="2818000" />
+      <workItem from="1735478243030" duration="7530000" />
+      <workItem from="1735485886038" duration="58000" />
+      <workItem from="1735486797247" duration="335000" />
+      <workItem from="1735525858567" duration="1519000" />
+      <workItem from="1735584736750" duration="18000" />
+      <workItem from="1735587417300" duration="7639000" />
+      <workItem from="1735661083202" duration="2128000" />
+      <workItem from="1735663251069" duration="2892000" />
+      <workItem from="1735666195936" duration="3741000" />
+      <workItem from="1735832101320" duration="10107000" />
+      <workItem from="1735872542854" duration="6734000" />
+      <workItem from="1735927106211" duration="1671000" />
+      <workItem from="1735929249343" duration="5240000" />
+      <workItem from="1736004632718" duration="7500000" />
+      <workItem from="1736015770702" duration="5632000" />
+      <workItem from="1736034142332" duration="950000" />
+      <workItem from="1736138620337" duration="69000" />
+      <workItem from="1736138705246" duration="149000" />
+      <workItem from="1736139986663" duration="103000" />
+      <workItem from="1736205626003" duration="1954000" />
+      <workItem from="1736209889836" duration="15151000" />
+      <workItem from="1736226396938" duration="808000" />
+      <workItem from="1736264569302" duration="4818000" />
+      <workItem from="1736285805649" duration="2582000" />
+      <workItem from="1736291369452" duration="42000" />
+      <workItem from="1736291418420" duration="11603000" />
+      <workItem from="1736445810728" duration="1172000" />
+      <workItem from="1736454289628" duration="2165000" />
+      <workItem from="1736462919368" duration="2338000" />
+      <workItem from="1736471268366" duration="3812000" />
+      <workItem from="1736518915629" duration="1482000" />
+      <workItem from="1736525404775" duration="3000" />
+      <workItem from="1736525565444" duration="5000" />
+      <workItem from="1736525581843" duration="7000" />
+      <workItem from="1736538702866" duration="4286000" />
+      <workItem from="1736610371877" duration="3847000" />
+      <workItem from="1736626291648" duration="22000" />
+      <workItem from="1736626329439" duration="3000" />
+      <workItem from="1736626365559" duration="124000" />
+      <workItem from="1736626835939" duration="1776000" />
+      <workItem from="1736651463961" duration="5702000" />
+      <workItem from="1736887018510" duration="1832000" />
+      <workItem from="1736895195929" duration="17000" />
+      <workItem from="1736900500860" duration="230000" />
+      <workItem from="1736947898104" duration="4312000" />
+      <workItem from="1736974692158" duration="2642000" />
+      <workItem from="1736994981613" duration="3426000" />
+      <workItem from="1737039791951" duration="9576000" />
+      <workItem from="1737060935682" duration="1730000" />
+      <workItem from="1737064271212" duration="3000" />
+      <workItem from="1737066842013" duration="21917000" />
+      <workItem from="1737226249752" duration="6800000" />
+      <workItem from="1737312293369" duration="9350000" />
+      <workItem from="1737405249825" duration="4443000" />
+      <workItem from="1737411356851" duration="2227000" />
+      <workItem from="1737491316497" duration="3603000" />
+      <workItem from="1737577159475" duration="7044000" />
+      <workItem from="1737590762872" duration="4796000" />
+      <workItem from="1737648081556" duration="8000" />
+      <workItem from="1737648099791" duration="3463000" />
+      <workItem from="1737651661120" duration="531000" />
+      <workItem from="1737667066398" duration="2078000" />
+      <workItem from="1737672120420" duration="3898000" />
+      <workItem from="1737749753143" duration="5025000" />
+      <workItem from="1737770993776" duration="3824000" />
+      <workItem from="1737840410676" duration="2283000" />
+      <workItem from="1737991920309" duration="672000" />
+      <workItem from="1737992611275" duration="54000" />
+      <workItem from="1737992676634" duration="280000" />
+      <workItem from="1737997755327" duration="5626000" />
+      <workItem from="1738003482746" duration="2292000" />
+      <workItem from="1738016762589" duration="625000" />
+      <workItem from="1738093042309" duration="3493000" />
+      <workItem from="1738106299716" duration="3178000" />
+      <workItem from="1738163696137" duration="8102000" />
+      <workItem from="1738189103817" duration="2686000" />
+      <workItem from="1738256391309" duration="927000" />
+      <workItem from="1738259975117" duration="1120000" />
+      <workItem from="1738262142110" duration="381000" />
+      <workItem from="1738273103164" duration="45000" />
+      <workItem from="1738275795115" duration="3946000" />
+      <workItem from="1738288404813" duration="2004000" />
+      <workItem from="1738290426550" duration="3891000" />
+      <workItem from="1738294583718" duration="2198000" />
+      <workItem from="1738336370156" duration="145000" />
+      <workItem from="1738336760935" duration="542000" />
+      <workItem from="1738345766383" duration="58000" />
+      <workItem from="1738350261748" duration="2765000" />
+      <workItem from="1738354210780" duration="7238000" />
+      <workItem from="1738426518490" duration="72000" />
+      <workItem from="1738428888501" duration="18826000" />
+      <workItem from="1738508517377" duration="2836000" />
+      <workItem from="1738595599310" duration="709000" />
+      <workItem from="1738623091265" duration="13000" />
+      <workItem from="1738768794300" duration="1785000" />
+      <workItem from="1738792526585" duration="48000" />
+      <workItem from="1738800495497" duration="7881000" />
+      <workItem from="1738888635826" duration="587000" />
+      <workItem from="1738890479044" duration="871000" />
+      <workItem from="1738894391344" duration="671000" />
+      <workItem from="1738900835271" duration="243000" />
+      <workItem from="1738939015572" duration="17000" />
+      <workItem from="1738956329659" duration="848000" />
+      <workItem from="1738960129622" duration="2848000" />
+      <workItem from="1738963022819" duration="453000" />
+      <workItem from="1738963488504" duration="9099000" />
+      <workItem from="1738975394874" duration="472000" />
+      <workItem from="1738976348505" duration="4713000" />
+      <workItem from="1738982535098" duration="31000" />
+      <workItem from="1738982606412" duration="54000" />
+      <workItem from="1739034093146" duration="1682000" />
+      <workItem from="1739046945541" duration="938000" />
+      <workItem from="1739074533618" duration="772000" />
+      <workItem from="1739150278606" duration="3757000" />
+      <workItem from="1739213812782" duration="597000" />
+      <workItem from="1739215143582" duration="409000" />
+      <workItem from="1739215564372" duration="1334000" />
+      <workItem from="1739218393534" duration="6024000" />
+      <workItem from="1739225931931" duration="5167000" />
+      <workItem from="1739303913146" duration="10801000" />
+      <workItem from="1739330357115" duration="4375000" />
+      <workItem from="1739372147612" duration="4319000" />
+      <workItem from="1739386389550" duration="9158000" />
+      <workItem from="1739401538506" duration="5486000" />
+      <workItem from="1739474906006" duration="41000" />
+      <workItem from="1739474952758" duration="5057000" />
+      <workItem from="1739566877021" duration="2905000" />
+      <workItem from="1739623418741" duration="20693000" />
+      <workItem from="1739667821949" duration="4609000" />
+      <workItem from="1739711526350" duration="6342000" />
+      <workItem from="1739741812934" duration="610000" />
+      <workItem from="1739758124202" duration="4962000" />
+      <workItem from="1739820649349" duration="232000" />
+      <workItem from="1739821063028" duration="757000" />
+      <workItem from="1739825644902" duration="3815000" />
+      <workItem from="1739906774138" duration="427000" />
+      <workItem from="1739907669778" duration="1253000" />
+      <workItem from="1739908931151" duration="827000" />
+      <workItem from="1739909770954" duration="1687000" />
+      <workItem from="1740077482208" duration="10148000" />
+      <workItem from="1740099447182" duration="197000" />
+      <workItem from="1740099653468" duration="274000" />
+      <workItem from="1740099935697" duration="78000" />
+      <workItem from="1740100372894" duration="652000" />
+      <workItem from="1740101032809" duration="260000" />
+      <workItem from="1740101299286" duration="488000" />
+      <workItem from="1740102078993" duration="97000" />
+      <workItem from="1740158623156" duration="1135000" />
+      <workItem from="1740168751364" duration="308000" />
+      <workItem from="1740169069308" duration="5929000" />
+      <workItem from="1740176143203" duration="1451000" />
+      <workItem from="1740177606055" duration="1586000" />
+      <workItem from="1740241772285" duration="5415000" />
+      <workItem from="1740256698564" duration="2171000" />
+      <workItem from="1740674990512" duration="1844000" />
+      <workItem from="1740688923870" duration="1006000" />
+      <workItem from="1740690704046" duration="2404000" />
+      <workItem from="1740693713088" duration="4000" />
+      <workItem from="1740693816983" duration="2703000" />
+      <workItem from="1740699933204" duration="50000" />
+      <workItem from="1740783681719" duration="609000" />
+      <workItem from="1740851385691" duration="3432000" />
+      <workItem from="1740857447663" duration="117000" />
     </task>
-    <task id="LOCAL-00002" summary="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows">
+    <task id="LOCAL-00311" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Reformat">
       <option name="closed" value="true" />
-      <created>1740621923249</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+      <created>1738189527058</created>
+      <option name="number" value="00311" />
+      <option name="presentableId" value="LOCAL-00311" />
       <option name="project" value="LOCAL" />
-      <updated>1740621923249</updated>
+      <updated>1738189527058</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00312" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738190205991</created>
+      <option name="number" value="00312" />
+      <option name="presentableId" value="LOCAL-00312" />
+      <option name="project" value="LOCAL" />
+      <updated>1738190205991</updated>
+    </task>
+    <task id="LOCAL-00313" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738191931559</created>
+      <option name="number" value="00313" />
+      <option name="presentableId" value="LOCAL-00313" />
+      <option name="project" value="LOCAL" />
+      <updated>1738191931559</updated>
+    </task>
+    <task id="LOCAL-00314" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738192461234</created>
+      <option name="number" value="00314" />
+      <option name="presentableId" value="LOCAL-00314" />
+      <option name="project" value="LOCAL" />
+      <updated>1738192461234</updated>
+    </task>
+    <task id="LOCAL-00315" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738289787503</created>
+      <option name="number" value="00315" />
+      <option name="presentableId" value="LOCAL-00315" />
+      <option name="project" value="LOCAL" />
+      <updated>1738289787503</updated>
+    </task>
+    <task id="LOCAL-00316" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738294410577</created>
+      <option name="number" value="00316" />
+      <option name="presentableId" value="LOCAL-00316" />
+      <option name="project" value="LOCAL" />
+      <updated>1738294410577</updated>
+    </task>
+    <task id="LOCAL-00317" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738350703147</created>
+      <option name="number" value="00317" />
+      <option name="presentableId" value="LOCAL-00317" />
+      <option name="project" value="LOCAL" />
+      <updated>1738350703147</updated>
+    </task>
+    <task id="LOCAL-00318" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738352615111</created>
+      <option name="number" value="00318" />
+      <option name="presentableId" value="LOCAL-00318" />
+      <option name="project" value="LOCAL" />
+      <updated>1738352615111</updated>
+    </task>
+    <task id="LOCAL-00319" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738352860752</created>
+      <option name="number" value="00319" />
+      <option name="presentableId" value="LOCAL-00319" />
+      <option name="project" value="LOCAL" />
+      <updated>1738352860752</updated>
+    </task>
+    <task id="LOCAL-00320" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
+      <option name="closed" value="true" />
+      <created>1738429173501</created>
+      <option name="number" value="00320" />
+      <option name="presentableId" value="LOCAL-00320" />
+      <option name="project" value="LOCAL" />
+      <updated>1738429173501</updated>
+    </task>
+    <task id="LOCAL-00321" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings">
+      <option name="closed" value="true" />
+      <created>1738437105363</created>
+      <option name="number" value="00321" />
+      <option name="presentableId" value="LOCAL-00321" />
+      <option name="project" value="LOCAL" />
+      <updated>1738437105363</updated>
+    </task>
+    <task id="LOCAL-00322" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing">
+      <option name="closed" value="true" />
+      <created>1738437144118</created>
+      <option name="number" value="00322" />
+      <option name="presentableId" value="LOCAL-00322" />
+      <option name="project" value="LOCAL" />
+      <updated>1738437144118</updated>
+    </task>
+    <task id="LOCAL-00323" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
+      <option name="closed" value="true" />
+      <created>1738437228404</created>
+      <option name="number" value="00323" />
+      <option name="presentableId" value="LOCAL-00323" />
+      <option name="project" value="LOCAL" />
+      <updated>1738437228404</updated>
+    </task>
+    <task id="LOCAL-00324" summary="- v1.4.0-alpha&#10;- Redesigned UserManager&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
+      <option name="closed" value="true" />
+      <created>1738451625536</created>
+      <option name="number" value="00324" />
+      <option name="presentableId" value="LOCAL-00324" />
+      <option name="project" value="LOCAL" />
+      <updated>1738451625536</updated>
+    </task>
+    <task id="LOCAL-00325" summary="- v1.4.0-alpha&#10;- Redesigned UserManager&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
+      <option name="closed" value="true" />
+      <created>1738451717328</created>
+      <option name="number" value="00325" />
+      <option name="presentableId" value="LOCAL-00325" />
+      <option name="project" value="LOCAL" />
+      <updated>1738451717328</updated>
+    </task>
+    <task id="LOCAL-00326" summary="- v1.4.0-alpha&#10;- Redesigned UserManager&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
+      <option name="closed" value="true" />
+      <created>1738894446029</created>
+      <option name="number" value="00326" />
+      <option name="presentableId" value="LOCAL-00326" />
+      <option name="project" value="LOCAL" />
+      <updated>1738894446029</updated>
+    </task>
+    <task id="LOCAL-00327" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking">
+      <option name="closed" value="true" />
+      <created>1738965582466</created>
+      <option name="number" value="00327" />
+      <option name="presentableId" value="LOCAL-00327" />
+      <option name="project" value="LOCAL" />
+      <updated>1738965582467</updated>
+    </task>
+    <task id="LOCAL-00328" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling">
+      <option name="closed" value="true" />
+      <created>1738973825865</created>
+      <option name="number" value="00328" />
+      <option name="presentableId" value="LOCAL-00328" />
+      <option name="project" value="LOCAL" />
+      <updated>1738973825865</updated>
+    </task>
+    <task id="LOCAL-00329" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter">
+      <option name="closed" value="true" />
+      <created>1738975214746</created>
+      <option name="number" value="00329" />
+      <option name="presentableId" value="LOCAL-00329" />
+      <option name="project" value="LOCAL" />
+      <updated>1738975214746</updated>
+    </task>
+    <task id="LOCAL-00330" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon">
+      <option name="closed" value="true" />
+      <created>1738976621762</created>
+      <option name="number" value="00330" />
+      <option name="presentableId" value="LOCAL-00330" />
+      <option name="project" value="LOCAL" />
+      <updated>1738976621762</updated>
+    </task>
+    <task id="LOCAL-00331" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon&#10;- Working PR Lookups">
+      <option name="closed" value="true" />
+      <created>1738980937506</created>
+      <option name="number" value="00331" />
+      <option name="presentableId" value="LOCAL-00331" />
+      <option name="project" value="LOCAL" />
+      <updated>1738980937506</updated>
+    </task>
+    <task id="LOCAL-00332" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon&#10;- Working PR Lookups">
+      <option name="closed" value="true" />
+      <created>1738980984550</created>
+      <option name="number" value="00332" />
+      <option name="presentableId" value="LOCAL-00332" />
+      <option name="project" value="LOCAL" />
+      <updated>1738980984550</updated>
+    </task>
+    <task id="LOCAL-00333" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon&#10;- Working PR Lookups&#10;- Support For Ped Base Images If Variant Not Found">
+      <option name="closed" value="true" />
+      <created>1739034505987</created>
+      <option name="number" value="00333" />
+      <option name="presentableId" value="LOCAL-00333" />
+      <option name="project" value="LOCAL" />
+      <updated>1739034505987</updated>
+    </task>
+    <task id="LOCAL-00334" summary="- v1.4.0-alpha&#10;- working before removeing combinedmap">
+      <option name="closed" value="true" />
+      <created>1739316080900</created>
+      <option name="number" value="00334" />
+      <option name="presentableId" value="LOCAL-00334" />
+      <option name="project" value="LOCAL" />
+      <updated>1739316080900</updated>
+    </task>
+    <task id="LOCAL-00335" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports">
+      <option name="closed" value="true" />
+      <created>1739403554237</created>
+      <option name="number" value="00335" />
+      <option name="presentableId" value="LOCAL-00335" />
+      <option name="project" value="LOCAL" />
+      <updated>1739403554237</updated>
+    </task>
+    <task id="LOCAL-00336" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports">
+      <option name="closed" value="true" />
+      <created>1739407675738</created>
+      <option name="number" value="00336" />
+      <option name="presentableId" value="LOCAL-00336" />
+      <option name="project" value="LOCAL" />
+      <updated>1739407675738</updated>
+    </task>
+    <task id="LOCAL-00337" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Started Transfer Info Implementation)">
+      <option name="closed" value="true" />
+      <created>1739506601733</created>
+      <option name="number" value="00337" />
+      <option name="presentableId" value="LOCAL-00337" />
+      <option name="project" value="LOCAL" />
+      <updated>1739506601733</updated>
+    </task>
+    <task id="LOCAL-00338" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Started Transfer Info Implementation)">
+      <option name="closed" value="true" />
+      <created>1739569756921</created>
+      <option name="number" value="00338" />
+      <option name="presentableId" value="LOCAL-00338" />
+      <option name="project" value="LOCAL" />
+      <updated>1739569756921</updated>
+    </task>
+    <task id="LOCAL-00339" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Started Transfer Info Implementation)">
+      <option name="closed" value="true" />
+      <created>1739569806226</created>
+      <option name="number" value="00339" />
+      <option name="presentableId" value="LOCAL-00339" />
+      <option name="project" value="LOCAL" />
+      <updated>1739569806226</updated>
+    </task>
+    <task id="LOCAL-00340" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Transfers)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739649354392</created>
+      <option name="number" value="00340" />
+      <option name="presentableId" value="LOCAL-00340" />
+      <option name="project" value="LOCAL" />
+      <updated>1739649354392</updated>
+    </task>
+    <task id="LOCAL-00341" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739672357037</created>
+      <option name="number" value="00341" />
+      <option name="presentableId" value="LOCAL-00341" />
+      <option name="project" value="LOCAL" />
+      <updated>1739672357037</updated>
+    </task>
+    <task id="LOCAL-00342" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739672411117</created>
+      <option name="number" value="00342" />
+      <option name="presentableId" value="LOCAL-00342" />
+      <option name="project" value="LOCAL" />
+      <updated>1739672411117</updated>
+    </task>
+    <task id="LOCAL-00343" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739672433459</created>
+      <option name="number" value="00343" />
+      <option name="presentableId" value="LOCAL-00343" />
+      <option name="project" value="LOCAL" />
+      <updated>1739672433459</updated>
+    </task>
+    <task id="LOCAL-00344" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739716625747</created>
+      <option name="number" value="00344" />
+      <option name="presentableId" value="LOCAL-00344" />
+      <option name="project" value="LOCAL" />
+      <updated>1739716625747</updated>
+    </task>
+    <task id="LOCAL-00345" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739803456637</created>
+      <option name="number" value="00345" />
+      <option name="presentableId" value="LOCAL-00345" />
+      <option name="project" value="LOCAL" />
+      <updated>1739803456637</updated>
+    </task>
+    <task id="LOCAL-00346" summary="- v1.4.1-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739803472940</created>
+      <option name="number" value="00346" />
+      <option name="presentableId" value="LOCAL-00346" />
+      <option name="project" value="LOCAL" />
+      <updated>1739803472940</updated>
+    </task>
+    <task id="LOCAL-00347" summary="- v1.4.1-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739829457918</created>
+      <option name="number" value="00347" />
+      <option name="presentableId" value="LOCAL-00347" />
+      <option name="project" value="LOCAL" />
+      <updated>1739829457918</updated>
+    </task>
+    <task id="LOCAL-00348" summary="- v1.4.1-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1739908196097</created>
+      <option name="number" value="00348" />
+      <option name="presentableId" value="LOCAL-00348" />
+      <option name="project" value="LOCAL" />
+      <updated>1739908196097</updated>
+    </task>
+    <task id="LOCAL-00349" summary="- v1.4.1-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1740087432673</created>
+      <option name="number" value="00349" />
+      <option name="presentableId" value="LOCAL-00349" />
+      <option name="project" value="LOCAL" />
+      <updated>1740087432673</updated>
+    </task>
+    <task id="LOCAL-00350" summary="- v1.4.1-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1740159111953</created>
+      <option name="number" value="00350" />
+      <option name="presentableId" value="LOCAL-00350" />
+      <option name="project" value="LOCAL" />
+      <updated>1740159111953</updated>
+    </task>
+    <task id="LOCAL-00351" summary="- v1.4.1-alpha&#10;- Functioning Custom Reports&#10;- Added 'Pull From Lookup' Button To Applicable Reports&#10;- Revised customization.json">
+      <option name="closed" value="true" />
+      <created>1740178030285</created>
+      <option name="number" value="00351" />
+      <option name="presentableId" value="LOCAL-00351" />
+      <option name="project" value="LOCAL" />
+      <updated>1740178030286</updated>
+    </task>
+    <task id="LOCAL-00352" summary="- v1.4.1-alpha&#10;- Added 'Pull From Lookup' Button To Applicable Reports">
+      <option name="closed" value="true" />
+      <created>1740179336613</created>
+      <option name="number" value="00352" />
+      <option name="presentableId" value="LOCAL-00352" />
+      <option name="project" value="LOCAL" />
+      <updated>1740179336613</updated>
+    </task>
+    <task id="LOCAL-00353" summary="- v1.4.1-alpha&#10;- Added 'Pull From Lookup' Button To Applicable Reports&#10;- Fixed Reserved Keyword Issue With SQL">
+      <option name="closed" value="true" />
+      <created>1740244975356</created>
+      <option name="number" value="00353" />
+      <option name="presentableId" value="LOCAL-00353" />
+      <option name="project" value="LOCAL" />
+      <updated>1740244975356</updated>
+    </task>
+    <task id="LOCAL-00354" summary="- v1.4.1-alpha&#10;- Added 'Pull From Lookup' Button To Applicable Reports&#10;- Fixed Reserved Keyword Issue With SQL&#10;- Additional Checks For Validating Fields">
+      <option name="closed" value="true" />
+      <created>1740246663403</created>
+      <option name="number" value="00354" />
+      <option name="presentableId" value="LOCAL-00354" />
+      <option name="project" value="LOCAL" />
+      <updated>1740246663403</updated>
+    </task>
+    <task id="LOCAL-00355" summary="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer">
+      <option name="closed" value="true" />
+      <created>1740693166803</created>
+      <option name="number" value="00355" />
+      <option name="presentableId" value="LOCAL-00355" />
+      <option name="project" value="LOCAL" />
+      <updated>1740693166803</updated>
+    </task>
+    <task id="LOCAL-00356" summary="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer">
+      <option name="closed" value="true" />
+      <created>1740697371608</created>
+      <option name="number" value="00356" />
+      <option name="presentableId" value="LOCAL-00356" />
+      <option name="project" value="LOCAL" />
+      <updated>1740697371608</updated>
+    </task>
+    <task id="LOCAL-00357" summary="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer">
+      <option name="closed" value="true" />
+      <created>1740697430851</created>
+      <option name="number" value="00357" />
+      <option name="presentableId" value="LOCAL-00357" />
+      <option name="project" value="LOCAL" />
+      <updated>1740697430851</updated>
+    </task>
+    <task id="LOCAL-00358" summary="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer">
+      <option name="closed" value="true" />
+      <created>1740697557929</created>
+      <option name="number" value="00358" />
+      <option name="presentableId" value="LOCAL-00358" />
+      <option name="project" value="LOCAL" />
+      <updated>1740697557929</updated>
+    </task>
+    <task id="LOCAL-00359" summary="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working">
+      <option name="closed" value="true" />
+      <created>1740854820757</created>
+      <option name="number" value="00359" />
+      <option name="presentableId" value="LOCAL-00359" />
+      <option name="project" value="LOCAL" />
+      <updated>1740854820757</updated>
+    </task>
+    <option name="localTasksCounter" value="360" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.wav" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="app.properties" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="- v1.4.1-alpha&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
     <MESSAGE value="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Added 'Pull From Lookup' Button To Applicable Reports&#10;- Fixed Reserved Keyword Issue With SQL&#10;- Additional Checks For Validating Fields" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

@@ -37,8 +37,18 @@ public class updateStrings {
                 ImportExport.windowTitle=Layout Import/Export
                 ImportExport.applyLayout=Apply Layout
                 ImportExport.importFromFile=Import from File
+                LogBrowser.TotalReports=Total Reports:
+                LogBrowser.TableSettings=Table Settings
+                LogBrowser.ReportStatus=Status
+                LogBrowser.Refresh=Refresh
+                LogBrowser.HiddenColumns=Hidden Columns
+                LogBrowser.VisibleColumns=Visible Columns
+                LogBrowser.reportsInProgressHeader=Reports In Progress:
+                LogBrowser.TotalReports=Total Reports:
+                LogBrowser.closedReportsHeader=Reports Closed:
             
             REMOVED:
+            	LogBrowser.SubHeading=Log Browser
             
             
             Version: v1.4.0-alpha

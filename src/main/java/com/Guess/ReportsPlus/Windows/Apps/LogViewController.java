@@ -44,14 +44,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -81,11 +86,8 @@ import static com.Guess.ReportsPlus.util.Report.treeViewUtils.addCitationsToTabl
 public class LogViewController {
     public static LogViewController logController;
     TableView currentTable;
-
-    /*TODO: Locale for logviewer
-     *
-     * TODO: Database not closing properly somewhere; fix
-     *  */
+    List<Label> sideButtons = new ArrayList<>();
+    private Label activePane;
 
     @FXML
     private AnchorPane logPane;
@@ -140,7 +142,25 @@ public class LogViewController {
     @FXML
     private VBox customReportsVBox;
     @FXML
-    private BorderPane customReportPane;
+    private Label callout;
+    @FXML
+    private Label death;
+    @FXML
+    private Label arrest;
+    @FXML
+    private Label accident;
+    @FXML
+    private Label search;
+    @FXML
+    private Label patrol;
+    @FXML
+    private Label impound;
+    @FXML
+    private Label citation;
+    @FXML
+    private Label trafficstop;
+    @FXML
+    private Label incident;
 
     public void initialize() {
         initializeCalloutColumns(calloutTable);
@@ -154,11 +174,49 @@ public class LogViewController {
         initializeDeathReportColumns(deathReportTable);
         initializeAccidentColumns(accidentReportTable);
 
+        addHoverListener(calloutTable, callout);
+        addHoverListener(arrestTable, arrest);
+        addHoverListener(deathReportTable, death);
+        addHoverListener(accidentReportTable, accident);
+        addHoverListener(searchTable, search);
+        addHoverListener(patrolTable, patrol);
+        addHoverListener(trafficStopTable, trafficstop);
+        addHoverListener(citationTable, citation);
+        addHoverListener(impoundTable, impound);
+        addHoverListener(incidentTable, incident);
+
         Platform.runLater(() -> {
             loadLogs();
+
+            sideButtons.addAll(Arrays.asList(callout, arrest, citation, impound, incident, patrol, search, trafficstop, death, accident));
+            for (Node child : customReportsVBox.getChildren()) {
+                if (child instanceof Label) {
+                    System.out.println("added: " + ((Label) child).getText());
+                    sideButtons.add((Label) child);
+                }
+            }
+
+            List<Node> nodesToRemove = new ArrayList<>();
+            for (Node table : tableStackPane.getChildren()) {
+                if (table instanceof TableView) {
+                    nodesToRemove.add(table);
+                }
+            }
+
+            setActive(calloutTable, callout);
+
+            for (Label otherPane : sideButtons) {
+                otherPane.setStyle("-fx-background-color: transparent;");
+            }
+
+            activePane = callout;
+            callout.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
         });
 
         subHeading.setText(localization.getLocalizedMessage("LogBrowser.reportDatabaseLabel", "Report Database"));
+        totalReportsHeader.setText(localization.getLocalizedMessage("LogBrowser.TotalReports", "Total Reports:"));
+        reportsInProgressHeader.setText(localization.getLocalizedMessage("LogBrowser.reportsInProgressHeader", "Reports In Progress:"));
+        closedReportsHeader.setText(localization.getLocalizedMessage("LogBrowser.closedReportsHeader", "Reports Closed:"));
     }
 
     public void loadLogs() {
@@ -190,10 +248,11 @@ public class LogViewController {
                     if (isValidDatabase(dbFilePath, dbFile.getName())) {
                         log("LogViewer; [" + dbFile.getName() + "] Valid", LogUtils.Severity.INFO);
 
-                        Button reportBtn = new Button();
+                        Label reportBtn = new Label();
+                        reportBtn.setAlignment(Pos.CENTER);
                         reportBtn.setText(fileNameWithoutExt);
                         reportBtn.getStyleClass().add("side-button");
-                        reportBtn.setOnAction(event -> {
+                        reportBtn.setOnMouseClicked(event -> {
                             loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
                         });
 
@@ -208,21 +267,21 @@ public class LogViewController {
     }
 
     private void loadTableForCustomReport(String dbFilePath, String fileNameWithoutExt) {
+        AtomicBoolean firstLoad = new AtomicBoolean(false);
+
         Platform.runLater(() -> {
             String dataFolderPath = getCustomDataLogsFolderPath();
 
             String reportTitle = fileNameWithoutExt.trim();
 
-             /*
-       TODO: Store the columnLayoutData here
-        *  - If there is a valid columnLayoutData, load that
-        *  - Else, create a columnLayoutData and add it to layout table
-        *
-        * Column wont exist for columnLayoutData, so create that column
-      */
-
             currentTable = null;
-            customReportPane.getChildren().clear();
+            totalReportsLabel.setText("0");
+            reportsInProgressLabel.setText("0");
+            closedReportsLabel.setText("0");
+            tableStackPane.getChildren().clear();
+
+            BorderPane customReportPane = new BorderPane();
+            tableStackPane.getChildren().add(customReportPane);
 
             currentTable = new TableView();
             currentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -263,8 +322,15 @@ public class LogViewController {
                             StringBuilder columnLayoutBuilder = new StringBuilder();
                             Map<String, Map<String, List<String>>> elementMap = parseAndPopulateMap(layoutContent);
                             Map<String, List<String>> fieldNames = elementMap.getOrDefault("fieldNames", new HashMap<>());
+                            Map<String, List<String>> selectedTypes = elementMap.getOrDefault("selectedType", new HashMap<>());
+
                             for (String key : fieldNames.keySet()) {
-                                columnLayoutBuilder.append(key + "=true");
+                                String selectedType = selectedTypes.getOrDefault(key, List.of()).isEmpty() ? "" : selectedTypes.get(key).get(0);
+                                if ("NUMBER_FIELD".equalsIgnoreCase(selectedType)) {
+                                    columnLayoutBuilder.append(key + "=true");
+                                } else {
+                                    columnLayoutBuilder.append(key + "=false");
+                                }
                                 columnLayoutBuilder.append(",");
                             }
                             columnLayoutBuilder.append("report_status=true");
@@ -272,6 +338,8 @@ public class LogViewController {
                             columnLayoutContent = columnLayoutBuilder.toString();
                             columnRecord.put("columnLayoutData", columnLayoutBuilder.toString());
                             DatabaseLayout.addOrReplaceRecord(columnRecord);
+
+                            firstLoad.set(true);
                         }
                     }
                 } catch (SQLException e2) {
@@ -307,13 +375,46 @@ public class LogViewController {
                     }
 
                     for (String columnName : visibleColumns) {
-                        TableColumn<Map<String, Object>, String> column = new TableColumn<>(columnName);
-                        column.setCellValueFactory(param -> {
+                        TableColumn<Map<String, Object>, String> col;
+                        if (columnName.equals("report_status")) {
+                            col = new TableColumn<>(localization.getLocalizedMessage("LogBrowser.ReportStatus", "Status"));
+                        } else {
+                            col = new TableColumn<>(columnName);
+                        }
+                        col.setReorderable(false);
+                        col.setEditable(false);
+                        col.setSortable(false);
+                        col.setCellValueFactory(param -> {
                             Object value = param.getValue().get(columnName);
                             return new SimpleStringProperty(value != null ? value.toString() : "");
                         });
+                        col.setCellFactory(column -> new TableCell<Map<String, Object>, String>() {
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty || item == null) {
+                                    setText(null);
+                                    setGraphic(null);
+                                } else {
+                                    Label label = new Label(item);
+                                    String baseStyle = "-fx-background-radius: 7; -fx-padding: 1 10;" + commonTableFontSize;
+                                    if (item.trim().equalsIgnoreCase("In Progress")) {
+                                        label.setStyle(baseStyle + " -fx-background-color: rgba(211,94,243,0.78);-fx-text-fill: white;");
+                                    } else if (item.trim().equalsIgnoreCase("Reopened")) {
+                                        label.setStyle(baseStyle + " -fx-background-color: rgba(121,175,255,0.78);-fx-text-fill: white;");
+                                    } else if (item.trim().equalsIgnoreCase("Pending")) {
+                                        label.setStyle(baseStyle + " -fx-background-color: rgba(199,204,87,0.78);-fx-text-fill: white;");
+                                    } else if (item.trim().equalsIgnoreCase("Cancelled")) {
+                                        label.setStyle(baseStyle + " -fx-background-color: rgba(244,96,75,0.78);-fx-text-fill: white;");
+                                    } else {
+                                        label.setStyle(baseStyle);
+                                    }
+                                    setGraphic(label);
+                                }
+                            }
+                        });
 
-                        currentTable.getColumns().add(column);
+                        currentTable.getColumns().add(col);
                     }
 
                     Map<String, String> dataScheme = null;
@@ -334,7 +435,6 @@ public class LogViewController {
                         try {
                             currentTable.getItems().setAll(databaseData.getAllRecords());
 
-                            //TODO: Get status_field and make it look like that in the other report tables
                             Map<String, String> finalDataScheme = dataScheme;
                             Map<String, String> finalLayoutScheme = layoutScheme;
                             String finalFoundPrimaryKeyDataTable = foundPrimaryKeyDataTable;
@@ -414,13 +514,13 @@ public class LogViewController {
                     titledPane.setStyle("-fx-background-color: rgba(255,255,255,0.25);");
 
                     VBox visibleColumnsBox = new VBox(5);
-                    visibleColumnsBox.setMaxHeight(200);
+                    visibleColumnsBox.setMaxHeight(160);
                     Label visibleLabel = new Label(localization.getLocalizedMessage("LogBrowser.VisibleColumns", "Visible Columns"));
                     ListView<String> visibleColumnsList = new ListView<>();
                     visibleColumnsBox.getChildren().addAll(visibleLabel, visibleColumnsList);
 
                     VBox hiddenColumnsBox = new VBox(5);
-                    hiddenColumnsBox.setMaxHeight(200);
+                    hiddenColumnsBox.setMaxHeight(160);
                     Label hiddenLabel = new Label(localization.getLocalizedMessage("LogBrowser.HiddenColumns", "Hidden Columns"));
                     ListView<String> hiddenColumnsList = new ListView<>();
                     hiddenColumnsBox.getChildren().addAll(hiddenLabel, hiddenColumnsList);
@@ -437,14 +537,14 @@ public class LogViewController {
                     moveDownBtn.getStyleClass().add("small-button");
                     refreshBtn.getStyleClass().add("small-button");
 
-                    String buttonStyle = "-fx-font-weight: bold; -fx-min-width: 40px;";
+                    String buttonStyle = "-fx-min-width: 40px;";
                     moveRightBtn.setStyle(buttonStyle);
                     moveLeftBtn.setStyle(buttonStyle);
                     moveUpBtn.setStyle(buttonStyle);
                     moveDownBtn.setStyle(buttonStyle);
 
                     controlButtons.getChildren().addAll(moveUpBtn, moveDownBtn, moveLeftBtn, moveRightBtn, refreshBtn);
-                    controlButtons.setAlignment(Pos.CENTER);
+                    controlButtons.setAlignment(Pos.BOTTOM_CENTER);
 
                     ObservableList<String> visibleItems = FXCollections.observableArrayList(visibleColumns);
                     ObservableList<String> hiddenItems = FXCollections.observableArrayList(hiddenColumns);
@@ -489,7 +589,36 @@ public class LogViewController {
 
                     refreshBtn.setOnAction(e -> loadTableForCustomReport(dbFilePath, fileNameWithoutExt));
 
+                    if (firstLoad.get()) {
+                        log("LogViewer; First Initialization for [" + fileNameWithoutExt + "] Database, Refreshing..", LogUtils.Severity.INFO);
+                        loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
+                    }
+
                     customReportPane.setBottom(titledPane);
+
+                    ObservableList<Map<String, Object>> items = currentTable.getItems();
+
+                    Map<String, Long> statusCount = items.stream().map(row -> row.get("report_status")).filter(Objects::nonNull).map(Object::toString).collect(Collectors.groupingBy(status -> {
+                        if (status.equalsIgnoreCase("In Progress") || status.equalsIgnoreCase("Pending") || status.equalsIgnoreCase("Reopened")) {
+                            return "In Progress";
+                        } else if (status.equalsIgnoreCase("Cancelled") || status.equalsIgnoreCase("Closed")) {
+                            return "Closed";
+                        } else {
+                            return status;
+                        }
+                    }, Collectors.counting()));
+
+                    long totalReports = items.size();
+                    long reportsInProgress = statusCount.getOrDefault("In Progress", 0L);
+                    long closedReports = statusCount.getOrDefault("Closed", 0L);
+
+                    Platform.runLater(() -> {
+                        totalReportsLabel.setText(String.valueOf(totalReports));
+                        reportsInProgressLabel.setText(String.valueOf(reportsInProgress));
+                        closedReportsLabel.setText(String.valueOf(closedReports));
+                        reportsInProgressBar.setProgress((double) reportsInProgress / totalReports);
+                        closedReportsProgressBar.setProgress((double) closedReports / totalReports);
+                    });
 
                 } catch (Exception e) {
                     logError("LogViewer; Failed to initialize report columns", e);
@@ -582,11 +711,8 @@ public class LogViewController {
     }
 
     private void handleMoveColumn(String columnName, int direction, List<String> allColumns, String dataFolderPath, String reportTitle, Map<String, String> layoutScheme, String dbFilePath, String fileNameWithoutExt, ListView<String> visibleColumns, ListView<String> hiddenColumns, ObservableList<String> visibleItems, ObservableList<String> hiddenItems) {
-        log("Attempting to move column: " + columnName + " (direction: " + direction + ")", LogUtils.Severity.DEBUG);
-        log("Current column layout: " + allColumns, LogUtils.Severity.DEBUG);
-
         if (columnName == null || columnName.isEmpty()) {
-            log("Move operation aborted: No column selected", LogUtils.Severity.WARN);
+            log("LogViewer; Column Move operation aborted: No column selected", LogUtils.Severity.WARN);
             return;
         }
 
@@ -596,8 +722,6 @@ public class LogViewController {
                 visibleIndices.add(i);
             }
         }
-
-        log("Visible columns indices: " + visibleIndices, LogUtils.Severity.DEBUG);
 
         int currentVisibleIndex = -1;
         for (int i = 0; i < visibleIndices.size(); i++) {
@@ -609,34 +733,30 @@ public class LogViewController {
         }
 
         if (currentVisibleIndex == -1) {
-            log("Move failed: Column not found in visible columns - " + columnName, LogUtils.Severity.ERROR);
+            log("LogViewer; Column Move failed: Column not found in visible columns - " + columnName, LogUtils.Severity.ERROR);
             return;
         }
 
         int newVisibleIndex = currentVisibleIndex + direction;
         if (newVisibleIndex < 0 || newVisibleIndex >= visibleIndices.size()) {
-            log("Move out of bounds: " + newVisibleIndex + " (visible columns count: " + visibleIndices.size() + ")", LogUtils.Severity.WARN);
+            log("LogViewer; Column Move out of bounds: " + newVisibleIndex + " (visible columns count: " + visibleIndices.size() + ")", LogUtils.Severity.WARN);
             return;
         }
 
         int currentPhysicalIndex = visibleIndices.get(currentVisibleIndex);
         int newPhysicalIndex = visibleIndices.get(newVisibleIndex);
 
-        log(String.format("Moving from physical index %d to %d", currentPhysicalIndex, newPhysicalIndex), LogUtils.Severity.DEBUG);
+        log(String.format("LogViewer; Moving column from physical index %d to %d", currentPhysicalIndex, newPhysicalIndex), LogUtils.Severity.DEBUG);
 
         Collections.swap(allColumns, currentPhysicalIndex, newPhysicalIndex);
 
-        log("Updated column layout: " + allColumns, LogUtils.Severity.DEBUG);
-
         try {
             updateColumnLayout(allColumns, dataFolderPath, reportTitle, layoutScheme);
-            log("Successfully moved column: " + columnName, LogUtils.Severity.INFO);
         } catch (Exception e) {
             logError("Failed to update column layout after move", e);
             return;
         }
 
-        log("Refreshing table view...", LogUtils.Severity.DEBUG);
         loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
 
         refresh(visibleColumns, hiddenColumns, visibleItems, hiddenItems, allColumns);
@@ -1741,6 +1861,83 @@ public class LogViewController {
                 accidentReportTable.getSelectionModel().clearSelection();
             }
         }
+    }
+
+    private void addHoverListener(TableView table, Label pane) {
+        pane.setOnMouseEntered(event -> {
+            if (activePane == pane) {
+                return;
+            }
+            pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
+        });
+
+        pane.setOnMouseExited(event -> {
+            if (activePane == pane) {
+                return;
+            }
+            pane.setStyle("-fx-background-color: transparent;");
+        });
+
+        pane.setOnMouseClicked(event -> {
+
+            if (activePane == pane) {
+                return;
+            }
+            setActive(table, pane);
+
+            for (Label otherPane : sideButtons) {
+                otherPane.setStyle("-fx-background-color: transparent;");
+            }
+
+            activePane = pane;
+            pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
+        });
+    }
+
+    private <T> void setActive(TableView<T> table, Label sideButton) {
+        tableStackPane.getChildren().clear();
+        tableStackPane.getChildren().add(table);
+
+        ObservableList<T> items = table.getItems();
+
+        long closed = 0, inProg = 0, pending = 0, cancelled = 0, reOpen = 0;
+
+        for (T item : items) {
+            try {
+                Method getStatusMethod = item.getClass().getMethod("getStatus");
+                String status = (String) getStatusMethod.invoke(item);
+
+                if ("Closed".equalsIgnoreCase(status)) {
+                    closed++;
+                } else if ("In Progress".equalsIgnoreCase(status)) {
+                    inProg++;
+                } else if ("Pending".equalsIgnoreCase(status)) {
+                    pending++;
+                } else if ("Cancelled".equalsIgnoreCase(status)) {
+                    cancelled++;
+                } else if ("Reopened".equalsIgnoreCase(status)) {
+                    reOpen++;
+                }
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                logError("Could not obtain getStatus method for update: ", e);
+            }
+        }
+
+        long totalReports = (closed + inProg + reOpen + pending + cancelled);
+        long totalInProgress = (reOpen + inProg + pending);
+        long totalClosed = (closed + cancelled);
+
+        double closedPercentage = ((double) totalClosed / totalReports) * 100;
+        double inProgressPercentage = ((double) totalInProgress / totalReports) * 100;
+
+        closedReportsProgressBar.setProgress(closedPercentage / 100);
+        reportsInProgressBar.setProgress(inProgressPercentage / 100);
+
+        reportsInProgressLabel.setText(String.valueOf(totalInProgress));
+        closedReportsLabel.setText(String.valueOf(totalClosed));
+        totalReportsLabel.setText(String.valueOf(totalReports));
+
+        activePane = sideButton;
     }
 
     public TableView getArrestTable() {

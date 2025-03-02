@@ -25,8 +25,8 @@ public class nestedReportUtils {
 
     public static class SectionConfig {
         private final String sectionTitle;
-        private boolean hasButton;
         private final RowConfig[] rowConfigs;
+        private boolean hasButton;
 
         @JsonCreator
         public SectionConfig(@JsonProperty("sectionTitle") String sectionTitle, @JsonProperty("rowConfigs") RowConfig... rowConfigs) {

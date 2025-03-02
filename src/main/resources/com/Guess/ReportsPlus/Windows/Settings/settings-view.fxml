@@ -6,9 +6,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <center>
         <SplitPane dividerPositions="0.31831610044313147" BorderPane.alignment="CENTER">
@@ -61,6 +61,13 @@
                                         text="Desktop Settings"/>
                             </center>
                         </BorderPane>
+                        <BorderPane>
+                            <center>
+                                <Button fx:id="keybindSettingsBtn" alignment="CENTER" mnemonicParsing="false"
+                                        prefHeight="35.0" prefWidth="150.0" styleClass="panelButton"
+                                        text="Keybind Settings"/>
+                            </center>
+                        </BorderPane>
                         <Label fx:id="colorSettingsSubheader" styleClass="heading" text="COLOR SETTINGS">
                             <VBox.margin>
                                 <Insets left="15.0" top="20.0"/>
@@ -78,7 +85,7 @@
                                         text="Report Design"/>
                             </center>
                             <VBox.margin>
-                                <Insets />
+                                <Insets/>
                             </VBox.margin>
                         </BorderPane>
                         <BorderPane>
@@ -130,7 +137,7 @@
                 </VBox>
                 <AnchorPane style="-fx-background-color: transparent;">
                     <children>
-                        <ScrollPane fx:id="paneWindow" fitToHeight="true" fitToWidth="true"
+                        <ScrollPane fx:id="paneWindow" fitToHeight="true" fitToWidth="true" visible="false"
                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
@@ -161,7 +168,7 @@
                                                                text="Change application window startup size"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -193,7 +200,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ToggleButton fx:id="alwaysOnTopCheckbox"
@@ -222,7 +229,7 @@
                                                                text="Toggle whether IDs will pop up when recieved"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ToggleButton fx:id="enableIDPopupsCheckbox"
@@ -254,7 +261,7 @@
                                                                text="Duration ID window will be displayed"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -291,7 +298,7 @@
                                                                text="Toggle whether callouts will pop up when recieved"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -317,7 +324,7 @@
                                                                text="Duration callout window will be displayed"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -356,7 +363,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -383,7 +390,7 @@
                                                                text="Duration traffic stop window will be shown"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -440,7 +447,7 @@
                                                                text="Toggle whether ALL notifications will be enabled"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -463,7 +470,7 @@
                                                                text="Time it takes for notifications to fade away (Sec)"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -498,7 +505,7 @@
                                                                text="Time notification is displayed before fading (Sec)"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -534,7 +541,7 @@
                                                                text="Notification to modify below" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ComboBox fx:id="notificationComboBox" GridPane.columnIndex="1"
@@ -542,7 +549,7 @@
                                                                   GridPane.valignment="CENTER"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -562,7 +569,7 @@
                                                                styleClass="paneSubtext" text="Location of notifications"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ComboBox fx:id="notiPosCombobox" GridPane.columnIndex="1"
@@ -588,7 +595,7 @@
                                                                text="Main color of the notification"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="notiPrimPicker" minWidth="100.0"
@@ -615,7 +622,7 @@
                                                                text="Color of the text on the notification"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="notiTextColorPicker"
@@ -631,7 +638,7 @@
                                                         <Label fx:id="notiPreviewLabel" styleClass="paneHeading"
                                                                text="Preview:" BorderPane.alignment="CENTER_LEFT">
                                                             <BorderPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </BorderPane.margin>
                                                             <padding>
                                                                 <Insets bottom="10.0"/>
@@ -639,7 +646,7 @@
                                                         </Label>
                                                     </top>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </BorderPane>
                                                 <HBox alignment="CENTER" spacing="45.0" VBox.vgrow="SOMETIMES">
@@ -651,7 +658,7 @@
                                                                 text="Reset Defaults" HBox.hgrow="SOMETIMES"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </HBox>
                                             </children>
@@ -673,45 +680,7 @@
                                               AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
                                             <children>
-                                                <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0"/>
-                                                        <ColumnConstraints hgrow="ALWAYS"/>
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
-                                                        <RowConstraints minHeight="-Infinity"/>
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <Label fx:id="inputLockKeybindLabel" alignment="CENTER"
-                                                               styleClass="paneHeading" text="Input Lock Keybind"
-                                                               GridPane.valignment="CENTER"/>
-                                                        <Label fx:id="inputLockKeybindTT" alignment="CENTER"
-                                                               styleClass="paneSubtext"
-                                                               text="Keybind to use for activating desktop input lock"
-                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                                            <GridPane.margin>
-                                                                <Insets />
-                                                            </GridPane.margin>
-                                                        </Label>
-                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
-                                                              GridPane.columnSpan="2147483647"
-                                                              GridPane.rowSpan="2147483647">
-                                                            <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
-                                                                    <font>
-                                                                        <Font name="Inter 24pt Regular" size="13.0"/>
-                                                                    </font>
-                                                                </Label>
-                                                                <TextField fx:id="inputLockKeybindField"
-                                                                           maxWidth="-Infinity" prefWidth="100.0"
-                                                                           promptText="Enter Keybind..."
-                                                                           HBox.hgrow="SOMETIMES"/>
-                                                            </children>
-                                                        </HBox>
-                                                    </children>
-                                                </GridPane>
-                                                <AnchorPane />
+                                                <AnchorPane VBox.vgrow="SOMETIMES"/>
                                                 <GridPane maxHeight="65.0" minHeight="-Infinity" VBox.vgrow="SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
@@ -739,7 +708,7 @@
                                                                text="Desktop background will be set to a solid color"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -763,7 +732,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -802,7 +771,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -826,7 +795,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <Button fx:id="chooseImageFileBtn" mnemonicParsing="false"
@@ -856,7 +825,7 @@
                                                                text="Set the color of the app name text"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="appTextPicker" prefWidth="150.0"
@@ -886,7 +855,7 @@
                                                                text="Set the color of the top information bar"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="topBarPicker" prefWidth="150.0"
@@ -914,7 +883,7 @@
                                                                text="Set the color of the text on the top bar"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="topBarTextPicker" prefWidth="150.0"
@@ -924,7 +893,7 @@
                                                                      GridPane.valignment="CENTER"/>
                                                     </children>
                                                 </GridPane>
-                                                <AnchorPane />
+                                                <AnchorPane/>
                                                 <GridPane maxHeight="65.0" minHeight="-Infinity">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
@@ -943,7 +912,7 @@
                                                                text="Set the color of the bottom task bar"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="taskBarClrPicker" prefWidth="150.0"
@@ -971,7 +940,7 @@
                                                                text="Set the color of the text on the bottom taskbar"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ColorPicker fx:id="taskBarTextClrPicker" prefWidth="150.0"
@@ -1020,7 +989,7 @@
                                                                text="Preset designs for reports (Replaces what you have)"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <ComboBox fx:id="presetComboBoxReport" GridPane.columnIndex="1"
@@ -1028,7 +997,7 @@
                                                                   GridPane.valignment="CENTER"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -1049,7 +1018,7 @@
                                                                text="Set the text color of textfields in the report window"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1080,7 +1049,7 @@
                                                                text="Set the color of the heading / subheading text"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1111,7 +1080,7 @@
                                                                text="Set the color of the report window background"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1142,7 +1111,7 @@
                                                                text="Set the color of the fields in the report window"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1172,7 +1141,7 @@
                                                                text="Set the color when selecting a button / field"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1204,7 +1173,7 @@
                                                                text="Restore the default report color settings"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1255,7 +1224,7 @@
                                                                text="Preset designs for application (Replaces what you have)"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" GridPane.columnIndex="1"
@@ -1267,7 +1236,7 @@
                                                         </HBox>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -1288,7 +1257,7 @@
                                                                text="Set the text color of textfields in the application windows"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1319,7 +1288,7 @@
                                                                text="Set the primary color of the application"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1348,7 +1317,7 @@
                                                                text="Set the secondary color of the application"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1377,7 +1346,7 @@
                                                                text="Set the accent color of the application"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1406,7 +1375,7 @@
                                                                text="Set the background color of the application"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1437,7 +1406,7 @@
                                                                text="Restore the default application color settings"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1493,7 +1462,7 @@
                                                                text="Toggler whether application will try to autoconnect"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -1516,7 +1485,7 @@
                                                                text="Default port for the autoconnect broadcast"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1549,7 +1518,7 @@
                                                                text="Timeout for server when connection is lost (ms)"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
@@ -1590,7 +1559,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -1636,7 +1605,7 @@
                                                                 onAction="#installUpdateSounds" text="INSTALL/UPDATE"
                                                                 GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Button>
                                                     </children>
@@ -1666,7 +1635,7 @@
                                                                 onAction="#installUpdateImages" text="INSTALL/UPDATE"
                                                                 GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Button>
                                                     </children>
@@ -1698,12 +1667,12 @@
                                                                text="Toggle whether ALL sounds will be enabled"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -1730,7 +1699,7 @@
                                                                text="Toggle whether ped/veh images will be shown in lookup"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
@@ -1764,12 +1733,12 @@
                                                                text="Sound when suspect has warnings when looked up"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -1795,12 +1764,12 @@
                                                                text="Sound when report is created" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -1827,12 +1796,12 @@
                                                                text="Sound when a callout is recieved"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
@@ -1859,12 +1828,12 @@
                                                                text="Sound when report is deleted" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                             </children>
@@ -1904,7 +1873,7 @@
                                                                text="Delete all saved logs in log browser"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <Button fx:id="clrLogsBtn" mnemonicParsing="false"
@@ -1913,7 +1882,7 @@
                                                                 GridPane.rowSpan="2" GridPane.valignment="CENTER"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane>
@@ -1934,7 +1903,7 @@
                                                                text="Delete all save data / start fresh"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <Button fx:id="clrSaveDataBtn" mnemonicParsing="false"
@@ -1944,7 +1913,7 @@
                                                                 GridPane.valignment="CENTER"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets/>
                                                     </VBox.margin>
                                                 </GridPane>
                                                 <GridPane>
@@ -1967,7 +1936,7 @@
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <Button fx:id="clrLookupDataBtn" mnemonicParsing="false"
@@ -1995,7 +1964,7 @@
                                                                text="Center all windows on the screen in case of issues"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <Button fx:id="centerWindowsBtn" mnemonicParsing="false"
@@ -2022,7 +1991,7 @@
                                                                text="Reset apps to their default positions"
                                                                GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
-                                                                <Insets />
+                                                                <Insets/>
                                                             </GridPane.margin>
                                                         </Label>
                                                         <Button fx:id="resetAppPosBtn" mnemonicParsing="false"
@@ -2037,6 +2006,229 @@
                                             </children>
                                         </VBox>
                                     </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
+                        <ScrollPane fx:id="paneKeybind" fitToHeight="true" fitToWidth="true" layoutX="10.0"
+                                    layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <content>
+                                <AnchorPane>
+                                    <children>
+                                        <Label fx:id="keybindSettingsHeader" alignment="CENTER"
+                                               styleClass="settingsLabel" text="KEYBIND SETTINGS"
+                                               AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
+                                        <VBox layoutX="25.0" layoutY="50.0" spacing="35.0"
+                                              AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0"
+                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+                                            <children>
+                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0"
+                                                                           prefWidth="210.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="appFullscreenKeybindLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Application Fullscreen"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="appFullscreenKeybindTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Keybind for toggling fullscreen application"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                                              GridPane.columnSpan="2147483647"
+                                                              GridPane.rowSpan="2147483647">
+                                                            <children>
+                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                    <font>
+                                                                        <Font name="Inter 24pt Regular" size="13.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField fx:id="appFullscreenKeybindField"
+                                                                           maxWidth="-Infinity" prefWidth="100.0"
+                                                                           promptText="Enter Keybind..."
+                                                                           HBox.hgrow="SOMETIMES"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0"
+                                                                           prefWidth="210.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="minimizeKeybindLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Minimize Window"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="minimizeKeybindTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Keybind to use to minimize the selected window"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                                              GridPane.columnSpan="2147483647"
+                                                              GridPane.rowSpan="2147483647">
+                                                            <children>
+                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                    <font>
+                                                                        <Font name="Inter 24pt Regular" size="13.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField fx:id="minimizeKeybindField"
+                                                                           maxWidth="-Infinity" prefWidth="100.0"
+                                                                           promptText="Enter Keybind..."
+                                                                           HBox.hgrow="SOMETIMES"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0"
+                                                                           prefWidth="210.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="maximizeKeybindLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Toggle Maximize Window"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="maximizeKeybindTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Keybind to toggle maximize for the selected window"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                                              GridPane.columnSpan="2147483647"
+                                                              GridPane.rowSpan="2147483647">
+                                                            <children>
+                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                    <font>
+                                                                        <Font name="Inter 24pt Regular" size="13.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField fx:id="maximizeKeybindField"
+                                                                           maxWidth="-Infinity" prefWidth="100.0"
+                                                                           promptText="Enter Keybind..."
+                                                                           HBox.hgrow="SOMETIMES"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0"
+                                                                           prefWidth="210.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="closeKeybindLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Close Window"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="closeKeybindTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Keybind to use to close the selected window"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                                              GridPane.columnSpan="2147483647"
+                                                              GridPane.rowSpan="2147483647">
+                                                            <children>
+                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                    <font>
+                                                                        <Font name="Inter 24pt Regular" size="13.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField fx:id="closeKeybindField"
+                                                                           maxWidth="-Infinity" prefWidth="100.0"
+                                                                           promptText="Enter Keybind..."
+                                                                           HBox.hgrow="SOMETIMES"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane maxHeight="65.0" minHeight="-Infinity">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="210.0"
+                                                                           prefWidth="210.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="inputLockKeybindLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Input Lock Keybind"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="inputLockKeybindTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Keybind to use for activating desktop input lock"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                                              GridPane.columnSpan="2147483647"
+                                                              GridPane.rowSpan="2147483647">
+                                                            <children>
+                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                    <font>
+                                                                        <Font name="Inter 24pt Regular" size="13.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField fx:id="inputLockKeybindField"
+                                                                           maxWidth="-Infinity" prefWidth="100.0"
+                                                                           promptText="Enter Keybind..."
+                                                                           HBox.hgrow="SOMETIMES"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
+                                                <AnchorPane VBox.vgrow="SOMETIMES"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="25.0"/>
+                                    </padding>
                                 </AnchorPane>
                             </content>
                         </ScrollPane>

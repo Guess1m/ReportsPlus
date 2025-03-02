@@ -20,7 +20,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -39,7 +38,6 @@ import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.a
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
-import static com.Guess.ReportsPlus.Desktop.mainDesktopController.isInputLocked;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopBackground;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
@@ -486,6 +484,36 @@ public class settingsController {
     private Label useGameTimeTT;
     @javafx.fxml.FXML
     private Button probabilitySettingsButton;
+    @javafx.fxml.FXML
+    private Button keybindSettingsBtn;
+    @javafx.fxml.FXML
+    private Label keybindSettingsHeader;
+    @javafx.fxml.FXML
+    private ScrollPane paneKeybind;
+    @javafx.fxml.FXML
+    private TextField maximizeKeybindField;
+    @javafx.fxml.FXML
+    private Label closeKeybindTT;
+    @javafx.fxml.FXML
+    private Label maximizeKeybindLabel;
+    @javafx.fxml.FXML
+    private Label closeKeybindLabel;
+    @javafx.fxml.FXML
+    private Label minimizeKeybindLabel;
+    @javafx.fxml.FXML
+    private Label appFullscreenKeybindTT;
+    @javafx.fxml.FXML
+    private TextField appFullscreenKeybindField;
+    @javafx.fxml.FXML
+    private TextField minimizeKeybindField;
+    @javafx.fxml.FXML
+    private Label appFullscreenKeybindLabel;
+    @javafx.fxml.FXML
+    private Label minimizeKeybindTT;
+    @javafx.fxml.FXML
+    private TextField closeKeybindField;
+    @javafx.fxml.FXML
+    private Label maximizeKeybindTT;
 
     public static void loadTheme() throws IOException {
         String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -1172,9 +1200,13 @@ public class settingsController {
 
         probabilitySettingsButton.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
 
+        //Keybind
+        keybindSettingsHeader.setText(localization.getLocalizedMessage("Settings.KeybindSettingsHeader", "KEYBIND SETTINGS"));
+
         //LeftButtons
         windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
         notiSettingsBtn.setText(localization.getLocalizedMessage("Settings.NotiSettingsBtn", "Notification Settings"));
+        keybindSettingsBtn.setText(localization.getLocalizedMessage("Settings.KeybindSettingsBtn", "Keybind Settings"));
         desktopSettingsBtn.setText(localization.getLocalizedMessage("Settings.DesktopSettingsBtn", "Desktop Settings"));
         reportDesignBtn.setText(localization.getLocalizedMessage("Settings.ReportDesignBtn", "Report Design"));
         appDesignBtn.setText(localization.getLocalizedMessage("Settings.AppDesignBtn", "Application Design"));
@@ -1421,6 +1453,9 @@ public class settingsController {
         reportDesignBtn.setOnAction(actionEvent -> {
             setActive(paneReport);
         });
+        keybindSettingsBtn.setOnAction(actionEvent -> {
+            setActive(paneKeybind);
+        });
         windowSettingsBtn.setOnAction(actionEvent -> {
             setActive(paneWindow);
         });
@@ -1441,6 +1476,7 @@ public class settingsController {
         paneWindow.setVisible(false);
         paneNetworking.setVisible(false);
         paneDesktop.setVisible(false);
+        paneKeybind.setVisible(false);
         paneAudio.setDisable(true);
         paneApplication.setDisable(true);
         paneDeveloper.setDisable(true);
@@ -1449,6 +1485,7 @@ public class settingsController {
         paneWindow.setDisable(true);
         paneNetworking.setDisable(true);
         paneDesktop.setDisable(true);
+        paneKeybind.setDisable(true);
     }
 
     private void setActive(ScrollPane pane) {
@@ -1463,6 +1500,10 @@ public class settingsController {
         broadcastPortField.setText(ConfigReader.configRead("connectionSettings", "broadcastPort"));
         socketTimeoutField.setText(ConfigReader.configRead("connectionSettings", "socketTimeout"));
         inputLockKeybindField.setText(ConfigReader.configRead("keybindings", "inputLock"));
+        appFullscreenKeybindField.setText(ConfigReader.configRead("keybindings", "applicationFullscreen"));
+        closeKeybindField.setText(ConfigReader.configRead("keybindings", "closeWindow"));
+        minimizeKeybindField.setText(ConfigReader.configRead("keybindings", "minimizeWindow"));
+        maximizeKeybindField.setText(ConfigReader.configRead("keybindings", "toggleMaximize"));
 
         audioLookupWarningCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
 
@@ -1605,6 +1646,7 @@ public class settingsController {
 
             ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
         });
+
         inputLockKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
             String character = event.getCharacter();
             String text = inputLockKeybindField.getText();
@@ -1616,28 +1658,66 @@ public class settingsController {
                 return;
             }
 
-            mainDesktopControllerObj.getMainDesktop().setOnKeyPressed(event2 -> {
-                KeyCode keyCode = null;
-                try {
-                    keyCode = KeyCode.valueOf(ConfigReader.configRead("keybindings", "inputLock"));
-                } catch (IOException e) {
-                    logError("Unable to read keybindings: ", e);
-                }
-
-                if (event2.isControlDown() && event2.getCode() == keyCode) {
-                    isInputLocked = !isInputLocked;
-                    if (isInputLocked) {
-                        log("Input Locked!", LogUtils.Severity.INFO);
-                    } else {
-                        log("Input Unlocked!", LogUtils.Severity.INFO);
-                    }
-                    mainDesktopControllerObj.getInputLock().setDisable(isInputLocked);
-                    mainDesktopControllerObj.getMainDesktop().requestFocus();
-                }
-            });
             ConfigWriter.configwrite("keybindings", "inputLock", newText.toUpperCase());
-            log("Wrote new inputLock keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+            log("Keybinds; Wrote new inputLock keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
 
+        });
+        closeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            String character = event.getCharacter();
+            String text = closeKeybindField.getText();
+
+            String newText = text + character;
+
+            if (newText.length() > 1) {
+                event.consume();
+                return;
+            }
+
+            ConfigWriter.configwrite("keybindings", "closeWindow", newText.toUpperCase());
+            log("Keybinds; Wrote new closeWindow keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+        });
+        minimizeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            String character = event.getCharacter();
+            String text = minimizeKeybindField.getText();
+
+            String newText = text + character;
+
+            if (newText.length() > 1) {
+                event.consume();
+                return;
+            }
+
+            ConfigWriter.configwrite("keybindings", "minimizeWindow", newText.toUpperCase());
+            log("Keybinds; Wrote new minimizeWindow keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+
+        });
+        maximizeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            String character = event.getCharacter();
+            String text = maximizeKeybindField.getText();
+
+            String newText = text + character;
+
+            if (newText.length() > 1) {
+                event.consume();
+                return;
+            }
+
+            ConfigWriter.configwrite("keybindings", "toggleMaximize", newText.toUpperCase());
+            log("Keybinds; Wrote new toggleMaximize keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+        });
+        appFullscreenKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            String character = event.getCharacter();
+            String text = appFullscreenKeybindField.getText();
+
+            String newText = text + character;
+
+            if (newText.length() > 1) {
+                event.consume();
+                return;
+            }
+
+            ConfigWriter.configwrite("keybindings", "applicationFullscreen", newText.toUpperCase());
+            log("Keybinds; Wrote new applicationFullscreen keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
         });
     }
 

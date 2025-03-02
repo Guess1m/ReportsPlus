@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.logs.TrafficStop;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
-import com.Guess.ReportsPlus.Windows.Apps.LogViewController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils;
 import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils;

@@ -19,11 +19,15 @@ import java.util.Arrays;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.*;
 import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
+import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.loadJsonData;
 
 public class Launcher {
     public static Localization localization;
 
     public static void main(String[] args) {
+        initLogging();
+
+        loadJsonData();
 
         try {
             String filePath = controllerUtils.getJarPath() + File.separator + "output.log";

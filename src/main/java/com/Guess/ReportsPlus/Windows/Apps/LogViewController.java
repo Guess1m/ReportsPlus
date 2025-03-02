@@ -162,6 +162,140 @@ public class LogViewController {
     @FXML
     private Label incident;
 
+    public static void patrolLogUpdate() {
+        if (logController == null) {
+            return;
+        }
+        try {
+            PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
+            List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
+            if (patrolReportList == null) {
+                patrolReportList = new ArrayList<>();
+            }
+            logController.getPatrolTable().getItems().clear();
+            logController.getPatrolTable().getItems().addAll(patrolReportList);
+        } catch (JAXBException e) {
+            logError("Error loading PatrolReports: ", e);
+        }
+    }
+
+    public static void calloutLogUpdate() {
+        if (logController == null) return;
+        try {
+            CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
+            List<CalloutReport> logEntries = calloutReports.getCalloutReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getCalloutTable().getItems().clear();
+            logController.getCalloutTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading CalloutReports: ", e);
+        }
+    }
+
+    public static void citationLogUpdate() {
+        if (logController == null) return;
+        try {
+            TrafficCitationReports reports = TrafficCitationUtils.loadTrafficCitationReports();
+            List<TrafficCitationReport> logEntries = reports.getTrafficCitationReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getCitationTable().getItems().clear();
+            logController.getCitationTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading TrafficCitationReports: ", e);
+        }
+    }
+
+    public static void arrestLogUpdate() {
+        if (logController == null) return;
+        try {
+            ArrestReports reports = ArrestReportUtils.loadArrestReports();
+            List<ArrestReport> logEntries = reports.getArrestReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getArrestTable().getItems().clear();
+            logController.getArrestTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading ArrestReports: ", e);
+        }
+    }
+
+    public static void searchLogUpdate() {
+        if (logController == null) return;
+        try {
+            SearchReports reports = SearchReportUtils.loadSearchReports();
+            List<SearchReport> logEntries = reports.getSearchReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getSearchTable().getItems().clear();
+            logController.getSearchTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading SearchReports: ", e);
+        }
+    }
+
+    public static void incidentLogUpdate() {
+        if (logController == null) return;
+        try {
+            IncidentReports reports = IncidentReportUtils.loadIncidentReports();
+            List<IncidentReport> logEntries = reports.getIncidentReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getIncidentTable().getItems().clear();
+            logController.getIncidentTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading IncidentReports: ", e);
+        }
+    }
+
+    public static void trafficStopLogUpdate() {
+        if (logController == null) return;
+        try {
+            TrafficStopReports reports = TrafficStopReportUtils.loadTrafficStopReports();
+            List<TrafficStopReport> logEntries = reports.getTrafficStopReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getTrafficStopTable().getItems().clear();
+            logController.getTrafficStopTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading TrafficStopReports: ", e);
+        }
+    }
+
+    public static void impoundLogUpdate() {
+        if (logController == null) return;
+        try {
+            ImpoundReports reports = ImpoundReportUtils.loadImpoundReports();
+            List<ImpoundReport> logEntries = reports.getImpoundReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getImpoundTable().getItems().clear();
+            logController.getImpoundTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading ImpoundReports: ", e);
+        }
+    }
+
+    public static void deathReportLogUpdate() {
+        if (logController == null) return;
+        try {
+            DeathReports reports = DeathReportUtils.loadDeathReports();
+            List<DeathReport> logEntries = reports.getDeathReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getDeathReportTable().getItems().clear();
+            logController.getDeathReportTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading DeathReports: ", e);
+        }
+    }
+
+    public static void accidentReportUpdate() {
+        if (logController == null) return;
+        try {
+            AccidentReports reports = AccidentReportUtils.loadAccidentReports();
+            List<AccidentReport> logEntries = reports.getAccidentReportList();
+            if (logEntries == null) logEntries = new ArrayList<>();
+            logController.getAccidentReportTable().getItems().clear();
+            logController.getAccidentReportTable().getItems().addAll(logEntries);
+        } catch (JAXBException e) {
+            logError("Error loading AccidentReports: ", e);
+        }
+    }
+
     public void initialize() {
         initializeCalloutColumns(calloutTable);
         initializeArrestColumns(arrestTable);
@@ -191,7 +325,6 @@ public class LogViewController {
             sideButtons.addAll(Arrays.asList(callout, arrest, citation, impound, incident, patrol, search, trafficstop, death, accident));
             for (Node child : customReportsVBox.getChildren()) {
                 if (child instanceof Label) {
-                    System.out.println("added: " + ((Label) child).getText());
                     sideButtons.add((Label) child);
                 }
             }
@@ -761,140 +894,6 @@ public class LogViewController {
 
         refresh(visibleColumns, hiddenColumns, visibleItems, hiddenItems, allColumns);
 
-    }
-
-    public static void patrolLogUpdate() {
-        if (logController == null) {
-            return;
-        }
-        try {
-            PatrolReports patrolReports = PatrolReportUtils.loadPatrolReports();
-            List<PatrolReport> patrolReportList = patrolReports.getPatrolReportList();
-            if (patrolReportList == null) {
-                patrolReportList = new ArrayList<>();
-            }
-            logController.getPatrolTable().getItems().clear();
-            logController.getPatrolTable().getItems().addAll(patrolReportList);
-        } catch (JAXBException e) {
-            logError("Error loading PatrolReports: ", e);
-        }
-    }
-
-    public static void calloutLogUpdate() {
-        if (logController == null) return;
-        try {
-            CalloutReports calloutReports = CalloutReportUtils.loadCalloutReports();
-            List<CalloutReport> logEntries = calloutReports.getCalloutReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getCalloutTable().getItems().clear();
-            logController.getCalloutTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading CalloutReports: ", e);
-        }
-    }
-
-    public static void citationLogUpdate() {
-        if (logController == null) return;
-        try {
-            TrafficCitationReports reports = TrafficCitationUtils.loadTrafficCitationReports();
-            List<TrafficCitationReport> logEntries = reports.getTrafficCitationReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getCitationTable().getItems().clear();
-            logController.getCitationTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading TrafficCitationReports: ", e);
-        }
-    }
-
-    public static void arrestLogUpdate() {
-        if (logController == null) return;
-        try {
-            ArrestReports reports = ArrestReportUtils.loadArrestReports();
-            List<ArrestReport> logEntries = reports.getArrestReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getArrestTable().getItems().clear();
-            logController.getArrestTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading ArrestReports: ", e);
-        }
-    }
-
-    public static void searchLogUpdate() {
-        if (logController == null) return;
-        try {
-            SearchReports reports = SearchReportUtils.loadSearchReports();
-            List<SearchReport> logEntries = reports.getSearchReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getSearchTable().getItems().clear();
-            logController.getSearchTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading SearchReports: ", e);
-        }
-    }
-
-    public static void incidentLogUpdate() {
-        if (logController == null) return;
-        try {
-            IncidentReports reports = IncidentReportUtils.loadIncidentReports();
-            List<IncidentReport> logEntries = reports.getIncidentReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getIncidentTable().getItems().clear();
-            logController.getIncidentTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading IncidentReports: ", e);
-        }
-    }
-
-    public static void trafficStopLogUpdate() {
-        if (logController == null) return;
-        try {
-            TrafficStopReports reports = TrafficStopReportUtils.loadTrafficStopReports();
-            List<TrafficStopReport> logEntries = reports.getTrafficStopReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getTrafficStopTable().getItems().clear();
-            logController.getTrafficStopTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading TrafficStopReports: ", e);
-        }
-    }
-
-    public static void impoundLogUpdate() {
-        if (logController == null) return;
-        try {
-            ImpoundReports reports = ImpoundReportUtils.loadImpoundReports();
-            List<ImpoundReport> logEntries = reports.getImpoundReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getImpoundTable().getItems().clear();
-            logController.getImpoundTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading ImpoundReports: ", e);
-        }
-    }
-
-    public static void deathReportLogUpdate() {
-        if (logController == null) return;
-        try {
-            DeathReports reports = DeathReportUtils.loadDeathReports();
-            List<DeathReport> logEntries = reports.getDeathReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getDeathReportTable().getItems().clear();
-            logController.getDeathReportTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading DeathReports: ", e);
-        }
-    }
-
-    public static void accidentReportUpdate() {
-        if (logController == null) return;
-        try {
-            AccidentReports reports = AccidentReportUtils.loadAccidentReports();
-            List<AccidentReport> logEntries = reports.getAccidentReportList();
-            if (logEntries == null) logEntries = new ArrayList<>();
-            logController.getAccidentReportTable().getItems().clear();
-            logController.getAccidentReportTable().getItems().addAll(logEntries);
-        } catch (JAXBException e) {
-            logError("Error loading AccidentReports: ", e);
-        }
     }
 
     @FXML

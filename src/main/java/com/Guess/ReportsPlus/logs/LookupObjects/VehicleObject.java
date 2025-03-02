@@ -20,6 +20,10 @@ public class VehicleObject {
     String color;
     String vin;
 
+    String ownerModel;
+    String ownerAddress;
+    String ownerGender;
+
     String driver;
 
     public VehicleObject(String licensePlate) {
@@ -34,6 +38,10 @@ public class VehicleObject {
         String insexp = vehDataMap.getOrDefault("insexp", "Not Found");
         String regexp = vehDataMap.getOrDefault("regexp", "Not Found");
         String driver = vehDataMap.getOrDefault("driver", "Not Found");
+
+        String ownerModel = vehDataMap.getOrDefault("ownermodel", "Not Found");
+        String ownerAddress = vehDataMap.getOrDefault("owneraddress", "Not Found");
+        String ownerGender = vehDataMap.getOrDefault("ownergender", "Not Found");
 
         String model = vehDataMap.getOrDefault("model", "Not Found");
         String isStolen = vehDataMap.getOrDefault("isstolen", "Not Found");
@@ -57,6 +65,9 @@ public class VehicleObject {
         this.registration = registration;
         this.insurance = insurance;
         this.owner = owner;
+        this.ownerModel = ownerModel;
+        this.ownerAddress = ownerAddress;
+        this.ownerGender = ownerGender;
     }
 
     private String getColorFromRGB(String colorValue) {
@@ -73,6 +84,18 @@ public class VehicleObject {
 
     public String getInsurance() {
         return insurance;
+    }
+
+    public String getOwnerAddress() {
+        return ownerAddress;
+    }
+
+    public String getOwnerGender() {
+        return ownerGender;
+    }
+
+    public String getOwnerModel() {
+        return ownerModel;
     }
 
     public String getIsPolice() {

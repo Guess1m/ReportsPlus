@@ -221,6 +221,10 @@ public class ConfigReader {
 
         checkAndSetDefaultValue("update", "type", "client");
         checkAndSetDefaultValue("keybindings", "inputLock", "H");
+        checkAndSetDefaultValue("keybindings", "closeWindow", "W");
+        checkAndSetDefaultValue("keybindings", "minimizeWindow", "MINUS");
+        checkAndSetDefaultValue("keybindings", "toggleMaximize", "PLUS");
+        checkAndSetDefaultValue("keybindings", "applicationFullscreen", "F11");
 
         log("=========================================================", LogUtils.Severity.INFO);
     }

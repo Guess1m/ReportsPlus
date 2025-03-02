@@ -9,11 +9,8 @@
     <name>ReportsPlus</name>
 
     <!-- Packaging Commands
-
     arm64/windows: mvn clean install -P mac-arm64
-
     x64/WIndows: mvn clean install -P mac-x64
-
     -->
 
     <properties>
@@ -71,7 +68,6 @@
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

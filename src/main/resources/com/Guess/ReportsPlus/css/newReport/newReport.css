@@ -12,6 +12,7 @@ Button {
     -fx-border-radius: 7px;
     -fx-background-radius: 7px;
     -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 12px;
 }
 
 Button:hover {

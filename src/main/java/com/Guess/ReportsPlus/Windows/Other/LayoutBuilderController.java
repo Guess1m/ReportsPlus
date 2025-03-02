@@ -9,6 +9,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +64,8 @@ public class LayoutBuilderController {
     private Button customDropdownButton;
     @FXML
     private Button importExportButton;
+    @FXML
+    private Label heading;
 
     public static String extractNumberField(String jsonString) {
         ObjectMapper mapper = new ObjectMapper();
@@ -201,6 +205,15 @@ public class LayoutBuilderController {
         customDropdownButton.setOnAction(event -> {
             openCustomDropdownWindow();
         });
+
+        addLocale();
+    }
+
+    private void addLocale() {
+        customDropdownButton.setText(localization.getLocalizedMessage("LayoutBuilder.CustomDropdownButton", "Custom Dropdowns"));
+        importExportButton.setText(localization.getLocalizedMessage("LayoutBuilder.ImportExportButton", "Import / Export"));
+        heading.setText(localization.getLocalizedMessage("LayoutBuilder.Heading", "Custom Layout Designer"));
+        buildLayoutButton.setText(localization.getLocalizedMessage("LayoutBuilder.BuildLayoutButton", "View Report Layout"));
     }
 
     private void handleImportExportClick(ActionEvent actionEvent) {
@@ -348,6 +361,12 @@ public class LayoutBuilderController {
         Button deleteBtn = new Button(localization.getLocalizedMessage("Settings.NotiDeleteButton", "Delete"));
         deleteBtn.setDisable(true);
 
+        Button importBtn = new Button("Import");
+        Button exportBtn = new Button("Export");
+
+        HBox selectorBox = new HBox(10, dropdownSelector, importBtn, exportBtn);
+        selectorBox.setAlignment(Pos.CENTER_LEFT);
+
         BiFunction<String, Boolean, HBox> createItemRow = (value, deletable) -> {
             HBox row = new HBox(5);
             row.setAlignment(Pos.CENTER_LEFT);
@@ -357,10 +376,13 @@ public class LayoutBuilderController {
             HBox.setHgrow(field, Priority.ALWAYS);
 
             Button upBtn = new Button("↑");
+            upBtn.setFocusTraversable(false);
             upBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
             Button downBtn = new Button("↓");
+            downBtn.setFocusTraversable(false);
             downBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
             Button itemDelBtn = new Button("×");
+            itemDelBtn.setFocusTraversable(false);
             itemDelBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #ff4444;");
 
             upBtn.setOnAction(e -> {
@@ -454,19 +476,197 @@ public class LayoutBuilderController {
 
         deleteBtn.setOnAction(e -> {
             String dropdownName = dropdownSelector.getValue();
+
+            if (dropdownName == null || dropdownName.equals("New Dropdown")) {
+                showNotificationError("Invalid Selection", "No dropdown selected");
+                return;
+            }
+
+            Label message = new Label("Are you sure you want to delete '" + dropdownName + "'?");
+            message.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-font-size: 14;");
+
+            Button yesBtn = new Button("Yes");
+            yesBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+            Button noBtn = new Button("No");
+            noBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+
+            HBox buttonBox = new HBox(10, yesBtn, noBtn);
+            buttonBox.setAlignment(Pos.CENTER_RIGHT);
+
+            VBox dialogContent = new VBox(15, message, buttonBox);
+            dialogContent.setPadding(new Insets(20));
+            dialogContent.setStyle("-fx-background-color: #F4F4F4;");
+
+            BorderPane layoutPane = new BorderPane();
+            layoutPane.setCenter(dialogContent);
+            layoutPane.setPrefSize(450, 150);
+
+            CustomWindow confirmDialog = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), layoutPane, "Confirm", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
+
+            yesBtn.setOnAction(event -> {
+                confirmDialog.closeWindow();
+                try {
+                    if (deleteCustomField(dropdownName)) {
+                        showNotificationInfo("Success", "Deleted '" + dropdownName + "' successfully");
+
+                        List<String> updatedFields = getCustomizationFields();
+                        dropdownSelector.getItems().setAll("New Dropdown");
+                        dropdownSelector.getItems().addAll(updatedFields);
+                        dropdownSelector.setValue("New Dropdown");
+                        dropdownTitleField.clear();
+                        dropdownItemsBox.getChildren().clear();
+                    } else {
+                        showNotificationError("Error", "Failed to delete '" + dropdownName + "'");
+                    }
+                } catch (IOException ex) {
+                    logError("Dropdown deletion failed: ", ex);
+                    showNotificationError("Error", "Failed to delete '" + dropdownName + "'");
+                }
+            });
+
+            noBtn.setOnAction(event -> confirmDialog.closeWindow());
+
+        });
+
+        exportBtn.setOnAction(e -> {
+            List<String> customFields = getCustomizationFields();
+            if (customFields.isEmpty()) {
+                showNotificationWarning("Export Error", "No custom dropdowns to export");
+                return;
+            }
+
+            ListView<String> listView = new ListView<>();
+            listView.getItems().addAll(customFields);
+            listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+            Button exportSelectedBtn = new Button("Export Selected");
+
+            VBox exportLayout = new VBox(10, listView, exportSelectedBtn);
+            exportLayout.setPadding(new Insets(15));
+
+            BorderPane exportBorderPane = new BorderPane(exportLayout);
+            exportBorderPane.setPrefSize(350, 400);
+
+            CustomWindow exportDialog = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), exportBorderPane, "Export", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
+
+            exportSelectedBtn.setOnAction(event -> {
+                List<String> selected = listView.getSelectionModel().getSelectedItems();
+                if (selected.isEmpty()) {
+                    showNotificationWarning("Export Error", "No dropdowns selected");
+                    return;
+                }
+
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Export File");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
+                File file = fileChooser.showSaveDialog(mainRT);
+                if (file == null) return;
+
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    ObjectNode exportData = mapper.createObjectNode();
+
+                    for (String field : selected) {
+                        List<String> items = getValuesForField(field);
+                        ArrayNode arrayNode = mapper.createArrayNode();
+                        items.forEach(arrayNode::add);
+                        exportData.set(field, arrayNode);
+                    }
+
+                    mapper.writerWithDefaultPrettyPrinter().writeValue(file, exportData);
+                    showNotificationInfo("Export Successful", "Exported " + selected.size() + " dropdown(s)");
+                } catch (IOException ex) {
+                    logError("Export failed: ", ex);
+                    showNotificationError("Export Error", "Failed to export dropdowns");
+                }
+
+                exportDialog.closeWindow();
+            });
+        });
+
+        importBtn.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Import Dropdowns");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
+            File file = fileChooser.showOpenDialog(null);
+            if (file == null) return;
+
             try {
-                if (deleteCustomField(dropdownName)) {
-                    showNotificationInfo("Success", "Dropdown deleted successfully");
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode rootNode = mapper.readTree(file);
+
+                if (!rootNode.isObject()) {
+                    showNotificationError("Import Error", "Invalid file format");
+                    return;
+                }
+
+                List<String> existingFields = getCustomizationFields();
+                Map<String, List<String>> importCandidates = new LinkedHashMap<>();
+
+                Iterator<Map.Entry<String, JsonNode>> fieldsTwo = rootNode.fields();
+                while (fieldsTwo.hasNext()) {
+                    Map.Entry<String, JsonNode> entry = fieldsTwo.next();
+                    String fieldName = entry.getKey();
+                    JsonNode itemsNode = entry.getValue();
+
+                    if (DEFAULT_FIELDS.contains(fieldName) || existingFields.contains(fieldName)) continue;
+                    if (!itemsNode.isArray()) continue;
+
+                    Set<String> uniqueItems = new LinkedHashSet<>();
+                    uniqueItems.add("N/A");
+                    itemsNode.forEach(itemNode -> {
+                        String item = itemNode.asText().trim();
+                        if (!item.isEmpty() && !item.equalsIgnoreCase("N/A")) {
+                            uniqueItems.add(item);
+                        }
+                    });
+
+                    if (uniqueItems.size() > 1) {
+                        importCandidates.put(fieldName, new ArrayList<>(uniqueItems));
+                    }
+                }
+
+                if (importCandidates.isEmpty()) {
+                    showNotificationInfo("Import", "No new dropdowns to import");
+                    return;
+                }
+
+                ListView<String> listView = new ListView<>();
+                listView.getItems().addAll(importCandidates.keySet());
+
+                Button confirmImportBtn = new Button("Import");
+
+                VBox confirmLayout = new VBox(10, new Label("The following dropdowns will be imported:"), listView, confirmImportBtn);
+                confirmLayout.setPadding(new Insets(15));
+
+                BorderPane layoutPane = new BorderPane(confirmLayout);
+                layoutPane.setPrefSize(350, 400);
+
+                CustomWindow confirmDialog = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), layoutPane, "Import", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
+
+                confirmImportBtn.setOnAction(event -> {
+                    int successCount = 0;
+                    for (Map.Entry<String, List<String>> entry : importCandidates.entrySet()) {
+                        try {
+                            if (addCustomField(entry.getKey(), entry.getValue())) {
+                                successCount++;
+                            }
+                        } catch (IOException ex) {
+                            logError("Import failed for " + entry.getKey() + ": ", ex);
+                        }
+                    }
 
                     List<String> updatedFields = getCustomizationFields();
                     dropdownSelector.getItems().setAll("New Dropdown");
                     dropdownSelector.getItems().addAll(updatedFields);
-                    dropdownSelector.setValue("New Dropdown");
-                    dropdownTitleField.clear();
-                    dropdownItemsBox.getChildren().clear();
-                }
+
+                    showNotificationInfo("Import Successful", "Imported " + successCount + " dropdown(s)");
+                    confirmDialog.closeWindow();
+                });
+
             } catch (IOException ex) {
-                logError("Dropdown deletion failed", ex);
+                logError("Import failed: ", ex);
+                showNotificationError("Import Error", "Failed to import dropdowns");
             }
         });
 
@@ -483,14 +683,13 @@ public class LayoutBuilderController {
         dropdownScrollPane.setPannable(true);
 
         layout.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
-
-        layout.getChildren().addAll(dropdownSelector, dropdownTitleLabel, dropdownTitleField, dropdownItemsLabel, dropdownScrollPane, addItemBtn, buttonBox);
+        layout.getChildren().addAll(selectorBox, dropdownTitleLabel, dropdownTitleField, dropdownItemsLabel, dropdownScrollPane, addItemBtn, buttonBox);
 
         BorderPane window = new BorderPane();
         window.setCenter(layout);
-        window.setPrefSize(400, 500);
+        window.setPrefSize(500, 550);
 
-        addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window, localization.getLocalizedMessage("DropdownCreator.windowTitle", "Dropdown Manager"), false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
+        addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window, localization.getLocalizedMessage("DropdownCreator.windowTitle", "Dropdown Manager"), true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
     }
 
     public String saveLayoutToJSON() {

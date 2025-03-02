@@ -22,6 +22,7 @@ public class WindowManager {
     public static Map<String, CustomWindow> minimizedWindows = new HashMap<>();
     public static Map<String, double[]> windowPositions = new HashMap<>();
     public static Map<String, double[]> windowSizes = new HashMap<>();
+    public static CustomWindow activeWindow = null;
 
     public static CustomWindow createCustomWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
         log("Creating FXML Window: " + title, LogUtils.Severity.INFO);

@@ -236,6 +236,8 @@ public class CustomWindow {
 
             windows.values().stream().filter(window -> window.getPriority() < currentPriority).forEach(window -> window.getWindowPane().toBack());
 
+            activeWindow = this;
+
             if (mainDesktopControllerObj != null) {
                 for (DesktopApp app : DesktopApps) {
                     app.getMainPane().toBack();

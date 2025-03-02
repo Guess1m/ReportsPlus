@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="500.0" prefWidth="400.0"
-            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
     <center>
         <AnchorPane fx:id="mainPane">
@@ -32,59 +32,69 @@
                                     <center>
                                         <GridPane hgap="5.0" vgap="10.0" BorderPane.alignment="CENTER">
                                             <children>
-                                                <Button fx:id="accident" text="Accident Report" GridPane.columnIndex="0"
+                                                <Button fx:id="accident" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Accident Report" GridPane.columnIndex="0"
                                                         GridPane.rowIndex="0">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="arrest" text="Arrest Report" GridPane.columnIndex="1"
+                                                <Button fx:id="arrest" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Arrest Report" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="0">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="callout" text="Callout Report" GridPane.columnIndex="1"
+                                                <Button fx:id="callout" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Callout Report" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="4">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="death" text="Death Report" GridPane.columnIndex="0"
+                                                <Button fx:id="death" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Death Report" GridPane.columnIndex="0"
                                                         GridPane.rowIndex="1">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="impound" text="Impound Report" GridPane.columnIndex="1"
+                                                <Button fx:id="impound" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Impound Report" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="1">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="incident" text="Incident Report" GridPane.rowIndex="4">
+                                                <Button fx:id="incident" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Incident Report" GridPane.rowIndex="4">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="patrol" text="Patrol Report" GridPane.columnIndex="0"
+                                                <Button fx:id="patrol" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Patrol Report" GridPane.columnIndex="0"
                                                         GridPane.rowIndex="2">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="search" text="Search Report" GridPane.columnIndex="1"
+                                                <Button fx:id="search" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Search Report" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="2">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="citation" text="Traffic Citation" GridPane.rowIndex="3">
+                                                <Button fx:id="citation" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Traffic Citation" GridPane.rowIndex="3">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>
                                                     </font>
                                                 </Button>
-                                                <Button fx:id="trafficstop" text="Traffic Stop" GridPane.columnIndex="1"
+                                                <Button fx:id="trafficstop" style="-fx-font-family: Inter 24pt Regular;"
+                                                        text="Traffic Stop" GridPane.columnIndex="1"
                                                         GridPane.rowIndex="3">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="13.0"/>

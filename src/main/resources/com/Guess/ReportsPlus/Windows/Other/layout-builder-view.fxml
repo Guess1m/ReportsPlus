@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="800.0"
-            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController">
     <center>
         <AnchorPane>
@@ -14,11 +14,10 @@
                     <children>
                         <HBox spacing="30.0">
                             <children>
-                                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Custom Layout Designer"
-                                       HBox.hgrow="NEVER"/>
+                                <Label fx:id="heading" style="-fx-font-size: 18px; -fx-font-weight: bold;"
+                                       text="Custom Layout Designer" HBox.hgrow="NEVER"/>
                                 <TextField fx:id="reportTitleField" promptText="Report Title" HBox.hgrow="SOMETIMES"/>
-                                <Button fx:id="customDropdownButton" mnemonicParsing="false"
-                                        text="Create Custom Dropdown"/>
+                                <Button fx:id="customDropdownButton" mnemonicParsing="false" text="Custom Dropdowns"/>
                                 <Button fx:id="importExportButton" mnemonicParsing="false" text="Import / Export"/>
                             </children>
                         </HBox>

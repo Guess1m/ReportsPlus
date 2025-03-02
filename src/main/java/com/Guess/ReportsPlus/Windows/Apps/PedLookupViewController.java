@@ -1674,7 +1674,7 @@ public class PedLookupViewController {
 
             processPedData(false, worldPedObject.getName(), worldPedObject.getLicenseNumber(), worldPedObject.getModelName(), worldPedObject.getBirthday(), worldPedObject.getGender(), worldPedObject.getAddress(), worldPedObject.getIsWanted(), worldPedObject.getLicenseStatus(), null, worldPedObject.getWeaponPermitType(), worldPedObject.getWeaponPermitStatus(), worldPedObject.getWeaponPermitExpiration(), worldPedObject.getFishPermitStatus(), worldPedObject.getFishPermitExpiration(), worldPedObject.getTimesStopped(), worldPedObject.getHuntPermitStatus(), worldPedObject.getHuntPermitExpiration(), worldPedObject.getIsOnParole(), worldPedObject.getIsOnProbation());
 
-        } else if (ownerName != null && !ownerName.equalsIgnoreCase("Not Found") && !ownerName.equalsIgnoreCase("Los Santos Police Department") && !ownerName.equalsIgnoreCase("Los Santos Sheriff's Office") && !ownerName.equalsIgnoreCase("Blaine County Sheriff's Office") && !ownerName.equalsIgnoreCase("San Andreas Highway Patrol") && !ownerName.equalsIgnoreCase("government")) {
+        } else if (ownerName != null && !ownerName.equalsIgnoreCase("Not Found") && !ownerName.equalsIgnoreCase("Los Santos Police Department") && !ownerName.equalsIgnoreCase("Los Santos Sheriff's Office") && !ownerName.equalsIgnoreCase("Los Santos County Sheriff") && !ownerName.equalsIgnoreCase("Blaine County Sheriff's Office") && !ownerName.equalsIgnoreCase("San Andreas Highway Patrol") && !ownerName.equalsIgnoreCase("government")) {
             // Vehicle Owner was found and the vehicle is not Government
             log("Found Vehicle Owner: [" + ownerName + "] From WorldVeh file, plate#: " + ownerPlateNum, LogUtils.Severity.DEBUG);
 

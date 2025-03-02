@@ -17,7 +17,7 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.getOperatingSyste
 
 public class LogUtils {
 
-    static {
+    public static void initLogging() {
         try {
             String logFilePath = getJarPath() + File.separator + "output.log";
             FileOutputStream fos = new FileOutputStream(logFilePath, true);

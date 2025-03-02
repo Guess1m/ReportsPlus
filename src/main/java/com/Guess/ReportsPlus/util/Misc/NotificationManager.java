@@ -90,11 +90,11 @@ public class NotificationManager {
                     }
 
                     Label titleLabel = new Label(notification.title);
-                    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
+                    titleLabel.setStyle("-fx-font-family: 'Inter 28pt Bold'; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
 
                     Label messageLabel = new Label(notification.message);
                     messageLabel.setWrapText(true);
-                    messageLabel.setStyle("-fx-font-family: Inter 24pt Regular; -fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
+                    messageLabel.setStyle("-fx-font-family: 'Inter 28pt Medium'; -fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
 
                     ImageView icon = new ImageView(new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
                     icon.setImage(changeImageColor(icon.getImage(), textClr));

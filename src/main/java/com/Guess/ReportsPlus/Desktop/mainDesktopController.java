@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -47,8 +48,11 @@ import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.a
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.editableDesktop;
+import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.activeWindow;
+import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.getTime;
+import static com.Guess.ReportsPlus.MainApplication.mainDesktopStage;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.scheduleOutcomeRevealsForPendingCases;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController.newUserManagerController;
@@ -59,7 +63,6 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.*;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.checkForUpdates;
-import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
 
 public class mainDesktopController {
@@ -320,15 +323,6 @@ public class mainDesktopController {
             checkForUpdates();
 
             versionLabel.setText(updateStrings.version);
-            if (!updateStrings.version.equalsIgnoreCase(gitVersion)) {
-                if (gitVersion == null) {
-                    versionLabel.setText(localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!"));
-                    versionLabel.setStyle("-fx-text-fill: darkred;");
-                } else {
-                    versionLabel.setText(gitVersion + " " + localization.getLocalizedMessage("Desktop.AvailableLabel", "Available!"));
-                    versionLabel.setStyle("-fx-text-fill: darkred;");
-                }
-            }
 
             Stage stge = (Stage) container.getScene().getWindow();
             stge.setOnHiding(event -> {
@@ -338,25 +332,55 @@ public class mainDesktopController {
 
         });
 
-        getMainDesktop().setOnKeyPressed(event2 -> {
-            KeyCode keyCode = null;
-            try {
-                keyCode = KeyCode.valueOf(ConfigReader.configRead("keybindings", "inputLock"));
-            } catch (IOException e) {
-                logError("Unable to read keybindings: ", e);
-            }
+        getMainDesktop().addEventHandler(KeyEvent.KEY_PRESSED, event -> keybindEvent(event));
+    }
 
-            if (event2.isControlDown() && event2.getCode() == keyCode) {
+    private void keybindEvent(KeyEvent event) {
+        if (!event.isControlDown()) return;
+
+        KeyCode code = event.getCode();
+
+        try {
+            KeyCode inputLockKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "inputLock").toUpperCase());
+            KeyCode closeKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "closeWindow").toUpperCase());
+            KeyCode minimizeKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "minimizeWindow").toUpperCase());
+            KeyCode maximizeKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "toggleMaximize").toUpperCase());
+            KeyCode fullscreenKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "applicationFullscreen").toUpperCase());
+
+            if (code == inputLockKey) {
                 isInputLocked = !isInputLocked;
-                if (isInputLocked) {
-                    log("Input Locked!", LogUtils.Severity.INFO);
-                } else {
-                    log("Input Unlocked!", LogUtils.Severity.INFO);
-                }
+                log("Keybinds[" + code + "]; Input " + (isInputLocked ? "Locked!" : "Unlocked!"), LogUtils.Severity.INFO);
                 getInputLock().setDisable(isInputLocked);
-                getMainDesktop().requestFocus();
+                mainDesktop.requestFocus();
+            } else if (code == closeKey) {
+                if (activeWindow != null && windows.containsKey(activeWindow.title)) {
+                    log("Keybinds; Closing Window: " + activeWindow.title, LogUtils.Severity.INFO);
+                    activeWindow.closeWindow();
+                }
+            } else if (code == minimizeKey) {
+                if (activeWindow != null && windows.containsKey(activeWindow.title)) {
+                    log("Keybinds[" + code + "]; Minimizing Window: " + activeWindow.title, LogUtils.Severity.INFO);
+                    activeWindow.minimizeWindow();
+                }
+            } else if (code == maximizeKey) {
+                if (activeWindow != null && windows.containsKey(activeWindow.title)) {
+                    log("Keybinds[" + code + "]; Maximizing Window: " + activeWindow.title, LogUtils.Severity.INFO);
+                    activeWindow.toggleMaximize();
+                }
+            } else if (code == fullscreenKey) {
+                if (mainDesktopStage.isFullScreen()) {
+                    log("Keybinds[" + code + "]; Exiting Fullscreen", LogUtils.Severity.INFO);
+                    mainDesktopStage.setFullScreen(false);
+                    mainDesktopStage.setMaximized(true);
+                    mainDesktopStage.centerOnScreen();
+                } else {
+                    log("Keybinds[" + code + "]; Entering Fullscreen", LogUtils.Severity.INFO);
+                    mainDesktopStage.setFullScreen(true);
+                }
             }
-        });
+        } catch (Exception e) {
+            logError("Error reading keybindings: ", e);
+        }
     }
 
     private void configureNotificationPane() {

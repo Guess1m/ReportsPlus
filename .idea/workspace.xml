@@ -18,8 +18,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working">
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +40,16 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Guess1mMAC &lt;rp@no-reply.com&gt;" />
         <option value="Guess1mPC &lt;no-reply@example.com&gt;" />
+        <option value="Guess1mMAC &lt;rp@no-reply.com&gt;" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
   <component name="GitToolBoxStore">
     <option name="recentBranches">
       <RecentBranches>
@@ -79,6 +83,12 @@
       </RecentBranches>
     </option>
   </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Guess1m/ReportsPlus.git&quot;,
+    &quot;accountId&quot;: &quot;d709304b-1167-4a39-b637-92dea37f89f3&quot;
+  }
+}</component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -96,41 +106,52 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FlexibleTableViewExample (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FlexibleTableViewExample.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ReportsPlus [clean,install,-P,mac-arm64].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ReportsPlus [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ReportsPlus [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Development&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FlexibleTableViewExample (1).executor": "Run",
+    "Application.FlexibleTableViewExample.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Maven.ReportsPlus [clean,install,-P,mac-arm64].executor": "Run",
+    "Maven.ReportsPlus [clean,install,-P,mac-x64].executor": "Run",
+    "Maven.ReportsPlus [clean,install].executor": "Run",
+    "Maven.ReportsPlus [clean].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "Development",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/zdrozal/IdeaProjects/ReportsPlusStuff/Application/target/locale",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.toDoOptions",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\src\main\resources\win" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.Guess.ReportsPlus" />
     </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean install -P mac-arm64" />
-      <command value="mvn clean" />
       <command value="mvn clean install" />
+      <command value="mvn clean install -P mac-arm64" />
+      <command value="mvn clean install -P mac-x64" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunManager">
@@ -150,14 +171,15 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
@@ -531,46 +553,16 @@
       <workItem from="1740783681719" duration="609000" />
       <workItem from="1740851385691" duration="3432000" />
       <workItem from="1740857447663" duration="117000" />
-    </task>
-    <task id="LOCAL-00311" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738189527058</created>
-      <option name="number" value="00311" />
-      <option name="presentableId" value="LOCAL-00311" />
-      <option name="project" value="LOCAL" />
-      <updated>1738189527058</updated>
-    </task>
-    <task id="LOCAL-00312" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738190205991</created>
-      <option name="number" value="00312" />
-      <option name="presentableId" value="LOCAL-00312" />
-      <option name="project" value="LOCAL" />
-      <updated>1738190205991</updated>
-    </task>
-    <task id="LOCAL-00313" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738191931559</created>
-      <option name="number" value="00313" />
-      <option name="presentableId" value="LOCAL-00313" />
-      <option name="project" value="LOCAL" />
-      <updated>1738191931559</updated>
-    </task>
-    <task id="LOCAL-00314" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738192461234</created>
-      <option name="number" value="00314" />
-      <option name="presentableId" value="LOCAL-00314" />
-      <option name="project" value="LOCAL" />
-      <updated>1738192461234</updated>
-    </task>
-    <task id="LOCAL-00315" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738289787503</created>
-      <option name="number" value="00315" />
-      <option name="presentableId" value="LOCAL-00315" />
-      <option name="project" value="LOCAL" />
-      <updated>1738289787503</updated>
+      <workItem from="1740861872586" duration="1157000" />
+      <workItem from="1740874579909" duration="5195000" />
+      <workItem from="1740881122229" duration="611000" />
+      <workItem from="1740951986202" duration="290000" />
+      <workItem from="1740952348211" duration="40000" />
+      <workItem from="1741116275178" duration="6746000" />
+      <workItem from="1741130028917" duration="1310000" />
+      <workItem from="1741201128925" duration="194000" />
+      <workItem from="1741201486860" duration="39000" />
+      <workItem from="1741202507608" duration="2802000" />
     </task>
     <task id="LOCAL-00316" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Reformat">
       <option name="closed" value="true" />
@@ -924,7 +916,47 @@
       <option name="project" value="LOCAL" />
       <updated>1740854820757</updated>
     </task>
-    <option name="localTasksCounter" value="360" />
+    <task id="LOCAL-00360" summary="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]">
+      <option name="closed" value="true" />
+      <created>1740879661179</created>
+      <option name="number" value="00360" />
+      <option name="presentableId" value="LOCAL-00360" />
+      <option name="project" value="LOCAL" />
+      <updated>1740879661181</updated>
+    </task>
+    <task id="LOCAL-00361" summary="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]">
+      <option name="closed" value="true" />
+      <created>1740879688557</created>
+      <option name="number" value="00361" />
+      <option name="presentableId" value="LOCAL-00361" />
+      <option name="project" value="LOCAL" />
+      <updated>1740879688557</updated>
+    </task>
+    <task id="LOCAL-00362" summary="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns">
+      <option name="closed" value="true" />
+      <created>1741118947890</created>
+      <option name="number" value="00362" />
+      <option name="presentableId" value="LOCAL-00362" />
+      <option name="project" value="LOCAL" />
+      <updated>1741118947890</updated>
+    </task>
+    <task id="LOCAL-00363" summary="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns">
+      <option name="closed" value="true" />
+      <created>1741201188026</created>
+      <option name="number" value="00363" />
+      <option name="presentableId" value="LOCAL-00363" />
+      <option name="project" value="LOCAL" />
+      <updated>1741201188026</updated>
+    </task>
+    <task id="LOCAL-00364" summary="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns">
+      <option name="closed" value="true" />
+      <created>1741204927026</created>
+      <option name="number" value="00364" />
+      <option name="presentableId" value="LOCAL-00364" />
+      <option name="project" value="LOCAL" />
+      <updated>1741204927027</updated>
+    </task>
+    <option name="localTasksCounter" value="365" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -981,7 +1013,12 @@
     <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer" />
     <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

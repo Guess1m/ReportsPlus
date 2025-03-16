@@ -68,7 +68,7 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
 public class mainDesktopController {
     public static DesktopApp profileAppObj;
     public static DesktopApp reportStatisticsAppObj;
-    public static DesktopApp layoutBuilderAppObj;
+    private DesktopApp alprAppObj;
     public static DesktopApp calloutManagerAppObj;
     public static DesktopApp courtAppObj;
     public static DesktopApp pedLookupAppObj;
@@ -632,6 +632,25 @@ public class mainDesktopController {
             }
         });
         addAppToDesktop(desktopContainer, reportStatisticsApp, appConfigRead("Report Statistics", "x"), appConfigRead("Report Statistics", "y"));
+
+        alprAppObj = new DesktopApp("ALPR", new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/alpr.png"))));
+        VBox alprApp = alprAppObj.createDesktopApp(mouseEvent -> {
+            if (!editableDesktop) {
+                if (mouseEvent.getClickCount() == 2) {
+                    CustomWindow alprWindow = WindowManager.createCustomWindow(desktopContainer, "Windows/Apps/alpr-view.fxml", "ALPR", true, 1, true, false, taskBarApps, alprAppObj.getImage());
+
+                    ALPRViewController.alprViewController = (ALPRViewController) (alprWindow != null ? alprWindow.controller : null);
+
+                    try {
+                        settingsController.loadTheme();
+                    } catch (IOException e) {
+                        logError("Error loading theme from statisticWindow", e);
+                    }
+                }
+            }
+        });
+        addAppToDesktop(desktopContainer, alprApp, appConfigRead("ALPR", "x"), appConfigRead("ALPR", "y"));
+
     }
 
     private void updateTime() {

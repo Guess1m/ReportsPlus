@@ -17,10 +17,26 @@ public class updateStrings {
 	 updatesList
 	 */
 
-    public static final String version = "v1.4.1-alpha";
-    public static final String[] updatesList = {"Added Custom Reports (Beta)", "Completely Reworked Ped/Veh Lookup Logic", "Migrated Server/Application Font To Inter", "New ReportStatistics App To View Some Statistics", "Complete Server Redesign", "Support For 'can_be_warrant' Tag In Charges.xml", "Added 'Pull From Lookup' Button To Applicable Reports", "Synchronized Offences/Outcomes Scrolling In CourtCase", "Added Resizing From Left Side Of Windows", "Added Support For Ped Variations To Fix Images Not Matching", "Working PR Ped/Vehicle Check Events", "Server Config Setting For Opening As Utility (Prevent AltTabbing)", "Added Support For Policing Redefined", "Added Full SQL Support", "Added Notification Stacking", "Added Different Citation Types; Non-Printed, Parking, Printed", "More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]", "Fixed Windows Being Blurry On Larger Monitors", "Locale For 'New Report' App", "Fixed 'Pull From Notes' Styling", "Get Time Directly From Game When Connected", "Dynamic Window Sizing Based Off Monitor Size", "Option To Use GTA Game Time When Connected", "Copy Street/Area/County Individually", "Added LSPDFR Default Events For ID Lookups", "Fixed DesktopApps Not Bringing Window To Front", "Input Lock Button", "Better Looking TaskbarApps With Minimize/Close", "Support For Multiple Profiles", "Fixed Server/Application Icons", "Redesigned Profile App", "Snap DesktopApps / New Default Positions", "Fixed Notes Tabs Styling", "Fix ReportWindow Localization For Notes", "Updated Default App Positions", "Better Layouts In Settings", "Updated Default Charges.xml", "UpdatesApp Warning Notification When Update Available", "Show Previous Version(s) Locale In Locale Updates", "Better Thread Handling/Logging; Especially For Updates", "Option To Save Window Positions/Sizes", "Support For Ped Base Images If Variant Not Found", "Moved Probability Settings Button To Developer Settings"};
+    public static final String version = "v1.5.0-alpha";
+    public static final String[] updatesList = {"Fully Custom Configurable ALPR System", "Added Menu To Plugin", "Ability To Give/Discard Citations In Menu"};
     public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
     public static final String localeChanges = """
+            Version: v1.5.0-alpha
+            NEW:
+                ALPR.flagsSubLabel=Vehicle Flags:
+                ALPR.scannedPlatesSubLabel=Scanned Plates:
+                ALPR.distanceSubLabel=Distance from Scanner:
+                ALPR.scannerInfoSubLabel=ALPR Information:
+                ALPR.scannerUsedSubLabel=Scanner Used:
+                ALPR.clearButton=Clear Old
+                ALPR.timestampSubLabel=Timestamp:
+                ALPR.scannedPlateSubLabel=Plate Type:
+                ALPR.speedSubLabel=Speed:
+            
+            REMOVED:
+            
+            
+            
             Version: v1.4.1-alpha
             NEW:
             	DropdownCreator.selectPrompt=Select Dropdown

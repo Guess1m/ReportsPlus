@@ -168,6 +168,19 @@ public class Launcher {
         }
 
         try {
+            String filePath = controllerUtils.getServerDataFolderPath() + "ServerALPR.data";
+            Path path = Path.of(filePath);
+            if (Files.exists(path)) {
+                Files.delete(path);
+                log("Server ALPR file deleted successfully.", Severity.INFO);
+            } else {
+                log("Server ALPR file does not exist.", Severity.WARN);
+            }
+        } catch (IOException e) {
+            logError("An error occurred while deleting the server ALPR file: ", e);
+        }
+
+        try {
             String filePath = controllerUtils.getServerDataFolderPath() + "ServerTrafficStop.data";
             Path path = Path.of(filePath);
             if (Files.exists(path)) {

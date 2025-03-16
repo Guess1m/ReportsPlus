@@ -19,8 +19,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_13_25,_3_52 PM_[Changes]/alpr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_13_25,_3_52 PM_[Changes]/licenseplate_blank.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/ALPRViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/alpr-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/alpr/alpr.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/icons/Apps/alpr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/licenseplate_blank.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/Utils/AppUtils/AppConfig/appConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/Utils/AppUtils/AppConfig/appConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/mainDesktopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/mainDesktopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/URLStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/URLStrings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/court-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/court-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/courtListView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/courtListView.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version.txt" beforeDir="false" afterPath="$PROJECT_DIR$/version.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +61,11 @@
         <option value="Guess1mMAC &lt;rp@no-reply.com&gt;" />
       </list>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="devtest" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
@@ -59,16 +81,20 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1741895636" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="devtest" />
+                    <option name="lastUsedInstant" value="1741895629" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="Development" />
                     <option name="lastUsedInstant" value="1739908951" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="fork/fastwalkergy/Development" />
                     <option name="lastUsedInstant" value="1739908289" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1736651476" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="v1.3-development" />
@@ -106,35 +132,35 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FlexibleTableViewExample (1).executor": "Run",
-    "Application.FlexibleTableViewExample.executor": "Run",
-    "Application.Launcher.executor": "Run",
-    "Maven.ReportsPlus [clean,install,-P,mac-arm64].executor": "Run",
-    "Maven.ReportsPlus [clean,install,-P,mac-x64].executor": "Run",
-    "Maven.ReportsPlus [clean,install].executor": "Run",
-    "Maven.ReportsPlus [clean].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.codeium.enabled": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "Development",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/zdrozal/IdeaProjects/ReportsPlusStuff/Application/target/locale",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.toDoOptions",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FlexibleTableViewExample (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.FlexibleTableViewExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean,install,-P,mac-arm64].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean,install,-P,mac-x64].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ReportsPlus [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/IdeaProjects/ReportsPlusStuff/Application/target/locale&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
@@ -148,10 +174,10 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean install" />
       <command value="mvn clean install -P mac-arm64" />
       <command value="mvn clean install -P mac-x64" />
       <command value="mvn clean" />
+      <command value="mvn clean install" />
     </option>
   </component>
   <component name="RunManager">
@@ -172,6 +198,8 @@
       <list>
         <item itemvalue="Application.Launcher" />
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
   </component>
@@ -184,6 +212,16 @@
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructuralSearchPlugin">
+    <replaceConfiguration name="/* $CommentContent$ */" created="1742057704377" uuid="8413c683-b4b2-3cc3-b4db-d4c90329d8ba" text="/* $CommentContent$ */" recursive="false" caseInsensitive="false" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" search_injected="false" reformatAccordingToStyle="false" shortenFQN="false" replacement="" history="1">
+      <constraint name="__context__" within="" contains="" />
+      <constraint name="CommentContent" target="true" within="" contains="" />
+    </replaceConfiguration>
+    <searchConfiguration name="/* $CommentContent$ */" created="1742057672070" uuid="8413c683-b4b2-3cc3-b4db-d4c90329d8ba" text="/* $CommentContent$ */" recursive="true" caseInsensitive="false" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" history="1">
+      <constraint name="__context__" within="" contains="" />
+      <constraint name="CommentContent" target="true" within="" contains="" />
+    </searchConfiguration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="" />
@@ -563,6 +601,13 @@
       <workItem from="1741201128925" duration="194000" />
       <workItem from="1741201486860" duration="39000" />
       <workItem from="1741202507608" duration="2802000" />
+      <workItem from="1741983916454" duration="8734000" />
+      <workItem from="1742009262958" duration="1000" />
+      <workItem from="1742009270956" duration="14441000" />
+      <workItem from="1742076027567" duration="1878000" />
+      <workItem from="1742077932125" duration="6465000" />
+      <workItem from="1742147530348" duration="293000" />
+      <workItem from="1742147831103" duration="1824000" />
     </task>
     <task id="LOCAL-00316" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Reformat">
       <option name="closed" value="true" />
@@ -1018,7 +1063,8 @@
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
+    <MESSAGE value="SHELF" />
+    <option name="LAST_COMMIT_MESSAGE" value="SHELF" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

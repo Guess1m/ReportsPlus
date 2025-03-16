@@ -42,6 +42,7 @@ import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updateDesktopB
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopStage;
+import static com.Guess.ReportsPlus.Windows.Apps.ALPRViewController.alprViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.courtViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.logController;
@@ -687,6 +688,9 @@ public class settingsController {
                 symbolNode.setStyle("-fx-background-color: " + secclr + ";");
             }
         }
+        if (alprViewController != null) {
+            alprViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+        }
 
         if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
             addDarkStyles();
@@ -831,6 +835,31 @@ public class settingsController {
             Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
             node.setStyle("-fx-background-color: rgba(0,0,0,0.05), rgba(0,0,0,0.05);");
         }
+        if (alprViewController != null) {
+            alprViewController.getDistanceSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getFlagsSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getSpeedSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getTimestampSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getScannerUsedSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+
+            Node node = alprViewController.getScannerUsedField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            node = alprViewController.getPlateTypeField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            node = alprViewController.getSpeedField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            node = alprViewController.getDistanceField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            node = alprViewController.getTimeScannedField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            node = alprViewController.getSearchDMVButton().lookup(".button");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+            node = alprViewController.getClearButton().lookup(".button");
+            node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+        }
     }
 
     private static void addLightStyles() {
@@ -915,6 +944,31 @@ public class settingsController {
             reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UILightColor));
             Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
             node.setStyle("-fx-background-color: rgba(255,255,255, 0.1), rgba(255,255,255, 0.1);");
+        }
+        if (alprViewController != null) {
+            alprViewController.getDistanceSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getFlagsSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getSpeedSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getTimestampSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getScannerUsedSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+            alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+
+            Node node = alprViewController.getScannerUsedField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
+            node = alprViewController.getPlateTypeField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
+            node = alprViewController.getSpeedField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
+            node = alprViewController.getDistanceField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
+            node = alprViewController.getTimeScannedField().lookup(".text-field");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
+            node = alprViewController.getSearchDMVButton().lookup(".button");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
+            node = alprViewController.getClearButton().lookup(".button");
+            node.setStyle("-fx-text-fill: " + UILightColor + ";");
         }
     }
 

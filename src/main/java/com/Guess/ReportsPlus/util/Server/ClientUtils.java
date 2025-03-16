@@ -3,6 +3,7 @@ package com.Guess.ReportsPlus.util.Server;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.Windows.Apps.ALPRViewController;
 import com.Guess.ReportsPlus.Windows.Server.ClientController;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
@@ -100,7 +101,7 @@ public class ClientUtils {
         serverConnectionThread.start();
     }
 
-    public synchronized static void receiveFileFromServer(int fileSize, String serverFileName) throws IOException {
+    public synchronized static void receiveFileFromServer(int fileSize, String serverFileName, boolean showdebug) throws IOException {
         int bytesRead;
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
@@ -108,14 +109,15 @@ public class ClientUtils {
 
         try {
             sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
-            log("Starting file transfer: " + serverFileName + " (Size: " + fileSize + " bytes)", LogUtils.Severity.INFO);
+            if (showdebug)
+                log("Starting file transfer: " + serverFileName + " (Size: " + fileSize + " bytes)", LogUtils.Severity.INFO);
 
             byte[] mybytearray = new byte[fileSize];
             InputStream is = sock.getInputStream();
             fos = new FileOutputStream(controllerUtils.getServerDataFolderPath() + serverFileName);
             bos = new BufferedOutputStream(fos);
 
-            log("{File Transfer} Receiving file: " + serverFileName, LogUtils.Severity.DEBUG);
+            if (showdebug) log("{File Transfer} Receiving file: " + serverFileName, LogUtils.Severity.DEBUG);
             int totalBytesRead = 0;
             while ((bytesRead = is.read(mybytearray)) != -1) {
                 bos.write(mybytearray, 0, bytesRead);
@@ -123,7 +125,8 @@ public class ClientUtils {
             }
             bos.flush();
 
-            log("{File Transfer} File transfer completed successfully. Total bytes received: " + totalBytesRead, LogUtils.Severity.INFO);
+            if (showdebug)
+                log("{File Transfer} File transfer completed successfully. Total bytes received: " + totalBytesRead, LogUtils.Severity.INFO);
         } catch (IOException e) {
             logError("{File Transfer} Error occurred while receiving the file: " + serverFileName + "; ", e);
             throw e;
@@ -138,7 +141,7 @@ public class ClientUtils {
                 if (sock != null) {
                     sock.close();
                 }
-                log("{File Transfer} Closed recieveFile resources..", LogUtils.Severity.INFO);
+                if (showdebug) log("{File Transfer} Closed recieveFile resources..", LogUtils.Severity.INFO);
             } catch (IOException e) {
                 logError("{File Transfer} Error while closing resources: ", e);
             }
@@ -192,43 +195,49 @@ public class ClientUtils {
                             disconnectFromService();
                             break label;
 
+                        case "UPDATE_ALPR":
+                            log("ALPR Update", LogUtils.Severity.DEBUG);
+                            receiveFileFromServer(4096, "ServerALPR.data", false);
+                            ALPRViewController.loadData();
+                            break;
+
                         case "UPDATE_GAME_DATA":
                             log("Received Location Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(1024, "ServerGameData.data");
+                            receiveFileFromServer(1024, "ServerGameData.data", true);
                             runUpdateLocation();
                             break;
 
                         case "UPDATE_ID":
                             log("Received ID Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(4096, "ServerCurrentID.xml");
+                            receiveFileFromServer(4096, "ServerCurrentID.xml", true);
                             runUpdateID();
                             break;
 
                         case "UPDATE_CALLOUT":
                             log("Received Callout Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(1024, "ServerCallout.xml");
+                            receiveFileFromServer(1024, "ServerCallout.xml", true);
                             runUpdateCallout();
                             break;
 
                         case "UPDATE_WORLD_PED":
                             log("Received World Ped Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(4096, "ServerWorldPeds.data");
+                            receiveFileFromServer(4096, "ServerWorldPeds.data", true);
                             break;
 
                         case "UPDATE_TRAFFIC_STOP":
                             log("Received Traffic Stop Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(1024, "ServerTrafficStop.data");
+                            receiveFileFromServer(1024, "ServerTrafficStop.data", true);
                             runTrafficStopUpdate();
                             break;
 
                         case "UPDATE_WORLD_VEH":
                             log("Received World Vehicle Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(4096, "ServerWorldCars.data");
+                            receiveFileFromServer(4096, "ServerWorldCars.data", true);
                             break;
 
                         case "UPDATE_LOOKUP":
                             log("Received Lookup Update", LogUtils.Severity.DEBUG);
-                            receiveFileFromServer(256, "ServerLookup.data");
+                            receiveFileFromServer(256, "ServerLookup.data", true);
                             runLookupUpdate();
                             break;
 

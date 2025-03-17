@@ -1,7 +1,5 @@
 package com.Guess.ReportsPlus;
 
-import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Localization.Localization;
 import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Other.controllerUtils;
@@ -16,8 +14,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.*;
-import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.loadJsonData;
 
@@ -54,21 +50,7 @@ public class Launcher {
 
         createDataLogsDir();
 
-        if (ConfigReader.doesConfigExist()) {
-            ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-
-            checkAndSetDefaultValues();
-            if (!doesAppConfigExist()) {
-                createAppConfig();
-            }
-
-            checkAndSetDefaultAppValues();
-
-            MainApplication.main(args);
-        } else {
-            newOfficerApplication.main(args);
-        }
-
+        newOfficerApplication.main(args);
     }
 
     public static void loadFonts() {

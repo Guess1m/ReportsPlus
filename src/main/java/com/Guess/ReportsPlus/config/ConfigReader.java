@@ -5,14 +5,11 @@ import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Properties;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 public class ConfigReader {
 
@@ -38,25 +35,6 @@ public class ConfigReader {
         } catch (URISyntaxException e) {
             log("Error reading config.properties file ", LogUtils.Severity.ERROR);
             throw new IOException("Error reading config.properties file.", e);
-        }
-    }
-
-    public static boolean doesConfigExist() {
-        try {
-
-            String jarPath = ConfigReader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-
-            jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
-
-            String jarDir = new File(jarPath).getParent();
-
-            String configFilePath = jarDir + File.separator + "config.properties";
-
-            File configFile = new File(configFilePath);
-            return configFile.exists();
-        } catch (URISyntaxException e) {
-            logError("DoesConfigExist Error ", e);
-            return false;
         }
     }
 

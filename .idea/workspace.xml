@@ -18,25 +18,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_13_25,_3_52 PM_[Changes]/alpr.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_13_25,_3_52 PM_[Changes]/licenseplate_blank.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/ALPRViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/alpr-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/alpr/alpr.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/icons/Apps/alpr.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/licenseplate_blank.jpg" afterDir="false" />
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/LicensePlate.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/Utils/AppUtils/AppConfig/appConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/Utils/AppUtils/AppConfig/appConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/mainDesktopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/mainDesktopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/URLStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/URLStrings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/court-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/court-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/courtListView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/courtListView.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/alpr-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/alpr-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/licenseplate_blank.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/version.txt" beforeDir="false" afterPath="$PROJECT_DIR$/version.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +37,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -63,7 +53,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="devtest" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -145,10 +135,11 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Development&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/IdeaProjects/ReportsPlusStuff/Application/target/locale&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -166,6 +157,7 @@
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\src\main\resources\com\Guess\ReportsPlus\imgs" />
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\src\main\resources\win" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -174,10 +166,10 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
+      <command value="mvn clean install" />
+      <command value="mvn clean" />
       <command value="mvn clean install -P mac-arm64" />
       <command value="mvn clean install -P mac-x64" />
-      <command value="mvn clean" />
-      <command value="mvn clean install" />
     </option>
   </component>
   <component name="RunManager">
@@ -206,8 +198,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -608,22 +600,17 @@
       <workItem from="1742077932125" duration="6465000" />
       <workItem from="1742147530348" duration="293000" />
       <workItem from="1742147831103" duration="1824000" />
-    </task>
-    <task id="LOCAL-00316" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738294410577</created>
-      <option name="number" value="00316" />
-      <option name="presentableId" value="LOCAL-00316" />
-      <option name="project" value="LOCAL" />
-      <updated>1738294410577</updated>
-    </task>
-    <task id="LOCAL-00317" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738350703147</created>
-      <option name="number" value="00317" />
-      <option name="presentableId" value="LOCAL-00317" />
-      <option name="project" value="LOCAL" />
-      <updated>1738350703147</updated>
+      <workItem from="1742162488862" duration="6775000" />
+      <workItem from="1742170823842" duration="7051000" />
+      <workItem from="1742266876947" duration="777000" />
+      <workItem from="1742328607916" duration="1360000" />
+      <workItem from="1742343839818" duration="84000" />
+      <workItem from="1742500076190" duration="117000" />
+      <workItem from="1742500404298" duration="886000" />
+      <workItem from="1742501418040" duration="14000" />
+      <workItem from="1742501480766" duration="545000" />
+      <workItem from="1742503642015" duration="125000" />
+      <workItem from="1742504117908" duration="3000" />
     </task>
     <task id="LOCAL-00318" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
       <option name="closed" value="true" />
@@ -1001,7 +988,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741204927027</updated>
     </task>
-    <option name="localTasksCounter" value="365" />
+    <task id="LOCAL-00365" summary="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
+      <option name="closed" value="true" />
+      <created>1742177228958</created>
+      <option name="number" value="00365" />
+      <option name="presentableId" value="LOCAL-00365" />
+      <option name="project" value="LOCAL" />
+      <updated>1742177228958</updated>
+    </task>
+    <task id="LOCAL-00366" summary="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
+      <option name="closed" value="true" />
+      <created>1742177906931</created>
+      <option name="number" value="00366" />
+      <option name="presentableId" value="LOCAL-00366" />
+      <option name="project" value="LOCAL" />
+      <updated>1742177906931</updated>
+    </task>
+    <option name="localTasksCounter" value="367" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1037,7 +1040,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="Development" />
                       </list>
                     </value>
                   </entry>
@@ -1062,9 +1065,12 @@
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]" />
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
     <MESSAGE value="SHELF" />
-    <option name="LAST_COMMIT_MESSAGE" value="SHELF" />
+    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
+    <MESSAGE value="- v1.5.0-alpha&#10;- New Version Updates&#10;- ALPR System Implementation&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

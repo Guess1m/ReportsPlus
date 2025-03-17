@@ -37,6 +37,12 @@ public class User {
     @XmlElement(name = "Callsign")
     private String callsign;
 
+    @XmlElement(name = "Username")
+    private String username;
+
+    @XmlElement(name = "Password")
+    private String password;
+
     public User(String name, String agency, String division, String rank, String number, String callsign) {
         this.name = name;
         this.agency = agency;
@@ -44,6 +50,8 @@ public class User {
         this.rank = rank;
         this.number = number;
         this.callsign = callsign;
+        this.username = username;
+        this.password = password;
     }
 
     public User() {
@@ -167,6 +175,22 @@ public class User {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

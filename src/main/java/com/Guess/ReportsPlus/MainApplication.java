@@ -77,14 +77,15 @@ public class MainApplication extends Application {
         launch();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public static void openMainDesktop() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         mainDesktopControllerObj = fxmlLoader.getController();
+        Stage primaryStage = new Stage();
         primaryStage.setTitle("ReportsPlus Desktop");
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
+        primaryStage.show();
         mainDesktopStage = primaryStage;
 
         String windowConfig = ConfigReader.configRead("uiSettings", "windowDisplaySetting");
@@ -99,5 +100,10 @@ public class MainApplication extends Application {
         }
 
         MainApplication.mainRT = mainDesktopStage;
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        openMainDesktop();
     }
 }

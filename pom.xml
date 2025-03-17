@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.Guess</groupId>
     <artifactId>ReportsPlus</artifactId>
-    <version>1.5.0-alpha</version>
+    <version>1.5.1-alpha</version>
     <name>ReportsPlus</name>
 
     <!-- Packaging Commands

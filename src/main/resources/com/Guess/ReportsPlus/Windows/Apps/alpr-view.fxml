@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="520.0" prefWidth="650.0"
-            stylesheets="@../../css/alpr/alpr.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/alpr/alpr.css" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.Guess.ReportsPlus.Windows.Apps.ALPRViewController">
     <center>
         <AnchorPane style="-fx-background-color: transparent;">
@@ -44,17 +44,17 @@
                                                 <ImageView fitWidth="135.0" pickOnBounds="true" preserveRatio="true"
                                                            StackPane.alignment="TOP_CENTER">
                                                     <image>
-                                                        <Image url="@../../imgs/licenseplate_blank.jpg"/>
+                                                        <Image url="@../../imgs/LicensePlate.png"/>
                                                     </image>
                                                 </ImageView>
                                                 <Label fx:id="licensePlateNumbers"
                                                        style="-fx-font-family: &quot;Inter 28pt Medium&quot;;"
-                                                       StackPane.alignment="TOP_CENTER">
+                                                       textFill="#1f5090" StackPane.alignment="TOP_CENTER">
                                                     <font>
-                                                        <Font size="25.0"/>
+                                                        <Font size="22.0"/>
                                                     </font>
                                                     <StackPane.margin>
-                                                        <Insets top="22.0"/>
+                                                        <Insets top="25.0"/>
                                                     </StackPane.margin>
                                                 </Label>
                                             </children>

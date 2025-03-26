@@ -252,7 +252,7 @@ public class desktopLoginController {
 		checkAndSetDefaultValues();
 		checkAndSetDefaultAppValues();
 		Stage stag = (Stage) root.getScene().getWindow();
-		stag.close();
+		Platform.runLater(() -> stag.close());
 		try {
 			openMainDesktop();
 		} catch (IOException e) {

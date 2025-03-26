@@ -18,7 +18,7 @@ public class updateStrings {
 	 */
 	
 	public static final String version = "v1.5.1-alpha";
-	public static final String[] updatesList = {"Fully Custom Configurable ALPR System", "ALPR In-Game Plate Display", "Added Login / Registration System", "Added Menu To Plugin", "Ability To Give/Discard Citations In Menu"};
+	public static final String[] updatesList = {"Fully Custom Configurable ALPR System", "ALPR In-Game Plate Display", "Added Login / Registration System", "Fixed Bug With Info Box Background Color", "Added Menu To Plugin", "Ability To Give/Discard Citations In Menu", "Added Extended Expiration Data To License Information"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
 			Version: v1.5.0-alpha

@@ -18,15 +18,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/LicensePlate.png" afterDir="false" />
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/PedLookupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/PedLookupViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/VehLookupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/VehLookupViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/alpr-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps/alpr-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/imgs/licenseplate_blank.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/version.txt" beforeDir="false" afterPath="$PROJECT_DIR$/version.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,8 +166,8 @@
     <option name="myCommands">
       <command value="mvn clean install" />
       <command value="mvn clean" />
-      <command value="mvn clean install -P mac-arm64" />
       <command value="mvn clean install -P mac-x64" />
+      <command value="mvn clean install -P mac-arm64" />
     </option>
   </component>
   <component name="RunManager">
@@ -611,14 +609,20 @@
       <workItem from="1742501480766" duration="545000" />
       <workItem from="1742503642015" duration="125000" />
       <workItem from="1742504117908" duration="3000" />
-    </task>
-    <task id="LOCAL-00318" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738352615111</created>
-      <option name="number" value="00318" />
-      <option name="presentableId" value="LOCAL-00318" />
-      <option name="project" value="LOCAL" />
-      <updated>1738352615111</updated>
+      <workItem from="1742504503746" duration="1605000" />
+      <workItem from="1742506974357" duration="6000" />
+      <workItem from="1742577078717" duration="1302000" />
+      <workItem from="1742587097522" duration="3733000" />
+      <workItem from="1742599713907" duration="94000" />
+      <workItem from="1742600600043" duration="226000" />
+      <workItem from="1742654735356" duration="18000" />
+      <workItem from="1742655287261" duration="109000" />
+      <workItem from="1742655444130" duration="506000" />
+      <workItem from="1742656482286" duration="62000" />
+      <workItem from="1742854221152" duration="71000" />
+      <workItem from="1742854908480" duration="233000" />
+      <workItem from="1743008240616" duration="44000" />
+      <workItem from="1743009730903" duration="2996000" />
     </task>
     <task id="LOCAL-00319" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
       <option name="closed" value="true" />
@@ -1004,7 +1008,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742177906931</updated>
     </task>
-    <option name="localTasksCounter" value="367" />
+    <task id="LOCAL-00367" summary="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
+      <option name="closed" value="true" />
+      <created>1742506927990</created>
+      <option name="number" value="00367" />
+      <option name="presentableId" value="LOCAL-00367" />
+      <option name="project" value="LOCAL" />
+      <updated>1742506927990</updated>
+    </task>
+    <option name="localTasksCounter" value="368" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1068,9 +1080,10 @@
     <MESSAGE value="SHELF" />
     <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
     <MESSAGE value="- v1.5.0-alpha&#10;- New Version Updates&#10;- ALPR System Implementation&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
+    <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

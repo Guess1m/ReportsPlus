@@ -10,15 +10,15 @@ import java.util.List;
 @XmlRootElement(name = "IDs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class IDs {
-
-    @XmlElement(name = "ID")
-    private List<ID> idList;
-
-    public List<ID> getIdList() {
-        return idList;
-    }
-
-    public void setIdList(List<ID> idList) {
-        this.idList = idList;
-    }
+	
+	@XmlElement(name = "ID")
+	private List<ID> idList;
+	
+	public List<ID> getIdList() {
+		return idList;
+	}
+	
+	public void setIdList(List<ID> idList) {
+		this.idList = idList;
+	}
 }

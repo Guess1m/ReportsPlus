@@ -87,6 +87,16 @@ public class desktopLoginController {
 	private Label officerregistrationLabel;
 	@javafx.fxml.FXML
 	private Label agencyLabel;
+	@javafx.fxml.FXML
+	private Label oNumLabel;
+	@javafx.fxml.FXML
+	private Label userLabel;
+	@javafx.fxml.FXML
+	private Label passwordLabel;
+	@javafx.fxml.FXML
+	private Label oCallsignLabel;
+	@javafx.fxml.FXML
+	private Label oNameLabel;
 	
 	public void initialize() {
 		addLocale();
@@ -136,6 +146,12 @@ public class desktopLoginController {
 		usernameLabel.setText(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 		loginRegisterButton.setText(localization.getLocalizedMessage("Desktop.registerButton", "Register"));
 		loginButton.setText(localization.getLocalizedMessage("Desktop.loginButton", "Login"));
+		
+		userLabel.setText(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
+		passwordLabel.setText(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
+		oCallsignLabel.setText(localization.getLocalizedMessage("UserManager.CallsignLabel", "Callsign:"));
+		oNumLabel.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
+		oNameLabel.setText(localization.getLocalizedMessage("UserManager.newProfileLabel", "Name:"));
 		
 		rankLabel.setText(localization.getLocalizedMessage("UserManager.RankLabel", "Rank:"));
 		divisionLabel.setText(localization.getLocalizedMessage("UserManager.DivisionLabel", "Division:"));

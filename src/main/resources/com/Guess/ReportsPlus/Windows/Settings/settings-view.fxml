@@ -1,14 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.ColorAdjust?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0"
-            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/23.0.1"
+            stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <center>
         <SplitPane dividerPositions="0.31831610044313147" BorderPane.alignment="CENTER">
@@ -1426,7 +1418,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneNetworking" fitToHeight="true" fitToWidth="true" visible="false"
+                        <ScrollPane fx:id="paneNetworking" fitToHeight="true" fitToWidth="true"
                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
@@ -1556,6 +1548,39 @@
                                                         <Label fx:id="useGameTimeTT" alignment="CENTER"
                                                                styleClass="paneSubtext"
                                                                text="Toggle whether game time is used when connected"
+                                                               wrapText="true" GridPane.rowIndex="1"
+                                                               GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane>
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="376.5"
+                                                                           minWidth="235.0" prefWidth="276.5"/>
+                                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="175.5"
+                                                                           minWidth="54.5" prefWidth="154.5"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="autofillLocationInfoLabel" alignment="CENTER"
+                                                               styleClass="paneHeading"
+                                                               text="AutoFill Location Information"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <ToggleButton fx:id="autofillLocationInfoToggle"
+                                                                      mnemonicParsing="false"
+                                                                      onAction="#autofillLocationClick" text="Status"
+                                                                      GridPane.columnIndex="1"
+                                                                      GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                                      GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="autofillLocationInfoTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Automatically fill in street, area, county information into reports when connected"
                                                                wrapText="true" GridPane.rowIndex="1"
                                                                GridPane.valignment="TOP">
                                                             <GridPane.margin>
@@ -2010,8 +2035,8 @@
                             </content>
                         </ScrollPane>
                         <ScrollPane fx:id="paneKeybind" fitToHeight="true" fitToWidth="true" layoutX="10.0"
-                                    layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    layoutY="10.0" visible="false" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
                                 <AnchorPane>
                                     <children>

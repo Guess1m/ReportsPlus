@@ -1,22 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx = "http://javafx.com/fxml/1" fx:id = "root" prefHeight = "306.0" prefWidth = "514.0"
-            style = "-fx-border-color: black; -fx-border-width: 1.5;" xmlns = "http://javafx.com/javafx/21"
-            fx:controller = "com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController">
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.scene.control.Label?><?import javafx.scene.control.TabPane?><?import javafx.scene.layout.*?><?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="306.0" prefWidth="514.0"
+            style="-fx-border-color: black; -fx-border-width: 1.5;" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController">
     <center>
         <AnchorPane>
             <children>
-                <TabPane fx:id = "tabPane" AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "0.0"
-                         AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0" />
-                <Label fx:id = "noIDFoundlbl" alignment = "CENTER" text = "No IDs Found."
-                       AnchorPane.bottomAnchor = "0.0"
-                       AnchorPane.leftAnchor = "0.0" AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "0.0">
+                <TabPane fx:id="tabPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                <Label fx:id="noIDFoundlbl" alignment="CENTER" text="No IDs Found." AnchorPane.bottomAnchor="0.0"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <font>
-                        <Font name = "Inter 28pt Bold" size = "28.0" />
+                        <Font name="Inter 28pt Bold" size="28.0"/>
                     </font>
                 </Label>
             </children>

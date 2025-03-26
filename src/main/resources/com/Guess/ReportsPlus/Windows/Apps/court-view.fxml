@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="631.0" prefWidth="948.0"
             stylesheets="@../../css/courtCase/courtCaseCss.css" xmlns="http://javafx.com/javafx/21"
             fx:controller="com.Guess.ReportsPlus.Windows.Apps.CourtViewController">

@@ -18,13 +18,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)">
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/PedLookupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/PedLookupViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/VehLookupViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Apps/VehLookupViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Server/ClientUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc/TerminalWindow/TerminalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc/TerminalWindow/TerminalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Accident/AccidentReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Accident/AccidentReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Arrest/ArrestReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Arrest/ArrestReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Callout/CalloutReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Callout/CalloutReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Death/DeathReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Death/DeathReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Incident/IncidentReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Incident/IncidentReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Search/SearchReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Search/SearchReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficCitation/TrafficCitationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficCitation/TrafficCitationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficStop/TrafficStopReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficStop/TrafficStopReportUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Report/reportUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Report/reportUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Settings/settings-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Settings/settings-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +43,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="CSS File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,8 +55,9 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Guess1mPC &lt;no-reply@example.com&gt;" />
         <option value="Guess1mMAC &lt;rp@no-reply.com&gt;" />
+        <option value="Guess1m &lt;rp@no-reply.com&gt;" />
+        <option value="Guess1mPC &lt;no-reply@example.com&gt;" />
       </list>
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -136,7 +147,8 @@
     &quot;git-widget-placeholder&quot;: &quot;Development&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;last.edited.regexp&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zdrozl/IdeaProjects/Shared/ReportsPlus/ReportsPlusApp/src/main/resources/com/Guess/ReportsPlus/Windows/Misc&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -146,31 +158,55 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Misc" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc" />
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/terminal" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css" />
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\src\main\resources\com\Guess\ReportsPlus\imgs" />
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\src\main\resources\win" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="com.Guess.ReportsPlus.util.History.PedHistoryMath" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.Guess.ReportsPlus" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean install" />
-      <command value="mvn clean" />
       <command value="mvn clean install -P mac-x64" />
       <command value="mvn clean install -P mac-arm64" />
+      <command value="mvn clean " />
+      <command value="mvn clean install" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.Guess.ReportsPlus.Launcher" />
+      <module name="ReportsPlus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.Guess.ReportsPlus.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.Guess.ReportsPlus.Launcher" />
       <module name="ReportsPlus" />
@@ -196,8 +232,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
@@ -623,38 +659,17 @@
       <workItem from="1742854908480" duration="233000" />
       <workItem from="1743008240616" duration="44000" />
       <workItem from="1743009730903" duration="2996000" />
-    </task>
-    <task id="LOCAL-00319" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738352860752</created>
-      <option name="number" value="00319" />
-      <option name="presentableId" value="LOCAL-00319" />
-      <option name="project" value="LOCAL" />
-      <updated>1738352860752</updated>
-    </task>
-    <task id="LOCAL-00320" summary="- v1.4.0-alpha&#10;- Implementation For More Advanced Citation SignalFile&#10;- Support for Different Citation Types; Non-Printed, Parking, Printed&#10;- Much Better Thread Handling/Logging&#10;- Fixed bug with finding ped from IDHistory&#10;- Checks for plate/offender name when picking citation type&#10;- Added Support For Ped Variations To Fix Images Not Matching&#10;- Fixed 'Pull From Notes' Styling&#10;- Added Resizing From Right Side Of Windows&#10;- UpdatesApp Warning Notification When Update Available&#10;- Synchronized Offences/Outcomes Scrolling In CourtCase&#10;- Reformat">
-      <option name="closed" value="true" />
-      <created>1738429173501</created>
-      <option name="number" value="00320" />
-      <option name="presentableId" value="LOCAL-00320" />
-      <option name="project" value="LOCAL" />
-      <updated>1738429173501</updated>
-    </task>
-    <task id="LOCAL-00321" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings">
-      <option name="closed" value="true" />
-      <created>1738437105363</created>
-      <option name="number" value="00321" />
-      <option name="presentableId" value="LOCAL-00321" />
-      <option name="project" value="LOCAL" />
-      <updated>1738437105363</updated>
-    </task>
-    <task id="LOCAL-00322" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing">
-      <option name="closed" value="true" />
-      <created>1738437144118</created>
-      <option name="number" value="00322" />
-      <option name="presentableId" value="LOCAL-00322" />
-      <option name="project" value="LOCAL" />
-      <updated>1738437144118</updated>
+      <workItem from="1743082275577" duration="1758000" />
+      <workItem from="1743084045716" duration="4051000" />
+      <workItem from="1743165218757" duration="703000" />
+      <workItem from="1743358128107" duration="5392000" />
+      <workItem from="1743364448068" duration="1763000" />
+      <workItem from="1743379580852" duration="624000" />
+      <workItem from="1743441458926" duration="2888000" />
+      <workItem from="1743446689700" duration="57000" />
+      <workItem from="1743457130144" duration="8687000" />
+      <workItem from="1743544565235" duration="3192000" />
+      <workItem from="1743611549193" duration="687000" />
     </task>
     <task id="LOCAL-00323" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
       <option name="closed" value="true" />
@@ -1016,7 +1031,39 @@
       <option name="project" value="LOCAL" />
       <updated>1742506927990</updated>
     </task>
-    <option name="localTasksCounter" value="368" />
+    <task id="LOCAL-00368" summary="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed">
+      <option name="closed" value="true" />
+      <created>1743025008115</created>
+      <option name="number" value="00368" />
+      <option name="presentableId" value="LOCAL-00368" />
+      <option name="project" value="LOCAL" />
+      <updated>1743025008115</updated>
+    </task>
+    <task id="LOCAL-00369" summary="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information">
+      <option name="closed" value="true" />
+      <created>1743444164852</created>
+      <option name="number" value="00369" />
+      <option name="presentableId" value="LOCAL-00369" />
+      <option name="project" value="LOCAL" />
+      <updated>1743444164852</updated>
+    </task>
+    <task id="LOCAL-00370" summary="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information">
+      <option name="closed" value="true" />
+      <created>1743444351275</created>
+      <option name="number" value="00370" />
+      <option name="presentableId" value="LOCAL-00370" />
+      <option name="project" value="LOCAL" />
+      <updated>1743444351275</updated>
+    </task>
+    <task id="LOCAL-00371" summary="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information">
+      <option name="closed" value="true" />
+      <created>1743467553002</created>
+      <option name="number" value="00371" />
+      <option name="presentableId" value="LOCAL-00371" />
+      <option name="project" value="LOCAL" />
+      <updated>1743467553002</updated>
+    </task>
+    <option name="localTasksCounter" value="372" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1083,7 +1130,16 @@
     <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
     <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed Bug With Info Box Background Color&#10;- Extended Expiration Date Information In Info Boxes" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed Bug With Info Box Background Color&#10;- Extended Expiration Date Information In Info Boxes&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

@@ -10,15 +10,15 @@ import java.util.List;
 @XmlRootElement(name = "impoundReportLogs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ImpoundReports {
-
-    @XmlElement(name = "logs")
-    private List<ImpoundReport> ImpoundReportList;
-
-    public List<ImpoundReport> getImpoundReportList() {
-        return ImpoundReportList;
-    }
-
-    public void setImpoundReportList(List<ImpoundReport> ImpoundReportList) {
-        this.ImpoundReportList = ImpoundReportList;
-    }
+	
+	@XmlElement(name = "logs")
+	private List<ImpoundReport> ImpoundReportList;
+	
+	public List<ImpoundReport> getImpoundReportList() {
+		return ImpoundReportList;
+	}
+	
+	public void setImpoundReportList(List<ImpoundReport> ImpoundReportList) {
+		this.ImpoundReportList = ImpoundReportList;
+	}
 }

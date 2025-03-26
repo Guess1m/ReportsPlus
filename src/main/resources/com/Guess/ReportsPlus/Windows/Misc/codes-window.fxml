@@ -1,245 +1,232 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane xmlns:fx = "http://javafx.com/fxml/1" fx:id = "root" prefHeight = "283.0" prefWidth = "333.0"
-            stylesheets = "@../../css/codes/codes.css" xmlns = "http://javafx.com/javafx/21"
-            fx:controller = "com.Guess.ReportsPlus.Windows.Misc.CodesWindow">
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.Insets?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="283.0" prefWidth="333.0"
+            stylesheets="@../../css/codes/codes.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Misc.CodesWindow">
     <center>
-        <AnchorPane fx:id = "codesPane" prefHeight = "283.0" prefWidth = "700.0"
-                    style = "-fx-background-color: rgb(255, 255, 255,0.98);">
+        <AnchorPane fx:id="codesPane" prefHeight="283.0" prefWidth="700.0"
+                    style="-fx-background-color: rgb(255, 255, 255,0.98);">
             <children>
-                <GridPane layoutX = "121.0" layoutY = "86.0" AnchorPane.bottomAnchor = "5.0"
-                          AnchorPane.leftAnchor = "10.0"
-                          AnchorPane.rightAnchor = "10.0" AnchorPane.topAnchor = "5.0">
+                <GridPane layoutX="121.0" layoutY="86.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0"
+                          AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow = "NEVER" minWidth = "100.0" />
-                        <ColumnConstraints hgrow = "SOMETIMES" minWidth = "145.0" />
-                        <ColumnConstraints fx:id = "usageColumn" hgrow = "ALWAYS" maxWidth = "0.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="145.0"/>
+                        <ColumnConstraints fx:id="usageColumn" hgrow="ALWAYS" maxWidth="0.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints vgrow = "NEVER" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
-                        <RowConstraints vgrow = "SOMETIMES" />
+                        <RowConstraints vgrow="NEVER"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Label text = "-name" textFill = "#4d4d4d" GridPane.rowIndex = "1">
+                        <Label text="-name" textFill="#4d4d4d" GridPane.rowIndex="1">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label fx:id = "codelbl" alignment = "CENTER" text = "CODE:" textFill = "#2c2c2c"
-                               GridPane.halignment = "LEFT" GridPane.valignment = "TOP">
+                        <Label fx:id="codelbl" alignment="CENTER" text="CODE:" textFill="#2c2c2c"
+                               GridPane.halignment="LEFT" GridPane.valignment="TOP">
                             <font>
-                                <Font name = "Inter 28pt Bold" size = "13.0" />
+                                <Font name="Inter 28pt Bold" size="13.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets />
+                                <Insets/>
                             </GridPane.margin>
                         </Label>
-                        <Label fx:id = "variantslbl" alignment = "CENTER" text = "VARIANTS:" textFill = "#2c2c2c"
-                               GridPane.columnIndex = "1" GridPane.halignment = "LEFT" GridPane.valignment = "TOP">
+                        <Label fx:id="variantslbl" alignment="CENTER" text="VARIANTS:" textFill="#2c2c2c"
+                               GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                             <font>
-                                <Font name = "Inter 28pt Bold" size = "13.0" />
+                                <Font name="Inter 28pt Bold" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-na ,-fullname, -fname" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "1">
+                        <Label text="-na ,-fullname, -fname" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="1">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-number" textFill = "#4d4d4d" GridPane.rowIndex = "2">
+                        <Label text="-number" textFill="#4d4d4d" GridPane.rowIndex="2">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-n, -num, -nu" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "2">
+                        <Label text="-n, -num, -nu" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-age" textFill = "#4d4d4d" GridPane.rowIndex = "3">
+                        <Label text="-age" textFill="#4d4d4d" GridPane.rowIndex="3">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-address" textFill = "#4d4d4d" GridPane.rowIndex = "4">
+                        <Label text="-address" textFill="#4d4d4d" GridPane.rowIndex="4">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-model" textFill = "#4d4d4d" GridPane.rowIndex = "5">
+                        <Label text="-model" textFill="#4d4d4d" GridPane.rowIndex="5">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-plate" textFill = "#4d4d4d" GridPane.rowIndex = "6">
+                        <Label text="-plate" textFill="#4d4d4d" GridPane.rowIndex="6">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-gender" textFill = "#4d4d4d" GridPane.rowIndex = "7">
+                        <Label text="-gender" textFill="#4d4d4d" GridPane.rowIndex="7">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-area" textFill = "#4d4d4d" GridPane.rowIndex = "8">
+                        <Label text="-area" textFill="#4d4d4d" GridPane.rowIndex="8">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-county" textFill = "#4d4d4d" GridPane.rowIndex = "9">
+                        <Label text="-county" textFill="#4d4d4d" GridPane.rowIndex="9">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-street" textFill = "#4d4d4d" GridPane.rowIndex = "10">
+                        <Label text="-street" textFill="#4d4d4d" GridPane.rowIndex="10">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-notes" textFill = "#4d4d4d" GridPane.rowIndex = "11">
+                        <Label text="-notes" textFill="#4d4d4d" GridPane.rowIndex="11">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-description" textFill = "#4d4d4d" GridPane.rowIndex = "12">
+                        <Label text="-description" textFill="#4d4d4d" GridPane.rowIndex="12">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-searchitems" textFill = "#4d4d4d" GridPane.rowIndex = "13">
+                        <Label text="-searchitems" textFill="#4d4d4d" GridPane.rowIndex="13">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-years, -birthdate, -a, -dob" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "3">
+                        <Label text="-years, -birthdate, -a, -dob" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="3">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-addr, -place, -add, -ad" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "4">
+                        <Label text="-addr, -place, -add, -ad" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="4">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-mod, -mo, -m" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "5">
+                        <Label text="-mod, -mo, -m" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-platenum, -plt, -p" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "6">
+                        <Label text="-platenum, -plt, -p" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="6">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-si, -search, -srch, -items" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "13">
+                        <Label text="-si, -search, -srch, -items" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="13">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-des, -desc, -d" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "12">
+                        <Label text="-des, -desc, -d" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="12">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-nts, -note, -comments, -cmts" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "11">
+                        <Label text="-nts, -note, -comments, -cmts" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="11">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-st, -road, -dr, -strt" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "10">
+                        <Label text="-st, -road, -dr, -strt" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="10">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-cry, -cnty, -ct, -c" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "9">
+                        <Label text="-cry, -cnty, -ct, -c" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="9">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-region, -zone, -ar" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "8">
+                        <Label text="-region, -zone, -ar" textFill="#4d4d4d" GridPane.columnIndex="1"
+                               GridPane.rowIndex="8">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label text = "-sex, -g, -gen" textFill = "#4d4d4d" GridPane.columnIndex = "1"
-                               GridPane.rowIndex = "7">
+                        <Label text="-sex, -g, -gen" textFill="#4d4d4d" GridPane.columnIndex="1" GridPane.rowIndex="7">
                             <font>
-                                <Font name = "Inter 28pt Medium" size = "13.0" />
+                                <Font name="Inter 28pt Medium" size="13.0"/>
                             </font>
                         </Label>
-                        <Label fx:id = "usagelbl" alignment = "CENTER" text = "USAGE:" textFill = "#2c2c2c"
-                               textOverrun = "CLIP"
-                               GridPane.columnIndex = "2" GridPane.halignment = "CENTER" GridPane.valignment = "CENTER">
+                        <Label fx:id="usagelbl" alignment="CENTER" text="USAGE:" textFill="#2c2c2c" textOverrun="CLIP"
+                               GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <font>
-                                <Font name = "Inter 28pt Bold" size = "13.0" />
+                                <Font name="Inter 28pt Bold" size="13.0"/>
                             </font>
                         </Label>
-                        <AnchorPane fx:id = "sidePane" prefHeight = "200.0" prefWidth = "200.0"
-                                    GridPane.columnIndex = "2"
-                                    GridPane.rowIndex = "1" GridPane.rowSpan = "13">
+                        <AnchorPane fx:id="sidePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2"
+                                    GridPane.rowIndex="1" GridPane.rowSpan="13">
                             <children>
-                                <Label fx:id = "lbl2" layoutX = "20.0" maxWidth = "-Infinity" prefHeight = "70.0"
-                                       prefWidth = "348.0"
-                                       text = "Use -{code} to automatically pull the values from your notes to reports with the &quot;Pull From Notes&quot; button on the report windows. "
-                                       wrapText = "true" AnchorPane.leftAnchor = "20.0" AnchorPane.rightAnchor = "20.0"
-                                       AnchorPane.topAnchor = "0.0">
+                                <Label fx:id="lbl2" layoutX="20.0" maxWidth="-Infinity" prefHeight="70.0"
+                                       prefWidth="348.0"
+                                       text="Use -{code} to automatically pull the values from your notes to reports with the &quot;Pull From Notes&quot; button on the report windows. "
+                                       wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                                       AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
+                                        <Font name="Inter 28pt Medium" size="13.0"/>
                                     </font>
                                 </Label>
-                                <Label fx:id = "examplelbl" layoutX = "20.0" layoutY = "59.0" prefHeight = "34.0"
-                                       prefWidth = "254.0" text = "Example Usage:" wrapText = "true"
-                                       AnchorPane.leftAnchor = "20.0" AnchorPane.rightAnchor = "20.0"
-                                       AnchorPane.topAnchor = "59.0">
+                                <Label fx:id="examplelbl" layoutX="20.0" layoutY="59.0" prefHeight="34.0"
+                                       prefWidth="254.0" text="Example Usage:" wrapText="true"
+                                       AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                                       AnchorPane.topAnchor="59.0">
                                     <font>
-                                        <Font name = "Inter 28pt Bold" size = "13.0" />
+                                        <Font name="Inter 28pt Bold" size="13.0"/>
                                     </font>
                                 </Label>
-                                <TextArea editable = "false" focusTraversable = "false" layoutX = "101.0"
-                                          layoutY = "55.0"
-                                          prefHeight = "163.0" prefWidth = "348.0"
-                                          style = "-fx-font-family: Inter 28pt Medium; -fx-font-size: 13;"
-                                          stylesheets = "@../../css/main/transparentTextArea.css"
-                                          text = "-na Jefferson Amato -age 28 -gen Male &#10;-add 192 Forum Drive &#10;-desc Short Blonde Hair, Brown Eyes, tall&#10;-search Handgun Loaded&#10;-num 3&#10;-cnty Blaine -ar Sandy Shores -st 9028 Grapeseed Lane&#10;-model Infernus -plate PSLD9283&#10;-cmts No Comments"
-                                          AnchorPane.bottomAnchor = "0.0" AnchorPane.leftAnchor = "20.0"
-                                          AnchorPane.rightAnchor = "0.0" AnchorPane.topAnchor = "88.0">
+                                <TextArea editable="false" focusTraversable="false" layoutX="101.0" layoutY="55.0"
+                                          prefHeight="163.0" prefWidth="348.0"
+                                          style="-fx-font-family: Inter 28pt Medium; -fx-font-size: 13;"
+                                          stylesheets="@../../css/main/transparentTextArea.css"
+                                          text="-na Jefferson Amato -age 28 -gen Male &#10;-add 192 Forum Drive &#10;-desc Short Blonde Hair, Brown Eyes, tall&#10;-search Handgun Loaded&#10;-num 3&#10;-cnty Blaine -ar Sandy Shores -st 9028 Grapeseed Lane&#10;-model Infernus -plate PSLD9283&#10;-cmts No Comments"
+                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0"
+                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
                                     <font>
-                                        <Font name = "Inter 28pt Medium" size = "13.0" />
+                                        <Font name="Inter 28pt Medium" size="13.0"/>
                                     </font>
                                 </TextArea>
                             </children>
                         </AnchorPane>
-                        <Button mnemonicParsing = "false" onAction = "#helpbtnpress" prefHeight = "25.0"
-                                prefWidth = "20.0"
-                                style = "-fx-padding: 0; -fx-label-padding: 0;" text = "&gt;" GridPane.columnIndex = "1"
-                                GridPane.halignment = "RIGHT" />
+                        <Button mnemonicParsing="false" onAction="#helpbtnpress" prefHeight="25.0" prefWidth="20.0"
+                                style="-fx-padding: 0; -fx-label-padding: 0;" text="&gt;" GridPane.columnIndex="1"
+                                GridPane.halignment="RIGHT"/>
                     </children>
                 </GridPane>
             </children>

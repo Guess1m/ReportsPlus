@@ -1,15 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.*?>
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.DropShadow?><?import javafx.scene.layout.*?><?import javafx.scene.paint.Color?><?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="577.0" prefWidth="998.0"
             style="-fx-background-color: #306494;" stylesheets="@../../css/desktop/desktopLogin.css"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="com.Guess.ReportsPlus.Desktop.desktopLoginController">
+            xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Desktop.desktopLoginController">
     <center>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="480.0">
             <children>
@@ -176,7 +168,7 @@
                                                 </Label>
                                             </children>
                                             <GridPane.margin>
-                                                <Insets/>
+                                                <Insets bottom="10.0"/>
                                             </GridPane.margin>
                                         </HBox>
                                         <Label fx:id="registrationErrorLabel" alignment="CENTER_RIGHT"
@@ -187,42 +179,93 @@
                                                 <Font size="14.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="registrationUsernameField" promptText="Username"
-                                                   GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Inter 28pt Medium" size="19.0"/>
-                                            </font>
+                                        <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                             <GridPane.margin>
                                                 <Insets/>
                                             </GridPane.margin>
-                                        </TextField>
-                                        <TextField fx:id="registrationPasswordField" promptText="Password"
-                                                   GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font name="Inter 28pt Medium" size="19.0"/>
-                                            </font>
+                                            <children>
+                                                <Label fx:id="userLabel" alignment="CENTER" focusTraversable="false"
+                                                       style="-fx-font-family: &quot;Inter 28pt Medium&quot;;"
+                                                       text="Username">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="registrationUsernameField">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                             <GridPane.margin>
-                                                <Insets/>
+                                                <Insets bottom="30.0"/>
                                             </GridPane.margin>
-                                        </TextField>
-                                        <TextField fx:id="registrationOfficerNameField" promptText="Officer Name"
-                                                   GridPane.rowIndex="3">
-                                            <font>
-                                                <Font name="Inter 28pt Medium" size="19.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="registrationOfficerNumberField" promptText="Number"
-                                                   GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font name="Inter 28pt Medium" size="19.0"/>
-                                            </font>
-                                        </TextField>
-                                        <TextField fx:id="registrationCallsignField" promptText="Callsign"
-                                                   GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font name="Inter 28pt Medium" size="19.0"/>
-                                            </font>
-                                        </TextField>
+                                            <children>
+                                                <Label fx:id="passwordLabel" alignment="CENTER" focusTraversable="false"
+                                                       style="-fx-font-family: &quot;Inter 28pt Medium&quot;;"
+                                                       text="Password">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="registrationPasswordField">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox GridPane.rowIndex="3">
+                                            <children>
+                                                <Label fx:id="oNameLabel" alignment="CENTER" focusTraversable="false"
+                                                       style="-fx-font-family: &quot;Inter 28pt Medium&quot;;"
+                                                       text="Officer Name">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="registrationOfficerNameField">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label fx:id="oNumLabel" alignment="CENTER" focusTraversable="false"
+                                                       style="-fx-font-family: &quot;Inter 28pt Medium&quot;;"
+                                                       text="Number">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="registrationOfficerNumberField">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label fx:id="oCallsignLabel" alignment="CENTER"
+                                                       focusTraversable="false"
+                                                       style="-fx-font-family: &quot;Inter 28pt Medium&quot;;"
+                                                       text="Callsign">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="registrationCallsignField">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
                                         <VBox GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                                             <children>
                                                 <Label fx:id="agencyLabel" alignment="CENTER" focusTraversable="false"

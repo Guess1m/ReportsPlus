@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.scene.control.ScrollPane?><?import javafx.scene.control.TextField?><?import javafx.scene.layout.BorderPane?><?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
+            style="-fx-background-color: #1d1d1d;" stylesheets="@../../css/terminal/terminal.css"
+            xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.TerminalController">
+    <center>
+        <VBox>
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" style="-fx-background-color: #1d1d1d;"
+                        VBox.vgrow="ALWAYS">
+                <VBox fx:id="outputContainer" style="-fx-background-color: #1d1d1d;"/>
+            </ScrollPane>
+            <TextField fx:id="inputField" onKeyPressed="#handleInput" styleClass="input-field"/>
+        </VBox>
+    </center>
+</BorderPane>

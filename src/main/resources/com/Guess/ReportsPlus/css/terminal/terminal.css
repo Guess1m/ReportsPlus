@@ -1,0 +1,117 @@
+/* Main container styling */
+.scroll-pane,
+.scroll-pane .viewport,
+.output-container {
+    -fx-background-color: #000000;
+}
+
+.prompt-text {
+    -fx-fill: rgba(189, 222, 255, 0.56);
+    -fx-font-family: "Inter 28pt Medium";
+    -fx-font-size: 14px;
+}
+
+.command-text {
+    -fx-fill: #d1d1d1; /* Matching your text-field text color */
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.output-text {
+    -fx-fill: #2981c7; /* Reuse your text-area color for output */
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.system-text {
+    -fx-fill: #d1d1d1; /* Initial system messages */
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.error-text {
+    -fx-fill: #ff0000;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.warn-text {
+    -fx-fill: #ffcc00;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.info-text {
+    -fx-fill: #00ccff;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.debug-text {
+    -fx-fill: #7b00ff;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+/* Color Codes */
+.color-red {
+    -fx-fill: #ff5555;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.color-green {
+    -fx-fill: #55ff55;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.color-blue {
+    -fx-fill: #5555ff;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.color-yellow {
+    -fx-fill: #ffff55;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+.color-cyan {
+    -fx-fill: #55ffff;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+/* Text field styling (keep your original) */
+.text-field {
+    -fx-background-color: #282828;
+    -fx-prompt-text-fill: rgba(162, 162, 162, 0.42);
+    -fx-text-fill: #aeaeae;
+    -fx-border-color: #000000;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
+/* Scroll bar styling (keep your original) */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: #1d1d1d;
+}
+
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #404040;
+}
+
+/* Spacing and layout */
+.output-container > * {
+    -fx-padding: 2px 0;
+}
+
+HBox {
+    -fx-spacing: 5px;
+}

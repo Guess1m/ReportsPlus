@@ -39,7 +39,6 @@ import java.util.Optional;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.parseExpirationDate;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.*;
 import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
@@ -47,8 +46,7 @@ import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkCo
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
 import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.newImpound;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
-import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
-import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.generateInspectionStatus;
+import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -208,7 +206,7 @@ public class VehLookupViewController {
 		VehicleObject worldVehicle = new VehicleObject(searchedPlate);
 		
 		// A Vehicle exists in either the history file or worldVeh file
-		if (historyVehicle.isPresent() || !worldVehicle.getPlate().equalsIgnoreCase("Not Found")) {
+		if (historyVehicle.isPresent() || !worldVehicle.getPlate().equalsIgnoreCase("Not Found") || !worldVehicle.getPlate().equalsIgnoreCase("no value provided")) {
 			foundVehicle = true;
 			vehtypecombobox.getItems().clear();
 			vehtypecombobox.getItems().addAll(vehicleTypes);
@@ -230,25 +228,8 @@ public class VehLookupViewController {
 			
 			Vehicle vehicle = historyVehicle.get();
 			
-			if (vehicle.getInspection() == null) {
-				vehicle.setInspection(generateInspectionStatus());
-				try {
-					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-				} catch (JAXBException e) {
-					logError("Could not save new vehInspection: ", e);
-				}
-				log("Set vehInspection as '" + vehicle.getInspection() + "' since it created before pedModel was added", LogUtils.Severity.WARN);
-			}
-			
-			if (vehicle.getType() == null) {
-				vehicle.setType("N/A");
-				try {
-					Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-				} catch (JAXBException e) {
-					logError("Could not save new vehType: ", e);
-				}
-				log("Set vehType as '" + vehicle.getType() + "' since it created before pedModel was added", LogUtils.Severity.WARN);
-			}
+			processVehicleInfo(vehicle.getPlateNumber(), vehicle.getColor(), vehicle.getModel(), vehicle.getStolenStatus(), vehicle.getPoliceStatus(), vehicle.getOwner(), vehicle.getRegistration(), vehicle.getRegistrationNumber(), vehicle.getRegistrationExpiration(), vehicle.getInsurance(),
+			                   vehicle.getInsuranceNumber(), vehicle.getInsuranceExpiration(), vehicle.getType(), vehicle.getVin(), vehicle.getInspection());
 			
 			vehtypecombobox.setValue(vehicle.getType());
 			vehownerfield.setText(vehicle.getOwner());
@@ -261,6 +242,7 @@ public class VehLookupViewController {
 			
 			vehtypecombobox.getStyleClass().remove("combo-boxType");
 			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
+			
 			if (vehicle.getType().equalsIgnoreCase("N/A")) {
 				vehtypecombobox.getStyleClass().add("combo-boxType");
 			} else {
@@ -290,7 +272,7 @@ public class VehLookupViewController {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
 			
-			if (!vehicle.getColor().equals("Not Found")) {
+			if (!vehicle.getColor().equals("Not Found") || !vehicle.getColor().equals("no value provided")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
@@ -301,29 +283,12 @@ public class VehLookupViewController {
 			runModelUpdate(vehicle.getModel());
 			
 			// Check if vehicle present in worldVeh
-		} else if (!worldVehicle.getPlate().equalsIgnoreCase("Not Found")) {
+		} else if (!worldVehicle.getPlate().equalsIgnoreCase("Not Found") || !worldVehicle.getPlate().equalsIgnoreCase("no value provided")) {
 			log("Found: " + searchedPlate + " From WorldVeh file", LogUtils.Severity.DEBUG);
 			
-			Vehicle vehicle = new Vehicle();
-			vehicle.setPlateNumber(worldVehicle.getPlate());
-			vehicle.setType("N/A");
-			vehicle.setColor(worldVehicle.getColor());
-			vehicle.setModel(worldVehicle.getModel());
-			vehicle.setOwner(worldVehicle.getOwner());
-			vehicle.setInsurance(worldVehicle.getInsurance());
-			vehicle.setPoliceStatus(worldVehicle.getIsPolice());
-			vehicle.setVin(worldVehicle.getVin());
-			vehicle.setStolenStatus(worldVehicle.getIsStolen());
-			vehicle.setRegistration(worldVehicle.getRegistration());
-			vehicle.setInsuranceExpiration(worldVehicle.getInsuranceDate());
-			vehicle.setRegistrationExpiration(worldVehicle.getRegistrationDate());
-			vehicle.setInspection(generateInspectionStatus());
+			Vehicle vehicle = processVehicleInfo(worldVehicle.getPlate(), worldVehicle.getColor(), worldVehicle.getModel(), worldVehicle.getIsStolen(), worldVehicle.getIsPolice(), worldVehicle.getOwner(), worldVehicle.getRegistration(), null, worldVehicle.getRegistrationDate(),
+			                                     worldVehicle.getInsurance(), null, worldVehicle.getInsuranceDate(), null, worldVehicle.getVin(), null);
 			
-			try {
-				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
-			} catch (JAXBException e) {
-				logError("Could not add not vehicle from VehHistory:", e);
-			}
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
@@ -356,7 +321,7 @@ public class VehLookupViewController {
 			} else {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
-			if (!vehicle.getColor().equals("Not Found")) {
+			if (!vehicle.getColor().equals("Not Found") || !vehicle.getColor().equals("no value provided")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
@@ -395,7 +360,7 @@ public class VehLookupViewController {
 			field.setText(info.toUpperCase());
 			
 			boolean updated = false;
-			if (expirationMethod == null) {
+			if (expirationMethod == null || expirationMethod.equalsIgnoreCase("no value provided")) {
 				if (info.equalsIgnoreCase("expired")) {
 					expirationMethod = generateExpiredLicenseExpirationDate(3);
 				} else if (info.equalsIgnoreCase("None") || info.equalsIgnoreCase("revoked")) {
@@ -403,7 +368,7 @@ public class VehLookupViewController {
 				}
 				updated = true;
 			}
-			if (numberMethod == null) {
+			if (numberMethod == null || numberMethod.equalsIgnoreCase("no value provided")) {
 				numberMethod = generateLicenseNumber();
 				if (info.equalsIgnoreCase("None") || info.equalsIgnoreCase("revoked")) {
 					numberMethod = "None";
@@ -444,7 +409,7 @@ public class VehLookupViewController {
 	}
 	
 	private void runModelUpdate(String vehModelString) {
-		if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")) {
+		if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found") && !vehModelString.equalsIgnoreCase("no value provided")) {
 			File pedImgFolder = new File(vehImageFolderURL);
 			if (pedImgFolder.exists()) {
 				log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
@@ -682,6 +647,155 @@ public class VehLookupViewController {
 		} catch (Exception e) {
 			logError("Error creating license popup from field " + label.getText() + ": ", e);
 		}
+	}
+	
+	private Vehicle processVehicleInfo(String plateNumber_value, String color_value, String model_value, String stolenStatus_value, String policeStatus_value, String owner_value, String registration_value, String registrationNumber_value, String registrationExpiration_value, String insurance_value, String insuranceNumber_value, String insuranceExpiration_value, String type_value, String vin_value, String inspection_value) {
+		Vehicle targetVehicle = new Vehicle();
+		if (plateNumber_value == null || plateNumber_value.equalsIgnoreCase("no value provided") || plateNumber_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; plateNumber_value was null, set as ERROR", LogUtils.Severity.ERROR);
+			targetVehicle.setPlateNumber("ERROR");
+		} else {
+			targetVehicle.setPlateNumber(plateNumber_value);
+		}
+		
+		if (color_value == null || color_value.equalsIgnoreCase("no value provided") || color_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; color_value was null, set as ERROR", LogUtils.Severity.ERROR);
+			targetVehicle.setColor("ERROR");
+		} else {
+			targetVehicle.setColor(color_value);
+		}
+		
+		if (model_value == null || model_value.equalsIgnoreCase("no value provided") || model_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; model_value was null, set as: no value provided", LogUtils.Severity.ERROR);
+			targetVehicle.setModel("no value provided");
+		} else {
+			targetVehicle.setModel(model_value);
+		}
+		
+		if (stolenStatus_value == null || stolenStatus_value.equalsIgnoreCase("no value provided") || stolenStatus_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; stolenStatus_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			targetVehicle.setStolenStatus("Unknown");
+		} else {
+			targetVehicle.setStolenStatus(stolenStatus_value);
+		}
+		
+		if (policeStatus_value == null || policeStatus_value.equalsIgnoreCase("no value provided") || policeStatus_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; policeStatus_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			targetVehicle.setPoliceStatus("Unknown");
+		} else {
+			targetVehicle.setPoliceStatus(policeStatus_value);
+		}
+		
+		if (owner_value == null || owner_value.equalsIgnoreCase("no value provided") || owner_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; owner_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			targetVehicle.setOwner("Unknown");
+		} else {
+			targetVehicle.setOwner(owner_value);
+		}
+		
+		if (registration_value == null || registration_value.equalsIgnoreCase("no value provided") || registration_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; registration_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			targetVehicle.setRegistration("Unknown");
+		} else {
+			targetVehicle.setRegistration(registration_value);
+		}
+		
+		if (registrationNumber_value == null || registrationNumber_value.equalsIgnoreCase("no value provided") || registrationNumber_value.equalsIgnoreCase("not found")) {
+			String generated = generateLicenseNumber();
+			log("processVehicleInfo; registrationNumber_value was null, generated: [" + generated + "]", LogUtils.Severity.WARN);
+			targetVehicle.setRegistrationNumber(generated);
+		} else {
+			targetVehicle.setRegistrationNumber(registrationNumber_value);
+		}
+		
+		if (registrationExpiration_value == null || registrationExpiration_value.equalsIgnoreCase("no value provided") || registrationExpiration_value.equalsIgnoreCase("not found")) {
+			String expiration = "Not Applicable";
+			switch (targetVehicle.getRegistration().toLowerCase()) {
+				case "valid":
+					expiration = generateValidLicenseExpirationDate();
+					break;
+				case "expired":
+					expiration = generateExpiredLicenseExpirationDate(3);
+					break;
+				default:
+				case "none":
+				case "revoked":
+					targetVehicle.setRegistrationExpiration(expiration);
+					break;
+			}
+			
+			log("processVehicleInfo; registrationExpiration_value was null, generated: [" + expiration + "] based on registration status: [" + targetVehicle.getRegistration() + "]", LogUtils.Severity.WARN);
+			targetVehicle.setRegistrationExpiration(expiration);
+		} else {
+			targetVehicle.setRegistrationExpiration(registrationExpiration_value);
+		}
+		
+		if (insurance_value == null || insurance_value.equalsIgnoreCase("no value provided") || insurance_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; insurance_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			targetVehicle.setInsurance("Unknown");
+		} else {
+			targetVehicle.setInsurance(insurance_value);
+		}
+		
+		if (insuranceNumber_value == null || insuranceNumber_value.equalsIgnoreCase("no value provided") || insuranceNumber_value.equalsIgnoreCase("not found")) {
+			String generated = generateLicenseNumber();
+			log("processVehicleInfo; insuranceNumber_value was null, generated: [" + generated + "]", LogUtils.Severity.WARN);
+			targetVehicle.setInsuranceNumber(generated);
+		} else {
+			targetVehicle.setInsuranceNumber(insuranceNumber_value);
+		}
+		
+		if (insuranceExpiration_value == null || insuranceExpiration_value.equalsIgnoreCase("no value provided") || insuranceExpiration_value.equalsIgnoreCase("not found")) {
+			String expiration = "Not Applicable";
+			switch (targetVehicle.getInsurance().toLowerCase()) {
+				case "valid":
+					expiration = generateValidLicenseExpirationDate();
+					break;
+				case "expired":
+					expiration = generateExpiredLicenseExpirationDate(3);
+					break;
+				default:
+				case "none":
+				case "revoked":
+					targetVehicle.setInsuranceExpiration(expiration);
+					break;
+			}
+			
+			log("processVehicleInfo; insuranceExpiration_value was null, generated: [" + expiration + "] based on insurance status: [" + targetVehicle.getInsurance() + "]", LogUtils.Severity.WARN);
+			targetVehicle.setInsuranceExpiration(expiration);
+		} else {
+			targetVehicle.setInsuranceExpiration(insuranceExpiration_value);
+		}
+		
+		if (type_value == null || type_value.equalsIgnoreCase("no value provided") || type_value.equalsIgnoreCase("not found")) {
+			log("processVehicleInfo; type_value was null [always], set as N/A", LogUtils.Severity.INFO);
+			targetVehicle.setType("N/A");
+		} else {
+			targetVehicle.setType(type_value);
+		}
+		
+		if (vin_value == null || vin_value.equalsIgnoreCase("no value provided") || vin_value.equalsIgnoreCase("not found")) {
+			String licNum = generateLicenseNumber();
+			log("processVehicleInfo; vin_value was null, generated: [" + licNum + "]", LogUtils.Severity.WARN);
+		} else {
+			targetVehicle.setVin(vin_value);
+		}
+		
+		if (inspection_value == null || inspection_value.equalsIgnoreCase("no value provided") || inspection_value.equalsIgnoreCase("not found")) {
+			String inspection = generateInspectionStatus();
+			log("processVehicleInfo; inspection_value was null [always], generated: [" + inspection + "]", LogUtils.Severity.INFO);
+			targetVehicle.setInspection(inspection);
+		} else {
+			targetVehicle.setInspection(inspection_value);
+		}
+		
+		try {
+			addVehicle(targetVehicle);
+		} catch (JAXBException e) {
+			logError("Error adding vehicle from processVehicleInfo: ", e);
+		}
+		
+		return targetVehicle;
 	}
 	
 	@javafx.fxml.FXML

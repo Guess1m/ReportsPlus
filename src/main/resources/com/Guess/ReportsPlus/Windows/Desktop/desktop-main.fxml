@@ -1,14 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainDesktop" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="742.0"
-            prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.ColorAdjust?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainDesktop" maxHeight="-Infinity" maxWidth="-Infinity"
+            prefHeight="742.0" prefWidth="811.0" style="-fx-background-color: transparent;" stylesheets=""
             xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.Guess.ReportsPlus.Desktop.mainDesktopController">
     <center>
         <VBox fx:id="container">
@@ -118,7 +110,7 @@
                                                 <Font name="Inter 28pt Medium" size="12.0"/>
                                             </font>
                                             <HBox.margin>
-                                                <Insets />
+                                                <Insets/>
                                             </HBox.margin>
                                         </Label>
                                     </children>

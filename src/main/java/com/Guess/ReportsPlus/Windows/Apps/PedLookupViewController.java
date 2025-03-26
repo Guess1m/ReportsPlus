@@ -33,9 +33,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -189,35 +186,6 @@ public class PedLookupViewController {
 	private Label info3;
 	@javafx.fxml.FXML
 	private Label info2;
-	
-	public static String parseExpirationDate(String expirationDateStr) {
-		LocalDate today = LocalDate.now();
-		LocalDate expirationDate = LocalDate.parse(expirationDateStr, DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-		
-		if (expirationDate.isAfter(today)) {
-			return "";
-		} else {
-			long daysExpired = ChronoUnit.DAYS.between(expirationDate, today);
-			if (daysExpired >= 365 * 5) {
-				return "(> 5yr)";
-			} else if (daysExpired >= 365 * 4) {
-				return "(> 4yr)";
-			} else if (daysExpired >= 365 * 3) {
-				return "(> 3yr)";
-			} else if (daysExpired >= 365 * 2) {
-				return "(> 2yr)";
-			} else if (daysExpired >= 365) {
-				return "(> 1yr)";
-			} else if (daysExpired >= 180) {
-				return "(> 6mo)";
-			} else if (daysExpired > 30) {
-				return "(> 30d)";
-			} else if (daysExpired <= 30) {
-				return "(< 30d)";
-			}
-			return "";
-		}
-	}
 	
 	public void initialize() {
 		noPedImageFoundlbl.setVisible(false);
@@ -638,6 +606,13 @@ public class PedLookupViewController {
 				
 				if (huntPermitStatus_value != null) {
 					ped.setHuntingLicenseStatus(huntPermitStatus_value);
+					// Generate number if status implies a license
+					if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
+						if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
+							log("ProcessPedData; Generated hunting license number for provided status", LogUtils.Severity.WARN);
+							ped.setHuntingLicenseNumber(generateLicenseNumber());
+						}
+					}
 				} else {
 					log("ProcessPedData; huntPermitStatus_value was null, generating", LogUtils.Severity.WARN);
 					boolean huntlic = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
@@ -646,6 +621,7 @@ public class PedLookupViewController {
 						String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
 						                                          Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
 						ped.setHuntingLicenseStatus(licstatus);
+						ped.setHuntingLicenseNumber(generateLicenseNumber());
 					} else {
 						log("ProcessPedData; huntlic was false, set HuntingLicenseStatus None", LogUtils.Severity.WARN);
 						ped.setHuntingLicenseStatus("None");

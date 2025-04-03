@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.Windows.Other;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Launcher;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,8 +34,7 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.MainApplication.mainRT;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.isValidDatabase;
@@ -293,7 +291,7 @@ public class LayoutBuilderController {
 			}
 		} else {
 			showNotificationWarning("File Error", "File selection canceled");
-			log("File selection canceled", LogUtils.Severity.WARN);
+			logWarn("File selection canceled");
 		}
 	}
 	
@@ -326,7 +324,7 @@ public class LayoutBuilderController {
 				logError("Could not save file: ", e);
 			}
 		} else {
-			log("File save canceled", LogUtils.Severity.WARN);
+			logWarn("File save canceled");
 			showNotificationWarning("Save Error", "File save canceled");
 		}
 	}
@@ -782,7 +780,7 @@ public class LayoutBuilderController {
 		String reportTitle = reportTitleField.getText().trim();
 		
 		if (!validateFields()) {
-			log("LayoutBuilder; " + "Could not validate fields", LogUtils.Severity.ERROR);
+			logError("LayoutBuilder; " + "Could not validate fields");
 			return;
 		}
 		String dataFolderPath = getCustomDataLogsFolderPath();
@@ -791,7 +789,7 @@ public class LayoutBuilderController {
 		if (files != null || files.length != 0) {
 			for (File file : files) {
 				if (file.getName().equalsIgnoreCase(reportTitle + ".db")) {
-					log("NewReport; Report title already exists: " + reportTitle, LogUtils.Severity.ERROR);
+					logError("NewReport; Report title already exists: " + reportTitle);
 					showNotificationWarning("Report Creation Utility", "Report title already exists: " + reportTitle);
 					return;
 				}
@@ -808,7 +806,7 @@ public class LayoutBuilderController {
 		var numFieldCount = newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream).filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count();
 		if (numFieldCount != 1) {
 			showNotificationWarning("Report Creation Utility", "Exactly one NUMBER_FIELD is required, found: " + numFieldCount);
-			log("LayoutBuilder; Exactly one NUMBER_FIELD is required, found: " + numFieldCount, LogUtils.Severity.ERROR);
+			logError("LayoutBuilder; Exactly one NUMBER_FIELD is required, found: " + numFieldCount);
 			newMap.put("selectedType", null);
 			return;
 		}
@@ -863,16 +861,16 @@ public class LayoutBuilderController {
 					if (noteArea != null) {
 						menuItem.setOnAction(event3 -> {
 							if (newMap == null) {
-								log("LayoutBuilder; newMap is null", LogUtils.Severity.ERROR);
+								logError("LayoutBuilder; newMap is null");
 								return;
 							}
 							for (String field : newMap.getOrDefault("nodeType", new HashMap<>()).keySet()) {
-								log("LayoutBuilder; Processing field: " + field, LogUtils.Severity.DEBUG);
+								logDebug("LayoutBuilder; Processing field: " + field);
 								
 								Object fieldValue = reportMap.get(field);
 								
 								if (fieldValue == null) {
-									log("LayoutBuilder; Field is null: " + field, LogUtils.Severity.ERROR);
+									logError("LayoutBuilder; Field is null: " + field);
 									continue;
 								}
 								
@@ -889,7 +887,7 @@ public class LayoutBuilderController {
 								} else if (fieldValue instanceof TextArea) {
 									updateTextFromNotepad((TextArea) fieldValue, noteArea, "-" + key);
 								} else {
-									log("LayoutBuilder; Unknown field type: " + fieldValue.getClass().getSimpleName(), LogUtils.Severity.ERROR);
+									logError("LayoutBuilder; Unknown field type: " + fieldValue.getClass().getSimpleName());
 								}
 							}
 						});
@@ -899,7 +897,7 @@ public class LayoutBuilderController {
 		});
 		
 		submitBtn.setOnAction(submitEvent -> {
-			log("layoutBuilder; trying to create DB: " + reportTitle, LogUtils.Severity.INFO);
+			logInfo("layoutBuilder; trying to create DB: " + reportTitle);
 			
 			Map<String, String> layoutScheme = new HashMap<>();
 			layoutScheme.put("key", "TEXT");
@@ -931,7 +929,7 @@ public class LayoutBuilderController {
 			
 			DynamicDB DatabaseLayout = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "layout", "key", layoutScheme);
 			if (DatabaseLayout.initDB()) {
-				log("LayoutBuilder; Layout Database for: [" + reportTitle + "] Initialized", LogUtils.Severity.INFO);
+				logInfo("LayoutBuilder; Layout Database for: [" + reportTitle + "] Initialized");
 				try {
 					DatabaseLayout.addOrReplaceRecord(layoutMap);
 					DatabaseLayout.addOrReplaceRecord(transferMap);
@@ -945,7 +943,7 @@ public class LayoutBuilderController {
 					}
 				}
 			} else {
-				log("LayoutBuilder; Layout Database not initialized!", LogUtils.Severity.ERROR);
+				logError("LayoutBuilder; Layout Database not initialized!");
 				showNotificationError("Report Creation Utility", "Error initializing layout database!");
 			}
 			for (String fieldName : reportMap.keySet()) {
@@ -960,9 +958,9 @@ public class LayoutBuilderController {
 			DynamicDB Database = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "data", extractNumberField(data), reportSchema);
 			try {
 				if (Database.initDB()) {
-					log("LayoutBuilder; Database initialized", LogUtils.Severity.INFO);
+					logInfo("LayoutBuilder; Database initialized");
 				} else {
-					log("LayoutBuilder; Database not initialized!", LogUtils.Severity.ERROR);
+					logError("LayoutBuilder; Database not initialized!");
 					showNotificationError("Report Creation Utility", "Error initializing database!");
 				}
 			} finally {
@@ -990,12 +988,12 @@ public class LayoutBuilderController {
 		String reportTitle = reportTitleField.getText().trim();
 		if (reportTitle.isEmpty()) {
 			showNotificationWarning("Report Creation Utility", "Report Title Field is Empty");
-			log("LayoutBuilder; Report Title Field is Empty", LogUtils.Severity.ERROR);
+			logError("LayoutBuilder; Report Title Field is Empty");
 			return false;
 		}
 		if (usedNames.contains(reportTitle)) {
 			showNotificationWarning("Report Creation Utility", "Report Title must be unique.");
-			log("LayoutBuilder; Duplicate Report Title: " + reportTitle, LogUtils.Severity.ERROR);
+			logError("LayoutBuilder; Duplicate Report Title: " + reportTitle);
 			return false;
 		}
 		usedNames.add(reportTitle);
@@ -1004,18 +1002,18 @@ public class LayoutBuilderController {
 			TransferPane transferPane = (TransferPane) transferContainer.getChildren().get(0);
 			String transferName = transferPane.transferNameField.getText().trim();
 			if (transferName.isEmpty()) {
-				log("Transfer Name cannot be empty.", LogUtils.Severity.ERROR);
+				logError("Transfer Name cannot be empty.");
 				showNotificationWarning("Report Creation Utility", "Transfer Name cannot be empty.");
 				return false;
 			}
 			if (containsNumbers(transferName)) {
-				log("Transfer Name cannot contain numbers.", LogUtils.Severity.ERROR);
+				logError("Transfer Name cannot contain numbers.");
 				showNotificationWarning("Report Creation Utility", "Transfer Name cannot contain numbers.");
 				return false;
 			}
 			if (usedNames.contains(transferName)) {
 				showNotificationWarning("Report Creation Utility", "Transfer Name must be unique.");
-				log("LayoutBuilder; Duplicate Transfer Name: " + transferName, LogUtils.Severity.ERROR);
+				logError("LayoutBuilder; Duplicate Transfer Name: " + transferName);
 				return false;
 			}
 			usedNames.add(transferName);
@@ -1025,30 +1023,30 @@ public class LayoutBuilderController {
 					ElementPane elementPane = (ElementPane) node;
 					String elementName = elementPane.elementNameField.getText().trim();
 					if (elementName.isEmpty()) {
-						log("Element Name cannot be empty.", LogUtils.Severity.ERROR);
+						logError("Element Name cannot be empty.");
 						showNotificationWarning("Report Creation Utility", "Element Name cannot be empty.");
 						return false;
 					}
 					if (containsNumbers(elementName)) {
-						log("Element Name cannot contain numbers.", LogUtils.Severity.ERROR);
+						logError("Element Name cannot contain numbers.");
 						showNotificationWarning("Report Creation Utility", "Element Name cannot contain numbers.");
 						return false;
 					}
 					if (usedNames.contains(elementName)) {
 						showNotificationWarning("Report Creation Utility", "Element Name must be unique.");
-						log("LayoutBuilder; Duplicate Element Name: " + elementName, LogUtils.Severity.ERROR);
+						logError("LayoutBuilder; Duplicate Element Name: " + elementName);
 						return false;
 					}
 					usedNames.add(elementName);
 					
 					String reportValue = elementPane.reportComboBox.getValue() != null ? elementPane.reportComboBox.getValue().trim() : "";
 					if (reportValue.isEmpty()) {
-						log("Report ComboBox cannot be empty.", LogUtils.Severity.ERROR);
+						logError("Report ComboBox cannot be empty.");
 						showNotificationWarning("Report Creation Utility", "Report ComboBox cannot be empty.");
 						return false;
 					}
 					if (containsNumbers(reportValue)) {
-						log("Report ComboBox value cannot contain numbers.", LogUtils.Severity.ERROR);
+						logError("Report ComboBox value cannot contain numbers.");
 						showNotificationWarning("Report Creation Utility", "Report ComboBox value cannot contain numbers.");
 						return false;
 					}
@@ -1061,18 +1059,18 @@ public class LayoutBuilderController {
 				SectionPane sectionPane = (SectionPane) node;
 				String sectionTitle = sectionPane.sectionTitleField.getText().trim();
 				if (sectionTitle.isEmpty()) {
-					log("Section Title cannot be empty.", LogUtils.Severity.ERROR);
+					logError("Section Title cannot be empty.");
 					showNotificationWarning("Report Creation Utility", "Section Title cannot be empty.");
 					return false;
 				}
 				if (containsNumbers(sectionTitle)) {
-					log("Section Title cannot contain numbers.", LogUtils.Severity.ERROR);
+					logError("Section Title cannot contain numbers.");
 					showNotificationWarning("Report Creation Utility", "Section Title cannot contain numbers.");
 					return false;
 				}
 				if (usedNames.contains(sectionTitle)) {
 					showNotificationWarning("Report Creation Utility", "Section Title must be unique.");
-					log("LayoutBuilder; Duplicate Section Title: " + sectionTitle, LogUtils.Severity.ERROR);
+					logError("LayoutBuilder; Duplicate Section Title: " + sectionTitle);
 					return false;
 				}
 				usedNames.add(sectionTitle);
@@ -1087,7 +1085,7 @@ public class LayoutBuilderController {
 								String normalizedFieldName = fieldName.toLowerCase();
 								
 								if (fieldName.isEmpty()) {
-									log("Field Name cannot be empty.", LogUtils.Severity.ERROR);
+									logError("Field Name cannot be empty.");
 									showNotificationWarning("Report Creation Utility", "Field Name cannot be empty.");
 									return false;
 								}
@@ -1096,41 +1094,41 @@ public class LayoutBuilderController {
 									return false;
 								}
 								if (fieldName.equalsIgnoreCase("report_status")) {
-									log("Field Name cannot be 'report_status'.", LogUtils.Severity.ERROR);
+									logError("Field Name cannot be 'report_status'.");
 									showNotificationWarning("Report Creation Utility", "Field Name cannot be 'report_status' (RESERVED)");
 								}
 								if (usedNames.contains(normalizedFieldName)) {
 									showNotificationWarning("Duplicate Field", "Field name '" + fieldName + "' conflicts with another");
-									log("Duplicate field name: " + fieldName, LogUtils.Severity.ERROR);
+									logError("Duplicate field name: " + fieldName);
 									return false;
 								}
 								usedNames.add(normalizedFieldName);
 								
 								String fieldType = fieldPane.fieldTypeComboBox.getValue() != null ? fieldPane.fieldTypeComboBox.getValue().trim() : "";
 								if (fieldType.isEmpty()) {
-									log("Field Type ComboBox cannot be empty.", LogUtils.Severity.ERROR);
+									logError("Field Type ComboBox cannot be empty.");
 									showNotificationWarning("Report Creation Utility", "Field Type ComboBox cannot be empty.");
 									return false;
 								}
 								if (containsNumbers(fieldType)) {
-									log("Field Type ComboBox value cannot contain numbers.", LogUtils.Severity.ERROR);
+									logError("Field Type ComboBox value cannot contain numbers.");
 									showNotificationWarning("Report Creation Utility", "Field Type ComboBox value cannot contain numbers.");
 									return false;
 								}
 								if (fieldType.contains(" ")) {
-									log("Field Type cannot contain spaces.", LogUtils.Severity.ERROR);
+									logError("Field Type cannot contain spaces.");
 									showNotificationWarning("Report Creation Utility", "Field Type cannot contain spaces.");
 									return false;
 								}
 								
 								String keyFieldName = fieldPane.populateKeyField.getText().trim();
 								if (containsNumbers(keyFieldName)) {
-									log("Key Field cannot contain numbers.", LogUtils.Severity.ERROR);
+									logError("Key Field cannot contain numbers.");
 									showNotificationWarning("Report Creation Utility", "Key Field cannot contain numbers.");
 									return false;
 								}
 								if (keyFieldName.contains(" ")) {
-									log("Key Field cannot contain spaces.", LogUtils.Severity.ERROR);
+									logError("Key Field cannot contain spaces.");
 									showNotificationWarning("Report Creation Utility", "Key Field cannot contain spaces.");
 									return false;
 								}
@@ -1615,15 +1613,15 @@ public class LayoutBuilderController {
 			if (dataFolder.exists() && dataFolder.isDirectory()) {
 				File[] files = dataFolder.listFiles((dir, filen) -> filen.endsWith(".db"));
 				if (files != null && files.length != 0) {
-					log("LayoutBuilder; Found " + files.length + " Databases For Transfer List", LogUtils.Severity.INFO);
+					logInfo("LayoutBuilder; Found " + files.length + " Databases For Transfer List");
 					for (File dbFile : files) {
 						String fileNameWithoutExt = dbFile.getName().replaceFirst("[.][^.]+$", "");
 						String dbFilePath = dbFile.getAbsolutePath();
 						if (isValidDatabase(dbFilePath, dbFile.getName())) {
-							log("LayoutBuilder; [" + fileNameWithoutExt + "] Added To Transfer List", LogUtils.Severity.INFO);
+							logInfo("LayoutBuilder; [" + fileNameWithoutExt + "] Added To Transfer List");
 							dbArray.add(fileNameWithoutExt);
 						} else {
-							log("LayoutBuilder; Invalid database file: " + dbFilePath, LogUtils.Severity.WARN);
+							logWarn("LayoutBuilder; Invalid database file: " + dbFilePath);
 						}
 					}
 				}

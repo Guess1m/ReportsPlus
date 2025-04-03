@@ -1,7 +1,7 @@
 package com.Guess.ReportsPlus;
 
+import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Localization.Localization;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Other.controllerUtils;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import javafx.scene.text.Font;
@@ -14,6 +14,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.createAppConfig;
+import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
+import static com.Guess.ReportsPlus.config.ConfigReader.createConfig;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.loadJsonData;
 
@@ -21,22 +25,19 @@ public class Launcher {
 	public static Localization localization;
 	
 	public static void main(String[] args) {
-		initLogging();
-		
-		loadJsonData();
-		
 		try {
 			String filePath = controllerUtils.getJarPath() + File.separator + "output.log";
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.write(path, new byte[0]);
-				log("Log file cleared successfully.", Severity.INFO);
-			} else {
-				log("Log file does not exist.", Severity.WARN);
 			}
 		} catch (IOException e) {
 			logError("An error occurred while clearing the log file: ", e);
 		}
+		
+		initLogging();
+		
+		loadJsonData();
 		
 		localization = new Localization();
 		
@@ -50,7 +51,28 @@ public class Launcher {
 		
 		createDataLogsDir();
 		
-		newOfficerApplication.main(args);
+		createConfig();
+		createAppConfig();
+		
+		checkAndSetDefaultValues();
+		checkAndSetDefaultAppValues();
+		
+		try {
+			if (ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true")) {
+				logDebug("skipOfficerLogin is true, trying to open main desktop..");
+				logDebug("Trying to login with officer name: [" + ConfigReader.configRead("userInfo", "Name") + "]");
+				MainApplication.main(args);
+			} else {
+				logDebug("skipOfficerLogin is false, opening login screen");
+				newOfficerApplication.main(args);
+			}
+		} catch (IOException e) {
+			logError("Error opening main desktop / reading uiSettings.skipOfficerLogin: " + e);
+			newOfficerApplication.main(args);
+		} catch (NullPointerException e) {
+			logWarn("skipOfficerLogin null, Likely first launch, running login window: ");
+			newOfficerApplication.main(args);
+		}
 	}
 	
 	public static void loadFonts() {
@@ -60,7 +82,7 @@ public class Launcher {
 		ArrayList<Font> fonts = new ArrayList<>(
 				Arrays.asList(Font.loadFont(Launcher.class.getResource("fonts/InterBold.ttf").toExternalForm(), 28), Font.loadFont(Launcher.class.getResource("fonts/InterRegular.ttf").toExternalForm(), 28), Font.loadFont(Launcher.class.getResource("fonts/InterSemibold.ttf").toExternalForm(), 28)));
 		for (Font f : fonts) {
-			log("initialization; Loaded font: [" + f.getName() + "] Family: [" + f.getFamily() + "] Style: [" + f.getStyle() + "]", LogUtils.Severity.INFO);
+			logInfo("initialization; Loaded font: [" + f.getName() + "] Family: [" + f.getFamily() + "] Style: [" + f.getStyle() + "]");
 		}
 	}
 	
@@ -70,16 +92,16 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server files deleted successfully.", Severity.INFO);
+				logInfo("Server files deleted successfully.");
 			} else {
-				log("Server files do not exist.", Severity.WARN);
+				logWarn("Server files do not exist.");
 			}
 			Path path2 = Path.of(URLStrings.IDHistoryURL);
 			if (Files.exists(path2)) {
 				Files.delete(path2);
-				log("IDHistory file deleted successfully.", Severity.INFO);
+				logInfo("IDHistory file deleted successfully.");
 			} else {
-				log("IDHistory file does not exist.", Severity.WARN);
+				logWarn("IDHistory file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("Error while deleting IDHistory file: ", e);
@@ -90,9 +112,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server current ID file deleted successfully.", Severity.INFO);
+				logInfo("Server current ID file deleted successfully.");
 			} else {
-				log("Server current ID file does not exist.", Severity.WARN);
+				logWarn("Server current ID file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server current ID file: ", e);
@@ -103,9 +125,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("server gameData file deleted successfully.", Severity.INFO);
+				logInfo("server gameData file deleted successfully.");
 			} else {
-				log("server gameData file does not exist.", Severity.WARN);
+				logWarn("server gameData file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server gameData file: ", e);
@@ -116,9 +138,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server Location file deleted successfully.", Severity.INFO);
+				logInfo("Server Location file deleted successfully.");
 			} else {
-				log("Server Location file does not exist.", Severity.WARN);
+				logWarn("Server Location file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server Location file: ", e);
@@ -129,9 +151,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server world peds file deleted successfully.", Severity.INFO);
+				logInfo("Server world peds file deleted successfully.");
 			} else {
-				log("Server world peds file does not exist.", Severity.WARN);
+				logWarn("Server world peds file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world peds file: ", e);
@@ -142,9 +164,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server world cars file deleted successfully.", Severity.INFO);
+				logInfo("Server world cars file deleted successfully.");
 			} else {
-				log("Server world cars file does not exist.", Severity.WARN);
+				logWarn("Server world cars file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world cars file: ", e);
@@ -155,9 +177,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server ALPR file deleted successfully.", Severity.INFO);
+				logInfo("Server ALPR file deleted successfully.");
 			} else {
-				log("Server ALPR file does not exist.", Severity.WARN);
+				logWarn("Server ALPR file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server ALPR file: ", e);
@@ -168,9 +190,9 @@ public class Launcher {
 			Path path = Path.of(filePath);
 			if (Files.exists(path)) {
 				Files.delete(path);
-				log("Server traffic stop file deleted successfully.", Severity.INFO);
+				logInfo("Server traffic stop file deleted successfully.");
 			} else {
-				log("Server traffic stop file does not exist.", Severity.WARN);
+				logWarn("Server traffic stop file does not exist.");
 			}
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server traffic stop file: ", e);
@@ -184,22 +206,22 @@ public class Launcher {
 		File dataFolder = new File(dataFolderPath);
 		if (!dataFolder.exists()) {
 			dataFolder.mkdirs();
-			log("Created Data Folder", LogUtils.Severity.INFO);
+			logInfo("Created Data Folder");
 		} else {
-			log("Data Folder Already Exists", LogUtils.Severity.INFO);
+			logInfo("Data Folder Already Exists");
 		}
 		
 		File serverDataFolder = new File(serverData);
 		if (!serverDataFolder.exists()) {
 			serverDataFolder.mkdirs();
-			log("Created Server Data Folder", LogUtils.Severity.INFO);
+			logInfo("Created Server Data Folder");
 		} else {
-			log("Server Data Folder Already Exists", LogUtils.Severity.INFO);
+			logInfo("Server Data Folder Already Exists");
 		}
 		
 		File calloutDataFile = new File(URLStrings.calloutDataURL);
 		if (!calloutDataFile.exists()) {
-			log("Callout Data File Doesn't Exist, Creating", Severity.INFO);
+			logInfo("Callout Data File Doesn't Exist, Creating");
 			try {
 				calloutDataFile.createNewFile();
 			} catch (IOException e) {
@@ -209,7 +231,7 @@ public class Launcher {
 		
 		File calloutHistoryFile = new File(URLStrings.calloutHistoryURL);
 		if (!calloutHistoryFile.exists()) {
-			log("Callout History File Doesn't Exist, Creating", Severity.INFO);
+			logInfo("Callout History File Doesn't Exist, Creating");
 			try {
 				calloutHistoryFile.createNewFile();
 			} catch (IOException e) {
@@ -232,12 +254,12 @@ public class Launcher {
 		if (!folder.exists()) {
 			boolean folderCreated = folder.mkdirs();
 			if (folderCreated) {
-				log("DataLogs: " + folder.getAbsolutePath(), LogUtils.Severity.INFO);
+				logInfo("DataLogs: " + folder.getAbsolutePath());
 			} else {
-				log("Failed to create the DataLogs Folder.", LogUtils.Severity.ERROR);
+				logError("Failed to create the DataLogs Folder.");
 			}
 		} else {
-			log("DataLogs Folder already exists.", LogUtils.Severity.INFO);
+			logInfo("DataLogs Folder already exists.");
 		}
 	}
 	

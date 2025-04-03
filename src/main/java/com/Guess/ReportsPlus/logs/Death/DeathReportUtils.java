@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Death;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.deathReportLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.*;
@@ -125,7 +124,7 @@ public class DeathReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -249,10 +248,10 @@ public class DeathReportUtils {
 		if (existingReport.isPresent()) {
 			DeathReports.getDeathReportList().remove(existingReport.get());
 			DeathReports.getDeathReportList().add(DeathReport);
-			log("DeathReport with number " + DeathReport.getDeathReportNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("DeathReport with number " + DeathReport.getDeathReportNumber() + " updated.");
 		} else {
 			DeathReports.getDeathReportList().add(DeathReport);
-			log("DeathReport with number " + DeathReport.getDeathReportNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("DeathReport with number " + DeathReport.getDeathReportNumber() + " added.");
 		}
 		
 		saveDeathReports(DeathReports);
@@ -264,7 +263,7 @@ public class DeathReportUtils {
 		if (DeathReports.getDeathReportList() != null) {
 			DeathReports.getDeathReportList().removeIf(e -> e.getDeathReportNumber().equals(DeathReportnumber));
 			saveDeathReports(DeathReports);
-			log("DeathReport with number " + DeathReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("DeathReport with number " + DeathReportnumber + " deleted.");
 		}
 	}
 	

@@ -2,14 +2,18 @@ package com.Guess.ReportsPlus.Windows.Server;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
+import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
+import com.Guess.ReportsPlus.config.ConfigReader;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -17,11 +21,12 @@ import static com.Guess.ReportsPlus.Desktop.mainDesktopController.vehLookupAppOb
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
+import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabTrafficStop;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehImageFolderURL;
 
 public class trafficStopController {
 	
@@ -34,8 +39,6 @@ public class trafficStopController {
 	private TextField owner;
 	@javafx.fxml.FXML
 	private TextField stolen;
-	@javafx.fxml.FXML
-	private TextField police;
 	@javafx.fxml.FXML
 	private AnchorPane color;
 	@javafx.fxml.FXML
@@ -59,8 +62,6 @@ public class trafficStopController {
 	@javafx.fxml.FXML
 	private Label own;
 	@javafx.fxml.FXML
-	private Label plce;
-	@javafx.fxml.FXML
 	private Label ins;
 	@javafx.fxml.FXML
 	private Label str;
@@ -76,6 +77,10 @@ public class trafficStopController {
 	private Label plt;
 	@javafx.fxml.FXML
 	private Button createTrafficStopBtn;
+	@javafx.fxml.FXML
+	private ImageView modelImageView;
+	@javafx.fxml.FXML
+	private Label noImageFoundLbl;
 	
 	public void initialize() {
 		noColorFoundlbl.setVisible(true);
@@ -98,7 +103,6 @@ public class trafficStopController {
 		col.setText(localization.getLocalizedMessage("TrafficStopWindow.ColorLabel", "Vehicle Color"));
 		noColorFoundlbl.setText(localization.getLocalizedMessage("TrafficStopWindow.NoColorFound", "No Color Found"));
 		stln.setText(localization.getLocalizedMessage("TrafficStopWindow.IsStolenLabel", "Stolen Vehicle:"));
-		plce.setText(localization.getLocalizedMessage("TrafficStopWindow.IsPoliceLabel", "Police Vehicle:"));
 		reg.setText(localization.getLocalizedMessage("TrafficStopWindow.RegistrationLabel", "Registration Status:"));
 		ins.setText(localization.getLocalizedMessage("TrafficStopWindow.InsuranceLabel", "Insurance Status:"));
 		str.setText(localization.getLocalizedMessage("TrafficStopWindow.StreetLabel", "Traffic Stop Street:"));
@@ -115,7 +119,6 @@ public class trafficStopController {
 		String licensePlate = vehData.getOrDefault("licenseplate", "no value provided");
 		String model = vehData.getOrDefault("model", "no value provided");
 		String isStolen = vehData.getOrDefault("isstolen", "no value provided");
-		String isPolice = vehData.getOrDefault("ispolice", "no value provided");
 		String registration = vehData.getOrDefault("registration", "no value provided");
 		String insurance = vehData.getOrDefault("insurance", "no value provided");
 		String colorValue = vehData.getOrDefault("color", "no value provided");
@@ -143,11 +146,65 @@ public class trafficStopController {
 		getModel().setText(model);
 		getRegistration().setText(registration);
 		getInsurance().setText(insurance);
-		getPolice().setText(isPolice);
 		getStolen().setText(isStolen);
 		getOwner().setText(owner);
 		getStreet().setText(street);
 		getArea().setText(area);
+		
+		if (model != null && !model.equalsIgnoreCase("Not Found") && !model.equalsIgnoreCase("no value provided")) {
+			File pedImgFolder = new File(vehImageFolderURL);
+			if (pedImgFolder.exists()) {
+				logDebug("TrafficStopController; Detected vehImage folder..");
+				try {
+					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
+						
+						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(model + ".jpg"));
+						
+						if (matchingFiles != null && matchingFiles.length > 0) {
+							File matchingFile = matchingFiles[0];
+							logInfo("TrafficStopController; Matching vehImage found: " + matchingFile.getName());
+							
+							try {
+								String fileURI = matchingFile.toURI().toString();
+								modelImageView.setImage(new Image(fileURI));
+								noImageFoundLbl.setVisible(true);
+								noImageFoundLbl.setText("Vehicle Model Found On File:");
+							} catch (Exception e) {
+								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+								modelImageView.setImage(defImage);
+								noImageFoundLbl.setVisible(true);
+								noImageFoundLbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+								logError("TrafficStopController; Could not set vehImage: ", e);
+							}
+						} else {
+							logWarn("TrafficStopController; No matching vehImage found for the model: " + model + ", displaying no vehImage found.");
+							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+							modelImageView.setImage(defImage);
+							noImageFoundLbl.setVisible(true);
+							noImageFoundLbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+						}
+					} else {
+						logWarn("TrafficStopController; enablePedVehImages is disabled in settings so not displaying veh image");
+						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+						modelImageView.setImage(defImage);
+						noImageFoundLbl.setVisible(true);
+						noImageFoundLbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+					}
+				} catch (IOException e) {
+					logError("TrafficStopController; Error getting configValue for playLookupWarning: ", e);
+				}
+			} else {
+				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+				modelImageView.setImage(defImage);
+				noImageFoundLbl.setVisible(true);
+				noImageFoundLbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+			}
+		} else {
+			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
+			modelImageView.setImage(defImage);
+			noImageFoundLbl.setVisible(true);
+			noImageFoundLbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+		}
 		
 	}
 	
@@ -185,10 +242,6 @@ public class trafficStopController {
 	
 	public AnchorPane getColor() {
 		return color;
-	}
-	
-	public TextField getPolice() {
-		return police;
 	}
 	
 	public TextField getStolen() {
@@ -231,7 +284,7 @@ public class trafficStopController {
 				try {
 					vehLookupViewController.onVehSearchBtnClick(new ActionEvent());
 					vehWindow.bringToFront();
-					log("Bringing up veh search for: " + platenum.getText() + " from searchDMV", LogUtils.Severity.DEBUG);
+					logDebug("Bringing up veh search for: " + platenum.getText() + " from searchDMV");
 				} catch (IOException e) {
 					logError("Error searching plate from traffic stop window plate: " + platenum.getText(), e);
 				}

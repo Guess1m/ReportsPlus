@@ -5,7 +5,6 @@ import com.Guess.ReportsPlus.util.CourtData.Case;
 import com.Guess.ReportsPlus.util.CourtData.CourtCases;
 import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
 import com.Guess.ReportsPlus.util.CourtData.CustomCaseCell;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBException;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,8 +27,7 @@ import java.util.stream.Collectors;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
@@ -286,7 +284,7 @@ public class CourtViewController {
 			
 			for (Case pendingCase : pendingCases) {
 				long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
-				log("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec", LogUtils.Severity.DEBUG);
+				logDebug("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec");
 				
 				Runnable revealTask = () -> {
 					
@@ -295,7 +293,7 @@ public class CourtViewController {
 					
 					try {
 						modifyCase(pendingCase.getCaseNumber(), pendingCase);
-						log("Case: #" + pendingCase.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
+						logDebug("Case: #" + pendingCase.getCaseNumber() + " has been closed");
 						showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + ", " + pendingCase.getName() + ", has been closed");
 					} catch (JAXBException | IOException e) {
 						logError("Error modifying case from scheduleOutcomeReveals: ", e);
@@ -503,12 +501,12 @@ public class CourtViewController {
 				revealOutcomes(case1);
 			}
 		} else {
-			log("Could not find a caseStatus for: #" + case1.getCaseNumber(), LogUtils.Severity.ERROR);
+			logError("Could not find a caseStatus for: #" + case1.getCaseNumber());
 			revealOutcomes(case1);
 			case1.setStatus("Closed");
 			try {
 				modifyCase(case1.getCaseNumber(), case1);
-				log("Case: #" + case1.getCaseNumber() + " has been set as closed", LogUtils.Severity.DEBUG);
+				logDebug("Case: #" + case1.getCaseNumber() + " has been set as closed");
 			} catch (JAXBException | IOException e) {
 				logError("Error setting case as closed (modifying): ", e);
 				
@@ -557,7 +555,7 @@ public class CourtViewController {
 					try {
 						caseToUpdate.setStatus("Closed");
 						modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
-						log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed", LogUtils.Severity.INFO);
+						logInfo("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed");
 						updateFields(caseToUpdate);
 						loadCaseLabels(caseList);
 						
@@ -567,7 +565,7 @@ public class CourtViewController {
 						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ", e);
 					}
 				} else {
-					log("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!", LogUtils.Severity.WARN);
+					logWarn("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!");
 					showNotificationWarning("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed");
 				}
 			}

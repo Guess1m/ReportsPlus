@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.History;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -15,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateAge;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.pedHistoryURL;
 
 @XmlRootElement(name = "ped")
@@ -498,10 +497,10 @@ public class Ped {
 			if (existingReport.isPresent()) {
 				Peds.getPedList().remove(existingReport.get());
 				Peds.getPedList().add(Ped);
-				log("Ped with license number " + Ped.getLicenseNumber() + " updated.", LogUtils.Severity.INFO);
+				logInfo("Ped with license number " + Ped.getLicenseNumber() + " updated.");
 			} else {
 				Peds.getPedList().add(Ped);
-				log("Ped with license number " + Ped.getLicenseNumber() + " added.", LogUtils.Severity.INFO);
+				logInfo("Ped with license number " + Ped.getLicenseNumber() + " added.");
 			}
 			
 			savePeds(Peds);
@@ -513,7 +512,7 @@ public class Ped {
 			if (Peds.getPedList() != null) {
 				Peds.getPedList().removeIf(e -> e.getLicenseNumber().equals(Pednumber));
 				savePeds(Peds);
-				log("Ped with license number " + Pednumber + " deleted.", LogUtils.Severity.INFO);
+				logInfo("Ped with license number " + Pednumber + " deleted.");
 			}
 		}
 		

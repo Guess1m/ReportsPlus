@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 
 public class WindowManager {
 	public static Map<String, CustomWindow> windows = new HashMap<>();
@@ -25,7 +25,7 @@ public class WindowManager {
 	public static CustomWindow activeWindow = null;
 	
 	public static CustomWindow createCustomWindow(AnchorPane root, String fileName, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
-		log("Creating FXML Window: " + title, LogUtils.Severity.INFO);
+		logInfo("Creating FXML Window: " + title);
 		if (!windows.containsKey(title)) {
 			URL fxmlUrl = Launcher.class.getResource(fileName);
 			if (fxmlUrl == null) {
@@ -101,7 +101,7 @@ public class WindowManager {
 					logError("Error creating window: " + title, e);
 				}
 			} else {
-				log("WindowPane was null after creation, Window likely had an error: " + title, LogUtils.Severity.ERROR);
+				logError("WindowPane was null after creation, Window likely had an error: " + title);
 			}
 			return customWindow;
 		} else {
@@ -113,7 +113,7 @@ public class WindowManager {
 				windowPositions.put(title, new double[]{x, y});
 				windowSizes.put(title, new double[]{customWindow.getWindowPane().getWidth(), customWindow.getWindowPane().getHeight()});
 				
-				LogUtils.log(customWindow.title + " is already created, closing", LogUtils.Severity.WARN);
+				LogUtils.logWarn(customWindow.title + " is already created, closing");
 				customWindow.closeWindow();
 				windows.remove(title);
 				
@@ -124,7 +124,7 @@ public class WindowManager {
 	}
 	
 	public static CustomWindow createCustomWindow(AnchorPane root, BorderPane window, String title, boolean resizable, int priority, boolean centerOnDesktop, boolean reopen, HBox taskBarApps, Image image) {
-		log("Creating Window: " + title, LogUtils.Severity.INFO);
+		logInfo("Creating Window: " + title);
 		if (!windows.containsKey(title)) {
 			CustomWindow customWindow = new CustomWindow(window, title, resizable, priority, taskBarApps, root, image);
 			
@@ -198,7 +198,7 @@ public class WindowManager {
 				windowPositions.put(title, new double[]{x, y});
 				windowSizes.put(title, new double[]{customWindow.getWindowPane().getWidth(), customWindow.getWindowPane().getHeight()});
 				
-				LogUtils.log(customWindow.title + " is already created, closing", LogUtils.Severity.WARN);
+				LogUtils.logWarn(customWindow.title + " is already created, closing");
 				customWindow.closeWindow();
 				windows.remove(title);
 				

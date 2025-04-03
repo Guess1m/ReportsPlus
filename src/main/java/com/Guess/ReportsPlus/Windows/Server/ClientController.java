@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.Windows.Server;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -17,7 +16,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 
 public class ClientController {
@@ -105,7 +104,7 @@ public class ClientController {
 				pause.play();
 			}
 		} else {
-			log("Tried to connect, but there is already a connection established", LogUtils.Severity.WARN);
+			logWarn("Tried to connect, but there is already a connection established");
 		}
 	}
 	

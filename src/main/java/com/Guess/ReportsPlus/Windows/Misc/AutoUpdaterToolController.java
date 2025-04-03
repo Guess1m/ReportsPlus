@@ -3,7 +3,6 @@ package com.Guess.ReportsPlus.Windows.Misc;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -24,8 +23,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.*;
@@ -118,7 +116,7 @@ public class AutoUpdaterToolController {
 	
 	@FXML
 	public void updateBtn(ActionEvent actionEvent) {
-		log("AutoUpdate button pressed", Severity.DEBUG);
+		logDebug("AutoUpdate button pressed");
 		updateStatus(updateStatusLabel, "Performing Checks...", "blue");
 		
 		final boolean[] updateServer = {false};
@@ -127,19 +125,19 @@ public class AutoUpdaterToolController {
 		} else {
 			updateServer[0] = false;
 		}
-		log("Attempting Server Update: " + updateServer[0], Severity.DEBUG);
+		logDebug("Attempting Server Update: " + updateServer[0]);
 		
 		String downloadURL = null;
 		if (intelChipCheckbox.isSelected()) {
 			downloadURL = intelChipApplicationDownloadURL;
-			log("Intel Download Selected", Severity.DEBUG);
+			logDebug("Intel Download Selected");
 			ConfigWriter.configwrite("updater", "useIntel", "true");
 		} else {
 			downloadURL = applicationDownloadURL;
-			log("ARM/Win Download Selected", Severity.DEBUG);
+			logDebug("ARM/Win Download Selected");
 			ConfigWriter.configwrite("updater", "useIntel", "false");
 		}
-		log("Using Download URL: " + downloadURL, Severity.DEBUG);
+		logDebug("Using Download URL: " + downloadURL);
 		
 		final boolean[] errorsFound = {false};
 		StringBuilder errors = new StringBuilder();
@@ -148,21 +146,21 @@ public class AutoUpdaterToolController {
 		Platform.runLater(() -> {
 			validInternetConnection = isInternetAvailable();
 			if (validInternetConnection) {
-				log("Valid Internet Connection", Severity.DEBUG);
+				logDebug("Valid Internet Connection");
 				updateStatus(validInternetConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Invalid Internet Connection", Severity.DEBUG);
+				logDebug("Invalid Internet Connection");
 				updateStatus(validInternetConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Invalid Internet Connection ");
 			}
 			
-			log("Attempting to copy updater", Severity.DEBUG);
+			logDebug("Attempting to copy updater");
 			try {
 				if (copyUpdaterJar()) {
-					log("Finished Copying UpdaterJar.", Severity.DEBUG);
+					logDebug("Finished Copying UpdaterJar.");
 				} else {
-					log("Could not copy updater", Severity.ERROR);
+					logError("Could not copy updater");
 					updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 					errors.append("Update Utility Was Not Copied, ");
 				}
@@ -172,10 +170,10 @@ public class AutoUpdaterToolController {
 			
 			foundUpdateUtility = checkForUpdateUtility();
 			if (foundUpdateUtility) {
-				log("Found Update Utility", Severity.DEBUG);
+				logDebug("Found Update Utility");
 				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Update Utility Was Not Found!", Severity.ERROR);
+				logError("Update Utility Was Not Found!");
 				errorsFound[0] = true;
 				updateStatus(foundUpdateUtilityLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errors.append("Update Utility Was Not Found, ");
@@ -183,10 +181,10 @@ public class AutoUpdaterToolController {
 			
 			validServerConnection = isConnected;
 			if (validServerConnection) {
-				log("Valid Server Connection Found", Severity.DEBUG);
+				logDebug("Valid Server Connection Found");
 				updateStatus(validServerConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Invalid Server Connection", Severity.WARN);
+				logWarn("Invalid Server Connection");
 				updateStatus(validServerConnectionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				if (updateServer[0]) {
 					errorsFound[0] = true;
@@ -196,10 +194,10 @@ public class AutoUpdaterToolController {
 			
 			foundServerDownloadVersion = serverVersion;
 			if (foundServerDownloadVersion != null) {
-				log("Current Server Version: " + foundServerDownloadVersion, Severity.DEBUG);
+				logDebug("Current Server Version: " + foundServerDownloadVersion);
 				updateStatus(foundServerVersionLabel, foundServerDownloadVersion, "green");
 			} else {
-				log("Current Server Version Not Found!", Severity.WARN);
+				logWarn("Current Server Version Not Found!");
 				updateStatus(foundServerVersionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				if (updateServer[0]) {
 					errorsFound[0] = true;
@@ -209,10 +207,10 @@ public class AutoUpdaterToolController {
 			
 			foundDownloadURL = checkForDownloadURL(finalDownloadURL);
 			if (foundDownloadURL) {
-				log("Found Download URL: " + finalDownloadURL, Severity.DEBUG);
+				logDebug("Found Download URL: " + finalDownloadURL);
 				updateStatus(foundDownloadURLLabel, localization.getLocalizedMessage("UpdatesWindow.validAutoUpdateCheck", "OK"), "green");
 			} else {
-				log("Download URL Was Not Found!", Severity.WARN);
+				logWarn("Download URL Was Not Found!");
 				updateStatus(foundDownloadURLLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Download URL Was Not Found, ");
@@ -220,10 +218,10 @@ public class AutoUpdaterToolController {
 			
 			foundDownloadVersion = checkForDownloadVersion();
 			if (foundDownloadVersion != null) {
-				log("Found Download Version: " + foundDownloadVersion, Severity.DEBUG);
+				logDebug("Found Download Version: " + foundDownloadVersion);
 				updateStatus(foundDownloadVersionLabel, foundDownloadVersion, "green");
 			} else {
-				log("Download Version Was Not Found!", Severity.WARN);
+				logWarn("Download Version Was Not Found!");
 				updateStatus(foundDownloadVersionLabel, localization.getLocalizedMessage("UpdatesWindow.invalidAutoUpdateCheck", "Invalid"), "red");
 				errorsFound[0] = true;
 				errors.append("Download Version Was Not Found, ");
@@ -235,7 +233,7 @@ public class AutoUpdaterToolController {
 			}
 			
 			if (errorsFound[0]) {
-				log("Update Check Finished With Errors!: " + ErrorsString, Severity.ERROR);
+				logError("Update Check Finished With Errors!: " + ErrorsString);
 				showNotificationError("AutoUpdate Utility", "Autoupdate check finished with errors!");
 				updateStatus(updateStatusLabel, localization.getLocalizedMessage("UpdatesWindow.failedAutoUpdateCheck", "Issues Found"), "red");
 				updateStatus(helpLabel, localization.getLocalizedMessage("UpdatesWindow.checksDidntPassLabel", "Can't Update:") + " " + ErrorsString, "red");
@@ -244,7 +242,7 @@ public class AutoUpdaterToolController {
 				updateStatus(helpLabel, "Downloading Update..", "green");
 				
 				if (updateServer[0]) {
-					log("Sending update message to server", Severity.DEBUG);
+					logDebug("Sending update message to server");
 					sendMessageToServer("UPDATE_MESSAGE");
 				}
 				
@@ -258,21 +256,21 @@ public class AutoUpdaterToolController {
 	
 	private void downloadFile(String fileUrl, String destinationPath) {
 		if (destinationPath == null) {
-			log("Destination path is null. Aborting download.", Severity.ERROR);
+			logError("Destination path is null. Aborting download.");
 			return;
 		}
 		
 		Task<Boolean> downloadTask = new Task<>() {
 			@Override
 			protected Boolean call() throws IOException {
-				log("Preparing to download file from: " + fileUrl, Severity.DEBUG);
+				logDebug("Preparing to download file from: " + fileUrl);
 				URL url = new URL(fileUrl);
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 				
 				int totalFileSize = connection.getContentLength();
 				if (totalFileSize == -1) {
-					log("Failed to retrieve file size. Progress tracking unavailable.", Severity.WARN);
+					logWarn("Failed to retrieve file size. Progress tracking unavailable.");
 				}
 				
 				Path destinationDir = Path.of(destinationPath);
@@ -300,10 +298,10 @@ public class AutoUpdaterToolController {
 					}
 					long end = System.currentTimeMillis();
 					long delta = end - start;
-					log("Download completed in " + Math.round(delta) + "ms. Total bytes read: " + totalBytesRead, Severity.DEBUG);
+					logDebug("Download completed in " + Math.round(delta) + "ms. Total bytes read: " + totalBytesRead);
 					return true;
 				} catch (IOException e) {
-					log("Error during file download: " + e.getMessage(), Severity.ERROR);
+					logError("Error during file download: " + e.getMessage());
 					return false;
 				}
 			}
@@ -313,7 +311,7 @@ public class AutoUpdaterToolController {
 			updateStatus(updateStatusLabel, "Download Complete", "green");
 			showNotificationInfo("Download", "Download finished successfully.");
 			
-			log("Application Update Download was Successful, launching updater", Severity.DEBUG);
+			logDebug("Application Update Download was Successful, launching updater");
 			updateStatus(helpLabel, "Downloaded Update! Running Updater..", "green");
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
@@ -344,12 +342,12 @@ public class AutoUpdaterToolController {
 	}
 	
 	private void runUpdater() {
-		log("Attempting to run Updater and Close application!", Severity.WARN);
+		logWarn("Attempting to run Updater and Close application!");
 		boolean canUpdate = runJar(getJarPath() + File.separator + "tools" + File.separator + "Updater.jar");
 		if (canUpdate) {
 			handleClose();
 		} else {
-			log("Not able to update, issue running Updater", Severity.ERROR);
+			logError("Not able to update, issue running Updater");
 			Platform.runLater(() -> {
 				updateStatus(helpLabel, "Not able to update, issue running Updater", "red");
 			});
@@ -360,10 +358,10 @@ public class AutoUpdaterToolController {
 		String updaterPath = getJarPath() + File.separator + "tools" + File.separator + "Updater.jar";
 		File jarFile = new File(updaterPath);
 		if (jarFile.exists()) {
-			log("Updater Found At: " + updaterPath, Severity.DEBUG);
+			logDebug("Updater Found At: " + updaterPath);
 			return true;
 		} else {
-			log("Updater Not Found At: " + updaterPath, Severity.ERROR);
+			logError("Updater Not Found At: " + updaterPath);
 			return false;
 		}
 	}
@@ -396,7 +394,7 @@ public class AutoUpdaterToolController {
 			try {
 				responseCode = connection.getResponseCode();
 			} catch (IOException e) {
-				log("Failed to fetch version file: Unable to get response code. URL might not exist.", Severity.ERROR);
+				logError("Failed to fetch version file: Unable to get response code. URL might not exist.");
 				return null;
 			}
 			if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -409,11 +407,11 @@ public class AutoUpdaterToolController {
 				reader.close();
 				return content.toString().trim();
 			} else {
-				log("Failed to fetch version file: HTTP error code " + responseCode, Severity.ERROR);
+				logError("Failed to fetch version file: HTTP error code " + responseCode);
 				return null;
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", Severity.ERROR);
+			logError("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.");
 			return null;
 		} catch (IOException e) {
 			logError("Can't check for updates: ", e);

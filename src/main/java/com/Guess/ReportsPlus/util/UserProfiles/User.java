@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.UserProfiles;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -12,8 +11,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import java.io.File;
 import java.util.Optional;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.currentUserFileURL;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -63,7 +62,7 @@ public class User {
 		if (userProfiles.getUserList() != null) {
 			userProfiles.getUserList().removeIf(e -> e.getName().equals(name));
 			saveUserProfiles(userProfiles);
-			log("SearchReport with number " + name + " deleted.", LogUtils.Severity.INFO);
+			logInfo("SearchReport with number " + name + " deleted.");
 		}
 	}
 	
@@ -104,10 +103,10 @@ public class User {
 		if (existingReport.isPresent()) {
 			Profiles.getUserList().remove(existingReport.get());
 			Profiles.getUserList().add(User);
-			log("User with name " + User.getName() + " updated.", LogUtils.Severity.INFO);
+			logInfo("User with name " + User.getName() + " updated.");
 		} else {
 			Profiles.getUserList().add(User);
-			log("User with name " + User.getName() + " added.", LogUtils.Severity.INFO);
+			logInfo("User with name " + User.getName() + " added.");
 		}
 		saveUserProfiles(Profiles);
 	}

@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.ChargesData;
 import com.Guess.ReportsPlus.logs.CitationsData;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Strings.dropdownInfo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -37,8 +36,7 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.*;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.FieldType.*;
 import static com.Guess.ReportsPlus.util.Report.treeViewUtils.findXMLValue;
@@ -376,8 +374,8 @@ public class reportUtil {
 		int columnIndex = 0;
 		for (nestedReportUtils.FieldConfig fieldConfig : rowConfig.getFieldConfigs()) {
 			if (fieldConfig.getSize() <= 0 || totalSize + fieldConfig.getSize() > 12) {
-				log(fieldConfig.getFieldName(), LogUtils.Severity.ERROR);
-				log(String.valueOf(fieldConfig.getSize()), LogUtils.Severity.ERROR);
+				logError(fieldConfig.getFieldName());
+				logError(String.valueOf(fieldConfig.getSize()));
 				throw new IllegalArgumentException("Invalid field size configuration");
 			}
 			totalSize += fieldConfig.getSize();
@@ -430,12 +428,12 @@ public class reportUtil {
 						} else if (fieldConfig.getFieldType().equals(DATE_FIELD)) {
 							textField.setText(getDate());
 						} else if (fieldConfig.getFieldType().equals(TIME_FIELD)) {
-							textField.setText(getTime(false));
+							textField.setText(getTime(false, false));
 						} else if (fieldConfig.getFieldType().equals(COUNTY_FIELD) && ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true")) {
 							if (mainDesktopControllerObj != null) {
 								if (mainDesktopControllerObj.getLocationCountyLabel().getText() != null && !mainDesktopControllerObj.getLocationCountyLabel().getText().isEmpty()) {
 									textField.setText(mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", ""));
-									log("Autofilled county: [" + mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", "") + "] into textfield: [" + fieldConfig.getFieldName() + "]", LogUtils.Severity.INFO);
+									logInfo("Autofilled county: [" + mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", "") + "] into textfield: [" + fieldConfig.getFieldName() + "]");
 								}
 							}
 						}
@@ -530,7 +528,7 @@ public class reportUtil {
 								if (mainDesktopControllerObj != null) {
 									if (mainDesktopControllerObj.getLocationAreaLabel().getText() != null && !mainDesktopControllerObj.getLocationAreaLabel().getText().isEmpty()) {
 										comboBox.getSelectionModel().select(mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", ""));
-										log("Autofilled area: [" + mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]", LogUtils.Severity.INFO);
+										logInfo("Autofilled area: [" + mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]");
 									}
 								}
 							}
@@ -544,7 +542,7 @@ public class reportUtil {
 								if (mainDesktopControllerObj != null) {
 									if (mainDesktopControllerObj.getLocationStreetLabel().getText() != null && !mainDesktopControllerObj.getLocationStreetLabel().getText().isEmpty()) {
 										comboBox.getSelectionModel().select(mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", ""));
-										log("Autofilled street: [" + mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]", LogUtils.Severity.INFO);
+										logInfo("Autofilled street: [" + mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]");
 									}
 								}
 							}
@@ -772,7 +770,7 @@ public class reportUtil {
 							if (fine != null) {
 								formData = new CitationsData(citation);
 							} else {
-								log("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText(), LogUtils.Severity.DEBUG);
+								logDebug("Added Ciation via Custom Citation Value: " + citation + " fine: " + citationFineField.getText());
 								formData = new CitationsData(citation + " MaxFine:" + citationFineField.getText());
 							}
 							
@@ -962,7 +960,7 @@ public class reportUtil {
 					rowIndex += 6;
 					break;
 				default:
-					log("Unknown field type: " + fieldConfig.getFieldType(), LogUtils.Severity.ERROR);
+					logError("Unknown field type: " + fieldConfig.getFieldType());
 					break;
 				
 			}
@@ -1053,12 +1051,12 @@ public class reportUtil {
 				}
 				break;
 			default:
-				log("Unknown lookup type: " + lookupType, LogUtils.Severity.ERROR);
+				logError("Unknown lookup type: " + lookupType);
 				return "";
 		}
 		
 		if (object == null) {
-			log("Object is null", LogUtils.Severity.ERROR);
+			logError("Object is null");
 			return "";
 		}
 		

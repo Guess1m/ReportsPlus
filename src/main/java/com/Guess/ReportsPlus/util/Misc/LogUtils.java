@@ -23,7 +23,7 @@ public class LogUtils {
 			PrintStream fileAndConsole = new TeePrintStream(System.out, new PrintStream(fos));
 			System.setOut(fileAndConsole);
 			System.setErr(fileAndConsole);
-			log("---=== Client Log ===---", Severity.INFO);
+			logInfo("---=== Client Log ===---");
 			getOperatingSystemAndArch();
 		} catch (IOException e) {
 			System.out.println(checkFolderPermissions(Path.of(getJarPath())));
@@ -58,12 +58,16 @@ public class LogUtils {
 	}
 	
 	public static void endLog() {
-		System.out.println("----------------------------- END LOG [" + MainApplication.getTime(true) + "] -----------------------------");
+		System.out.println("----------------------------- END LOG [" + MainApplication.getTime(true, true) + "] -----------------------------");
 		System.out.println();
 	}
 	
 	public static void log(String message, Severity severity) {
-		String logMessage = "[" + getDate() + "] [" + getTime(true) + "] [" + severity + "] " + message;
+		String th = Thread.currentThread().getName();
+		if (th.toLowerCase().equalsIgnoreCase("JavaFX Application Thread")) {
+			th = "FXThread";
+		}
+		String logMessage = "[" + th + "/" + Thread.currentThread().getThreadGroup().getName() + "] [" + getDate() + "] [" + getTime(true, true) + "] [" + severity + "] " + message;
 		System.out.println(logMessage);
 		if (TerminalController.terminalController != null) {
 			if (ShowOutputCommand.TerminalLogging) {
@@ -72,8 +76,28 @@ public class LogUtils {
 		}
 	}
 	
+	public static void logDebug(String message) {
+		log(message, Severity.DEBUG);
+	}
+	
+	public static void logInfo(String message) {
+		log(message, Severity.INFO);
+	}
+	
+	public static void logWarn(String message) {
+		log(message, Severity.WARN);
+	}
+	
+	public static void logError(String message) {
+		log(message, Severity.ERROR);
+	}
+	
 	public static void logError(String message, Throwable e) {
-		String errorMessage = "*** [" + getDate() + "] [" + getTime(true) + "] [ERROR] " + message;
+		String th = Thread.currentThread().getName();
+		if (th.toLowerCase().equalsIgnoreCase("JavaFX Application Thread")) {
+			th = "FXThread";
+		}
+		String errorMessage = "*** [" + th + "] [" + getDate() + "] [" + getTime(true, true) + "] [ERROR] " + message;
 		System.err.println(errorMessage);
 		e.printStackTrace(System.err);
 		System.err.println("***");

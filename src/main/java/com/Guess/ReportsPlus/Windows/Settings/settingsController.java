@@ -4,10 +4,10 @@ import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.TerminalController;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
@@ -52,8 +52,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController.repo
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController.newUserManagerController;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.startUpdate;
@@ -521,6 +520,20 @@ public class settingsController {
 	private Label autofillLocationInfoTT;
 	@javafx.fxml.FXML
 	private Label autofillLocationInfoLabel;
+	@javafx.fxml.FXML
+	private Label desktopUseMilitaryTimeLabel;
+	@javafx.fxml.FXML
+	private ToggleGroup DesktopSetting1;
+	@javafx.fxml.FXML
+	private ToggleButton desktopUseMilitaryTimeToggle;
+	@javafx.fxml.FXML
+	private ToggleGroup DesktopSetting11;
+	@javafx.fxml.FXML
+	private Label desktopSkipLoginLabel;
+	@javafx.fxml.FXML
+	private ToggleButton desktopSkipLoginToggle;
+	@javafx.fxml.FXML
+	private Button openTerminalBtn;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -674,9 +687,17 @@ public class settingsController {
 			for (DesktopApp desktopApp : DesktopApps) {
 				desktopApp.getAppLabel().setTextFill(Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			}
-			if (mainDesktopControllerObj.getLocationDataLabel() != null) {
-				mainDesktopControllerObj.getLocationDataLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			
+			if (mainDesktopControllerObj.getLocationAreaLabel() != null) {
+				mainDesktopControllerObj.getLocationAreaLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			}
+			if (mainDesktopControllerObj.getLocationStreetLabel() != null) {
+				mainDesktopControllerObj.getLocationStreetLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			}
+			if (mainDesktopControllerObj.getLocationCountyLabel() != null) {
+				mainDesktopControllerObj.getLocationCountyLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			}
+			
 			if (isConnected) {
 				mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 			} else {
@@ -979,20 +1000,20 @@ public class settingsController {
 	}
 	
 	private boolean checkSoundsInstalled() {
-		log("Checking if sounds are installed", LogUtils.Severity.INFO);
+		logInfo("Checking if sounds are installed");
 		String soundPath = getJarPath() + "/sounds/";
 		File soundFolder = new File(soundPath);
 		boolean soundsInstalled = true;
 		
 		if (!soundFolder.exists() || !soundFolder.isDirectory()) {
-			log("Sound folder not found", LogUtils.Severity.WARN);
+			logWarn("Sound folder not found");
 			soundsInstalled = false;
 		}
 		
 		for (String soundFile : soundList) {
 			File file = new File(soundPath + soundFile);
 			if (!file.exists()) {
-				log("Sound file: '" + file.getName() + "' not found", LogUtils.Severity.WARN);
+				logWarn("Sound file: '" + file.getName() + "' not found");
 				soundsInstalled = false;
 			}
 		}
@@ -1007,30 +1028,30 @@ public class settingsController {
 			installSoundsPane.toBack();
 		}
 		
-		log("Sounds Installed/Updated: " + soundsInstalled, LogUtils.Severity.DEBUG);
+		logDebug("Sounds Installed/Updated: " + soundsInstalled);
 		return soundsInstalled;
 	}
 	
 	private boolean checkImagesInstalled() {
-		log("Checking if ped/veh images are installed", LogUtils.Severity.INFO);
+		logInfo("Checking if ped/veh images are installed");
 		boolean imgsInstalled = true;
 		String imgPath = getJarPath() + "/images/";
 		
 		File imagesFolder = new File(imgPath);
 		if (!imagesFolder.exists() || !imagesFolder.isDirectory()) {
-			log("Images folder not found", LogUtils.Severity.WARN);
+			logWarn("Images folder not found");
 			imgsInstalled = false;
 		}
 		
 		File pedImagesFolder = new File(imgPath + "/peds");
 		if (!pedImagesFolder.exists() || !pedImagesFolder.isDirectory()) {
-			log("Ped Images folder not found", LogUtils.Severity.WARN);
+			logWarn("Ped Images folder not found");
 			imgsInstalled = false;
 		}
 		
 		File vehImagesFolder = new File(imgPath + "/vehicles");
 		if (!vehImagesFolder.exists() || !vehImagesFolder.isDirectory()) {
-			log("Vehicle Images folder not found", LogUtils.Severity.WARN);
+			logWarn("Vehicle Images folder not found");
 			imgsInstalled = false;
 		}
 		
@@ -1044,7 +1065,7 @@ public class settingsController {
 			installImagesPane.toBack();
 		}
 		
-		log("Pedestrian/Vehicle Images Installed: " + imgsInstalled, LogUtils.Severity.DEBUG);
+		logDebug("Pedestrian/Vehicle Images Installed: " + imgsInstalled);
 		return imgsInstalled;
 	}
 	
@@ -1168,6 +1189,9 @@ public class settingsController {
 		inputLockKeybindLabel.setText(localization.getLocalizedMessage("Settings.inputLockKeybindLabel", "Input Lock Keybind"));
 		inputLockKeybindTT.setText(localization.getLocalizedMessage("Settings.inputLockKeybindTT", "Keybind to use for activating desktop input lock"));
 		
+		desktopUseMilitaryTimeLabel.setText(localization.getLocalizedMessage("Settings.desktopUseMilitaryTimeLabel", "Use 24-Hour Time"));
+		desktopSkipLoginLabel.setText(localization.getLocalizedMessage("Settings.desktopSkipLoginLabel", "Skip Login"));
+		
 		//Report
 		reportWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.ReportWindowCustomizationHeader", "REPORT WINDOW CUSTOMIZATION"));
 		reportDesignPresetLabel.setText(localization.getLocalizedMessage("Settings.ReportDesignPresetLabel", "Design Preset"));
@@ -1261,6 +1285,7 @@ public class settingsController {
 		resetAppPosTT.setText(localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
 		
 		probabilitySettingsButton.setText(localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
+		openTerminalBtn.setText(localization.getLocalizedMessage("Settings.openTerminal", "Open Terminal"));
 		
 		//Keybind
 		keybindSettingsHeader.setText(localization.getLocalizedMessage("Settings.KeybindSettingsHeader", "KEYBIND SETTINGS"));
@@ -1299,7 +1324,7 @@ public class settingsController {
 		updateSecondary(Color.valueOf("#665cb6"));
 		updateAccent(Color.valueOf("#544f7f"));
 		updatebackground(Color.valueOf("#ffffff"));
-		log("Reset Color Defaults", LogUtils.Severity.DEBUG);
+		logDebug("Reset Color Defaults");
 		try {
 			loadTheme();
 			loadColors();
@@ -1319,7 +1344,7 @@ public class settingsController {
 		updateReportAccent(Color.valueOf("#263238"));
 		updateReportHeading(Color.valueOf("white"));
 		ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "false");
-		log("Reset Report Color Defaults", LogUtils.Severity.DEBUG);
+		logDebug("Reset Report Color Defaults");
 		loadColors();
 		presetComboBoxReport.getSelectionModel().select("dark");
 		reportStyleComboBox.getSelectionModel().select("light");
@@ -1430,7 +1455,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void desktopImageBtn(ActionEvent actionEvent) {
 		String path = openFileSelectionDialog(mainDesktopStage);
-		log("Wrote image path" + path + " to config", LogUtils.Severity.DEBUG);
+		logDebug("Wrote image path" + path + " to config");
 		if (path != null) {
 			ConfigWriter.configwrite("desktopSettings", "backgroundPath", path);
 			updateDesktopBackground(mainDesktopControllerObj.getContainer());
@@ -1566,35 +1591,24 @@ public class settingsController {
 		closeKeybindField.setText(ConfigReader.configRead("keybindings", "closeWindow"));
 		minimizeKeybindField.setText(ConfigReader.configRead("keybindings", "minimizeWindow"));
 		maximizeKeybindField.setText(ConfigReader.configRead("keybindings", "toggleMaximize"));
-		
 		audioLookupWarningCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
-		
 		audioCalloutCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
-		
 		audioReportCreate.setSelected(ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
-		
 		audioReportDeleteCheckbox.setSelected(ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
-		
 		enableCalloutPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
-		
 		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
-		
 		enableIDPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
-		
 		enableTrafficStopPopupsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true"));
-		
 		serverAutoconnectTogglebox.setSelected(ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
-		
 		alwaysOnTopCheckbox.setSelected(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
-		
 		solidColorToggle.setSelected(ConfigReader.configRead("desktopSettings", "useSolidColor").equalsIgnoreCase("true"));
-		
 		backgroundToggle.setSelected(ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true"));
-		
 		enablePedVehImgsCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
 		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
 		useGameTimeToggle.setSelected(ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("true"));
 		autofillLocationInfoToggle.setSelected(ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true"));
+		desktopUseMilitaryTimeToggle.setSelected(ConfigReader.configRead("uiSettings", "use24Hour").equalsIgnoreCase("true"));
+		desktopSkipLoginToggle.setSelected(ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true"));
 	}
 	
 	private void addEventFilters() {
@@ -1722,7 +1736,7 @@ public class settingsController {
 			}
 			
 			ConfigWriter.configwrite("keybindings", "inputLock", newText.toUpperCase());
-			log("Keybinds; Wrote new inputLock keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			logDebug("Keybinds; Wrote new inputLock keybind: " + newText.toUpperCase());
 			
 		});
 		closeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
@@ -1737,7 +1751,7 @@ public class settingsController {
 			}
 			
 			ConfigWriter.configwrite("keybindings", "closeWindow", newText.toUpperCase());
-			log("Keybinds; Wrote new closeWindow keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			logDebug("Keybinds; Wrote new closeWindow keybind: " + newText.toUpperCase());
 		});
 		minimizeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
@@ -1751,7 +1765,7 @@ public class settingsController {
 			}
 			
 			ConfigWriter.configwrite("keybindings", "minimizeWindow", newText.toUpperCase());
-			log("Keybinds; Wrote new minimizeWindow keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			logDebug("Keybinds; Wrote new minimizeWindow keybind: " + newText.toUpperCase());
 			
 		});
 		maximizeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
@@ -1766,7 +1780,7 @@ public class settingsController {
 			}
 			
 			ConfigWriter.configwrite("keybindings", "toggleMaximize", newText.toUpperCase());
-			log("Keybinds; Wrote new toggleMaximize keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			logDebug("Keybinds; Wrote new toggleMaximize keybind: " + newText.toUpperCase());
 		});
 		appFullscreenKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
@@ -1780,7 +1794,7 @@ public class settingsController {
 			}
 			
 			ConfigWriter.configwrite("keybindings", "applicationFullscreen", newText.toUpperCase());
-			log("Keybinds; Wrote new applicationFullscreen keybind: " + newText.toUpperCase(), LogUtils.Severity.DEBUG);
+			logDebug("Keybinds; Wrote new applicationFullscreen keybind: " + newText.toUpperCase());
 		});
 	}
 	
@@ -1882,8 +1896,14 @@ public class settingsController {
 				mainDesktopControllerObj.getVersionLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getTopBar1().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getTopBar2().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
-				if (mainDesktopControllerObj.getLocationDataLabel() != null) {
-					mainDesktopControllerObj.getLocationDataLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
+				if (mainDesktopControllerObj.getLocationAreaLabel() != null) {
+					mainDesktopControllerObj.getLocationAreaLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
+				}
+				if (mainDesktopControllerObj.getLocationStreetLabel() != null) {
+					mainDesktopControllerObj.getLocationStreetLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
+				}
+				if (mainDesktopControllerObj.getLocationCountyLabel() != null) {
+					mainDesktopControllerObj.getLocationCountyLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				}
 			}
 			ConfigWriter.configwrite("desktopSettings", "topBarTextColor", toHexString(newValue));
@@ -2056,84 +2076,84 @@ public class settingsController {
 			
 			switch (selectedTheme) {
 				case "dark" -> {
-					log("Dark Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Dark Theme Selected");
 					updateMain(Color.valueOf("#263238"));
 					updateSecondary(Color.valueOf("#323C41"));
 					updateAccent(Color.valueOf("#505d62"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "purple" -> {
-					log("Purple Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Purple Theme Selected");
 					updateMain(Color.valueOf("#524992"));
 					updateSecondary(Color.valueOf("#665cb6"));
 					updateAccent(Color.valueOf("#544f7f"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "blue" -> {
-					log("Blue Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Blue Theme Selected");
 					updateMain(Color.valueOf("#4d66cc"));
 					updateSecondary(Color.valueOf("#6680e6"));
 					updateAccent(Color.valueOf("#516ca5"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "grey" -> {
-					log("Grey Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Grey Theme Selected");
 					updateMain(Color.valueOf("#666666"));
 					updateSecondary(Color.valueOf("#808080"));
 					updateAccent(Color.valueOf("#4d4d4d"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "green" -> {
-					log("Green Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Green Theme Selected");
 					updateMain(Color.valueOf("#4d804d"));
 					updateSecondary(Color.valueOf("#669966"));
 					updateAccent(Color.valueOf("#4a6f4a"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "red" -> {
-					log("Red Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Red Theme Selected");
 					updateMain(Color.valueOf("#cc4d4d"));
 					updateSecondary(Color.valueOf("#e65c5c"));
 					updateAccent(Color.valueOf("#914f4f"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "orange" -> {
-					log("Orange Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Orange Theme Selected");
 					updateMain(Color.valueOf("#cc804d"));
 					updateSecondary(Color.valueOf("#e6994d"));
 					updateAccent(Color.valueOf("#a57749"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "pink" -> {
-					log("Pink Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Pink Theme Selected");
 					updateMain(Color.valueOf("#cc3399"));
 					updateSecondary(Color.valueOf("#e64da1"));
 					updateAccent(Color.valueOf("#955b78"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "teal" -> {
-					log("Teal Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Teal Theme Selected");
 					updateMain(Color.valueOf("#339999"));
 					updateSecondary(Color.valueOf("#4db3b3"));
 					updateAccent(Color.valueOf("#4c8d8d"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "brown" -> {
-					log("Brown Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Brown Theme Selected");
 					updateMain(Color.valueOf("#6c3d2c"));
 					updateSecondary(Color.valueOf("#7e4e3c"));
 					updateAccent(Color.valueOf("#5b3b30"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "magenta" -> {
-					log("Magenta Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Magenta Theme Selected");
 					updateMain(Color.valueOf("#c2185b"));
 					updateSecondary(Color.valueOf("#e91e63"));
 					updateAccent(Color.valueOf("#9d546c"));
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 				case "indigo" -> {
-					log("Indigo Theme Selected", LogUtils.Severity.DEBUG);
+					logDebug("Indigo Theme Selected");
 					updateMain(Color.valueOf("#3f51b5"));
 					updateSecondary(Color.valueOf("#5c6bc0"));
 					updateAccent(Color.valueOf("#4b5483"));
@@ -2157,91 +2177,91 @@ public class settingsController {
 			isInitialized = false;
 			switch (selectedTheme) {
 				case "dark" -> {
-					log("Dark Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Dark Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#505d62"));
 					updateReportSecondary(Color.valueOf("#323c41"));
 					updateReportAccent(Color.valueOf("#263238"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "light" -> {
-					log("Light Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Light Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#e6e6e6"));
 					updateReportSecondary(Color.valueOf("#cccccc"));
 					updateReportAccent(Color.valueOf("#b3b3b3"));
 					updateReportHeading(Color.valueOf("#333333"));
 				}
 				case "grey" -> {
-					log("Grey Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Grey Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#4d4d4d"));
 					updateReportSecondary(Color.valueOf("gray"));
 					updateReportAccent(Color.valueOf("#666666"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "green" -> {
-					log("Green Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Green Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#80b380"));
 					updateReportSecondary(Color.valueOf("#669966"));
 					updateReportAccent(Color.valueOf("#4d804d"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "blue" -> {
-					log("Blue Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Blue Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#8099ff"));
 					updateReportSecondary(Color.valueOf("#6680e6"));
 					updateReportAccent(Color.valueOf("#4d66cc"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "red" -> {
-					log("Red Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Red Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#914f4f"));
 					updateReportSecondary(Color.valueOf("#e65c5c"));
 					updateReportAccent(Color.valueOf("#cc4d4d"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "purple" -> {
-					log("Purple Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Purple Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#b366ff"));
 					updateReportSecondary(Color.valueOf("#994dff"));
 					updateReportAccent(Color.valueOf("#7f33ff"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "orange" -> {
-					log("Orange Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Orange Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#a57749"));
 					updateReportSecondary(Color.valueOf("#e6994d"));
 					updateReportAccent(Color.valueOf("#cc804d"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "pink" -> {
-					log("Pink Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Pink Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#955b78"));
 					updateReportSecondary(Color.valueOf("#e64da1"));
 					updateReportAccent(Color.valueOf("#cc3399"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "teal" -> {
-					log("Teal Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Teal Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#4c8d8d"));
 					updateReportSecondary(Color.valueOf("#4db3b3"));
 					updateReportAccent(Color.valueOf("#339999"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "brown" -> {
-					log("Brown Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Brown Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#6c3d2c"));
 					updateReportSecondary(Color.valueOf("#7e4e3c"));
 					updateReportAccent(Color.valueOf("#5b3b30"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "magenta" -> {
-					log("Magenta Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Magenta Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#9d546c"));
 					updateReportSecondary(Color.valueOf("#e91e63"));
 					updateReportAccent(Color.valueOf("#c2185b"));
 					updateReportHeading(Color.valueOf("white"));
 				}
 				case "indigo" -> {
-					log("Indigo Theme Selected: Report", LogUtils.Severity.DEBUG);
+					logDebug("Indigo Theme Selected: Report");
 					updateReportBackground(Color.valueOf("#4b5483"));
 					updateReportSecondary(Color.valueOf("#5c6bc0"));
 					updateReportAccent(Color.valueOf("#3f51b5"));
@@ -2398,25 +2418,25 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void clearLookupDataBtnClick(ActionEvent actionEvent) {
 		try {
-			log("Clear lookup data btn pressed: ", LogUtils.Severity.DEBUG);
+			logDebug("Clear lookup data btn pressed: ");
 			String dataFolderPath = getJarPath() + File.separator + "data";
 			
 			File pedHistoryFile = new File(dataFolderPath + File.separator + "pedHistory.xml");
 			if (pedHistoryFile.exists() && pedHistoryFile.isFile()) {
-				log("pedHistory.xml exists.", LogUtils.Severity.INFO);
+				logInfo("pedHistory.xml exists.");
 				Files.deleteIfExists(pedHistoryFile.toPath());
-				log("pedHistory.xml deleted.", LogUtils.Severity.INFO);
+				logInfo("pedHistory.xml deleted.");
 			} else {
-				log("pedHistory.xml does not exist.", LogUtils.Severity.WARN);
+				logWarn("pedHistory.xml does not exist.");
 			}
 			
 			File vehHistoryFile = new File(dataFolderPath + File.separator + "vehHistory.xml");
 			if (vehHistoryFile.exists() && vehHistoryFile.isFile()) {
-				log("vehHistory.xml exists.", LogUtils.Severity.INFO);
+				logInfo("vehHistory.xml exists.");
 				Files.deleteIfExists(vehHistoryFile.toPath());
-				log("vehHistory.xml deleted.", LogUtils.Severity.INFO);
+				logInfo("vehHistory.xml deleted.");
 			} else {
-				log("vehHistory.xml does not exist.", LogUtils.Severity.WARN);
+				logWarn("vehHistory.xml does not exist.");
 			}
 			showNotificationInfo("Developer", "Successfully Cleared Lookup Data");
 		} catch (Exception e) {
@@ -2427,7 +2447,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void installUpdateSounds(ActionEvent actionEvent) {
 		String beforeText = installSoundsBtn.getText();
-		log("Running Install/Update Sounds", LogUtils.Severity.INFO);
+		logInfo("Running Install/Update Sounds");
 		installSoundsBtn.setText("Installing..");
 		Task<Boolean> updateTask = startUpdate(URLStrings.soundPackDownloadURL, getJarPath(), "Sounds", false);
 		updateTask.setOnSucceeded(event -> {
@@ -2438,7 +2458,7 @@ public class settingsController {
 					showNotificationInfo("Updater", "Successfully Installed Latest SoundPack!");
 				}
 			} else {
-				log("Install/Update Sounds Error!", LogUtils.Severity.ERROR);
+				logError("Install/Update Sounds Error!");
 				showNotificationError("Error", "Install/Update Sounds Error, Check Logs!");
 			}
 			installSoundsBtn.setText(beforeText);
@@ -2451,7 +2471,7 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void installUpdateImages(ActionEvent actionEvent) {
 		String beforeText = installImagesBtn.getText();
-		log("Running Install Ped/Veh Images", LogUtils.Severity.INFO);
+		logInfo("Running Install Ped/Veh Images");
 		installImagesBtn.setText("Installing..");
 		Task<Boolean> updateTask = startUpdate(URLStrings.imagePackDownloadURL, getJarPath(), "Ped/Veh Images", false);
 		updateTask.setOnSucceeded(event -> {
@@ -2462,13 +2482,13 @@ public class settingsController {
 					showNotificationInfo("Updater", "Successfully Installed Ped/Vehicle Image Pack!");
 				}
 			} else {
-				log("Install/Update Ped/Veh Images Error!", LogUtils.Severity.ERROR);
+				logError("Install/Update Ped/Veh Images Error!");
 				showNotificationError("Error", "Install/Update Ped/Veh Images Error, Check Logs!");
 			}
 			installImagesBtn.setText(beforeText);
 		});
 		
-		WorkerThread updateThread = new WorkerThread("SoundUpdateThread", updateTask);
+		WorkerThread updateThread = new WorkerThread("ImageUpdateThread", updateTask);
 		updateThread.start();
 	}
 	
@@ -2479,7 +2499,7 @@ public class settingsController {
 	
 	@javafx.fxml.FXML
 	public void resetAppPosClick(ActionEvent actionEvent) {
-		log("Running Reset App Pos", LogUtils.Severity.DEBUG);
+		logDebug("Running Reset App Pos");
 		String x1 = String.valueOf(45.0);
 		appConfigWrite("Callouts", "x", x1);
 		appConfigWrite("Callouts", "y", String.valueOf(20.0));
@@ -2521,7 +2541,7 @@ public class settingsController {
 			
 			desktopApp.getMainPane().setTranslateX(appX);
 			desktopApp.getMainPane().setTranslateY(appY);
-			log("Reset App Position for: " + desktopApp.getName(), LogUtils.Severity.INFO);
+			logInfo("Reset App Position for: " + desktopApp.getName());
 		}
 	}
 	
@@ -2539,5 +2559,24 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void autofillLocationClick(ActionEvent actionEvent) {
 		handleCheckboxClick("connectionSettings", "autofillLocation", autofillLocationInfoToggle);
+	}
+	
+	@javafx.fxml.FXML
+	public void militaryTimeToggle(ActionEvent actionEvent) {
+		handleCheckboxClick("uiSettings", "use24Hour", desktopUseMilitaryTimeToggle);
+	}
+	
+	@javafx.fxml.FXML
+	public void skipLoginToggle(ActionEvent actionEvent) {
+		handleCheckboxClick("uiSettings", "skipOfficerLogin", desktopSkipLoginToggle);
+	}
+	
+	@javafx.fxml.FXML
+	public void openTerminalBtnClick(ActionEvent actionEvent) {
+		CustomWindow terminalApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Misc/terminal.fxml", "Terminal", true, 1, true, true, (mainDesktopControllerObj.getTaskBarApps()),
+		                                                            new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
+		if (terminalApp != null && terminalApp.controller != null) {
+			TerminalController.terminalController = (TerminalController) terminalApp.controller;
+		}
 	}
 }

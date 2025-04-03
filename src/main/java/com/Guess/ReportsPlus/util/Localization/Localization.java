@@ -1,13 +1,12 @@
 package com.Guess.ReportsPlus.util.Localization;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
 public class Localization {
@@ -24,9 +23,9 @@ public class Localization {
 		File localizationFolder = new File(getJarPath() + "/locale");
 		if (!localizationFolder.exists()) {
 			localizationFolder.mkdirs();
-			log("Created Localization Folder", LogUtils.Severity.INFO);
+			logInfo("Created Localization Folder");
 		} else {
-			log("Localization Folder Already Exists", LogUtils.Severity.INFO);
+			logInfo("Localization Folder Already Exists");
 		}
 		if (file.exists()) {
 			try (InputStreamReader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
@@ -44,7 +43,7 @@ public class Localization {
 			properties.put(key, defaultValue);
 			saveProperties();
 			value = defaultValue;
-			log("Value not found for: " + key + ", using default", LogUtils.Severity.INFO);
+			logInfo("Value not found for: " + key + ", using default");
 		}
 		
 		return value;

@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.History;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -21,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 
 public class PedHistoryMath {
@@ -107,7 +106,7 @@ public class PedHistoryMath {
 		int percentage1 = Integer.parseInt(percentage);
 		if (percentage1 < 0 || percentage1 > 100) {
 			String message = "Check Config: Percentage must be between 0 and 100, it is: " + percentage + " using default 50% chance.";
-			log(message, LogUtils.Severity.ERROR);
+			logError(message);
 			showNotificationError("Error", message);
 			percentage1 = 50;
 		}
@@ -120,7 +119,7 @@ public class PedHistoryMath {
 		int totalChance = chanceValid + chanceSuspended + chanceExpired;
 		if (totalChance != 100) {
 			String message = "License status chances do not add up to 100, they equal: " + totalChance + ". Valid: " + chanceValid + " Suspended: " + chanceSuspended + " Expired: " + chanceExpired;
-			log(message, LogUtils.Severity.ERROR);
+			logError(message);
 			showNotificationError("Error", message);
 			chanceValid = 55;
 			chanceExpired = 22;
@@ -143,7 +142,7 @@ public class PedHistoryMath {
 		int totalChance = chanceHandgun + chanceShotgun + chanceLonggun;
 		if (totalChance != 100) {
 			String message = "Check Config: Permit chances do not add up to 100. They equal: " + totalChance + ". Handgun: " + chanceHandgun + " Shotgun: " + chanceShotgun + " Longgun: " + chanceLonggun;
-			log(message, LogUtils.Severity.ERROR);
+			logError(message);
 			showNotificationError("Error", message);
 			chanceHandgun = 50;
 			chanceShotgun = 22;
@@ -201,7 +200,7 @@ public class PedHistoryMath {
 		double totalProbability = noChargesProbability + oneToTwoChargesProbability + twoToThreeChargesProbability + threeToFiveChargesProbability;
 		if (totalProbability != 100.0) {
 			String message = "Check Config: Probabilities do not add up to 100. They equal: " + totalProbability + ". No charges: " + noChargesProbability + " 1-2 charges: " + oneToTwoChargesProbability + " 2-3 charges: " + twoToThreeChargesProbability + " 3-5 charges: " + threeToFiveChargesProbability;
-			log(message, LogUtils.Severity.ERROR);
+			logError(message);
 			showNotificationError("Error", message);
 			noChargesProbability = 60;
 			oneToTwoChargesProbability = 25;
@@ -253,7 +252,7 @@ public class PedHistoryMath {
 		double totalProbability = noCitationsProbability + oneToTwoCitationsProbability + twoToThreeCitationsProbability + threeToFiveCitationsProbability;
 		if (totalProbability != 100.0) {
 			String message = "Check Config: Probabilities do not add up to 100. They equal: " + totalProbability + ". No cit: " + noCitationsProbability + " 1-2 cit: " + oneToTwoCitationsProbability + " 2-3 cit: " + twoToThreeCitationsProbability + " 3-5 cit: " + threeToFiveCitationsProbability;
-			log(message, LogUtils.Severity.ERROR);
+			logError(message);
 			showNotificationError("Error", message);
 			noCitationsProbability = 60;
 			oneToTwoCitationsProbability = 25;
@@ -414,7 +413,7 @@ public class PedHistoryMath {
 	
 	public static String calculateAge(String dateOfBirth) {
 		if (dateOfBirth == null || dateOfBirth.isEmpty()) {
-			log("Error calculating age, dateOfBirth is null or empty", LogUtils.Severity.ERROR);
+			logError("Error calculating age, dateOfBirth is null or empty");
 			return "Not Found";
 		}
 		
@@ -436,17 +435,17 @@ public class PedHistoryMath {
 			
 			LocalDate currentDate = LocalDate.now();
 			if (birthDate.isAfter(currentDate)) {
-				log("Error calculating age, birthdate after current date", LogUtils.Severity.ERROR);
+				logError("Error calculating age, birthdate after current date");
 				return "Not Found";
 			}
 			
 			Period age = Period.between(birthDate, currentDate);
 			return String.valueOf(age.getYears());
 		} catch (DateTimeParseException e) {
-			log("Error calculating age, improper syntax", LogUtils.Severity.ERROR);
+			logError("Error calculating age, improper syntax");
 			return "Not Found";
 		} catch (Exception e) {
-			log("Unexpected error calculating age", LogUtils.Severity.ERROR);
+			logError("Unexpected error calculating age");
 			return "Not Found";
 		}
 	}

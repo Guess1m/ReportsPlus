@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.Strings;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -10,8 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.*;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.customDropdownURL;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.customizationURL;
@@ -76,7 +74,7 @@ public class customizationDataLoader {
 	
 	public static void loadJsonData() {
 		try {
-			log("Loading data from Json...", LogUtils.Severity.INFO);
+			logInfo("Loading data from Json...");
 			loadDataFromJson();
 			processCustomFields();
 		} catch (IOException e) {
@@ -151,7 +149,7 @@ public class customizationDataLoader {
 		if (modified) {
 			try {
 				mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, rootNode);
-				log("Updated custom fields to ensure 'N/A' is first.", LogUtils.Severity.INFO);
+				logInfo("Updated custom fields to ensure 'N/A' is first.");
 			} catch (IOException e) {
 				logError("Failed to update custom fields file: ", e);
 				throw e;
@@ -194,7 +192,7 @@ public class customizationDataLoader {
 				defaults.forEach(arrayNode::add);
 				rootNode.set(section, arrayNode);
 				modified = true;
-				log("Added missing section '" + section + "' to customization.json", LogUtils.Severity.INFO);
+				logInfo("Added missing section '" + section + "' to customization.json");
 			} else {
 				JsonNode sectionNode = rootNode.get(section);
 				if (!sectionNode.isArray() || sectionNode.size() == 0) {
@@ -202,7 +200,7 @@ public class customizationDataLoader {
 					defaults.forEach(arrayNode::add);
 					rootNode.set(section, arrayNode);
 					modified = true;
-					log("Replaced empty/invalid section '" + section + "' in customization.json", LogUtils.Severity.INFO);
+					logInfo("Replaced empty/invalid section '" + section + "' in customization.json");
 				}
 			}
 		}
@@ -221,22 +219,22 @@ public class customizationDataLoader {
 						arrayNode.removeAll();
 						defaults.forEach(arrayNode::add);
 						modified = true;
-						log("Reset empty predefined section '" + fieldName + "'", LogUtils.Severity.INFO);
+						logInfo("Reset empty predefined section '" + fieldName + "'");
 					} else {
 						arrayNode.add("Default Option");
 						modified = true;
-						log("Added default to custom section '" + fieldName + "'", LogUtils.Severity.INFO);
+						logInfo("Added default to custom section '" + fieldName + "'");
 					}
 				}
 			}
 		}
 		
 		if (modified) {
-			log("Customization.json Modified", LogUtils.Severity.INFO);
+			logInfo("Customization.json Modified");
 			try {
 				file.getParentFile().mkdirs();
 				mapper.writerWithDefaultPrettyPrinter().writeValue(file, rootNode);
-				log("Updated customization.json", LogUtils.Severity.INFO);
+				logInfo("Updated customization.json");
 			} catch (IOException e) {
 				logError("Failed to save customization.json: ", e);
 				throw e;
@@ -252,22 +250,22 @@ public class customizationDataLoader {
 		loadSection(rootNode, "searchTypes", searchTypes);
 		loadSection(rootNode, "searchMethods", searchMethods);
 		loadSection(rootNode, "areaList", areaList);
-		log("Loaded values from customization.json.", LogUtils.Severity.INFO);
+		logInfo("Loaded values from customization.json.");
 	}
 	
 	public static boolean addCustomField(String fieldName, List<String> values) throws IOException {
 		if (fieldName == null || fieldName.trim().isEmpty()) {
-			log("Field name is null or empty", LogUtils.Severity.ERROR);
+			logError("Field name is null or empty");
 			showNotificationWarning("Customization Utility", "Field name is null or empty");
 			return false;
 		}
 		if (values == null || values.isEmpty()) {
-			log("Field Values list is null or empty", LogUtils.Severity.ERROR);
+			logError("Field Values list is null or empty");
 			showNotificationWarning("Customization Utility", "Field Values list is null or empty");
 			return false;
 		}
 		if (DEFAULT_FIELDS.contains(fieldName)) {
-			log("Field name '" + fieldName + "' is a default field and cannot be added as custom.", LogUtils.Severity.ERROR);
+			logError("Field name '" + fieldName + "' is a default field and cannot be added as custom.");
 			showNotificationWarning("Customization Utility", "Cannot add default field as custom.");
 			return false;
 		}
@@ -289,7 +287,7 @@ public class customizationDataLoader {
 		}
 		
 		if (customRoot.has(fieldName)) {
-			log("Field '" + fieldName + "' already exists in custom dropdown file.", LogUtils.Severity.INFO);
+			logInfo("Field '" + fieldName + "' already exists in custom dropdown file.");
 			showNotificationWarning("Customization Utility", "Field '" + fieldName + "' already exists.");
 			return false;
 		}
@@ -324,7 +322,7 @@ public class customizationDataLoader {
 				parentDir.mkdirs();
 			}
 			mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, customRoot);
-			log("Added custom field '" + fieldName + "' to custom dropdown file.", LogUtils.Severity.INFO);
+			logInfo("Added custom field '" + fieldName + "' to custom dropdown file.");
 			showNotificationInfo("Customization Utility", "Added custom field '" + fieldName + "'.");
 			return true;
 		} catch (IOException e) {
@@ -358,7 +356,7 @@ public class customizationDataLoader {
 				ObjectMapper mapper = new ObjectMapper();
 				File customFile = new File(customDropdownURL);
 				if (!customFile.exists()) {
-					log("Custom dropdown file does not exist", LogUtils.Severity.WARN);
+					logWarn("Custom dropdown file does not exist");
 					return Collections.emptyList();
 				}
 				try {
@@ -369,7 +367,7 @@ public class customizationDataLoader {
 						fieldNode.forEach(node -> values.add(node.asText()));
 						return values;
 					} else {
-						log("Field '" + fieldName + "' not found in custom dropdown file.", LogUtils.Severity.ERROR);
+						logError("Field '" + fieldName + "' not found in custom dropdown file.");
 						showNotificationWarning("Customization Utility", "Field '" + fieldName + "' not found in custom dropdown file.");
 						return Collections.emptyList();
 					}
@@ -395,7 +393,7 @@ public class customizationDataLoader {
 					fields.add(fieldNames.next());
 				}
 			} else {
-				log("Custom dropdown file is not a valid JSON object", LogUtils.Severity.ERROR);
+				logError("Custom dropdown file is not a valid JSON object");
 			}
 			return fields;
 		} catch (Exception e) {
@@ -406,7 +404,7 @@ public class customizationDataLoader {
 	
 	public static boolean deleteCustomField(String fieldName) throws IOException {
 		if (DEFAULT_FIELDS.contains(fieldName)) {
-			log("Cannot delete default field '" + fieldName + "'.", LogUtils.Severity.ERROR);
+			logError("Cannot delete default field '" + fieldName + "'.");
 			return false;
 		}
 		
@@ -432,7 +430,7 @@ public class customizationDataLoader {
 		root.remove(fieldName);
 		try {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, root);
-			log("Deleted custom field '" + fieldName + "' from custom dropdown file.", LogUtils.Severity.INFO);
+			logInfo("Deleted custom field '" + fieldName + "' from custom dropdown file.");
 			return true;
 		} catch (IOException e) {
 			logError("Failed to delete field from custom dropdown file: ", e);

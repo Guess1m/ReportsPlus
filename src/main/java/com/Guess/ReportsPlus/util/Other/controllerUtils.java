@@ -3,7 +3,6 @@ package com.Guess.ReportsPlus.util.Other;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.History.Ped;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.treeViewUtils;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
@@ -210,21 +209,21 @@ public class controllerUtils {
 	}
 	
 	public static void getOperatingSystemAndArch() {
-		log("====================== System Info ======================", LogUtils.Severity.INFO);
-		log("----- OS Info -----", LogUtils.Severity.INFO);
-		log("Jar Path: " + getJarPath(), LogUtils.Severity.DEBUG);
-		log("Operating System Name: " + System.getProperty("os.name"), LogUtils.Severity.DEBUG);
-		log("Operating System Version: " + System.getProperty("os.version"), LogUtils.Severity.DEBUG);
-		log("Operating System Architecture: " + System.getProperty("os.arch"), LogUtils.Severity.DEBUG);
-		log("----- Java Info -----", LogUtils.Severity.INFO);
-		log("Java Version: " + System.getProperty("java.version"), LogUtils.Severity.DEBUG);
-		log("Java Runtime Version: " + System.getProperty("java.runtime.version"), LogUtils.Severity.DEBUG);
-		log("Java Home Directory: " + System.getProperty("java.home"), LogUtils.Severity.DEBUG);
-		log("Java Class Version: " + System.getProperty("java.class.version"), LogUtils.Severity.DEBUG);
-		log("JVM Name: " + System.getProperty("java.vm.name"), LogUtils.Severity.DEBUG);
-		log("JVM Vendor: " + System.getProperty("java.vm.vendor"), LogUtils.Severity.DEBUG);
-		log("JVM Version: " + System.getProperty("java.vm.version"), LogUtils.Severity.DEBUG);
-		log("=========================================================", LogUtils.Severity.INFO);
+		logInfo("====================== System Info ======================");
+		logInfo("----- OS Info -----");
+		logDebug("Jar Path: " + getJarPath());
+		logDebug("Operating System Name: " + System.getProperty("os.name"));
+		logDebug("Operating System Version: " + System.getProperty("os.version"));
+		logDebug("Operating System Architecture: " + System.getProperty("os.arch"));
+		logInfo("----- Java Info -----");
+		logDebug("Java Version: " + System.getProperty("java.version"));
+		logDebug("Java Runtime Version: " + System.getProperty("java.runtime.version"));
+		logDebug("Java Home Directory: " + System.getProperty("java.home"));
+		logDebug("Java Class Version: " + System.getProperty("java.class.version"));
+		logDebug("JVM Name: " + System.getProperty("java.vm.name"));
+		logDebug("JVM Vendor: " + System.getProperty("java.vm.vendor"));
+		logDebug("JVM Version: " + System.getProperty("java.vm.version"));
+		logInfo("=========================================================");
 	}
 	
 	public static String updateStyleProperty(Node node, String property, String value) {
@@ -372,11 +371,11 @@ public class controllerUtils {
 			
 			String dataLogsFolderPath = getDataLogsFolderPath();
 			
-			log("DataLogs folder path: " + dataLogsFolderPath, LogUtils.Severity.INFO);
+			logInfo("DataLogs folder path: " + dataLogsFolderPath);
 			
 			File dataLogsFolder = new File(dataLogsFolderPath);
 			if (dataLogsFolder.exists() && dataLogsFolder.isDirectory()) {
-				log("DataLogs folder exists.", LogUtils.Severity.INFO);
+				logInfo("DataLogs folder exists.");
 				
 				File[] files = dataLogsFolder.listFiles();
 				
@@ -386,18 +385,18 @@ public class controllerUtils {
 						if (file.isFile()) {
 							try {
 								Files.deleteIfExists(file.toPath());
-								log("Deleted file: " + file.getName(), LogUtils.Severity.INFO);
+								logInfo("Deleted file: " + file.getName());
 							} catch (IOException e) {
 								logError("Failed to delete file: " + file.getName() + " ", e);
 							}
 						}
 					}
-					log("All files in DataLogs folder deleted successfully.", LogUtils.Severity.INFO);
+					logInfo("All files in DataLogs folder deleted successfully.");
 				} else {
-					log("DataLogs folder is empty.", LogUtils.Severity.WARN);
+					logWarn("DataLogs folder is empty.");
 				}
 			} else {
-				log("DataLogs folder does not exist.", LogUtils.Severity.WARN);
+				logWarn("DataLogs folder does not exist.");
 			}
 		} catch (Exception e) {
 			logError("Clear Datalogs Error ", e);
@@ -407,11 +406,11 @@ public class controllerUtils {
 	public static void clearDataFolder() {
 		try {
 			String dataFolderPath = getJarPath() + File.separator + "data";
-			log("Data folder path: " + dataFolderPath, LogUtils.Severity.INFO);
+			logInfo("Data folder path: " + dataFolderPath);
 			
 			File dataFolder = new File(dataFolderPath);
 			if (dataFolder.exists() && dataFolder.isDirectory()) {
-				log("Data folder exists.", LogUtils.Severity.INFO);
+				logInfo("Data folder exists.");
 				
 				File[] files = dataFolder.listFiles();
 				if (files != null) {
@@ -419,7 +418,7 @@ public class controllerUtils {
 						if (file.isFile()) {
 							try {
 								Files.deleteIfExists(file.toPath());
-								log("Deleted file: " + file.getName(), LogUtils.Severity.INFO);
+								logInfo("Deleted file: " + file.getName());
 							} catch (IOException e) {
 								logError("Failed to delete file: " + file.getName() + " ", e);
 							}
@@ -427,12 +426,12 @@ public class controllerUtils {
 							clearDirectory(file);
 						}
 					}
-					log("All files and subdirectories in Data folder deleted successfully.", LogUtils.Severity.INFO);
+					logInfo("All files and subdirectories in Data folder deleted successfully.");
 				} else {
-					log("Data folder is empty.", LogUtils.Severity.WARN);
+					logWarn("Data folder is empty.");
 				}
 			} else {
-				log("Data folder does not exist.", LogUtils.Severity.WARN);
+				logWarn("Data folder does not exist.");
 			}
 		} catch (Exception e) {
 			logError("Error Clearing Data Folder ", e);
@@ -446,7 +445,7 @@ public class controllerUtils {
 				if (file.isFile()) {
 					try {
 						Files.deleteIfExists(file.toPath());
-						log("Deleted file: " + file.getName(), LogUtils.Severity.INFO);
+						logInfo("Deleted file: " + file.getName());
 					} catch (IOException e) {
 						logError("Failed to delete file: " + file.getName() + " ", e);
 					}
@@ -457,7 +456,7 @@ public class controllerUtils {
 		}
 		try {
 			Files.deleteIfExists(directory.toPath());
-			log("Deleted directory: " + directory.getName(), LogUtils.Severity.INFO);
+			logInfo("Deleted directory: " + directory.getName());
 		} catch (IOException e) {
 			logError("Failed to delete directory: " + directory.getName() + " ", e);
 		}
@@ -525,12 +524,12 @@ public class controllerUtils {
 				
 				try {
 					Files.deleteIfExists(configFile.toPath());
-					log("Deleted config.properties file.", LogUtils.Severity.INFO);
+					logInfo("Deleted config.properties file.");
 				} catch (IOException e) {
 					logError("Failed to delete config.properties file: ", e);
 				}
 			} else {
-				log("config.properties file does not exist.", LogUtils.Severity.INFO);
+				logInfo("config.properties file does not exist.");
 			}
 		} catch (Exception e) {
 			logError("Error Clearing Config", e);
@@ -551,7 +550,7 @@ public class controllerUtils {
 	}
 	
 	public static void handleClose() {
-		log("Stop Request Recieved", LogUtils.Severity.DEBUG);
+		logDebug("Stop Request Recieved");
 		ClientUtils.disconnectFromService();
 		shutdownAudioExecutor();
 		endLog();
@@ -740,7 +739,7 @@ public class controllerUtils {
 				
 				Files.copy(inputStream, destinationPathCharges, StandardCopyOption.REPLACE_EXISTING);
 			} else {
-				log("Resource not found: " + sourcePathCharges, Severity.ERROR);
+				logError("Resource not found: " + sourcePathCharges);
 			}
 		}
 	}
@@ -761,7 +760,7 @@ public class controllerUtils {
 				
 				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
 			} else {
-				log("Resource not found: " + sourcePathCitations, Severity.ERROR);
+				logError("Resource not found: " + sourcePathCitations);
 			}
 		}
 	}
@@ -782,7 +781,7 @@ public class controllerUtils {
 				
 				Files.copy(inputStream, destinationPathCitations, StandardCopyOption.REPLACE_EXISTING);
 			} else {
-				log("Resource not found: " + sourcePathCustomization, Severity.ERROR);
+				logError("Resource not found: " + sourcePathCustomization);
 			}
 		}
 	}

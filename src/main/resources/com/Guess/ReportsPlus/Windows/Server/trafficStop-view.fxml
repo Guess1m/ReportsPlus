@@ -1,224 +1,139 @@
-<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="450.0" prefWidth="703.0"
-            stylesheets="@../../css/trafficStop/trafficStop.css" xmlns="http://javafx.com/javafx/21"
-            fx:controller="com.Guess.ReportsPlus.Windows.Server.trafficStopController">
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="515.0" prefWidth="425.0" stylesheets="@../../css/trafficStop/trafficStop.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Server.trafficStopController">
     <center>
         <AnchorPane>
             <BorderPane.margin>
                 <Insets/>
             </BorderPane.margin>
             <children>
-                <VBox layoutX="15.0" layoutY="18.0" spacing="20.0" AnchorPane.bottomAnchor="15.0"
-                      AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                <VBox layoutX="15.0" layoutY="18.0" spacing="20.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <children>
                         <AnchorPane VBox.vgrow="NEVER">
                             <children>
-                                <Label fx:id="header" styleClass="Heading" text="Traffic Stop Data:"
-                                       AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                                <Separator layoutX="1.0" layoutY="31.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                                <Label fx:id="header" styleClass="Heading" text="Traffic Stop Data:" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                <Separator layoutX="1.0" layoutY="31.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                             </children>
                         </AnchorPane>
-                        <GridPane hgap="10.0" VBox.vgrow="SOMETIMES">
+                        <GridPane hgap="10.0" vgap="5.0" VBox.vgrow="SOMETIMES">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
                             </columnConstraints>
                             <rowConstraints>
+                                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER"/>
                                 <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER"/>
+                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="BOTTOM" vgrow="NEVER"/>
                                 <RowConstraints vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label fx:id="plt" styleClass="SubHeading" text="Plate Number:"/>
-                                <TextField fx:id="platenum" editable="false" GridPane.rowIndex="1">
+                                <Label fx:id="plt" styleClass="SubHeading" text="Plate Number:" wrapText="true" GridPane.columnIndex="1">
+                                    <GridPane.margin>
+                                        <Insets/>
+                                    </GridPane.margin>
+                                </Label>
+                                <TextField fx:id="platenum" editable="false" styleClass="text-field-second" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                     <GridPane.margin>
                                         <Insets/>
                                     </GridPane.margin>
                                 </TextField>
-                                <Label fx:id="mod" styleClass="SubHeading" text="Vehicle Model:"
-                                       GridPane.columnIndex="1"/>
-                                <Label fx:id="col" styleClass="SubHeading" text="Vehicle Color:"
-                                       GridPane.columnIndex="2"/>
-                                <TextField fx:id="model" editable="false" GridPane.columnIndex="1"
-                                           GridPane.rowIndex="1"/>
-                                <AnchorPane fx:id="color" style="-fx-border-color: black;" GridPane.columnIndex="2"
-                                            GridPane.rowIndex="1">
+                                <Label fx:id="mod" styleClass="SubHeading" text="Vehicle Model:" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets/>
+                                    </GridPane.margin>
+                                </Label>
+                                <Label fx:id="col" styleClass="SubHeading" text="Vehicle Color:" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                <TextField fx:id="model" editable="false" styleClass="text-field-second" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <GridPane.margin>
+                                        <Insets/>
+                                    </GridPane.margin>
+                                </TextField>
+                                <AnchorPane fx:id="color" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.valignment="TOP">
                                     <children>
-                                        <Label fx:id="noColorFoundlbl" alignment="CENTER" layoutX="77.0" layoutY="13.0"
-                                               text="No Color Found" AnchorPane.bottomAnchor="0.0"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                               AnchorPane.topAnchor="0.0">
+                                        <Label fx:id="noColorFoundlbl" alignment="CENTER" layoutX="77.0" layoutY="13.0" text="No Color Found" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <font>
                                                 <Font name="Inter 28pt Bold" size="12.0"/>
                                             </font>
                                         </Label>
                                     </children>
+                                    <GridPane.margin>
+                                        <Insets/>
+                                    </GridPane.margin>
                                 </AnchorPane>
+                                <BorderPane GridPane.rowSpan="2147483647">
+                                    <center>
+                                        <ImageView fx:id="modelImageView" fitHeight="120.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"/>
+                                    </center>
+                                    <top>
+                                        <Label fx:id="noImageFoundLbl" alignment="CENTER" style="-fx-font-family: &quot;Inter 28pt Medium&quot;;" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                                            <padding>
+                                                <Insets bottom="5.0"/>
+                                            </padding>
+                                        </Label>
+                                    </top>
+                                    <GridPane.margin>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </GridPane.margin>
+                                </BorderPane>
                             </children>
                             <padding>
                                 <Insets left="10.0" right="10.0"/>
                             </padding>
                         </GridPane>
-                        <GridPane hgap="10.0" VBox.vgrow="SOMETIMES">
+                        <GridPane hgap="15.0" VBox.vgrow="SOMETIMES">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                                <ColumnConstraints/>
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                                <RowConstraints maxHeight="-Infinity" valignment="CENTER" vgrow="NEVER"/>
                             </rowConstraints>
                             <children>
-                                <Label fx:id="stln" styleClass="SubHeading" text="Stolen Vehicle:"/>
-                                <TextField fx:id="stolen" editable="false" GridPane.rowIndex="1">
+                                <Label fx:id="stln" alignment="CENTER" styleClass="SubHeading" text="Stolen Vehicle:" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="3"/>
+                                <TextField fx:id="stolen" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                                     <GridPane.margin>
                                         <Insets/>
                                     </GridPane.margin>
                                 </TextField>
-                                <GridPane GridPane.columnIndex="1" GridPane.rowSpan="2">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES"/>
-                                        <RowConstraints vgrow="SOMETIMES"/>
-                                    </rowConstraints>
-                                    <children>
-                                        <Label fx:id="plce" styleClass="SubHeading" text="Police Vehicle:"/>
-                                        <TextField fx:id="police" editable="false" GridPane.rowIndex="1">
-                                            <GridPane.margin>
-                                                <Insets/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                    </children>
-                                    <padding>
-                                        <Insets left="10.0" right="10.0"/>
-                                    </padding>
-                                </GridPane>
-                            </children>
-                            <padding>
-                                <Insets left="10.0" right="10.0"/>
-                            </padding>
-                        </GridPane>
-                        <GridPane hgap="10.0" VBox.vgrow="SOMETIMES">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <children>
-                                <Label fx:id="reg" styleClass="SubHeading" text="Registration Status:"/>
-                                <TextField fx:id="registration" editable="false" GridPane.rowIndex="1">
+                                <Label fx:id="reg" alignment="CENTER" styleClass="SubHeading" text="Registration Status:" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1"/>
+                                <TextField fx:id="registration" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets/>
                                     </GridPane.margin>
                                 </TextField>
-                                <GridPane GridPane.columnIndex="1" GridPane.rowSpan="2">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES"/>
-                                        <RowConstraints vgrow="SOMETIMES"/>
-                                    </rowConstraints>
-                                    <children>
-                                        <Label fx:id="ins" styleClass="SubHeading" text="Insurance Status:"/>
-                                        <TextField fx:id="insurance" editable="false" GridPane.rowIndex="1">
-                                            <GridPane.margin>
-                                                <Insets/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                    </children>
-                                    <padding>
-                                        <Insets left="10.0" right="10.0"/>
-                                    </padding>
-                                </GridPane>
-                            </children>
-                            <padding>
-                                <Insets left="10.0" right="10.0"/>
-                            </padding>
-                        </GridPane>
-                        <GridPane hgap="10.0" VBox.vgrow="SOMETIMES">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <children>
-                                <Label fx:id="str" styleClass="SubHeading" text="Traffic Stop Street:"/>
-                                <TextField fx:id="street" editable="false" GridPane.rowIndex="1">
+                                <Label fx:id="ins" alignment="CENTER" styleClass="SubHeading" text="Insurance Status:" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="2"/>
+                                <TextField fx:id="insurance" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                     <GridPane.margin>
                                         <Insets/>
                                     </GridPane.margin>
                                 </TextField>
-                                <GridPane GridPane.columnIndex="1" GridPane.rowSpan="2">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES"/>
-                                        <RowConstraints vgrow="SOMETIMES"/>
-                                    </rowConstraints>
-                                    <children>
-                                        <Label fx:id="ar" styleClass="SubHeading" text="Traffic Stop Area:"/>
-                                        <TextField fx:id="area" editable="false" GridPane.rowIndex="1">
-                                            <GridPane.margin>
-                                                <Insets/>
-                                            </GridPane.margin>
-                                        </TextField>
-                                    </children>
-                                    <padding>
-                                        <Insets left="10.0" right="10.0"/>
-                                    </padding>
-                                </GridPane>
-                            </children>
-                            <padding>
-                                <Insets left="10.0" right="10.0"/>
-                            </padding>
-                        </GridPane>
-                        <GridPane hgap="5.0" VBox.vgrow="SOMETIMES">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <children>
-                                <Label fx:id="own" styleClass="SubHeading" text="Registered Owner:"
-                                       GridPane.columnSpan="2147483647"/>
-                                <HBox alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                <Label fx:id="str" alignment="CENTER" styleClass="SubHeading" text="Traffic Stop Street:" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="4"/>
+                                <TextField fx:id="street" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                                     <GridPane.margin>
                                         <Insets/>
                                     </GridPane.margin>
-                                    <children>
-                                        <TextField fx:id="owner" editable="false" HBox.hgrow="ALWAYS">
-                                            <HBox.margin>
-                                                <Insets/>
-                                            </HBox.margin>
-                                        </TextField>
-                                        <Button fx:id="searchDMVButton" alignment="CENTER" mnemonicParsing="false"
-                                                onAction="#searchDMV" text="Search D.M.V Lookup" HBox.hgrow="NEVER">
-                                            <HBox.margin>
-                                                <Insets left="50.0" right="50.0"/>
-                                            </HBox.margin>
-                                        </Button>
-                                        <Button fx:id="createTrafficStopBtn" alignment="CENTER" mnemonicParsing="false"
-                                                onAction="#createTrafficStop" text="New Traffic Stop Report"/>
-                                    </children>
-                                </HBox>
+                                </TextField>
+                                <Label fx:id="ar" alignment="CENTER" styleClass="SubHeading" text="Traffic Stop Area:" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="5"/>
+                                <TextField fx:id="area" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                    <GridPane.margin>
+                                        <Insets/>
+                                    </GridPane.margin>
+                                </TextField>
+                                <Button fx:id="searchDMVButton" alignment="CENTER" mnemonicParsing="false" onAction="#searchDMV" text="Search D.M.V Lookup" GridPane.columnSpan="2" GridPane.rowIndex="7"/>
+                                <Button fx:id="createTrafficStopBtn" alignment="CENTER" mnemonicParsing="false" onAction="#createTrafficStop" text="New Traffic Stop Report" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+                                <Label fx:id="own" alignment="CENTER" styleClass="SubHeading" text="Registered Owner:" textAlignment="CENTER" wrapText="true" GridPane.columnSpan="2147483647"/>
+                                <TextField fx:id="owner" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.valignment="CENTER"/>
                             </children>
-                            <padding>
-                                <Insets left="10.0" right="10.0"/>
-                            </padding>
                         </GridPane>
                     </children>
                 </VBox>

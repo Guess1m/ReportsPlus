@@ -1,7 +1,5 @@
 package com.Guess.ReportsPlus.util.Server;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,14 +7,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 public class recordUtils {
 	
 	public static Map<String, String> grabPedData(String filePath, String pedName) throws IOException {
 		final Path path = Paths.get(filePath);
 		if (!Files.exists(path)) {
-			log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
+			logError("File does not exist: " + filePath);
 			return new HashMap<>();
 		}
 		
@@ -50,7 +48,7 @@ public class recordUtils {
 	
 	public static Map<String, String> grabVehicleData(String filePath, String licensePlate) throws IOException {
 		if (!Files.exists(Paths.get(filePath))) {
-			log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
+			logError("File does not exist: " + filePath);
 			return new HashMap<>();
 		}
 		
@@ -83,7 +81,7 @@ public class recordUtils {
 	
 	public static Map<String, String> grabTrafficStop(String filePath) throws IOException {
 		if (!Files.exists(Paths.get(filePath))) {
-			log("File does not exist: " + filePath, LogUtils.Severity.ERROR);
+			logError("File does not exist: " + filePath);
 			return new HashMap<>();
 		}
 		

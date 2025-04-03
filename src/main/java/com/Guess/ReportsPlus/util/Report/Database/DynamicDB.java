@@ -1,15 +1,12 @@
 package com.Guess.ReportsPlus.util.Report.Database;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 
 public class DynamicDB {
 	
@@ -34,21 +31,21 @@ public class DynamicDB {
 		String url = "jdbc:sqlite:" + dbFilePath;
 		try (Connection conn = DriverManager.getConnection(url)) {
 			if (conn == null) {
-				log("Database; Failed to establish connection to: " + name, LogUtils.Severity.ERROR);
+				logError("Database; Failed to establish connection to: " + name);
 				return false;
 			}
 			boolean hasLayoutTable = tableExists(dbFilePath, "layout");
 			boolean hasDataTable = tableExists(dbFilePath, "data");
-			log("Database; [" + name + "] has layout table: " + hasLayoutTable + " has data table: " + hasDataTable, LogUtils.Severity.INFO);
+			logInfo("Database; [" + name + "] has layout table: " + hasLayoutTable + " has data table: " + hasDataTable);
 			boolean isValid = hasLayoutTable && hasDataTable;
 			
 			if (!isValid) {
-				log("Database; [" + name + "] Database missing required tables", LogUtils.Severity.WARN);
+				logWarn("Database; [" + name + "] Database missing required tables");
 			}
 			
 			return isValid;
 		} catch (SQLException e) {
-			log("Database; [" + name + "] SQL Exception while checking database: ", LogUtils.Severity.ERROR);
+			logError("Database; [" + name + "] SQL Exception while checking database: ");
 			e.printStackTrace();
 			return false;
 		}
@@ -159,7 +156,7 @@ public class DynamicDB {
 			try (Statement stmt = connection.createStatement()) {
 				stmt.executeUpdate(sql);
 				columnsDefinition.put(columnName, columnType);
-				log("Added column " + columnName + " to table " + tableName, LogUtils.Severity.INFO);
+				logInfo("Added column " + columnName + " to table " + tableName);
 			}
 		}
 	}
@@ -168,7 +165,7 @@ public class DynamicDB {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:" + dbFilePath);
-			log("Connected to database: " + dbFilePath, LogUtils.Severity.INFO);
+			logInfo("Connected to database: " + dbFilePath);
 			createTableIfNotExists();
 			return true;
 		} catch (Exception e) {
@@ -186,10 +183,10 @@ public class DynamicDB {
 				ps.setObject(1, pkValue);
 				int affectedRows = ps.executeUpdate();
 				if (affectedRows > 0) {
-					log("Deleted record with " + primaryKeyColumn + " = " + pkValue + " from " + tableName, LogUtils.Severity.INFO);
+					logInfo("Deleted record with " + primaryKeyColumn + " = " + pkValue + " from " + tableName);
 					return true;
 				} else {
-					log("No record found with " + primaryKeyColumn + " = " + pkValue + " in " + tableName, LogUtils.Severity.WARN);
+					logWarn("No record found with " + primaryKeyColumn + " = " + pkValue + " in " + tableName);
 					return false;
 				}
 			}
@@ -222,7 +219,7 @@ public class DynamicDB {
 		
 		try (Statement stmt = connection.createStatement()) {
 			stmt.execute(sql.toString());
-			log("Created table: " + tableName, LogUtils.Severity.INFO);
+			logInfo("Created table: " + tableName);
 		} catch (SQLException e) {
 			logError("Error creating table: " + e.getMessage(), e);
 		}
@@ -251,7 +248,7 @@ public class DynamicDB {
 				insertRecord(record);
 			}
 		}
-		log("Record: " + record + " added or replaced in table: " + tableName, LogUtils.Severity.INFO);
+		logInfo("Record: " + record + " added or replaced in table: " + tableName);
 	}
 	
 	private void updateRecord(Map<String, Object> record) throws SQLException {
@@ -382,7 +379,7 @@ public class DynamicDB {
 	public void close() throws SQLException {
 		if (connection != null && !connection.isClosed()) {
 			connection.close();
-			log("Database connection closed", LogUtils.Severity.INFO);
+			logInfo("Database connection closed");
 		}
 	}
 	

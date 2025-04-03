@@ -36,7 +36,7 @@ public class ListUsers implements Command {
 		try {
 			for (User user : User.loadUserProfiles().getUserList()) {
 				output.println("~c~" + user.getUsername() + (userName.equalsIgnoreCase(
-						user.getName()) ? " (You)" : "") + "\n   Password: ~y~" + user.getPassword() + "\n   Name: ~y~" + user.getName() + "\n   Rank: ~y~" + user.getRank() + "\n   Division: ~y~" + user.getDivision() + "\n   Agency: ~y~" + user.getAgency() + "\n   Callsign: ~y~" + user.getCallsign() + "\n   Number: ~y~" + user.getNumber());
+						user.getName()) ? " (You)" : "") + "\n   Password: ~o~" + user.getPassword() + "\n   Name: ~y~" + user.getName() + "\n   Rank: ~y~" + user.getRank() + "\n   Division: ~y~" + user.getDivision() + "\n   Agency: ~y~" + user.getAgency() + "\n   Callsign: ~y~" + user.getCallsign() + "\n   Number: ~y~" + user.getNumber());
 			}
 		} catch (JAXBException e) {
 			logError("Failed to load user profiles from ListUsers: ", e);

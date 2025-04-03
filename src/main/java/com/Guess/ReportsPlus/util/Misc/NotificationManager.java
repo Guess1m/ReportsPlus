@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Queue;
 
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.changeImageColor;
 
@@ -50,6 +50,10 @@ public class NotificationManager {
 		enqueueNotification(new Notification(NotificationType.WARNING, title, message));
 	}
 	
+	public static void showNotificationWarning(String title, String message, boolean persistent) {
+		enqueueNotification(new Notification(NotificationType.WARNING, title, message, persistent));
+	}
+	
 	private static void enqueueNotification(Notification notification) {
 		Platform.runLater(() -> {
 			notificationQueue.offer(notification);
@@ -71,9 +75,10 @@ public class NotificationManager {
 	private static void displayNotification(Notification notification) {
 		Platform.runLater(() -> {
 			try {
-				if (ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true")) {
+				boolean notificationsGloballyEnabled = ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true");
+				if (notification.persistent || notificationsGloballyEnabled) {
 					
-					String textClr, primClr;
+					String textClr = "#ffffff", primClr = "#db4437";
 					try {
 						if (notification.type == NotificationType.INFO) {
 							textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
@@ -86,7 +91,7 @@ public class NotificationManager {
 							primClr = "#db4437";
 						}
 					} catch (IOException e) {
-						throw new RuntimeException(e);
+						logError("Could not pull notification color from config: ", e);
 					}
 					
 					Label titleLabel = new Label(notification.title);
@@ -175,7 +180,7 @@ public class NotificationManager {
 						showNextNotification();
 					});
 					
-					if (notification.type != NotificationType.ERROR_PERSISTENT) {
+					if (notification.type != NotificationType.ERROR_PERSISTENT && !notification.persistent) {
 						String displayDuration = "3.5";
 						try {
 							displayDuration = ConfigReader.configRead("notificationSettings", "displayDuration");
@@ -206,12 +211,12 @@ public class NotificationManager {
 					}
 					
 				} else {
-					log("Notifications Are Disabled", LogUtils.Severity.DEBUG);
+					logDebug("Notifications Are Disabled; not showing: [" + notification.title + "]");
 				}
 			} catch (IOException e) {
 				logError("Error Getting NotificationsEnabled Setting: ", e);
 			} catch (NullPointerException e) {
-				log("Notification config is null", LogUtils.Severity.ERROR);
+				logError("Notification config is null or a required resource is missing.", e);
 			}
 		});
 	}
@@ -224,11 +229,20 @@ public class NotificationManager {
 		NotificationType type;
 		String title;
 		String message;
+		boolean persistent = false;
 		
 		Notification(NotificationType type, String title, String message) {
 			this.type = type;
 			this.title = title;
 			this.message = message;
+			this.persistent = false;
+		}
+		
+		Notification(NotificationType type, String title, String message, boolean persistent) {
+			this.type = type;
+			this.title = title;
+			this.message = message;
+			this.persistent = persistent;
 		}
 	}
 }

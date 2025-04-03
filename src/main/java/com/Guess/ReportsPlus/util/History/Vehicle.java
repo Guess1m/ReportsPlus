@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.util.History;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -16,8 +15,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehicleHistoryURL;
 
 @XmlRootElement(name = "vehicle")
@@ -257,10 +256,10 @@ public class Vehicle {
 			if (existingReport.isPresent()) {
 				Vehicles.getVehicleList().remove(existingReport.get());
 				Vehicles.getVehicleList().add(Vehicle);
-				log("Vehicle with plate number " + Vehicle.getPlateNumber() + " updated.", LogUtils.Severity.INFO);
+				logInfo("Vehicle with plate number " + Vehicle.getPlateNumber() + " updated.");
 			} else {
 				Vehicles.getVehicleList().add(Vehicle);
-				log("Vehicle with plate number " + Vehicle.getPlateNumber() + " added.", LogUtils.Severity.INFO);
+				logInfo("Vehicle with plate number " + Vehicle.getPlateNumber() + " added.");
 			}
 			
 			saveVehicles(Vehicles);

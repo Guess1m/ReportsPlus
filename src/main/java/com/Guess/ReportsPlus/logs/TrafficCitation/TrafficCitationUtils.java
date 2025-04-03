@@ -7,7 +7,6 @@ import com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils;
 import com.Guess.ReportsPlus.util.CourtData.Case;
 import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
 import com.Guess.ReportsPlus.util.History.Ped;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import jakarta.xml.bind.JAXBContext;
@@ -38,8 +37,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLook
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.*;
@@ -155,7 +153,7 @@ public class TrafficCitationUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -231,7 +229,7 @@ public class TrafficCitationUtils {
 				
 				if (citationType.getSelectionModel().getSelectedIndex() == 1 && offenderName.getText().isEmpty()) {
 					if (offenderName.getText().trim().isEmpty()) {
-						log("Offender Name Cant Be Empty if Printing Ticket", LogUtils.Severity.ERROR);
+						logError("Offender Name Cant Be Empty if Printing Ticket");
 						warningLabel.setVisible(true);
 						warningLabel.setText("Offender Name Field Empty!");
 						warningLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-text-fill: red;");
@@ -241,7 +239,7 @@ public class TrafficCitationUtils {
 						return;
 					}
 				} else if (citationType.getSelectionModel().getSelectedIndex() == 2 && plateNumber.getText().isEmpty()) {
-					log("Vehicle Plate Cant Be Empty if Issuing Parking Ticket", LogUtils.Severity.ERROR);
+					logError("Vehicle Plate Cant Be Empty if Issuing Parking Ticket");
 					warningLabel.setVisible(true);
 					warningLabel.setText("Vehicle Plate Field Empty!");
 					warningLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-text-fill: red;");
@@ -271,7 +269,7 @@ public class TrafficCitationUtils {
 							chargesBuilder.append("Fined: ").append(fine).append(" | ");
 						}
 					} else if (formData.getCitation().contains("MaxFine:")) {
-						log("Using Custom fine", LogUtils.Severity.DEBUG);
+						logDebug("Using Custom fine");
 						int maxFine = Integer.parseInt(Objects.requireNonNull(extractMaxFine(formData.getCitation())));
 						Random random = new Random();
 						int minFine = maxFine / 3;
@@ -318,7 +316,7 @@ public class TrafficCitationUtils {
 				}
 				Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(trafficCitationReport.getOffenderName());
 				if (pedOptional.isPresent()) {
-					log("Ped is present in history, adding new citations.. ", LogUtils.Severity.DEBUG);
+					logDebug("Ped is present in history, adding new citations.. ");
 					Ped ped1 = pedOptional.get();
 					String beforePriors = ped1.getCitationPriors();
 					String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
@@ -368,11 +366,11 @@ public class TrafficCitationUtils {
 							throw new RuntimeException(e);
 						}
 						NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
-						log("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
+						logInfo("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText());
 						needCourtRefresh.set(1);
 						
 						if (isConnected) {
-							log("Trying to send Citation_Update Signal to server...", LogUtils.Severity.DEBUG);
+							logDebug("Trying to send Citation_Update Signal to server...");
 							
 							String selectedCitationType = (String) citationType.getSelectionModel().getSelectedItem();
 							if (selectedCitationType.equalsIgnoreCase(localization.getLocalizedMessage("ReportWindows.CitationTypeNonPrinted", "Non-Printed"))) {
@@ -383,15 +381,15 @@ public class TrafficCitationUtils {
 								ClientUtils.sendMessageToServer("CITATION_UPDATE:name=" + offenderName.getText().trim() + "|plate=" + plateNumber.getText().trim() + "|type=" + 3);
 							}
 						} else {
-							log("Not connected to send Citation_Update Signal to server...", LogUtils.Severity.WARN);
+							logWarn("Not connected to send Citation_Update Signal to server...");
 						}
 					} else {
-						log("Case #: " + casenum + " already exists, not adding new case", LogUtils.Severity.WARN);
+						logWarn("Case #: " + casenum + " already exists, not adding new case");
 					}
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager", "A new Citation Report has been submitted.");
 					NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from citation because either name or offences field(s) were empty.");
-					log("Could not create court case from citation because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
+					logError("Could not create court case from citation because either name or offences field(s) were empty.");
 				}
 				
 				if (pedLookupViewController != null) {
@@ -485,10 +483,10 @@ public class TrafficCitationUtils {
 		if (existingReport.isPresent()) {
 			TrafficCitationReports.getTrafficCitationReportList().remove(existingReport.get());
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
-			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " updated.");
 		} else {
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
-			log("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.");
 		}
 		
 		saveTrafficCitationReports(TrafficCitationReports);
@@ -500,7 +498,7 @@ public class TrafficCitationUtils {
 		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
 			TrafficCitationReports.getTrafficCitationReportList().removeIf(e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
 			saveTrafficCitationReports(TrafficCitationReports);
-			log("TrafficCitationReport with number " + TrafficCitationReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("TrafficCitationReport with number " + TrafficCitationReportnumber + " deleted.");
 		}
 	}
 	

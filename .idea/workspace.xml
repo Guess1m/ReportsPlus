@@ -18,22 +18,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports">
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc/TerminalWindow/TerminalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc/TerminalWindow/TerminalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Settings/settingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Accident/AccidentReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Accident/AccidentReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Arrest/ArrestReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Arrest/ArrestReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Callout/CalloutReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Callout/CalloutReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Death/DeathReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Death/DeathReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Incident/IncidentReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Incident/IncidentReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Search/SearchReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/Search/SearchReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficCitation/TrafficCitationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficCitation/TrafficCitationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficStop/TrafficStopReportUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/logs/TrafficStop/TrafficStopReportUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Report/reportUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Report/reportUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Settings/settings-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Settings/settings-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +42,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Guess1mMAC &lt;no-reply@example.com&gt;" />
         <option value="Guess1mMAC &lt;rp@no-reply.com&gt;" />
         <option value="Guess1m &lt;rp@no-reply.com&gt;" />
         <option value="Guess1mPC &lt;no-reply@example.com&gt;" />
@@ -114,6 +102,13 @@
     &quot;accountId&quot;: &quot;d709304b-1167-4a39-b637-92dea37f89f3&quot;
   }
 }</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -121,7 +116,7 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2tUwocL52NpcFa5raFBoK2jdXHJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -146,6 +141,7 @@
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Development&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last.edited.regexp&quot;: &quot;&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/zdrozl/IdeaProjects/Shared/ReportsPlus/ReportsPlusApp/src/main/resources/com/Guess/ReportsPlus/Windows/Misc&quot;,
@@ -158,7 +154,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -223,27 +219,24 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
-        <item itemvalue="Application.Launcher" />
-        <item itemvalue="Application.Launcher" />
-        <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="StructuralSearchPlugin">
-    <replaceConfiguration name="/* $CommentContent$ */" created="1742057704377" uuid="8413c683-b4b2-3cc3-b4db-d4c90329d8ba" text="/* $CommentContent$ */" recursive="false" caseInsensitive="false" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" search_injected="false" reformatAccordingToStyle="false" shortenFQN="false" replacement="" history="1">
+    <replaceConfiguration name="/* $CommentContent$ */" created="1743646723985" uuid="8413c683-b4b2-3cc3-b4db-d4c90329d8ba" text="/* $CommentContent$ */" recursive="false" caseInsensitive="false" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" search_injected="false" reformatAccordingToStyle="false" shortenFQN="false" replacement="" history="1">
       <constraint name="__context__" within="" contains="" />
       <constraint name="CommentContent" target="true" within="" contains="" />
     </replaceConfiguration>
-    <searchConfiguration name="/* $CommentContent$ */" created="1742057672070" uuid="8413c683-b4b2-3cc3-b4db-d4c90329d8ba" text="/* $CommentContent$ */" recursive="true" caseInsensitive="false" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" history="1">
+    <searchConfiguration name="/* $CommentContent$ */" created="1743646723985" uuid="8413c683-b4b2-3cc3-b4db-d4c90329d8ba" text="/* $CommentContent$ */" recursive="true" caseInsensitive="false" type="JAVA" pattern_context="default" scope_type="PROJECT" scope_descriptor="" history="1">
       <constraint name="__context__" within="" contains="" />
       <constraint name="CommentContent" target="true" within="" contains="" />
     </searchConfiguration>
@@ -669,95 +662,32 @@
       <workItem from="1743446689700" duration="57000" />
       <workItem from="1743457130144" duration="8687000" />
       <workItem from="1743544565235" duration="3192000" />
-      <workItem from="1743611549193" duration="687000" />
-    </task>
-    <task id="LOCAL-00323" summary="- v1.4.0-alpha&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
-      <option name="closed" value="true" />
-      <created>1738437228404</created>
-      <option name="number" value="00323" />
-      <option name="presentableId" value="LOCAL-00323" />
-      <option name="project" value="LOCAL" />
-      <updated>1738437228404</updated>
-    </task>
-    <task id="LOCAL-00324" summary="- v1.4.0-alpha&#10;- Redesigned UserManager&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
-      <option name="closed" value="true" />
-      <created>1738451625536</created>
-      <option name="number" value="00324" />
-      <option name="presentableId" value="LOCAL-00324" />
-      <option name="project" value="LOCAL" />
-      <updated>1738451625536</updated>
-    </task>
-    <task id="LOCAL-00325" summary="- v1.4.0-alpha&#10;- Redesigned UserManager&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
-      <option name="closed" value="true" />
-      <created>1738451717328</created>
-      <option name="number" value="00325" />
-      <option name="presentableId" value="LOCAL-00325" />
-      <option name="project" value="LOCAL" />
-      <updated>1738451717328</updated>
-    </task>
-    <task id="LOCAL-00326" summary="- v1.4.0-alpha&#10;- Redesigned UserManager&#10;- Option To Save Window Positions/Sizes&#10;- Moved Probability Settings Button To Developer Settings&#10;- Fixed Left Side Resizing&#10;- Dynamic Window Sizing Based Off Monitor Size">
-      <option name="closed" value="true" />
-      <created>1738894446029</created>
-      <option name="number" value="00326" />
-      <option name="presentableId" value="LOCAL-00326" />
-      <option name="project" value="LOCAL" />
-      <updated>1738894446029</updated>
-    </task>
-    <task id="LOCAL-00327" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking">
-      <option name="closed" value="true" />
-      <created>1738965582466</created>
-      <option name="number" value="00327" />
-      <option name="presentableId" value="LOCAL-00327" />
-      <option name="project" value="LOCAL" />
-      <updated>1738965582467</updated>
-    </task>
-    <task id="LOCAL-00328" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling">
-      <option name="closed" value="true" />
-      <created>1738973825865</created>
-      <option name="number" value="00328" />
-      <option name="presentableId" value="LOCAL-00328" />
-      <option name="project" value="LOCAL" />
-      <updated>1738973825865</updated>
-    </task>
-    <task id="LOCAL-00329" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter">
-      <option name="closed" value="true" />
-      <created>1738975214746</created>
-      <option name="number" value="00329" />
-      <option name="presentableId" value="LOCAL-00329" />
-      <option name="project" value="LOCAL" />
-      <updated>1738975214746</updated>
-    </task>
-    <task id="LOCAL-00330" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon">
-      <option name="closed" value="true" />
-      <created>1738976621762</created>
-      <option name="number" value="00330" />
-      <option name="presentableId" value="LOCAL-00330" />
-      <option name="project" value="LOCAL" />
-      <updated>1738976621762</updated>
-    </task>
-    <task id="LOCAL-00331" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon&#10;- Working PR Lookups">
-      <option name="closed" value="true" />
-      <created>1738980937506</created>
-      <option name="number" value="00331" />
-      <option name="presentableId" value="LOCAL-00331" />
-      <option name="project" value="LOCAL" />
-      <updated>1738980937506</updated>
-    </task>
-    <task id="LOCAL-00332" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon&#10;- Working PR Lookups">
-      <option name="closed" value="true" />
-      <created>1738980984550</created>
-      <option name="number" value="00332" />
-      <option name="presentableId" value="LOCAL-00332" />
-      <option name="project" value="LOCAL" />
-      <updated>1738980984550</updated>
-    </task>
-    <task id="LOCAL-00333" summary="- v1.4.0-alpha&#10;- Fixed Settings Layouts&#10;- Added Notification Stacking&#10;- Better thread &amp; broadcast handling&#10;- Migrated Server/Application Font To Inter&#10;- Fixed Application Icon&#10;- Working PR Lookups&#10;- Support For Ped Base Images If Variant Not Found">
-      <option name="closed" value="true" />
-      <created>1739034505987</created>
-      <option name="number" value="00333" />
-      <option name="presentableId" value="LOCAL-00333" />
-      <option name="project" value="LOCAL" />
-      <updated>1739034505987</updated>
+      <workItem from="1743611549193" duration="2432000" />
+      <workItem from="1743635236270" duration="1030000" />
+      <workItem from="1743643930768" duration="3799000" />
+      <workItem from="1743981556755" duration="56000" />
+      <workItem from="1744244986983" duration="2270000" />
+      <workItem from="1744305477756" duration="2202000" />
+      <workItem from="1744375316371" duration="919000" />
+      <workItem from="1744424591334" duration="34000" />
+      <workItem from="1744565634005" duration="5742000" />
+      <workItem from="1744571969429" duration="19000" />
+      <workItem from="1744572020349" duration="101000" />
+      <workItem from="1744751514345" duration="180000" />
+      <workItem from="1745508757424" duration="274000" />
+      <workItem from="1745955350107" duration="920000" />
+      <workItem from="1746539338097" duration="450000" />
+      <workItem from="1746662442640" duration="121000" />
+      <workItem from="1746662706220" duration="955000" />
+      <workItem from="1746990677764" duration="112000" />
+      <workItem from="1746990805899" duration="2148000" />
+      <workItem from="1746993334827" duration="1578000" />
+      <workItem from="1747078969750" duration="6308000" />
+      <workItem from="1747085315623" duration="101000" />
+      <workItem from="1747258215865" duration="4613000" />
+      <workItem from="1748005472555" duration="1427000" />
+      <workItem from="1748006937537" duration="2737000" />
+      <workItem from="1748112379152" duration="1506000" />
     </task>
     <task id="LOCAL-00334" summary="- v1.4.0-alpha&#10;- working before removeing combinedmap">
       <option name="closed" value="true" />
@@ -1063,7 +993,95 @@
       <option name="project" value="LOCAL" />
       <updated>1743467553002</updated>
     </task>
-    <option name="localTasksCounter" value="372" />
+    <task id="LOCAL-00372" summary="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports">
+      <option name="closed" value="true" />
+      <created>1743612686135</created>
+      <option name="number" value="00372" />
+      <option name="presentableId" value="LOCAL-00372" />
+      <option name="project" value="LOCAL" />
+      <updated>1743612686136</updated>
+    </task>
+    <task id="LOCAL-00373" summary="- v1.5.1-alpha">
+      <option name="closed" value="true" />
+      <created>1743645536629</created>
+      <option name="number" value="00373" />
+      <option name="presentableId" value="LOCAL-00373" />
+      <option name="project" value="LOCAL" />
+      <updated>1743645536629</updated>
+    </task>
+    <task id="LOCAL-00374" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods">
+      <option name="closed" value="true" />
+      <created>1743647122273</created>
+      <option name="number" value="00374" />
+      <option name="presentableId" value="LOCAL-00374" />
+      <option name="project" value="LOCAL" />
+      <updated>1743647122273</updated>
+    </task>
+    <task id="LOCAL-00375" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive">
+      <option name="closed" value="true" />
+      <created>1744567790105</created>
+      <option name="number" value="00375" />
+      <option name="presentableId" value="LOCAL-00375" />
+      <option name="project" value="LOCAL" />
+      <updated>1744567790106</updated>
+    </task>
+    <task id="LOCAL-00376" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color">
+      <option name="closed" value="true" />
+      <created>1744570875984</created>
+      <option name="number" value="00376" />
+      <option name="presentableId" value="LOCAL-00376" />
+      <option name="project" value="LOCAL" />
+      <updated>1744570875984</updated>
+    </task>
+    <task id="LOCAL-00377" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version">
+      <option name="closed" value="true" />
+      <created>1744571360781</created>
+      <option name="number" value="00377" />
+      <option name="presentableId" value="LOCAL-00377" />
+      <option name="project" value="LOCAL" />
+      <updated>1744571360781</updated>
+    </task>
+    <task id="LOCAL-00378" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server">
+      <option name="closed" value="true" />
+      <created>1745956141589</created>
+      <option name="number" value="00378" />
+      <option name="presentableId" value="LOCAL-00378" />
+      <option name="project" value="LOCAL" />
+      <updated>1745956141590</updated>
+    </task>
+    <task id="LOCAL-00379" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;&#10;- Update Callout Window Realtime (Req. Testing)">
+      <option name="closed" value="true" />
+      <created>1746992862215</created>
+      <option name="number" value="00379" />
+      <option name="presentableId" value="LOCAL-00379" />
+      <option name="project" value="LOCAL" />
+      <updated>1746992862216</updated>
+    </task>
+    <task id="LOCAL-00380" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;&#10;- Update Callout Window Realtime (Req. Testing)">
+      <option name="closed" value="true" />
+      <created>1747085399610</created>
+      <option name="number" value="00380" />
+      <option name="presentableId" value="LOCAL-00380" />
+      <option name="project" value="LOCAL" />
+      <updated>1747085399610</updated>
+    </task>
+    <task id="LOCAL-00381" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime">
+      <option name="closed" value="true" />
+      <created>1747264222861</created>
+      <option name="number" value="00381" />
+      <option name="presentableId" value="LOCAL-00381" />
+      <option name="project" value="LOCAL" />
+      <updated>1747264222861</updated>
+    </task>
+    <task id="LOCAL-00382" summary="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime">
+      <option name="closed" value="true" />
+      <created>1748008104162</created>
+      <option name="number" value="00382" />
+      <option name="presentableId" value="LOCAL-00382" />
+      <option name="project" value="LOCAL" />
+      <updated>1748008104162</updated>
+    </task>
+    <option name="localTasksCounter" value="383" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1113,32 +1131,32 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Started CustomReport Implementation In Log Viewer&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Working LogViewer Implementation For CustomReports&#10;&#10;- Fixed Changing Report Status&#10;- Changed Dropdown Json Objects To Go To New File [customDropdowns.json]&#10;- Fixed CustomDropdown Objects Not Prefixing With N/A&#10;- Added Moving Fields Left/Right&#10;- Fixed Blurry Windows" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Added 'Pull From Lookup' Button To Applicable Reports&#10;- Fixed Reserved Keyword Issue With SQL&#10;- Additional Checks For Validating Fields" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- Working Status's and statistics in LogViewer&#10;- Regular reports working&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="SHELF" />
-    <MESSAGE value="- v1.4.1-alpha&#10;- More Keybinds [Close/Maximize/Minimize Windows,Toggle Application Fullscreen]&#10;- Ability To Import / Export Custom Dropdowns" />
-    <MESSAGE value="- v1.5.0-alpha&#10;- New Version Updates&#10;- ALPR System Implementation&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
-    <MESSAGE value="- v1.5.0-alpha&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed ALPR Data / Fixed Data Issue With Data Being Overwritten&#10;- Added Login / Registration System&#10;- Checks For Missing Credentials (User/Pass From Old Versions)" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed Bug With Info Box Background Color&#10;- Extended Expiration Date Information In Info Boxes" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed Bug With Info Box Background Color&#10;- Extended Expiration Date Information In Info Boxes&#10;&#10;Signed-off-by: Guess1m &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information" />
     <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information" />
     <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha" />
+    <MESSAGE value="- v1.5.1-alpha&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server" />
+    <MESSAGE value="- v1.5.1-alpha&#10;-" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;&#10;- Update Callout Window Realtime (Req. Testing)" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;&#10;- Update Callout Window Realtime (Req. Testing)&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;&#10;- Update Callout Window Realtime (Req. Testing)" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Update Callout Window Realtime" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;&#10;- Update Callout Window Realtime (Req. Testing)&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />

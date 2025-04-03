@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.Windows.Apps;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import jakarta.xml.bind.JAXBException;
 import javafx.collections.FXCollections;
@@ -37,8 +36,7 @@ import static com.Guess.ReportsPlus.logs.Incident.IncidentReportUtils.loadIncide
 import static com.Guess.ReportsPlus.logs.Patrol.PatrolReportUtils.loadPatrolReports;
 import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.loadSearchReports;
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.loadTrafficStopReports;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getPrimaryKeyColumn;
 
@@ -77,7 +75,7 @@ public class ReportStatisticsController {
 		createFolderIfNotExists(getCustomDataLogsFolderPath());
 		
 		if (path.isEmpty()) {
-			log("[ReportStats] Database Path is Empty", LogUtils.Severity.ERROR);
+			logError("[ReportStats] Database Path is Empty");
 		}
 		
 		String primaryKey = null;
@@ -99,14 +97,14 @@ public class ReportStatisticsController {
 		String layoutContent = null;
 		DynamicDB DatabaseLayout = new DynamicDB(path, "layout", "key", layoutScheme);
 		if (DatabaseLayout.initDB()) {
-			log("[ReportStats] Layout Database for: [" + path + "] Initialized", LogUtils.Severity.INFO);
+			logInfo("[ReportStats] Layout Database for: [" + path + "] Initialized");
 			try {
 				Map<String, Object> layoutRecord = DatabaseLayout.getRecord("1");
 				if (layoutRecord != null) {
 					Object layoutValue = layoutRecord.get("layoutData");
 					layoutContent = (String) layoutValue;
 				} else {
-					log("[ReportStats] layout record null for report: " + path, LogUtils.Severity.ERROR);
+					logError("[ReportStats] layout record null for report: " + path);
 				}
 			} catch (SQLException e2) {
 				logError("[ReportStats] Error adding/replacing record: " + layoutScheme, e2);
@@ -118,7 +116,7 @@ public class ReportStatisticsController {
 				}
 			}
 		} else {
-			log("[ReportStats] Layout Database not initialized!", LogUtils.Severity.ERROR);
+			logError("[ReportStats] Layout Database not initialized!");
 		}
 		
 		DynamicDB dbManager = null;
@@ -175,17 +173,17 @@ public class ReportStatisticsController {
 		String dataFolderPath = getCustomDataLogsFolderPath();
 		File folder = new File(dataFolderPath);
 		if (!folder.exists() || !folder.isDirectory()) {
-			log("NewReport; Invalid data folder path: " + dataFolderPath, LogUtils.Severity.ERROR);
+			logError("NewReport; Invalid data folder path: " + dataFolderPath);
 			return null;
 		}
 		
 		File[] files = folder.listFiles((dir, name) -> name.endsWith(".db"));
 		if (files == null || files.length == 0) {
-			log("NewReport; No database files found in: " + dataFolderPath, LogUtils.Severity.INFO);
+			logInfo("NewReport; No database files found in: " + dataFolderPath);
 			return null;
 		}
 		
-		log("NewReport; Found " + files.length + " database files in: " + dataFolderPath, LogUtils.Severity.INFO);
+		logInfo("NewReport; Found " + files.length + " database files in: " + dataFolderPath);
 		
 		HashMap<String, Integer> totalCounts = new HashMap<>();
 		for (File file : files) {
@@ -210,7 +208,7 @@ public class ReportStatisticsController {
 						counts.put(value, counts.getOrDefault(value, 0) + 1);
 					}
 				} catch (Exception e) {
-					log("[ReportStats] Report: [" + report.getClass().getSimpleName() + "] missing method: " + getMethod, LogUtils.Severity.WARN);
+					logWarn("[ReportStats] Report: [" + report.getClass().getSimpleName() + "] missing method: " + getMethod);
 				}
 			}
 		}
@@ -220,7 +218,7 @@ public class ReportStatisticsController {
 	private HashMap<String, Integer> parseLogReports(String getMethod) {
 		HashMap<String, Integer> counts = new HashMap<>();
 		try {
-			log("[ReportStats] Starting to parse all reports for method: [" + getMethod + "]", LogUtils.Severity.INFO);
+			logInfo("[ReportStats] Starting to parse all reports for method: [" + getMethod + "]");
 			mergeCounts(counts, parseReport(loadAccidentReports().getAccidentReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadArrestReports().getArrestReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadCalloutReports().getCalloutReportList(), getMethod));
@@ -235,7 +233,7 @@ public class ReportStatisticsController {
 		} catch (JAXBException e) {
 			logError("Error parsing reports: ", e);
 		}
-		log("[ReportStats] Finished parsing all reports for [" + getMethod + "]; " + counts, LogUtils.Severity.INFO);
+		logInfo("[ReportStats] Finished parsing all reports for [" + getMethod + "]; " + counts);
 		return counts;
 	}
 	
@@ -297,16 +295,16 @@ public class ReportStatisticsController {
 			switch (choice) {
 				case "Officer":
 					updateChartPane("getOfficerName");
-					log("[ReportStats] Using getOfficerName for chartdata", LogUtils.Severity.INFO);
+					logInfo("[ReportStats] Using getOfficerName for chartdata");
 					break;
 				case "County":
 					updateChartPane("getCounty");
-					log("[ReportStats] Using getCounty for chartdata", LogUtils.Severity.INFO);
+					logInfo("[ReportStats] Using getCounty for chartdata");
 					break;
 				case "Area":
 				default:
 					updateChartPane("getArea");
-					log("[ReportStats] Using getArea for chartdata", LogUtils.Severity.INFO);
+					logInfo("[ReportStats] Using getArea for chartdata");
 					break;
 			}
 		});
@@ -315,17 +313,17 @@ public class ReportStatisticsController {
 	}
 	
 	private void updateChartPane(String getMethod) {
-		log("Running ChartUpdate For: [" + getMethod + "]", LogUtils.Severity.DEBUG);
+		logDebug("Running ChartUpdate For: [" + getMethod + "]");
 		ArrayList<Node> nodes = new ArrayList<>();
 		for (Node node : borderPane.getChildren()) {
 			if (node instanceof AreaChart) {
-				log("[ReportStats] Added AreaChart Node to delete list", LogUtils.Severity.DEBUG);
+				logDebug("[ReportStats] Added AreaChart Node to delete list");
 				nodes.add(node);
 			}
 		}
 		if (nodes.size() > 0) {
 			borderPane.getChildren().remove(nodes.get(0));
-			log("[ReportStats] Removed old AreaChart Node", LogUtils.Severity.DEBUG);
+			logDebug("[ReportStats] Removed old AreaChart Node");
 		}
 		
 		AreaChart<String, Number> chart = createChart(getMethod);

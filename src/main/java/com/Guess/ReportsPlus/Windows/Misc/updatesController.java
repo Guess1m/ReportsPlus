@@ -3,7 +3,6 @@ package com.Guess.ReportsPlus.Windows.Misc;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
@@ -20,7 +19,8 @@ import java.util.Objects;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.gitVersion;
@@ -71,10 +71,10 @@ public class updatesController {
 		checkUpdates();
 		
 		if (updateAvailable) {
-			log("Found update, Displaying update utility..", LogUtils.Severity.DEBUG);
+			logDebug("Found update, Displaying update utility..");
 			hbox.setVisible(true);
 		} else {
-			log("No Update Available, not displaying updateUtility", LogUtils.Severity.WARN);
+			logWarn("No Update Available, not displaying updateUtility");
 			hbox.setVisible(false);
 		}
 		
@@ -96,7 +96,7 @@ public class updatesController {
 		if (!version.equals(gitVersion)) {
 			recentVer.setText(Objects.requireNonNullElse(gitVersion, localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!")));
 			recentVer.setStyle("-fx-text-fill: red;");
-			showNotificationError("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + ". You can try autoupdating!");
+			showNotificationError("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " [" + gitVersion + "] You can try autoupdating!");
 			updateAvailable = true;
 		} else {
 			recentVer.setText(gitVersion);

@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Search;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.searchLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -121,7 +120,7 @@ public class SearchReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -234,10 +233,10 @@ public class SearchReportUtils {
 		if (existingReport.isPresent()) {
 			SearchReports.getSearchReportList().remove(existingReport.get());
 			SearchReports.getSearchReportList().add(SearchReport);
-			log("SearchReport with number " + SearchReport.getSearchNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("SearchReport with number " + SearchReport.getSearchNumber() + " updated.");
 		} else {
 			SearchReports.getSearchReportList().add(SearchReport);
-			log("SearchReport with number " + SearchReport.getSearchNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("SearchReport with number " + SearchReport.getSearchNumber() + " added.");
 		}
 		
 		saveSearchReports(SearchReports);
@@ -249,7 +248,7 @@ public class SearchReportUtils {
 		if (SearchReports.getSearchReportList() != null) {
 			SearchReports.getSearchReportList().removeIf(e -> e.getSearchNumber().equals(SearchReportnumber));
 			saveSearchReports(SearchReports);
-			log("SearchReport with number " + SearchReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("SearchReport with number " + SearchReportnumber + " deleted.");
 		}
 	}
 	

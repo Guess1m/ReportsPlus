@@ -3,7 +3,6 @@ package com.Guess.ReportsPlus.util.Other;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.Callout.CalloutReportUtils;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
@@ -30,7 +29,6 @@ import java.util.stream.Collectors;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 public class CalloutManager {
@@ -104,7 +102,7 @@ public class CalloutManager {
 					return;
 				}
 			} else {
-				log("The file is empty or does not exist.", LogUtils.Severity.ERROR);
+				logError("The file is empty or does not exist.");
 				return;
 			}
 			

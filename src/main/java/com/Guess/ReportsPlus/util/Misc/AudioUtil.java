@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 
 public class AudioUtil {
 	public static final ExecutorService audioExecutor = Executors.newCachedThreadPool();
@@ -21,7 +21,7 @@ public class AudioUtil {
 				File soundFile = new File(filename);
 				
 				if (!soundFile.exists()) {
-					log("Sound file does not exist: " + filename, LogUtils.Severity.WARN);
+					logWarn("Sound file does not exist: " + filename);
 					return;
 				}
 				

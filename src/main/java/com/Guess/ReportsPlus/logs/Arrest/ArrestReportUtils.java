@@ -9,7 +9,6 @@ import com.Guess.ReportsPlus.logs.Search.SearchReportUtils;
 import com.Guess.ReportsPlus.util.CourtData.Case;
 import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
 import com.Guess.ReportsPlus.util.History.Ped;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -39,8 +38,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLook
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -152,7 +150,7 @@ public class ArrestReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -312,6 +310,7 @@ public class ArrestReportUtils {
 					stringBuilder.append(formData.getCharge()).append(" | ");
 					chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths, maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 				}
+				
 				/*
 				TODO: Custom charge option in arrest report
 				 stringBuilder.append(" | ");
@@ -351,9 +350,13 @@ public class ArrestReportUtils {
 				} catch (JAXBException e) {
 					logError("Could not create new ArrestReport: ", e);
 				}
+				
+				//TODO: !important get ped priors and ensure no duplicates
+				// (Changing arrest report status duplicates charge history entries)
+				// (I think it needs to be changed here)
 				Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(arrestReport1.getArresteeName());
 				if (pedOptional.isPresent()) {
-					log("Ped is present in history, adding new charges.. ", LogUtils.Severity.DEBUG);
+					logDebug("Ped is present in history, adding new charges.. ");
 					Ped ped1 = pedOptional.get();
 					String beforePriors = ped1.getArrestPriors();
 					String afterPriors = (beforePriors + stringBuilder.toString().trim()).replaceAll("null", "");
@@ -403,15 +406,15 @@ public class ArrestReportUtils {
 							throw new RuntimeException(e);
 						}
 						NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted. Case#: " + casenum + " Name: " + offenderName.getText());
-						log("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText(), LogUtils.Severity.INFO);
+						logInfo("Added case from arrest, Case#: " + casenum + " Name: " + offenderName.getText());
 						needCourtRefresh.set(1);
 					} else {
-						log("Case #: " + casenum + " already exists, not adding new case", LogUtils.Severity.WARN);
+						logWarn("Case #: " + casenum + " already exists, not adding new case");
 					}
 				} else {
 					NotificationManager.showNotificationInfo("Report Manager", "A new Arrest Report has been submitted.");
 					NotificationManager.showNotificationWarning("Report Manager", "Could not create court case from arrest because either name or offences field(s) were empty.");
-					log("Could not create court case from arrest because either name or offences field(s) were empty.", LogUtils.Severity.ERROR);
+					logError("Could not create court case from arrest because either name or offences field(s) were empty.");
 				}
 				
 				if (pedLookupViewController != null) {
@@ -495,10 +498,10 @@ public class ArrestReportUtils {
 		if (existingReport.isPresent()) {
 			ArrestReports.getArrestReportList().remove(existingReport.get());
 			ArrestReports.getArrestReportList().add(ArrestReport);
-			log("ArrestReport with number " + ArrestReport.getArrestNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("ArrestReport with number " + ArrestReport.getArrestNumber() + " updated.");
 		} else {
 			ArrestReports.getArrestReportList().add(ArrestReport);
-			log("ArrestReport with number " + ArrestReport.getArrestNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("ArrestReport with number " + ArrestReport.getArrestNumber() + " added.");
 		}
 		
 		saveArrestReports(ArrestReports);
@@ -510,7 +513,7 @@ public class ArrestReportUtils {
 		if (ArrestReports.getArrestReportList() != null) {
 			ArrestReports.getArrestReportList().removeIf(e -> e.getArrestNumber().equals(ArrestReportnumber));
 			saveArrestReports(ArrestReports);
-			log("ArrestReport with number " + ArrestReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("ArrestReport with number " + ArrestReportnumber + " deleted.");
 		}
 	}
 	

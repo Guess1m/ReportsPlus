@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.Windows.Server;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
@@ -18,14 +17,13 @@ import java.util.List;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.CalloutManager.loadActiveCallouts;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.calloutWindow;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutDataURL;
 
-public class calloutController {
+public class CalloutPopupController {
 	
 	@FXML
 	private BorderPane root;
@@ -82,12 +80,12 @@ public class calloutController {
 		File file = new File(filePath);
 		
 		if (!file.exists()) {
-			log("File does not exist: " + filePath, LogUtils.Severity.WARN);
+			logWarn("File does not exist: " + filePath);
 			return null;
 		}
 		
 		if (file.length() == 0) {
-			log("File is empty: " + filePath, LogUtils.Severity.ERROR);
+			logError("File is empty: " + filePath);
 			return null;
 		}
 		
@@ -152,7 +150,7 @@ public class calloutController {
 		} else {
 			message = "No Data";
 			desc = "No Data";
-			log("No Callout found, callout == null", LogUtils.Severity.ERROR);
+			logError("No Callout found, callout == null");
 			streetField.setText("No Data");
 			numberField.setText("No Data");
 			areaField.setText("No Data");
@@ -162,7 +160,7 @@ public class calloutController {
 			countyField.setText("No Data");
 			descriptionField.setText("No Data");
 			typeField.setText("No Data");
-			log("Null Callout", LogUtils.Severity.ERROR);
+			logError("Null Callout");
 		}
 		
 		calloutInfoTitle.setText(localization.getLocalizedMessage("CalloutPopup.MainHeading", "Callout Information"));
@@ -187,7 +185,7 @@ public class calloutController {
 		
 		PauseTransition pause = new PauseTransition(Duration.seconds(2));
 		pause.setOnFinished(event -> {
-			log("Added Callout To Active as: " + status, LogUtils.Severity.INFO);
+			logInfo("Added Callout To Active as: " + status);
 			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status);
 			calloutWindow.closeWindow();
 			

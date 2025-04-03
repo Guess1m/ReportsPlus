@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Desktop.Utils.AppUtils.DesktopApp;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Command;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Output;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -13,8 +12,7 @@ import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.a
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.appConfigWrite;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppUtils.DesktopApps;
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.windows;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
@@ -35,7 +33,7 @@ public class MiscCommands {
 			int i = 0;
 			for (CustomWindow window : windows.values()) {
 				window.centerOnDesktop();
-				log("Centered window: " + window.title, LogUtils.Severity.DEBUG);
+				logDebug("Centered window: " + window.title);
 				i++;
 			}
 			output.println("Centered all windows [" + i + "]");
@@ -55,7 +53,7 @@ public class MiscCommands {
 		
 		@Override
 		public void execute(String[] args, Output output) {
-			log("Resetting App Positions..", LogUtils.Severity.DEBUG);
+			logDebug("Resetting App Positions..");
 			String x1 = String.valueOf(45.0);
 			appConfigWrite("Callouts", "x", x1);
 			appConfigWrite("Callouts", "y", String.valueOf(20.0));
@@ -97,9 +95,9 @@ public class MiscCommands {
 				
 				desktopApp.getMainPane().setTranslateX(appX);
 				desktopApp.getMainPane().setTranslateY(appY);
-				log("Reset App Position for: " + desktopApp.getName() + " X: [" + appX + "] Y: [" + appY + "]", LogUtils.Severity.INFO);
+				logInfo("Reset App Position for: " + desktopApp.getName() + " X: [" + appX + "] Y: [" + appY + "]");
 			}
-			log("Finished Resetting App Positions", LogUtils.Severity.DEBUG);
+			logDebug("Finished Resetting App Positions");
 			output.println("Finished resetting app positions");
 		}
 	}
@@ -122,22 +120,22 @@ public class MiscCommands {
 				
 				File pedHistoryFile = new File(dataFolderPath + File.separator + "pedHistory.xml");
 				if (pedHistoryFile.exists() && pedHistoryFile.isFile()) {
-					log("pedHistory.xml exists. [2]", LogUtils.Severity.INFO);
+					logInfo("pedHistory.xml exists. [2]");
 					Files.deleteIfExists(pedHistoryFile.toPath());
-					log("pedHistory.xml deleted. [2]", LogUtils.Severity.INFO);
+					logInfo("pedHistory.xml deleted. [2]");
 					output.println("pedHistory.xml ~g~cleared");
 				} else {
-					log("pedHistory.xml does not exist. [2]", LogUtils.Severity.WARN);
+					logWarn("pedHistory.xml does not exist. [2]");
 				}
 				
 				File vehHistoryFile = new File(dataFolderPath + File.separator + "vehHistory.xml");
 				if (vehHistoryFile.exists() && vehHistoryFile.isFile()) {
-					log("vehHistory.xml exists. [2]", LogUtils.Severity.INFO);
+					logInfo("vehHistory.xml exists. [2]");
 					Files.deleteIfExists(vehHistoryFile.toPath());
-					log("vehHistory.xml deleted. [2]", LogUtils.Severity.INFO);
+					logInfo("vehHistory.xml deleted. [2]");
 					output.println("vehHistory.xml ~g~cleared");
 				} else {
-					log("vehHistory.xml does not exist. [2]", LogUtils.Severity.WARN);
+					logWarn("vehHistory.xml does not exist. [2]");
 				}
 				
 				showNotificationInfo("Developer", "Successfully Cleared Lookup Data");

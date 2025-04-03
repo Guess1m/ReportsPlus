@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,8 +34,7 @@ import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLook
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
@@ -121,7 +119,7 @@ public class ALPRViewController {
 			
 			Vehicle vehicle = parseVehicleEntry(entry);
 			if (vehicle == null || !vehicle.isValid()) {
-				log("Skipping invalid vehicle entry: " + entry, LogUtils.Severity.WARN);
+				logWarn("Skipping invalid vehicle entry: " + entry);
 				continue;
 			}
 			
@@ -135,7 +133,7 @@ public class ALPRViewController {
 		Arrays.stream(entry.split("&")).filter(pair -> pair.contains("=")).forEach(pair -> processKeyValuePair(pair, vehicle));
 		
 		if (!vehicle.isValid()) {
-			log("Skipping invalid vehicle entry: " + entry, LogUtils.Severity.WARN);
+			logWarn("Skipping invalid vehicle entry: " + entry);
 			return null;
 		}
 		
@@ -251,7 +249,7 @@ public class ALPRViewController {
 	
 	public void addVehicle(Vehicle vehicle) {
 		if (vehicle == null || !vehicle.isValid()) {
-			log("Skipping invalid vehicle: One or more fields are null or empty", LogUtils.Severity.WARN);
+			logWarn("Skipping invalid vehicle: One or more fields are null or empty");
 			return;
 		}
 		
@@ -348,7 +346,7 @@ public class ALPRViewController {
 				try {
 					vehLookupViewController.onVehSearchBtnClick(new ActionEvent());
 					vehWindow.bringToFront();
-					log("Bringing up veh search for: " + licensePlateNumbers.getText() + " from alpr", LogUtils.Severity.DEBUG);
+					logDebug("Bringing up veh search for: " + licensePlateNumbers.getText() + " from alpr");
 				} catch (IOException e) {
 					logError("Error searching plate from alpr window, plate: " + licensePlateNumbers.getText(), e);
 				}

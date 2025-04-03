@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Impound;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.impoundLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -116,7 +115,7 @@ public class ImpoundReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -247,10 +246,10 @@ public class ImpoundReportUtils {
 		if (existingReport.isPresent()) {
 			ImpoundReports.getImpoundReportList().remove(existingReport.get());
 			ImpoundReports.getImpoundReportList().add(ImpoundReport);
-			log("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " updated.");
 		} else {
 			ImpoundReports.getImpoundReportList().add(ImpoundReport);
-			log("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " added.");
 		}
 		
 		saveImpoundReports(ImpoundReports);
@@ -262,7 +261,7 @@ public class ImpoundReportUtils {
 		if (ImpoundReports.getImpoundReportList() != null) {
 			ImpoundReports.getImpoundReportList().removeIf(e -> e.getImpoundNumber().equals(ImpoundReportnumber));
 			saveImpoundReports(ImpoundReports);
-			log("ImpoundReport with number " + ImpoundReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("ImpoundReport with number " + ImpoundReportnumber + " deleted.");
 		}
 	}
 }

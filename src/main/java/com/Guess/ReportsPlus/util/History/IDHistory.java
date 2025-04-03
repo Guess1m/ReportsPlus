@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.History;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.IDs;
 import jakarta.xml.bind.JAXBContext;
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.IDHistoryURL;
 
 public class IDHistory {
@@ -87,10 +86,10 @@ public class IDHistory {
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
-			log("HistoryID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
+			logInfo("HistoryID with name " + ID.getName() + " updated.");
 		} else {
 			IDs.getIdList().add(ID);
-			log("HistoryID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
+			logInfo("HistoryID with name " + ID.getName() + " added.");
 		}
 		
 		saveHistoryIDs(IDs);
@@ -110,25 +109,25 @@ public class IDHistory {
 			}
 			historyIDs.getIdList().add(serverID);
 			saveHistoryIDs(historyIDs);
-			log("ServerID with name " + serverID.getName() + " added to history.", LogUtils.Severity.INFO);
+			logInfo("ServerID with name " + serverID.getName() + " added to history.");
 		} else {
-			log("ServerID with name " + serverID.getName() + " already exists in history.", LogUtils.Severity.INFO);
+			logInfo("ServerID with name " + serverID.getName() + " already exists in history.");
 		}
 	}
 	
 	public static boolean checkAllHistoryIDsClosed() throws JAXBException {
 		List<ID> historyIDs = IDHistory.loadHistoryIDs().getIdList();
 		if (historyIDs == null || historyIDs.isEmpty()) {
-			log("No history IDs found", LogUtils.Severity.INFO);
+			logInfo("No history IDs found");
 			return false;
 		}
 		
 		boolean allClosed = historyIDs.stream().allMatch(id -> "closed".equalsIgnoreCase(id.getStatus()));
 		
 		if (allClosed) {
-			log("All history IDs are closed", LogUtils.Severity.INFO);
+			logInfo("All history IDs are closed");
 		} else {
-			log("Not all history IDs are closed", LogUtils.Severity.INFO);
+			logInfo("Not all history IDs are closed");
 		}
 		
 		return allClosed;

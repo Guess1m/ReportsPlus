@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils;
 import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -26,8 +25,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.trafficStopLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -140,7 +139,7 @@ public class TrafficStopReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -380,10 +379,10 @@ public class TrafficStopReportUtils {
 		if (existingReport.isPresent()) {
 			TrafficStopReports.getTrafficStopReportList().remove(existingReport.get());
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
-			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " updated.");
 		} else {
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
-			log("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.");
 		}
 		
 		saveTrafficStopReports(TrafficStopReports);
@@ -395,7 +394,7 @@ public class TrafficStopReportUtils {
 		if (TrafficStopReports.getTrafficStopReportList() != null) {
 			TrafficStopReports.getTrafficStopReportList().removeIf(e -> e.getStopNumber().equals(TrafficStopReportnumber));
 			saveTrafficStopReports(TrafficStopReports);
-			log("TrafficStopReport with number " + TrafficStopReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("TrafficStopReport with number " + TrafficStopReportnumber + " deleted.");
 		}
 	}
 	

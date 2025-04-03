@@ -23,7 +23,19 @@
     -fx-background-color: transparent;
     -fx-prompt-text-fill: transparent;
     -fx-border-color: rgb(70, 70, 70, 0.6);
-    -fx-border-width: 0 0 1 0;
+    -fx-border-width: 0;
+}
+
+.text-field-second {
+    -fx-text-fill: rgb(140, 140, 140);
+    -fx-alignment: center;
+    -fx-font-family: "Inter 28pt Medium";
+    -fx-font-size: 14;
+    -fx-padding: 7 0;
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: transparent;
+    -fx-border-color: rgb(70, 70, 70, 0.6);
+    -fx-border-width: 0;
 }
 
 .button {

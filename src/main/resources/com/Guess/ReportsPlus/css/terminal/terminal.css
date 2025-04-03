@@ -60,6 +60,12 @@
     -fx-font-size: 14px;
 }
 
+.color-orange {
+    -fx-fill: #ff9655;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 14px;
+}
+
 .color-green {
     -fx-fill: #55ff55;
     -fx-font-family: "Inter 24pt Regular";

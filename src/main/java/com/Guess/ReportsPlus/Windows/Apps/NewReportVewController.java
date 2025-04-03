@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.Database.CustomReport;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import javafx.event.ActionEvent;
@@ -34,8 +33,7 @@ import static com.Guess.ReportsPlus.logs.Patrol.PatrolReportUtils.newPatrol;
 import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.newSearch;
 import static com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.createFolderIfNotExists;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getCustomDataLogsFolderPath;
 import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getPrimaryKeyColumn;
@@ -124,9 +122,9 @@ public class NewReportVewController {
 		
 		try {
 			if (loadDatabaseButtons(getCustomDataLogsFolderPath(), customReportsGrid)) {
-				log("NewReport; Successfully loaded database buttons", LogUtils.Severity.INFO);
+				logInfo("NewReport; Successfully loaded database buttons");
 			} else {
-				log("NewReport; No Databases Found", LogUtils.Severity.ERROR);
+				logError("NewReport; No Databases Found");
 			}
 		} catch (IOException e) {
 			logError("error loading database buttons", e);
@@ -136,17 +134,17 @@ public class NewReportVewController {
 	private boolean loadDatabaseButtons(String dataFolderPath, GridPane customReportsGrid) throws IOException {
 		File folder = new File(dataFolderPath);
 		if (!folder.exists() || !folder.isDirectory()) {
-			log("NewReport; Invalid data folder path: " + dataFolderPath, LogUtils.Severity.ERROR);
+			logError("NewReport; Invalid data folder path: " + dataFolderPath);
 			return false;
 		}
 		
 		File[] files = folder.listFiles((dir, name) -> name.endsWith(".db"));
 		if (files == null || files.length == 0) {
-			log("NewReport; No database files found in: " + dataFolderPath, LogUtils.Severity.INFO);
+			logInfo("NewReport; No database files found in: " + dataFolderPath);
 			return false;
 		}
 		
-		log("NewReport; Found " + files.length + " database files in: " + dataFolderPath, LogUtils.Severity.INFO);
+		logInfo("NewReport; Found " + files.length + " database files in: " + dataFolderPath);
 		
 		int buttonCount = 0;
 		
@@ -158,20 +156,20 @@ public class NewReportVewController {
 			} catch (SQLException e) {
 				logError("Error getting primary key column", e);
 			}
-			log("NewReport; [" + dbFile.getName() + "] Checking database file", LogUtils.Severity.INFO);
+			logInfo("NewReport; [" + dbFile.getName() + "] Checking database file");
 			
 			if (isValidDatabase(dbFilePath, dbFile.getName())) {
-				log("NewReport; [" + dbFile.getName() + "] Valid database detected", LogUtils.Severity.INFO);
+				logInfo("NewReport; [" + dbFile.getName() + "] Valid database detected");
 				Button dbButton = new Button(dbFile.getName().replaceAll(".db", ""));
 				String finalData = data;
 				dbButton.setOnAction(e -> {
-					log("NewReport; Clicked Database: " + dbFile.getName(), LogUtils.Severity.DEBUG);
+					logDebug("NewReport; Clicked Database: " + dbFile.getName());
 					String reportTitle = dbFile.getName().replaceAll(".db", "").trim();
 					
 					createFolderIfNotExists(getCustomDataLogsFolderPath());
 					
 					if (reportTitle.isEmpty()) {
-						log("LayoutBuilder; Report Title Field is Empty", LogUtils.Severity.ERROR);
+						logError("LayoutBuilder; Report Title Field is Empty");
 						return;
 					}
 					
@@ -205,7 +203,7 @@ public class NewReportVewController {
 				
 				buttonCount++;
 			} else {
-				log("NewReport; Invalid database file: " + dbFilePath, LogUtils.Severity.WARN);
+				logWarn("NewReport; Invalid database file: " + dbFilePath);
 			}
 		}
 		

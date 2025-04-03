@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.util.CourtData;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -15,8 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.courtDataURL;
 
@@ -26,7 +24,7 @@ public class CourtUtils {
 	public static String generateCaseNumber(String number) {
 		StringBuilder caseNumber = new StringBuilder("CN-");
 		caseNumber.append(number);
-		log("Generated Case#: " + caseNumber.toString(), LogUtils.Severity.DEBUG);
+		logDebug("Generated Case#: " + caseNumber.toString());
 		return caseNumber.toString();
 	}
 	
@@ -68,7 +66,7 @@ public class CourtUtils {
 			courtCases.getCaseList().add(courtCase);
 			saveCourtCases(courtCases);
 		} else {
-			log("Court Case with number " + courtCase.getCaseNumber() + " already exists.", LogUtils.Severity.WARN);
+			logWarn("Court Case with number " + courtCase.getCaseNumber() + " already exists.");
 		}
 	}
 	
@@ -261,14 +259,14 @@ public class CourtUtils {
 		Case caseToUpdate = courtCases.getCaseList().stream().filter(c -> caseNumber.equals(c.getCaseNumber())).findFirst().orElse(null);
 		
 		if (caseToUpdate != null) {
-			log("Scheduled: " + caseToUpdate.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec", LogUtils.Severity.DEBUG);
+			logDebug("Scheduled: " + caseToUpdate.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec");
 			
 			Runnable revealTask = () -> {
 				try {
 					synchronized (caseToUpdate) {
 						caseToUpdate.setStatus("Closed");
 						modifyCase(caseToUpdate.getCaseNumber(), caseToUpdate);
-						log("Case: #" + caseToUpdate.getCaseNumber() + " has been closed", LogUtils.Severity.DEBUG);
+						logDebug("Case: #" + caseToUpdate.getCaseNumber() + " has been closed");
 						showNotificationInfo("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + ", " + caseToUpdate.getName() + ", has been closed");
 					}
 				} catch (JAXBException | IOException e) {
@@ -278,7 +276,7 @@ public class CourtUtils {
 			
 			courtPendingChargesExecutor.schedule(revealTask, randomSec, TimeUnit.SECONDS);
 		} else {
-			log("Case with number " + caseNumber + " not found.", LogUtils.Severity.ERROR);
+			logError("Case with number " + caseNumber + " not found.");
 		}
 	}
 }

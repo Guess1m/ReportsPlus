@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Callout;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.calloutLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -92,7 +91,7 @@ public class CalloutReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -197,10 +196,10 @@ public class CalloutReportUtils {
 		if (existingReport.isPresent()) {
 			CalloutReports.getCalloutReportList().remove(existingReport.get());
 			CalloutReports.getCalloutReportList().add(CalloutReport);
-			log("CalloutReport with number " + CalloutReport.getCalloutNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("CalloutReport with number " + CalloutReport.getCalloutNumber() + " updated.");
 		} else {
 			CalloutReports.getCalloutReportList().add(CalloutReport);
-			log("CalloutReport with number " + CalloutReport.getCalloutNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("CalloutReport with number " + CalloutReport.getCalloutNumber() + " added.");
 		}
 		
 		saveCalloutReports(CalloutReports);
@@ -212,7 +211,7 @@ public class CalloutReportUtils {
 		if (CalloutReports.getCalloutReportList() != null) {
 			CalloutReports.getCalloutReportList().removeIf(e -> e.getCalloutNumber().equals(CalloutReportnumber));
 			saveCalloutReports(CalloutReports);
-			log("CalloutReport with number " + CalloutReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("CalloutReport with number " + CalloutReportnumber + " deleted.");
 		}
 	}
 	

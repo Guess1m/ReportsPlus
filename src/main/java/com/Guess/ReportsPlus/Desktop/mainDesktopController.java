@@ -12,7 +12,6 @@ import com.Guess.ReportsPlus.Windows.Server.ClientController;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
@@ -60,10 +59,10 @@ import static com.Guess.ReportsPlus.Windows.Misc.NewUserManagerController.newUse
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesTabList;
 import static com.Guess.ReportsPlus.Windows.Server.ClientController.clientController;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.SettingsController;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.*;
 import static com.Guess.ReportsPlus.util.Misc.updateUtil.checkForUpdates;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.handleClose;
 
 public class mainDesktopController {
@@ -144,7 +143,7 @@ public class mainDesktopController {
 					String path = ConfigReader.configRead("desktopSettings", "backgroundPath");
 					if (path != null && !path.isEmpty()) {
 						Image image = loadImageFromAbsolutePath(path);
-						log("Loading image from path: " + path, LogUtils.Severity.DEBUG);
+						logDebug("Loading image from path: " + path);
 						
 						BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
 						
@@ -153,7 +152,7 @@ public class mainDesktopController {
 						Image errorImg = new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/IMGNotFound.png")));
 						BackgroundImage errorBkgImg = new BackgroundImage(errorImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
 						container.setBackground(new Background(errorBkgImg));
-						log("Cant update image, path is empty, showing noImgFound bkg: " + path, LogUtils.Severity.WARN);
+						logWarn("Cant update image, path is empty, showing noImgFound bkg: " + path);
 						
 					}
 				} else {
@@ -207,9 +206,9 @@ public class mainDesktopController {
 		inputLockButton.setOnMouseClicked(event -> {
 			isInputLocked = !isInputLocked;
 			if (isInputLocked) {
-				log("Input Locked!", LogUtils.Severity.INFO);
+				logInfo("Input Locked!");
 			} else {
-				log("Input Unlocked!", LogUtils.Severity.INFO);
+				logInfo("Input Unlocked!");
 			}
 			inputLock.setDisable(isInputLocked);
 		});
@@ -223,9 +222,9 @@ public class mainDesktopController {
 		
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equalsIgnoreCase("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-			log("First Login...", LogUtils.Severity.DEBUG);
+			logDebug("First Login...");
 		} else {
-			log("Not First Login...", LogUtils.Severity.DEBUG);
+			logDebug("Not First Login...");
 		}
 		
 		addApps();
@@ -244,7 +243,7 @@ public class mainDesktopController {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
 				ClipboardContent content = new ClipboardContent();
 				content.putString(locationStreetLabel.getText().replace(",", "").trim());
-				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				logInfo("Clipboard content: " + content.getString());
 				clipboard.setContent(content);
 			}
 		});
@@ -254,7 +253,7 @@ public class mainDesktopController {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
 				ClipboardContent content = new ClipboardContent();
 				content.putString(locationAreaLabel.getText().replace(",", "").trim());
-				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				logInfo("Clipboard content: " + content.getString());
 				clipboard.setContent(content);
 			}
 		});
@@ -264,7 +263,7 @@ public class mainDesktopController {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
 				ClipboardContent content = new ClipboardContent();
 				content.putString(locationCountyLabel.getText().replace(",", "").trim());
-				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				logInfo("Clipboard content: " + content.getString());
 				clipboard.setContent(content);
 			}
 		});
@@ -275,14 +274,14 @@ public class mainDesktopController {
 				ClipboardContent content = new ClipboardContent();
 				String split = lookupLabel.getText().replace(localization.getLocalizedMessage("Desktop.CheckedLabel", "Checked:") + " ", "");
 				content.putString(split.trim());
-				log("Clipboard content: " + content.getString(), LogUtils.Severity.INFO);
+				logInfo("Clipboard content: " + content.getString());
 				clipboard.setContent(content);
 			}
 		});
 		
 		try {
 			if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true")) {
-				log("Searching For Server...", LogUtils.Severity.DEBUG);
+				logDebug("Searching For Server...");
 				Runnable serverBroadcastTask = () -> {
 					ClientUtils.listenForServerBroadcasts();
 				};
@@ -320,9 +319,10 @@ public class mainDesktopController {
 				logError("Unable to load theme from config (01), ", e);
 			}
 			
-			checkForUpdates();
-			
 			versionLabel.setText(updateStrings.version);
+			
+			checkForUpdates();
+			checkForServerSameDir();
 			
 			Stage stge = (Stage) container.getScene().getWindow();
 			stge.setOnHiding(event -> {
@@ -333,6 +333,22 @@ public class mainDesktopController {
 		});
 		
 		getMainDesktop().addEventHandler(KeyEvent.KEY_PRESSED, event -> keybindEvent(event));
+	}
+	
+	private void checkForServerSameDir() {
+		File directory = new File(getJarPath());
+		
+		if (!directory.isDirectory()) {
+			logError("Error: '" + directory.getPath() + "' is not a valid directory.");
+			return;
+		}
+		
+		File jarFile = new File(directory, "ReportsPlusServer.jar");
+		if (jarFile.exists()) {
+			showNotificationErrorPersistent("ERROR", "Remove ReportsPlus.jar from the same directory as server jar file");
+		} else {
+			logDebug("ReportsPlusServer.jar not found in same directory as ReportsPlus.jar");
+		}
 	}
 	
 	private void keybindEvent(KeyEvent event) {
@@ -353,32 +369,32 @@ public class mainDesktopController {
 			
 			if (code == inputLockKey) {
 				isInputLocked = !isInputLocked;
-				log("Keybinds[" + code + "]; Input " + (isInputLocked ? "Locked!" : "Unlocked!"), LogUtils.Severity.INFO);
+				logInfo("Keybinds[" + code + "]; Input " + (isInputLocked ? "Locked!" : "Unlocked!"));
 				getInputLock().setDisable(isInputLocked);
 				mainDesktop.requestFocus();
 			} else if (code == closeKey) {
 				if (activeWindow != null && windows.containsKey(activeWindow.title)) {
-					log("Keybinds; Closing Window: " + activeWindow.title, LogUtils.Severity.INFO);
+					logInfo("Keybinds; Closing Window: " + activeWindow.title);
 					activeWindow.closeWindow();
 				}
 			} else if (code == minimizeKey) {
 				if (activeWindow != null && windows.containsKey(activeWindow.title)) {
-					log("Keybinds[" + code + "]; Minimizing Window: " + activeWindow.title, LogUtils.Severity.INFO);
+					logInfo("Keybinds[" + code + "]; Minimizing Window: " + activeWindow.title);
 					activeWindow.minimizeWindow();
 				}
 			} else if (code == maximizeKey) {
 				if (activeWindow != null && windows.containsKey(activeWindow.title)) {
-					log("Keybinds[" + code + "]; Maximizing Window: " + activeWindow.title, LogUtils.Severity.INFO);
+					logInfo("Keybinds[" + code + "]; Maximizing Window: " + activeWindow.title);
 					activeWindow.toggleMaximize();
 				}
 			} else if (code == fullscreenKey) {
 				if (mainDesktopStage.isFullScreen()) {
-					log("Keybinds[" + code + "]; Exiting Fullscreen", LogUtils.Severity.INFO);
+					logInfo("Keybinds[" + code + "]; Exiting Fullscreen");
 					mainDesktopStage.setFullScreen(false);
 					mainDesktopStage.setMaximized(true);
 					mainDesktopStage.centerOnScreen();
 				} else {
-					log("Keybinds[" + code + "]; Entering Fullscreen", LogUtils.Severity.INFO);
+					logInfo("Keybinds[" + code + "]; Entering Fullscreen");
 					mainDesktopStage.setFullScreen(true);
 				}
 			} else if (code == terminalKey && event.isShiftDown()) {
@@ -665,7 +681,7 @@ public class mainDesktopController {
 	}
 	
 	private void updateTime() {
-		timeLabel.setText(getTime(false));
+		timeLabel.setText(getTime(false, false));
 	}
 	
 	private void updateDate() {
@@ -677,7 +693,7 @@ public class mainDesktopController {
 	
 	@FXML
 	public void shutdownButtonPress(ActionEvent actionEvent) {
-		log("Shutdown button pressed!", LogUtils.Severity.DEBUG);
+		logDebug("Shutdown button pressed!");
 		handleClose();
 	}
 	
@@ -686,7 +702,7 @@ public class mainDesktopController {
 			getTopBarHboxRight().getChildren().remove(locationDataLabel);
 			getTopBarHboxRight().getChildren().remove(lookupLabel);
 			showNotificationWarning("Server Connection", "Server Disconnected");
-			log("No Connection", LogUtils.Severity.WARN);
+			logWarn("No Connection");
 			serverStatusLabel.setText("No Connection");
 			serverStatusLabel.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
 			if (clientController != null) {
@@ -698,7 +714,7 @@ public class mainDesktopController {
 			}
 			try {
 				if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true")) {
-					log("Searching For Server...", LogUtils.Severity.DEBUG);
+					logDebug("Searching For Server...");
 					Runnable serverBroadcastTask = () -> {
 						ClientUtils.listenForServerBroadcasts();
 					};

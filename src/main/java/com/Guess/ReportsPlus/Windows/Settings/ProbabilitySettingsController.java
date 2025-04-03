@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.Windows.Settings;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,8 +13,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 
 public class ProbabilitySettingsController {
 	@javafx.fxml.FXML
@@ -185,7 +184,7 @@ public class ProbabilitySettingsController {
 	private boolean checkLicenseChances() {
 		int licenseChanceTotal = Integer.parseInt(validLicense.getText()) + Integer.parseInt(suspendedLicense.getText()) + Integer.parseInt(expiredLicense.getText());
 		if (licenseChanceTotal != 100) {
-			log("License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal, LogUtils.Severity.ERROR);
+			logError("License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal);
 			licenseProbabilityLabel.setText("License Chance Probabilities Do Not Add Up To 100%: " + licenseChanceTotal);
 			licenseProbabilityLabel.setStyle("-fx-text-fill: red;");
 			licenseProbabilityLabel.setVisible(true);
@@ -196,7 +195,7 @@ public class ProbabilitySettingsController {
 			timeline1.play();
 			return false;
 		} else {
-			log("License Types Validated, They = " + licenseChanceTotal + "%", LogUtils.Severity.INFO);
+			logInfo("License Types Validated, They = " + licenseChanceTotal + "%");
 			licenseProbabilityLabel.setText("Validated, They = " + licenseChanceTotal + "%");
 			licenseProbabilityLabel.setStyle("-fx-text-fill: green;");
 			licenseProbabilityLabel.setVisible(true);
@@ -212,7 +211,7 @@ public class ProbabilitySettingsController {
 	private boolean checkChargePrior() {
 		int chargePriors = Integer.parseInt(noCharges.getText()) + Integer.parseInt(minimalCharges.getText()) + Integer.parseInt(fewCharges.getText()) + Integer.parseInt(manyCharges.getText());
 		if (chargePriors != 100) {
-			log("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors, LogUtils.Severity.ERROR);
+			logError("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors);
 			chargeProbabilityLabel.setText("Charge Prior Probabilities Do Not Add Up To 100%: " + chargePriors);
 			chargeProbabilityLabel.setStyle("-fx-text-fill: red;");
 			chargeProbabilityLabel.setVisible(true);
@@ -223,7 +222,7 @@ public class ProbabilitySettingsController {
 			timeline1.play();
 			return false;
 		} else {
-			log("Charge Priors Validated, They = " + chargePriors + "%", LogUtils.Severity.INFO);
+			logInfo("Charge Priors Validated, They = " + chargePriors + "%");
 			chargeProbabilityLabel.setText("Validated, They = " + chargePriors + "%");
 			chargeProbabilityLabel.setStyle("-fx-text-fill: green;");
 			chargeProbabilityLabel.setVisible(true);
@@ -239,7 +238,7 @@ public class ProbabilitySettingsController {
 	private boolean checkCitationPrior() {
 		int citationPriors = Integer.parseInt(noCitations.getText()) + Integer.parseInt(minimalCitations.getText()) + Integer.parseInt(fewCitations.getText()) + Integer.parseInt(manyCitations.getText());
 		if (citationPriors != 100) {
-			log("Citation Prior Probabilities Do Not Add Up To 100%: " + citationPriors, LogUtils.Severity.ERROR);
+			logError("Citation Prior Probabilities Do Not Add Up To 100%: " + citationPriors);
 			citationProbabilityLabel.setText("Citation Prior Probabilities Do Not Add Up To 100%: " + citationPriors);
 			citationProbabilityLabel.setStyle("-fx-text-fill: red;");
 			citationProbabilityLabel.setVisible(true);
@@ -250,7 +249,7 @@ public class ProbabilitySettingsController {
 			timeline1.play();
 			return false;
 		} else {
-			log("Citation Priors Validated, They = " + citationPriors + "%", LogUtils.Severity.INFO);
+			logInfo("Citation Priors Validated, They = " + citationPriors + "%");
 			citationProbabilityLabel.setText("Validated, They = " + citationPriors + "%");
 			citationProbabilityLabel.setStyle("-fx-text-fill: green;");
 			citationProbabilityLabel.setVisible(true);
@@ -266,7 +265,7 @@ public class ProbabilitySettingsController {
 	private boolean checkPermitType() {
 		int permitTypeTotal = Integer.parseInt(permitTypeConcealed.getText()) + Integer.parseInt(permitTypeOpenCarry.getText()) + Integer.parseInt(permitTypeBoth.getText());
 		if (permitTypeTotal != 100) {
-			log("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal, LogUtils.Severity.ERROR);
+			logError("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal);
 			permitTypeLabel.setText("Permit Type Probabilities Do Not Add Up To 100%: " + permitTypeTotal);
 			permitTypeLabel.setStyle("-fx-text-fill: red;");
 			permitTypeLabel.setVisible(true);
@@ -277,7 +276,7 @@ public class ProbabilitySettingsController {
 			timeline1.play();
 			return false;
 		} else {
-			log("Permit Types Validated, They = " + permitTypeTotal + "%", LogUtils.Severity.INFO);
+			logInfo("Permit Types Validated, They = " + permitTypeTotal + "%");
 			permitTypeLabel.setText("Validated, They = " + permitTypeTotal + "%");
 			permitTypeLabel.setStyle("-fx-text-fill: green;");
 			permitTypeLabel.setVisible(true);
@@ -293,7 +292,7 @@ public class ProbabilitySettingsController {
 	private boolean checkPermitClass() {
 		int permitClassTotal = Integer.parseInt(permitClassHandgun.getText()) + Integer.parseInt(permitClassLonggun.getText()) + Integer.parseInt(permitClassShotgun.getText());
 		if (permitClassTotal != 100) {
-			log("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal, LogUtils.Severity.ERROR);
+			logError("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal);
 			permitClassLabel.setText("Permit Class Probabilities Do Not Add Up To 100%: " + permitClassTotal);
 			permitClassLabel.setStyle("-fx-text-fill: red;");
 			permitClassLabel.setVisible(true);
@@ -304,7 +303,7 @@ public class ProbabilitySettingsController {
 			timeline1.play();
 			return false;
 		} else {
-			log("Permit Classes Validated, They = " + permitClassTotal + "%", LogUtils.Severity.INFO);
+			logInfo("Permit Classes Validated, They = " + permitClassTotal + "%");
 			permitClassLabel.setText("Validated, They = " + permitClassTotal + "%");
 			permitClassLabel.setStyle("-fx-text-fill: green;");
 			permitClassLabel.setVisible(true);
@@ -358,10 +357,10 @@ public class ProbabilitySettingsController {
 			ConfigWriter.configwrite("pedHistory", "validLicenseChance", validLicense.getText());
 			ConfigWriter.configwrite("pedHistory", "suspendedLicenseChance", suspendedLicense.getText());
 			ConfigWriter.configwrite("pedHistory", "expiredLicenseChance", expiredLicense.getText());
-			log("Wrote New Probabilities To Config", LogUtils.Severity.INFO);
+			logInfo("Wrote New Probabilities To Config");
 			NotificationManager.showNotificationInfo("Probability Controller", "Wrote New Probabilities To Config");
 		} else {
-			log("Could Not Write New Probabilities To Config, Check Values", LogUtils.Severity.ERROR);
+			logError("Could Not Write New Probabilities To Config, Check Values");
 		}
 	}
 }

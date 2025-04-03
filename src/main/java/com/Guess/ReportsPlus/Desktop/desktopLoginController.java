@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.Desktop;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Strings.dropdownInfo;
 import com.Guess.ReportsPlus.util.UserProfiles.Profiles;
 import com.Guess.ReportsPlus.util.UserProfiles.User;
@@ -21,19 +20,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.*;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.createAppConfig;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.openMainDesktop;
 import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.config.ConfigReader.createConfig;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 
 public class desktopLoginController {
 	
@@ -134,9 +134,9 @@ public class desktopLoginController {
 				User.addUser(newUser);
 			}
 		} catch (IOException e) {
-			log("Config file not found or error reading userInfo: " + e.getMessage(), LogUtils.Severity.INFO);
+			logInfo("Config file not found or error reading userInfo: " + e.getMessage());
 		} catch (JAXBException e) {
-			log("Error loading user profiles: " + e.getMessage(), LogUtils.Severity.ERROR);
+			logError("Error loading user profiles: " + e.getMessage());
 		}
 	}
 	
@@ -175,13 +175,13 @@ public class desktopLoginController {
 				}
 			}
 		} catch (JAXBException e) {
-			log("Error loading user profiles", LogUtils.Severity.ERROR);
+			logError("Error loading user profiles");
 		}
 	}
 	
 	@javafx.fxml.FXML
 	public void loginBtnClick(ActionEvent actionEvent) {
-		String user = usernameField.getText().trim();
+		String user = usernameField.getText().trim().toLowerCase();
 		String pass = passwordField.getText().trim();
 		if (user.isEmpty() || pass.isEmpty()) {
 			showError(loginErrorLabel, "Fill out username and password");
@@ -191,24 +191,24 @@ public class desktopLoginController {
 			Profiles userProfiles = User.loadUserProfiles();
 			if (userProfiles.getUserList() != null) {
 				for (User userObj : userProfiles.getUserList()) {
-					if (userObj.getUsername() != null && userObj.getPassword() != null && userObj.getUsername().equals(user) && userObj.getPassword().equals(pass)) {
-						log("Login successful", LogUtils.Severity.INFO);
+					if (userObj.getUsername() != null && userObj.getPassword() != null && userObj.getUsername().equalsIgnoreCase(user) && userObj.getPassword().equals(pass)) {
+						logInfo("Login successful for " + userObj.getUsername());
 						loginUser(userObj.getName(), userObj.getNumber(), userObj.getRank(), userObj.getDivision(), userObj.getAgency());
 						return;
 					}
 				}
 			}
 		} catch (JAXBException e) {
-			log("Error loading user profiles", LogUtils.Severity.ERROR);
+			logError("Error loading user profiles");
 		}
 		showError(loginErrorLabel, "Username or password is incorrect");
 	}
 	
 	@javafx.fxml.FXML
 	public void registerButtonClick(ActionEvent actionEvent) {
-		String username = registrationUsernameField.getText().trim();
+		String username = registrationUsernameField.getText().trim().toLowerCase();
 		String password = registrationPasswordField.getText().trim();
-		String division = registrationDivisionBox.getValue() == null ? null : registrationDivisionBox.getValue().toString();
+		String division = registrationDivisionBox.getValue() != null ? registrationDivisionBox.getValue() : "";
 		String agency = registrationAgencyBox.getValue() == null ? null : registrationAgencyBox.getValue().toString();
 		String rank = registrationRankBox.getValue() == null ? null : registrationRankBox.getValue().toString();
 		String officerNumber = registrationOfficerNumberField.getText().trim();
@@ -238,28 +238,14 @@ public class desktopLoginController {
 			User.addUser(user);
 			loginUser(user.getName(), user.getNumber(), user.getRank(), user.getDivision(), user.getAgency());
 		} catch (Exception e) {
-			log("Error adding user: " + e, LogUtils.Severity.ERROR);
+			logError("Error adding user: " + e);
 			showError(registrationErrorLabel, "Error adding user");
 		}
 	}
 	
 	private void loginUser(String name, String number, String rank, String division, String agency) {
-		String configFilePath = getJarPath() + File.separator + "config.properties";
-		File configFile = new File(configFilePath);
-		if (configFile.exists()) {
-			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
-			log("exists, printing values", LogUtils.Severity.INFO);
-		} else {
-			try {
-				configFile.createNewFile();
-				log("Created Config: " + configFile.getAbsolutePath(), LogUtils.Severity.INFO);
-			} catch (IOException e) {
-				log("Failed to create config file", LogUtils.Severity.ERROR);
-			}
-		}
-		if (!doesAppConfigExist()) {
-			createAppConfig();
-		}
+		createConfig();
+		createAppConfig();
 		ConfigWriter.configwrite("userInfo", "Agency", agency);
 		ConfigWriter.configwrite("userInfo", "Division", division);
 		ConfigWriter.configwrite("userInfo", "Name", name);
@@ -272,7 +258,7 @@ public class desktopLoginController {
 		try {
 			openMainDesktop();
 		} catch (IOException e) {
-			log("Error opening main desktop: " + e, LogUtils.Severity.ERROR);
+			logError("Error opening main desktop: " + e);
 			showError(loginErrorLabel, "Error opening main desktop");
 		}
 	}
@@ -383,7 +369,7 @@ public class desktopLoginController {
 			Set<String> usernames = new HashSet<>();
 			for (MissingCredential entry : missingList) {
 				if (entry.usernameField != null) {
-					String username = entry.usernameField.getText().trim();
+					String username = entry.usernameField.getText().trim().toLowerCase();
 					if (usernames.contains(username)) {
 						errorLabel.setText("Duplicate username: " + username);
 						return;
@@ -402,7 +388,7 @@ public class desktopLoginController {
 				try {
 					User.addUser(entry.user);
 				} catch (JAXBException ex) {
-					log("Error adding user: " + ex, LogUtils.Severity.ERROR);
+					logError("Error adding user: " + ex);
 					errorLabel.setText("Error adding user, check log!");
 				}
 			}

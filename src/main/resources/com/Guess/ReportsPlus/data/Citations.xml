@@ -21,13 +21,15 @@
         <Citation name="Open Container" fine="366"/>
         <Citation name="Personal use of Marijuana (less than 10g)" fine="150"/>
         <Citation name="Personal use of Marijuana (more than 10g)" fine="300"/>
+        <Citation name="Jaywalking" fine="50"/>
+        <Citation name="Unreasonal Noise / Noise Ordinance Violation" fine="250"/>
     </CitationGroup>
     <CitationGroup name="Speeding Citations">
         <Citation name="Speeding (Under 10)" fine="260"/>
         <Citation name="Speeding (Between 10-15)" fine="370"/>
         <Citation name="Speeding (Between 16-30)" fine="500"/>
         <Citation name="Speeding (Over 30+)" fine="700" arrestable="true"/>
-        <Citation name="Racing on highway" fine="1000"/>
+        <Citation name="Racing on highway" fine="1000" arrestable="true"/>
     </CitationGroup>
     <CitationGroup name="Moving Violations">
         <Citation name="Improper Lane Change" fine="238"/>
@@ -52,6 +54,11 @@
         <Citation name="Excessive Acceleration" fine="190"/>
         <Citation name="Riding Bicycle on Roadway" fine="196"/>
         <Citation name="Operating Vehicle in Bicycle Lane" fine="237"/>
+        <Citation name="Failure to Obey Traffic Control Device" fine="238"/>
+        <Citation name="Unsafe Lane Change" fine="237"/>
+        <Citation name="Failure to Maintain Lane" fine="237"/>
+        <Citation name="Unproper Braking" fine="240"/>
+        <Citation name="Child Restraint Violation" fine="100"/>
     </CitationGroup>
     <CitationGroup name="Moving Violations (Arrestable)">
         <Citation name="Driving Wrong Way" fine="400" arrestable="true"/>
@@ -59,8 +66,13 @@
         <Citation name="Leaving the Scene of an Accident" fine="300" arrestable="true"/>
         <Citation name="DWLS/R With Knowlege" fine="400" arrestable="true"/>
         <Citation name="Driving under the Influence" fine="1500" arrestable="true"/>
+        <Citation name="Obstruction" fine="1000" arrestable="true"/>
     </CitationGroup>
     <CitationGroup name="Non-Moving Violations">
+        <Citation name="Excessive Vehicle Noise (Muffler/Stereo)" fine="250"/>
+        <Citation name="No Front License Plate" fine="196"/>
+        <Citation name="Cracked Windshield" fine="130"/>
+        <Citation name="Expired/Missing Inspection Sticker" fine="140"/>
         <Citation name="Unworthy Road Vehicle" fine="600"/>
         <Citation name="Improper Lighting" fine="237"/>
         <Citation name="Safety Belt Violation" fine="162"/>
@@ -102,6 +114,11 @@
         <Citation name="Parking in Disabled Zone" fine="421"/>
         <Citation name="Parking in Disabled Zone-2nd Violation" fine="625"/>
         <Citation name="Parking in Disabled Zone-3rd Violation" fine="825"/>
+        <Citation name="Parking Too Far From Curb" fine="70"/>
+        <Citation name="Parking on Private Property" fine="65"/>
+        <Citation name="Parking in Restricted Area" fine="65"/>
+        <Citation name="Parking on Sidewalk" fine="120"/>
+        <Citation name="Abandoned Vehicle" fine="200"/>
     </CitationGroup>
     <CitationGroup name="Boating Citations">
         <Citation name="Vessel Does Not Meet Standards" fine="280"/>
@@ -112,8 +129,23 @@
         <Citation name="Boating in No-Boating Zone" fine="1425"/>
         <Citation name="Unlawful Vessel Speeding" fine="280"/>
         <Citation name="Negligent Operation of a Vessel" fine="1300"/>
-        <Citation name="Negligent Operation–Under Influence of Liquor or Drugs" fine="2735"/>
+        <Citation name="Negligent Operation–Under Influence of Liquor or Drugs" fine="2735" arrestable="true"/>
+        <Citation name="Operating Vessel Under the Influence" fine="2735" arrestable="true"/>
+        <Citation name="Reckless Operation of a Vessel" fine="2735" arrestable="true"/>
+        <Citation name="Operating Unregistered Vessel" fine="192"/>
+        <Citation name="Failure to Display Vessel Registration" fine="192"/>
+        <Citation name="Improper Navigation Lights" fine="280"/>
+        <Citation name="Failure to Maintain Proper Lookout" fine="280"/>
         <Citation name="Illegal Discharge of Sewage" fine="1300"/>
+        <Citation name="Missing/Improper Navigation Lights" fine="200"/>
+        <Citation name="Operating Under Age / Without Boater License" fine="270"/>
+        <Citation name="Improper Towing" fine="240"/>
+    </CitationGroup>
+    <CitationGroup name="Animal Control Violations">
+        <Citation name="Dog at Large / Leash Law Violation" fine="120"/>
+        <Citation name="Failure to License Dog" fine="130"/>
+        <Citation name="Animal Waste Violation" fine="140"/>
+        <Citation name="Animal Nuisance Violation" fine="100"/>
     </CitationGroup>
     <CitationGroup name="Warnings">
         <Citation name="Unlawful Speed Warning" fine="0"/>
@@ -141,5 +173,15 @@
         <Citation name="Expired Registration Warning" fine="0"/>
         <Citation name="Expired License Warning" fine="0"/>
         <Citation name="Expired Insurance Warning" fine="0"/>
+        <Citation name="Noise Violation Warning" fine="0"/>
+        <Citation name="Failure to Maintain Lane Warning" fine="0"/>
+        <Citation name="Child Restraint Warning" fine="0"/>
+        <Citation name="Unsafe Passing Warning" fine="0"/>
+        <Citation name="Following Too Closely Warning" fine="0"/>
+        <Citation name="Excessive Vehicle Noise Warning" fine="0"/>
+        <Citation name="Cracked Windshield Warning" fine="0"/>
+        <Citation name="Unsafe Lane Change Warning" fine="0"/>
+        <Citation name="Expired Inspection Warning" fine="0"/>
+        <Citation name="Animal Control Violation Warning" fine="0"/>
     </CitationGroup>
 </Citations>

@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig;
 
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 
 import java.io.*;
 import java.security.CodeSource;
@@ -9,8 +8,7 @@ import java.security.ProtectionDomain;
 import java.util.Objects;
 import java.util.Properties;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getDataFolderPath;
 
 public class appConfig {
@@ -19,12 +17,10 @@ public class appConfig {
 	
 	public static void createAppConfig() {
 		File appConfigFile = new File(appConfigFilePath);
-		if (appConfigFile.exists()) {
-			log("app config exists, printing values", LogUtils.Severity.INFO);
-		} else {
+		if (!appConfigFile.exists()) {
 			try {
 				appConfigFile.createNewFile();
-				log("App Config: " + appConfigFile.getAbsolutePath(), LogUtils.Severity.INFO);
+				logInfo("App Config Created: " + appConfigFile.getAbsolutePath());
 			} catch (IOException e) {
 				logError("Failed to create app config file", e);
 			}
@@ -45,14 +41,9 @@ public class appConfig {
 				throw new RuntimeException(e);
 			}
 		} else {
-			log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
+			logError("Unable to determine the location of the JAR file ");
 			return null;
 		}
-	}
-	
-	public static boolean doesAppConfigExist() {
-		File configFile = new File(appConfigFilePath);
-		return configFile.exists();
 	}
 	
 	public static void checkAndSetDefaultAppValue(String newDatabase, String property, String defaultValue) {
@@ -78,17 +69,17 @@ public class appConfig {
 				try (OutputStream output = new FileOutputStream(appConfigFilePath)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
+				logDebug("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(newDatabase + "." + property));
 			} else {
-				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
+				logError("Unable to determine the location of the JAR file ");
 			}
 		} catch (IOException e) {
-			log("Error reading or writing app.properties file ", LogUtils.Severity.ERROR);
+			logError("Error reading or writing app.properties file ");
 		}
 	}
 	
 	public static void checkAndSetDefaultAppValues() {
-		log("====================== App Config ======================", LogUtils.Severity.INFO);
+		logInfo("====================== App Config ======================");
 		String x1 = String.valueOf(45.0);
 		checkAndSetDefaultAppValue("Callouts", "x", x1);
 		checkAndSetDefaultAppValue("Callouts", "y", String.valueOf(20.0));
@@ -124,7 +115,7 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Profile", "y", String.valueOf(20.0));
 		checkAndSetDefaultAppValue("Report Statistics", "x", x4);
 		checkAndSetDefaultAppValue("Report Statistics", "y", String.valueOf(120.0));
-		log("=========================================================", LogUtils.Severity.INFO);
+		logInfo("=========================================================");
 	}
 	
 	public static void appConfigWrite(String database, String property, String value) {

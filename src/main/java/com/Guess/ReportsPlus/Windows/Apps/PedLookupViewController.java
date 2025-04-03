@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.LookupObjects.PedObject;
 import com.Guess.ReportsPlus.util.History.Ped;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Other.NoteTab;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
@@ -50,8 +49,7 @@ import static com.Guess.ReportsPlus.util.History.Ped.PedHistoryUtils.findPedByNa
 import static com.Guess.ReportsPlus.util.History.Ped.PedHistoryUtils.findPedByNumber;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.grabPedData;
@@ -260,43 +258,43 @@ public class PedLookupViewController {
 			if (name_value != null) {
 				ped.setName(name_value);
 			} else {
-				log("ProcessPedData; name_value was null, set as ERROR", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; name_value was null, set as ERROR");
 				ped.setName("ERROR");
 			}
 			if (licenseNumber_value != null) {
 				ped.setLicenseNumber(licenseNumber_value);
 			} else {
-				log("ProcessPedData; licenseNumber_value was null, generating", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; licenseNumber_value was null, generating");
 				ped.setLicenseNumber(generateLicenseNumber());
 			}
 			if (gender_value != null) {
 				ped.setGender(gender_value);
 			} else {
-				log("ProcessPedData; gender_value was null, generating", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; gender_value was null, generating");
 				ped.setGender(calculateTrueFalseProbability("50") ? "Male" : "Female");
 			}
 			if (birthday_value != null) {
 				ped.setBirthday(birthday_value);
 			} else {
-				log("ProcessPedData; birthday_value was null, generating", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; birthday_value was null, generating");
 				ped.setBirthday(generateBirthday(23, 65));
 			}
 			if (address_value != null) {
 				ped.setAddress(address_value);
 			} else {
-				log("ProcessPedData; address_value was null, generating", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; address_value was null, generating");
 				ped.setAddress(getRandomAddress());
 			}
 			if (isWanted_value != null) {
 				ped.setWantedStatus(isWanted_value);
 			} else {
-				log("ProcessPedData; isWanted_value was null, generating", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; isWanted_value was null, generating");
 				ped.setWantedStatus(calculateTrueFalseProbability("15") ? "true" : "false");
 			}
 			if (licenseStatus_value != null) {
 				ped.setLicenseStatus(licenseStatus_value);
 			} else {
-				log("ProcessPedData; licenseStatus_value was null, generating", LogUtils.Severity.WARN);
+				logWarn("ProcessPedData; licenseStatus_value was null, generating");
 				ped.setLicenseStatus(calculateLicenseStatus(55, 22, 23));
 			}
 			
@@ -333,14 +331,14 @@ public class PedLookupViewController {
 				int totalChargePriors = 0;
 				try {
 					totalChargePriors = setArrestPriors(ped);
-					log("ProcessPedData; Generated arrestPriors: " + totalChargePriors, LogUtils.Severity.INFO);
+					logInfo("ProcessPedData; Generated arrestPriors: " + totalChargePriors);
 				} catch (IOException e) {
 					logError("Could not fetch arrestPriors: ", e);
 				}
 				int totalCitationPriors = 0;
 				try {
 					totalCitationPriors = setCitationPriors(ped);
-					log("ProcessPedData; Generated citationPriors: " + totalCitationPriors, LogUtils.Severity.INFO);
+					logInfo("ProcessPedData; Generated citationPriors: " + totalCitationPriors);
 				} catch (IOException e) {
 					logError("Could not fetch citationPriors: ", e);
 				}
@@ -349,14 +347,14 @@ public class PedLookupViewController {
 					try {
 						String paroleStatus = String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onParoleChance")));
 						ped.setParoleStatus(paroleStatus);
-						log("ProcessPedData; Generated paroleStatus: " + paroleStatus, LogUtils.Severity.INFO);
+						logInfo("ProcessPedData; Generated paroleStatus: " + paroleStatus);
 					} catch (IOException e) {
 						logError("Could not set ParoleStatus: ", e);
 					}
 					try {
 						String probationStatus = String.valueOf(calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "onProbationChance")));
 						ped.setProbationStatus(probationStatus);
-						log("ProcessPedData; Generated probationStatus: " + probationStatus, LogUtils.Severity.INFO);
+						logInfo("ProcessPedData; Generated probationStatus: " + probationStatus);
 					} catch (IOException e) {
 						logError("Could not set ProbationStatus: ", e);
 					}
@@ -365,7 +363,7 @@ public class PedLookupViewController {
 				//BUG: not using timesStopped since it relies on chargepriors and citationpriors
 				String totalStops = String.valueOf(calculateTotalStops(totalChargePriors + totalCitationPriors));
 				ped.setTimesStopped(totalStops);
-				log("ProcessPedData; Generated timesStopped: " + totalStops, LogUtils.Severity.INFO);
+				logInfo("ProcessPedData; Generated timesStopped: " + totalStops);
 				
 				int baseFlagFactor = 5;
 				try {
@@ -388,7 +386,7 @@ public class PedLookupViewController {
 				if (fishPermitStatus_value != null && !fishPermitStatus_value.equalsIgnoreCase("not found")) {
 					ped.setFishingLicenseStatus(fishPermitStatus_value);
 				} else {
-					log("ProcessPedData; fishPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; fishPermitStatus_value was null, generating");
 					boolean hasFishingLicense = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
 					
 					if (hasFishingLicense) {
@@ -396,10 +394,10 @@ public class PedLookupViewController {
 						                                          Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
 						ped.setFishingLicenseStatus(licstatus);
 						
-						log("ProcessPedData; generated fishingLicenseNumber", LogUtils.Severity.WARN);
+						logWarn("ProcessPedData; generated fishingLicenseNumber");
 						ped.setFishingLicenseNumber(generateLicenseNumber());
 					} else {
-						log("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None", LogUtils.Severity.WARN);
+						logWarn("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None");
 						ped.setFishingLicenseStatus("None");
 						ped.setFishingLicenseNumber("None");
 						ped.setFishingLicenseExpiration("None");
@@ -409,7 +407,7 @@ public class PedLookupViewController {
 				if (fishPermitExpiration_value != null && !fishPermitExpiration_value.equalsIgnoreCase("not found")) {
 					ped.setFishingLicenseExpiration(fishPermitExpiration_value);
 				} else {
-					log("ProcessPedData; fishPermitExpiration_value was null, generating expiration", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; fishPermitExpiration_value was null, generating expiration");
 					if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
 						ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
 					} else if (ped.getFishingLicenseStatus().equalsIgnoreCase("suspended")) {
@@ -429,7 +427,7 @@ public class PedLookupViewController {
 			
 			try {
 				if (ped.getBoatingLicenseStatus() == null || ped.getBoatingLicenseStatus().isEmpty()) {
-					log("ProcessPedData; boating lic status is null, generating status/exp/lic#", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; boating lic status is null, generating status/exp/lic#");
 					boolean boatLicStatus = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasBoatingLicense"));
 					if (boatLicStatus) {
 						String licstatus = calculateLicenseStatus(Integer.parseInt(ConfigReader.configRead("pedHistory", "validLicenseChance")), Integer.parseInt(ConfigReader.configRead("pedHistory", "expiredLicenseChance")),
@@ -459,7 +457,7 @@ public class PedLookupViewController {
 				if (modelName_value != null) {
 					ped.setModel(modelName_value);
 				} else {
-					log("ProcessPedData; modelName_value is null, generating from gender value: " + ped.getGender(), LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; modelName_value is null, generating from gender value: " + ped.getGender());
 					
 					ArrayList<String> maleModels = new ArrayList<>(Arrays.asList("[ig_zimbor][0][0]", "[mp_m_weed_01][0][0]", "[s_m_m_bouncer_01][0][0]", "[s_m_m_postal_02][0][0]", "[s_m_y_waretech_01][0][0]", "[a_m_m_eastsa_01][0][0]"));
 					
@@ -469,18 +467,18 @@ public class PedLookupViewController {
 						Random random = new Random();
 						if (ped.getGender().equalsIgnoreCase("female")) {
 							String model = femaleModels.get(random.nextInt(femaleModels.size()));
-							log("ProcessPedData; Generated new Female model [" + model + "]", LogUtils.Severity.WARN);
+							logWarn("ProcessPedData; Generated new Female model [" + model + "]");
 							ped.setModel(model);
 						} else if (ped.getGender().equalsIgnoreCase("male")) {
 							String model = maleModels.get(random.nextInt(maleModels.size()));
-							log("ProcessPedData; Generated new Male model [" + model + "]", LogUtils.Severity.WARN);
+							logWarn("ProcessPedData; Generated new Male model [" + model + "]");
 							ped.setModel(model);
 						} else {
-							log("ProcessPedData; Set model as 'Not Found'", LogUtils.Severity.ERROR);
+							logError("ProcessPedData; Set model as 'Not Found'");
 							ped.setModel("Not Found");
 						}
 					} else {
-						log("ProcessPedData; Set model as 'Not Found' [2]", LogUtils.Severity.ERROR);
+						logError("ProcessPedData; Set model as 'Not Found' [2]");
 						ped.setModel("Not Found");
 					}
 				}
@@ -492,7 +490,7 @@ public class PedLookupViewController {
 				if (fishPermitStatus_value != null) {
 					ped.setFishingLicenseStatus(fishPermitStatus_value);
 				} else {
-					log("ProcessPedData; fishPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; fishPermitStatus_value was null, generating");
 					boolean hasFishingLicense = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasFishingLicense"));
 					
 					if (hasFishingLicense) {
@@ -500,7 +498,7 @@ public class PedLookupViewController {
 						                                          Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
 						ped.setFishingLicenseStatus(licstatus);
 					} else {
-						log("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None", LogUtils.Severity.WARN);
+						logWarn("ProcessPedData; hasFishingLicense was false, set FishingLicenseStatus None");
 						ped.setFishingLicenseStatus("None");
 					}
 				}
@@ -508,7 +506,7 @@ public class PedLookupViewController {
 				if (fishPermitExpiration_value != null) {
 					ped.setFishingLicenseExpiration(fishPermitExpiration_value);
 				} else {
-					log("ProcessPedData; fishPermitExpiration_value was null, generating expiration", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; fishPermitExpiration_value was null, generating expiration");
 					if (ped.getFishingLicenseStatus() != null) {
 						if (ped.getFishingLicenseStatus().equalsIgnoreCase("valid")) {
 							ped.setFishingLicenseExpiration(generateValidLicenseExpirationDate());
@@ -527,7 +525,7 @@ public class PedLookupViewController {
 				}
 				
 				if (ped.getFishingLicenseNumber() == null || ped.getFishingLicenseNumber().isEmpty()) {
-					log("ProcessPedData; generated fishingLicenseNumber", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; generated fishingLicenseNumber");
 					ped.setFishingLicenseNumber(generateLicenseNumber());
 				}
 				
@@ -539,7 +537,7 @@ public class PedLookupViewController {
 				if (weaponPermitStatus_value != null) {
 					ped.setGunLicenseStatus(weaponPermitStatus_value);
 				} else {
-					log("ProcessPedData; weaponPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; weaponPermitStatus_value was null, generating");
 					Boolean hasGunLicense = calculateTrueFalseProbability(ConfigReader.configRead("pedHistoryGunPermit", "hasGunLicense"));
 					
 					if (hasGunLicense) {
@@ -547,7 +545,7 @@ public class PedLookupViewController {
 						                                             Integer.parseInt(ConfigReader.configRead("pedHistory", "suspendedLicenseChance")));
 						ped.setGunLicenseStatus(gunlicstatus);
 					} else {
-						log("ProcessPedData; hasGunLicense was false, set GunLicenseStatus None", LogUtils.Severity.WARN);
+						logWarn("ProcessPedData; hasGunLicense was false, set GunLicenseStatus None");
 						ped.setGunLicenseStatus("None");
 						ped.setGunLicenseExpiration("None");
 						ped.setGunLicenseNumber("None");
@@ -559,26 +557,26 @@ public class PedLookupViewController {
 				if (weaponPermitExpiration_value != null) {
 					ped.setGunLicenseExpiration(weaponPermitExpiration_value);
 				} else {
-					log("ProcessPedData; weaponPermitExpiration_value was null, generating expiration", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; weaponPermitExpiration_value was null, generating expiration");
 					
 					if (ped.getGunLicenseStatus().equalsIgnoreCase("valid") || ped.getGunLicenseStatus().equalsIgnoreCase("expired") || ped.getGunLicenseStatus().equalsIgnoreCase("suspended") || ped.getGunLicenseStatus().equalsIgnoreCase("revoked")) {
 						
 						if (ped.getGunLicenseStatus().equalsIgnoreCase("valid")) {
 							ped.setGunLicenseExpiration(generateValidLicenseExpirationDate());
 							if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
-								log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+								logWarn("ProcessPedData; generated gunLicenseNumber");
 								ped.setGunLicenseNumber(generateLicenseNumber());
 							}
 						} else if (ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
 							ped.setGunLicenseExpiration("Suspended License");
 							if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
-								log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+								logWarn("ProcessPedData; generated gunLicenseNumber");
 								ped.setGunLicenseNumber(generateLicenseNumber());
 							}
 						} else if (ped.getGunLicenseStatus().equalsIgnoreCase("revoked")) {
 							ped.setGunLicenseExpiration("Revoked License");
 							if (ped.getGunLicenseNumber() == null || ped.getGunLicenseNumber().isEmpty()) {
-								log("ProcessPedData; generated gunLicenseNumber", LogUtils.Severity.WARN);
+								logWarn("ProcessPedData; generated gunLicenseNumber");
 								ped.setGunLicenseNumber(generateLicenseNumber());
 							}
 						} else if (ped.getGunLicenseStatus().equalsIgnoreCase("expired")) {
@@ -592,12 +590,12 @@ public class PedLookupViewController {
 				if (weaponPermitType_value != null) {
 					ped.setGunLicenseType(weaponPermitType_value);
 				} else {
-					log("ProcessPedData; weaponPermitType_value is null, setting type 'None'", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; weaponPermitType_value is null, setting type 'None'");
 					ped.setGunLicenseType("None");
 				}
 				
 				if (ped.getGunLicenseStatus().equalsIgnoreCase("valid") || ped.getGunLicenseStatus().equalsIgnoreCase("expired") || ped.getGunLicenseStatus().equalsIgnoreCase("revoked") || ped.getGunLicenseStatus().equalsIgnoreCase("suspended")) {
-					log("ProcessPedData; weaponPermitType_value was null, generating type/class/number", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; weaponPermitType_value was null, generating type/class/number");
 					String licclass = getGunLicenseClass();
 					String number = generateLicenseNumber();
 					ped.setGunLicenseClass(licclass);
@@ -609,12 +607,12 @@ public class PedLookupViewController {
 					// Generate number if status implies a license
 					if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
 						if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
-							log("ProcessPedData; Generated hunting license number for provided status", LogUtils.Severity.WARN);
+							logWarn("ProcessPedData; Generated hunting license number for provided status");
 							ped.setHuntingLicenseNumber(generateLicenseNumber());
 						}
 					}
 				} else {
-					log("ProcessPedData; huntPermitStatus_value was null, generating", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; huntPermitStatus_value was null, generating");
 					boolean huntlic = calculateTrueFalseProbability(ConfigReader.configRead("pedHistory", "hasHuntingLicense"));
 					
 					if (huntlic) {
@@ -623,7 +621,7 @@ public class PedLookupViewController {
 						ped.setHuntingLicenseStatus(licstatus);
 						ped.setHuntingLicenseNumber(generateLicenseNumber());
 					} else {
-						log("ProcessPedData; huntlic was false, set HuntingLicenseStatus None", LogUtils.Severity.WARN);
+						logWarn("ProcessPedData; huntlic was false, set HuntingLicenseStatus None");
 						ped.setHuntingLicenseStatus("None");
 						ped.setHuntingLicenseNumber("None");
 						ped.setHuntingLicenseExpiration("None");
@@ -633,25 +631,25 @@ public class PedLookupViewController {
 				if (huntPermitExpiration_value != null) {
 					ped.setHuntingLicenseExpiration(huntPermitExpiration_value);
 				} else {
-					log("ProcessPedData; huntPermitExpiration_value was null, generating expiration", LogUtils.Severity.WARN);
+					logWarn("ProcessPedData; huntPermitExpiration_value was null, generating expiration");
 					if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
 						
 						if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid")) {
 							ped.setHuntingLicenseExpiration(generateValidLicenseExpirationDate());
 							if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
-								log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+								logWarn("ProcessPedData; generated HuntingLicenseNumber");
 								ped.setHuntingLicenseNumber(generateLicenseNumber());
 							}
 						} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended")) {
 							ped.setHuntingLicenseExpiration("Suspended License");
 							if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
-								log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+								logWarn("ProcessPedData; generated HuntingLicenseNumber");
 								ped.setHuntingLicenseNumber(generateLicenseNumber());
 							}
 						} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
 							ped.setHuntingLicenseExpiration("Revoked License");
 							if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
-								log("ProcessPedData; generated HuntingLicenseNumber", LogUtils.Severity.WARN);
+								logWarn("ProcessPedData; generated HuntingLicenseNumber");
 								ped.setHuntingLicenseNumber(generateLicenseNumber());
 							}
 						} else if (ped.getHuntingLicenseStatus().equalsIgnoreCase("expired")) {
@@ -829,7 +827,7 @@ public class PedLookupViewController {
 			createLicenseInfoPopup(pedfishinglicstatusfield, localization.getLocalizedMessage("PedLookup.FishLicenseInfoTitle", "Fishing License Information:"), ped.getName(), ped.getBirthday(), ped.getFishingLicenseExpiration(), ped.getFishingLicenseStatus(), ped.getFishingLicenseNumber());
 			
 		} else {
-			log("Unexpected fishing license status: " + ped.getFishingLicenseStatus(), LogUtils.Severity.ERROR);
+			logError("Unexpected fishing license status: " + ped.getFishingLicenseStatus());
 			showNotificationError("Ped Lookup", "Unexpected fishing license status: " + ped.getFishingLicenseStatus());
 			
 			pedfishinglicstatusfield.setText("Unknown");
@@ -873,7 +871,7 @@ public class PedLookupViewController {
 			}
 			createLicenseInfoPopup(pedboatinglicstatusfield, localization.getLocalizedMessage("PedLookup.BoatLicenseInfoTitle", "Boating License Information:"), ped.getName(), ped.getBirthday(), ped.getBoatingLicenseExpiration(), ped.getBoatingLicenseStatus(), ped.getBoatingLicenseNumber());
 		} else {
-			log("Unexpected boating license status: " + ped.getBoatingLicenseStatus(), LogUtils.Severity.ERROR);
+			logError("Unexpected boating license status: " + ped.getBoatingLicenseStatus());
 			showNotificationError("Ped Lookup", "Unexpected boating license status: " + ped.getBoatingLicenseStatus());
 			pedboatinglicstatusfield.setText("Unknown");
 			pedboatinglicstatusfield.getStyleClass().add("text-field");
@@ -917,7 +915,7 @@ public class PedLookupViewController {
 			}
 			createLicenseInfoPopup(pedhuntinglicstatusfield, localization.getLocalizedMessage("PedLookup.HuntLicenseInfoTitle", "Hunting License Information:"), ped.getName(), ped.getBirthday(), ped.getHuntingLicenseExpiration(), ped.getHuntingLicenseStatus(), ped.getHuntingLicenseNumber());
 		} else {
-			log("Unexpected hunting license status: " + ped.getHuntingLicenseStatus(), LogUtils.Severity.ERROR);
+			logError("Unexpected hunting license status: " + ped.getHuntingLicenseStatus());
 			showNotificationError("Ped Lookup", "Unexpected hunting license status: " + ped.getHuntingLicenseStatus());
 			pedhuntinglicstatusfield.setText("Unknown");
 			pedhuntinglicstatusfield.getStyleClass().add("text-field");
@@ -992,14 +990,14 @@ public class PedLookupViewController {
 		if (pedModel != null && !pedModel.equalsIgnoreCase("Not Found")) {
 			File pedImgFolder = new File(URLStrings.pedImageFolderURL);
 			if (pedImgFolder.exists()) {
-				log("Detected pedImage folder..", LogUtils.Severity.DEBUG);
+				logDebug("Detected pedImage folder..");
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
 						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
 						
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
-							log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
+							logInfo("Matching pedImage found: " + matchingFile.getName());
 							
 							try {
 								String fileURI = matchingFile.toURI().toString();
@@ -1011,7 +1009,7 @@ public class PedLookupViewController {
 								logError("Could not set ped image: ", e);
 							}
 						} else {
-							log("No matching image found for the model: " + pedModel + ", trying to use base image", LogUtils.Severity.WARN);
+							logWarn("No matching image found for the model: " + pedModel + ", trying to use base image");
 							
 							Pattern pattern = Pattern.compile("\\[([^\\]]+)\\]");
 							Matcher matcher = pattern.matcher(pedModel);
@@ -1019,12 +1017,12 @@ public class PedLookupViewController {
 							
 							if (matcher.find()) {
 								fallbackModel = "[" + matcher.group(1) + "][0][0]";
-								log("Extracted base model: " + fallbackModel, LogUtils.Severity.DEBUG);
+								logDebug("Extracted base model: " + fallbackModel);
 								
 								File[] fallbackFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(fallbackModel + ".jpg"));
 								if (fallbackFiles != null && fallbackFiles.length > 0) {
 									File fallbackFile = fallbackFiles[0];
-									log("Using base model image: " + fallbackFile.getName(), LogUtils.Severity.INFO);
+									logInfo("Using base model image: " + fallbackFile.getName());
 									try {
 										String fileURI = fallbackFile.toURI().toString();
 										pedImageView.setImage(new Image(fileURI));
@@ -1038,7 +1036,7 @@ public class PedLookupViewController {
 							}
 						}
 					} else {
-						log("enablePedVehImages is disabled in settings so not displaying ped image", LogUtils.Severity.WARN);
+						logWarn("enablePedVehImages is disabled in settings so not displaying ped image");
 						setDefaultPedImage();
 					}
 				} catch (IOException e) {
@@ -1739,7 +1737,7 @@ public class PedLookupViewController {
 		pedSearchField.getEditor().setText(searchedName);
 		pedSearchField.getEditor().positionCaret(pedSearchField.getEditor().getText().length());
 		
-		log("Searched: " + searchedName, LogUtils.Severity.INFO);
+		logInfo("Searched: " + searchedName);
 		
 		PedObject worldPedObject = new PedObject(getServerDataFolderPath() + "ServerWorldPeds.data", searchedName);
 		Optional<Ped> pedOptional = findPedByName(searchedName);
@@ -1753,7 +1751,7 @@ public class PedLookupViewController {
 		
 		if (pedOptional.isPresent()) {
 			// Ped was found in PedHistory
-			log("Found: [" + pedOptional.get().getName() + "] From PedHistory file", LogUtils.Severity.DEBUG);
+			logDebug("Found: [" + pedOptional.get().getName() + "] From PedHistory file");
 			Ped ped = pedOptional.get();
 			if (ped.getModel() == null) {
 				ped.setModel("Not Found");
@@ -1762,7 +1760,7 @@ public class PedLookupViewController {
 				} catch (JAXBException e) {
 					logError("Could not save new pedModel: ", e);
 				}
-				log("Set pedModel as 'Not Found'", LogUtils.Severity.WARN);
+				logWarn("Set pedModel as 'Not Found'");
 			}
 			
 			processPedData(false, ped.getName(), ped.getLicenseNumber(), ped.getModel(), ped.getBirthday(), ped.getGender(), ped.getAddress(), ped.getWantedStatus(), ped.getLicenseStatus(), null, ped.getGunLicenseType(), ped.getGunLicenseStatus(), ped.getGunLicenseExpiration(),
@@ -1770,7 +1768,7 @@ public class PedLookupViewController {
 			
 		} else if (worldPedObject.getName() != null && !worldPedObject.getName().equals("Not Found")) {
 			// Ped was found in WorldPed
-			log("Found: [" + worldPedObject.getName() + "] From WorldPed file", LogUtils.Severity.DEBUG);
+			logDebug("Found: [" + worldPedObject.getName() + "] From WorldPed file");
 			
 			processPedData(false, worldPedObject.getName(), worldPedObject.getLicenseNumber(), worldPedObject.getModelName(), worldPedObject.getBirthday(), worldPedObject.getGender(), worldPedObject.getAddress(), worldPedObject.getIsWanted(), worldPedObject.getLicenseStatus(), null,
 			               worldPedObject.getWeaponPermitType(), worldPedObject.getWeaponPermitStatus(), worldPedObject.getWeaponPermitExpiration(), worldPedObject.getFishPermitStatus(), worldPedObject.getFishPermitExpiration(), worldPedObject.getTimesStopped(), worldPedObject.getHuntPermitStatus(),
@@ -1779,24 +1777,24 @@ public class PedLookupViewController {
 		} else if (ownerName != null && !ownerName.equalsIgnoreCase("Not Found") && !ownerName.equalsIgnoreCase("Los Santos Police Department") && !ownerName.equalsIgnoreCase("Los Santos Sheriff's Office") && !ownerName.equalsIgnoreCase("Los Santos County Sheriff") && !ownerName.equalsIgnoreCase(
 				"Blaine County Sheriff's Office") && !ownerName.equalsIgnoreCase("San Andreas Highway Patrol") && !ownerName.equalsIgnoreCase("government")) {
 			// Vehicle Owner was found and the vehicle is not Government
-			log("Found Vehicle Owner: [" + ownerName + "] From WorldVeh file, plate#: " + ownerPlateNum, LogUtils.Severity.DEBUG);
+			logDebug("Found Vehicle Owner: [" + ownerName + "] From WorldVeh file, plate#: " + ownerPlateNum);
 			
 			processPedData(true, ownerName, null, ownerModel, null, ownerGender, ownerAddress, null, null, null, null, null, null, null, null, null, null, null, null, null);
 			
 		} else if (searchIDHisForName(searchedName)) {
 			// Ped ID Was Found (Ped is probably dead)
-			log("Found Ped: [" + searchedName + "] From IDHistory (Possible Dead Ped)", LogUtils.Severity.DEBUG);
+			logDebug("Found Ped: [" + searchedName + "] From IDHistory (Possible Dead Ped)");
 			ID searchedNameID = getHistoryIDFromName(searchedName);
 			
 			if (searchedNameID != null) {
-				log(searchedName + " HistoryID not null", LogUtils.Severity.DEBUG);
+				logDebug(searchedName + " HistoryID not null");
 				
 				processPedData(false, searchedNameID.getName(), searchedNameID.getLicenseNumber(), searchedNameID.getPedModel(), searchedNameID.getBirthday(), searchedNameID.getGender(), searchedNameID.getAddress(), null, null, null, null, null, null, null, null, null, null, null, null, null);
 			}
 			
 		} else {
 			// Ped was Not Found Anywhere
-			log("No Ped With Name: [" + searchedName + "] Found Anywhere", LogUtils.Severity.WARN);
+			logWarn("No Ped With Name: [" + searchedName + "] Found Anywhere");
 			pedRecordPane.setVisible(false);
 			noRecordFoundLabelPed.setVisible(true);
 		}

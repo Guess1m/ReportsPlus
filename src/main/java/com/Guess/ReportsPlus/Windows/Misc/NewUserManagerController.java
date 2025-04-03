@@ -33,10 +33,7 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.Severity.DEBUG;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.Severity.WARN;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 
 public class NewUserManagerController {
 	private static final ObservableList<User> userData = FXCollections.observableArrayList();
@@ -74,7 +71,7 @@ public class NewUserManagerController {
 					} catch (JAXBException e) {
 						logError("UserManager; Error while adding current user: ", e);
 					}
-					log("UserManager; Added current account: " + u.toString(), DEBUG);
+					logDebug("UserManager; Added current account: " + u.toString());
 				} catch (IOException e) {
 					logError("UserManager; Error reading user info: ", e);
 				}
@@ -87,7 +84,7 @@ public class NewUserManagerController {
 		}
 		
 		for (User u : userData) {
-			log("UserManager; Added User To List: " + u.toString(), DEBUG);
+			logDebug("UserManager; Added User To List: " + u.toString());
 			addUserToList(new UserProfile(u.getName(), u.getRank(), u.getAgency(), u.getDivision()).getProfileBox());
 		}
 	}
@@ -396,7 +393,7 @@ class EditProfileDropdown {
 		deleteButton.setOnAction(e -> {
 			try {
 				if (officerName.equalsIgnoreCase(ConfigReader.configRead("userInfo", "Name"))) {
-					log("UserManager; You cannot delete the active user profile!", DEBUG);
+					logDebug("UserManager; You cannot delete the active user profile!");
 					showStatusUpdate(2, "You cannot delete the active user profile!", "#ff2d2d");
 					return;
 				}
@@ -412,15 +409,15 @@ class EditProfileDropdown {
 			boolean valid = true;
 			
 			if (agencyDropdown.getValue() == null) {
-				log("UserManager; AgencyDropdown is null, can't save user", WARN);
+				logWarn("UserManager; AgencyDropdown is null, can't save user");
 				valid = false;
 			}
 			if (divisionDropdown.getValue() == null) {
-				log("UserManager; DivisionDropdown is null, can't save user", WARN);
+				logWarn("UserManager; DivisionDropdown is null, can't save user");
 				valid = false;
 			}
 			if (rankDropdown.getValue() == null) {
-				log("UserManager; RankDropdown is null, can't save user", WARN);
+				logWarn("UserManager; RankDropdown is null, can't save user");
 				valid = false;
 			}
 			

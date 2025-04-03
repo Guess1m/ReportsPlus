@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Patrol;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.patrolLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -90,7 +89,7 @@ public class PatrolReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -193,10 +192,10 @@ public class PatrolReportUtils {
 		if (existingReport.isPresent()) {
 			PatrolReports.getPatrolReportList().remove(existingReport.get());
 			PatrolReports.getPatrolReportList().add(PatrolReport);
-			log("PatrolReport with number " + PatrolReport.getPatrolNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("PatrolReport with number " + PatrolReport.getPatrolNumber() + " updated.");
 		} else {
 			PatrolReports.getPatrolReportList().add(PatrolReport);
-			log("PatrolReport with number " + PatrolReport.getPatrolNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("PatrolReport with number " + PatrolReport.getPatrolNumber() + " added.");
 		}
 		
 		savePatrolReports(PatrolReports);
@@ -208,7 +207,7 @@ public class PatrolReportUtils {
 		if (PatrolReports.getPatrolReportList() != null) {
 			PatrolReports.getPatrolReportList().removeIf(e -> e.getPatrolNumber().equals(PatrolReportnumber));
 			savePatrolReports(PatrolReports);
-			log("PatrolReport with number " + PatrolReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("PatrolReport with number " + PatrolReportnumber + " deleted.");
 		}
 	}
 	

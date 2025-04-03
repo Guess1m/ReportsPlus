@@ -7,7 +7,6 @@ import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.LookupObjects.VehicleObject;
 import com.Guess.ReportsPlus.util.History.Vehicle;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Other.NoteTab;
 import jakarta.xml.bind.JAXBException;
 import javafx.event.ActionEvent;
@@ -48,8 +47,7 @@ import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.newImpound;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.CalloutManager.createLabel;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateRecentSearches;
@@ -200,13 +198,15 @@ public class VehLookupViewController {
 		vehSearchField.getEditor().setText(searchedPlate);
 		vehSearchField.getEditor().positionCaret(vehSearchField.getEditor().getText().length());
 		
-		log("Searched Plate#: " + searchedPlate, LogUtils.Severity.INFO);
+		logInfo("Searched Plate#: " + searchedPlate);
 		
 		Optional<Vehicle> historyVehicle = findVehicleByNumber(searchedPlate);
 		VehicleObject worldVehicle = new VehicleObject(searchedPlate);
 		
-		// A Vehicle exists in either the history file or worldVeh file
-		if (historyVehicle.isPresent() || !worldVehicle.getPlate().equalsIgnoreCase("Not Found") || !worldVehicle.getPlate().equalsIgnoreCase("no value provided")) {
+		boolean worldVehicleIsValid = worldVehicle.getPlate() != null && !worldVehicle.getPlate().equalsIgnoreCase("Not Found") && !worldVehicle.getPlate().equalsIgnoreCase("no value provided");
+		
+		// A Vehicle exists in either the history file or a valid worldVeh file
+		if (historyVehicle.isPresent() || worldVehicleIsValid) {
 			foundVehicle = true;
 			vehtypecombobox.getItems().clear();
 			vehtypecombobox.getItems().addAll(vehicleTypes);
@@ -214,17 +214,17 @@ public class VehLookupViewController {
 			noRecordFoundLabelVeh.setVisible(false);
 		} else {
 			// A Vehicle does not exist in either history file or worldVeh file
-			log("No Vehicle With Plate: [" + searchedPlate + "] Found Anywhere", LogUtils.Severity.WARN);
+			logWarn("No Vehicle With Plate: [" + searchedPlate + "] Found Anywhere");
 			vehRecordPane.setVisible(false);
 			noRecordFoundLabelVeh.setVisible(true);
 			return;
 		}
 		
-		log("Found Vehicle: " + foundVehicle, LogUtils.Severity.INFO);
+		logInfo("Found Vehicle: " + foundVehicle);
 		
 		// Check if vehicle is present in vehHistory
 		if (historyVehicle.isPresent()) {
-			log("Found: " + searchedPlate + " From VehHistory file", LogUtils.Severity.DEBUG);
+			logDebug("Found: " + searchedPlate + " From VehHistory file");
 			
 			Vehicle vehicle = historyVehicle.get();
 			
@@ -272,7 +272,7 @@ public class VehLookupViewController {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
 			
-			if (!vehicle.getColor().equals("Not Found") || !vehicle.getColor().equals("no value provided")) {
+			if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found") && !vehicle.getColor().equals("no value provided")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
@@ -283,8 +283,8 @@ public class VehLookupViewController {
 			runModelUpdate(vehicle.getModel());
 			
 			// Check if vehicle present in worldVeh
-		} else if (!worldVehicle.getPlate().equalsIgnoreCase("Not Found") || !worldVehicle.getPlate().equalsIgnoreCase("no value provided")) {
-			log("Found: " + searchedPlate + " From WorldVeh file", LogUtils.Severity.DEBUG);
+		} else if (worldVehicleIsValid) {
+			logDebug("Found: " + searchedPlate + " From WorldVeh file. WorldVehiclePlate: " + worldVehicle.getPlate());
 			
 			Vehicle vehicle = processVehicleInfo(worldVehicle.getPlate(), worldVehicle.getColor(), worldVehicle.getModel(), worldVehicle.getIsStolen(), worldVehicle.getIsPolice(), worldVehicle.getOwner(), worldVehicle.getRegistration(), null, worldVehicle.getRegistrationDate(),
 			                                     worldVehicle.getInsurance(), null, worldVehicle.getInsuranceDate(), null, worldVehicle.getVin(), null);
@@ -321,7 +321,7 @@ public class VehLookupViewController {
 			} else {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
-			if (!vehicle.getColor().equals("Not Found") || !vehicle.getColor().equals("no value provided")) {
+			if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found") && !vehicle.getColor().equals("no value provided")) {
 				vehnocolorlabel.setVisible(false);
 				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
@@ -412,7 +412,7 @@ public class VehLookupViewController {
 		if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found") && !vehModelString.equalsIgnoreCase("no value provided")) {
 			File pedImgFolder = new File(vehImageFolderURL);
 			if (pedImgFolder.exists()) {
-				log("Detected vehImage folder..", LogUtils.Severity.DEBUG);
+				logDebug("Detected vehImage folder..");
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
 						
@@ -420,7 +420,7 @@ public class VehLookupViewController {
 						
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
-							log("Matching vehImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
+							logInfo("Matching vehImage found: " + matchingFile.getName());
 							
 							try {
 								String fileURI = matchingFile.toURI().toString();
@@ -435,14 +435,14 @@ public class VehLookupViewController {
 								logError("Could not set vehImage: ", e);
 							}
 						} else {
-							log("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.", LogUtils.Severity.WARN);
+							logWarn("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.");
 							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 							vehImageView.setImage(defImage);
 							noVehImageFoundlbl.setVisible(true);
 							noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 						}
 					} else {
-						log("enablePedVehImages is disabled in settings so not displaying veh image", LogUtils.Severity.WARN);
+						logWarn("enablePedVehImages is disabled in settings so not displaying veh image");
 						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 						vehImageView.setImage(defImage);
 						noVehImageFoundlbl.setVisible(true);
@@ -652,49 +652,49 @@ public class VehLookupViewController {
 	private Vehicle processVehicleInfo(String plateNumber_value, String color_value, String model_value, String stolenStatus_value, String policeStatus_value, String owner_value, String registration_value, String registrationNumber_value, String registrationExpiration_value, String insurance_value, String insuranceNumber_value, String insuranceExpiration_value, String type_value, String vin_value, String inspection_value) {
 		Vehicle targetVehicle = new Vehicle();
 		if (plateNumber_value == null || plateNumber_value.equalsIgnoreCase("no value provided") || plateNumber_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; plateNumber_value was null, set as ERROR", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; plateNumber_value was null, set as ERROR");
 			targetVehicle.setPlateNumber("ERROR");
 		} else {
 			targetVehicle.setPlateNumber(plateNumber_value);
 		}
 		
 		if (color_value == null || color_value.equalsIgnoreCase("no value provided") || color_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; color_value was null, set as ERROR", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; color_value was null, set as ERROR");
 			targetVehicle.setColor("ERROR");
 		} else {
 			targetVehicle.setColor(color_value);
 		}
 		
 		if (model_value == null || model_value.equalsIgnoreCase("no value provided") || model_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; model_value was null, set as: no value provided", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; model_value was null, set as: no value provided");
 			targetVehicle.setModel("no value provided");
 		} else {
 			targetVehicle.setModel(model_value);
 		}
 		
 		if (stolenStatus_value == null || stolenStatus_value.equalsIgnoreCase("no value provided") || stolenStatus_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; stolenStatus_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; stolenStatus_value was null, set as Unknown");
 			targetVehicle.setStolenStatus("Unknown");
 		} else {
 			targetVehicle.setStolenStatus(stolenStatus_value);
 		}
 		
 		if (policeStatus_value == null || policeStatus_value.equalsIgnoreCase("no value provided") || policeStatus_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; policeStatus_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; policeStatus_value was null, set as Unknown");
 			targetVehicle.setPoliceStatus("Unknown");
 		} else {
 			targetVehicle.setPoliceStatus(policeStatus_value);
 		}
 		
 		if (owner_value == null || owner_value.equalsIgnoreCase("no value provided") || owner_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; owner_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; owner_value was null, set as Unknown");
 			targetVehicle.setOwner("Unknown");
 		} else {
 			targetVehicle.setOwner(owner_value);
 		}
 		
 		if (registration_value == null || registration_value.equalsIgnoreCase("no value provided") || registration_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; registration_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; registration_value was null, set as Unknown");
 			targetVehicle.setRegistration("Unknown");
 		} else {
 			targetVehicle.setRegistration(registration_value);
@@ -702,7 +702,7 @@ public class VehLookupViewController {
 		
 		if (registrationNumber_value == null || registrationNumber_value.equalsIgnoreCase("no value provided") || registrationNumber_value.equalsIgnoreCase("not found")) {
 			String generated = generateLicenseNumber();
-			log("processVehicleInfo; registrationNumber_value was null, generated: [" + generated + "]", LogUtils.Severity.WARN);
+			logWarn("processVehicleInfo; registrationNumber_value was null, generated: [" + generated + "]");
 			targetVehicle.setRegistrationNumber(generated);
 		} else {
 			targetVehicle.setRegistrationNumber(registrationNumber_value);
@@ -724,14 +724,14 @@ public class VehLookupViewController {
 					break;
 			}
 			
-			log("processVehicleInfo; registrationExpiration_value was null, generated: [" + expiration + "] based on registration status: [" + targetVehicle.getRegistration() + "]", LogUtils.Severity.WARN);
+			logWarn("processVehicleInfo; registrationExpiration_value was null, generated: [" + expiration + "] based on registration status: [" + targetVehicle.getRegistration() + "]");
 			targetVehicle.setRegistrationExpiration(expiration);
 		} else {
 			targetVehicle.setRegistrationExpiration(registrationExpiration_value);
 		}
 		
 		if (insurance_value == null || insurance_value.equalsIgnoreCase("no value provided") || insurance_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; insurance_value was null, set as Unknown", LogUtils.Severity.ERROR);
+			logError("processVehicleInfo; insurance_value was null, set as Unknown");
 			targetVehicle.setInsurance("Unknown");
 		} else {
 			targetVehicle.setInsurance(insurance_value);
@@ -739,7 +739,7 @@ public class VehLookupViewController {
 		
 		if (insuranceNumber_value == null || insuranceNumber_value.equalsIgnoreCase("no value provided") || insuranceNumber_value.equalsIgnoreCase("not found")) {
 			String generated = generateLicenseNumber();
-			log("processVehicleInfo; insuranceNumber_value was null, generated: [" + generated + "]", LogUtils.Severity.WARN);
+			logWarn("processVehicleInfo; insuranceNumber_value was null, generated: [" + generated + "]");
 			targetVehicle.setInsuranceNumber(generated);
 		} else {
 			targetVehicle.setInsuranceNumber(insuranceNumber_value);
@@ -761,14 +761,14 @@ public class VehLookupViewController {
 					break;
 			}
 			
-			log("processVehicleInfo; insuranceExpiration_value was null, generated: [" + expiration + "] based on insurance status: [" + targetVehicle.getInsurance() + "]", LogUtils.Severity.WARN);
+			logWarn("processVehicleInfo; insuranceExpiration_value was null, generated: [" + expiration + "] based on insurance status: [" + targetVehicle.getInsurance() + "]");
 			targetVehicle.setInsuranceExpiration(expiration);
 		} else {
 			targetVehicle.setInsuranceExpiration(insuranceExpiration_value);
 		}
 		
 		if (type_value == null || type_value.equalsIgnoreCase("no value provided") || type_value.equalsIgnoreCase("not found")) {
-			log("processVehicleInfo; type_value was null [always], set as N/A", LogUtils.Severity.INFO);
+			logInfo("processVehicleInfo; type_value was null [always], set as N/A");
 			targetVehicle.setType("N/A");
 		} else {
 			targetVehicle.setType(type_value);
@@ -776,14 +776,14 @@ public class VehLookupViewController {
 		
 		if (vin_value == null || vin_value.equalsIgnoreCase("no value provided") || vin_value.equalsIgnoreCase("not found")) {
 			String licNum = generateLicenseNumber();
-			log("processVehicleInfo; vin_value was null, generated: [" + licNum + "]", LogUtils.Severity.WARN);
+			logWarn("processVehicleInfo; vin_value was null, generated: [" + licNum + "]");
 		} else {
 			targetVehicle.setVin(vin_value);
 		}
 		
 		if (inspection_value == null || inspection_value.equalsIgnoreCase("no value provided") || inspection_value.equalsIgnoreCase("not found")) {
 			String inspection = generateInspectionStatus();
-			log("processVehicleInfo; inspection_value was null [always], generated: [" + inspection + "]", LogUtils.Severity.INFO);
+			logInfo("processVehicleInfo; inspection_value was null [always], generated: [" + inspection + "]");
 			targetVehicle.setInspection(inspection);
 		} else {
 			targetVehicle.setInspection(inspection_value);
@@ -1003,7 +1003,7 @@ public class VehLookupViewController {
 				try {
 					pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
 					pedWindow.bringToFront();
-					log("Bringing up ped search for: " + vehownerfield.getText().strip() + " from ownerLookup", LogUtils.Severity.DEBUG);
+					logDebug("Bringing up ped search for: " + vehownerfield.getText().strip() + " from ownerLookup");
 				} catch (IOException e) {
 					logError("Error searching owner from ownerLookup, owner: " + vehownerfield.getText().strip(), e);
 				}

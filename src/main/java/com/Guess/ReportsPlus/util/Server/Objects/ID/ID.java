@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.Server.Objects.ID;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -12,8 +11,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import java.io.File;
 import java.util.Optional;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.currentIDFileURL;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -77,10 +76,10 @@ public class ID {
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
-			log("ServerID with name " + ID.getName() + " updated.", LogUtils.Severity.INFO);
+			logInfo("ServerID with name " + ID.getName() + " updated.");
 		} else {
 			IDs.getIdList().add(ID);
-			log("ServerID with name " + ID.getName() + " added.", LogUtils.Severity.INFO);
+			logInfo("ServerID with name " + ID.getName() + " added.");
 		}
 		
 		saveServerIDs(IDs);

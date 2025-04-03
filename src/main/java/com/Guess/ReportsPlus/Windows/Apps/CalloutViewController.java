@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -12,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutHistoryURL;
 
@@ -51,7 +50,7 @@ public class CalloutViewController {
 				String number = ((Label) gridPane.getChildren().get(1)).getText();
 				
 				CalloutManager.deleteCallout(calloutHistoryURL, number);
-				log("Deleted callout #" + number + " from Callout History", LogUtils.Severity.INFO);
+				logInfo("Deleted callout #" + number + " from Callout History");
 				showNotificationInfo("Callout Manager", "Deleted callout #" + number + " from Callout History");
 				
 				CalloutManager.loadHistoryCallouts(calHistoryList);

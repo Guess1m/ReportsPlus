@@ -2,8 +2,6 @@ package com.Guess.ReportsPlus;
 
 import com.Guess.ReportsPlus.Desktop.mainDesktopController;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
-import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,10 +13,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
@@ -38,16 +37,34 @@ public class MainApplication extends Application {
 		return currentTime.format(formatter);
 	}
 	
-	public static String getTime(boolean systemTime) {
+	public static String getTime(boolean systemTime, boolean ignoreConfigSetting) {
 		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+		
+		boolean use24Hour = false;
+		if (!ignoreConfigSetting) {
+			try {
+				use24Hour = ConfigReader.configRead("uiSettings", "use24Hour").equalsIgnoreCase("true");
+			} catch (IOException | NullPointerException e) {
+				use24Hour = false;
+				logError("Error getting uiSettings.use24Hour: ", e);
+			}
+		}
+		
+		DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+		DateTimeFormatter displayFormatter;
+		
+		if (use24Hour) {
+			displayFormatter = DateTimeFormatter.ofPattern("HH:mm a", Locale.ENGLISH);
+		} else {
+			displayFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+		}
 		
 		try {
 			if (systemTime || !isConnected || ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("false")) {
-				return currentTime.format(formatter);
+				return currentTime.format(displayFormatter);
 			}
 		} catch (IOException e) {
-			logError("Error getting connectionSettings.useGameTime: ", e);
+			logError("Error checking time source: ", e);
 		}
 		
 		String serverDataFolderPath = getServerDataFolderPath();
@@ -56,21 +73,22 @@ public class MainApplication extends Application {
 			
 			if (gameDataFile.isFile()) {
 				try {
-					String gameDataFileContent = Files.readString(Paths.get(URLStrings.serverGameDataFileURL));
+					String gameDataFileContent = Files.readString(Paths.get(gameDataFile.toURI()));
 					String timeValue = extractValueByKey(gameDataFileContent, "time");
 					
 					if (timeValue != null) {
-						return timeValue;
+						LocalTime parsedTime = LocalTime.parse(timeValue, storageFormatter);
+						return parsedTime.format(displayFormatter);
 					}
 					
-					log("timeValue was null; using system time instead", LogUtils.Severity.ERROR);
-				} catch (IOException e) {
-					log("Error reading game data file, falling back to system time.", LogUtils.Severity.ERROR);
+					logError("timeValue was null; using system time instead");
+				} catch (IOException | DateTimeParseException e) {
+					logError("Error parsing time, using system time: ", e);
 				}
 			}
 		}
 		
-		return currentTime.format(formatter);
+		return currentTime.format(displayFormatter);
 	}
 	
 	public static void main(String[] args) {

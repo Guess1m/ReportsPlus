@@ -134,6 +134,9 @@ public class TerminalController implements Initializable {
 	
 	private void applyColorStyle(Text textNode, String colorCode) {
 		switch (colorCode) {
+			case "o":
+				textNode.getStyleClass().add("color-orange");
+				break;
 			case "r":
 				textNode.getStyleClass().add("color-red");
 				break;

@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.util.Report;
 
 import com.Guess.ReportsPlus.logs.ChargesData;
 import com.Guess.ReportsPlus.logs.CitationsData;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import org.w3c.dom.Document;
@@ -16,8 +15,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
 public class treeViewUtils {
@@ -33,7 +32,7 @@ public class treeViewUtils {
 				String XMLValue = selectedElement.getAttribute(value);
 				return XMLValue.isEmpty() ? null : XMLValue;
 			} else {
-				log("Element not found for value: " + selectedValue, LogUtils.Severity.WARN);
+				logWarn("Element not found for value: " + selectedValue);
 				return null;
 			}
 		} catch (ParserConfigurationException | IOException | SAXException e) {

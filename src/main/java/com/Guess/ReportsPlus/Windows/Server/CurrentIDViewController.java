@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.Windows.Server;
 
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.util.History.IDHistory;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.IDs;
 import jakarta.xml.bind.JAXBException;
@@ -27,8 +26,7 @@ import java.util.regex.Pattern;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.History.IDHistory.addServerIDToHistoryIfNotExists;
 import static com.Guess.ReportsPlus.util.History.IDHistory.checkAllHistoryIDsClosed;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.pedImageFolderURL;
 
 public class CurrentIDViewController {
@@ -87,13 +85,13 @@ public class CurrentIDViewController {
 			if (!pedModel.isEmpty() && !pedModel.equalsIgnoreCase("Not Found")) {
 				File pedImgFolder = new File(pedImageFolderURL);
 				if (pedImgFolder.exists()) {
-					log("pedImage folder detected..", LogUtils.Severity.DEBUG);
+					logDebug("pedImage folder detected..");
 					
 					File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
 					
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];
-						log("Matching pedImage found: " + matchingFile.getName(), LogUtils.Severity.INFO);
+						logInfo("Matching pedImage found: " + matchingFile.getName());
 						
 						try {
 							String fileURI = matchingFile.toURI().toString();
@@ -104,7 +102,7 @@ public class CurrentIDViewController {
 							logError("Could not set ped image: ", e);
 						}
 					} else {
-						log("No matching pedImage found for the model: " + pedModel + " Trying base image for ID..", LogUtils.Severity.WARN);
+						logWarn("No matching pedImage found for the model: " + pedModel + " Trying base image for ID..");
 						
 						Pattern pattern = Pattern.compile("\\[([^\\]]+)\\]");
 						Matcher matcher = pattern.matcher(pedModel);
@@ -112,12 +110,12 @@ public class CurrentIDViewController {
 						
 						if (matcher.find()) {
 							fallbackModel = "[" + matcher.group(1) + "][0][0]";
-							log("Extracted base model for ID: " + fallbackModel, LogUtils.Severity.DEBUG);
+							logDebug("Extracted base model for ID: " + fallbackModel);
 							
 							File[] fallbackFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(fallbackModel + ".jpg"));
 							if (fallbackFiles != null && fallbackFiles.length > 0) {
 								File fallbackFile = fallbackFiles[0];
-								log("Using base model image for ID: " + fallbackFile.getName(), LogUtils.Severity.INFO);
+								logInfo("Using base model image for ID: " + fallbackFile.getName());
 								try {
 									String fileURI = fallbackFile.toURI().toString();
 									pedImageView.setImage(new Image(fileURI));
@@ -154,10 +152,10 @@ public class CurrentIDViewController {
 			try {
 				IDs idList = ID.loadServerIDs();
 				if (idList == null || idList.getIdList() == null) {
-					log("ID list or getIdList() is null", LogUtils.Severity.WARN);
+					logWarn("ID list or getIdList() is null");
 					noIDFoundlbl.setVisible(true);
 				} else {
-					log("ID list not null", LogUtils.Severity.INFO);
+					logInfo("ID list not null");
 					tabPane.getTabs().clear();
 					noIDFoundlbl.setVisible(false);
 					
@@ -199,7 +197,7 @@ public class CurrentIDViewController {
 									logError("Could update ID status for: " + fullName, e);
 								}
 								if (tabPane.getTabs().isEmpty()) {
-									log("TabPane has no more tabs, displaying noIDlbl", LogUtils.Severity.WARN);
+									logWarn("TabPane has no more tabs, displaying noIDlbl");
 									noIDFoundlbl.setVisible(true);
 								}
 							});

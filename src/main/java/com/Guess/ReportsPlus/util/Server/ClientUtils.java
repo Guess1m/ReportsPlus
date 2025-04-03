@@ -9,7 +9,6 @@ import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
@@ -30,10 +29,10 @@ import java.util.Objects;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.Windows.Server.calloutController.getCallout;
+import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
+import static com.Guess.ReportsPlus.Windows.Server.CalloutPopupController.getCallout;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
@@ -51,13 +50,13 @@ public class ClientUtils {
 	
 	public static void connectToService(String serviceAddress, int servicePort) throws IOException {
 		if (socket != null && !socket.isClosed()) {
-			log("Closing existing socket before reconnecting.", LogUtils.Severity.INFO);
+			logInfo("Closing existing socket before reconnecting.");
 			socket.close();
 		}
 		Runnable serverConnectionTask = () -> {
-			log("Started Server Thread", LogUtils.Severity.INFO);
+			logInfo("Started Server Thread");
 			try {
-				log("Initializing socket.", LogUtils.Severity.INFO);
+				logInfo("Initializing socket.");
 				socket = new Socket();
 				
 				if (ClientController.clientController != null) {
@@ -67,12 +66,12 @@ public class ClientUtils {
 					});
 				}
 				
-				log("Attempting to connect to " + serviceAddress + ":" + servicePort, LogUtils.Severity.INFO);
+				logInfo("Attempting to connect to " + serviceAddress + ":" + servicePort);
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
-				log("Socket connected successfully.", LogUtils.Severity.INFO);
+				logInfo("Socket connected successfully.");
 				
 				socket.setSoTimeout(Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
-				log("Socket timeout set to " + Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")), LogUtils.Severity.INFO);
+				logInfo("Socket timeout set to " + Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
 				
 				isConnected = true;
 				notifyStatusChanged(isConnected);
@@ -80,21 +79,21 @@ public class ClientUtils {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				receiveMessages(in);
 				
-				log("Reader thread started.", LogUtils.Severity.INFO);
-				log("CONNECTED: " + serviceAddress + ":" + servicePort, LogUtils.Severity.INFO);
+				logInfo("Reader thread started.");
+				logInfo("CONNECTED: " + serviceAddress + ":" + servicePort);
 				
 				port = String.valueOf(servicePort);
 				inet = serviceAddress;
 				
-				log("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort, LogUtils.Severity.INFO);
+				logInfo("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort);
 				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
 				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
 			} catch (IOException e) {
 				sendMessageToServer("SHUTDOWN");
 				isConnected = false;
 				notifyStatusChanged(isConnected);
-				log("Failed to connect: " + e.getMessage(), LogUtils.Severity.ERROR);
-				log("Stack trace: " + Arrays.toString(e.getStackTrace()), LogUtils.Severity.ERROR);
+				logError("Failed to connect: " + e.getMessage());
+				logError("Stack trace: " + Arrays.toString(e.getStackTrace()));
 			}
 		};
 		WorkerThread serverConnectionThread = new WorkerThread("ServerConnectionThread", serverConnectionTask);
@@ -110,7 +109,7 @@ public class ClientUtils {
 		try {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			if (showdebug) {
-				log("Starting file transfer: " + serverFileName + " (Size: " + fileSize + " bytes)", LogUtils.Severity.INFO);
+				logInfo("Starting file transfer: " + serverFileName + " (Size: " + fileSize + " bytes)");
 			}
 			
 			byte[] mybytearray = new byte[fileSize];
@@ -119,7 +118,7 @@ public class ClientUtils {
 			bos = new BufferedOutputStream(fos);
 			
 			if (showdebug) {
-				log("{File Transfer} Receiving file: " + serverFileName, LogUtils.Severity.DEBUG);
+				logDebug("{File Transfer} Receiving file: " + serverFileName);
 			}
 			int totalBytesRead = 0;
 			while ((bytesRead = is.read(mybytearray)) != -1) {
@@ -129,7 +128,7 @@ public class ClientUtils {
 			bos.flush();
 			
 			if (showdebug) {
-				log("{File Transfer} File transfer completed successfully. Total bytes received: " + totalBytesRead, LogUtils.Severity.INFO);
+				logInfo("{File Transfer} File transfer completed successfully. Total bytes received: " + totalBytesRead);
 			}
 		} catch (IOException e) {
 			logError("{File Transfer} Error occurred while receiving the file: " + serverFileName + "; ", e);
@@ -146,7 +145,7 @@ public class ClientUtils {
 					sock.close();
 				}
 				if (showdebug) {
-					log("{File Transfer} Closed recieveFile resources..", LogUtils.Severity.INFO);
+					logInfo("{File Transfer} Closed recieveFile resources..");
 				}
 			} catch (IOException e) {
 				logError("{File Transfer} Error while closing resources: ", e);
@@ -160,13 +159,13 @@ public class ClientUtils {
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				out.println(message);
 				if (!message.equalsIgnoreCase("HEARTBEAT")) {
-					log("Message sent to server: " + message, LogUtils.Severity.INFO);
+					logInfo("Message sent to server: " + message);
 				}
 			} catch (IOException e) {
-				log("Error sending message to server: " + e.getMessage(), LogUtils.Severity.ERROR);
+				logError("Error sending message to server: " + e.getMessage());
 			}
 		} else {
-			log("Socket is not connected. Unable to send message: " + message, LogUtils.Severity.WARN);
+			logWarn("Socket is not connected. Unable to send message: " + message);
 		}
 	}
 	
@@ -180,69 +179,69 @@ public class ClientUtils {
 					if (fromServer.contains("VERSION=")) {
 						String[] split = fromServer.split("=");
 						String serverVer = split[1];
-						log("Checking Server / Application Versions", LogUtils.Severity.INFO);
+						logInfo("Checking Server / Application Versions");
 						serverVersion = serverVer;
 						
 						if (!serverVer.equalsIgnoreCase(version)) {
-							log("Versions dont match!", LogUtils.Severity.ERROR);
-							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
-							log("App Version: " + version, LogUtils.Severity.DEBUG);
+							logError("Versions dont match!");
+							logDebug("Server Version: " + serverVer);
+							logDebug("App Version: " + version);
 							showNotificationErrorPersistent("Mismatched Versions", "Your Application and Server have mismatched versions, check logs!");
 						} else {
-							log("Versions Match!", LogUtils.Severity.INFO);
-							log("Server Version: " + serverVer, LogUtils.Severity.DEBUG);
-							log("App Version: " + version, LogUtils.Severity.DEBUG);
+							logInfo("Versions Match!");
+							logDebug("Server Version: " + serverVer);
+							logDebug("App Version: " + version);
 						}
 						continue;
 					}
 					switch (fromServer) {
 						case "SHUTDOWN":
-							log("Received shutdown, Disconnecting...", LogUtils.Severity.DEBUG);
+							logDebug("Received shutdown, Disconnecting...");
 							disconnectFromService();
 							break label;
 						
 						case "UPDATE_ALPR":
-							log("ALPR Update", LogUtils.Severity.DEBUG);
+							logDebug("ALPR Update");
 							receiveFileFromServer(4096, "ServerALPR.data", false);
 							ALPRViewController.loadData();
 							break;
 						
 						case "UPDATE_GAME_DATA":
-							log("Received Location Update", LogUtils.Severity.DEBUG);
+							logDebug("Received Location Update");
 							receiveFileFromServer(1024, "ServerGameData.data", true);
 							runUpdateLocation();
 							break;
 						
 						case "UPDATE_ID":
-							log("Received ID Update", LogUtils.Severity.DEBUG);
+							logDebug("Received ID Update");
 							receiveFileFromServer(4096, "ServerCurrentID.xml", true);
 							runUpdateID();
 							break;
 						
 						case "UPDATE_CALLOUT":
-							log("Received Callout Update", LogUtils.Severity.DEBUG);
+							logDebug("Received Callout Update");
 							receiveFileFromServer(1024, "ServerCallout.xml", true);
 							runUpdateCallout();
 							break;
 						
 						case "UPDATE_WORLD_PED":
-							log("Received World Ped Update", LogUtils.Severity.DEBUG);
+							logDebug("Received World Ped Update");
 							receiveFileFromServer(8192, "ServerWorldPeds.data", true);
 							break;
 						
 						case "UPDATE_TRAFFIC_STOP":
-							log("Received Traffic Stop Update", LogUtils.Severity.DEBUG);
+							logDebug("Received Traffic Stop Update");
 							receiveFileFromServer(1024, "ServerTrafficStop.data", true);
 							runTrafficStopUpdate();
 							break;
 						
 						case "UPDATE_WORLD_VEH":
-							log("Received World Vehicle Update", LogUtils.Severity.DEBUG);
+							logDebug("Received World Vehicle Update");
 							receiveFileFromServer(16384, "ServerWorldCars.data", true);
 							break;
 						
 						case "UPDATE_LOOKUP":
-							log("Received Lookup Update", LogUtils.Severity.DEBUG);
+							logDebug("Received Lookup Update");
 							receiveFileFromServer(256, "ServerLookup.data", true);
 							runLookupUpdate();
 							break;
@@ -250,13 +249,13 @@ public class ClientUtils {
 						case "HEARTBEAT":
 							long now = System.currentTimeMillis();
 							long delta = now - lastUpdate;
-							log("Server Heartbeat: " + Math.round(delta) + "ms", LogUtils.Severity.DEBUG);
+							logDebug("Server Heartbeat: " + Math.round(delta) + "ms");
 							sendMessageToServer("HEARTBEAT");
 							lastUpdate = now;
 							break;
 						
 						default:
-							log("Received unknown message: " + fromServer, LogUtils.Severity.DEBUG);
+							logDebug("Received unknown message: " + fromServer);
 							break;
 						
 					}
@@ -266,7 +265,7 @@ public class ClientUtils {
 				isConnected = false;
 				notifyStatusChanged(isConnected);
 				try {
-					log("Read timed out after " + socket.getSoTimeout() + " milliseconds, missed heartbeat", LogUtils.Severity.ERROR);
+					logError("Read timed out after " + socket.getSoTimeout() + " milliseconds, missed heartbeat");
 				} catch (SocketException ex) {
 					logError("Could not getSoTimeout: ", e);
 				}
@@ -274,7 +273,7 @@ public class ClientUtils {
 				sendMessageToServer("SHUTDOWN");
 				isConnected = false;
 				notifyStatusChanged(isConnected);
-				log("Error reading from server: " + e.getMessage(), LogUtils.Severity.ERROR);
+				logError("Error reading from server: " + e.getMessage());
 			}
 		};
 		WorkerThread messageReceiverThread = new WorkerThread("MessageReceiverThread", messageReceiverTask);
@@ -282,10 +281,10 @@ public class ClientUtils {
 	}
 	
 	private static void runLookupUpdate() {
-		log("Running Lookup Update", LogUtils.Severity.INFO);
+		logInfo("Running Lookup Update");
 		File lookupFile = new File(serverLookupURL);
 		if (!lookupFile.exists()) {
-			log("No lookup data file found", LogUtils.Severity.ERROR);
+			logError("No lookup data file found");
 			return;
 		}
 		String lookupFileContent = "";
@@ -305,7 +304,7 @@ public class ClientUtils {
 				showNotificationInfo("Ped / Vehicle Check", "Ran check for: [" + finalLookupFileContent + "]");
 			});
 		} else {
-			log("lookupFile content is null; not updating", LogUtils.Severity.ERROR);
+			logError("lookupFile content is null; not updating");
 		}
 	}
 	
@@ -318,7 +317,7 @@ public class ClientUtils {
 				socket.close();
 			}
 		} catch (IOException e) {
-			log("Error disconnecting from service: " + e.getMessage(), LogUtils.Severity.ERROR);
+			logError("Error disconnecting from service: " + e.getMessage());
 		}
 	}
 	
@@ -328,7 +327,7 @@ public class ClientUtils {
 	
 	private static void notifyStatusChanged(boolean status) {
 		if (statusListener != null) {
-			log("Client Connection Status Changed: " + isConnected, LogUtils.Severity.DEBUG);
+			logDebug("Client Connection Status Changed: " + isConnected);
 			Platform.runLater(() -> statusListener.onStatusChanged(status));
 		}
 	}
@@ -337,7 +336,7 @@ public class ClientUtils {
 		int broadCastPort = 8888;
 		try {
 			broadCastPort = Integer.parseInt(ConfigReader.configRead("connectionSettings", "broadcastPort"));
-			log("Using broadcastPort: " + broadCastPort, LogUtils.Severity.DEBUG);
+			logDebug("Using broadcastPort: " + broadCastPort);
 		} catch (IOException e) {
 			logError("Could not get broadcastPort from config: ", e);
 		}
@@ -361,22 +360,22 @@ public class ClientUtils {
 						String serverAddress = packet.getAddress().getHostAddress();
 						int serverPort = Integer.parseInt(parts[1]);
 						
-						log("Discovered server at " + serverAddress + ":" + serverPort, LogUtils.Severity.INFO);
+						logInfo("Discovered server at " + serverAddress + ":" + serverPort);
 						try {
 							connectToService(serverAddress, serverPort);
 							return;
 						} catch (IOException e) {
-							log("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage(), LogUtils.Severity.ERROR);
+							logError("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage());
 							return;
 						}
 					}
 				} else {
-					log("Already connected", LogUtils.Severity.WARN);
+					logWarn("Already connected");
 					return;
 				}
 			}
 		} catch (IOException e) {
-			log("Error listening for broadcasts: " + e.getMessage(), LogUtils.Severity.ERROR);
+			logError("Error listening for broadcasts: " + e.getMessage());
 			return;
 		}
 	}
@@ -396,7 +395,7 @@ public class ClientUtils {
 					mainDesktopControllerObj.getLocationAreaLabel().setText(locationList[1] + ",");
 					mainDesktopControllerObj.getLocationCountyLabel().setText(locationList[2]);
 				} else {
-					log("locationValue was null; putting blank values", LogUtils.Severity.ERROR);
+					logError("locationValue was null; putting blank values");
 					mainDesktopControllerObj.getLocationStreetLabel().setText("");
 					mainDesktopControllerObj.getLocationAreaLabel().setText("");
 					mainDesktopControllerObj.getLocationCountyLabel().setText("");
@@ -426,7 +425,7 @@ public class ClientUtils {
 								try {
 									IDWindow.closeWindow();
 								} catch (NullPointerException e) {
-									log("ID Window was closed before it could be automatically closed", LogUtils.Severity.WARN);
+									logWarn("ID Window was closed before it could be automatically closed");
 								}
 							});
 						}
@@ -436,7 +435,7 @@ public class ClientUtils {
 					logError("could not read IDDuration: ", e);
 				}
 			} else {
-				log("Recieved ID Update, but popups are disabled", LogUtils.Severity.INFO);
+				logInfo("Recieved ID Update, but popups are disabled");
 				NotificationManager.showNotificationInfo("ID Manager", "A New ID Has Been Recieved");
 			}
 		} catch (IOException e) {
@@ -490,9 +489,13 @@ public class ClientUtils {
 										}
 										CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status);
 										NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+										if (calloutViewController != null) {
+											CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
+											CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
+										}
 									}
 								} catch (NullPointerException e) {
-									log("Callout Window was closed before it could be automatically closed", LogUtils.Severity.WARN);
+									logWarn("Callout Window was closed before it could be automatically closed");
 								}
 							});
 						}
@@ -502,8 +505,8 @@ public class ClientUtils {
 					logError("could not read calloutDuration: ", e);
 				}
 			} else {
-				log("Callout Popups are disabled", LogUtils.Severity.DEBUG);
-				log("Adding Callout To Active", LogUtils.Severity.INFO);
+				logDebug("Callout Popups are disabled");
+				logInfo("Adding Callout To Active");
 				Callout callout = getCallout();
 				
 				if (callout != null) {
@@ -525,6 +528,10 @@ public class ClientUtils {
 					}
 					CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status);
 					NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+					if (calloutViewController != null) {
+						CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
+						CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -568,7 +575,7 @@ public class ClientUtils {
 								try {
 									trafficStopWindow.closeWindow();
 								} catch (NullPointerException e) {
-									log("TrafficStop Window was closed before it could be automatically closed", LogUtils.Severity.WARN);
+									logWarn("TrafficStop Window was closed before it could be automatically closed");
 								}
 							});
 						}
@@ -578,7 +585,7 @@ public class ClientUtils {
 					logError("could not read TrafficStopDuration: ", e);
 				}
 			} else {
-				log("Recieved Traffic Stop Update message but popups are disabled", LogUtils.Severity.WARN);
+				logWarn("Recieved Traffic Stop Update message but popups are disabled");
 			}
 		} catch (IOException e) {
 			logError("Could not get enableTrafficStopPopup from config, ", e);

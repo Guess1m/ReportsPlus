@@ -34,7 +34,6 @@ import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReport;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils;
 import com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReports;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Report.Database.CustomReport;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import jakarta.xml.bind.JAXBException;
@@ -72,8 +71,7 @@ import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.newSearch;
 import static com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils.newCitation;
 import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.newTrafficStop;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Other.InitTableColumns.*;
@@ -408,14 +406,14 @@ public class LogViewController {
 			
 			File[] files = dataFolder.listFiles((dir, filen) -> filen.endsWith(".db"));
 			if (files != null && files.length != 0) {
-				log("LogViewer; Found " + files.length + " Database(s)", LogUtils.Severity.INFO);
+				logInfo("LogViewer; Found " + files.length + " Database(s)");
 				for (File dbFile : files) {
 					String fileNameWithoutExt = dbFile.getName().replaceFirst("[.][^.]+$", "");
 					String dbFilePath = dbFile.getAbsolutePath();
-					log("LogViewer; [" + dbFile.getName() + "] Being Checked", LogUtils.Severity.INFO);
+					logInfo("LogViewer; [" + dbFile.getName() + "] Being Checked");
 					
 					if (isValidDatabase(dbFilePath, dbFile.getName())) {
-						log("LogViewer; [" + dbFile.getName() + "] Valid", LogUtils.Severity.INFO);
+						logInfo("LogViewer; [" + dbFile.getName() + "] Valid");
 						
 						Label reportBtn = new Label();
 						reportBtn.setAlignment(Pos.CENTER);
@@ -428,7 +426,7 @@ public class LogViewController {
 						customReportsVBox.getChildren().add(reportBtn);
 						
 					} else {
-						log("LogViewer; Invalid database file: " + dbFilePath, LogUtils.Severity.WARN);
+						logWarn("LogViewer; Invalid database file: " + dbFilePath);
 					}
 				}
 			}
@@ -469,21 +467,21 @@ public class LogViewController {
 			String columnLayoutContent = null;
 			DynamicDB DatabaseLayout = new DynamicDB(dataFolderPath + reportTitle, "layout", "key", layoutScheme);
 			if (DatabaseLayout.initDB()) {
-				log("LogViewer; Layout Database for: [" + reportTitle + "] Initialized", LogUtils.Severity.INFO);
+				logInfo("LogViewer; Layout Database for: [" + reportTitle + "] Initialized");
 				try {
 					Map<String, Object> layoutRecord = DatabaseLayout.getRecord("1");
 					if (layoutRecord != null) {
 						Object layoutValue = layoutRecord.get("layoutData");
 						layoutContent = (String) layoutValue;
 					} else {
-						log("LogViewer; layout record null for report: " + reportTitle, LogUtils.Severity.ERROR);
+						logError("LogViewer; layout record null for report: " + reportTitle);
 					}
 					Map<String, Object> columnLayoutRecord = DatabaseLayout.getRecord("3");
 					if (columnLayoutRecord != null) {
 						Object layoutValue = columnLayoutRecord.get("columnLayoutData");
 						columnLayoutContent = (String) layoutValue;
 					} else {
-						log("LogViewer; columnLayoutData record null for report: " + reportTitle, LogUtils.Severity.ERROR);
+						logError("LogViewer; columnLayoutData record null for report: " + reportTitle);
 						DatabaseLayout.addColumnIfNotExists("columnLayoutData", "TEXT");
 						Map<String, Object> columnRecord = new HashMap<>();
 						columnRecord.put("key", "3");
@@ -521,7 +519,7 @@ public class LogViewController {
 					}
 				}
 			} else {
-				log("LogViewer; Layout Database not initialized!", LogUtils.Severity.ERROR);
+				logError("LogViewer; Layout Database not initialized!");
 				showNotificationError("Report Creation Utility", "Error initializing layout database!");
 			}
 			
@@ -600,7 +598,7 @@ public class LogViewController {
 					}
 					DynamicDB databaseData = new DynamicDB(dataFolderPath + reportTitle, "data", foundPrimaryKeyDataTable, dataScheme);
 					if (databaseData.initDB()) {
-						log("LogViewer; data Database for: [" + reportTitle + "] Initialized", LogUtils.Severity.INFO);
+						logInfo("LogViewer; data Database for: [" + reportTitle + "] Initialized");
 						try {
 							currentTable.getItems().setAll(databaseData.getAllRecords());
 							
@@ -674,7 +672,7 @@ public class LogViewController {
 							}
 						}
 					} else {
-						log("LogViewer; data Database not initialized!", LogUtils.Severity.ERROR);
+						logError("LogViewer; data Database not initialized!");
 						showNotificationError("Report Creation Utility", "Error initializing data database!");
 					}
 					
@@ -759,7 +757,7 @@ public class LogViewController {
 					refreshBtn.setOnAction(e -> loadTableForCustomReport(dbFilePath, fileNameWithoutExt));
 					
 					if (firstLoad.get()) {
-						log("LogViewer; First Initialization for [" + fileNameWithoutExt + "] Database, Refreshing..", LogUtils.Severity.INFO);
+						logInfo("LogViewer; First Initialization for [" + fileNameWithoutExt + "] Database, Refreshing..");
 						loadTableForCustomReport(dbFilePath, fileNameWithoutExt);
 					}
 					
@@ -885,7 +883,7 @@ public class LogViewController {
 	
 	private void handleMoveColumn(String columnName, int direction, List<String> allColumns, String dataFolderPath, String reportTitle, Map<String, String> layoutScheme, String dbFilePath, String fileNameWithoutExt, ListView<String> visibleColumns, ListView<String> hiddenColumns, ObservableList<String> visibleItems, ObservableList<String> hiddenItems) {
 		if (columnName == null || columnName.isEmpty()) {
-			log("LogViewer; Column Move operation aborted: No column selected", LogUtils.Severity.WARN);
+			logWarn("LogViewer; Column Move operation aborted: No column selected");
 			return;
 		}
 		
@@ -906,20 +904,20 @@ public class LogViewController {
 		}
 		
 		if (currentVisibleIndex == -1) {
-			log("LogViewer; Column Move failed: Column not found in visible columns - " + columnName, LogUtils.Severity.ERROR);
+			logError("LogViewer; Column Move failed: Column not found in visible columns - " + columnName);
 			return;
 		}
 		
 		int newVisibleIndex = currentVisibleIndex + direction;
 		if (newVisibleIndex < 0 || newVisibleIndex >= visibleIndices.size()) {
-			log("LogViewer; Column Move out of bounds: " + newVisibleIndex + " (visible columns count: " + visibleIndices.size() + ")", LogUtils.Severity.WARN);
+			logWarn("LogViewer; Column Move out of bounds: " + newVisibleIndex + " (visible columns count: " + visibleIndices.size() + ")");
 			return;
 		}
 		
 		int currentPhysicalIndex = visibleIndices.get(currentVisibleIndex);
 		int newPhysicalIndex = visibleIndices.get(newVisibleIndex);
 		
-		log(String.format("LogViewer; Moving column from physical index %d to %d", currentPhysicalIndex, newPhysicalIndex), LogUtils.Severity.DEBUG);
+		logDebug(String.format("LogViewer; Moving column from physical index %d to %d", currentPhysicalIndex, newPhysicalIndex));
 		
 		Collections.swap(allColumns, currentPhysicalIndex, newPhysicalIndex);
 		

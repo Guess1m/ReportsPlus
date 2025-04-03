@@ -1,7 +1,5 @@
 package com.Guess.ReportsPlus.config;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
-
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -9,7 +7,8 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Properties;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
 public class ConfigReader {
 	
@@ -28,12 +27,12 @@ public class ConfigReader {
 					return prop.getProperty(database + "." + property);
 				}
 			} else {
-				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
+				logError("Unable to determine the location of the JAR file ");
 				
 				throw new IOException("");
 			}
 		} catch (URISyntaxException e) {
-			log("Error reading config.properties file ", LogUtils.Severity.ERROR);
+			logError("Error reading config.properties file ");
 			throw new IOException("Error reading config.properties file.", e);
 		}
 	}
@@ -64,17 +63,33 @@ public class ConfigReader {
 				try (OutputStream output = new FileOutputStream(configFile)) {
 					prop.store(output, null);
 				}
-				log("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property), LogUtils.Severity.DEBUG);
+				logDebug("Loaded " + property + " with value: " + prop.getProperty(newDatabase + "." + property));
 			} else {
-				log("Unable to determine the location of the JAR file ", LogUtils.Severity.ERROR);
+				logError("Unable to determine the location of the JAR file ");
 			}
 		} catch (IOException | URISyntaxException e) {
-			log("Error reading or writing config.properties file ", LogUtils.Severity.ERROR);
+			logError("Error reading or writing config.properties file");
+		}
+	}
+	
+	public static void createConfig() {
+		String configFilePath = getJarPath() + File.separator + "config.properties";
+		File configFile = new File(configFilePath);
+		if (configFile.exists()) {
+			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
+			logInfo("exists, printing values");
+		} else {
+			try {
+				configFile.createNewFile();
+				logInfo("Created Config: " + configFile.getAbsolutePath());
+			} catch (IOException e) {
+				logError("Failed to create config file: " + e);
+			}
 		}
 	}
 	
 	public static void checkAndSetDefaultValues() {
-		log("====================== Configuration ======================", LogUtils.Severity.INFO);
+		logInfo("====================== Configuration ======================");
 		// Updater Settings
 		checkAndSetDefaultValue("updater", "useIntel", "false");
 		
@@ -139,6 +154,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiSettings", "enableTrafficStopPopup", "true");
 		checkAndSetDefaultValue("uiSettings", "windowDisplaySetting", "Fullscreen");
 		checkAndSetDefaultValue("uiSettings", "windowAOT", "false");
+		checkAndSetDefaultValue("uiSettings", "use24Hour", "false");
+		checkAndSetDefaultValue("uiSettings", "skipOfficerLogin", "false");
 		
 		// Sound Settings
 		checkAndSetDefaultValue("soundSettings", "playCallout", "true");
@@ -205,7 +222,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("keybindings", "toggleMaximize", "PLUS");
 		checkAndSetDefaultValue("keybindings", "applicationFullscreen", "F11");
 		
-		log("=========================================================", LogUtils.Severity.INFO);
+		logInfo("=========================================================");
 	}
 	
 }

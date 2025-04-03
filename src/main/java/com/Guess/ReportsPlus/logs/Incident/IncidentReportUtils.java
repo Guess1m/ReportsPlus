@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Incident;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.incidentLogUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -103,7 +102,7 @@ public class IncidentReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -210,10 +209,10 @@ public class IncidentReportUtils {
 		if (existingReport.isPresent()) {
 			IncidentReports.getIncidentReportList().remove(existingReport.get());
 			IncidentReports.getIncidentReportList().add(IncidentReport);
-			log("IncidentReport with number " + IncidentReport.getIncidentNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("IncidentReport with number " + IncidentReport.getIncidentNumber() + " updated.");
 		} else {
 			IncidentReports.getIncidentReportList().add(IncidentReport);
-			log("IncidentReport with number " + IncidentReport.getIncidentNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("IncidentReport with number " + IncidentReport.getIncidentNumber() + " added.");
 		}
 		
 		saveIncidentReports(IncidentReports);
@@ -225,7 +224,7 @@ public class IncidentReportUtils {
 		if (IncidentReports.getIncidentReportList() != null) {
 			IncidentReports.getIncidentReportList().removeIf(e -> e.getIncidentNumber().equals(IncidentReportnumber));
 			saveIncidentReports(IncidentReports);
-			log("IncidentReport with number " + IncidentReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("IncidentReport with number " + IncidentReportnumber + " deleted.");
 		}
 	}
 }

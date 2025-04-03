@@ -2,7 +2,6 @@ package com.Guess.ReportsPlus.logs.Accident;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -24,8 +23,8 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.accidentReportUpdate;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
 import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
@@ -137,7 +136,7 @@ public class AccidentReportUtils {
 					}
 				}
 			} else {
-				log("NotesViewController Is Null", LogUtils.Severity.ERROR);
+				logError("NotesViewController Is Null");
 			}
 		});
 		
@@ -279,10 +278,10 @@ public class AccidentReportUtils {
 		if (existingReport.isPresent()) {
 			AccidentReports.getAccidentReportList().remove(existingReport.get());
 			AccidentReports.getAccidentReportList().add(AccidentReport);
-			log("AccidentReport with number " + AccidentReport.getAccidentNumber() + " updated.", LogUtils.Severity.INFO);
+			logInfo("AccidentReport with number " + AccidentReport.getAccidentNumber() + " updated.");
 		} else {
 			AccidentReports.getAccidentReportList().add(AccidentReport);
-			log("AccidentReport with number " + AccidentReport.getAccidentNumber() + " added.", LogUtils.Severity.INFO);
+			logInfo("AccidentReport with number " + AccidentReport.getAccidentNumber() + " added.");
 		}
 		
 		saveAccidentReports(AccidentReports);
@@ -294,7 +293,7 @@ public class AccidentReportUtils {
 		if (AccidentReports.getAccidentReportList() != null) {
 			AccidentReports.getAccidentReportList().removeIf(e -> e.getAccidentNumber().equals(AccidentReportnumber));
 			saveAccidentReports(AccidentReports);
-			log("AccidentReport with number " + AccidentReportnumber + " deleted.", LogUtils.Severity.INFO);
+			logInfo("AccidentReport with number " + AccidentReportnumber + " deleted.");
 		}
 	}
 	

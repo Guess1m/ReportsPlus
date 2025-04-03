@@ -1,8 +1,6 @@
 package com.Guess.ReportsPlus.util.Misc.Threading;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils;
-
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 
 public class WorkerThread extends Thread {
 	String name;
@@ -23,9 +21,19 @@ public class WorkerThread extends Thread {
 	@Override
 	public void run() {
 		ThreadManager.workerThreads.add(this);
-		log("Running Thread: [" + name + "]", LogUtils.Severity.DEBUG);
-		runnable.run();
-		log("Thread: [" + name + "] Has Finished", LogUtils.Severity.DEBUG);
-		ThreadManager.workerThreads.remove(this);
+		logDebug("Running Thread: [" + name + "]");
+		long startTime = System.currentTimeMillis();
+		try {
+			runnable.run();
+			if (Thread.currentThread().isInterrupted()) {
+				logWarn("Thread [" + name + "] was interrupted.");
+			}
+		} catch (Exception e) {
+			logError("Thread [" + name + "] encountered an error: " + e.getMessage());
+		} finally {
+			long endTime = System.currentTimeMillis();
+			logDebug("Thread: [" + name + "] Has Finished Runtime: [" + (endTime - startTime) / 1000 + " sec]");
+			ThreadManager.workerThreads.remove(this);
+		}
 	}
 }

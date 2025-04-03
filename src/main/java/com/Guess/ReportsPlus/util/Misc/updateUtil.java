@@ -1,6 +1,5 @@
 package com.Guess.ReportsPlus.util.Misc;
 
-import com.Guess.ReportsPlus.util.Misc.LogUtils.Severity;
 import com.Guess.ReportsPlus.util.Report.treeViewUtils;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 import javafx.concurrent.Task;
@@ -18,9 +17,11 @@ import java.util.zip.ZipInputStream;
 
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.updatesAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.log;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Strings.updateStrings.version;
 
 public class updateUtil {
 	public static String gitVersion;
@@ -37,7 +38,7 @@ public class updateUtil {
 				return false;
 			}
 		} else {
-			log("Updater Not Found At: " + jarPath, Severity.ERROR);
+			logError("Updater Not Found At: " + jarPath);
 			return false;
 		}
 	}
@@ -55,20 +56,29 @@ public class updateUtil {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				String latestVersion = reader.readLine();
 				gitVersion = latestVersion;
-				log("Git Version: " + latestVersion, Severity.INFO);
-				log("App Version: " + updateStrings.version, Severity.INFO);
+				logInfo("Git Version: " + latestVersion);
+				logInfo("App Version: " + updateStrings.version);
 				
-				if (!gitVersion.equalsIgnoreCase(updateStrings.version)) {
-					NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " " + gitVersion + " Check Updates App!");
-					updatesAppObj.setAlertVisibility(true);
+				if (updateStrings.version.contains("dev")) {
+					logDebug("Dev Version Detected: [" + version + "]");
+					showNotificationWarning("Dev Version Detected", "Detected Development version: [" + version + "], please report any issues! :)", true);
+					if (mainDesktopControllerObj != null) {
+						mainDesktopControllerObj.getVersionLabel().setText("Dev Version [" + version + "]");
+						mainDesktopControllerObj.getVersionLabel().setStyle("-fx-text-fill: blue;");
+					}
+				} else {
+					if (!gitVersion.equalsIgnoreCase(updateStrings.version)) {
+						NotificationManager.showNotificationErrorPersistent("Update Available", localization.getLocalizedMessage("Desktop.NewVersionAvailable", "New Version Available!") + " [" + gitVersion + "] Check Updates App!");
+						updatesAppObj.setAlertVisibility(true);
+					}
 				}
 				
 				reader.close();
 			} else {
-				log("Failed to fetch version file: HTTP error code " + responseCode, Severity.ERROR);
+				logError("Failed to fetch version file: HTTP error code " + responseCode);
 			}
 		} catch (UnknownHostException e) {
-			log("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.", Severity.ERROR);
+			logError("UnknownHostException: Unable to resolve host " + rawUrl + ". Check your network connection.");
 		} catch (IOException e) {
 			logError("Cant check for updates: ", e);
 		}
@@ -79,32 +89,32 @@ public class updateUtil {
 			@Override
 			protected Boolean call() throws Exception {
 				try {
-					log("Starting " + nameOfUpdate + " Update!", Severity.INFO);
+					logInfo("Starting " + nameOfUpdate + " Update!");
 					
 					if (!isInternetAvailable()) {
-						log("[Updater] Internet connection is unavailable. Aborting update.", Severity.ERROR);
+						logError("[Updater] Internet connection is unavailable. Aborting update.");
 					}
 					
 					double startTime = System.currentTimeMillis();
 					
-					log("[Updater] Preparing to download file from: " + url, Severity.DEBUG);
-					log("[Updater] Target destination: " + destination, Severity.DEBUG);
+					logDebug("[Updater] Preparing to download file from: " + url);
+					logDebug("[Updater] Target destination: " + destination);
 					Path downloadedFile = downloadFile(url, destination);
 					
-					log("[Updater] Extracting downloaded file to: " + destination, Severity.DEBUG);
+					logDebug("[Updater] Extracting downloaded file to: " + destination);
 					extractZip(downloadedFile, destination, replaceFiles);
 					
 					double endTime = System.currentTimeMillis();
-					log("[Updater] " + nameOfUpdate + " Update Finished: " + (endTime - startTime) / 1000 + "sec", Severity.INFO);
+					logInfo("[Updater] " + nameOfUpdate + " Update Finished: " + (endTime - startTime) / 1000 + "sec");
 					return true;
 				} catch (FileNotFoundException e) {
-					log("[Updater] " + nameOfUpdate + " Zip Not Found: ", Severity.ERROR);
+					logError("[Updater] " + nameOfUpdate + " Zip Not Found: ");
 					return false;
 				} catch (IOException e) {
-					log("[Updater] Error downloading/extracting the " + nameOfUpdate + " Zip: ", Severity.ERROR);
+					logError("[Updater] Error downloading/extracting the " + nameOfUpdate + " Zip: ");
 					return false;
 				} catch (Exception e) {
-					log("[Updater] Unexpected Error during the update process: ", Severity.ERROR);
+					logError("[Updater] Unexpected Error during the update process: ");
 					return false;
 				}
 			}
@@ -114,7 +124,7 @@ public class updateUtil {
 	
 	public static boolean isInternetAvailable() {
 		try {
-			log("Checking internet connection...", Severity.DEBUG);
+			logDebug("Checking internet connection...");
 			URL testUrl = new URL("https://www.google.com");
 			HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
 			connection.setRequestMethod("HEAD");
@@ -122,16 +132,16 @@ public class updateUtil {
 			connection.setReadTimeout(5000);
 			int responseCode = connection.getResponseCode();
 			boolean isConnected = (responseCode == 200);
-			log("Internet connection status: " + (isConnected ? "Available" : "Unavailable"), Severity.INFO);
+			logInfo("Internet connection status: " + (isConnected ? "Available" : "Unavailable"));
 			return isConnected;
 		} catch (IOException e) {
-			log("Internet connection check failed: " + e.getMessage(), Severity.ERROR);
+			logError("Internet connection check failed: " + e.getMessage());
 			return false;
 		}
 	}
 	
 	public static boolean copyUpdaterJar() throws IOException {
-		log("Running copyUpdaterJar", LogUtils.Severity.INFO);
+		logInfo("Running copyUpdaterJar");
 		String sourceJarPath = "/com/Guess/ReportsPlus/data/updater/Updater.jar";
 		Path destinationDir = Paths.get(getJarPath(), "tools");
 		
@@ -147,13 +157,13 @@ public class updateUtil {
 				Files.copy(inputStream, updaterDestinationPath, StandardCopyOption.REPLACE_EXISTING);
 				
 				if (fileExistsBefore) {
-					log("Updater Jar replaced at Path: " + updaterDestinationPath, LogUtils.Severity.INFO);
+					logInfo("Updater Jar replaced at Path: " + updaterDestinationPath);
 				} else {
-					log("Updater Jar created at Path: " + updaterDestinationPath, LogUtils.Severity.INFO);
+					logInfo("Updater Jar created at Path: " + updaterDestinationPath);
 				}
 				return true;
 			} else {
-				log("Resource not found: " + sourceJarPath, LogUtils.Severity.ERROR);
+				logError("Resource not found: " + sourceJarPath);
 				return false;
 			}
 		}
@@ -161,11 +171,11 @@ public class updateUtil {
 	
 	private static Path downloadFile(String fileUrl, String destinationPath) throws IOException {
 		if (destinationPath == null) {
-			log("[Downloader] Destination path is null. Aborting download.", Severity.ERROR);
+			logError("[Downloader] Destination path is null. Aborting download.");
 			return null;
 		}
 		
-		log("[Downloader] Starting download from: " + fileUrl, Severity.INFO);
+		logInfo("[Downloader] Starting download from: " + fileUrl);
 		double startTime = System.currentTimeMillis();
 		URL url = new URL(fileUrl);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -174,7 +184,7 @@ public class updateUtil {
 		
 		Path destinationDir = Path.of(destinationPath);
 		if (!Files.exists(destinationDir)) {
-			log("[Downloader] Destination directory does not exist. Creating: " + destinationDir, Severity.DEBUG);
+			logDebug("[Downloader] Destination directory does not exist. Creating: " + destinationDir);
 			Files.createDirectories(destinationDir);
 		}
 		
@@ -191,18 +201,18 @@ public class updateUtil {
 		}
 		
 		double endTime = System.currentTimeMillis();
-		log("[Downloader] Download completed in " + (endTime - startTime) / 1000 + " seconds.", Severity.INFO);
-		log("[Downloader] File saved to: " + destinationFile, Severity.INFO);
+		logInfo("[Downloader] Download completed in " + (endTime - startTime) / 1000 + " seconds.");
+		logInfo("[Downloader] File saved to: " + destinationFile);
 		return destinationFile;
 	}
 	
 	private static void extractZip(Path zipFile, String destinationDir, boolean replaceExisting) throws IOException {
 		if (destinationDir == null) {
-			log("[Extractor] Destination directory is null. Aborting extraction.", Severity.ERROR);
+			logError("[Extractor] Destination directory is null. Aborting extraction.");
 			return;
 		}
 		
-		log("[Extractor] Starting extraction from: " + zipFile + " to " + destinationDir, Severity.INFO);
+		logInfo("[Extractor] Starting extraction from: " + zipFile + " to " + destinationDir);
 		
 		try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
 			ZipEntry entry;
@@ -236,15 +246,15 @@ public class updateUtil {
 								out.write(buffer, 0, bytesRead);
 							}
 						}
-						log("[Extractor] Extracted: " + entryPath, Severity.INFO);
+						logInfo("[Extractor] Extracted: " + entryPath);
 					} else {
-						log("[Extractor] Skipped: " + entryPath + " (already exists)", Severity.INFO);
+						logInfo("[Extractor] Skipped: " + entryPath + " (already exists)");
 					}
 				}
 				zipInputStream.closeEntry();
 			}
 			
-			log("[Extractor] Extraction completed to: " + destinationDir, Severity.INFO);
+			logInfo("[Extractor] Extraction completed to: " + destinationDir);
 		} catch (IOException e) {
 			logError("[Extractor] Error occurred during ZIP extraction: ", e);
 			throw e;
@@ -252,7 +262,7 @@ public class updateUtil {
 		
 		if (Files.exists(zipFile)) {
 			Files.delete(zipFile);
-			log("[Extractor] ZIP file deleted after extraction.", Severity.INFO);
+			logInfo("[Extractor] ZIP file deleted after extraction.");
 		}
 	}
 }

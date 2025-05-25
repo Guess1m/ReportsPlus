@@ -88,7 +88,7 @@ public class ConfigReader {
 		}
 	}
 	
-	public static void checkAndSetDefaultValues() {
+	public static void checkAndSetDefaultValues(boolean includeOfficerInfo) {
 		logInfo("====================== Configuration ======================");
 		// Updater Settings
 		checkAndSetDefaultValue("updater", "useIntel", "false");
@@ -118,12 +118,14 @@ public class ConfigReader {
 		checkAndSetDefaultValue("notificationSettings", "notificationInfoPrimary", "#367af6");
 		
 		// User Information
-		checkAndSetDefaultValue("userInfo", "Agency", "Error");
-		checkAndSetDefaultValue("userInfo", "Division", "Error");
-		checkAndSetDefaultValue("userInfo", "Name", "Error");
-		checkAndSetDefaultValue("userInfo", "Number", "Error");
-		checkAndSetDefaultValue("userInfo", "Rank", "Error");
-		checkAndSetDefaultValue("userInfo", "Callsign", "");
+		if (includeOfficerInfo) {
+			checkAndSetDefaultValue("userInfo", "Agency", "Error");
+			checkAndSetDefaultValue("userInfo", "Division", "Error");
+			checkAndSetDefaultValue("userInfo", "Name", "Error");
+			checkAndSetDefaultValue("userInfo", "Number", "Error");
+			checkAndSetDefaultValue("userInfo", "Rank", "Error");
+			checkAndSetDefaultValue("userInfo", "Callsign", "");
+		}
 		
 		// Desktop Settings
 		checkAndSetDefaultValue("desktopSettings", "useBackground", "false");

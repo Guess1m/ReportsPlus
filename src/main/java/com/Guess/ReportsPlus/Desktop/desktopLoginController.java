@@ -251,7 +251,7 @@ public class desktopLoginController {
 		ConfigWriter.configwrite("userInfo", "Name", name);
 		ConfigWriter.configwrite("userInfo", "Rank", rank);
 		ConfigWriter.configwrite("userInfo", "Number", number);
-		checkAndSetDefaultValues();
+		checkAndSetDefaultValues(true);
 		checkAndSetDefaultAppValues();
 		Stage stag = (Stage) root.getScene().getWindow();
 		Platform.runLater(() -> stag.close());

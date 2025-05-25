@@ -20,7 +20,9 @@
   <component name="ChangeListManager">
     <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +146,7 @@
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last.edited.regexp&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/zdrozl/IdeaProjects/Shared/ReportsPlus/ReportsPlusApp/src/main/resources/com/Guess/ReportsPlus/Windows/Misc&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/IdeaProjects/ReportsPlusStuff/Application/target/locale&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -160,9 +162,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Misc" />
       <recent name="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc" />
-      <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/terminal" />
@@ -182,10 +184,10 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean install -P mac-x64" />
-      <command value="mvn clean install -P mac-arm64" />
       <command value="mvn clean " />
       <command value="mvn clean install" />
+      <command value="mvn clean install -P mac-arm64" />
+      <command value="mvn clean install -P mac-x64" />
       <command value="mvn clean" />
     </option>
   </component>
@@ -688,6 +690,8 @@
       <workItem from="1748005472555" duration="1427000" />
       <workItem from="1748006937537" duration="2737000" />
       <workItem from="1748112379152" duration="1506000" />
+      <workItem from="1748125839361" duration="15000" />
+      <workItem from="1748134733177" duration="1093000" />
     </task>
     <task id="LOCAL-00334" summary="- v1.4.0-alpha&#10;- working before removeing combinedmap">
       <option name="closed" value="true" />

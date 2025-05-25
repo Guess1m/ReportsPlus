@@ -54,7 +54,7 @@ public class Launcher {
 		createConfig();
 		createAppConfig();
 		
-		checkAndSetDefaultValues();
+		checkAndSetDefaultValues(false);
 		checkAndSetDefaultAppValues();
 		
 		try {

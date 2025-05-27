@@ -63,12 +63,16 @@ module com.Guess.ReportsPlus {
 	exports com.Guess.ReportsPlus.Windows.Apps;
 	opens com.Guess.ReportsPlus.Windows.Apps to javafx.fxml;
 	exports com.Guess.ReportsPlus.util.Other;
-	opens com.Guess.ReportsPlus.util.Other to jakarta.xml.bind, javafx.fxml;
+	opens com.Guess.ReportsPlus.util.Other to jakarta.xml.bind, javafx.fxml, com.fasterxml.jackson.databind;
 	exports com.Guess.ReportsPlus.util.Strings;
 	opens com.Guess.ReportsPlus.util.Strings to jakarta.xml.bind, javafx.fxml;
 	exports com.Guess.ReportsPlus.util.Report.Database;
 	opens com.Guess.ReportsPlus.util.Report.Database to javafx.fxml;
 	exports com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils;
 	opens com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils to javafx.fxml;
+	exports com.Guess.ReportsPlus.util.Other.Callout;
+	opens com.Guess.ReportsPlus.util.Other.Callout to com.fasterxml.jackson.databind, jakarta.xml.bind, javafx.fxml;
+	exports com.Guess.ReportsPlus.util.Other.Callout.Messages;
+	opens com.Guess.ReportsPlus.util.Other.Callout.Messages to com.fasterxml.jackson.databind, jakarta.xml.bind, javafx.fxml;
 	
 }

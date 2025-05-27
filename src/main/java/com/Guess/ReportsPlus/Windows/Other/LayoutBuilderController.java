@@ -4,6 +4,7 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
+import com.Guess.ReportsPlus.util.Strings.reportLayoutTemplates;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -42,6 +43,9 @@ import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.*;
 
 public class LayoutBuilderController {
+	
+	//TODO: !important instead of defining where to transfer allow user to choose whichever
+	// documentation for custom reports
 	
 	public static LayoutBuilderController layoutBuilderController;
 	CustomWindow addDropdownWindow = null;
@@ -194,6 +198,13 @@ public class LayoutBuilderController {
 		return null;
 	}
 	
+	private void addLocale() {
+		customDropdownButton.setText(localization.getLocalizedMessage("LayoutBuilder.CustomDropdownButton", "Custom Dropdowns"));
+		importExportButton.setText(localization.getLocalizedMessage("LayoutBuilder.ImportExportButton", "Import / Export"));
+		heading.setText(localization.getLocalizedMessage("LayoutBuilder.Heading", "Custom Layout Designer"));
+		buildLayoutButton.setText(localization.getLocalizedMessage("LayoutBuilder.BuildLayoutButton", "View Report Layout"));
+	}
+	
 	public void initialize() {
 		addSectionButton.setOnAction(event -> addSection());
 		addTransferButton.setOnAction(event -> addTransfer());
@@ -205,13 +216,6 @@ public class LayoutBuilderController {
 		});
 		
 		addLocale();
-	}
-	
-	private void addLocale() {
-		customDropdownButton.setText(localization.getLocalizedMessage("LayoutBuilder.CustomDropdownButton", "Custom Dropdowns"));
-		importExportButton.setText(localization.getLocalizedMessage("LayoutBuilder.ImportExportButton", "Import / Export"));
-		heading.setText(localization.getLocalizedMessage("LayoutBuilder.Heading", "Custom Layout Designer"));
-		buildLayoutButton.setText(localization.getLocalizedMessage("LayoutBuilder.BuildLayoutButton", "View Report Layout"));
 	}
 	
 	private void handleImportExportClick(ActionEvent actionEvent) {
@@ -226,10 +230,26 @@ public class LayoutBuilderController {
 		descriptionLabel.setWrapText(true);
 		descriptionLabel.setStyle("-fx-text-fill: #7f8c8d;");
 		
+		Label templateLabel = new Label("Select a template (optional):");
+		templateLabel.setStyle("-fx-font-family: 'Inter 28pt Medium';");
+		
+		ComboBox<String> templateComboBox = new ComboBox<>();
+		templateComboBox.setPromptText("Select a template...");
+		templateComboBox.getItems().addAll("Callout", "Traffic Stop", "Impound", "Search", "Accident", "Death", "Patrol", "Incident");
+		templateComboBox.setPrefWidth(Double.MAX_VALUE);
+		
 		TextArea jsonTextArea = new TextArea();
 		jsonTextArea.setWrapText(false);
-		jsonTextArea.setPromptText("Paste JSON here...");
+		jsonTextArea.setPromptText("Paste JSON here or select a template to load...");
 		jsonTextArea.setStyle("-fx-font-family: Consolas; -fx-font-size: 12px;");
+		
+		templateComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+			if (newValue != null) {
+				String templateJson = getTemplateJsonFor(newValue);
+				jsonTextArea.setText(templateJson);
+				logDebug("Loaded " + newValue + " template");
+			}
+		});
 		
 		ScrollPane jsonScrollPane = new ScrollPane(jsonTextArea);
 		VBox.setVgrow(jsonScrollPane, Priority.ALWAYS);
@@ -263,16 +283,43 @@ public class LayoutBuilderController {
 		buttonContainer.getChildren().addAll(fileButtons, spacer, importButtonBox);
 		importButtonBox.getChildren().add(importButton);
 		
-		layout.getChildren().addAll(titleLabel, descriptionLabel, jsonScrollPane, buttonContainer);
+		layout.getChildren().addAll(titleLabel, descriptionLabel, templateLabel, templateComboBox, jsonScrollPane, buttonContainer);
 		
 		BorderPane window = new BorderPane();
 		window.setCenter(layout);
-		window.setPrefSize(700, 400);
+		window.setPrefSize(700, 450);
 		
 		window.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
 		
 		addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window, localization.getLocalizedMessage("ImportExport.windowTitle", "Layout Import/Export"), true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 		                                       new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
+	}
+	
+	//TODO: !important
+	// Add section to logviewer for outdated(legacy) reports from previous versions
+	// Add use of force
+	// Add field sobriety
+	private String getTemplateJsonFor(String newValue) {
+		switch (newValue) {
+			case "Callout":
+				return reportLayoutTemplates.calloutReport;
+			case "Traffic Stop":
+				return reportLayoutTemplates.trafficStopReport;
+			case "Impound":
+				return reportLayoutTemplates.impoundReport;
+			case "Search":
+				return reportLayoutTemplates.searchReport;
+			case "Accident":
+				return reportLayoutTemplates.accidentReport;
+			case "Death":
+				return reportLayoutTemplates.deathReport;
+			case "Patrol":
+				return reportLayoutTemplates.patrolReport;
+			case "Incident":
+				return reportLayoutTemplates.incidentReport;
+			default:
+				return "";
+		}
 	}
 	
 	private void loadJsonFromFile(TextArea jsonTextArea) {
@@ -357,7 +404,7 @@ public class LayoutBuilderController {
 		
 		Button saveBtn = new Button(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		
-		Button deleteBtn = new Button(localization.getLocalizedMessage("Settings.NotiDeleteButton", "Delete"));
+		Button deleteBtn = new Button(localization.getLocalizedMessage("Settings.DelCalloutButton", "Delete"));
 		deleteBtn.setDisable(true);
 		
 		Button importBtn = new Button("Import");
@@ -1463,7 +1510,8 @@ public class LayoutBuilderController {
 			
 			fieldTypeComboBox = new ComboBox<>();
 			fieldTypeComboBox.getItems().add("NUMBER_FIELD");
-			fieldTypeComboBox.getItems().addAll("TEXT_FIELD", "CUSTOM_DROPDOWN", "COMBO_BOX_STREET", "COMBO_BOX_AREA", "COUNTY_FIELD", "TEXT_AREA", "TIME_FIELD", "DATE_FIELD", "OFFICER_NAME", "OFFICER_RANK", "OFFICER_DIVISION", "OFFICER_AGENCY", "OFFICER_NUMBER", "OFFICER_CALLSIGN");
+			fieldTypeComboBox.getItems().addAll("TEXT_FIELD", "CUSTOM_DROPDOWN", "CHECK_BOX", "COMBO_BOX_STREET", "COMBO_BOX_AREA", "COUNTY_FIELD", "COMBO_BOX_COLOR", "COMBO_BOX_TYPE", "BLANK_SPACE", "TEXT_AREA", "TIME_FIELD", "DATE_FIELD", "OFFICER_NAME", "OFFICER_RANK", "OFFICER_DIVISION",
+			                                    "OFFICER_AGENCY", "OFFICER_NUMBER", "OFFICER_CALLSIGN");
 			fieldTypeComboBox.getSelectionModel().selectFirst();
 			
 			fieldTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.ColorAdjust?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="669.0" prefWidth="679.0" stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="670.0" prefWidth="730.0" stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <center>
-        <SplitPane dividerPositions="0.31831610044313147" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.31831610044313147" style="-fx-background-color: #0f1620;" BorderPane.alignment="CENTER">
             <items>
-                <VBox maxWidth="230.0" prefWidth="190.0" spacing="6.0" style="-fx-background-color: rgb(0,0,0,0.08);">
+                <VBox maxWidth="230.0" prefWidth="190.0" spacing="6.0" style="-fx-background-color: #0f1620;">
                     <children>
                         <AnchorPane>
                             <children>
@@ -12,7 +12,7 @@
                                         <Image url="@../../imgs/icons/Logo.png"/>
                                     </image>
                                     <effect>
-                                        <ColorAdjust brightness="-0.69"/>
+                                        <ColorAdjust brightness="0.68"/>
                                     </effect>
                                 </ImageView>
                                 <Label fx:id="mainHeader" alignment="CENTER" layoutX="85.0" layoutY="19.0" styleClass="settingsLabel" text="Settings"/>
@@ -23,9 +23,9 @@
                                 <Insets left="15.0" top="5.0"/>
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth="200.0">
                             <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="-7.0"/>
+                                <Insets left="10.0" right="10.0" top="-5.0"/>
                             </VBox.margin>
                         </Separator>
                         <BorderPane>
@@ -53,9 +53,9 @@
                                 <Insets left="15.0" top="20.0"/>
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth="200.0">
                             <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="-7.0"/>
+                                <Insets left="10.0" right="10.0" top="-5.0"/>
                             </VBox.margin>
                         </Separator>
                         <BorderPane>
@@ -76,9 +76,9 @@
                                 <Insets left="15.0" top="20.0"/>
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth="200.0">
                             <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="-7.0"/>
+                                <Insets left="10.0" right="10.0" top="-5.0"/>
                             </VBox.margin>
                         </Separator>
                         <BorderPane>
@@ -96,9 +96,9 @@
                                 <Insets left="15.0" top="20.0"/>
                             </VBox.margin>
                         </Label>
-                        <Separator prefWidth="200.0" style="-fx-background-color: rgb(0,0,0,0.2);">
+                        <Separator prefWidth="200.0">
                             <VBox.margin>
-                                <Insets left="10.0" right="10.0" top="-7.0"/>
+                                <Insets left="10.0" right="10.0" top="-5.0"/>
                             </VBox.margin>
                         </Separator>
                         <BorderPane>
@@ -108,11 +108,11 @@
                         </BorderPane>
                     </children>
                 </VBox>
-                <AnchorPane style="-fx-background-color: transparent;">
+                <AnchorPane style="-fx-background-color: #17222D;">
                     <children>
-                        <ScrollPane fx:id="paneWindow" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneWindow" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="winSettingsHeader" alignment="CENTER" styleClass="settingsLabel" text="WINDOW SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox spacing="30.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
@@ -306,9 +306,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneNotification" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneNotification" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="notiSettingsHeader" alignment="CENTER" layoutX="7.0" layoutY="14.0" styleClass="settingsLabel" text="NOTIFICATION SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox layoutX="25.0" layoutY="47.5" spacing="35.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -351,7 +351,7 @@
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                                             <children>
                                                                 <TextField fx:id="notiFadeOutDurField" maxWidth="80.0" prefWidth="80.0" promptText="Def. 1.7" HBox.hgrow="SOMETIMES"/>
-                                                                <Button fx:id="saveFadeDurBtn" minWidth="-Infinity" mnemonicParsing="false" styleClass="AuxButton" text="Save" HBox.hgrow="ALWAYS"/>
+                                                                <Button fx:id="saveFadeDurBtn" minWidth="-Infinity" mnemonicParsing="false" text="Save" HBox.hgrow="ALWAYS"/>
                                                             </children>
                                                         </HBox>
                                                     </children>
@@ -375,7 +375,7 @@
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                                                             <children>
                                                                 <TextField fx:id="notiDisplayDurField" maxWidth="80.0" prefWidth="80.0" promptText="Def. 1.2" HBox.hgrow="SOMETIMES"/>
-                                                                <Button fx:id="saveDisplayDurBtn" minWidth="-Infinity" mnemonicParsing="false" styleClass="AuxButton" text="Save" HBox.hgrow="ALWAYS"/>
+                                                                <Button fx:id="saveDisplayDurBtn" minWidth="-Infinity" mnemonicParsing="false" text="Save" HBox.hgrow="ALWAYS"/>
                                                             </children>
                                                         </HBox>
                                                     </children>
@@ -491,9 +491,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneDesktop" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneDesktop" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="desktopSetingsHeader" alignment="CENTER" styleClass="settingsLabel" text="DESKTOP SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox layoutX="25.0" layoutY="50.0" spacing="28.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
@@ -726,13 +726,36 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneReport" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneReport" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="reportWindowCustomizationHeader" alignment="CENTER" styleClass="settingsLabel" text="REPORT WINDOW CUSTOMIZATION" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox spacing="35.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
                                             <children>
+                                                <GridPane>
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
+                                                        <RowConstraints minHeight="-Infinity"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="reportFieldNameLabel" alignment="CENTER" styleClass="paneHeading" text="Show Field Names" GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="reportFieldNameTT" alignment="CENTER" styleClass="paneSubtext" text="Show labels above fields in report windows" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <ToggleButton fx:id="reportShowFieldNamesToggleBtn" mnemonicParsing="false" onAction="#showFieldNamesToggle" text="Status" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+                                                            <toggleGroup>
+                                                                <ToggleGroup fx:id="DesktopSetting121"/>
+                                                            </toggleGroup>
+                                                        </ToggleButton>
+                                                    </children>
+                                                </GridPane>
                                                 <GridPane VBox.vgrow="SOMETIMES">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="235.0"/>
@@ -901,9 +924,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneApplication" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneApplication" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="appWindowCustomizationHeader" alignment="CENTER" styleClass="settingsLabel" text="APPLICATION WINDOW CUSTOMIZATION" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox spacing="35.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
@@ -1080,9 +1103,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneNetworking" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneNetworking" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="networkingSettingsHeader" alignment="CENTER" styleClass="settingsLabel" text="SERVER / NETWORKING SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox spacing="55.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
@@ -1196,9 +1219,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneAudio" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneAudio" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="audioSettingsHeader" alignment="CENTER" styleClass="settingsLabel" text="AUDIO SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox fx:id="audioVBox" spacing="35.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
@@ -1387,9 +1410,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneDeveloper" fitToHeight="true" fitToWidth="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneDeveloper" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="devSettingsHeader" alignment="CENTER" styleClass="settingsLabel" text="DEVELOPER SETTINGS / CLEAR DATA" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox alignment="TOP_CENTER" spacing="60.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
@@ -1515,9 +1538,9 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneKeybind" fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneKeybind" fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
-                                <AnchorPane>
+                                <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
                                         <Label fx:id="keybindSettingsHeader" alignment="CENTER" styleClass="settingsLabel" text="KEYBIND SETTINGS" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0"/>
                                         <VBox layoutX="25.0" layoutY="50.0" spacing="35.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
@@ -1540,7 +1563,7 @@
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
                                                             <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                <Label style="-fx-text-fill: #b4b4b4;" text="Control +" HBox.hgrow="NEVER">
                                                                     <font>
                                                                         <Font name="Inter 24pt Regular" size="13.0"/>
                                                                     </font>
@@ -1568,7 +1591,7 @@
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
                                                             <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                <Label style="-fx-text-fill: #b4b4b4;" text="Control +" HBox.hgrow="NEVER">
                                                                     <font>
                                                                         <Font name="Inter 24pt Regular" size="13.0"/>
                                                                     </font>
@@ -1596,7 +1619,7 @@
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
                                                             <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                <Label style="-fx-text-fill: #b4b4b4;" text="Control +" HBox.hgrow="NEVER">
                                                                     <font>
                                                                         <Font name="Inter 24pt Regular" size="13.0"/>
                                                                     </font>
@@ -1624,7 +1647,7 @@
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
                                                             <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                <Label style="-fx-text-fill: #b4b4b4;" text="Control +" HBox.hgrow="NEVER">
                                                                     <font>
                                                                         <Font name="Inter 24pt Regular" size="13.0"/>
                                                                     </font>
@@ -1652,7 +1675,7 @@
                                                         </Label>
                                                         <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
                                                             <children>
-                                                                <Label text="Control +" HBox.hgrow="NEVER">
+                                                                <Label style="-fx-text-fill: #b4b4b4;" text="Control +" HBox.hgrow="NEVER">
                                                                     <font>
                                                                         <Font name="Inter 24pt Regular" size="13.0"/>
                                                                     </font>

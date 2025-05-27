@@ -158,6 +158,45 @@ public class controllerUtils {
 		}
 	}
 	
+	public static void updateTextFromNotepad(CheckBox checkBox, TextArea notepadText, String... keys) {
+		Map<String, String> values = pullNotesValues(notepadText.getText());
+		String extractedValue = null;
+		
+		for (String key : keys) {
+			extractedValue = values.get(key);
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+			
+			for (Map.Entry<String, String> entry : values.entrySet()) {
+				for (String altKey : entry.getKey().split("\\|")) {
+					if (altKey.equals(key)) {
+						extractedValue = entry.getValue();
+						if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+							break;
+						}
+					}
+				}
+				if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+					break;
+				}
+			}
+			if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+				break;
+			}
+		}
+		
+		if (extractedValue != null && !extractedValue.trim().isEmpty()) {
+			if (extractedValue.equalsIgnoreCase("true")) {
+				checkBox.setSelected(true);
+			} else if (extractedValue.equalsIgnoreCase("false")) {
+				checkBox.setSelected(false);
+			} else {
+				logWarn("Invalid value for checkbox: " + extractedValue);
+			}
+		}
+	}
+	
 	public static void updateTextFromNotepad(ComboBox comboBox, TextArea notepadText, String... keys) {
 		Map<String, String> values = pullNotesValues(notepadText.getText());
 		String extractedValue = null;
@@ -229,6 +268,11 @@ public class controllerUtils {
 	public static String updateStyleProperty(Node node, String property, String value) {
 		String updatedStyle = node.getStyle().replaceAll(property + ": [^;]*;", "");
 		return updatedStyle + property + ": " + value + ";";
+	}
+	
+	public static String updateStylePropertyImportant(Node node, String property, String value) {
+		String updatedStyle = node.getStyle().replaceAll(property + ": [^;]*;", "");
+		return updatedStyle + property + ": " + value + " !important;";
 	}
 	
 	public static void updateSecondary(Color color) {

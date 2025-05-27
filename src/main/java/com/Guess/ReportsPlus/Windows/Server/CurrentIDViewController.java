@@ -39,9 +39,20 @@ public class CurrentIDViewController {
 	@javafx.fxml.FXML
 	private Label noIDFoundlbl;
 	
-	public static String generateRandomNumber() {
+	public static String generateRandomNumber(int digits) {
+		if (digits <= 0) {
+			throw new IllegalArgumentException("Number of digits must be positive");
+		}
+		
 		Random random = new Random();
-		int randomNumber = random.nextInt(9000000) + 1000000;
+		int lowerBound = (int) Math.pow(10, digits - 1);
+		int upperBound = (int) Math.pow(10, digits) - 1;
+		
+		if (digits == 1) {
+			lowerBound = 0;
+		}
+		
+		int randomNumber = random.nextInt((upperBound - lowerBound) + 1) + lowerBound;
 		return String.valueOf(randomNumber);
 	}
 	

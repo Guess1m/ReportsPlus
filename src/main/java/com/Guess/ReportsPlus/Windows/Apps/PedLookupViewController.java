@@ -604,7 +604,7 @@ public class PedLookupViewController {
 				
 				if (huntPermitStatus_value != null) {
 					ped.setHuntingLicenseStatus(huntPermitStatus_value);
-					// Generate number if status implies a license
+					
 					if (ped.getHuntingLicenseStatus().equalsIgnoreCase("valid") || ped.getHuntingLicenseStatus().equalsIgnoreCase("expired") || ped.getHuntingLicenseStatus().equalsIgnoreCase("suspended") || ped.getHuntingLicenseStatus().equalsIgnoreCase("revoked")) {
 						if (ped.getHuntingLicenseNumber() == null || ped.getHuntingLicenseNumber().isEmpty()) {
 							logWarn("ProcessPedData; Generated hunting license number for provided status");

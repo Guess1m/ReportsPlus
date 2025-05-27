@@ -39,8 +39,19 @@ public class Callout {
 	@XmlElement(name = "StartTime")
 	private String startTime;
 	
+	@XmlElement(name = "Messages")
+	private String messages;
+	
 	@XmlElement(name = "Status")
 	private String status;
+	
+	public String getMessages() {
+		return messages;
+	}
+	
+	public void setMessages(String messages) {
+		this.messages = messages;
+	}
 	
 	public String getStartTime() {
 		return startTime;

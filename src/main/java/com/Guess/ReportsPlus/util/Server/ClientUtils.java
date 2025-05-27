@@ -11,7 +11,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
-import com.Guess.ReportsPlus.util.Other.CalloutManager;
+import com.Guess.ReportsPlus.util.Other.Callout.CalloutManager;
 import com.Guess.ReportsPlus.util.Other.controllerUtils;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
@@ -487,11 +487,11 @@ public class ClientUtils {
 										} else {
 											desc = desc + "\n" + message;
 										}
-										CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status);
+										CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status, null);
 										NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
 										if (calloutViewController != null) {
-											CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
-											CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
+											CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
+											CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
 										}
 									}
 								} catch (NullPointerException e) {
@@ -526,11 +526,11 @@ public class ClientUtils {
 					} else {
 						desc = desc + "\n" + message;
 					}
-					CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status);
+					CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status, null);
 					NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
 					if (calloutViewController != null) {
-						CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
-						CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
+						CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
+						CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
 					}
 				}
 			}

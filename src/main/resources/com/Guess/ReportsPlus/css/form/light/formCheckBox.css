@@ -1,0 +1,24 @@
+.formCheckBox {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Inter 28pt Medium";
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-border-width: 0;
+}
+
+.formCheckBox .box {
+    -fx-background-color: rgba(217, 217, 217, 0.4);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-border-radius: 3px;
+    -fx-border-color: #262626;
+}
+
+.formCheckBox:selected .box {
+    -fx-background-color: rgba(231, 231, 231, 0.4);
+}
+
+.formCheckBox:selected .mark {
+    -fx-background-color: black;
+}

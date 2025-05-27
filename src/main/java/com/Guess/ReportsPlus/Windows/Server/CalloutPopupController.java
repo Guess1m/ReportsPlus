@@ -1,6 +1,6 @@
 package com.Guess.ReportsPlus.Windows.Server;
 
-import com.Guess.ReportsPlus.util.Other.CalloutManager;
+import com.Guess.ReportsPlus.util.Other.Callout.CalloutManager;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
 import jakarta.xml.bind.JAXBContext;
@@ -18,7 +18,7 @@ import java.util.List;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Other.CalloutManager.loadActiveCallouts;
+import static com.Guess.ReportsPlus.util.Other.Callout.CalloutManager.loadActiveCallouts;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.calloutWindow;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutDataURL;
@@ -186,11 +186,11 @@ public class CalloutPopupController {
 		PauseTransition pause = new PauseTransition(Duration.seconds(2));
 		pause.setOnFinished(event -> {
 			logInfo("Added Callout To Active as: " + status);
-			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status);
+			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message, priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(), timeField.getText(), dateField.getText(), status, null);
 			calloutWindow.closeWindow();
 			
 			if (calloutViewController != null) {
-				loadActiveCallouts(calloutViewController.getCalActiveList());
+				loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
 			}
 		});
 		pause.play();

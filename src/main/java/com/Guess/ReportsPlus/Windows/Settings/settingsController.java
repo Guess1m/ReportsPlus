@@ -10,7 +10,7 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
-import com.Guess.ReportsPlus.util.Other.CalloutManager;
+import com.Guess.ReportsPlus.util.Other.Callout.CalloutManager;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -534,6 +534,14 @@ public class settingsController {
 	private ToggleButton desktopSkipLoginToggle;
 	@javafx.fxml.FXML
 	private Button openTerminalBtn;
+	@javafx.fxml.FXML
+	private ToggleGroup DesktopSetting121;
+	@javafx.fxml.FXML
+	private ToggleButton reportShowFieldNamesToggleBtn;
+	@javafx.fxml.FXML
+	private Label reportFieldNameLabel;
+	@javafx.fxml.FXML
+	private Label reportFieldNameTT;
 	
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
@@ -546,9 +554,6 @@ public class settingsController {
 		if (clientController != null) {
 			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
 			clientController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-		}
-		if (settingsController.SettingsController != null) {
-			SettingsController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
 		if (trafficStopController.trafficStopController != null) {
 			trafficStopController.trafficStopController.getRoot().setStyle("-fx-background-color: " + bkgclr);
@@ -657,17 +662,29 @@ public class settingsController {
 		}
 		if (calloutViewController != null) {
 			calloutViewController.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			CalloutManager.loadActiveCallouts(calloutViewController.getCalActiveList());
-			CalloutManager.loadHistoryCallouts(calloutViewController.getCalHistoryList());
-			
-			calloutViewController.getCalActiveList().setStyle(updateStyleProperty(calloutViewController.getCalActiveList(), "-fx-border-color", accclr));
-			calloutViewController.getCalHistoryList().setStyle(updateStyleProperty(calloutViewController.getCalHistoryList(), "-fx-border-color", accclr));
-			
-			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-border-color", mainclr));
-			calloutViewController.getCalfill().setStyle(updateStyleProperty(calloutViewController.getCalfill(), "-fx-border-color", mainclr));
-			
-			calloutViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-			
+			calloutViewController.getCallInfoContainer().setStyle("-fx-background-color: " + bkgclr + ";");
+			CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
+			CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
+			calloutViewController.getExitBtn().setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-border-color", secclr));
+			calloutViewController.getSettingsBtn().setStyle(updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-border-color", secclr));
+			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(calloutViewController.getDisplayActiveCallsBtn(), "-fx-border-color", secclr));
+			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(calloutViewController.getDisplayCallHistoryBtn(), "-fx-border-color", secclr));
+			calloutViewController.getCreateCallBtn().setStyle(updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-border-color", secclr));
+			calloutViewController.getNotesContainer().setStyle(updateStyleProperty(calloutViewController.getNotesContainer(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoAreaField().setStyle(updateStyleProperty(calloutViewController.getCallInfoAreaField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoCountyField().setStyle(updateStyleProperty(calloutViewController.getCallInfoCountyField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoDateField().setStyle(updateStyleProperty(calloutViewController.getCallInfoDateField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoTimeField().setStyle(updateStyleProperty(calloutViewController.getCallInfoTimeField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoNumberField().setStyle(updateStyleProperty(calloutViewController.getCallInfoNumberField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoPriorityField().setStyle(updateStyleProperty(calloutViewController.getCallInfoPriorityField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoStreetField().setStyle(updateStyleProperty(calloutViewController.getCallInfoStreetField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoTypeField().setStyle(updateStyleProperty(calloutViewController.getCallInfoTypeField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoTypeContainer().setStyle(updateStyleProperty(calloutViewController.getCallInfoTypeContainer(), "-fx-border-color", secclr));
+			calloutViewController.getCallInfoTypeSend().setStyle(updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-border-color", secclr));
+			Tab tabContent = calloutViewController.getCallInfoNotesTab();
+			if (tabContent != null) {
+				tabContent.setStyle("-fx-border-color: " + mainclr + " !important;");
+			}
 		}
 		if (mainDesktopControllerObj != null) {
 			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
@@ -831,16 +848,37 @@ public class settingsController {
 			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 		}
-		if (calloutViewController != null) {
-			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCalfill().setStyle(updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UIDarkColor));
-			
-		}
 		if (clientController != null) {
 			clientController.getLbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			clientController.getLbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			clientController.getLbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		}
+		if (calloutViewController != null) {
+			calloutViewController.getExitBtn().setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoTypeSend().setStyle(updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getSettingsBtn().setStyle(updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(calloutViewController.getDisplayCallHistoryBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(calloutViewController.getDisplayActiveCallsBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCreateCallBtn().setStyle(updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoArea().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoCounty().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoDate().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoTime().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoNumber().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoPriority().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoStreet().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoType().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoAreaField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoAreaField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoCountyField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoCountyField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoDateField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoDateField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoTimeField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoTimeField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoNumberField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoNumberField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoPriorityField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoPriorityField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoStreetField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UIDarkColor));
+			//			Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane .tab-label");
+			//			node.setStyle("-fx-text-fill: " + UIDarkColor + " !important;"); //TODO: !important cant change tab text color //BUG: not working
 		}
 		if (newReportVewController != null) {
 			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UIDarkColor));
@@ -941,16 +979,37 @@ public class settingsController {
 			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
 			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
 		}
-		if (calloutViewController != null) {
-			calloutViewController.getActivecalfill().setStyle(updateStyleProperty(calloutViewController.getActivecalfill(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCalfill().setStyle(updateStyleProperty(calloutViewController.getCalfill(), "-fx-text-fill", UILightColor));
-			
-		}
 		if (clientController != null) {
 			clientController.getLbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
 			clientController.getLbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
 			clientController.getLbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
 			clientController.getLbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
+		if (calloutViewController != null) {
+			calloutViewController.getCallInfoTypeSend().setStyle(updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-text-fill", UILightColor));
+			calloutViewController.getExitBtn().setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getSettingsBtn().setStyle(updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(calloutViewController.getDisplayCallHistoryBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(calloutViewController.getDisplayActiveCallsBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCreateCallBtn().setStyle(updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoArea().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoCounty().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoDate().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoTime().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoNumber().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoPriority().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoStreet().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoType().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoAreaField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoAreaField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoCountyField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoCountyField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoDateField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoDateField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoTimeField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoTimeField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoNumberField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoNumberField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoPriorityField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoPriorityField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoStreetField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UILightColor));
+			//			Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane .tab-label");
+			//			node.setStyle("-fx-text-fill: " + UILightColor + " !important;"); //TODO: !important cant change tab text color //BUG: not working
 		}
 		if (newReportVewController != null) {
 			newReportVewController.getAccident().setStyle(updateStyleProperty(newReportVewController.getAccident(), "-fx-text-fill", UILightColor));
@@ -1209,6 +1268,8 @@ public class settingsController {
 		reportResetDefaultsLabel.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
 		reportResetDefaultsTT.setText(localization.getLocalizedMessage("Settings.ReportResetDefaultsTT", "Restore the default report color settings"));
 		resetReportDefaultsBtn.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
+		reportFieldNameLabel.setText(localization.getLocalizedMessage("Settings.reportFieldNameLabel", "Show Field Names"));
+		reportFieldNameTT.setText(localization.getLocalizedMessage("Settings.reportFieldNameTT", "Show labels above fields in report windows"));
 		
 		//Application
 		appWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.AppWindowCustomizationHeader", "APPLICATION WINDOW CUSTOMIZATION"));
@@ -1381,6 +1442,10 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void enableSoundCheckboxClick(ActionEvent actionEvent) {
 		handleCheckboxClick("uiSettings", "enableSounds", enableSoundCheckbox);
+	}
+	
+	public BorderPane getRoot() {
+		return root;
 	}
 	
 	@javafx.fxml.FXML
@@ -1609,6 +1674,7 @@ public class settingsController {
 		autofillLocationInfoToggle.setSelected(ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true"));
 		desktopUseMilitaryTimeToggle.setSelected(ConfigReader.configRead("uiSettings", "use24Hour").equalsIgnoreCase("true"));
 		desktopSkipLoginToggle.setSelected(ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true"));
+		reportShowFieldNamesToggleBtn.setSelected(ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true"));
 	}
 	
 	private void addEventFilters() {
@@ -2411,10 +2477,6 @@ public class settingsController {
 		return (selectedFile != null) ? selectedFile.getAbsolutePath() : null;
 	}
 	
-	public BorderPane getRoot() {
-		return root;
-	}
-	
 	@javafx.fxml.FXML
 	public void clearLookupDataBtnClick(ActionEvent actionEvent) {
 		try {
@@ -2578,5 +2640,10 @@ public class settingsController {
 		if (terminalApp != null && terminalApp.controller != null) {
 			TerminalController.terminalController = (TerminalController) terminalApp.controller;
 		}
+	}
+	
+	@javafx.fxml.FXML
+	public void showFieldNamesToggle(ActionEvent actionEvent) {
+		handleCheckboxClick("reportSettings", "useUpperLabels", reportShowFieldNamesToggleBtn);
 	}
 }

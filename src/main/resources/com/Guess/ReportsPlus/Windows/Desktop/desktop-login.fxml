@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.DropShadow?><?import javafx.scene.layout.*?><?import javafx.scene.paint.Color?><?import javafx.scene.text.*?>
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.DropShadow?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.paint.Color?><?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="577.0" prefWidth="998.0" style="-fx-background-color: #306494;" stylesheets="@../../css/desktop/desktopLogin.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Desktop.desktopLoginController">
     <center>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="480.0">
@@ -63,17 +63,34 @@
                                                 <Insets/>
                                             </GridPane.margin>
                                         </TextField>
-                                        <PasswordField fx:id="passwordField" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                            <font>
-                                                <Font name="Inter 28pt Medium" size="19.0"/>
-                                            </font>
+                                        <HBox GridPane.columnSpan="2147483647" GridPane.rowIndex="4" GridPane.valignment="TOP">
                                             <GridPane.margin>
                                                 <Insets bottom="30.0"/>
                                             </GridPane.margin>
-                                            <padding>
-                                                <Insets bottom="32.0"/>
-                                            </padding>
-                                        </PasswordField>
+                                            <children>
+                                                <StackPane alignment="TOP_LEFT" HBox.hgrow="SOMETIMES">
+                                                    <children>
+                                                        <PasswordField fx:id="passwordFieldMasked" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="19.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets bottom="32.0"/>
+                                                            </padding>
+                                                        </PasswordField>
+                                                        <TextField fx:id="passwordFieldUnmasked"/>
+                                                    </children>
+                                                </StackPane>
+                                                <ImageView fx:id="showPassImageView" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                                                    <image>
+                                                        <Image url="@../../imgs/icons/lock.png"/>
+                                                    </image>
+                                                    <HBox.margin>
+                                                        <Insets left="5.0" top="9.0"/>
+                                                    </HBox.margin>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
                                         <Label fx:id="loginErrorLabel" alignment="CENTER_RIGHT" focusTraversable="false" textAlignment="CENTER" textFill="#ff3c3c" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <font>
                                                 <Font size="14.0"/>
@@ -106,7 +123,8 @@
                             <center>
                                 <GridPane hgap="15.0" vgap="15.0">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" percentWidth="50.0"/>
+                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES"/>
+                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES"/>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
                                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
                                     </columnConstraints>
@@ -179,19 +197,19 @@
                                         </VBox>
                                         <VBox GridPane.rowIndex="3">
                                             <children>
-                                                <Label fx:id="oNameLabel" alignment="CENTER" focusTraversable="false" style="-fx-font-family: &quot;Inter 28pt Medium&quot;;" text="Officer Name">
+                                                <Label fx:id="oFirstName" alignment="CENTER" focusTraversable="false" style="-fx-font-family: &quot;Inter 28pt Medium&quot;;" text="First Name">
                                                     <font>
                                                         <Font size="13.0"/>
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="registrationOfficerNameField">
+                                                <TextField fx:id="registrationOfficerFirstNameField">
                                                     <font>
                                                         <Font name="Inter 28pt Medium" size="19.0"/>
                                                     </font>
                                                 </TextField>
                                             </children>
                                         </VBox>
-                                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                        <VBox GridPane.columnIndex="3" GridPane.rowIndex="3">
                                             <children>
                                                 <Label fx:id="oNumLabel" alignment="CENTER" focusTraversable="false" style="-fx-font-family: &quot;Inter 28pt Medium&quot;;" text="Number">
                                                     <font>
@@ -249,11 +267,25 @@
                                                 <ComboBox fx:id="registrationRankBox" maxWidth="1.7976931348623157E308"/>
                                             </children>
                                         </VBox>
-                                        <Button fx:id="registerButton" defaultButton="true" mnemonicParsing="false" onAction="#registerButtonClick" styleClass="LoginButton" text="Register" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                        <Button fx:id="registerButton" defaultButton="true" mnemonicParsing="false" onAction="#registerButtonClick" styleClass="LoginButton" text="Register" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="7">
                                             <font>
                                                 <Font size="13.0"/>
                                             </font>
                                         </Button>
+                                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label fx:id="oLastName" alignment="CENTER" focusTraversable="false" style="-fx-font-family: &quot;Inter 28pt Medium&quot;;" text="Last Name">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="registrationOfficerLastNameField">
+                                                    <font>
+                                                        <Font name="Inter 28pt Medium" size="19.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
                                     </children>
                                     <BorderPane.margin>
                                         <Insets/>

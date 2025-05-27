@@ -255,6 +255,8 @@ public class CustomReport {
 									updateTextFromNotepad(((ComboBox<?>) fieldValue).getEditor(), noteArea, "-" + key);
 								} else if (fieldValue instanceof TextArea) {
 									updateTextFromNotepad((TextArea) fieldValue, noteArea, "-" + key);
+								} else if (fieldValue instanceof CheckBox) {
+									updateTextFromNotepad((CheckBox) fieldValue, noteArea, "-" + key);
 								} else {
 									logError("CustomReport; Unknown field type: " + fieldValue.getClass().getSimpleName());
 								}
@@ -264,6 +266,7 @@ public class CustomReport {
 				}
 			}
 		});
+		
 		submitBtn.setOnAction(submitEvent -> {
 			Map<String, List<String>> selectedTypes = newMap.getOrDefault("selectedType", new HashMap<>());
 			Map<String, List<String>> fieldNames = newMap.getOrDefault("fieldNames", new HashMap<>());
@@ -321,6 +324,9 @@ public class CustomReport {
 					reportRecord.put(field, toTitleCase(((TextInputControl) f).getText().trim()));
 				} else if (f instanceof TextArea) {
 					reportRecord.put(field, ((TextInputControl) f).getText().trim());
+				} else if (f instanceof CheckBox) {
+					String selected = ((CheckBox) f).isSelected() ? "true" : "false";
+					reportRecord.put(field, selected);
 				} else {
 					logError("CustomReport; Unknown field type: " + f.getClass().getSimpleName());
 				}
@@ -395,6 +401,11 @@ public class CustomReport {
 					return comboBox.getValue().toString();
 				}
 			}
+		} else if (uiComponent instanceof CheckBox) {
+			CheckBox checkBox = (CheckBox) uiComponent;
+			if (selectedType.contains("CHECK_BOX")) {
+				return checkBox.isSelected() ? "true" : "false";
+			}
 		}
 		return "";
 	}
@@ -410,6 +421,19 @@ public class CustomReport {
 				}
 			} else {
 				comboBox.setValue(text);
+			}
+		} else if (uiComponent instanceof CheckBox) {
+			CheckBox checkBox = (CheckBox) uiComponent;
+			if (selectedType.contains("CHECK_BOX")) {
+				if (text.equalsIgnoreCase("true") || text.equalsIgnoreCase("false")) {
+					if (text.equalsIgnoreCase("true")) {
+						checkBox.setSelected(true);
+					} else {
+						checkBox.setSelected(false);
+					}
+				} else {
+					showNotificationError("Custom Reports", "Checkbox stored value not true or false, check logs! Value: [" + text + "]");
+				}
 			}
 		}
 	}

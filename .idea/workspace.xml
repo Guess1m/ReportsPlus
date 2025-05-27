@@ -18,22 +18,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime">
+    <list default="true" id="33001318-9144-4836-b608-a0615ed0cd68" name="Changes" comment="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports&#10;- Registration Window Separate First/Last Name&#10;- Started Import Report Layout From Template [remaining:stop,impound,search,accident]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Desktop/desktopLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/config/ConfigReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Other/LayoutBuilderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Other/LayoutBuilderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Report/reportUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Report/reportUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/reportLayoutTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/reportLayoutTemplates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/util/Strings/updateStrings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -70,24 +75,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="Development" />
+                    <option name="lastUsedInstant" value="1748269689" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="main" />
                     <option name="lastUsedInstant" value="1741895636" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="devtest" />
-                    <option name="lastUsedInstant" value="1741895629" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="Development" />
-                    <option name="lastUsedInstant" value="1739908951" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="fork/fastwalkergy/Development" />
-                    <option name="lastUsedInstant" value="1739908289" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="v1.3-development" />
-                    <option name="lastUsedInstant" value="1735226159" />
                   </RecentBranch>
                 </list>
               </option>
@@ -146,7 +139,7 @@
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last.edited.regexp&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/zdrozal/IdeaProjects/ReportsPlusStuff/Application/target/locale&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zdrozl/IdeaProjects/Shared/ReportsPlus/ReportsPlusApp/src/main/resources/com/Guess/ReportsPlus/css/form/light&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -156,15 +149,17 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;swagger&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/form/light" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/form/dark" />
+      <recent name="$PROJECT_DIR$/target/locale" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Apps" />
       <recent name="C:\Users\zdrozal\IdeaProjects\ReportsPlusStuff\Application\target\locale" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/Windows/Misc" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/Guess/ReportsPlus/Windows/Misc" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/com/Guess/ReportsPlus/css/terminal" />
@@ -179,6 +174,7 @@
       <recent name="com.Guess.ReportsPlus" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.Guess.ReportsPlus.util.Other.Callout" />
       <recent name="com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands" />
     </key>
   </component>
@@ -221,14 +217,15 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
@@ -692,70 +689,19 @@
       <workItem from="1748112379152" duration="1506000" />
       <workItem from="1748125839361" duration="15000" />
       <workItem from="1748134733177" duration="1093000" />
-    </task>
-    <task id="LOCAL-00334" summary="- v1.4.0-alpha&#10;- working before removeing combinedmap">
-      <option name="closed" value="true" />
-      <created>1739316080900</created>
-      <option name="number" value="00334" />
-      <option name="presentableId" value="LOCAL-00334" />
-      <option name="project" value="LOCAL" />
-      <updated>1739316080900</updated>
-    </task>
-    <task id="LOCAL-00335" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports">
-      <option name="closed" value="true" />
-      <created>1739403554237</created>
-      <option name="number" value="00335" />
-      <option name="presentableId" value="LOCAL-00335" />
-      <option name="project" value="LOCAL" />
-      <updated>1739403554237</updated>
-    </task>
-    <task id="LOCAL-00336" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports">
-      <option name="closed" value="true" />
-      <created>1739407675738</created>
-      <option name="number" value="00336" />
-      <option name="presentableId" value="LOCAL-00336" />
-      <option name="project" value="LOCAL" />
-      <updated>1739407675738</updated>
-    </task>
-    <task id="LOCAL-00337" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Started Transfer Info Implementation)">
-      <option name="closed" value="true" />
-      <created>1739506601733</created>
-      <option name="number" value="00337" />
-      <option name="presentableId" value="LOCAL-00337" />
-      <option name="project" value="LOCAL" />
-      <updated>1739506601733</updated>
-    </task>
-    <task id="LOCAL-00338" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Started Transfer Info Implementation)">
-      <option name="closed" value="true" />
-      <created>1739569756921</created>
-      <option name="number" value="00338" />
-      <option name="presentableId" value="LOCAL-00338" />
-      <option name="project" value="LOCAL" />
-      <updated>1739569756921</updated>
-    </task>
-    <task id="LOCAL-00339" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Started Transfer Info Implementation)">
-      <option name="closed" value="true" />
-      <created>1739569806226</created>
-      <option name="number" value="00339" />
-      <option name="presentableId" value="LOCAL-00339" />
-      <option name="project" value="LOCAL" />
-      <updated>1739569806226</updated>
-    </task>
-    <task id="LOCAL-00340" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Transfers)&#10;- Revised customization.json">
-      <option name="closed" value="true" />
-      <created>1739649354392</created>
-      <option name="number" value="00340" />
-      <option name="presentableId" value="LOCAL-00340" />
-      <option name="project" value="LOCAL" />
-      <updated>1739649354392</updated>
-    </task>
-    <task id="LOCAL-00341" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports&#10;- Revised customization.json">
-      <option name="closed" value="true" />
-      <created>1739672357037</created>
-      <option name="number" value="00341" />
-      <option name="presentableId" value="LOCAL-00341" />
-      <option name="project" value="LOCAL" />
-      <updated>1739672357037</updated>
+      <workItem from="1748353410965" duration="18187000" />
+      <workItem from="1748443806854" duration="29538000" />
+      <workItem from="1748723724882" duration="4888000" />
+      <workItem from="1749230430132" duration="2418000" />
+      <workItem from="1749404477102" duration="1179000" />
+      <workItem from="1749416136938" duration="7796000" />
+      <workItem from="1749493242140" duration="3436000" />
+      <workItem from="1750089169464" duration="641000" />
+      <workItem from="1750181155166" duration="13575000" />
+      <workItem from="1750349429114" duration="4053000" />
+      <workItem from="1750365701875" duration="574000" />
+      <workItem from="1750366427722" duration="170000" />
+      <workItem from="1750417808117" duration="9592000" />
     </task>
     <task id="LOCAL-00342" summary="- v1.4.0-alpha&#10;- Functioning Custom Reports (Working Statistics)&#10;- Revised customization.json">
       <option name="closed" value="true" />
@@ -1085,7 +1031,71 @@
       <option name="project" value="LOCAL" />
       <updated>1748008104162</updated>
     </task>
-    <option name="localTasksCounter" value="383" />
+    <task id="LOCAL-00383" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window">
+      <option name="closed" value="true" />
+      <created>1748375850058</created>
+      <option name="number" value="00383" />
+      <option name="presentableId" value="LOCAL-00383" />
+      <option name="project" value="LOCAL" />
+      <updated>1748375850058</updated>
+    </task>
+    <task id="LOCAL-00384" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App">
+      <option name="closed" value="true" />
+      <created>1748379202385</created>
+      <option name="number" value="00384" />
+      <option name="presentableId" value="LOCAL-00384" />
+      <option name="project" value="LOCAL" />
+      <updated>1748379202385</updated>
+    </task>
+    <task id="LOCAL-00385" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App">
+      <option name="closed" value="true" />
+      <created>1748638085196</created>
+      <option name="number" value="00385" />
+      <option name="presentableId" value="LOCAL-00385" />
+      <option name="project" value="LOCAL" />
+      <updated>1748638085196</updated>
+    </task>
+    <task id="LOCAL-00386" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App">
+      <option name="closed" value="true" />
+      <created>1748726261913</created>
+      <option name="number" value="00386" />
+      <option name="presentableId" value="LOCAL-00386" />
+      <option name="project" value="LOCAL" />
+      <updated>1748726261913</updated>
+    </task>
+    <task id="LOCAL-00387" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window">
+      <option name="closed" value="true" />
+      <created>1748728696179</created>
+      <option name="number" value="00387" />
+      <option name="presentableId" value="LOCAL-00387" />
+      <option name="project" value="LOCAL" />
+      <updated>1748728696179</updated>
+    </task>
+    <task id="LOCAL-00388" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window">
+      <option name="closed" value="true" />
+      <created>1749232796850</created>
+      <option name="number" value="00388" />
+      <option name="presentableId" value="LOCAL-00388" />
+      <option name="project" value="LOCAL" />
+      <updated>1749232796850</updated>
+    </task>
+    <task id="LOCAL-00389" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports">
+      <option name="closed" value="true" />
+      <created>1749496396833</created>
+      <option name="number" value="00389" />
+      <option name="presentableId" value="LOCAL-00389" />
+      <option name="project" value="LOCAL" />
+      <updated>1749496396833</updated>
+    </task>
+    <task id="LOCAL-00390" summary="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports&#10;- Registration Window Separate First/Last Name&#10;- Started Import Report Layout From Template [remaining:stop,impound,search,accident]">
+      <option name="closed" value="true" />
+      <created>1750366263525</created>
+      <option name="number" value="00390" />
+      <option name="presentableId" value="LOCAL-00390" />
+      <option name="project" value="LOCAL" />
+      <updated>1750366263526</updated>
+    </task>
+    <option name="localTasksCounter" value="391" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1135,16 +1145,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Basic Terminal Window&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- Fixed alpr playing sound with window closed&#10;- Added Terminal Window With Debug Commands&#10;- Added Extended Expiration Data To License Information&#10;- Much Better Null Checks For Vehicle Data Information&#10;- Config Setting To Automatically Pull St/Area/Cty Info Into Reports&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha" />
-    <MESSAGE value="- v1.5.1-alpha&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
-    <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive" />
     <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color" />
     <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
@@ -1160,10 +1160,24 @@
     <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;&#10;- Update Callout Window Realtime (Req. Testing)&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
     <MESSAGE value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime" />
-    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.1-alpha&#10;- More thread information&#10;- Reformatted log types to have their own methods&#10;- Make usernames not case-sensitive&#10;- Added skip login config option&#10;- Fixed TopBar Location Data Not Updating Color&#10;- Detection for &quot;dev&quot; string in version&#10;- Check For App Being In Same Dir As Server&#10;- Improved Traffic Stop Window With Vehicle Models&#10;- Small Charges/Citations Additions&#10;- Correct Vehicle Lookup Bug&#10;- Fix checking config value when config wasn't created yet&#10;- Update Callout Window Realtime" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports&#10;- Registration Window Separate First/Last Name" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports&#10;- Registration Window Separate First/Last Name&#10;&#10;Signed-off-by: Guess1mMAC &lt;rp@no-reply.com&gt;" />
+    <MESSAGE value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports&#10;- Registration Window Separate First/Last Name&#10;- Started Import Report Layout From Template [remaining:stop,impound,search,accident]" />
+    <option name="LAST_COMMIT_MESSAGE" value="- v1.5.2-alpha&#10;- New Version Updates&#10;- Redesign Callout Manager Window&#10;- Changing LicensePlate Image In ALPR App&#10;- Better Styled Settings Window&#10;- Fixed Not Showing Expiration Dates Symbols (&gt; 1yr, etc.)&#10;- Added Checkbox FieldType For Custom Reports&#10;- Registration Window Separate First/Last Name&#10;- Started Import Report Layout From Template [remaining:stop,impound,search,accident]" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

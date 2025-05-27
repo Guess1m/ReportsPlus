@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.Insets?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="notesTemplateContainer" minHeight="-Infinity" VBox.vgrow="NEVER" xmlns="http://javafx.com/javafx/21">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="NEVER"/>
+        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+    </rowConstraints>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label fx:id="notesTemplateDate" text="06/29/2025"/>
+                <Label fx:id="notesTemplateTime" text="3:10 PM"/>
+                <Label fx:id="notesTemplateSender" text="John Nolan"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="deleteNoteButton" text="X" style="-fx-background-color: transparent; -fx-text-fill: red; -fx-font-weight: bold; -fx-padding: 0 5 0 0;"/>
+            </children>
+            <padding>
+                <Insets bottom="10.0" top="10.0" right="5.0"/>
+            </padding>
+        </HBox>
+        <Label fx:id="notesTemplateText" style="-fx-font-size: 14;" text="SUSPICIOUS ACTIVITY SUSPECTED" wrapText="true" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="5.0" left="10.0"/>
+            </GridPane.margin>
+            <padding>
+                <Insets bottom="10.0" top="10.0"/>
+            </padding>
+        </Label>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0"/>
+    </padding>
+</GridPane>

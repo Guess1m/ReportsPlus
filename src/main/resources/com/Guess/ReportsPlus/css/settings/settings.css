@@ -1,86 +1,78 @@
 .button {
-    -fx-background-color: rgb(0, 0, 0, 0.1);
+    -fx-background-color: #b4b4b4;
     -fx-padding: 4px 15px;
-    -fx-background-radius: 5px;
-    -fx-text-fill: rgb(50, 50, 50, 0.7);
+    -fx-background-radius: 7px;
+    -fx-text-fill: rgba(0, 0, 0, 0.7);
     -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 13px;
+}
+
+ColorPicker {
+    -fx-background-color: #b4b4b4;
+    -fx-padding: 0px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: rgba(0, 0, 0, 0.7);
+    -fx-font-family: "Inter 28pt Medium" !important;
+    -fx-font-size: 13px;
+}
+
+Separator .line {
+    -fx-opacity: 0;
+}
+
+Separator {
+    -fx-background-color: rgba(124, 153, 180, 0.2);
 }
 
 .button:hover {
-    -fx-background-color: rgb(0, 0, 0, 0.2);
+    -fx-background-color: #9f9f9f;
 }
 
 .button:pressed {
-    -fx-background-color: rgb(0, 0, 0, 0.3);
-}
-
-.AuxButton {
-    -fx-background-color: rgb(0, 0, 0, 0.1);
-    -fx-padding: 3px 14px;
-    -fx-background-radius: 7px;
-    -fx-text-fill: rgb(50, 50, 50, 0.7);
-    -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 13px;
-}
-
-.AuxButton:hover {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
-}
-
-.AuxButton:pressed {
-    -fx-background-color: #39813B;
-    -fx-text-fill: white;
+    -fx-background-color: #868686;
 }
 
 .panelButton {
     -fx-background-color: transparent;
     -fx-background-radius: 7px;
-    -fx-text-fill: rgb(80, 80, 80, 0.9);
+    -fx-text-fill: #b4b4b4;
     -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 14px;
-    -fx-padding: 2px 4px;
+    -fx-font-size: 15px;
+    -fx-padding: 1px 2px;
 }
 
 .panelButton:hover {
-    -fx-background-color: white;
-    -fx-background-radius: 7px;
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 14px;
+    -fx-background-color: #182238;
+    -fx-text-fill: #7c99b4;
 }
 
 .panelButton:pressed {
     -fx-background-color: rgb(0, 0, 0, 0.07);
-    -fx-background-radius: 7px;
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 14px;
+    -fx-text-fill: #7c99b4;
 }
 
 .settingsLabel {
     -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 20px;
-    -fx-text-fill: rgb(75, 75, 75);
+    -fx-text-fill: #b4b4b4;
 }
 
 .paneHeading {
     -fx-font-family: "Inter 28pt Bold";
     -fx-font-size: 17px;
-    -fx-text-fill: rgb(100, 100, 100);
+    -fx-text-fill: #5E7387;
 }
 
 .paneSubtext {
     -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 10px;
-    -fx-text-fill: rgb(130, 130, 130, 0.85);
+    -fx-text-fill: b4b4b4;
 }
 
 .heading {
     -fx-font-family: "Inter 28pt Bold";
-    -fx-font-size: 11px;
-    -fx-text-fill: rgb(100, 100, 100, 0.6);
+    -fx-font-size: 13px;
+    -fx-text-fill: #5E7387;
 }
 
 .toggle-button {
@@ -114,37 +106,35 @@
 .text-field {
     -fx-font-family: "Inter 28pt Medium" !important;
     -fx-font-size: 12px;
-    -fx-text-fill: rgb(50, 50, 50);
-    -fx-prompt-text-fill: rgb(50, 50, 50, 0.3);
-    -fx-padding: 5 10 4 10;
-    -fx-background-radius: 5;
-    -fx-alignment: center;
-    -fx-background-color: transparent;
-    -fx-border-width: 0 0 2 0;
-    -fx-border-color: rgb(100, 100, 100);
-}
-
-.text-field:focused {
-    -fx-border-color: green !important;
-    -fx-border-width: 0 0 3 0;
-}
-
-.combo-box {
-    -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 12px;
-    -fx-text-fill: rgb(50, 50, 50);
-    -fx-prompt-text-fill: rgb(50, 50, 50, 0.3);
+    -fx-text-fill: rgba(255, 255, 255, 0.7) !important;
+    -fx-prompt-text-fill: rgba(147, 147, 147, 0.3);
     -fx-padding: 0 0 0 10;
     -fx-background-radius: 5;
     -fx-alignment: center;
     -fx-background-color: transparent;
     -fx-border-width: 0 0 2 0;
-    -fx-border-color: rgb(100, 100, 100);
+    -fx-border-color: #b4b4b4;
+}
+
+.text-field:focused {
+    -fx-border-width: 0 0 2 0;
+}
+
+.combo-box {
+    -fx-font-family: "Inter 28pt Medium" !important;
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255, 255, 255, 0.7) !important;
+    -fx-prompt-text-fill: rgba(147, 147, 147, 0.3);
+    -fx-padding: 0 0 0 10;
+    -fx-background-radius: 5;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #b4b4b4;
 }
 
 .combo-box:focused {
-    -fx-border-color: green !important;
-    -fx-border-width: 0 0 3 0;
+    -fx-border-width: 0 0 2 0;
 }
 
 .combo-box .list-view .list-cell {
@@ -154,6 +144,7 @@
 
 .combo-box .combo-box-popup .list-view .list-cell {
     -fx-background-color: rgb(255, 255, 255, 0.1);
+    -fx-text-fill: black !important;
 }
 
 .combo-box .combo-box-popup .list-view .list-cell:hover {
@@ -179,7 +170,7 @@
 }
 
 .combo-box .list-cell {
-    -fx-text-fill: black;
+    -fx-text-fill: rgba(255, 255, 255, 0.7) !important;
 }
 
 .scroll-pane {
@@ -187,6 +178,39 @@
     -fx-faint-focus-color: transparent;
 }
 
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #5E7387;
+    -fx-min-height: 12px;
+}
+
 ScrollPane {
     -fx-background-color: transparent;
+}
+
+ScrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
+GridPane {
+    -fx-background-color: transparent;
+}
+
+AnchorPane {
+    -fx-background-color: transparent;
+}
+
+SplitPane {
+    -fx-background-color: transparent;
+}
+
+SplitPane .split-pane-divider {
+    -fx-background-color: rgba(124, 153, 180, 0.2);
 }

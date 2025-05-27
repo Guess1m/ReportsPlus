@@ -127,6 +127,20 @@ public class ConfigReader {
 			checkAndSetDefaultValue("userInfo", "Callsign", "");
 		}
 		
+		// Callout Manager Settings
+		checkAndSetDefaultValue("calloutManager", "highPriorityColor", "#FF3B30");
+		checkAndSetDefaultValue("calloutManager", "mediumPriorityColor", "#FF9500");
+		checkAndSetDefaultValue("calloutManager", "lowPriorityColor", "#34C759");
+		checkAndSetDefaultValue("calloutManager", "defaultColor", "#5AC8FA");
+		checkAndSetDefaultValue("calloutManager", "highPriorityValue", "code3");
+		checkAndSetDefaultValue("calloutManager", "mediumPriorityValue", "code2");
+		checkAndSetDefaultValue("calloutManager", "lowPriorityValue", "code1");
+		checkAndSetDefaultValue("calloutManager", "defaultValue", "default");
+		
+		// ALPR Settings
+		checkAndSetDefaultValue("alprSettings", "useDefaultImage", "true");
+		checkAndSetDefaultValue("alprSettings", "licensePlateImagePath", "");
+		
 		// Desktop Settings
 		checkAndSetDefaultValue("desktopSettings", "useBackground", "false");
 		checkAndSetDefaultValue("desktopSettings", "backgroundPath", "");
@@ -175,6 +189,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("connectionSettings", "autofillLocation", "true");
 		
 		// Report Settings
+		checkAndSetDefaultValue("reportSettings", "useUpperLabels", "true");
 		checkAndSetDefaultValue("reportSettings", "reportAccent", "#263238");
 		checkAndSetDefaultValue("reportSettings", "reportBackground", "#505D62");
 		checkAndSetDefaultValue("reportSettings", "reportHeading", "#FFFFFF");

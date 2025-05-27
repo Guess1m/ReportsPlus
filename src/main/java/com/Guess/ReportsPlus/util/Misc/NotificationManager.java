@@ -24,8 +24,7 @@ import java.util.Objects;
 import java.util.Queue;
 
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.changeImageColor;
 
 public class NotificationManager {
@@ -216,7 +215,7 @@ public class NotificationManager {
 			} catch (IOException e) {
 				logError("Error Getting NotificationsEnabled Setting: ", e);
 			} catch (NullPointerException e) {
-				logError("Notification config is null or a required resource is missing.", e);
+				logWarn("Notification config is null or a required resource is missing: " + e.getStackTrace());
 			}
 		});
 	}

@@ -1744,7 +1744,6 @@ public class LogViewController {
 				time.setText(arrestReport.getArrestTime());
 				notes.setText(arrestReport.getArrestDetails());
 				
-				BorderPane root = (BorderPane) arrestReportObj.get("root");
 				Button delBtn = (Button) arrestReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);

@@ -10,6 +10,7 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -82,6 +83,7 @@ public class reportUtil {
 		try {
 			placeholder = ConfigReader.configRead("reportSettings", "reportHeading");
 		} catch (IOException e) {
+			logError("Could not read reportHeading from config: ", e);
 			throw new RuntimeException(e);
 		}
 		
@@ -316,6 +318,7 @@ public class reportUtil {
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formFields.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formCheckBox.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formTextArea.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formButton.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formComboBox.css").toExternalForm());
@@ -324,6 +327,7 @@ public class reportUtil {
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/light/formTitledPane.css").toExternalForm());
 			} else {
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formFields.css").toExternalForm());
+				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formCheckBox.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formTextArea.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formButton.css").toExternalForm());
 				mainRoot.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/form/dark/formComboBox.css").toExternalForm());
@@ -367,6 +371,15 @@ public class reportUtil {
 				placeholder = "white";
 			}
 		} catch (IOException e) {
+			logError("Could not read reportWindowDarkMode from config: ", e);
+			throw new RuntimeException(e);
+		}
+		
+		String labelColor;
+		try {
+			labelColor = ConfigReader.configRead("reportSettings", "reportHeading");
+		} catch (IOException e) {
+			logError("Could not read reportHeading from config [2]: ", e);
 			throw new RuntimeException(e);
 		}
 		
@@ -380,6 +393,25 @@ public class reportUtil {
 			}
 			totalSize += fieldConfig.getSize();
 			switch (fieldConfig.getFieldType()) {
+				case CHECK_BOX:
+					CheckBox checkBox = new CheckBox();
+					checkBox.getStyleClass().add("formCheckBox");
+					GridPane.setHalignment(checkBox, HPos.CENTER);
+					GridPane.setValignment(checkBox, VPos.CENTER);
+					checkBox.setText(fieldConfig.getFieldName().toUpperCase().replace("_", " "));
+					checkBox.setStyle("-fx-text-fill: " + labelColor + " !important;");
+					
+					checkBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+						if (newValue) {
+							checkBox.setStyle("-fx-text-fill: " + getSecondaryColor() + "; -fx-border-color: " + getSecondaryColor() + "; -fx-border-width: 1;");
+						} else {
+							checkBox.setStyle("-fx-text-fill: " + placeholder + "; -fx-border-color: transparent;");
+						}
+					});
+					
+					gridPane.add(checkBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					fieldsMap.put(fieldConfig.getFieldName(), checkBox);
+					break;
 				case OFFICER_NAME:
 				case OFFICER_RANK:
 				case OFFICER_AGENCY:
@@ -405,9 +437,28 @@ public class reportUtil {
 						}
 					});
 					
-					textField.setPromptText(fieldConfig.getFieldName().toUpperCase());
-					textField.setPrefWidth(200);
-					gridPane.add(textField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					//TODO: !important add for rest of field types
+					// completed?
+					try {
+						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
+							VBox vBox = new VBox();
+							Label label = new Label(fieldConfig.getFieldName().toUpperCase());
+							label.setStyle("-fx-text-fill: " + labelColor);
+							vBox.getChildren().add(label);
+							vBox.getChildren().add(textField);
+							
+							vBox.setPrefWidth(200);
+							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						} else {
+							textField.setPromptText(fieldConfig.getFieldName().toUpperCase());
+							
+							textField.setPrefWidth(200);
+							gridPane.add(textField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						}
+					} catch (IOException e) {
+						logError("Error getting reportSettings.useUpperLabels [1]: ", e);
+					}
+					
 					fieldsMap.put(fieldConfig.getFieldName(), textField);
 					
 					try {
@@ -432,8 +483,10 @@ public class reportUtil {
 						} else if (fieldConfig.getFieldType().equals(COUNTY_FIELD) && ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true")) {
 							if (mainDesktopControllerObj != null) {
 								if (mainDesktopControllerObj.getLocationCountyLabel().getText() != null && !mainDesktopControllerObj.getLocationCountyLabel().getText().isEmpty()) {
-									textField.setText(mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", ""));
-									logInfo("Autofilled county: [" + mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", "") + "] into textfield: [" + fieldConfig.getFieldName() + "]");
+									if (!mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", "").equalsIgnoreCase("county")) {
+										textField.setText(mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", ""));
+										logInfo("Autofilled county: [" + mainDesktopControllerObj.getLocationCountyLabel().getText().replaceAll(",", "") + "] into textfield: [" + fieldConfig.getFieldName() + "]");
+									}
 								}
 							}
 						}
@@ -456,7 +509,6 @@ public class reportUtil {
 							box.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-					box.setPromptText(fieldConfig.getFieldName().toUpperCase());
 					box.setButtonCell(new ListCell() {
 						@Override
 						protected void updateItem(Object item, boolean empty) {
@@ -469,7 +521,6 @@ public class reportUtil {
 							}
 						}
 					});
-					box.setMaxWidth(Double.MAX_VALUE);
 					
 					if (fieldConfig.getFieldType().equals(COMBO_BOX_SEARCH_METHOD)) {
 						box.getItems().addAll(dropdownInfo.searchMethods);
@@ -481,7 +532,27 @@ public class reportUtil {
 						box.getItems().addAll(dropdownInfo.vehicleTypes);
 					}
 					
-					gridPane.add(box, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					try {
+						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
+							VBox vBox = new VBox();
+							Label label = new Label(fieldConfig.getFieldName().toUpperCase());
+							label.setStyle("-fx-text-fill: " + labelColor);
+							vBox.getChildren().add(label);
+							vBox.getChildren().add(box);
+							
+							vBox.setMaxWidth(Double.MAX_VALUE);
+							box.setMaxWidth(Double.MAX_VALUE);
+							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						} else {
+							box.setPromptText(fieldConfig.getFieldName().toUpperCase());
+							
+							box.setMaxWidth(Double.MAX_VALUE);
+							gridPane.add(box, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						}
+					} catch (IOException e) {
+						logError("Error getting reportSettings.useUpperLabels [2]: ", e);
+					}
+					
 					fieldsMap.put(fieldConfig.getFieldName(), box);
 					break;
 				case COMBO_BOX_AREA:
@@ -505,7 +576,6 @@ public class reportUtil {
 							comboBox.getEditor().setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-					comboBox.setPromptText(fieldConfig.getFieldName().toUpperCase());
 					comboBox.setButtonCell(new ListCell() {
 						@Override
 						protected void updateItem(Object item, boolean empty) {
@@ -527,8 +597,10 @@ public class reportUtil {
 							if (ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true")) {
 								if (mainDesktopControllerObj != null) {
 									if (mainDesktopControllerObj.getLocationAreaLabel().getText() != null && !mainDesktopControllerObj.getLocationAreaLabel().getText().isEmpty()) {
-										comboBox.getSelectionModel().select(mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", ""));
-										logInfo("Autofilled area: [" + mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]");
+										if (!mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", "").equalsIgnoreCase("area")) {
+											comboBox.getSelectionModel().select(mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", ""));
+											logInfo("Autofilled area: [" + mainDesktopControllerObj.getLocationAreaLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]");
+										}
 									}
 								}
 							}
@@ -541,8 +613,10 @@ public class reportUtil {
 							if (ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true")) {
 								if (mainDesktopControllerObj != null) {
 									if (mainDesktopControllerObj.getLocationStreetLabel().getText() != null && !mainDesktopControllerObj.getLocationStreetLabel().getText().isEmpty()) {
-										comboBox.getSelectionModel().select(mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", ""));
-										logInfo("Autofilled street: [" + mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]");
+										if (!mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", "").equalsIgnoreCase("street")) {
+											comboBox.getSelectionModel().select(mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", ""));
+											logInfo("Autofilled street: [" + mainDesktopControllerObj.getLocationStreetLabel().getText().replaceAll(",", "") + "] into combobox: [" + fieldConfig.getFieldName() + "]");
+										}
 									}
 								}
 							}
@@ -551,7 +625,26 @@ public class reportUtil {
 						}
 					}
 					
-					gridPane.add(comboBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					try {
+						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
+							VBox vBox = new VBox();
+							Label label = new Label(fieldConfig.getFieldName().toUpperCase());
+							label.setStyle("-fx-text-fill: " + labelColor);
+							vBox.getChildren().add(label);
+							vBox.getChildren().add(comboBox);
+							
+							vBox.setMaxWidth(Double.MAX_VALUE);
+							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						} else {
+							comboBox.setPromptText(fieldConfig.getFieldName().toUpperCase());
+							
+							comboBox.setMaxWidth(Double.MAX_VALUE);
+							gridPane.add(comboBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						}
+					} catch (IOException e) {
+						logError("Error getting reportSettings.useUpperLabels [3]: ", e);
+					}
+					
 					fieldsMap.put(fieldConfig.getFieldName(), comboBox);
 					break;
 				case TEXT_AREA:
@@ -566,13 +659,34 @@ public class reportUtil {
 							textArea.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-					textArea.setPromptText(fieldConfig.getFieldName().toUpperCase());
 					textArea.setPrefRowCount(5);
-					textArea.setMaxWidth(Double.MAX_VALUE);
-					textArea.setMinHeight(150);
-					textArea.setPrefHeight(150);
-					textArea.setMaxHeight(Region.USE_COMPUTED_SIZE);
-					gridPane.add(textArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					
+					try {
+						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
+							VBox vBox = new VBox();
+							Label label = new Label(fieldConfig.getFieldName().toUpperCase());
+							label.setStyle("-fx-text-fill: " + labelColor);
+							vBox.getChildren().add(label);
+							vBox.getChildren().add(textArea);
+							
+							vBox.setMaxWidth(Double.MAX_VALUE);
+							vBox.setMinHeight(150);
+							vBox.setPrefHeight(150);
+							vBox.setMaxHeight(Region.USE_COMPUTED_SIZE);
+							
+							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						} else {
+							textArea.setPromptText(fieldConfig.getFieldName().toUpperCase());
+							textArea.setMaxWidth(Double.MAX_VALUE);
+							textArea.setMinHeight(150);
+							textArea.setPrefHeight(150);
+							textArea.setMaxHeight(Region.USE_COMPUTED_SIZE);
+							gridPane.add(textArea, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+						}
+					} catch (IOException e) {
+						logError("Error getting reportSettings.useUpperLabels [4]: ", e);
+					}
+					
 					fieldsMap.put(fieldConfig.getFieldName(), textArea);
 					
 					GridPane.setHgrow(textArea, Priority.ALWAYS);
@@ -958,6 +1072,12 @@ public class reportUtil {
 						}
 					});
 					rowIndex += 6;
+					break;
+				case BLANK_SPACE:
+					AnchorPane blankBox = new AnchorPane();
+					blankBox.setMinHeight(35);
+					
+					gridPane.add(blankBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					break;
 				default:
 					logError("Unknown field type: " + fieldConfig.getFieldType());

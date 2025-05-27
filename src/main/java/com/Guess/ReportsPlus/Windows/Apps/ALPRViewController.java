@@ -2,8 +2,10 @@ package com.Guess.ReportsPlus.Windows.Apps;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
+import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.config.ConfigWriter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,10 +15,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,9 +33,11 @@ import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.createCustomWindow;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.vehLookupAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
+import static com.Guess.ReportsPlus.MainApplication.mainRT;
 import static com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController.vehLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
 import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
@@ -43,10 +51,12 @@ import static com.Guess.ReportsPlus.util.Strings.URLStrings.serverALPRFileURL;
 
 public class ALPRViewController {
 	private static final DateTimeFormatter TIMESTAMP_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd'T'HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).appendOffset("+HH:mm", "Z").toFormatter();
+	Image defImage = new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/LicensePlate.png"));
 	public static ALPRViewController alprViewController;
 	private static ObservableList<Vehicle> vehicleList = FXCollections.observableArrayList();
 	private static Set<String> alertedPlates;
 	private static Set<String> vehicleIdentifiers;
+	
 	@FXML
 	private BorderPane root;
 	@FXML
@@ -85,6 +95,10 @@ public class ALPRViewController {
 	private Label plateTypeSubLabel;
 	@FXML
 	private Button clearButton;
+	@FXML
+	private ImageView licensePlateImageView;
+	@FXML
+	private Button settingsBtn;
 	
 	public static void loadData() {
 		if (alprViewController == null) {
@@ -221,6 +235,8 @@ public class ALPRViewController {
 	public void initialize() {
 		alprViewController = this;
 		
+		updateLicensePlateImage();
+		
 		alertedPlates = new HashSet<>();
 		vehicleIdentifiers = Collections.synchronizedSet(new HashSet<>());
 		
@@ -245,6 +261,7 @@ public class ALPRViewController {
 		flagsSubLabel.setText(localization.getLocalizedMessage("ALPR.flagsSubLabel", "Vehicle Flags:"));
 		searchDMVButton.setText(localization.getLocalizedMessage("TrafficStopWindow.SearchPlateButton", "Search D.M.V. Lookup"));
 		clearButton.setText(localization.getLocalizedMessage("ALPR.clearButton", "Clear Old"));
+		settingsBtn.setText(localization.getLocalizedMessage("Settings.MainHeader", "Settings"));
 	}
 	
 	public void addVehicle(Vehicle vehicle) {
@@ -454,6 +471,167 @@ public class ALPRViewController {
 	
 	public Button getClearButton() {
 		return clearButton;
+	}
+	
+	@FXML
+	public void settingsBtnPress(ActionEvent actionEvent) {
+		BorderPane root = new BorderPane();
+		root.setPadding(new Insets(3));
+		
+		CheckBox useDefaultCheckBox = new CheckBox("Use Default Image");
+		
+		Label filePathLabel = new Label("Image Path:");
+		TextField filePathField = new TextField();
+		filePathField.setPromptText("Select an image file");
+		filePathField.setEditable(false);
+		filePathField.setDisable(true);
+		HBox.setHgrow(filePathField, Priority.ALWAYS);
+		
+		Button browseButton = new Button("Browse...");
+		browseButton.setDisable(true);
+		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Image File");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"), new FileChooser.ExtensionFilter("All Files", "*.*"));
+		
+		HBox filePathBox = new HBox(15);
+		filePathBox.setAlignment(Pos.CENTER_LEFT);
+		filePathBox.getChildren().addAll(filePathLabel, filePathField, browseButton);
+		
+		VBox centerContent = new VBox(20);
+		centerContent.setPadding(new Insets(15));
+		centerContent.setAlignment(Pos.CENTER_LEFT);
+		centerContent.getChildren().addAll(useDefaultCheckBox, filePathBox);
+		root.setCenter(centerContent);
+		
+		Button saveButton = new Button("Save");
+		HBox buttonBox = new HBox();
+		buttonBox.setAlignment(Pos.CENTER_RIGHT);
+		buttonBox.setPadding(new Insets(10, 0, 0, 0));
+		buttonBox.getChildren().add(saveButton);
+		root.setBottom(buttonBox);
+		
+		boolean useDefault = true;
+		String savedImagePath = "";
+		try {
+			String useDefaultStr = ConfigReader.configRead("alprSettings", "useDefaultImage");
+			if (useDefaultStr != null) {
+				useDefault = Boolean.parseBoolean(useDefaultStr);
+			}
+			if (!useDefault) {
+				savedImagePath = ConfigReader.configRead("alprSettings", "licensePlateImagePath");
+			}
+		} catch (Exception e) {
+			logError("ALPR; Error reading configValue for useDefaultImage or parsing boolean. Defaulting to use default image.", e);
+			useDefault = true;
+		}
+		useDefaultCheckBox.setSelected(useDefault);
+		
+		filePathField.setDisable(useDefault);
+		browseButton.setDisable(useDefault);
+		if (useDefault) {
+			filePathField.clear();
+			filePathField.setPromptText("Using default image");
+		} else {
+			filePathField.setText(savedImagePath);
+			filePathField.setPromptText("Select an image file");
+		}
+		
+		root.setPrefHeight(175);
+		root.setPrefWidth(400);
+		
+		useDefaultCheckBox.setOnAction(event -> {
+			boolean useDefault2 = useDefaultCheckBox.isSelected();
+			filePathField.setDisable(useDefault2);
+			browseButton.setDisable(useDefault2);
+			if (useDefault2) {
+				filePathField.clear();
+				filePathField.setPromptText("Using default image");
+			} else {
+				filePathField.setPromptText("Select an image file");
+			}
+		});
+		
+		browseButton.setOnAction(event -> {
+			File selectedFile = fileChooser.showOpenDialog((javafx.stage.Window) mainRT);
+			if (selectedFile != null) {
+				filePathField.setText(selectedFile.getAbsolutePath());
+			}
+		});
+		CustomWindow window = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), root, "ALPR Settings", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
+		                                         new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+		
+		saveButton.setOnAction(event -> {
+			boolean useDefault2 = useDefaultCheckBox.isSelected();
+			String imagePath = filePathField.getText();
+			
+			logInfo("--- ALPR Settings Saved ---");
+			logInfo("Use Default Image: " + useDefault2);
+			logInfo("Image Path: " + (useDefault2 ? "Default" : imagePath));
+			logInfo("---------------------");
+			
+			ConfigWriter.configwrite("alprSettings", "useDefaultImage", useDefault2 ? "true" : "false");
+			ConfigWriter.configwrite("alprSettings", "licensePlateImagePath", useDefault2 ? "" : imagePath);
+			
+			updateLicensePlateImage();
+			
+			if (window != null) {
+				window.closeWindow();
+			}
+		});
+	}
+	
+	private void updateLicensePlateImage() {
+		boolean useDefaultImageConfig = true;
+		
+		try {
+			String useDefaultStr = ConfigReader.configRead("alprSettings", "useDefaultImage");
+			if (useDefaultStr != null) {
+				useDefaultImageConfig = Boolean.parseBoolean(useDefaultStr);
+			} else {
+			}
+		} catch (Exception e) {
+			logError("ALPR; Error reading configValue for useDefaultImage or parsing boolean. Defaulting to use default image.", e);
+			useDefaultImageConfig = true;
+		}
+		
+		if (useDefaultImageConfig) {
+			logDebug("ALPR; Using default image for ALPR license plate (either by configuration or due to error in 'useDefaultImage' config).");
+			licensePlateImageView.setImage(defImage);
+		} else {
+			boolean customImageLoadedSuccessfully = false;
+			String filePath;
+			
+			try {
+				filePath = ConfigReader.configRead("alprSettings", "licensePlateImagePath");
+				
+				if (filePath != null && !filePath.isEmpty()) {
+					File file = new File(filePath);
+					if (file.exists() && file.isFile()) {
+						try {
+							licensePlateImageView.setImage(new Image(new FileInputStream(file)));
+							logDebug("ALPR; Successfully loaded license plate image from file path [" + filePath + "]");
+							customImageLoadedSuccessfully = true;
+						} catch (Exception imageLoadEx) {
+							logError("ALPR; Failed to load image from existing file [" + filePath + "]. Using default image.", imageLoadEx);
+						}
+					} else {
+						logError("ALPR; Custom image file path [" + (filePath == null ? "null" : filePath) + "] does not exist or is not a file. Using default image.");
+					}
+				} else {
+					logError("ALPR; Custom image file path is null or empty in config. Using default image.");
+				}
+			} catch (IOException configReadEx) {
+				logError("ALPR; IOException while reading 'licensePlateImagePath' from config. Using default image.", configReadEx);
+			} catch (Exception ex) {
+				logError("ALPR; Unexpected error occurred while trying to load custom license plate image. Using default image.", ex);
+			}
+			
+			if (!customImageLoadedSuccessfully) {
+				logDebug("ALPR; Falling back to default image for license plate due to issues with loading the custom image.");
+				licensePlateImageView.setImage(defImage);
+			}
+		}
 	}
 	
 	public static class Vehicle {

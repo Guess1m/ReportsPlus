@@ -17,10 +17,17 @@ public class updateStrings {
 	 updatesList
 	 */
 	
-	public static final String version = "v1.5.1-alpha";
-	public static final String[] updatesList = {"Fully Custom Configurable ALPR System", "ALPR In-Game Plate Display", "Added Login / Registration System", "Update Callout Manager Window Realtime", "Improved Traffic Stop Window With Vehicle Models", "Config Setting To Automatically Pull St/Area/Cty Info Into Reports", "Small Charges/Citations Additions", "Check For App Being In Same Dir As Server", "Fixed TopBar Location Data Not Updating Color", "Fixed Bug With Info Box Background Color", "Added Menu To Plugin", "Ability To Give/Discard Citations In Menu", "Added Config Setting For Using 24-Hour Time", "Added Extended Expiration Data To License Information", "Added Terminal Window"};
+	public static final String version = "v1.5.2-alpha-dev";
+	public static final String[] updatesList = {"UPDATED TO JDK24", "Redesign Callout Manager Window", "Change LicensePlate Image In ALPR App", "Registration Window UI Updates", "Better Styled Settings Window", "Added Blank FieldType For Custom Reports", "Added Checkbox FieldType For Custom Reports", "Fixed Not Showing Expiration Dates Symbols (> 1yr, etc.)", "Importing Report Layout From Templates"};
 	public static final String[] soundList = {"alert-callout.wav", "alert-success.wav", "alert-delete.wav", "alert-wanted.wav"};
 	public static final String localeChanges = """
+			Version: v1.5.2-alpha
+			NEW:
+			
+			
+			REMOVED:
+			
+			
 			Version: v1.5.1-alpha
 			NEW:
 			    Settings.autofillLocationInfoLabel=AutoFill Location Information
@@ -201,7 +208,4 @@ public class updateStrings {
 				Settings.AudioSettingsHeader=AUDIO SETTINGS  ->  Settings.AudioSettingsHeader=AUDIO/OPTIONAL SETTINGS
 				Settings.AudioBtn=Audio  ->  Settings.AudioBtn=Audio/Optionals
 			""";
-	
-	public static final String name = "Reports Plus";
-	
 }

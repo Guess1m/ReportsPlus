@@ -351,7 +351,7 @@ public class ArrestReportUtils {
 					logError("Could not create new ArrestReport: ", e);
 				}
 				
-				//TODO: !important get ped priors and ensure no duplicates
+				//BUG: !important get ped priors and ensure no duplicates
 				// (Changing arrest report status duplicates charge history entries)
 				// (I think it needs to be changed here)
 				Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(arrestReport1.getArresteeName());

@@ -14,6 +14,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,8 +45,6 @@ public class desktopLoginController {
 	@javafx.fxml.FXML
 	private Button loginRegisterButton;
 	@javafx.fxml.FXML
-	private TextField registrationOfficerNameField;
-	@javafx.fxml.FXML
 	private Label loginErrorLabel;
 	@javafx.fxml.FXML
 	private BorderPane registrationWindow;
@@ -53,8 +54,6 @@ public class desktopLoginController {
 	private Button registerButton;
 	@javafx.fxml.FXML
 	private Button loginButton;
-	@javafx.fxml.FXML
-	private TextField passwordField;
 	@javafx.fxml.FXML
 	private TextField registrationPasswordField;
 	@javafx.fxml.FXML
@@ -96,12 +95,47 @@ public class desktopLoginController {
 	@javafx.fxml.FXML
 	private Label oCallsignLabel;
 	@javafx.fxml.FXML
-	private Label oNameLabel;
+	private TextField registrationOfficerLastNameField;
+	@javafx.fxml.FXML
+	private Label oLastName;
+	@javafx.fxml.FXML
+	private Label oFirstName;
+	@javafx.fxml.FXML
+	private TextField registrationOfficerFirstNameField;
+	@javafx.fxml.FXML
+	private ImageView showPassImageView;
+	@javafx.fxml.FXML
+	private TextField passwordFieldUnmasked;
+	@javafx.fxml.FXML
+	private PasswordField passwordFieldMasked;
 	
 	public void initialize() {
 		addLocale();
 		checkConfigUserInProfiles();
 		Platform.runLater(() -> checkForMissingCredentials());
+		
+		passwordFieldMasked.textProperty().bindBidirectional(passwordFieldUnmasked.textProperty());
+		
+		passwordFieldMasked.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				loginBtnClick(new ActionEvent());
+			}
+		});
+		
+		passwordFieldMasked.setVisible(true);
+		passwordFieldUnmasked.setVisible(false);
+		
+		showPassImageView.setOnMousePressed(event -> {
+			passwordFieldMasked.setVisible(false);
+			passwordFieldUnmasked.setVisible(true);
+			passwordFieldUnmasked.requestFocus();
+		});
+		
+		showPassImageView.setOnMouseReleased(event -> {
+			passwordFieldMasked.setVisible(true);
+			passwordFieldUnmasked.setVisible(false);
+			passwordFieldMasked.requestFocus();
+		});
 	}
 	
 	private void checkConfigUserInProfiles() {
@@ -151,7 +185,8 @@ public class desktopLoginController {
 		passwordLabel.setText(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
 		oCallsignLabel.setText(localization.getLocalizedMessage("UserManager.CallsignLabel", "Callsign:"));
 		oNumLabel.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
-		oNameLabel.setText(localization.getLocalizedMessage("UserManager.newProfileLabel", "Name:"));
+		oFirstName.setText(localization.getLocalizedMessage("Desktop.firstNameLabel", "First Name:"));
+		oLastName.setText(localization.getLocalizedMessage("Desktop.lastNameLabel", "Last Name:"));
 		
 		rankLabel.setText(localization.getLocalizedMessage("UserManager.RankLabel", "Rank:"));
 		divisionLabel.setText(localization.getLocalizedMessage("UserManager.DivisionLabel", "Division:"));
@@ -182,7 +217,7 @@ public class desktopLoginController {
 	@javafx.fxml.FXML
 	public void loginBtnClick(ActionEvent actionEvent) {
 		String user = usernameField.getText().trim().toLowerCase();
-		String pass = passwordField.getText().trim();
+		String pass = passwordFieldMasked.getText().trim();
 		if (user.isEmpty() || pass.isEmpty()) {
 			showError(loginErrorLabel, "Fill out username and password");
 			return;
@@ -193,7 +228,7 @@ public class desktopLoginController {
 				for (User userObj : userProfiles.getUserList()) {
 					if (userObj.getUsername() != null && userObj.getPassword() != null && userObj.getUsername().equalsIgnoreCase(user) && userObj.getPassword().equals(pass)) {
 						logInfo("Login successful for " + userObj.getUsername());
-						loginUser(userObj.getName(), userObj.getNumber(), userObj.getRank(), userObj.getDivision(), userObj.getAgency());
+						loginUser(userObj.getName(), userObj.getNumber(), userObj.getRank(), userObj.getDivision(), userObj.getAgency(), userObj.getCallsign());
 						return;
 					}
 				}
@@ -213,8 +248,11 @@ public class desktopLoginController {
 		String rank = registrationRankBox.getValue() == null ? null : registrationRankBox.getValue().toString();
 		String officerNumber = registrationOfficerNumberField.getText().trim();
 		String callsign = registrationCallsignField.getText().trim();
-		String name = registrationOfficerNameField.getText().trim();
-		if (username.isEmpty() || password.isEmpty() || division == null || agency == null || officerNumber.isEmpty() || callsign.isEmpty() || rank == null || name.isEmpty()) {
+		
+		String first = registrationOfficerFirstNameField.getText().trim();
+		String last = registrationOfficerLastNameField.getText().trim();
+		String name = first + " " + last;
+		if (username.isEmpty() || password.isEmpty() || division == null || agency == null || officerNumber.isEmpty() || callsign.isEmpty() || rank == null || first.isEmpty() || last.isEmpty()) {
 			showError(registrationErrorLabel, "Fill out all fields");
 			return;
 		}
@@ -236,14 +274,14 @@ public class desktopLoginController {
 			user.setUsername(username);
 			user.setPassword(password);
 			User.addUser(user);
-			loginUser(user.getName(), user.getNumber(), user.getRank(), user.getDivision(), user.getAgency());
+			loginUser(user.getName(), user.getNumber(), user.getRank(), user.getDivision(), user.getAgency(), user.getCallsign());
 		} catch (Exception e) {
 			logError("Error adding user: " + e);
 			showError(registrationErrorLabel, "Error adding user");
 		}
 	}
 	
-	private void loginUser(String name, String number, String rank, String division, String agency) {
+	private void loginUser(String name, String number, String rank, String division, String agency, String callsign) {
 		createConfig();
 		createAppConfig();
 		ConfigWriter.configwrite("userInfo", "Agency", agency);
@@ -251,6 +289,7 @@ public class desktopLoginController {
 		ConfigWriter.configwrite("userInfo", "Name", name);
 		ConfigWriter.configwrite("userInfo", "Rank", rank);
 		ConfigWriter.configwrite("userInfo", "Number", number);
+		ConfigWriter.configwrite("userInfo", "Callsign", callsign);
 		checkAndSetDefaultValues(true);
 		checkAndSetDefaultAppValues();
 		Stage stag = (Stage) root.getScene().getWindow();

@@ -1,25 +1,102 @@
-.Button {
+Button, ToggleButton {
     -fx-font-family: "Inter 28pt Medium";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-background-color: rgb(0, 0, 0, 0.1);
-    -fx-padding: 0 11 0 12;
+    -fx-padding: 5 12;
+}
+
+.delete-Button {
+    -fx-background-color: rgba(255, 99, 71, 0.6);
+    -fx-text-fill: white;
+}
+
+ToggleButton:selected {
+    -fx-background-color: rgb(0, 0, 0, 0.2);
+    -fx-border-width: 2;
+}
+
+TextField {
+    -fx-text-fill: black !important;
+    -fx-font-family: "Inter 28pt Medium";
+    -fx-background-color: transparent;
+    -fx-padding: 0.5px;
+    -fx-font-size: 14;
+    -fx-border-radius: 0;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+}
+
+ScrollPane {
+    -fx-background-color: transparent;
+}
+
+ScrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
+TabPane .tab-pane {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-text-fill: white !important;
+    -fx-background-radius: 8 8 0 0;
+    -fx-background-color: transparent;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 7 7 0 0;
+    -fx-border-color: black;
+    -fx-padding: 0 10;
+}
+
+.tab-pane .tab:selected {
+    -fx-border-width: 2 2 0 2;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #5E7387;
+    -fx-min-height: 12px;
+}
+
+TabPane .tab-label {
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+    -fx-font-family: "Inter 24pt Regular";
+}
+
+TabPane .tab:selected .tab-label {
+    -fx-font-family: "Inter 28pt Medium";
+}
+
+TabPane .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+TabPane .tab-header-background {
+    -fx-background-color: transparent;
 }
 
 .combo-boxCal {
     -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Inter 28pt Medium";
     -fx-font-size: 10.5px;
     -fx-background-color: none;
     -fx-background-insets: 0;
     -fx-padding: 0px;
     -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+    -fx-border-width: 1;
 }
 
 .combo-boxCal:focused {
     -fx-border-color: #5E7387;
-    -fx-border-width: 0 0 3px 0;
     -fx-effect: none;
 }
 
@@ -58,11 +135,96 @@
     -fx-text-fill: black;
 }
 
-.split-pane .split-pane-divider {
-    -fx-background-color: rgb(0, 0, 0, 0.2);
-    -fx-padding: 3px;
+.combo-boxCal:responded .list-cell {
+    -fx-text-fill: green !important;
 }
 
-.split-pane .split-pane-divider:pressed {
-    -fx-background-color: rgb(0, 0, 0, 0.45);
+.combo-boxCal:responded .list-view .list-cell, .combo-boxCal:notresponded .list-view .list-cell {
+    -fx-text-fill: black !important;
+}
+
+.combo-boxCal:notresponded .list-cell {
+    -fx-text-fill: red !important;
+}
+
+TableView .filler {
+    -fx-background-color: transparent;
+}
+
+TableView {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+TableView:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+TableView .column-header-background {
+    -fx-background-color: rgb(255, 255, 255, 0.3);
+    -fx-padding: 0;
+}
+
+TableView .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: #232323;
+    -fx-font-size: 10px;
+    -fx-font-family: "Inter 28pt Medium";
+}
+
+TableView .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(192, 192, 192, 0.2);
+    -fx-border-width: 0 1;
+}
+
+TableView .table-cell {
+    -fx-text-fill: #262626;
+    -fx-font-family: "Inter 24pt Regular";
+    -fx-font-size: 10px;
+    -fx-alignment: center;
+    -fx-border-color: rgba(192, 192, 192, 0.2);
+    -fx-border-width: 0 1;
+}
+
+TableView .table-row-cell {
+    -fx-table-cell-border-color: transparent;
+    -fx-alignment: center;
+}
+
+TableView .table-row-cell:odd {
+    -fx-background-color: rgb(255, 255, 255, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
+}
+
+TableView .table-row-cell:even {
+    -fx-background-color: rgb(242, 242, 242, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-color: rgb(128, 128, 128, 0.2);
+}
+
+TableView .table-row-cell:hover {
+    -fx-background-color: rgba(188, 188, 188, 0.2);
+}
+
+TableView > .virtual-flow > .scroll-bar:vertical,
+TableView > .virtual-flow > .scroll-bar:vertical > .track,
+TableView > .virtual-flow > .scroll-bar:vertical > .track-background,
+TableView > .virtual-flow > .scroll-bar:horizontal,
+TableView > .virtual-flow > .scroll-bar:horizontal > .track,
+TableView > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+TableView > .virtual-flow > .scroll-bar:horizontal > .thumb,
+TableView > .virtual-flow > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #383838;
+}
+
+TableView > .virtual-flow > .scroll-bar:horizontal > .thumb:pressed,
+TableView > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
+    -fx-background-color: #262626;
 }

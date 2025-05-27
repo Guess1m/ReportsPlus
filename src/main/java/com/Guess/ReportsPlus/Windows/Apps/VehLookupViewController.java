@@ -48,7 +48,7 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
 import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.*;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Other.CalloutManager.createLabel;
+import static com.Guess.ReportsPlus.util.Other.Callout.CalloutManager.createLabel;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateRecentSearches;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehImageFolderURL;
@@ -532,7 +532,6 @@ public class VehLookupViewController {
 			} else {
 				statusField.setText(status);
 			}
-			statusField.setText(status);
 			licNumField.setText(licnum);
 			
 			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));

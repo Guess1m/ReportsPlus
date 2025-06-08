@@ -12,6 +12,7 @@ import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Other.CalloutManager;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
+import com.Guess.ReportsPlus.util.Localization.LanguageConfigManager;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -30,6 +31,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
@@ -187,6 +189,8 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private ComboBox trafficStopDurComboBox;
 	@javafx.fxml.FXML
+	private ComboBox ChgLanguageComboBox;
+	@javafx.fxml.FXML
 	private ComboBox windowDisplaySettingCombobox;
 	@javafx.fxml.FXML
 	private ToggleButton alwaysOnTopCheckbox;
@@ -233,6 +237,8 @@ public class settingsController {
 	@javafx.fxml.FXML
 	private Label trafficStopDurLabel;
 	@javafx.fxml.FXML
+	private Label ChgLanguageLabel;
+	@javafx.fxml.FXML
 	private Label appDisLabelTT;
 	@javafx.fxml.FXML
 	private Label enableCalloutTT;
@@ -240,6 +246,8 @@ public class settingsController {
 	private Label CalDisplayDurLabel;
 	@javafx.fxml.FXML
 	private Label trafficStopDurTT;
+	@javafx.fxml.FXML
+	private Label ChgLanguageTT;
 	@javafx.fxml.FXML
 	private Label appDisLabel;
 	@javafx.fxml.FXML
@@ -1138,6 +1146,8 @@ public class settingsController {
 		trafficStopPopupsTT.setText(localization.getLocalizedMessage("Settings.TrafficStopPopupsTT", "Toggle whether traffic stop info window will come up when a traffic stop is initiated"));
 		trafficStopDurLabel.setText(localization.getLocalizedMessage("Settings.TrafficStopDurLabel", "Traffic Stop Display Duration"));
 		trafficStopDurTT.setText(localization.getLocalizedMessage("Settings.TrafficStopDurTT", "Duration traffic stop window will be shown"));
+		ChgLanguageLabel.setText(localization.getLocalizedMessage("Settings.ChgLanguageLabel","Languages"));
+		ChgLanguageTT.setText(localization.getLocalizedMessage("Settings.ChgLanguageTT","Change languages here"));
 		
 		//Notification
 		notiSettingsHeader.setText(localization.getLocalizedMessage("Settings.NotiSettingsHeader", "NOTIFICATION SETTINGS"));
@@ -2294,7 +2304,16 @@ public class settingsController {
 			String selectedDur = (String) trafficStopDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "TrafficStopDuration", selectedDur);
 		});
-		
+
+		LanguageConfigManager LanguageConfigManager = new LanguageConfigManager();
+		List<String> supportedLanguages = LanguageConfigManager.getLanguageCodes();
+		ChgLanguageComboBox.getItems().addAll(supportedLanguages);
+		ChgLanguageComboBox.setValue(ConfigReader.configRead("userInfo","languageDuration"));
+		ChgLanguageComboBox.setOnAction(actionEvent -> {
+			String selectedDur = (String) ChgLanguageComboBox.getSelectionModel().getSelectedItem();
+			ConfigWriter.configwrite("userInfo", "languageDuration", selectedDur);
+		});
+
 		String[] notifications = {"Information", "Warning"};
 		selectedNotification = new AtomicReference<>("Information");
 		notificationComboBox.getItems().addAll(notifications);

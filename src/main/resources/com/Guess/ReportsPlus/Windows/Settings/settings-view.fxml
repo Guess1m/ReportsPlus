@@ -297,6 +297,36 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
+                                                <GridPane VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES"/>
+                                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                                        <RowConstraints vgrow="NEVER"/>
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label fx:id="ChgLanguageLabel" alignment="CENTER"
+                                                               styleClass="paneHeading" text="Languages"
+                                                               GridPane.valignment="CENTER"/>
+                                                        <Label fx:id="ChgLanguageTT" alignment="CENTER"
+                                                               styleClass="paneSubtext"
+                                                               text="Change languages here"
+                                                               GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                            <GridPane.margin>
+                                                                <Insets/>
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
+                                                              GridPane.halignment="CENTER" GridPane.rowSpan="2"
+                                                              GridPane.valignment="CENTER">
+                                                            <children>
+                                                                <ComboBox fx:id="ChgLanguageComboBox"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </GridPane>
                                             </children>
                                             <padding>
                                                 <Insets bottom="25.0"/>

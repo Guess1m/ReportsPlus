@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="520.0" prefWidth="650.0" stylesheets="@../../css/alpr/alpr.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Apps.ALPRViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="520.0" prefWidth="650.0" stylesheets="@../../css/alpr/alpr.css" xmlns="http://javafx.com/javafx/24" fx:controller="com.Guess.ReportsPlus.Windows.Apps.ALPRViewController">
     <center>
         <AnchorPane style="-fx-background-color: transparent;">
             <children>

@@ -1,10 +1,15 @@
 package com.Guess.ReportsPlus;
 
-import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Localization.Localization;
-import com.Guess.ReportsPlus.util.Other.controllerUtils;
-import com.Guess.ReportsPlus.util.Strings.URLStrings;
-import javafx.scene.text.Font;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
+import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.createAppConfig;
+import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
+import static com.Guess.ReportsPlus.config.ConfigReader.createConfig;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.initLogging;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
+import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.loadJsonData;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,16 +19,16 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
-import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.createAppConfig;
-import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
-import static com.Guess.ReportsPlus.config.ConfigReader.createConfig;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.loadJsonData;
+import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.util.Localization.Localization;
+import com.Guess.ReportsPlus.util.Other.controllerUtils;
+import com.Guess.ReportsPlus.util.Strings.URLStrings;
+
+import javafx.scene.text.Font;
 
 public class Launcher {
 	public static Localization localization;
-	
+
 	public static void main(String[] args) {
 		try {
 			String filePath = controllerUtils.getJarPath() + File.separator + "output.log";
@@ -34,29 +39,29 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while clearing the log file: ", e);
 		}
-		
+
 		initLogging();
-		
+
 		loadJsonData();
-		
+
 		localization = new Localization();
-		
+
 		deleteFiles();
-		
+
 		loadFonts();
-		
+
 		createFilesFolders();
-		
+
 		copyInternalFiles();
-		
+
 		createDataLogsDir();
-		
+
 		createConfig();
 		createAppConfig();
-		
+
 		checkAndSetDefaultValues(false);
 		checkAndSetDefaultAppValues();
-		
+
 		try {
 			if (ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true")) {
 				logDebug("skipOfficerLogin is true, trying to open main desktop..");
@@ -74,18 +79,21 @@ public class Launcher {
 			newOfficerApplication.main(args);
 		}
 	}
-	
+
 	public static void loadFonts() {
 		System.setProperty("prism.lcdtext", "false");
 		System.setProperty("prism.text", "t2k");
-		
+
 		ArrayList<Font> fonts = new ArrayList<>(
-				Arrays.asList(Font.loadFont(Launcher.class.getResource("fonts/InterBold.ttf").toExternalForm(), 28), Font.loadFont(Launcher.class.getResource("fonts/InterRegular.ttf").toExternalForm(), 28), Font.loadFont(Launcher.class.getResource("fonts/InterSemibold.ttf").toExternalForm(), 28)));
+				Arrays.asList(Font.loadFont(Launcher.class.getResource("fonts/InterBold.ttf").toExternalForm(), 28),
+						Font.loadFont(Launcher.class.getResource("fonts/InterRegular.ttf").toExternalForm(), 28),
+						Font.loadFont(Launcher.class.getResource("fonts/InterSemibold.ttf").toExternalForm(), 28)));
 		for (Font f : fonts) {
-			logInfo("initialization; Loaded font: [" + f.getName() + "] Family: [" + f.getFamily() + "] Style: [" + f.getStyle() + "]");
+			logInfo("initialization; Loaded font: [" + f.getName() + "] Family: [" + f.getFamily() + "] Style: ["
+					+ f.getStyle() + "]");
 		}
 	}
-	
+
 	private static void deleteFiles() {
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerCallout.xml";
@@ -106,7 +114,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("Error while deleting IDHistory file: ", e);
 		}
-		
+
 		try {
 			String filePath = URLStrings.currentIDFileURL;
 			Path path = Path.of(filePath);
@@ -119,7 +127,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server current ID file: ", e);
 		}
-		
+
 		try {
 			String filePath = URLStrings.serverGameDataFileURL;
 			Path path = Path.of(filePath);
@@ -132,7 +140,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server gameData file: ", e);
 		}
-		
+
 		try {
 			String filePath = URLStrings.currentLocationFileURL;
 			Path path = Path.of(filePath);
@@ -145,7 +153,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server Location file: ", e);
 		}
-		
+
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerWorldPeds.data";
 			Path path = Path.of(filePath);
@@ -158,7 +166,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world peds file: ", e);
 		}
-		
+
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerWorldCars.data";
 			Path path = Path.of(filePath);
@@ -171,7 +179,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world cars file: ", e);
 		}
-		
+
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerALPR.data";
 			Path path = Path.of(filePath);
@@ -184,7 +192,7 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server ALPR file: ", e);
 		}
-		
+
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerTrafficStop.data";
 			Path path = Path.of(filePath);
@@ -198,11 +206,11 @@ public class Launcher {
 			logError("An error occurred while deleting the server traffic stop file: ", e);
 		}
 	}
-	
+
 	private static void createFilesFolders() {
 		String dataFolderPath = controllerUtils.getJarPath() + File.separator + "data";
 		String serverData = controllerUtils.getJarPath() + File.separator + "serverData";
-		
+
 		File dataFolder = new File(dataFolderPath);
 		if (!dataFolder.exists()) {
 			dataFolder.mkdirs();
@@ -210,7 +218,7 @@ public class Launcher {
 		} else {
 			logInfo("Data Folder Already Exists");
 		}
-		
+
 		File serverDataFolder = new File(serverData);
 		if (!serverDataFolder.exists()) {
 			serverDataFolder.mkdirs();
@@ -218,7 +226,7 @@ public class Launcher {
 		} else {
 			logInfo("Server Data Folder Already Exists");
 		}
-		
+
 		File calloutDataFile = new File(URLStrings.calloutDataURL);
 		if (!calloutDataFile.exists()) {
 			logInfo("Callout Data File Doesn't Exist, Creating");
@@ -228,7 +236,7 @@ public class Launcher {
 				logError("Could not create Callout Data File: ", e);
 			}
 		}
-		
+
 		File calloutHistoryFile = new File(URLStrings.calloutHistoryURL);
 		if (!calloutHistoryFile.exists()) {
 			logInfo("Callout History File Doesn't Exist, Creating");
@@ -239,7 +247,7 @@ public class Launcher {
 			}
 		}
 	}
-	
+
 	private static void createDataLogsDir() {
 		String folderPath = "";
 		try {
@@ -262,7 +270,7 @@ public class Launcher {
 			logInfo("DataLogs Folder already exists.");
 		}
 	}
-	
+
 	private static void copyInternalFiles() {
 		File chargesFile = new File(URLStrings.chargesFilePath);
 		String citationsFilePath = controllerUtils.getDataFolderPath() + "Citations.xml";

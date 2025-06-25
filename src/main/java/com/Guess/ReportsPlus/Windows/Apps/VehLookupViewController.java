@@ -1,32 +1,34 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
-import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
-import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
-import com.Guess.ReportsPlus.Launcher;
-import com.Guess.ReportsPlus.Windows.Settings.settingsController;
-import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.logs.LookupObjects.VehicleObject;
-import com.Guess.ReportsPlus.util.History.Vehicle;
-import com.Guess.ReportsPlus.util.Other.NoteTab;
-import jakarta.xml.bind.JAXBException;
-import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.stage.Popup;
+import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
+import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
+import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
+import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.createNoteTabs;
+import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesTabList;
+import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
+import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
+import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
+import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
+import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.newImpound;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateExpiredLicenseExpirationDate;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateLicenseNumber;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateValidLicenseExpirationDate;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateVin;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.parseExpirationDate;
+import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.addVehicle;
+import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
+import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.generateInspectionStatus;
+import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
+import static com.Guess.ReportsPlus.util.Other.Callout.CalloutManager.createLabel;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateRecentSearches;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehImageFolderURL;
+import static com.Guess.ReportsPlus.util.Strings.dropdownInfo.vehicleTypes;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,24 +37,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
-import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
-import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.*;
-import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
-import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
-import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
-import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.newImpound;
-import static com.Guess.ReportsPlus.util.History.PedHistoryMath.*;
-import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Other.Callout.CalloutManager.createLabel;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateRecentSearches;
-import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehImageFolderURL;
-import static com.Guess.ReportsPlus.util.Strings.dropdownInfo.vehicleTypes;
+import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
+import com.Guess.ReportsPlus.Windows.Settings.settingsController;
+import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.logs.LookupObjects.VehicleObject;
+import com.Guess.ReportsPlus.util.History.Vehicle;
+import com.Guess.ReportsPlus.util.Other.NoteTab;
+
+import jakarta.xml.bind.JAXBException;
+import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
 
 public class VehLookupViewController {
 	public static VehLookupViewController vehLookupViewController;
@@ -139,12 +161,12 @@ public class VehLookupViewController {
 	private Label plt11;
 	@javafx.fxml.FXML
 	private TextField vehvinfield;
-	
+
 	public void initialize() {
 		noVehImageFoundlbl.setVisible(false);
 		vehRecordPane.setVisible(false);
 		noRecordFoundLabelVeh.setVisible(false);
-		
+
 		vehSearchField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				try {
@@ -154,27 +176,32 @@ public class VehLookupViewController {
 				}
 			}
 		});
-		
+
 		addLocalization();
 	}
-	
+
 	private void addLocalization() {
 		lookupmainlbl.setText(localization.getLocalizedMessage("VehicleLookup.MainHeader", "D.M.V Vehicle Lookup"));
-		vehnocolorlabel.setText(localization.getLocalizedMessage("VehicleLookup.NoColorFoundLabel", "No Color On Record"));
-		noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
-		noRecordFoundLabelVeh.setText(localization.getLocalizedMessage("VehicleLookup.NoVehFoundInSystem", "No Record Found In System"));
+		vehnocolorlabel
+				.setText(localization.getLocalizedMessage("VehicleLookup.NoColorFoundLabel", "No Color On Record"));
+		noVehImageFoundlbl.setText(
+				localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+		noRecordFoundLabelVeh.setText(
+				localization.getLocalizedMessage("VehicleLookup.NoVehFoundInSystem", "No Record Found In System"));
 		lbl1.setText(localization.getLocalizedMessage("VehicleLookup.SubHeading", "Search Plate:"));
-		
+
 		vehSearchBtn.setText(localization.getLocalizedMessage("VehicleLookup.SearchButton", "Search"));
-		addDataToNotesBtn.setText(localization.getLocalizedMessage("VehicleLookup.AddDataToNotesBtn", "Add Data To Notes"));
-		
+		addDataToNotesBtn
+				.setText(localization.getLocalizedMessage("VehicleLookup.AddDataToNotesBtn", "Add Data To Notes"));
+
 		btninfo3.setText(localization.getLocalizedMessage("VehicleLookup.OwnerLookupBtn", "Owner Lookup"));
-		btninfo2.setText(localization.getLocalizedMessage("VehicleLookup.CreateImpoundReportBtn", "Create Impound Report"));
+		btninfo2.setText(
+				localization.getLocalizedMessage("VehicleLookup.CreateImpoundReportBtn", "Create Impound Report"));
 		btninfo1.setText(localization.getLocalizedMessage("VehicleLookup.UpdateVehicleTypeBtn", "Update Vehicle Type"));
-		
+
 		info1.setText(localization.getLocalizedMessage("VehicleLookup.VehicleInfoHeader", "Vehicle Information"));
 		info2.setText(localization.getLocalizedMessage("VehicleLookup.OwnerInfoHeader", "Owner Information"));
-		
+
 		plt1.setText(localization.getLocalizedMessage("VehicleLookup.FieldPlateNum", "License Plate:"));
 		plt2.setText(localization.getLocalizedMessage("VehicleLookup.FieldModel", "Model"));
 		plt3.setText(localization.getLocalizedMessage("VehicleLookup.FieldStolen", "Vehicle Stolen:"));
@@ -186,9 +213,9 @@ public class VehLookupViewController {
 		plt9.setText(localization.getLocalizedMessage("VehicleLookup.FieldInspectionStatus", "Inspection Status:"));
 		plt10.setText(localization.getLocalizedMessage("VehicleLookup.FieldType", "Vehicle Type:"));
 		plt11.setText(localization.getLocalizedMessage("VehicleLookup.FieldVIN", "Registered VIN:"));
-		
+
 	}
-	
+
 	@javafx.fxml.FXML
 	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		boolean playAudio = false;
@@ -197,14 +224,16 @@ public class VehLookupViewController {
 		updateRecentSearches(recentVehicleSearches, vehSearchField, searchedPlate);
 		vehSearchField.getEditor().setText(searchedPlate);
 		vehSearchField.getEditor().positionCaret(vehSearchField.getEditor().getText().length());
-		
+
 		logInfo("Searched Plate#: " + searchedPlate);
-		
+
 		Optional<Vehicle> historyVehicle = findVehicleByNumber(searchedPlate);
 		VehicleObject worldVehicle = new VehicleObject(searchedPlate);
-		
-		boolean worldVehicleIsValid = worldVehicle.getPlate() != null && !worldVehicle.getPlate().equalsIgnoreCase("Not Found") && !worldVehicle.getPlate().equalsIgnoreCase("no value provided");
-		
+
+		boolean worldVehicleIsValid = worldVehicle.getPlate() != null
+				&& !worldVehicle.getPlate().equalsIgnoreCase("Not Found")
+				&& !worldVehicle.getPlate().equalsIgnoreCase("no value provided");
+
 		// A Vehicle exists in either the history file or a valid worldVeh file
 		if (historyVehicle.isPresent() || worldVehicleIsValid) {
 			foundVehicle = true;
@@ -219,18 +248,21 @@ public class VehLookupViewController {
 			noRecordFoundLabelVeh.setVisible(true);
 			return;
 		}
-		
+
 		logInfo("Found Vehicle: " + foundVehicle);
-		
+
 		// Check if vehicle is present in vehHistory
 		if (historyVehicle.isPresent()) {
 			logDebug("Found: " + searchedPlate + " From VehHistory file");
-			
+
 			Vehicle vehicle = historyVehicle.get();
-			
-			processVehicleInfo(vehicle.getPlateNumber(), vehicle.getColor(), vehicle.getModel(), vehicle.getStolenStatus(), vehicle.getPoliceStatus(), vehicle.getOwner(), vehicle.getRegistration(), vehicle.getRegistrationNumber(), vehicle.getRegistrationExpiration(), vehicle.getInsurance(),
-			                   vehicle.getInsuranceNumber(), vehicle.getInsuranceExpiration(), vehicle.getType(), vehicle.getVin(), vehicle.getInspection());
-			
+
+			processVehicleInfo(vehicle.getPlateNumber(), vehicle.getColor(), vehicle.getModel(),
+					vehicle.getStolenStatus(), vehicle.getPoliceStatus(), vehicle.getOwner(), vehicle.getRegistration(),
+					vehicle.getRegistrationNumber(), vehicle.getRegistrationExpiration(), vehicle.getInsurance(),
+					vehicle.getInsuranceNumber(), vehicle.getInsuranceExpiration(), vehicle.getType(), vehicle.getVin(),
+					vehicle.getInspection());
+
 			vehtypecombobox.setValue(vehicle.getType());
 			vehownerfield.setText(vehicle.getOwner());
 			vehvinfield.setText(vehicle.getVin());
@@ -239,56 +271,64 @@ public class VehLookupViewController {
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
-			
+
 			vehtypecombobox.getStyleClass().remove("combo-boxType");
 			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
-			
+
 			if (vehicle.getType().equalsIgnoreCase("N/A")) {
 				vehtypecombobox.getStyleClass().add("combo-boxType");
 			} else {
 				vehtypecombobox.getStyleClass().add("combo-boxVehicle");
 			}
-			
+
 			if (vehicle.getStolenStatus().equalsIgnoreCase("true")) {
 				vehstolenfield.setStyle("-fx-text-fill: red !important;");
 				playAudio = true;
 			} else {
 				vehstolenfield.setStyle("-fx-text-fill: black !important;");
 			}
-			
-			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase("invalid")) {
+
+			if (vehicle.getInspection().equalsIgnoreCase("expired")
+					|| vehicle.getInspection().equalsIgnoreCase("invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
-			
-			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(), vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle", vehicle);
-			
-			updateVehicleInfo(vehinsfield, vehicle.getInsurance(), vehicle.getInsuranceExpiration(), vehicle.getInsuranceNumber(), "Insurance", "VehLookup.InsuranceInfoTitle", vehicle);
-			
+
+			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(),
+					vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle", vehicle);
+
+			updateVehicleInfo(vehinsfield, vehicle.getInsurance(), vehicle.getInsuranceExpiration(),
+					vehicle.getInsuranceNumber(), "Insurance", "VehLookup.InsuranceInfoTitle", vehicle);
+
 			if (vehicle.getPoliceStatus().equalsIgnoreCase("true")) {
 				vehpolicefield.setStyle("-fx-text-fill: green !important;");
 			} else {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
-			
-			if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found") && !vehicle.getColor().equals("no value provided")) {
+
+			if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found")
+					&& !vehicle.getColor().equals("no value provided")) {
 				vehnocolorlabel.setVisible(false);
-				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
+				vehcolordisplay
+						.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
 				vehnocolorlabel.setVisible(true);
 				vehcolordisplay.setStyle("-fx-background-color: #F2F2F2;" + "-fx-border-color: grey;");
 			}
-			
+
 			runModelUpdate(vehicle.getModel());
-			
+
 			// Check if vehicle present in worldVeh
 		} else if (worldVehicleIsValid) {
 			logDebug("Found: " + searchedPlate + " From WorldVeh file. WorldVehiclePlate: " + worldVehicle.getPlate());
-			
-			Vehicle vehicle = processVehicleInfo(worldVehicle.getPlate(), worldVehicle.getColor(), worldVehicle.getModel(), worldVehicle.getIsStolen(), worldVehicle.getIsPolice(), worldVehicle.getOwner(), worldVehicle.getRegistration(), null, worldVehicle.getRegistrationDate(),
-			                                     worldVehicle.getInsurance(), null, worldVehicle.getInsuranceDate(), null, worldVehicle.getVin(), null);
-			
+
+			Vehicle vehicle = processVehicleInfo(worldVehicle.getPlate(), worldVehicle.getColor(),
+					worldVehicle.getModel(), worldVehicle.getIsStolen(), worldVehicle.getIsPolice(),
+					worldVehicle.getOwner(), worldVehicle.getRegistration(), null, worldVehicle.getRegistrationDate(),
+					worldVehicle.getInsurance(), null, worldVehicle.getInsuranceDate(), null, worldVehicle.getVin(),
+					null);
+
 			vehplatefield2.setText(vehicle.getPlateNumber());
 			vehmodelfield.setText(vehicle.getModel());
 			vehstolenfield.setText(vehicle.getStolenStatus());
@@ -300,18 +340,21 @@ public class VehLookupViewController {
 			}
 			vehownerfield.setText(vehicle.getOwner());
 			vehvinfield.setText(vehicle.getVin());
-			
+
 			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
 			vehtypecombobox.getStyleClass().add("combo-boxType");
-			
-			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(), vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle", vehicle);
-			
-			updateVehicleInfo(vehinsfield, vehicle.getInsurance(), vehicle.getInsuranceExpiration(), vehicle.getInsuranceNumber(), "Insurance", "VehLookup.InsuranceInfoTitle", vehicle);
-			
+
+			updateVehicleInfo(vehregfield, vehicle.getRegistration(), vehicle.getRegistrationExpiration(),
+					vehicle.getRegistrationNumber(), "Registration", "VehLookup.RegistrationInfoTitle", vehicle);
+
+			updateVehicleInfo(vehinsfield, vehicle.getInsurance(), vehicle.getInsuranceExpiration(),
+					vehicle.getInsuranceNumber(), "Insurance", "VehLookup.InsuranceInfoTitle", vehicle);
+
 			vehinspectionfield.setText(vehicle.getInspection());
-			if (vehicle.getInspection().equalsIgnoreCase("expired") || vehicle.getInspection().equalsIgnoreCase("invalid")) {
+			if (vehicle.getInspection().equalsIgnoreCase("expired")
+					|| vehicle.getInspection().equalsIgnoreCase("invalid")) {
 				vehinspectionfield.setStyle("-fx-text-fill: red !important;");
-				
+
 			} else {
 				vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 			}
@@ -321,18 +364,20 @@ public class VehLookupViewController {
 			} else {
 				vehpolicefield.setStyle("-fx-text-fill: black !important;");
 			}
-			if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found") && !vehicle.getColor().equals("no value provided")) {
+			if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found")
+					&& !vehicle.getColor().equals("no value provided")) {
 				vehnocolorlabel.setVisible(false);
-				vehcolordisplay.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
+				vehcolordisplay
+						.setStyle("-fx-background-color: " + vehicle.getColor() + ";" + "-fx-border-color: grey;");
 			} else {
 				vehnocolorlabel.setVisible(true);
 				vehcolordisplay.setStyle("-fx-background-color: #F2F2F2;" + "-fx-border-color: grey;");
 			}
 			vehtypecombobox.setValue(vehicle.getType());
-			
+
 			runModelUpdate(worldVehicle.getModel());
 		}
-		
+
 		// Play audio if a warning was found
 		if (playAudio) {
 			try {
@@ -344,21 +389,23 @@ public class VehLookupViewController {
 			}
 		}
 	}
-	
-	private void updateVehicleInfo(TextField field, String info, String expirationMethod, String numberMethod, String infoType, String infoTitle, Vehicle vehicle) {
+
+	private void updateVehicleInfo(TextField field, String info, String expirationMethod, String numberMethod,
+			String infoType, String infoTitle, Vehicle vehicle) {
 		field.getStyleClass().clear();
 		field.setOnMouseClicked(null);
 		field.setText(info);
-		
+
 		if (info == null) {
 			field.setText("None");
 			field.getStyleClass().add("text-field");
 			field.setStyle("-fx-text-fill: black !important;");
-		} else if (info.equalsIgnoreCase("expired") || info.equalsIgnoreCase("none") || info.equalsIgnoreCase("revoked")) {
+		} else if (info.equalsIgnoreCase("expired") || info.equalsIgnoreCase("none")
+				|| info.equalsIgnoreCase("revoked")) {
 			field.getStyleClass().add("valid-field");
 			field.setStyle("-fx-text-fill: red !important;");
 			field.setText(info.toUpperCase());
-			
+
 			boolean updated = false;
 			if (expirationMethod == null || expirationMethod.equalsIgnoreCase("no value provided")) {
 				if (info.equalsIgnoreCase("expired")) {
@@ -382,12 +429,13 @@ public class VehLookupViewController {
 					logError("Error updating Vehicle for " + infoType + " info: ", e);
 				}
 			}
-			createRegInsInfoPopup(field, localization.getLocalizedMessage(infoTitle, infoType + " Information:"), vehicle.getOwner(), expirationMethod, info, numberMethod);
+			createRegInsInfoPopup(field, localization.getLocalizedMessage(infoTitle, infoType + " Information:"),
+					vehicle.getOwner(), expirationMethod, info, numberMethod);
 		} else if (info.equalsIgnoreCase("valid")) {
 			field.getStyleClass().add("valid-field");
 			field.setStyle("-fx-text-fill: #060 !important;");
 			field.setText("Valid");
-			
+
 			boolean updated = false;
 			if (expirationMethod == null) {
 				expirationMethod = generateValidLicenseExpirationDate();
@@ -404,24 +452,27 @@ public class VehLookupViewController {
 					logError("Error updating Vehicle for " + infoType + " info: ", e);
 				}
 			}
-			createRegInsInfoPopup(field, localization.getLocalizedMessage(infoTitle, infoType + " Information:"), vehicle.getOwner(), expirationMethod, info, numberMethod);
+			createRegInsInfoPopup(field, localization.getLocalizedMessage(infoTitle, infoType + " Information:"),
+					vehicle.getOwner(), expirationMethod, info, numberMethod);
 		}
 	}
-	
+
 	private void runModelUpdate(String vehModelString) {
-		if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found") && !vehModelString.equalsIgnoreCase("no value provided")) {
+		if (vehModelString != null && !vehModelString.equalsIgnoreCase("Not Found")
+				&& !vehModelString.equalsIgnoreCase("no value provided")) {
 			File pedImgFolder = new File(vehImageFolderURL);
 			if (pedImgFolder.exists()) {
 				logDebug("Detected vehImage folder..");
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
-						
-						File[] matchingFiles = pedImgFolder.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
-						
+
+						File[] matchingFiles = pedImgFolder
+								.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
+
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
 							logInfo("Matching vehImage found: " + matchingFile.getName());
-							
+
 							try {
 								String fileURI = matchingFile.toURI().toString();
 								vehImageView.setImage(new Image(fileURI));
@@ -431,22 +482,26 @@ public class VehLookupViewController {
 								Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 								vehImageView.setImage(defImage);
 								noVehImageFoundlbl.setVisible(true);
-								noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+								noVehImageFoundlbl.setText(localization.getLocalizedMessage(
+										"VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 								logError("Could not set vehImage: ", e);
 							}
 						} else {
-							logWarn("No matching vehImage found for the model: " + vehModelString + ", displaying no vehImage found.");
+							logWarn("No matching vehImage found for the model: " + vehModelString
+									+ ", displaying no vehImage found.");
 							Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 							vehImageView.setImage(defImage);
 							noVehImageFoundlbl.setVisible(true);
-							noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+							noVehImageFoundlbl.setText(localization.getLocalizedMessage(
+									"VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 						}
 					} else {
 						logWarn("enablePedVehImages is disabled in settings so not displaying veh image");
 						Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 						vehImageView.setImage(defImage);
 						noVehImageFoundlbl.setVisible(true);
-						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+						noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
+								"No Image Found In System"));
 					}
 				} catch (IOException e) {
 					logError("Error getting configValue for playLookupWarning: ", e);
@@ -455,22 +510,26 @@ public class VehLookupViewController {
 				Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 				vehImageView.setImage(defImage);
 				noVehImageFoundlbl.setVisible(true);
-				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+				noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl",
+						"No Image Found In System"));
 			}
 		} else {
 			Image defImage = new Image(Launcher.class.getResourceAsStream(defaultPedImagePath));
 			vehImageView.setImage(defImage);
 			noVehImageFoundlbl.setVisible(true);
-			noVehImageFoundlbl.setText(localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
+			noVehImageFoundlbl.setText(
+					localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 		}
 	}
-	
-	public void createRegInsInfoPopup(TextField label, String headerText, String name, String exp, String status, String licnum) {
+
+	public void createRegInsInfoPopup(TextField label, String headerText, String name, String exp, String status,
+			String licnum) {
 		try {
 			AnchorPane popupContent = new AnchorPane();
 			popupContent.setPrefWidth(Region.USE_COMPUTED_SIZE);
-			popupContent.getStylesheets().add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
-			
+			popupContent.getStylesheets().add(Launcher.class
+					.getResource("/com/Guess/ReportsPlus/css/courtCase/courtCaseCss.css").toExternalForm());
+
 			Label titleLabel = new Label(headerText);
 			titleLabel.setPadding(new Insets(0, 33, 0, 33));
 			titleLabel.setAlignment(Pos.CENTER);
@@ -481,8 +540,9 @@ public class VehLookupViewController {
 			AnchorPane.setTopAnchor(titleLabel, 0.0);
 			AnchorPane.setLeftAnchor(titleLabel, 0.0);
 			AnchorPane.setRightAnchor(titleLabel, 0.0);
-			
-			ImageView exitBtn = new ImageView(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
+
+			ImageView exitBtn = new ImageView(
+					new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/cross.png")));
 			exitBtn.setFitHeight(33.0);
 			exitBtn.setFitWidth(15.0);
 			exitBtn.setPickOnBounds(true);
@@ -490,7 +550,7 @@ public class VehLookupViewController {
 			exitBtn.setEffect(new ColorAdjust(0, 0, 1.0, 0));
 			AnchorPane.setTopAnchor(exitBtn, 5.0);
 			AnchorPane.setRightAnchor(exitBtn, 5.0);
-			
+
 			GridPane gridPane = new GridPane();
 			gridPane.setPadding(new Insets(3, 10, 10, 10));
 			gridPane.setHgap(15.0);
@@ -499,32 +559,34 @@ public class VehLookupViewController {
 			AnchorPane.setBottomAnchor(gridPane, 0.0);
 			AnchorPane.setLeftAnchor(gridPane, 0.0);
 			AnchorPane.setRightAnchor(gridPane, 0.0);
-			
-			gridPane.getColumnConstraints().addAll(new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true), new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
+
+			gridPane.getColumnConstraints().addAll(
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true),
+					new ColumnConstraints(100, 100, Double.MAX_VALUE, Priority.SOMETIMES, HPos.LEFT, true));
 			for (int i = 0; i < 6; i++) {
 				gridPane.getRowConstraints().add(new RowConstraints());
 			}
-			
+
 			TextField nameField = new TextField();
 			nameField.setEditable(false);
 			GridPane.setRowIndex(nameField, 1);
 			GridPane.setColumnSpan(nameField, 2);
-			
+
 			TextField expField = new TextField();
 			expField.setEditable(false);
 			GridPane.setRowIndex(expField, 3);
-			
+
 			TextField statusField = new TextField();
 			statusField.setEditable(false);
 			GridPane.setColumnIndex(statusField, 1);
 			GridPane.setRowIndex(statusField, 3);
-			
+
 			TextField licNumField = new TextField();
 			licNumField.setEditable(false);
 			licNumField.setPrefColumnCount(Integer.MAX_VALUE);
 			GridPane.setRowIndex(licNumField, 5);
 			GridPane.setColumnSpan(licNumField, 2);
-			
+
 			nameField.setText(name);
 			expField.setText(exp);
 			if (status.toLowerCase().equalsIgnoreCase("expired")) {
@@ -533,23 +595,26 @@ public class VehLookupViewController {
 				statusField.setText(status);
 			}
 			licNumField.setText(licnum);
-			
+
 			Label nameLabel = createLabel(localization.getLocalizedMessage("PedLookup.NameLabel", "Name:"));
 			nameLabel.setMinWidth(Region.USE_PREF_SIZE);
-			
-			Label expDateLabel = createLabel(localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
+
+			Label expDateLabel = createLabel(
+					localization.getLocalizedMessage("PedLookup.ExpDateLabel", "Expiration Date:"));
 			GridPane.setRowIndex(expDateLabel, 2);
 			expDateLabel.setMinWidth(Region.USE_PREF_SIZE);
-			
-			Label licStatusLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:"));
+
+			Label licStatusLabel = createLabel(
+					localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:"));
 			GridPane.setColumnIndex(licStatusLabel, 1);
 			GridPane.setRowIndex(licStatusLabel, 2);
 			licStatusLabel.setMinWidth(Region.USE_PREF_SIZE);
-			
-			Label licNumLabel = createLabel(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
+
+			Label licNumLabel = createLabel(
+					localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 			GridPane.setRowIndex(licNumLabel, 4);
 			licNumLabel.setMinWidth(Region.USE_PREF_SIZE);
-			
+
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				nameLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 				expDateLabel.setStyle("-fx-text-fill: " + UIDarkColor + ";");
@@ -577,32 +642,33 @@ public class VehLookupViewController {
 				node = licNumField.lookup(".text-field");
 				node.setStyle("-fx-text-fill: " + UILightColor + " !important;");
 			}
-			
-			gridPane.getChildren().addAll(nameField, expField, statusField, licNumField, nameLabel, expDateLabel, licStatusLabel, licNumLabel);
-			
+
+			gridPane.getChildren().addAll(nameField, expField, statusField, licNumField, nameLabel, expDateLabel,
+					licStatusLabel, licNumLabel);
+
 			popupContent.getChildren().addAll(titleLabel, exitBtn, gridPane);
-			
+
 			popupContent.setOnMouseMoved(event -> {
 				double x = event.getX();
 				boolean isOnRightEdge = x > popupContent.getWidth() - 10;
-				
+
 				if (isOnRightEdge) {
 					popupContent.setCursor(Cursor.E_RESIZE);
 				} else {
 					popupContent.setCursor(Cursor.DEFAULT);
 				}
 			});
-			
+
 			popupContent.setOnMouseDragged(event -> {
 				double x = event.getX();
-				
+
 				double minWidth = 200;
-				
+
 				if (popupContent.getCursor() == Cursor.E_RESIZE) {
 					popupContent.setPrefWidth(Math.max(x, minWidth));
 				}
 			});
-			
+
 			DropShadow dropShadow = new DropShadow();
 			dropShadow.setColor(new Color(0, 0, 0, 0.3));
 			dropShadow.setOffsetX(0);
@@ -611,34 +677,34 @@ public class VehLookupViewController {
 			dropShadow.setSpread(0.3);
 			popupContent.setEffect(dropShadow);
 			popupContent.setStyle("-fx-background-color: " + ConfigReader.configRead("uiColors", "bkgColor") + ";");
-			
+
 			Popup popup = new Popup();
 			popup.getContent().add(popupContent);
-			
-			final boolean[] isPopupShown = {false};
-			
+
+			final boolean[] isPopupShown = { false };
+
 			exitBtn.setOnMouseClicked(event -> {
 				popup.hide();
 				isPopupShown[0] = false;
 			});
-			
+
 			label.setOnMouseClicked(event -> {
 				if (isPopupShown[0]) {
 					popup.hide();
 					isPopupShown[0] = false;
 				} else {
 					popup.show(label.getScene().getWindow(), -9999, -9999);
-					
+
 					double labelScreenX = label.localToScreen(label.getBoundsInLocal()).getMinX();
 					double labelScreenY = label.localToScreen(label.getBoundsInLocal()).getMinY();
 					double labelWidth = label.getWidth();
-					
+
 					double popupX = labelScreenX + (labelWidth / 2) - (popupContent.getWidth() / 2);
 					double popupY = labelScreenY - popupContent.getHeight();
-					
+
 					popup.setX(popupX);
 					popup.setY(popupY - 15);
-					
+
 					isPopupShown[0] = true;
 				}
 			});
@@ -647,67 +713,80 @@ public class VehLookupViewController {
 			logError("Error creating license popup from field " + label.getText() + ": ", e);
 		}
 	}
-	
-	private Vehicle processVehicleInfo(String plateNumber_value, String color_value, String model_value, String stolenStatus_value, String policeStatus_value, String owner_value, String registration_value, String registrationNumber_value, String registrationExpiration_value, String insurance_value, String insuranceNumber_value, String insuranceExpiration_value, String type_value, String vin_value, String inspection_value) {
+
+	private Vehicle processVehicleInfo(String plateNumber_value, String color_value, String model_value,
+			String stolenStatus_value, String policeStatus_value, String owner_value, String registration_value,
+			String registrationNumber_value, String registrationExpiration_value, String insurance_value,
+			String insuranceNumber_value, String insuranceExpiration_value, String type_value, String vin_value,
+			String inspection_value) {
 		Vehicle targetVehicle = new Vehicle();
-		if (plateNumber_value == null || plateNumber_value.equalsIgnoreCase("no value provided") || plateNumber_value.equalsIgnoreCase("not found")) {
+		if (plateNumber_value == null || plateNumber_value.equalsIgnoreCase("no value provided")
+				|| plateNumber_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; plateNumber_value was null, set as ERROR");
 			targetVehicle.setPlateNumber("ERROR");
 		} else {
 			targetVehicle.setPlateNumber(plateNumber_value);
 		}
-		
-		if (color_value == null || color_value.equalsIgnoreCase("no value provided") || color_value.equalsIgnoreCase("not found")) {
+
+		if (color_value == null || color_value.equalsIgnoreCase("no value provided")
+				|| color_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; color_value was null, set as ERROR");
 			targetVehicle.setColor("ERROR");
 		} else {
 			targetVehicle.setColor(color_value);
 		}
-		
-		if (model_value == null || model_value.equalsIgnoreCase("no value provided") || model_value.equalsIgnoreCase("not found")) {
+
+		if (model_value == null || model_value.equalsIgnoreCase("no value provided")
+				|| model_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; model_value was null, set as: no value provided");
 			targetVehicle.setModel("no value provided");
 		} else {
 			targetVehicle.setModel(model_value);
 		}
-		
-		if (stolenStatus_value == null || stolenStatus_value.equalsIgnoreCase("no value provided") || stolenStatus_value.equalsIgnoreCase("not found")) {
+
+		if (stolenStatus_value == null || stolenStatus_value.equalsIgnoreCase("no value provided")
+				|| stolenStatus_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; stolenStatus_value was null, set as Unknown");
 			targetVehicle.setStolenStatus("Unknown");
 		} else {
 			targetVehicle.setStolenStatus(stolenStatus_value);
 		}
-		
-		if (policeStatus_value == null || policeStatus_value.equalsIgnoreCase("no value provided") || policeStatus_value.equalsIgnoreCase("not found")) {
+
+		if (policeStatus_value == null || policeStatus_value.equalsIgnoreCase("no value provided")
+				|| policeStatus_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; policeStatus_value was null, set as Unknown");
 			targetVehicle.setPoliceStatus("Unknown");
 		} else {
 			targetVehicle.setPoliceStatus(policeStatus_value);
 		}
-		
-		if (owner_value == null || owner_value.equalsIgnoreCase("no value provided") || owner_value.equalsIgnoreCase("not found")) {
+
+		if (owner_value == null || owner_value.equalsIgnoreCase("no value provided")
+				|| owner_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; owner_value was null, set as Unknown");
 			targetVehicle.setOwner("Unknown");
 		} else {
 			targetVehicle.setOwner(owner_value);
 		}
-		
-		if (registration_value == null || registration_value.equalsIgnoreCase("no value provided") || registration_value.equalsIgnoreCase("not found")) {
+
+		if (registration_value == null || registration_value.equalsIgnoreCase("no value provided")
+				|| registration_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; registration_value was null, set as Unknown");
 			targetVehicle.setRegistration("Unknown");
 		} else {
 			targetVehicle.setRegistration(registration_value);
 		}
-		
-		if (registrationNumber_value == null || registrationNumber_value.equalsIgnoreCase("no value provided") || registrationNumber_value.equalsIgnoreCase("not found")) {
+
+		if (registrationNumber_value == null || registrationNumber_value.equalsIgnoreCase("no value provided")
+				|| registrationNumber_value.equalsIgnoreCase("not found")) {
 			String generated = generateLicenseNumber();
 			logWarn("processVehicleInfo; registrationNumber_value was null, generated: [" + generated + "]");
 			targetVehicle.setRegistrationNumber(generated);
 		} else {
 			targetVehicle.setRegistrationNumber(registrationNumber_value);
 		}
-		
-		if (registrationExpiration_value == null || registrationExpiration_value.equalsIgnoreCase("no value provided") || registrationExpiration_value.equalsIgnoreCase("not found")) {
+
+		if (registrationExpiration_value == null || registrationExpiration_value.equalsIgnoreCase("no value provided")
+				|| registrationExpiration_value.equalsIgnoreCase("not found")) {
 			String expiration = "Not Applicable";
 			switch (targetVehicle.getRegistration().toLowerCase()) {
 				case "valid":
@@ -722,29 +801,33 @@ public class VehLookupViewController {
 					targetVehicle.setRegistrationExpiration(expiration);
 					break;
 			}
-			
-			logWarn("processVehicleInfo; registrationExpiration_value was null, generated: [" + expiration + "] based on registration status: [" + targetVehicle.getRegistration() + "]");
+
+			logWarn("processVehicleInfo; registrationExpiration_value was null, generated: [" + expiration
+					+ "] based on registration status: [" + targetVehicle.getRegistration() + "]");
 			targetVehicle.setRegistrationExpiration(expiration);
 		} else {
 			targetVehicle.setRegistrationExpiration(registrationExpiration_value);
 		}
-		
-		if (insurance_value == null || insurance_value.equalsIgnoreCase("no value provided") || insurance_value.equalsIgnoreCase("not found")) {
+
+		if (insurance_value == null || insurance_value.equalsIgnoreCase("no value provided")
+				|| insurance_value.equalsIgnoreCase("not found")) {
 			logError("processVehicleInfo; insurance_value was null, set as Unknown");
 			targetVehicle.setInsurance("Unknown");
 		} else {
 			targetVehicle.setInsurance(insurance_value);
 		}
-		
-		if (insuranceNumber_value == null || insuranceNumber_value.equalsIgnoreCase("no value provided") || insuranceNumber_value.equalsIgnoreCase("not found")) {
+
+		if (insuranceNumber_value == null || insuranceNumber_value.equalsIgnoreCase("no value provided")
+				|| insuranceNumber_value.equalsIgnoreCase("not found")) {
 			String generated = generateLicenseNumber();
 			logWarn("processVehicleInfo; insuranceNumber_value was null, generated: [" + generated + "]");
 			targetVehicle.setInsuranceNumber(generated);
 		} else {
 			targetVehicle.setInsuranceNumber(insuranceNumber_value);
 		}
-		
-		if (insuranceExpiration_value == null || insuranceExpiration_value.equalsIgnoreCase("no value provided") || insuranceExpiration_value.equalsIgnoreCase("not found")) {
+
+		if (insuranceExpiration_value == null || insuranceExpiration_value.equalsIgnoreCase("no value provided")
+				|| insuranceExpiration_value.equalsIgnoreCase("not found")) {
 			String expiration = "Not Applicable";
 			switch (targetVehicle.getInsurance().toLowerCase()) {
 				case "valid":
@@ -759,74 +842,84 @@ public class VehLookupViewController {
 					targetVehicle.setInsuranceExpiration(expiration);
 					break;
 			}
-			
-			logWarn("processVehicleInfo; insuranceExpiration_value was null, generated: [" + expiration + "] based on insurance status: [" + targetVehicle.getInsurance() + "]");
+
+			logWarn("processVehicleInfo; insuranceExpiration_value was null, generated: [" + expiration
+					+ "] based on insurance status: [" + targetVehicle.getInsurance() + "]");
 			targetVehicle.setInsuranceExpiration(expiration);
 		} else {
 			targetVehicle.setInsuranceExpiration(insuranceExpiration_value);
 		}
-		
-		if (type_value == null || type_value.equalsIgnoreCase("no value provided") || type_value.equalsIgnoreCase("not found")) {
+
+		if (type_value == null || type_value.equalsIgnoreCase("no value provided")
+				|| type_value.equalsIgnoreCase("not found")) {
 			logInfo("processVehicleInfo; type_value was null [always], set as N/A");
 			targetVehicle.setType("N/A");
 		} else {
 			targetVehicle.setType(type_value);
 		}
-		
-		if (vin_value == null || vin_value.equalsIgnoreCase("no value provided") || vin_value.equalsIgnoreCase("not found")) {
-			String licNum = generateLicenseNumber();
-			logWarn("processVehicleInfo; vin_value was null, generated: [" + licNum + "]");
+
+		if (vin_value == null || vin_value.equalsIgnoreCase("no value provided")
+				|| vin_value.equalsIgnoreCase("not found")) {
+			String vin = generateVin();
+			targetVehicle.setVin(vin);
+			logWarn("processVehicleInfo; vin_value was null, generated: [" + vin + "]");
 		} else {
 			targetVehicle.setVin(vin_value);
 		}
-		
-		if (inspection_value == null || inspection_value.equalsIgnoreCase("no value provided") || inspection_value.equalsIgnoreCase("not found")) {
+
+		if (inspection_value == null || inspection_value.equalsIgnoreCase("no value provided")
+				|| inspection_value.equalsIgnoreCase("not found")) {
 			String inspection = generateInspectionStatus();
 			logInfo("processVehicleInfo; inspection_value was null [always], generated: [" + inspection + "]");
 			targetVehicle.setInspection(inspection);
 		} else {
 			targetVehicle.setInspection(inspection_value);
 		}
-		
+
 		try {
 			addVehicle(targetVehicle);
 		} catch (JAXBException e) {
 			logError("Error adding vehicle from processVehicleInfo: ", e);
 		}
-		
+
 		return targetVehicle;
 	}
-	
+
 	@javafx.fxml.FXML
 	public void vehcreateimpreport(ActionEvent actionEvent) {
 		String plate = vehplatefield2.getText().trim();
 		String model = vehmodelfield.getText().trim();
 		String owner = vehownerfield.getText().trim();
 		Object type = vehtypecombobox.getValue();
-		
+
 		Map<String, Object> impoundReportObj = newImpound();
-		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
-		
-		TextField offenderNameimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
-		TextField plateNumberimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
-		TextField modelimp = (TextField) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-		ComboBox vehType = (ComboBox) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
-		
+		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj
+				.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
+
+		TextField offenderNameimp = (TextField) impoundReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
+		TextField plateNumberimp = (TextField) impoundReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
+		TextField modelimp = (TextField) impoundReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
+		ComboBox vehType = (ComboBox) impoundReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
+
 		plateNumberimp.setText(plate);
 		modelimp.setText(model);
 		offenderNameimp.setText(owner);
 		offenderNameimp.setText(owner);
 		vehType.setValue(type);
 	}
-	
+
 	@javafx.fxml.FXML
 	public void vehUpdateInfo(ActionEvent actionEvent) {
 		String searchedPlate = vehSearchField.getEditor().getText().trim();
 		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
-		
+
 		if (vehOptional.isPresent()) {
 			Vehicle vehicle = vehOptional.get();
-			
+
 			vehtypecombobox.getStyleClass().remove("combo-boxType");
 			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
 			if (vehicle.getType() != null) {
@@ -842,10 +935,10 @@ public class VehLookupViewController {
 					logError("Could not add ped from update fields button: ", e);
 				}
 			}
-			
+
 		}
 	}
-	
+
 	@javafx.fxml.FXML
 	public void vehAddDataToNotes(ActionEvent actionEvent) throws IOException {
 		if (!noRecordFoundLabelVeh.isVisible()) {
@@ -865,124 +958,127 @@ public class VehLookupViewController {
 				owner = vehownerfield.getText().trim();
 				fullString.append("-name ").append(owner).append(" ");
 			}
-			if (vehtypecombobox != null && !vehtypecombobox.getValue().toString().isEmpty() && !vehtypecombobox.getValue().toString().equalsIgnoreCase("n/a")) {
+			if (vehtypecombobox != null && !vehtypecombobox.getValue().toString().isEmpty()
+					&& !vehtypecombobox.getValue().toString().equalsIgnoreCase("n/a")) {
 				owner = vehtypecombobox.getValue().toString().trim();
 				fullString.append("-type ").append(owner).append(" ");
 			}
-			
+
 			notesTabList.add(new NoteTab(plate, fullString.toString()));
-			
+
 			if (notesViewController != null) {
 				createNoteTabs();
 			}
 		}
 	}
-	
+
 	public Label getLbl1() {
 		return lbl1;
 	}
-	
+
 	public Button getAddDataToNotesBtn() {
 		return addDataToNotesBtn;
 	}
-	
+
 	public Label getPlt4() {
 		return plt4;
 	}
-	
+
 	public Label getPlt5() {
 		return plt5;
 	}
-	
+
 	public Label getPlt6() {
 		return plt6;
 	}
-	
+
 	public Label getPlt7() {
 		return plt7;
 	}
-	
+
 	public Label getPlt1() {
 		return plt1;
 	}
-	
+
 	public Label getPlt2() {
 		return plt2;
 	}
-	
+
 	public Label getPlt3() {
 		return plt3;
 	}
-	
+
 	public Label getNoVehImageFoundlbl() {
 		return noVehImageFoundlbl;
 	}
-	
+
 	public AnchorPane getVehLookupPane() {
 		return vehLookupPane;
 	}
-	
+
 	public Label getPlt10() {
 		return plt10;
 	}
-	
+
 	public BorderPane getRoot() {
 		return root;
 	}
-	
+
 	public Label getLookupmainlbl() {
 		return lookupmainlbl;
 	}
-	
+
 	public Label getPlt8() {
 		return plt8;
 	}
-	
+
 	public Label getPlt9() {
 		return plt9;
 	}
-	
+
 	public AnchorPane getLookupPane() {
 		return lookupPane;
 	}
-	
+
 	public Button getVehSearchBtn() {
 		return vehSearchBtn;
 	}
-	
+
 	public Label getInfo1() {
 		return info1;
 	}
-	
+
 	public Label getInfo2() {
 		return info2;
 	}
-	
+
 	public Button getBtninfo1() {
 		return btninfo1;
 	}
-	
+
 	public Button getBtninfo2() {
 		return btninfo2;
 	}
-	
+
 	public Button getBtninfo3() {
 		return btninfo3;
 	}
-	
+
 	public ComboBox getVehSearchField() {
 		return vehSearchField;
 	}
-	
+
 	public Label getPlt11() {
 		return plt11;
 	}
-	
+
 	@javafx.fxml.FXML
 	public void ownerLookup(ActionEvent actionEvent) {
 		CustomWindow pedWindow = WindowManager.getWindow("Pedestrian Lookup");
 		if (pedWindow == null) {
-			CustomWindow pedApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Apps/lookup-ped-view.fxml", "Pedestrian Lookup", true, 1, true, false, mainDesktopControllerObj.getTaskBarApps(), pedLookupAppObj.getImage());
+			CustomWindow pedApp = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+					"Windows/Apps/lookup-ped-view.fxml", "Pedestrian Lookup", true, 1, true, false,
+					mainDesktopControllerObj.getTaskBarApps(), pedLookupAppObj.getImage());
 			if (pedApp != null && pedApp.controller != null) {
 				pedLookupViewController = (PedLookupViewController) pedApp.controller;
 			}
@@ -1009,19 +1105,55 @@ public class VehLookupViewController {
 			}
 		}
 	}
-	
+
 	// Dont rename
-	public TextField getVehplatefield2() {
+	public TextField getvehplatefield2() {
 		return vehplatefield2;
 	}
-	
+
 	// Dont rename
-	public TextField getVehmodelfield() {
+	public TextField getvehmodelfield() {
 		return vehmodelfield;
 	}
-	
+
 	// Dont rename
-	public ComboBox getVehtypecombobox() {
+	public TextField getvehstolenfield() {
+		return vehstolenfield;
+	}
+
+	// Dont rename
+	public TextField getvehpolicefield() {
+		return vehpolicefield;
+	}
+
+	// Dont rename
+	public ComboBox getvehtypecombobox() {
 		return vehtypecombobox;
 	}
+
+	// Dont rename
+	public TextField getvehownerfield() {
+		return vehownerfield;
+	}
+
+	// Dont rename
+	public TextField getvehregfield() {
+		return vehregfield;
+	}
+
+	// Dont rename
+	public TextField getvehinsfield() {
+		return vehinsfield;
+	}
+
+	// Dont rename
+	public TextField getvehinspectionfield() {
+		return vehinspectionfield;
+	}
+
+	// Dont rename
+	public TextField getvehvinfield() {
+		return vehvinfield;
+	}
+
 }

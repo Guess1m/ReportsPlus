@@ -1,161 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="500.0" prefWidth="400.0"
-            stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="500.0" prefWidth="400.0" stylesheets="@../../css/newReport/newReport.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Guess.ReportsPlus.Windows.Apps.NewReportVewController">
     <center>
-        <AnchorPane fx:id="mainPane">
+        <VBox alignment="TOP_CENTER" spacing="10.0">
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" />
+            </padding>
             <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="15.0"
-                            stylesheets="@../../css/main/transparentScrollPane.css" AnchorPane.bottomAnchor="10.0"
-                            AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <BorderPane VBox.vgrow="NEVER">
+               <center>
+                      <Label fx:id="customReportsLabel" style="-fx-font-family: &quot;Inter 28pt Bold&quot;; -fx-font-size: 18;">
+                          <font>
+                              <Font name="Inter 28pt Bold" size="18.0" />
+                          </font>
+                     <BorderPane.margin>
+                        <Insets left="68.0" />
+                     </BorderPane.margin>
+                      </Label>
+               </center>
+               <right>
+                  <Button fx:id="importDefaultBtn" mnemonicParsing="false" style="-fx-font-size: 9;" text="Import Default" BorderPane.alignment="CENTER" />
+               </right>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </BorderPane>
+                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" VBox.vgrow="ALWAYS">
                     <content>
-                        <VBox>
-                            <children>
-                                <BorderPane VBox.vgrow="SOMETIMES">
-                                    <top>
-                                        <Label fx:id="selectReportTypeLabel"
-                                               style="-fx-font-family: &quot;Inter 28pt Bold&quot;; -fx-font-size: 18;"
-                                               text="Select a Report Type:" BorderPane.alignment="CENTER">
-                                            <font>
-                                                <Font name="Inter 28pt Bold" size="18.0"/>
-                                            </font>
-                                            <BorderPane.margin>
-                                                <Insets/>
-                                            </BorderPane.margin>
-                                        </Label>
-                                    </top>
-                                    <center>
-                                        <GridPane hgap="5.0" vgap="10.0" BorderPane.alignment="CENTER">
-                                            <children>
-                                                <Button fx:id="accident" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Accident Report" GridPane.columnIndex="0"
-                                                        GridPane.rowIndex="0">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="arrest" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Arrest Report" GridPane.columnIndex="1"
-                                                        GridPane.rowIndex="0">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="callout" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Callout Report" GridPane.columnIndex="1"
-                                                        GridPane.rowIndex="4">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="death" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Death Report" GridPane.columnIndex="0"
-                                                        GridPane.rowIndex="1">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="impound" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Impound Report" GridPane.columnIndex="1"
-                                                        GridPane.rowIndex="1">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="incident" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Incident Report" GridPane.rowIndex="4">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="patrol" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Patrol Report" GridPane.columnIndex="0"
-                                                        GridPane.rowIndex="2">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="search" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Search Report" GridPane.columnIndex="1"
-                                                        GridPane.rowIndex="2">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="citation" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Traffic Citation" GridPane.rowIndex="3">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                                <Button fx:id="trafficstop" style="-fx-font-family: Inter 24pt Regular;"
-                                                        text="Traffic Stop" GridPane.columnIndex="1"
-                                                        GridPane.rowIndex="3">
-                                                    <font>
-                                                        <Font name="Inter 28pt Medium" size="13.0"/>
-                                                    </font>
-                                                </Button>
-                                            </children>
-                                            <columnConstraints>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES"/>
-                                            </rowConstraints>
-                                            <BorderPane.margin>
-                                                <Insets bottom="5.0" top="5.0"/>
-                                            </BorderPane.margin>
-                                        </GridPane>
-                                    </center>
-                                </BorderPane>
-                                <BorderPane VBox.vgrow="SOMETIMES">
-                                    <top>
-                                        <Label fx:id="customReportsLabel"
-                                               style="-fx-font-family: &quot;Inter 28pt Bold&quot;; -fx-font-size: 18;"
-                                               text="Custom Reports:" BorderPane.alignment="CENTER">
-                                            <font>
-                                                <Font name="Inter 28pt Bold" size="18.0"/>
-                                            </font>
-                                        </Label>
-                                    </top>
-                                    <center>
-                                        <GridPane fx:id="customReportsGrid" alignment="CENTER" hgap="5.0" vgap="10.0"
-                                                  BorderPane.alignment="CENTER">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
-                                            </columnConstraints>
-                                            <BorderPane.margin>
-                                                <Insets/>
-                                            </BorderPane.margin>
-                                            <padding>
-                                                <Insets bottom="15.0" top="15.0"/>
-                                            </padding>
-                                        </GridPane>
-                                    </center>
-                                    <VBox.margin>
-                                        <Insets top="15.0"/>
-                                    </VBox.margin>
-                                    <bottom>
-                                        <Button fx:id="createNewReportBtn" mnemonicParsing="false"
-                                                onAction="#createReportButton" text="Create New Report"
-                                                BorderPane.alignment="CENTER_RIGHT">
-                                            <BorderPane.margin>
-                                                <Insets top="5.0"/>
-                                            </BorderPane.margin>
-                                        </Button>
-                                    </bottom>
-                                </BorderPane>
-                            </children>
-                        </VBox>
+                        <GridPane fx:id="customReportsGrid" alignment="TOP_CENTER" hgap="10.0" style="-fx-padding: 10;" vgap="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                            </columnConstraints>
+                        </GridPane>
                     </content>
                 </ScrollPane>
             </children>
-        </AnchorPane>
+        </VBox>
     </center>
+    <bottom>
+        <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+            <children>
+                <Separator />
+                <HBox alignment="CENTER" spacing="15.0">
+                    <children>
+                        <ComboBox fx:id="legacyReportsComboBox" prefWidth="180.0" />
+                        <Button fx:id="createNewReportBtn" mnemonicParsing="false" onAction="#createReportButton" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
 </BorderPane>

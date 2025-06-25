@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.Guess</groupId>
     <artifactId>ReportsPlus</artifactId>
@@ -7,12 +9,11 @@
     <name>ReportsPlus</name>
     <!-- Packaging Commands
     arm64/windows: mvn clean install -P mac-arm64
-    x64/WIndows: mvn clean install -P mac-x64
-    -->
+    x64/WIndows: mvn clean install -P mac-x64 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.2</junit.version>
-        <javafx.version>23.0.1</javafx.version>
+        <javafx.version>24</javafx.version>
     </properties>
     <dependencies>
         <!-- Other Dependencies -->
@@ -71,8 +72,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>19</source>
-                    <target>19</target>
+                    <source>24</source>
+                    <target>24</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -107,7 +108,8 @@
                                 <compress>true</compress>
                                 <forced>true</forced>
                             </archive>
-                            <mainClass>com.Guess.ReportsPlus.Launcher
+                            <mainClass>                                
+                                com.Guess.ReportsPlus.Launcher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
@@ -115,7 +117,7 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
-                            <shadedJvmArgs></shadedJvmArgs>
+                            <shadedJvmArgs />
                         </configuration>
                     </execution>
                 </executions>

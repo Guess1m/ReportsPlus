@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.util.Strings;
 
 import java.util.List;
-
 public class dropdownInfo {
 	
 	public static final List<String> areaList = customizationDataLoader.areaList;

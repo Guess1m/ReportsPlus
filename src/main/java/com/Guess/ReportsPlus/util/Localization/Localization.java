@@ -1,23 +1,43 @@
 package com.Guess.ReportsPlus.util.Localization;
 
-import com.Guess.ReportsPlus.util.Strings.updateStrings;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
+
 public class Localization {
-	
+
 	private final CommentedProperties properties = new CommentedProperties();
 	private final String filePath = getJarPath() + "/locale/locale.properties";
-	
+
 	public Localization() {
 		loadProperties();
 	}
-	
+
+	public synchronized String getLocalizedMessage(String key, String defaultValue) {
+		String value = properties.getProperty(key);
+
+		if (value == null) {
+			properties.put(key, defaultValue);
+			saveProperties();
+			value = defaultValue;
+			logDebug("Locale Missing: [" + key + "="
+					+ defaultValue + "]");
+		}
+
+		return value;
+	}
+
 	private void loadProperties() {
 		File file = new File(filePath);
 		File localizationFolder = new File(getJarPath() + "/locale");
@@ -35,26 +55,14 @@ public class Localization {
 			}
 		}
 	}
-	
-	public synchronized String getLocalizedMessage(String key, String defaultValue) {
-		String value = properties.getProperty(key);
-		
-		if (value == null) {
-			properties.put(key, defaultValue);
-			saveProperties();
-			value = defaultValue;
-			logInfo("Value not found for: " + key + ", using default");
-		}
-		
-		return value;
-	}
-	
+
 	private void saveProperties() {
 		try (OutputStream output = new FileOutputStream(filePath)) {
-			properties.storeWithComments(output, "ReportPlus Localization For Version: " + updateStrings.version + "\n# Reccomended to keep capital words capital");
+			properties.storeWithComments(output, "ReportPlus Localization For Version: " + updateStrings.version
+					+ "\n# Reccomended to keep capital words capital");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

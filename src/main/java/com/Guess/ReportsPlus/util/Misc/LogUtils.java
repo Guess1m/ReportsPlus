@@ -1,149 +1,159 @@
 package com.Guess.ReportsPlus.util.Misc;
 
-import com.Guess.ReportsPlus.MainApplication;
-import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands.ShowOutputCommand;
-import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.TerminalController;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import static com.Guess.ReportsPlus.MainApplication.getDate;
 import static com.Guess.ReportsPlus.MainApplication.getTime;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getOperatingSystemAndArch;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import com.Guess.ReportsPlus.MainApplication;
+import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.TerminalController;
+import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands.ShowOutputCommand;
+import com.Guess.ReportsPlus.util.Strings.updateStrings;
+
 public class LogUtils {
-	
+
+	// TODO: showoutput is showing ansi in terminal
+
+	public enum Severity {
+		DEBUG, INFO, WARN, ERROR,
+	}
+
+	private static PrintStream filePrintStream;
+	private static PrintStream consolePrintStream;
+	private static PrintStream consoleErrorStream;
+
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+
 	public static void initLogging() {
 		try {
+			consolePrintStream = System.out;
+			consoleErrorStream = System.err;
+
 			String logFilePath = getJarPath() + File.separator + "output.log";
-			FileOutputStream fos = new FileOutputStream(logFilePath, true);
-			PrintStream fileAndConsole = new TeePrintStream(System.out, new PrintStream(fos));
-			System.setOut(fileAndConsole);
-			System.setErr(fileAndConsole);
-			logInfo("---=== Client Log ===---");
+			filePrintStream = new PrintStream(new FileOutputStream(logFilePath, true), true);
+
+			Thread.setDefaultUncaughtExceptionHandler(
+					(thread, e) -> logError("Uncaught exception in thread: " + thread.getName(), e));
+
+			logInfo("---=== Client Log Initialized ===---");
 			getOperatingSystemAndArch();
+
 		} catch (IOException e) {
-			System.out.println(checkFolderPermissions(Path.of(getJarPath())));
-			logError("Unable to create output.log file, Check folder permissions: ", e);
+			consolePrintStream.println("Failed to initialize file logging.");
+			consolePrintStream.println(checkFolderPermissions(Path.of(getJarPath())));
+			e.printStackTrace(consolePrintStream);
 		}
-		
-		Thread.setDefaultUncaughtExceptionHandler((thread, e) -> logError("ERROR: " + e.getClass().getSimpleName(), e));
 	}
-	
-	private static String checkFolderPermissions(Path folderPath) {
-		StringBuilder permissions = new StringBuilder();
-		permissions.append("Permissions for folder ").append(folderPath).append(":\n");
-		
-		if (Files.isReadable(folderPath)) {
-			permissions.append("Readable: Yes\n");
-		} else {
-			permissions.append("Readable: No\n");
-		}
-		
-		if (Files.isWritable(folderPath)) {
-			permissions.append("Writable: Yes\n");
-		} else {
-			permissions.append("Writable: No\n");
-		}
-		
-		if (Files.isExecutable(folderPath)) {
-			permissions.append("Executable: Yes\n");
-		} else {
-			permissions.append("Executable: No\n");
-		}
-		return permissions.toString();
-	}
-	
+
 	public static void endLog() {
-		System.out.println("----------------------------- END LOG [" + MainApplication.getTime(true, true) + "] -----------------------------");
-		System.out.println();
-	}
-	
-	public static void log(String message, Severity severity) {
-		String th = Thread.currentThread().getName();
-		if (th.toLowerCase().equalsIgnoreCase("JavaFX Application Thread")) {
-			th = "FXThread";
-		}
-		String logMessage = "[" + th + "/" + Thread.currentThread().getThreadGroup().getName() + "] [" + getDate() + "] [" + getTime(true, true) + "] [" + severity + "] " + message;
-		System.out.println(logMessage);
-		if (TerminalController.terminalController != null) {
-			if (ShowOutputCommand.TerminalLogging) {
-				TerminalController.terminalController.printToOutput(logMessage);
-			}
+		String endMessage = "----------------------------- END LOG [" + MainApplication.getTime(true, true)
+				+ "] -----------------------------";
+		consolePrintStream.println(endMessage);
+		filePrintStream.println(endMessage);
+		filePrintStream.println();
+		if (filePrintStream != null) {
+			filePrintStream.close();
 		}
 	}
-	
+
 	public static void logDebug(String message) {
-		log(message, Severity.DEBUG);
+		log(message, Severity.DEBUG, ANSI_PURPLE);
 	}
-	
+
 	public static void logInfo(String message) {
-		log(message, Severity.INFO);
+		log(message, Severity.INFO, ANSI_GREEN);
 	}
-	
+
 	public static void logWarn(String message) {
-		log(message, Severity.WARN);
+		log(message, Severity.WARN, ANSI_YELLOW);
 	}
-	
+
 	public static void logError(String message) {
-		log(message, Severity.ERROR);
+		log(message, Severity.ERROR, ANSI_RED);
 	}
-	
+
 	public static void logError(String message, Throwable e) {
-		String th = Thread.currentThread().getName();
-		if (th.toLowerCase().equalsIgnoreCase("JavaFX Application Thread")) {
-			th = "FXThread";
+		log(message, Severity.ERROR, ANSI_RED);
+
+		String stackTrace = getStackTraceAsString(e);
+
+		String coloredStackTrace = updateStrings.showANSILoggingInConsole ? ANSI_RED + stackTrace + ANSI_RESET
+				: stackTrace;
+		consoleErrorStream.print(coloredStackTrace);
+		filePrintStream.print(stackTrace);
+
+		if (TerminalController.terminalController != null && ShowOutputCommand.TerminalLogging) {
+			TerminalController.terminalController.printToOutput(message + "\n" + stackTrace);
 		}
-		String errorMessage = "*** [" + th + "] [" + getDate() + "] [" + getTime(true, true) + "] [ERROR] " + message;
-		System.err.println(errorMessage);
-		e.printStackTrace(System.err);
-		System.err.println("***");
+
 		showNotificationError("ERROR Manager", message);
-		if (TerminalController.terminalController != null) {
-			if (ShowOutputCommand.TerminalLogging) {
-				TerminalController.terminalController.printToOutput(errorMessage + "\n" + getStackTraceAsString(e) + "\n***");
-			}
-		}
 	}
-	
+
 	public static String getStackTraceAsString(Throwable throwable) {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		throwable.printStackTrace(pw);
 		return sw.toString();
 	}
-	
-	public enum Severity {
-		DEBUG, INFO, WARN, ERROR,
+
+	private static void log(String message, Severity severity, String color) {
+		String threadInfo = Thread.currentThread().getName();
+		if (threadInfo.equalsIgnoreCase("JavaFX Application Thread")) {
+			threadInfo = "FXThread";
+		}
+
+		String plainLog = String.format("[%s] [%s] [%s] [%s] %s",
+				threadInfo,
+				getDate(),
+				getTime(true, true),
+				severity,
+				message);
+
+		String coloredLog;
+		if (updateStrings.showANSILoggingInConsole) {
+			coloredLog = String.format("%s[%s] [%s] [%s] [%s] %s%s%s",
+					ANSI_BLUE,
+					threadInfo,
+					getDate(),
+					getTime(true, true),
+					severity,
+					ANSI_RESET,
+					color,
+					message,
+					ANSI_RESET);
+		} else {
+			coloredLog = plainLog;
+		}
+
+		consolePrintStream.println(coloredLog);
+		filePrintStream.println(plainLog);
+
+		if (TerminalController.terminalController != null && ShowOutputCommand.TerminalLogging) {
+			TerminalController.terminalController.printToOutput(plainLog);
+		}
 	}
-	
-	private static class TeePrintStream extends PrintStream {
-		private final PrintStream second;
-		
-		public TeePrintStream(PrintStream main, PrintStream second) {
-			super(main);
-			this.second = second;
-		}
-		
-		@Override
-		public void write(byte[] buf, int off, int len) {
-			super.write(buf, off, len);
-			second.write(buf, off, len);
-		}
-		
-		@Override
-		public void flush() {
-			super.flush();
-			second.flush();
-		}
-		
-		@Override
-		public void close() {
-			super.close();
-			second.close();
-		}
+
+	private static String checkFolderPermissions(Path folderPath) {
+		StringBuilder permissions = new StringBuilder();
+		permissions.append("Permissions for folder ").append(folderPath).append(":\n");
+		permissions.append("Readable: ").append(Files.isReadable(folderPath) ? "Yes" : "No").append("\n");
+		permissions.append("Writable: ").append(Files.isWritable(folderPath) ? "Yes" : "No").append("\n");
+		permissions.append("Executable: ").append(Files.isExecutable(folderPath) ? "Yes" : "No").append("\n");
+		return permissions.toString();
 	}
 }

@@ -1,23 +1,5 @@
 package com.Guess.ReportsPlus.logs.Death;
 
-import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
-import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.Misc.NotificationManager;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
-import javafx.animation.PauseTransition;
-import javafx.geometry.Side;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.deathReportLogUpdate;
@@ -25,79 +7,187 @@ import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewC
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Report.nestedReportUtils.*;
-import static com.Guess.ReportsPlus.util.Report.reportUtil.*;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.toTitleCase;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateTextFromNotepad;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.generateReportNumber;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.pullValueFromReport;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.DeathReportLogURL;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.util.Misc.NotificationManager;
+import com.Guess.ReportsPlus.util.Report.nestedReportUtils.FieldConfig;
+import com.Guess.ReportsPlus.util.Report.nestedReportUtils.FieldType;
+import com.Guess.ReportsPlus.util.Report.nestedReportUtils.RowConfig;
+import com.Guess.ReportsPlus.util.Report.nestedReportUtils.SectionConfig;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import javafx.animation.PauseTransition;
+import javafx.geometry.Side;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+
 public class DeathReportUtils {
-	
+
 	public static Map<String, Object> deathReportLayout() {
-		SectionConfig decedentInfoSection = new SectionConfig(localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader", "Deceased Information"),
-		                                                      new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"), 4, FieldType.TEXT_FIELD),
-		                                                                    new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"), 4, FieldType.TEXT_FIELD),
-		                                                                    new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"), 4, FieldType.TEXT_FIELD)),
-		                                                      new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"), 6, FieldType.TEXT_FIELD),
-		                                                                    new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"), 6, FieldType.TEXT_FIELD)));
+		SectionConfig decedentInfoSection = new SectionConfig(
+				localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader", "Deceased Information"),
+				new RowConfig(
+						new FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"),
+								4, FieldType.TEXT_FIELD),
+						new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"),
+								4, FieldType.TEXT_FIELD),
+						new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"), 4,
+								FieldType.TEXT_FIELD)),
+				new RowConfig(
+						new FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"), 6,
+								FieldType.TEXT_FIELD),
+						new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"),
+								6, FieldType.TEXT_FIELD)));
 		decedentInfoSection.setHasButton(true);
-		
-		Map<String, Object> deathReport = createReportWindow(localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report"), null, new SectionConfig(localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading", "Officer Information"), new RowConfig(
-				                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5, FieldType.OFFICER_NAME), new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5, FieldType.OFFICER_RANK),
-				                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"), 2, FieldType.OFFICER_NUMBER)), new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"), 6, FieldType.OFFICER_DIVISION),
-		                                                                                                                                                                                                          new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"), 6, FieldType.OFFICER_AGENCY))),
-		                                                     new SectionConfig(localization.getLocalizedMessage("ReportWindows.LocationInfoSectionHeading", "Location / Timestamp Information"),
-		                                                                       new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"), 4, FieldType.COMBO_BOX_STREET),
-		                                                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4, FieldType.COMBO_BOX_AREA),
-		                                                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"), 4, FieldType.COUNTY_FIELD)),
-		                                                                       new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 5, FieldType.DATE_FIELD),
-		                                                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5, FieldType.TIME_FIELD),
-		                                                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"), 2, FieldType.NUMBER_FIELD))), decedentInfoSection,
-		                                                     new SectionConfig(localization.getLocalizedMessage("ReportWindows.DeathInfoSectionHeader", "Death Information"),
-		                                                                       new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"), 6, FieldType.TEXT_FIELD),
-		                                                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"), 6, FieldType.TEXT_FIELD)),
-		                                                                       new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"), 12, FieldType.TEXT_FIELD)),
-		                                                                       new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"), 6, FieldType.TEXT_FIELD),
-		                                                                                     new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"), 6, FieldType.TEXT_FIELD))),
-		                                                     new SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), new RowConfig(new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"), 12, FieldType.TEXT_AREA))));
+
+		Map<String, Object> deathReport = createReportWindow(
+				localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report"), null,
+				new SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.OfficerInfoSectionHeading",
+								"Officer Information"),
+						new RowConfig(
+								new FieldConfig(
+										localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"), 5,
+										FieldType.OFFICER_NAME),
+								new FieldConfig(
+										localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"), 5,
+										FieldType.OFFICER_RANK),
+								new FieldConfig(
+										localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"),
+										2, FieldType.OFFICER_NUMBER)),
+						new RowConfig(
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision",
+										"division"), 6, FieldType.OFFICER_DIVISION),
+								new FieldConfig(
+										localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"),
+										6, FieldType.OFFICER_AGENCY))),
+				new SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.LocationInfoSectionHeading",
+								"Location / Timestamp Information"),
+						new RowConfig(
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"),
+										4, FieldType.COMBO_BOX_STREET),
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"), 4,
+										FieldType.COMBO_BOX_AREA),
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"),
+										4, FieldType.COUNTY_FIELD)),
+						new RowConfig(
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"), 5,
+										FieldType.DATE_FIELD),
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"), 5,
+										FieldType.TIME_FIELD),
+								new FieldConfig(
+										localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"), 2,
+										FieldType.NUMBER_FIELD))),
+				decedentInfoSection,
+				new SectionConfig(
+						localization.getLocalizedMessage("ReportWindows.DeathInfoSectionHeader", "Death Information"),
+						new RowConfig(
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField",
+										"time of death"), 6, FieldType.TEXT_FIELD),
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.DateOfDeathField",
+										"date of death"), 6, FieldType.TEXT_FIELD)),
+						new RowConfig(new FieldConfig(
+								localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"),
+								12, FieldType.TEXT_FIELD)),
+						new RowConfig(
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField",
+										"mode of death"), 6, FieldType.TEXT_FIELD),
+								new FieldConfig(
+										localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"),
+										6, FieldType.TEXT_FIELD))),
+				new SectionConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"),
+						new RowConfig(
+								new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"),
+										12, FieldType.TEXT_AREA))));
 		return deathReport;
 	}
-	
+
 	public static Map<String, Object> newDeathReport() {
 		Map<String, Object> deathReport = deathReportLayout();
-		
-		Map<String, Object> deathReportMap = (Map<String, Object>) deathReport.get(localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report") + " Map");
-		
-		TextField name = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
-		TextField rank = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
-		TextField div = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
-		TextField agen = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
-		TextField num = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-		
-		TextField date = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
-		TextField time = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-		ComboBox street = (ComboBox) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-		ComboBox area = (ComboBox) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
-		TextField county = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-		TextField deathNum = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"));
+
+		Map<String, Object> deathReportMap = (Map<String, Object>) deathReport
+				.get(localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report") + " Map");
+
+		TextField name = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
+		TextField rank = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerRank", "rank"));
+		TextField div = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerDivision", "division"));
+		TextField agen = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
+		TextField num = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
+
+		TextField date = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
+		TextField time = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
+		ComboBox street = (ComboBox) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
+		ComboBox area = (ComboBox) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
+		TextField county = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
+		TextField deathNum = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DeathNumField", "death num"));
 		deathNum.setText(generateReportNumber());
-		
-		TextField decedent = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"));
-		TextField age = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"));
-		TextField gender = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"));
-		TextField address = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"));
-		TextField description = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"));
-		
-		TextField causeofdeath = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"));
-		TextField modeofdeath = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"));
-		TextField witnesses = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
-		
-		TextField timeofdeath = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"));
-		TextField dateofdeath = (TextField) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"));
-		
-		TextArea notes = (TextArea) deathReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-		
+
+		TextField decedent = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DeathDecedentField", "decedent name"));
+		TextField age = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DeathAgeDOBField", "age/dob"));
+		TextField gender = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DeathGenderField", "gender"));
+		TextField address = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DeathReportAddressField", "address"));
+		TextField description = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DeathDescField", "description"));
+
+		TextField causeofdeath = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.CauseOfDeathField", "cause of death"));
+		TextField modeofdeath = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.ModeOfDeathField", "mode of death"));
+		TextField witnesses = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldWitnesses", "witnesses"));
+
+		TextField timeofdeath = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"));
+		TextField dateofdeath = (TextField) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"));
+
+		TextArea notes = (TextArea) deathReportMap
+				.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
+
 		Label warningLabel = (Label) deathReport.get("warningLabel");
-		
+
 		MenuButton pullnotesbtn = (MenuButton) deathReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
 		pullnotesbtn.setOnMouseEntered(actionEvent -> {
@@ -127,10 +217,13 @@ public class DeathReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-		
+
+		Label legacyLabel = (Label) deathReport.get("legacyLabel");
+		legacyLabel.setVisible(true);
+
 		Button submitBtn = (Button) deathReport.get("submitBtn");
 		ComboBox<String> statusValue = (ComboBox) deathReport.get("statusValue");
-		
+
 		submitBtn.setOnAction(event -> {
 			if (deathNum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -177,7 +270,7 @@ public class DeathReportUtils {
 				} catch (JAXBException e) {
 					logError("JAXB Error creating death report: ", e);
 				}
-				
+
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");
@@ -187,18 +280,21 @@ public class DeathReportUtils {
 				}
 				deathReportLogUpdate();
 				NotificationManager.showNotificationInfo("Report Manager", "A new Death Report has been submitted.");
-				
+
 				CustomWindow window = getWindow("Death Report");
 				if (window != null) {
 					window.closeWindow();
 				}
 			}
 		});
-		
-		Button pullDecedentInfoBtn = (Button) deathReport.get(localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader", "Deceased Information") + "_button");
-		
+
+		Button pullDecedentInfoBtn = (Button) deathReport
+				.get(localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader", "Deceased Information")
+						+ "_button");
+
 		pullDecedentInfoBtn.setOnAction(event -> {
-			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " " + pullValueFromReport("ped", "Pedlnamefield");
+			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
+					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {
 				decedent.setText(fulln);
 			}
@@ -207,16 +303,16 @@ public class DeathReportUtils {
 			address.setText(pullValueFromReport("ped", "Pedaddressfield"));
 			description.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
-		
+
 		return deathReport;
 	}
-	
+
 	public static DeathReports loadDeathReports() throws JAXBException {
 		File file = new File(DeathReportLogURL);
 		if (!file.exists()) {
 			return new DeathReports();
 		}
-		
+
 		try {
 			JAXBContext context = JAXBContext.newInstance(DeathReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -226,25 +322,26 @@ public class DeathReportUtils {
 			throw e;
 		}
 	}
-	
+
 	private static void saveDeathReports(DeathReports DeathReports) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(DeathReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		
+
 		File file = new File(DeathReportLogURL);
 		marshaller.marshal(DeathReports, file);
 	}
-	
+
 	public static void addDeathReport(DeathReport DeathReport) throws JAXBException {
 		DeathReports DeathReports = loadDeathReports();
-		
+
 		if (DeathReports.getDeathReportList() == null) {
 			DeathReports.setDeathReportList(new java.util.ArrayList<>());
 		}
-		
-		Optional<DeathReport> existingReport = DeathReports.getDeathReportList().stream().filter(e -> e.getDeathReportNumber().equals(DeathReport.getDeathReportNumber())).findFirst();
-		
+
+		Optional<DeathReport> existingReport = DeathReports.getDeathReportList().stream()
+				.filter(e -> e.getDeathReportNumber().equals(DeathReport.getDeathReportNumber())).findFirst();
+
 		if (existingReport.isPresent()) {
 			DeathReports.getDeathReportList().remove(existingReport.get());
 			DeathReports.getDeathReportList().add(DeathReport);
@@ -253,18 +350,18 @@ public class DeathReportUtils {
 			DeathReports.getDeathReportList().add(DeathReport);
 			logInfo("DeathReport with number " + DeathReport.getDeathReportNumber() + " added.");
 		}
-		
+
 		saveDeathReports(DeathReports);
 	}
-	
+
 	public static void deleteDeathReport(String DeathReportnumber) throws JAXBException {
 		DeathReports DeathReports = loadDeathReports();
-		
+
 		if (DeathReports.getDeathReportList() != null) {
 			DeathReports.getDeathReportList().removeIf(e -> e.getDeathReportNumber().equals(DeathReportnumber));
 			saveDeathReports(DeathReports);
 			logInfo("DeathReport with number " + DeathReportnumber + " deleted.");
 		}
 	}
-	
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.Insets?><?import javafx.scene.chart.AreaChart?><?import javafx.scene.chart.CategoryAxis?><?import javafx.scene.chart.NumberAxis?><?import javafx.scene.control.ComboBox?><?import javafx.scene.control.Label?><?import javafx.scene.layout.*?><?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="398.0" prefWidth="508.0"
-            stylesheets="@../../css/reportStatistics/reportStatistics.css" xmlns="http://javafx.com/javafx/21"
+            stylesheets="@../../css/reportStatistics/reportStatistics.css" xmlns="http://javafx.com/javafx/24"
             fx:controller="com.Guess.ReportsPlus.Windows.Apps.ReportStatisticsController">
     <center>
         <AnchorPane fx:id="mainPane">

@@ -1,34 +1,5 @@
 package com.Guess.ReportsPlus.Desktop;
 
-import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.config.ConfigWriter;
-import com.Guess.ReportsPlus.util.Strings.dropdownInfo;
-import com.Guess.ReportsPlus.util.UserProfiles.Profiles;
-import com.Guess.ReportsPlus.util.UserProfiles.User;
-import jakarta.xml.bind.JAXBException;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.createAppConfig;
 import static com.Guess.ReportsPlus.Launcher.localization;
@@ -38,8 +9,55 @@ import static com.Guess.ReportsPlus.config.ConfigReader.createConfig;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.config.ConfigWriter;
+import com.Guess.ReportsPlus.util.Strings.dropdownInfo;
+import com.Guess.ReportsPlus.util.UserProfiles.Profiles;
+import com.Guess.ReportsPlus.util.UserProfiles.User;
+
+import jakarta.xml.bind.JAXBException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 public class desktopLoginController {
-	
+
+	private class MissingCredential {
+		User user;
+		TextField usernameField;
+		TextField passwordField;
+
+		MissingCredential(User user, TextField usernameField, TextField passwordField) {
+			this.user = user;
+			this.usernameField = usernameField;
+			this.passwordField = passwordField;
+		}
+	}
+
 	@javafx.fxml.FXML
 	private TextField usernameField;
 	@javafx.fxml.FXML
@@ -106,48 +124,133 @@ public class desktopLoginController {
 	private ImageView showPassImageView;
 	@javafx.fxml.FXML
 	private TextField passwordFieldUnmasked;
+
 	@javafx.fxml.FXML
 	private PasswordField passwordFieldMasked;
-	
+
 	public void initialize() {
 		addLocale();
 		checkConfigUserInProfiles();
 		Platform.runLater(() -> checkForMissingCredentials());
-		
+
 		passwordFieldMasked.textProperty().bindBidirectional(passwordFieldUnmasked.textProperty());
-		
+
 		passwordFieldMasked.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				loginBtnClick(new ActionEvent());
 			}
 		});
-		
+
 		passwordFieldMasked.setVisible(true);
 		passwordFieldUnmasked.setVisible(false);
-		
-		showPassImageView.setOnMousePressed(event -> {
+
+		showPassImageView.setOnMousePressed(_ -> {
 			passwordFieldMasked.setVisible(false);
 			passwordFieldUnmasked.setVisible(true);
 			passwordFieldUnmasked.requestFocus();
 		});
-		
-		showPassImageView.setOnMouseReleased(event -> {
+
+		showPassImageView.setOnMouseReleased(_ -> {
 			passwordFieldMasked.setVisible(true);
 			passwordFieldUnmasked.setVisible(false);
 			passwordFieldMasked.requestFocus();
 		});
 	}
-	
+
+	@javafx.fxml.FXML
+	public void loginBtnClick(ActionEvent actionEvent) {
+		String user = usernameField.getText().trim().toLowerCase();
+		String pass = passwordFieldMasked.getText().trim();
+		if (user.isEmpty() || pass.isEmpty()) {
+			showError(loginErrorLabel, "Fill out username and password");
+			return;
+		}
+		try {
+			Profiles userProfiles = User.loadUserProfiles();
+			if (userProfiles.getUserList() != null) {
+				for (User userObj : userProfiles.getUserList()) {
+					if (userObj.getUsername() != null && userObj.getPassword() != null
+							&& userObj.getUsername().equalsIgnoreCase(user) && userObj.getPassword().equals(pass)) {
+						logInfo("Login successful for " + userObj.getUsername());
+						loginUser(userObj.getName(), userObj.getNumber(), userObj.getRank(), userObj.getDivision(),
+								userObj.getAgency(), userObj.getCallsign());
+						return;
+					}
+				}
+			}
+		} catch (JAXBException e) {
+			logError("Error loading user profiles");
+		}
+		showError(loginErrorLabel, "Username or password is incorrect");
+	}
+
+	@javafx.fxml.FXML
+	public void registerButtonClick(ActionEvent actionEvent) {
+		String username = registrationUsernameField.getText().trim().toLowerCase();
+		String password = registrationPasswordField.getText().trim();
+		String division = registrationDivisionBox.getValue() != null ? registrationDivisionBox.getValue() : "";
+		String agency = registrationAgencyBox.getValue() == null ? null : registrationAgencyBox.getValue().toString();
+		String rank = registrationRankBox.getValue() == null ? null : registrationRankBox.getValue().toString();
+		String officerNumber = registrationOfficerNumberField.getText().trim();
+		String callsign = registrationCallsignField.getText().trim();
+
+		String first = registrationOfficerFirstNameField.getText().trim();
+		String last = registrationOfficerLastNameField.getText().trim();
+		String name = first + " " + last;
+		if (username.isEmpty() || password.isEmpty() || division == null || agency == null || officerNumber.isEmpty()
+				|| callsign.isEmpty() || rank == null || first.isEmpty() || last.isEmpty()) {
+			showError(registrationErrorLabel, "Fill out all fields");
+			return;
+		}
+		try {
+			User user = new User(name, agency, division, rank, officerNumber, callsign);
+			Profiles userProfiles = User.loadUserProfiles();
+
+			if (userProfiles.getUserList() == null) {
+				userProfiles.setUserList(new ArrayList<>());
+			}
+
+			for (User u : userProfiles.getUserList()) {
+				if (u.getUsername() != null && u.getUsername().equalsIgnoreCase(username)) {
+					showError(registrationErrorLabel, "Username already exists");
+					return;
+				}
+			}
+
+			user.setUsername(username);
+			user.setPassword(password);
+			User.addUser(user);
+			loginUser(user.getName(), user.getNumber(), user.getRank(), user.getDivision(), user.getAgency(),
+					user.getCallsign());
+		} catch (Exception e) {
+			logError("Error adding user: " + e);
+			showError(registrationErrorLabel, "Error adding user");
+		}
+	}
+
+	@javafx.fxml.FXML
+	public void loginRegisterButtonClick(ActionEvent actionEvent) {
+		loginWindow.setVisible(false);
+		loginWindow.getChildren().clear();
+		loginWindow = null;
+
+		registrationRankBox.getItems().addAll(dropdownInfo.ranks);
+		registrationDivisionBox.getItems().addAll(dropdownInfo.divisions);
+		registrationAgencyBox.getItems().addAll(dropdownInfo.agencies);
+
+		registrationWindow.setVisible(true);
+	}
+
 	private void checkConfigUserInProfiles() {
 		try {
 			String userName = ConfigReader.configRead("userInfo", "Name");
 			if (userName == null || userName.isEmpty()) {
 				return;
 			}
-			
+
 			Profiles userProfiles = User.loadUserProfiles();
 			boolean userExists = false;
-			
+
 			if (userProfiles.getUserList() != null) {
 				for (User user : userProfiles.getUserList()) {
 					if (userName.equals(user.getName())) {
@@ -156,14 +259,14 @@ public class desktopLoginController {
 					}
 				}
 			}
-			
+
 			if (!userExists) {
 				String agency = ConfigReader.configRead("userInfo", "Agency");
 				String division = ConfigReader.configRead("userInfo", "Division");
 				String rank = ConfigReader.configRead("userInfo", "Rank");
 				String number = ConfigReader.configRead("userInfo", "Number");
 				String callsign = ConfigReader.configRead("userInfo", "Callsign");
-				
+
 				User newUser = new User(userName, agency, division, rank, number, callsign);
 				User.addUser(newUser);
 			}
@@ -173,28 +276,29 @@ public class desktopLoginController {
 			logError("Error loading user profiles: " + e.getMessage());
 		}
 	}
-	
+
 	private void addLocale() {
 		officerloginLabel.setText(localization.getLocalizedMessage("Desktop.officerloginLabel", "Officer Login:"));
 		passLabel.setText(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
 		usernameLabel.setText(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 		loginRegisterButton.setText(localization.getLocalizedMessage("Desktop.registerButton", "Register"));
 		loginButton.setText(localization.getLocalizedMessage("Desktop.loginButton", "Login"));
-		
+
 		userLabel.setText(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 		passwordLabel.setText(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
 		oCallsignLabel.setText(localization.getLocalizedMessage("UserManager.CallsignLabel", "Callsign:"));
 		oNumLabel.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		oFirstName.setText(localization.getLocalizedMessage("Desktop.firstNameLabel", "First Name:"));
 		oLastName.setText(localization.getLocalizedMessage("Desktop.lastNameLabel", "Last Name:"));
-		
+
 		rankLabel.setText(localization.getLocalizedMessage("UserManager.RankLabel", "Rank:"));
 		divisionLabel.setText(localization.getLocalizedMessage("UserManager.DivisionLabel", "Division:"));
 		agencyLabel.setText(localization.getLocalizedMessage("UserManager.Agencylabel", "Agency:"));
 		registerButton.setText(localization.getLocalizedMessage("Desktop.registerButton", "Register"));
-		officerregistrationLabel.setText(localization.getLocalizedMessage("Desktop.officerregistrationLabel", "Officer Registration:"));
+		officerregistrationLabel
+				.setText(localization.getLocalizedMessage("Desktop.officerregistrationLabel", "Officer Registration:"));
 	}
-	
+
 	private void checkForMissingCredentials() {
 		try {
 			Profiles userProfiles = User.loadUserProfiles();
@@ -213,74 +317,7 @@ public class desktopLoginController {
 			logError("Error loading user profiles");
 		}
 	}
-	
-	@javafx.fxml.FXML
-	public void loginBtnClick(ActionEvent actionEvent) {
-		String user = usernameField.getText().trim().toLowerCase();
-		String pass = passwordFieldMasked.getText().trim();
-		if (user.isEmpty() || pass.isEmpty()) {
-			showError(loginErrorLabel, "Fill out username and password");
-			return;
-		}
-		try {
-			Profiles userProfiles = User.loadUserProfiles();
-			if (userProfiles.getUserList() != null) {
-				for (User userObj : userProfiles.getUserList()) {
-					if (userObj.getUsername() != null && userObj.getPassword() != null && userObj.getUsername().equalsIgnoreCase(user) && userObj.getPassword().equals(pass)) {
-						logInfo("Login successful for " + userObj.getUsername());
-						loginUser(userObj.getName(), userObj.getNumber(), userObj.getRank(), userObj.getDivision(), userObj.getAgency(), userObj.getCallsign());
-						return;
-					}
-				}
-			}
-		} catch (JAXBException e) {
-			logError("Error loading user profiles");
-		}
-		showError(loginErrorLabel, "Username or password is incorrect");
-	}
-	
-	@javafx.fxml.FXML
-	public void registerButtonClick(ActionEvent actionEvent) {
-		String username = registrationUsernameField.getText().trim().toLowerCase();
-		String password = registrationPasswordField.getText().trim();
-		String division = registrationDivisionBox.getValue() != null ? registrationDivisionBox.getValue() : "";
-		String agency = registrationAgencyBox.getValue() == null ? null : registrationAgencyBox.getValue().toString();
-		String rank = registrationRankBox.getValue() == null ? null : registrationRankBox.getValue().toString();
-		String officerNumber = registrationOfficerNumberField.getText().trim();
-		String callsign = registrationCallsignField.getText().trim();
-		
-		String first = registrationOfficerFirstNameField.getText().trim();
-		String last = registrationOfficerLastNameField.getText().trim();
-		String name = first + " " + last;
-		if (username.isEmpty() || password.isEmpty() || division == null || agency == null || officerNumber.isEmpty() || callsign.isEmpty() || rank == null || first.isEmpty() || last.isEmpty()) {
-			showError(registrationErrorLabel, "Fill out all fields");
-			return;
-		}
-		try {
-			User user = new User(name, agency, division, rank, officerNumber, callsign);
-			Profiles userProfiles = User.loadUserProfiles();
-			
-			if (userProfiles.getUserList() == null) {
-				userProfiles.setUserList(new ArrayList<>());
-			}
-			
-			for (User u : userProfiles.getUserList()) {
-				if (u.getUsername() != null && u.getUsername().equalsIgnoreCase(username)) {
-					showError(registrationErrorLabel, "Username already exists");
-					return;
-				}
-			}
-			
-			user.setUsername(username);
-			user.setPassword(password);
-			User.addUser(user);
-			loginUser(user.getName(), user.getNumber(), user.getRank(), user.getDivision(), user.getAgency(), user.getCallsign());
-		} catch (Exception e) {
-			logError("Error adding user: " + e);
-			showError(registrationErrorLabel, "Error adding user");
-		}
-	}
-	
+
 	private void loginUser(String name, String number, String rank, String division, String agency, String callsign) {
 		createConfig();
 		createAppConfig();
@@ -301,20 +338,7 @@ public class desktopLoginController {
 			showError(loginErrorLabel, "Error opening main desktop");
 		}
 	}
-	
-	@javafx.fxml.FXML
-	public void loginRegisterButtonClick(ActionEvent actionEvent) {
-		loginWindow.setVisible(false);
-		loginWindow.getChildren().clear();
-		loginWindow = null;
-		
-		registrationRankBox.getItems().addAll(dropdownInfo.ranks);
-		registrationDivisionBox.getItems().addAll(dropdownInfo.divisions);
-		registrationAgencyBox.getItems().addAll(dropdownInfo.agencies);
-		
-		registrationWindow.setVisible(true);
-	}
-	
+
 	private void showError(Label node, String message) {
 		node.setText(message);
 		node.setStyle("-fx-text-fill: red; -fx-font-family: 'Inter 24pt Regular'; -fx-font-size: 14px;");
@@ -322,36 +346,37 @@ public class desktopLoginController {
 		Timeline timeline1 = new Timeline(new KeyFrame(Duration.seconds(1.5), evt -> node.setVisible(false)));
 		timeline1.play();
 	}
-	
+
 	private void showMissingCredentialsPopup(List<User> users) {
 		Stage popupStage = new Stage();
 		VBox rootVBox = new VBox(20);
 		rootVBox.setPadding(new Insets(20));
 		rootVBox.setStyle("-fx-background-color: #f4f4f4;");
-		
+
 		Label header = new Label("Update Missing Credentials");
 		header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
 		header.setMaxWidth(Double.MAX_VALUE);
 		header.setAlignment(javafx.geometry.Pos.CENTER);
 		rootVBox.getChildren().add(header);
-		
+
 		Separator headerSeparator = new Separator();
 		headerSeparator.setStyle("-fx-background-color: #e0e0e0;");
 		rootVBox.getChildren().add(headerSeparator);
-		
+
 		List<MissingCredential> missingList = new ArrayList<>();
 		for (User user : users) {
 			VBox userContainer = new VBox(15);
 			userContainer.setPadding(new Insets(15));
-			userContainer.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-color: #e0e0e0; -fx-border-radius: 8;");
-			
+			userContainer.setStyle(
+					"-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-color: #e0e0e0; -fx-border-radius: 8;");
+
 			Label officerLabel = new Label("Officer: " + user.getName());
 			officerLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;");
 			userContainer.getChildren().add(officerLabel);
-			
+
 			HBox credentialsBox = new HBox(30);
 			MissingCredential mc = new MissingCredential(user, null, null);
-			
+
 			VBox usernameBox = new VBox(8);
 			Label usernameLabel = new Label(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 			usernameLabel.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 14px;");
@@ -366,7 +391,7 @@ public class desktopLoginController {
 				usernameValue.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50;");
 				usernameBox.getChildren().addAll(usernameLabel, usernameValue);
 			}
-			
+
 			VBox passwordBox = new VBox(8);
 			Label passwordLabel = new Label(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
 			passwordLabel.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 14px;");
@@ -381,18 +406,19 @@ public class desktopLoginController {
 				passwordValue.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50;");
 				passwordBox.getChildren().addAll(passwordLabel, passwordValue);
 			}
-			
+
 			credentialsBox.getChildren().addAll(usernameBox, passwordBox);
 			userContainer.getChildren().add(credentialsBox);
 			rootVBox.getChildren().add(userContainer);
 			missingList.add(mc);
 		}
-		
+
 		Label errorLabel = new Label();
 		errorLabel.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 14px; -fx-font-family: 'Inter 28pt Medium';");
-		
+
 		Button saveButton = new Button("Save All");
-		saveButton.setStyle("-fx-font-size: 13px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 5 10 ;");
+		saveButton.setStyle(
+				"-fx-font-size: 13px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 5 10 ;");
 		saveButton.setOnAction(e -> {
 			for (MissingCredential entry : missingList) {
 				if (entry.usernameField != null && entry.usernameField.getText().trim().isEmpty()) {
@@ -404,7 +430,7 @@ public class desktopLoginController {
 					return;
 				}
 			}
-			
+
 			Set<String> usernames = new HashSet<>();
 			for (MissingCredential entry : missingList) {
 				if (entry.usernameField != null) {
@@ -416,7 +442,7 @@ public class desktopLoginController {
 					usernames.add(username);
 				}
 			}
-			
+
 			for (MissingCredential entry : missingList) {
 				if (entry.usernameField != null) {
 					entry.user.setUsername(entry.usernameField.getText().trim());
@@ -433,29 +459,17 @@ public class desktopLoginController {
 			}
 			popupStage.close();
 		});
-		
+
 		var bottomHBox = new HBox(saveButton, errorLabel);
 		bottomHBox.setSpacing(20);
 		bottomHBox.setAlignment(Pos.CENTER_LEFT);
-		
+
 		rootVBox.getChildren().add(bottomHBox);
-		
+
 		Scene scene = new Scene(rootVBox);
 		popupStage.setScene(scene);
 		popupStage.setTitle("Update Missing Credentials");
 		popupStage.showAndWait();
 	}
-	
-	private class MissingCredential {
-		User user;
-		TextField usernameField;
-		TextField passwordField;
-		
-		MissingCredential(User user, TextField usernameField, TextField passwordField) {
-			this.user = user;
-			this.usernameField = usernameField;
-			this.passwordField = passwordField;
-		}
-	}
-	
+
 }

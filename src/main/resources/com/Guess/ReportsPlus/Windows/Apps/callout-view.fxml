@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1003.0" stylesheets="@../../css/callout/calloutManager.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Apps.CalloutViewController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="710.0" prefWidth="1003.0" stylesheets="@../../css/callout/calloutManager.css" xmlns="http://javafx.com/javafx/24" fx:controller="com.Guess.ReportsPlus.Windows.Apps.CalloutViewController">
     <center>
         <StackPane fx:id="calloutPane" BorderPane.alignment="CENTER">
             <children>

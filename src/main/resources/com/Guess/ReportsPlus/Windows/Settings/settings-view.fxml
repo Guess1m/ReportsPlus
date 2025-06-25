@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><?import javafx.geometry.*?><?import javafx.scene.control.*?><?import javafx.scene.effect.ColorAdjust?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.*?><?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="670.0" prefWidth="730.0" stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="670.0" prefWidth="730.0" stylesheets="@../../css/settings/settings.css" xmlns="http://javafx.com/javafx/24" fx:controller="com.Guess.ReportsPlus.Windows.Settings.settingsController">
     <center>
         <SplitPane dividerPositions="0.31831610044313147" style="-fx-background-color: #0f1620;" BorderPane.alignment="CENTER">
             <items>

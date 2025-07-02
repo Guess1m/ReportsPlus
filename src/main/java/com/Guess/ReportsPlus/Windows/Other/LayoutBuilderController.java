@@ -16,6 +16,7 @@ import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificati
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.createFolderIfNotExists;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getCustomDataLogsFolderPath;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateTextFromNotepad;
+import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getLayoutJsonFromDb;
 import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.isValidDatabase;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.DEFAULT_FIELDS;
@@ -91,7 +92,6 @@ public class LayoutBuilderController {
 
 	// TODO: !inprogress
 	// documentation for custom reports
-	// Add use of force
 	// Add field sobriety
 	// Add solution for citation/accident
 
@@ -960,81 +960,79 @@ public class LayoutBuilderController {
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(15));
 		layout.setStyle("-fx-background-color: #F4F4F4; -fx-border-radius: 10; -fx-background-radius: 10;");
-
 		Label titleLabel = new Label(localization.getLocalizedMessage("ImportExport.title", "JSON Import/Export"));
 		titleLabel.setStyle("-fx-font-size: 18px; -fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: #2c3e50;");
-
 		Label descriptionLabel = new Label(localization.getLocalizedMessage("ImportExport.description",
 				"Import or export layout configuration from/to JSON format"));
 		descriptionLabel.setWrapText(true);
 		descriptionLabel.setStyle("-fx-text-fill: #7f8c8d;");
-
 		Label templateLabel = new Label("Select a template (optional):");
 		templateLabel.setStyle("-fx-font-family: 'Inter 28pt Medium';");
-
 		ComboBox<String> templateComboBox = new ComboBox<>();
 		templateComboBox.setPromptText("Select a template...");
 		templateComboBox.getItems().addAll("Callout", "Traffic Stop", "Impound", "Search", "Accident", "Death",
-				"Patrol", "Incident");
+				"Patrol", "Incident", "Use of Force");
 		templateComboBox.setPrefWidth(Double.MAX_VALUE);
-
 		TextArea jsonTextArea = new TextArea();
 		jsonTextArea.setWrapText(false);
 		jsonTextArea.setPromptText("Paste JSON here or select a template to load...");
 		jsonTextArea.setStyle("-fx-font-family: Consolas; -fx-font-size: 12px;");
-
-		templateComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+		templateComboBox.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
 			if (newValue != null) {
 				String templateJson = getTemplateJsonFor(newValue);
 				jsonTextArea.setText(templateJson);
 				logDebug("Loaded " + newValue + " template");
 			}
 		});
-
 		ScrollPane jsonScrollPane = new ScrollPane(jsonTextArea);
 		VBox.setVgrow(jsonScrollPane, Priority.ALWAYS);
 		jsonScrollPane.setFitToWidth(true);
 		jsonScrollPane.setFitToHeight(true);
 		jsonScrollPane.setStyle("-fx-background-color: transparent;");
-
 		HBox buttonContainer = new HBox(10);
 		buttonContainer.setAlignment(Pos.CENTER_LEFT);
-
 		HBox fileButtons = new HBox(10);
 		fileButtons.setAlignment(Pos.CENTER_LEFT);
-
 		Button loadFileButton = new Button(
 				localization.getLocalizedMessage("ImportExport.importFromFile", "Import from File"));
 		loadFileButton.setOnAction(e -> loadJsonFromFile(jsonTextArea));
-
+		Button importFromDbButton = new Button(
+				localization.getLocalizedMessage("ImportExport.importFromDbButton", "Import from DB"));
+		importFromDbButton.setOnAction(e -> {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setInitialDirectory(new File(getCustomDataLogsFolderPath()));
+			fileChooser.setTitle("Open Report DB File");
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Database Files", "*.db"));
+			File selectedFile = fileChooser.showOpenDialog(mainRT);
+			if (selectedFile != null) {
+				String jsonContent = getLayoutJsonFromDb(selectedFile);
+				if (jsonContent != null && !jsonContent.isEmpty()) {
+					jsonTextArea.setText(jsonContent);
+					showNotificationInfo("Import Success", "Layout JSON loaded from DB.");
+				} else {
+					showNotificationError("Import Failed", "Could not retrieve layout from the selected DB file.");
+				}
+			}
+		});
 		Button saveFileButton = new Button(
 				localization.getLocalizedMessage("ImportExport.exportToFile", "Export Current Layout to File"));
 		saveFileButton.setOnAction(e -> saveJsonToFile());
-
-		fileButtons.getChildren().addAll(loadFileButton, saveFileButton);
-
+		fileButtons.getChildren().addAll(loadFileButton, importFromDbButton, saveFileButton);
 		HBox importButtonBox = new HBox();
 		importButtonBox.setAlignment(Pos.CENTER_RIGHT);
-
 		Button importButton = new Button(localization.getLocalizedMessage("ImportExport.applyLayout", "Apply Layout"));
 		importButton.setOnAction(e -> handleImport(jsonTextArea));
-
 		Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-
 		buttonContainer.getChildren().addAll(fileButtons, spacer, importButtonBox);
 		importButtonBox.getChildren().add(importButton);
-
 		layout.getChildren().addAll(titleLabel, descriptionLabel, templateLabel, templateComboBox, jsonScrollPane,
 				buttonContainer);
-
 		BorderPane window = new BorderPane();
 		window.setCenter(layout);
 		window.setPrefSize(700, 450);
-
 		window.getStylesheets()
 				.add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
-
 		addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window,
 				localization.getLocalizedMessage("ImportExport.windowTitle", "Layout Import/Export"), true, 1, true,
 				true, mainDesktopControllerObj.getTaskBarApps(),
@@ -1044,6 +1042,8 @@ public class LayoutBuilderController {
 
 	private String getTemplateJsonFor(String newValue) {
 		switch (newValue) {
+			case "Use of Force":
+				return reportLayoutTemplates.useOfForceReport;
 			case "Callout":
 				return reportLayoutTemplates.calloutReport;
 			case "Traffic Stop":

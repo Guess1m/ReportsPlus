@@ -5,6 +5,7 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,9 +13,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DynamicDB {
 
@@ -82,6 +89,66 @@ public class DynamicDB {
 		}
 
 		return columnsDefinition;
+	}
+
+	public static String getLayoutJsonFromDb(File dbFile) {
+		if (dbFile == null || !dbFile.exists() || !dbFile.getName().endsWith(".db")) {
+			logError("Invalid database file provided.");
+			return null;
+		}
+		String dbPath = dbFile.getAbsolutePath().replaceFirst("[.][^.]+$", "");
+		String dbName = dbFile.getName();
+		if (!DynamicDB.isValidDatabase(dbFile.getAbsolutePath(), dbName)) {
+			logError("The provided file is not a valid report database: " + dbName);
+			return null;
+		}
+		Map<String, String> layoutSchema = new HashMap<>();
+		layoutSchema.put("key", "TEXT");
+		layoutSchema.put("layoutData", "TEXT");
+		layoutSchema.put("transferData", "TEXT");
+		DynamicDB databaseLayout = new DynamicDB(dbPath, "layout", "key", layoutSchema);
+		if (!databaseLayout.initDB()) {
+			logError("Failed to initialize layout database for: " + dbName);
+			return null;
+		}
+		try {
+			Map<String, Object> layoutMap = databaseLayout.getRecord("1");
+			Map<String, Object> transferMap = databaseLayout.getRecord("2");
+			String layoutData = (layoutMap != null && layoutMap.containsKey("layoutData"))
+					? (String) layoutMap.get("layoutData")
+					: null;
+			String transferData = (transferMap != null && transferMap.containsKey("transferData"))
+					? (String) transferMap.get("transferData")
+					: null;
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode rootNode = mapper.createObjectNode();
+			if (layoutData != null && !layoutData.isEmpty() && !layoutData.equals("null")) {
+				try {
+					JsonNode layoutJson = mapper.readTree(layoutData);
+					rootNode.set("layout", layoutJson);
+				} catch (JsonProcessingException e) {
+					logError("Error parsing layoutData JSON for " + dbName, e);
+				}
+			}
+			if (transferData != null && !transferData.isEmpty() && !transferData.equals("null")) {
+				try {
+					JsonNode transferJson = mapper.readTree(transferData);
+					rootNode.set("transfer", transferJson);
+				} catch (JsonProcessingException e) {
+					logError("Error parsing transferData JSON for " + dbName, e);
+				}
+			}
+			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+		} catch (SQLException | JsonProcessingException e) {
+			logError("Error retrieving layout/transfer data from database: " + dbName, e);
+			return null;
+		} finally {
+			try {
+				databaseLayout.close();
+			} catch (SQLException e) {
+				logError("Error closing database connection for: " + dbName, e);
+			}
+		}
 	}
 
 	private static void parseColumnDefinitions(String createTableSql, Map<String, String> columnsDefinition) {

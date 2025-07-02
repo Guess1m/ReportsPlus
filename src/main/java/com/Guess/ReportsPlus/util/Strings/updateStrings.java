@@ -25,9 +25,9 @@ public class updateStrings {
 			"Change LicensePlate Image In ALPR App", "Registration Window UI Updates", "Better Styled Settings Window",
 			"Added Blank FieldType For Custom Reports", "Added Checkbox FieldType For Custom Reports",
 			"New Report App Legacy Reports Support", "LogViewer Legacy Report Section",
-			"Fix Bug With Vin Not Generating",
+			"Fix Bug With Vin Not Generating", "Ability To Get JSON Layout From DB File",
 			"Option To Remove Custom Reports",
-			"Add Default Redesigned Reports Button",
+			"Add Default Redesigned Reports Button", "Added Use Of Force Report",
 			"Fixed Not Showing Expiration Dates Symbols (> 1yr, etc.)", "Importing Report Layout From Templates" };
 	public static final String[] soundList = { "alert-callout.wav", "alert-success.wav", "alert-delete.wav",
 			"alert-wanted.wav" };
@@ -53,6 +53,7 @@ public class updateStrings {
 				NewReportApp.CancelButton=Cancel
 				NewReportApp.ConfirmDeletion=Are you sure you want to perform this action?
 				LayoutBuilder.ImportExportButton=Import/Export and Templates
+				ImportExport.importFromDbButton=Import from DB
 
 
 			REMOVED:

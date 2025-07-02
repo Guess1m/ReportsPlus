@@ -32,6 +32,7 @@ public class CustomReportUtilities {
                 add("Death Report");
                 add("Patrol Report");
                 add("Incident Report");
+                add("Use of Force Report");
             };
         };
         for (String reportTitle : defaultReports) {
@@ -138,6 +139,8 @@ public class CustomReportUtilities {
 
     private static String getLayoutJsonFor(String newValue) throws JsonProcessingException {
         switch (newValue.toLowerCase()) {
+            case "use of force report":
+                return getLayoutFromJson(reportLayoutTemplates.useOfForceReport);
             case "callout report":
                 return getLayoutFromJson(reportLayoutTemplates.calloutReport);
             case "traffic stop report":

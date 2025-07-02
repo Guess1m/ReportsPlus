@@ -216,6 +216,38 @@ public class VehLookupViewController {
 
 	}
 
+	public static Vehicle performVehicleLookup(String plate) {
+		Optional<Vehicle> historyVehicle = findVehicleByNumber(plate);
+
+		if (historyVehicle.isPresent()) {
+			logDebug("performVehicleLookup: Found " + plate + " in VehHistory file");
+			Vehicle vehicle = historyVehicle.get();
+			return processVehicleInfo(vehicle.getPlateNumber(), vehicle.getColor(), vehicle.getModel(),
+					vehicle.getStolenStatus(), vehicle.getPoliceStatus(), vehicle.getOwner(), vehicle.getRegistration(),
+					vehicle.getRegistrationNumber(), vehicle.getRegistrationExpiration(), vehicle.getInsurance(),
+					vehicle.getInsuranceNumber(), vehicle.getInsuranceExpiration(), vehicle.getType(), vehicle.getVin(),
+					vehicle.getInspection());
+		}
+
+		logDebug("performVehicleLookup: " + plate + " not in VehHistory. Checking world vehicle.");
+		VehicleObject worldVehicle = new VehicleObject(plate);
+		boolean worldVehicleIsValid = worldVehicle.getPlate() != null
+				&& !worldVehicle.getPlate().equalsIgnoreCase("Not Found")
+				&& !worldVehicle.getPlate().equalsIgnoreCase("no value provided");
+
+		if (worldVehicleIsValid) {
+			logDebug("performVehicleLookup: Found " + plate + " from WorldVeh file.");
+			return processVehicleInfo(worldVehicle.getPlate(), worldVehicle.getColor(),
+					worldVehicle.getModel(), worldVehicle.getIsStolen(), worldVehicle.getIsPolice(),
+					worldVehicle.getOwner(), worldVehicle.getRegistration(), null, worldVehicle.getRegistrationDate(),
+					worldVehicle.getInsurance(), null, worldVehicle.getInsuranceDate(), null, worldVehicle.getVin(),
+					null);
+		}
+
+		logWarn("performVehicleLookup: No Vehicle With Plate: [" + plate + "] Found Anywhere");
+		return null;
+	}
+
 	@javafx.fxml.FXML
 	public void onVehSearchBtnClick(ActionEvent actionEvent) throws IOException {
 		boolean playAudio = false;
@@ -714,175 +746,115 @@ public class VehLookupViewController {
 		}
 	}
 
-	private Vehicle processVehicleInfo(String plateNumber_value, String color_value, String model_value,
+	private static Vehicle processVehicleInfo(String plateNumber_value, String color_value, String model_value,
 			String stolenStatus_value, String policeStatus_value, String owner_value, String registration_value,
 			String registrationNumber_value, String registrationExpiration_value, String insurance_value,
 			String insuranceNumber_value, String insuranceExpiration_value, String type_value, String vin_value,
 			String inspection_value) {
-		Vehicle targetVehicle = new Vehicle();
-		if (plateNumber_value == null || plateNumber_value.equalsIgnoreCase("no value provided")
-				|| plateNumber_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; plateNumber_value was null, set as ERROR");
-			targetVehicle.setPlateNumber("ERROR");
-		} else {
-			targetVehicle.setPlateNumber(plateNumber_value);
+
+		Optional<Vehicle> searchedVehicle = findVehicleByNumber(plateNumber_value);
+
+		Vehicle vehicle = searchedVehicle.orElseGet(Vehicle::new);
+		boolean needsSave = !searchedVehicle.isPresent();
+
+		if (vehicle.getPlateNumber() == null && plateNumber_value != null) {
+			vehicle.setPlateNumber(plateNumber_value);
+			needsSave = true;
 		}
 
-		if (color_value == null || color_value.equalsIgnoreCase("no value provided")
-				|| color_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; color_value was null, set as ERROR");
-			targetVehicle.setColor("ERROR");
-		} else {
-			targetVehicle.setColor(color_value);
+		if (vehicle.getColor() == null) {
+			vehicle.setColor(color_value != null ? color_value : "Not Found");
+			needsSave = true;
 		}
 
-		if (model_value == null || model_value.equalsIgnoreCase("no value provided")
-				|| model_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; model_value was null, set as: no value provided");
-			targetVehicle.setModel("no value provided");
-		} else {
-			targetVehicle.setModel(model_value);
+		if (vehicle.getModel() == null) {
+			vehicle.setModel(model_value != null ? model_value : "Not Found");
+			needsSave = true;
 		}
 
-		if (stolenStatus_value == null || stolenStatus_value.equalsIgnoreCase("no value provided")
-				|| stolenStatus_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; stolenStatus_value was null, set as Unknown");
-			targetVehicle.setStolenStatus("Unknown");
-		} else {
-			targetVehicle.setStolenStatus(stolenStatus_value);
+		if (vehicle.getStolenStatus() == null) {
+			vehicle.setStolenStatus(stolenStatus_value != null ? stolenStatus_value : "false");
+			needsSave = true;
 		}
 
-		if (policeStatus_value == null || policeStatus_value.equalsIgnoreCase("no value provided")
-				|| policeStatus_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; policeStatus_value was null, set as Unknown");
-			targetVehicle.setPoliceStatus("Unknown");
-		} else {
-			targetVehicle.setPoliceStatus(policeStatus_value);
+		if (vehicle.getPoliceStatus() == null) {
+			vehicle.setPoliceStatus(policeStatus_value != null ? policeStatus_value : "false");
+			needsSave = true;
 		}
 
-		if (owner_value == null || owner_value.equalsIgnoreCase("no value provided")
-				|| owner_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; owner_value was null, set as Unknown");
-			targetVehicle.setOwner("Unknown");
-		} else {
-			targetVehicle.setOwner(owner_value);
+		if (vehicle.getOwner() == null) {
+			vehicle.setOwner(owner_value != null ? owner_value : "Unknown");
+			needsSave = true;
 		}
 
-		if (registration_value == null || registration_value.equalsIgnoreCase("no value provided")
-				|| registration_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; registration_value was null, set as Unknown");
-			targetVehicle.setRegistration("Unknown");
-		} else {
-			targetVehicle.setRegistration(registration_value);
+		if (vehicle.getVin() == null) {
+			vehicle.setVin(vin_value != null ? vin_value : generateVin());
+			needsSave = true;
 		}
 
-		if (registrationNumber_value == null || registrationNumber_value.equalsIgnoreCase("no value provided")
-				|| registrationNumber_value.equalsIgnoreCase("not found")) {
-			String generated = generateLicenseNumber();
-			logWarn("processVehicleInfo; registrationNumber_value was null, generated: [" + generated + "]");
-			targetVehicle.setRegistrationNumber(generated);
-		} else {
-			targetVehicle.setRegistrationNumber(registrationNumber_value);
+		if (vehicle.getType() == null) {
+			vehicle.setType(type_value != null ? type_value : "N/A");
+			needsSave = true;
 		}
 
-		if (registrationExpiration_value == null || registrationExpiration_value.equalsIgnoreCase("no value provided")
-				|| registrationExpiration_value.equalsIgnoreCase("not found")) {
+		if (vehicle.getInspection() == null) {
+			vehicle.setInspection(inspection_value != null ? inspection_value : generateInspectionStatus());
+			needsSave = true;
+		}
+
+		if (vehicle.getRegistration() == null) {
+			vehicle.setRegistration(registration_value != null ? registration_value : "Unknown");
+			needsSave = true;
+		}
+
+		if (vehicle.getRegistrationNumber() == null) {
+			vehicle.setRegistrationNumber(
+					registrationNumber_value != null ? registrationNumber_value : generateLicenseNumber());
+			needsSave = true;
+		}
+
+		if (vehicle.getRegistrationExpiration() == null) {
 			String expiration = "Not Applicable";
-			switch (targetVehicle.getRegistration().toLowerCase()) {
-				case "valid":
-					expiration = generateValidLicenseExpirationDate();
-					break;
-				case "expired":
-					expiration = generateExpiredLicenseExpirationDate(3);
-					break;
-				default:
-				case "none":
-				case "revoked":
-					targetVehicle.setRegistrationExpiration(expiration);
-					break;
+			if ("valid".equalsIgnoreCase(vehicle.getRegistration())) {
+				expiration = generateValidLicenseExpirationDate();
+			} else if ("expired".equalsIgnoreCase(vehicle.getRegistration())) {
+				expiration = generateExpiredLicenseExpirationDate(3);
 			}
-
-			logWarn("processVehicleInfo; registrationExpiration_value was null, generated: [" + expiration
-					+ "] based on registration status: [" + targetVehicle.getRegistration() + "]");
-			targetVehicle.setRegistrationExpiration(expiration);
-		} else {
-			targetVehicle.setRegistrationExpiration(registrationExpiration_value);
+			vehicle.setRegistrationExpiration(
+					registrationExpiration_value != null ? registrationExpiration_value : expiration);
+			needsSave = true;
 		}
 
-		if (insurance_value == null || insurance_value.equalsIgnoreCase("no value provided")
-				|| insurance_value.equalsIgnoreCase("not found")) {
-			logError("processVehicleInfo; insurance_value was null, set as Unknown");
-			targetVehicle.setInsurance("Unknown");
-		} else {
-			targetVehicle.setInsurance(insurance_value);
+		if (vehicle.getInsurance() == null) {
+			vehicle.setInsurance(insurance_value != null ? insurance_value : "Unknown");
+			needsSave = true;
 		}
 
-		if (insuranceNumber_value == null || insuranceNumber_value.equalsIgnoreCase("no value provided")
-				|| insuranceNumber_value.equalsIgnoreCase("not found")) {
-			String generated = generateLicenseNumber();
-			logWarn("processVehicleInfo; insuranceNumber_value was null, generated: [" + generated + "]");
-			targetVehicle.setInsuranceNumber(generated);
-		} else {
-			targetVehicle.setInsuranceNumber(insuranceNumber_value);
+		if (vehicle.getInsuranceNumber() == null) {
+			vehicle.setInsuranceNumber(insuranceNumber_value != null ? insuranceNumber_value : generateLicenseNumber());
+			needsSave = true;
 		}
 
-		if (insuranceExpiration_value == null || insuranceExpiration_value.equalsIgnoreCase("no value provided")
-				|| insuranceExpiration_value.equalsIgnoreCase("not found")) {
+		if (vehicle.getInsuranceExpiration() == null) {
 			String expiration = "Not Applicable";
-			switch (targetVehicle.getInsurance().toLowerCase()) {
-				case "valid":
-					expiration = generateValidLicenseExpirationDate();
-					break;
-				case "expired":
-					expiration = generateExpiredLicenseExpirationDate(3);
-					break;
-				default:
-				case "none":
-				case "revoked":
-					targetVehicle.setInsuranceExpiration(expiration);
-					break;
+			if ("valid".equalsIgnoreCase(vehicle.getInsurance())) {
+				expiration = generateValidLicenseExpirationDate();
+			} else if ("expired".equalsIgnoreCase(vehicle.getInsurance())) {
+				expiration = generateExpiredLicenseExpirationDate(3);
 			}
-
-			logWarn("processVehicleInfo; insuranceExpiration_value was null, generated: [" + expiration
-					+ "] based on insurance status: [" + targetVehicle.getInsurance() + "]");
-			targetVehicle.setInsuranceExpiration(expiration);
-		} else {
-			targetVehicle.setInsuranceExpiration(insuranceExpiration_value);
+			vehicle.setInsuranceExpiration(insuranceExpiration_value != null ? insuranceExpiration_value : expiration);
+			needsSave = true;
 		}
 
-		if (type_value == null || type_value.equalsIgnoreCase("no value provided")
-				|| type_value.equalsIgnoreCase("not found")) {
-			logInfo("processVehicleInfo; type_value was null [always], set as N/A");
-			targetVehicle.setType("N/A");
-		} else {
-			targetVehicle.setType(type_value);
+		if (needsSave) {
+			try {
+				addVehicle(vehicle);
+			} catch (JAXBException e) {
+				logError("Error saving updated vehicle to VehicleHistory: ", e);
+			}
 		}
 
-		if (vin_value == null || vin_value.equalsIgnoreCase("no value provided")
-				|| vin_value.equalsIgnoreCase("not found")) {
-			String vin = generateVin();
-			targetVehicle.setVin(vin);
-			logWarn("processVehicleInfo; vin_value was null, generated: [" + vin + "]");
-		} else {
-			targetVehicle.setVin(vin_value);
-		}
-
-		if (inspection_value == null || inspection_value.equalsIgnoreCase("no value provided")
-				|| inspection_value.equalsIgnoreCase("not found")) {
-			String inspection = generateInspectionStatus();
-			logInfo("processVehicleInfo; inspection_value was null [always], generated: [" + inspection + "]");
-			targetVehicle.setInspection(inspection);
-		} else {
-			targetVehicle.setInspection(inspection_value);
-		}
-
-		try {
-			addVehicle(targetVehicle);
-		} catch (JAXBException e) {
-			logError("Error adding vehicle from processVehicleInfo: ", e);
-		}
-
-		return targetVehicle;
+		return vehicle;
 	}
 
 	@javafx.fxml.FXML

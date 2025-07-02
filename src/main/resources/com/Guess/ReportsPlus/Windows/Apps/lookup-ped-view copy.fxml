@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="604.0" prefWidth="784.0" stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Guess.ReportsPlus.Windows.Apps.PedLookupViewControllerCopy">
+    <center>
+        <AnchorPane fx:id="lookupPane" minWidth="875.0">
+            <children>
+            <BorderPane fx:id="databaseSearchPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <GridPane hgap="15.0" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                        <ColumnConstraints hgrow="NEVER" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="lbl1" styleClass="SubHeading" text="Search Ped:" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="pedSearchField" GridPane.columnIndex="1" />
+                        <BorderPane GridPane.columnIndex="3">
+                           <center>
+                              <Button fx:id="addDataToNotesBtn" mnemonicParsing="false" onAction="#pedAddDataToNotes" opacity="0.73" styleClass="accentBtn" text="Add Data To Notes" textOverrun="WORD_ELLIPSIS">
+                                 <BorderPane.margin>
+                                    <Insets left="10.0" />
+                                 </BorderPane.margin>
+                              </Button>
+                           </center>
+                        </BorderPane>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets left="30.0" right="30.0" top="30.0" />
+                     </BorderPane.margin>
+                  </GridPane>
+               </top>
+               <center>
+                  <ListView fx:id="databaseListView" style="-fx-background-color: rgb(0,0,0,0.05); -fx-border-color: black; -fx-border-radius: 7; -fx-background-radius: 7;" stylesheets="@../../css/courtListView.css" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                     </BorderPane.margin>
+                  </ListView>
+               </center>
+            </BorderPane>
+            <BorderPane fx:id="databaseInfoPane" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <left>
+                  <VBox prefHeight="594.0" prefWidth="163.0" style="-fx-background-color: rgb(0,0,0,0.2);" BorderPane.alignment="CENTER">
+                     <children>
+                        <BorderPane>
+                           <left>
+                              <Label text="Basic Information" BorderPane.alignment="CENTER" />
+                           </left>
+                        </BorderPane>
+                        <BorderPane>
+                           <left>
+                              <Label text="Criminal History" BorderPane.alignment="CENTER" />
+                           </left>
+                        </BorderPane>
+                     </children>
+                  </VBox>
+               </left>
+               <center>
+                  <StackPane style="-fx-background-color: rgb(0,0,0,0.05);" BorderPane.alignment="CENTER">
+                     <children>
+                        <GridPane fx:id="pedBasicInfoGrid" hgap="20.0" vgap="5.0" visible="false">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="-Infinity" vgrow="NEVER" />
+                            <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="-Infinity" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <BorderPane maxWidth="-Infinity" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <center>
+                                    <BorderPane>
+                                       <top>
+                                          <Label fx:id="noPedImageFoundlbl" alignment="CENTER" text="No Image Found In System" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Inter 28pt Bold" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </top>
+                                       <center>
+                                          <ImageView fx:id="pedImageView" fitHeight="125.0" fitWidth="124.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+                                             <image>
+                                                <Image url="@../../../../../../../../../../../Downloads/monitor.png" />
+                                             </image>
+                                          </ImageView>
+                                       </center>
+                                       <BorderPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </BorderPane.margin>
+                                    </BorderPane>
+                                 </center>
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </padding>
+                              </BorderPane>
+                              <Label styleClass="SubHeading" text="Basic Information" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <children>
+                                    <Label fx:id="pedFullNameLabelField" styleClass="SubHeading" text="John Doe" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pedPoliceLabelField" text="Pedestrian" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pedFlagsLabelField" text="Aggressive, Argumentative" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label fx:id="ped1" styleClass="SubHeading" text="First Name:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedfnamefield" editable="false" text="John" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label fx:id="ped2" styleClass="SubHeading" text="Last Name:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedlnamefield" editable="false" text="Doe" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <children>
+                                                      <Label fx:id="ped7" styleClass="SubHeading" text="Address:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="pedaddressfield" editable="false" text="2010 Laural Street, Stroudsburg PA" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="4">
+                                 <children>
+                                                      <Label fx:id="ped6" styleClass="SubHeading" text="Birthday:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="peddobfield" editable="false" text="06/20/2004" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                 <children>
+                                    <Label fx:id="pedNEWheight" styleClass="SubHeading" text="Height:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedheightfield" editable="false" text="6&quot; 1'" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="9">
+                                 <children>
+                                    <Label fx:id="pedNEWweight" styleClass="SubHeading" text="Weight:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedweightfield" editable="false" text="160 lbs" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <children>
+                                    <Label fx:id="pedNEWmaritalstatus" styleClass="SubHeading" text="Marital Status:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedmaritalstatusfield" editable="false" text="Single" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="5">
+                                 <children>
+                                    <Label fx:id="pedNEWdisability" styleClass="SubHeading" text="Disability:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="peddisabilityfield" editable="false" text="False" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <children>
+                                    <Label fx:id="pedNEWcitizenshipstatus" styleClass="SubHeading" text="Citizenship Status:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedcitizenshipstatusfield" editable="false" text="Valid" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label fx:id="ped3" styleClass="SubHeading" text="Gender:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedgenfield" editable="false" text="Male" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="10">
+                                 <children>
+                                                      <Label fx:id="ped8" styleClass="SubHeading" text="Description:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="peddescfield" text="Caucasian, Black Hair" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <Label styleClass="SubHeading" text="Physical Information" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="6">
+                                 <children>
+                                                        <Label fx:id="ped10" styleClass="SubHeading" text="Alias(s):" textOverrun="WORD_ELLIPSIS">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="16.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="pedaliasfield" text="Johnathan" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="pedCriminalHistoryGrid" hgap="20.0" vgap="20.0" visible="false">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="-Infinity" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label styleClass="SubHeading" text="Criminal History" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane GridPane.rowIndex="4">
+                                 <children>
+                                    <Label fx:id="ped21" layoutX="25.0" layoutY="20.0" styleClass="SubHeading" text="Arrest History:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-5.0">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="pedarrestpriorslistview" layoutX="76.0" layoutY="55.0" prefHeight="145.0" prefWidth="200.0" stylesheets="@../../css/main/listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <children>
+                                    <Label fx:id="ped22" layoutX="25.0" layoutY="20.0" styleClass="SubHeading" text="Citation History:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-5.0">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="pedcitationpriorslistview" layoutX="137.0" layoutY="18.0" prefHeight="145.0" prefWidth="200.0" stylesheets="@../../css/main/listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                 </children>
+                              </AnchorPane>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="1">
+                                 <children>
+                                                        <Label fx:id="ped11" styleClass="SubHeading" text="Affiliation(s):" textOverrun="WORD_ELLIPSIS">
+                                                            <font>
+                                                                <Font name="Inter 28pt Medium" size="16.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="pedaffiliationfield" text="South Brooklin" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                                      <Label fx:id="ped23" styleClass="SubHeading" text="Flag(s):" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="pedflagfield" text="Argumentative, Flight-Risk" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="2">
+                                 <children>
+                                                      <Label fx:id="ped4" styleClass="SubHeading" text="Wanted Status:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="pedwantedfield" editable="false" text="Wanted" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                                      <Label fx:id="ped14" styleClass="SubHeading" text="Time(s) Stopped:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="pedtimesstoppedfield" editable="false" text="0" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="3">
+                                 <children>
+                                                      <Label fx:id="ped13" styleClass="SubHeading" text="Probation Status:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="pedprobationstatusfield" editable="false" text="On Probation" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                                      <Label fx:id="ped12" styleClass="SubHeading" text="Parole Status:" textOverrun="WORD_ELLIPSIS">
+                                                          <font>
+                                                              <Font name="Inter 28pt Medium" size="16.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <TextField fx:id="pedparolestatusfield" editable="false" text="On Parole" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                                                  <Button fx:id="infobtn3" minWidth="-Infinity" mnemonicParsing="false" onAction="#pedUpdateInfo" opacity="0.73" styleClass="accentBtn" text="Update Other Information" textOverrun="WORD_ELLIPSIS" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="pedLicenseInfo" hgap="20.0" vgap="20.0" visible="false">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="50.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="-Infinity" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label styleClass="SubHeading" text="Criminal History" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane GridPane.rowIndex="4">
+                                 <children>
+                                    <Label fx:id="ped211" layoutX="25.0" layoutY="20.0" styleClass="SubHeading" text="Arrest History:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-5.0">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="pedarrestpriorslistview1" layoutX="76.0" layoutY="55.0" prefHeight="145.0" prefWidth="200.0" stylesheets="@../../css/main/listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <children>
+                                    <Label fx:id="ped221" layoutX="25.0" layoutY="20.0" styleClass="SubHeading" text="Citation History:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-5.0">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="pedcitationpriorslistview1" layoutX="137.0" layoutY="18.0" prefHeight="145.0" prefWidth="200.0" stylesheets="@../../css/main/listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                 </children>
+                              </AnchorPane>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="ped111" styleClass="SubHeading" text="Affiliation(s):" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedaffiliationfield1" text="South Brooklin" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="ped231" styleClass="SubHeading" text="Flag(s):" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedflagfield1" text="Argumentative, Flight-Risk" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label fx:id="ped41" styleClass="SubHeading" text="Wanted Status:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedwantedfield1" editable="false" text="Wanted" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label fx:id="ped141" styleClass="SubHeading" text="Time(s) Stopped:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedtimesstoppedfield1" editable="false" text="0" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label fx:id="ped131" styleClass="SubHeading" text="Probation Status:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedprobationstatusfield1" editable="false" text="On Probation" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label fx:id="ped121" styleClass="SubHeading" text="Parole Status:" textOverrun="WORD_ELLIPSIS">
+                                       <font>
+                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="pedparolestatusfield1" editable="false" text="On Parole" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                              </HBox>
+                              <Button fx:id="infobtn31" minWidth="-Infinity" mnemonicParsing="false" onAction="#pedUpdateInfo" opacity="0.73" styleClass="accentBtn" text="Update Other Information" textOverrun="WORD_ELLIPSIS" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </StackPane>
+               </center>
+            </BorderPane>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </BorderPane.margin>
+        </AnchorPane>
+    </center>
+   <right>
+          <VBox style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
+              <children>
+                  <BorderPane>
+                      <left>
+                          <Label fx:id="lookupmainlbl" styleClass="Heading" text="D.M.V Pedestrian Lookup" textAlignment="CENTER" textFill="#5e7387" textOverrun="WORD_ELLIPSIS" wrapText="true" BorderPane.alignment="CENTER">
+                              <font>
+                                  <Font size="25.0" />
+                              </font>
+                              <BorderPane.margin>
+                                  <Insets left="15.0" />
+                              </BorderPane.margin>
+                          </Label>
+                      </left>
+                  </BorderPane>
+                  <ScrollPane fx:id="pedPane" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="@../../css/main/scrollPane.css">
+                      <content>
+                          <AnchorPane fx:id="pedLookupPane" style="-fx-background-color: transparent;">
+                              <children>
+                                  <AnchorPane fx:id="pedRecordPane" layoutX="15.0" layoutY="65.0" prefHeight="432.0" prefWidth="857.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                                      <children>
+                                          <AnchorPane layoutY="36.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                                              <children>
+                                                  <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0" vgap="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+                                                      <columnConstraints>
+                                                          <ColumnConstraints hgrow="ALWAYS" minWidth="140.0" percentWidth="25.0" />
+                                                          <ColumnConstraints hgrow="ALWAYS" minWidth="140.0" percentWidth="25.0" />
+                                                          <ColumnConstraints hgrow="ALWAYS" minWidth="140.0" percentWidth="25.0" />
+                                                          <ColumnConstraints hgrow="ALWAYS" minWidth="140.0" percentWidth="25.0" />
+                                                      </columnConstraints>
+                                                      <rowConstraints>
+                                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                                                          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                                                          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                                                          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                                                          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="NEVER" />
+                                                          <RowConstraints minHeight="130.0" prefHeight="140.0" vgrow="SOMETIMES" />
+                                                      </rowConstraints>
+                                                      <children>
+                                                          <AnchorPane GridPane.rowIndex="4" />
+                                                          <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="7">
+                                                              <children>
+                                                                  <TextField fx:id="pedlicensefield" editable="false" layoutX="27.0" layoutY="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+                                                                  <Label fx:id="ped5" layoutX="26.0" layoutY="20.0" text="Driver License Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                      <font>
+                                                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                          <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                                          <AnchorPane GridPane.columnSpan="4">
+                                                              <children>
+                                                                  <Label fx:id="info1" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Basic Information" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="9" />
+                                                          <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                                                              <children>
+                                                                  <TextField fx:id="pedlicnumfield" editable="false" layoutX="26.0" layoutY="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+                                                                  <Label fx:id="ped9" layoutX="25.0" layoutY="20.0" text="License Number:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                      <font>
+                                                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                                          <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                                          <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                                              <children>
+                                                                  <TextField fx:id="pedgunlicensestatusfield" editable="false" layoutX="26.0" layoutY="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+                                                                  <Label fx:id="ped15" layoutX="25.0" layoutY="20.0" text="Gun License Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                      <font>
+                                                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                              <children>
+                                                                  <TextField fx:id="pedfishinglicstatusfield" editable="false" layoutX="26.0" layoutY="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+                                                                  <Label fx:id="ped18" layoutX="25.0" layoutY="20.0" text="Fishing License Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                      <font>
+                                                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.rowIndex="6">
+                                                              <children>
+                                                                  <TextField fx:id="pedboatinglicstatusfield" editable="false" layoutX="26.0" layoutY="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+                                                                  <Label fx:id="ped19" layoutX="25.0" layoutY="20.0" text="Boating License Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                      <font>
+                                                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                                              <children>
+                                                                  <TextField fx:id="pedhuntinglicstatusfield" editable="false" layoutX="26.0" layoutY="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
+                                                                  <Label fx:id="ped20" layoutX="25.0" layoutY="20.0" text="Hunting License Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                      <font>
+                                                                          <Font name="Inter 28pt Medium" size="16.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="3">
+                                                              <children>
+                                                                  <Label fx:id="info2" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Legal Information" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="11">
+                                                              <children>
+                                                                  <Label fx:id="info5" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Prior History" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="5">
+                                                              <children>
+                                                                  <Label fx:id="info3" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Licensing Information" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.vgrow="NEVER" />
+                                                          <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                          <AnchorPane GridPane.columnSpan="4" GridPane.rowIndex="8">
+                                                              <children>
+                                                                  <Label fx:id="info4" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Other Information" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+                                                          <GridPane hgap="25.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="10">
+                                                              <columnConstraints>
+                                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                                  <ColumnConstraints hgrow="NEVER" />
+                                                              </columnConstraints>
+                                                              <rowConstraints>
+                                                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                              </rowConstraints>
+                                                              <children>
+                                                                  <AnchorPane />
+                                                                  <AnchorPane GridPane.columnIndex="1" />
+                                                                  <AnchorPane GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                                                                      <GridPane.margin>
+                                                                          <Insets right="15.0" />
+                                                                      </GridPane.margin>
+                                                                  </AnchorPane>
+                                                              </children>
+                                                          </GridPane>
+                                                      </children>
+                                                  </GridPane>
+                                              </children>
+                                          </AnchorPane>
+                                      </children>
+                                  </AnchorPane>
+                                  <Label fx:id="noRecordFoundLabelPed" alignment="CENTER" layoutX="386.0" layoutY="221.0" style="-fx-font-size: 20; -fx-text-fill: #4D4D4D; -fx-font-family: &quot;Inter 28pt Bold&quot;;" text="No Record In System." textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                      <font>
+                                          <Font name="Inter 28pt Bold" size="20.0" />
+                                      </font>
+                                  </Label>
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </ScrollPane>
+              </children>
+          </VBox>
+   </right>
+</BorderPane>

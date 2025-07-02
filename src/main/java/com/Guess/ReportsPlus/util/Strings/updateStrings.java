@@ -28,7 +28,8 @@ public class updateStrings {
 			"Fix Bug With Vin Not Generating", "Ability To Get JSON Layout From DB File",
 			"Option To Remove Custom Reports",
 			"Add Default Redesigned Reports Button", "Added Use Of Force Report",
-			"Fixed Not Showing Expiration Dates Symbols (> 1yr, etc.)", "Importing Report Layout From Templates" };
+			"Fixed Not Showing Expiration Dates Symbols (> 1yr, etc.)", "Importing Report Layout From Templates",
+			"Ped/Vehicle Lookup Comands In Terminal" };
 	public static final String[] soundList = { "alert-callout.wav", "alert-success.wav", "alert-delete.wav",
 			"alert-wanted.wav" };
 	public static final String localeChanges = """
@@ -67,6 +68,7 @@ public class updateStrings {
 				NewReportApp.citation=Citation Report
 				NewReportApp.incident=Incident Report
 				NewReportApp.accident=Accident Report
+
 
 			Version: v1.5.1-alpha
 			NEW:

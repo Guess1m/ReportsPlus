@@ -1,169 +1,165 @@
 .Heading {
-    -fx-text-fill: #5E7387;
-    -fx-font-family: "Inter 28pt Bold";
-    -fx-font-size: 25;
+  -fx-text-fill: #5e7387;
+  -fx-font-family: "Inter 28pt Bold";
 }
 
 .SubHeading {
-    -fx-text-fill: #5E7387;
-    -fx-font-family: "Inter 28pt Bold";
-    -fx-font-size: 20;
+  -fx-text-fill: #5e7387;
+  -fx-font-family: "Inter 28pt Medium";
 }
 
 .Banner {
-    -fx-font-family: "Inter 28pt Bold";
-    -fx-text-fill: white;
-    -fx-background-color: #5E7387;
-    -fx-font-size: 16px;
+  -fx-font-family: "Inter 28pt Bold";
+  -fx-text-fill: white;
+  -fx-background-color: #5e7387;
+  -fx-font-size: 16px;
 }
 
 .accentBtn {
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-text-fill: white;
-    -fx-background-color: #5E7387;
-    -fx-font-size: 12px;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-text-fill: white;
+  -fx-background-color: #5e7387;
+  -fx-font-size: 12px;
 }
 
 .searchBtn {
-    -fx-font-family: "Inter 28pt Bold";
-    -fx-text-fill: white;
-    -fx-background-color: #5E7387;
-    -fx-font-size: 14px;
-    -fx-label-padding: 0;
-    -fx-padding: 0;
+  -fx-font-family: "Inter 28pt Bold";
+  -fx-text-fill: white;
+  -fx-background-color: #5e7387;
+  -fx-font-size: 14px;
+  -fx-label-padding: 0;
+  -fx-padding: 0;
 }
 
 .text-field {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: rgb(242, 242, 242, 0.6) !important;
-    -fx-prompt-text-fill: #524992 !important;
-    -fx-background-insets: 0;
-    -fx-padding: 8px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: transparent !important;
+  -fx-prompt-text-fill: #524992 !important;
+  -fx-background-insets: 0;
+  -fx-padding: 8px;
+  -fx-border-width: 0;
 }
 
 .valid-field {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: rgb(242, 242, 242, 0.6) !important;
-    -fx-prompt-text-fill: #524992 !important;
-    -fx-background-insets: 0;
-    -fx-padding: 8px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: rgb(242, 242, 242, 0.6) !important;
+  -fx-prompt-text-fill: #524992 !important;
+  -fx-background-insets: 0;
+  -fx-padding: 8px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: grey;
 }
 
 .valid-field .text {
-    -fx-underline: true;
+  -fx-underline: true;
 }
 
 .combo-boxType {
-    -fx-text-fill: yellow !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: rgba(242, 242, 242, 0.6) !important;
-    -fx-prompt-text-fill: gray !important;
-    -fx-background-insets: 0;
-    -fx-padding: 4px 0px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+  -fx-text-fill: yellow !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: rgba(242, 242, 242, 0.6) !important;
+  -fx-prompt-text-fill: gray !important;
+  -fx-background-insets: 0;
+  -fx-padding: 4px 0px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: grey;
 }
 
 .combo-boxType .list-cell {
-    -fx-text-fill: #E65C00 !important;
-    -fx-background-color: transparent;
+  -fx-text-fill: #e65c00 !important;
+  -fx-background-color: transparent;
 }
 
 .combo-boxType .arrow-button .arrow {
-    -fx-background-color: black !important;
+  -fx-background-color: black !important;
 }
 
 .combo-boxType .arrow-button {
-    -fx-background-color: rgba(242, 242, 242, 0.6) !important;
+  -fx-background-color: rgba(242, 242, 242, 0.6) !important;
 }
 
 .combo-boxType .combo-box-popup .list-cell:filled:hover {
-    -fx-background-color: rgb(0, 0, 0, 0.25);
+  -fx-background-color: rgb(0, 0, 0, 0.25);
 }
 
 .combo-boxType .combo-box-popup .list-cell:filled:selected {
-    -fx-background-color: rgb(0, 0, 0, 0.3);
+  -fx-background-color: rgb(0, 0, 0, 0.3);
 }
 
 .combo-boxVehicle {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: rgba(242, 242, 242, 0.6) !important;
-    -fx-prompt-text-fill: gray !important;
-    -fx-background-insets: 0;
-    -fx-padding: 4px 0px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: rgba(242, 242, 242, 0.6) !important;
+  -fx-prompt-text-fill: gray !important;
+  -fx-background-insets: 0;
+  -fx-padding: 4px 0px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: grey;
 }
 
 .combo-boxVehicle .arrow-button .arrow {
-    -fx-background-color: black;
+  -fx-background-color: black;
 }
 
 .combo-boxVehicle .arrow-button {
-    -fx-background-color: rgba(242, 242, 242, 0.6) !important;
+  -fx-background-color: rgba(242, 242, 242, 0.6) !important;
 }
 
 .combo-boxVehicle .combo-box-popup .list-cell:filled:hover {
-    -fx-background-color: rgb(0, 0, 0, 0.25);
+  -fx-background-color: rgb(0, 0, 0, 0.25);
 }
 
 .combo-boxVehicle .combo-box-popup .list-cell:filled:selected {
-    -fx-background-color: rgb(0, 0, 0, 0.3);
+  -fx-background-color: rgb(0, 0, 0, 0.3);
 }
 
 .combo-boxSearch {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: rgba(242, 242, 242, 0.6) !important;
-    -fx-prompt-text-fill: gray !important;
-    -fx-background-insets: 0;
-    -fx-padding: 4px 0px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: rgba(242, 242, 242, 0.6) !important;
+  -fx-prompt-text-fill: gray !important;
+  -fx-background-insets: 0;
+  -fx-padding: 4px 0px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: grey;
 }
 
 .combo-boxSearch .arrow-button .arrow {
-    -fx-background-color: black;
+  -fx-background-color: black;
 }
 
 .combo-boxSearch .arrow-button {
-    -fx-background-color: rgba(242, 242, 242, 0.6) !important;
+  -fx-background-color: rgba(242, 242, 242, 0.6) !important;
 }
 
 .combo-boxSearch .text-field {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: transparent;
-    -fx-prompt-text-fill: gray !important;
-    -fx-background-insets: 0;
-    -fx-padding: 5px 7px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0;
-    -fx-border-color: transparent;
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: transparent;
+  -fx-prompt-text-fill: gray !important;
+  -fx-background-insets: 0;
+  -fx-padding: 5px 7px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0;
+  -fx-border-color: transparent;
 }
 
 .combo-boxSearch .combo-box-popup .list-cell:filled:hover {
-    -fx-background-color: rgb(0, 0, 0, 0.25);
+  -fx-background-color: rgb(0, 0, 0, 0.25);
 }
 
 .combo-boxSearch .combo-box-popup .list-cell:filled:selected {
-    -fx-background-color: rgb(0, 0, 0, 0.3);
+  -fx-background-color: rgb(0, 0, 0, 0.3);
 }

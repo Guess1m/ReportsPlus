@@ -101,9 +101,9 @@ public class ConfigReader {
 
 		// UI Settings
 		checkAndSetDefaultValue("uiColors", "UIDarkMode", "true");
-		checkAndSetDefaultValue("uiColors", "accentColor", "#544f7f");
-		checkAndSetDefaultValue("uiColors", "mainColor", "#524992");
-		checkAndSetDefaultValue("uiColors", "secondaryColor", "#665CB6");
+		checkAndSetDefaultValue("uiColors", "accentColor", "#505D62");
+		checkAndSetDefaultValue("uiColors", "mainColor", "#263238");
+		checkAndSetDefaultValue("uiColors", "secondaryColor", "#323C41");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
 
 		// Lookup Layout

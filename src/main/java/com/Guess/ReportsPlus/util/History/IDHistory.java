@@ -1,29 +1,42 @@
 package com.Guess.ReportsPlus.util.History;
 
-import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
-import com.Guess.ReportsPlus.util.Server.Objects.ID.IDs;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.IDHistoryURL;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
-import static com.Guess.ReportsPlus.util.Strings.URLStrings.IDHistoryURL;
+import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
+import com.Guess.ReportsPlus.util.Server.Objects.ID.IDs;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 public class IDHistory {
-	
+
+	public static List<ID> getAllHistoryIDs() {
+		try {
+			IDs ids = loadHistoryIDs();
+			if (ids != null && ids.getIdList() != null) {
+				return ids.getIdList();
+			}
+		} catch (JAXBException e) {
+			logError("Error loading all history IDs: ", e);
+		}
+		return new ArrayList<>();
+	}
+
 	public static IDs loadHistoryIDs() throws JAXBException {
 		File file = new File(IDHistoryURL);
 		if (!file.exists()) {
 			return new IDs();
 		}
-		
+
 		try {
 			JAXBContext context = JAXBContext.newInstance(IDs.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -33,7 +46,7 @@ public class IDHistory {
 			throw e;
 		}
 	}
-	
+
 	private static void saveHistoryIDs(IDs IDs) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(IDs.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -41,7 +54,7 @@ public class IDHistory {
 		File file = new File(IDHistoryURL);
 		marshaller.marshal(IDs, file);
 	}
-	
+
 	public static boolean searchIDHisForName(String name) {
 		IDs IDs = null;
 		try {
@@ -49,15 +62,16 @@ public class IDHistory {
 		} catch (JAXBException e) {
 			logError("Error loading IDs from searchIDHisForName: ", e);
 		}
-		
+
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equalsIgnoreCase(name)).findFirst();
+
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equalsIgnoreCase(name))
+				.findFirst();
 		return existingReport.isPresent();
 	}
-	
+
 	public static ID getHistoryIDFromName(String name) {
 		IDs IDs = null;
 		try {
@@ -65,24 +79,26 @@ public class IDHistory {
 		} catch (JAXBException e) {
 			logError("Error loading IDs from searchIDHisForName: ", e);
 		}
-		
+
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equalsIgnoreCase(name)).findFirst();
+
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equalsIgnoreCase(name))
+				.findFirst();
 		return existingReport.orElse(null);
 	}
-	
+
 	public static void addHistoryID(ID ID) throws JAXBException {
 		IDs IDs = loadHistoryIDs();
-		
+
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName())).findFirst();
-		
+
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName()))
+				.findFirst();
+
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
@@ -91,18 +107,19 @@ public class IDHistory {
 			IDs.getIdList().add(ID);
 			logInfo("HistoryID with name " + ID.getName() + " added.");
 		}
-		
+
 		saveHistoryIDs(IDs);
 	}
-	
+
 	public static void addServerIDToHistoryIfNotExists(ID serverID) throws JAXBException {
 		IDs historyIDs = loadHistoryIDs();
-		
+
 		if (historyIDs.getIdList() == null) {
 			historyIDs.setIdList(new ArrayList<>());
 		}
-		Optional<ID> existingID = historyIDs.getIdList().stream().filter(id -> id.getName().equals(serverID.getName())).findFirst();
-		
+		Optional<ID> existingID = historyIDs.getIdList().stream().filter(id -> id.getName().equals(serverID.getName()))
+				.findFirst();
+
 		if (existingID.isEmpty()) {
 			if (historyIDs.getIdList() == null) {
 				historyIDs.setIdList(new java.util.ArrayList<>());
@@ -114,23 +131,23 @@ public class IDHistory {
 			logInfo("ServerID with name " + serverID.getName() + " already exists in history.");
 		}
 	}
-	
+
 	public static boolean checkAllHistoryIDsClosed() throws JAXBException {
 		List<ID> historyIDs = IDHistory.loadHistoryIDs().getIdList();
 		if (historyIDs == null || historyIDs.isEmpty()) {
 			logInfo("No history IDs found");
 			return false;
 		}
-		
+
 		boolean allClosed = historyIDs.stream().allMatch(id -> "closed".equalsIgnoreCase(id.getStatus()));
-		
+
 		if (allClosed) {
 			logInfo("All history IDs are closed");
 		} else {
 			logInfo("Not all history IDs are closed");
 		}
-		
+
 		return allClosed;
 	}
-	
+
 }

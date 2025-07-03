@@ -26,6 +26,11 @@ public class PedObject {
 	String huntPermitExpiration;
 	String isOnParole;
 	String isOnProbation;
+	String height;
+	String weight;
+	String maritalStatus;
+	String disabilityStatus;
+	String citizenshipStatus;
 
 	public PedObject(String filePath, String licensePlate) {
 		Map<String, String> pedData = Map.of();
@@ -54,6 +59,13 @@ public class PedObject {
 		this.huntPermitExpiration = pedData.getOrDefault("huntpermitexpiration", null);
 		this.isOnParole = pedData.getOrDefault("isonparole", null);
 		this.isOnProbation = pedData.getOrDefault("isonprobation", null);
+
+		// TODO: !inprogress add generation to plugin
+		this.height = pedData.getOrDefault("height", null);
+		this.weight = pedData.getOrDefault("weight", null);
+		this.maritalStatus = pedData.getOrDefault("maritalstatus", null);
+		this.disabilityStatus = pedData.getOrDefault("disabilitystatus", null);
+		this.citizenshipStatus = pedData.getOrDefault("citizenshipstatus", null);
 	}
 
 	public PedObject() {
@@ -209,6 +221,46 @@ public class PedObject {
 
 	public void setIsOnProbation(String isOnProbation) {
 		this.isOnProbation = isOnProbation;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+
+	public String getDisabilityStatus() {
+		return disabilityStatus;
+	}
+
+	public void setDisabilityStatus(String disabilityStatus) {
+		this.disabilityStatus = disabilityStatus;
+	}
+
+	public String getCitizenshipStatus() {
+		return citizenshipStatus;
+	}
+
+	public void setCitizenshipStatus(String citizenshipStatus) {
+		this.citizenshipStatus = citizenshipStatus;
 	}
 
 }

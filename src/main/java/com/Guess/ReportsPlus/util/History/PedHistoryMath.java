@@ -2,6 +2,7 @@ package com.Guess.ReportsPlus.util.History;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 
 import java.io.File;
@@ -185,9 +186,9 @@ public class PedHistoryMath {
 		if (roll <= chanceValid) {
 			return "Valid";
 		} else if (roll <= chanceValid + chanceSuspended) {
-			return "SUSPENDED";
+			return "Suspended";
 		} else {
-			return "EXPIRED";
+			return "Expired";
 		}
 	}
 
@@ -545,8 +546,16 @@ public class PedHistoryMath {
 
 	public static String parseExpirationDate(String expirationDateStr) {
 		LocalDate today = LocalDate.now();
-		LocalDate expirationDate = LocalDate.parse(expirationDateStr, DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-
+		if (expirationDateStr == null || expirationDateStr.isEmpty()) {
+			return "";
+		}
+		LocalDate expirationDate;
+		try {
+			expirationDate = LocalDate.parse(expirationDateStr, DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+		} catch (DateTimeParseException e) {
+			logWarn("parseExpirationDate; Error parsing expiration date: " + expirationDateStr);
+			return "";
+		}
 		if (expirationDate.isAfter(today)) {
 			return "";
 		} else {
@@ -570,6 +579,53 @@ public class PedHistoryMath {
 			}
 			return "";
 		}
+	}
+
+	public static String generateMaritalStatus(int age) {
+		Random random = new Random();
+		double probability = random.nextDouble();
+		if (age < 22) {
+			return "Single";
+		} else if (age >= 22 && age < 35) {
+			if (probability < 0.6)
+				return "Single";
+			if (probability < 0.9)
+				return "Married";
+			return "Divorced";
+		} else {
+			if (probability < 0.4)
+				return "Married";
+			if (probability < 0.7)
+				return "Divorced";
+			if (probability < 0.9)
+				return "Single";
+			return "Widowed";
+		}
+	}
+
+	public static String[] generateHeightAndWeight(String gender) {
+		Random random = new Random();
+		int totalInches;
+		if ("female".equalsIgnoreCase(gender)) {
+			totalInches = 62 + random.nextInt(6);
+		} else {
+			totalInches = 67 + random.nextInt(8);
+		}
+		int feet = totalInches / 12;
+		int inches = totalInches % 12;
+		String height = String.format("%d' %d\"", feet, inches);
+		double inchesOver5Feet = Math.max(0, totalInches - 60);
+		double baseWeightKg;
+		if ("female".equalsIgnoreCase(gender)) {
+			baseWeightKg = 45.5 + (2.3 * inchesOver5Feet);
+		} else {
+			baseWeightKg = 50.0 + (2.3 * inchesOver5Feet);
+		}
+		double weightVariance = (random.nextDouble() * 0.30) - 0.15;
+		double finalWeightKg = baseWeightKg * (1 + weightVariance);
+		int finalWeightLbs = (int) (finalWeightKg * 2.20462);
+		String weight = finalWeightLbs + " lbs";
+		return new String[] { height, weight };
 	}
 
 	public static List<String> genericFirstNames = new ArrayList<>(Arrays.asList(

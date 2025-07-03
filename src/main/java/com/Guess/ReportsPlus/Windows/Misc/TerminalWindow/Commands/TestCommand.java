@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 import com.Guess.ReportsPlus.Launcher;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
+import com.Guess.ReportsPlus.Windows.Apps.PedLookupViewControllerCopy;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Command;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Output;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
@@ -28,11 +30,14 @@ public class TestCommand implements Command {
 
 	@Override
 	public void execute(String[] args, Output output) {
-		WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+		CustomWindow window = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 				"Windows/Apps/lookup-ped-view copy.fxml", "Pedestrian Lookup COPY", true, 1, true, false,
 				mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/ped-search.png"))));
+
+		PedLookupViewControllerCopy.pedLookupViewControllerCopy = (PedLookupViewControllerCopy) window.controller;
+
 		try {
 			settingsController.loadTheme();
 		} catch (IOException e) {

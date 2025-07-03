@@ -1,0 +1,58 @@
+/* idtemplate.css */
+
+/* Style for the "CITY OF LOS SANTOS" label */
+.city-label {
+  -fx-font-size: 30;
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 24pt Regular"; /* Ensure this font is available */
+}
+
+/* Style for genNum1 and genNum2 labels */
+.gen-num-label {
+  -fx-text-fill: #6f6f6f;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 13;
+  -fx-font-weight: bold; /* Based on your FXML */
+}
+
+/* Style for TextField labels (FIRST, LAST, DOB, SEX, HEIGHT, WEIGHT) */
+.field-label {
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-text-fill: #979797;
+  -fx-font-size: 14;
+}
+
+/* Style for TextField inputs */
+.text-field-transparent {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+  -fx-font-size: 13.4;
+  -fx-font-family: "Inter 24pt Regular";
+}
+
+.field-label-small {
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-text-fill: #979797;
+  -fx-font-size: 10;
+}
+
+/* Style for TextField inputs */
+.text-field-transparent-small {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+  -fx-font-size: 10;
+  -fx-font-family: "Inter 24pt Regular";
+}
+
+/* Style for the cursiveName (label in the bottom-left of image) */
+.cursive-name-label {
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 15.5;
+}
+
+/* Style for the address label */
+.address-label {
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 12;
+}

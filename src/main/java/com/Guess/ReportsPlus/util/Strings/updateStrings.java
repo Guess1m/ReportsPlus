@@ -68,6 +68,14 @@ public class updateStrings {
 				NewReportApp.citation=Citation Report
 				NewReportApp.incident=Incident Report
 				NewReportApp.accident=Accident Report
+			PedLookup.NoPedFoundInSystem", "No Record Found In System
+			PedLookup.SearchPedButton=Search
+			PedLookup.LegalInfoLabel", "Legal Information
+			PedLookup.BasicInfoLabel", "Basic Information
+			PedLookup.LicenseInfoLabel", "Licensing Information
+			PedLookup.OtherInfoLabel", "Other Information
+			PedLookup.PriorHistoryLabel", "Prior History
+			PedLookup.HuntLicenseInfoTitle", "Hunting License Information:
 
 
 			Version: v1.5.1-alpha

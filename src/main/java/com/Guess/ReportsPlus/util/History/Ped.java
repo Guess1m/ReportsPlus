@@ -130,6 +130,24 @@ public class Ped {
 	@XmlElement(name = "VehiclePlateNum")
 	private String vehiclePlateNum;
 
+	@XmlElement(name = "DisabilityStatus")
+	private String disabilityStatus;
+
+	@XmlElement(name = "Height")
+	private String height;
+
+	@XmlElement(name = "Weight")
+	private String weight;
+
+	@XmlElement(name = "MaritalStatus")
+	private String maritalStatus;
+
+	@XmlElement(name = "CitizenshipStatus")
+	private String citizenshipStatus;
+
+	@XmlElement(name = "LicenseExpiration")
+	private String licenseExpiration;
+
 	@Override
 	public String toString() {
 		return "name=[" + name +
@@ -148,6 +166,7 @@ public class Ped {
 				"]| warrantAgency=[" + warrantAgency +
 				"]| outstandingWarrants=[" + outstandingWarrants +
 				"]| licenseStatus=[" + licenseStatus +
+				"]| licenseExpiration=[" + licenseExpiration +
 				"]| paroleStatus=[" + paroleStatus +
 				"]| probationStatus=[" + probationStatus +
 				"]| timesStopped=[" + timesStopped +
@@ -167,7 +186,12 @@ public class Ped {
 				"]| huntingLicenseStatus=[" + huntingLicenseStatus +
 				"]| arrestPriors=[" + arrestPriors +
 				"]| citationPriors=[" + citationPriors +
-				"]| vehiclePlateNum=[" + vehiclePlateNum + "]";
+				"]| vehiclePlateNum=[" + vehiclePlateNum +
+				"]| height=[" + height +
+				"]| weight=[" + weight +
+				"]| disabilityStatus=[" + disabilityStatus +
+				"]| maritalStatus=[" + maritalStatus +
+				"]| citizenshipStatus=[" + citizenshipStatus + "]";
 	}
 
 	public String getFirstName() {
@@ -193,6 +217,46 @@ public class Ped {
 			return calculateAge(birthday);
 		}
 		return "";
+	}
+
+	public String getDisabilityStatus() {
+		return disabilityStatus;
+	}
+
+	public void setDisabilityStatus(String disabilityStatus) {
+		this.disabilityStatus = disabilityStatus;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+
+	public String getCitizenshipStatus() {
+		return citizenshipStatus;
+	}
+
+	public void setCitizenshipStatus(String citizenshipStatus) {
+		this.citizenshipStatus = citizenshipStatus;
 	}
 
 	public String getGunLicenseExpiration() {
@@ -614,6 +678,14 @@ public class Ped {
 			}
 		}
 
+	}
+
+	public String getLicenseExpiration() {
+		return licenseExpiration;
+	}
+
+	public void setLicenseExpiration(String licenseExpiration) {
+		this.licenseExpiration = licenseExpiration;
 	}
 
 }

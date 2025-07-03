@@ -1,5 +1,12 @@
 package com.Guess.ReportsPlus.util.Server.Objects.ID;
 
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.currentIDFileURL;
+
+import java.io.File;
+import java.util.Optional;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -8,44 +15,47 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.io.File;
-import java.util.Optional;
-
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
-import static com.Guess.ReportsPlus.util.Strings.URLStrings.currentIDFileURL;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ID {
-	
+
 	@XmlElement(name = "Name")
 	private String name;
-	
+
 	@XmlElement(name = "Birthday")
 	private String birthday;
-	
+
 	@XmlElement(name = "Gender")
 	private String gender;
-	
+
 	@XmlElement(name = "Address")
 	private String address;
-	
+
+	// TODO: !inprogress add height and weight to ID (gen in plugin)
+	@XmlElement(name = "Height")
+	private String height;
+
+	@XmlElement(name = "Weight")
+	private String weight;
+
 	@XmlElement(name = "PedModel")
 	private String pedModel;
-	
+
 	@XmlElement(name = "LicenseNumber")
 	private String licenseNumber;
-	
+
 	@XmlElement(name = "Status")
 	private String status;
-	
+
+	@XmlElement(name = "Expiration")
+	private String expiration;
+
 	public static IDs loadServerIDs() throws JAXBException {
 		File file = new File(currentIDFileURL);
-		
+
 		if (!file.exists() || file.length() == 0) {
 			return new IDs();
 		}
-		
+
 		try {
 			JAXBContext context = JAXBContext.newInstance(IDs.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -55,7 +65,7 @@ public class ID {
 			throw e;
 		}
 	}
-	
+
 	private static void saveServerIDs(IDs IDs) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(IDs.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -63,16 +73,17 @@ public class ID {
 		File file = new File(currentIDFileURL);
 		marshaller.marshal(IDs, file);
 	}
-	
+
 	public static void addServerID(ID ID) throws JAXBException {
 		IDs IDs = loadServerIDs();
-		
+
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-		
-		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName())).findFirst();
-		
+
+		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName()))
+				.findFirst();
+
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
@@ -81,18 +92,18 @@ public class ID {
 			IDs.getIdList().add(ID);
 			logInfo("ServerID with name " + ID.getName() + " added.");
 		}
-		
+
 		saveServerIDs(IDs);
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getPedModel() {
 		return pedModel;
 	}
-	
+
 	public String getFirstName() {
 		if (name != null && !name.isEmpty()) {
 			String[] parts = name.split(" ");
@@ -100,7 +111,7 @@ public class ID {
 		}
 		return "";
 	}
-	
+
 	public String getLastName() {
 		if (name != null && !name.isEmpty()) {
 			String[] parts = name.split(" ");
@@ -110,29 +121,48 @@ public class ID {
 		}
 		return "";
 	}
-	
+
 	public String getBirthday() {
 		return birthday;
 	}
-	
+
 	public String getLicenseNumber() {
 		return licenseNumber;
 	}
-	
+
 	public String getGender() {
 		return gender;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public String getExpiration() {
+		return expiration;
+	}
 }

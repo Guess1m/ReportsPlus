@@ -163,3 +163,9 @@
 .combo-boxSearch .combo-box-popup .list-cell:filled:selected {
   -fx-background-color: rgb(0, 0, 0, 0.3);
 }
+
+.side-button {
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-padding: 8px;
+  -fx-background-radius: 10 0 0 10;
+}

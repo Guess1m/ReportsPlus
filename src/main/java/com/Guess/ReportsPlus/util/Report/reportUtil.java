@@ -485,9 +485,12 @@ public class reportUtil {
 		return DeathReportNumber.toString();
 	}
 
+	// BUG: make sure pulling into legacy reports still works after finished (the
+	// getters are lower)
 	public static String pullValueFromReport(String lookupType, String key) {
 		Object object = null;
 		String lowerLookup = lookupType.toLowerCase();
+		key = key.toLowerCase();
 
 		switch (lowerLookup) {
 			case "ped":

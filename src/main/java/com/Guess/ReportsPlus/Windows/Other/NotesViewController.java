@@ -75,7 +75,7 @@ public class NotesViewController {
 			ToggleButton modeToggle = (ToggleButton) anchorPane.lookup("#modeToggle");
 			Button codesbtnnotepad = (Button) anchorPane.lookup("#codesbtnnotepad");
 
-			newTab.setOnClosed(event -> notesTabList.remove(note));
+			newTab.setOnClosed(_ -> notesTabList.remove(note));
 
 			if (noteArea != null) {
 				if (note.getNoteText() != null && !note.getNoteText().isEmpty()) {
@@ -117,14 +117,14 @@ public class NotesViewController {
 			}
 			if (clrBtn != null) {
 				clrBtn.setText(localization.getLocalizedMessage("NotesWindow.ClearNotesButton", "Clear"));
-				clrBtn.setOnAction(actionEvent -> {
+				clrBtn.setOnAction(_ -> {
 					if (noteArea != null) {
 						noteArea.setText("");
 					}
 				});
 			}
 			if (modeToggle != null) {
-				modeToggle.setOnAction(actionEvent -> {
+				modeToggle.setOnAction(_ -> {
 					try {
 						if (ConfigReader.configRead("notepad", "notepadMode").equals("Light")) {
 							ConfigWriter.configwrite("notepad", "notepadMode", "Dark");
@@ -161,7 +161,7 @@ public class NotesViewController {
 			}
 			if (codesbtnnotepad != null) {
 				codesbtnnotepad.setText(localization.getLocalizedMessage("NotesWindow.CodesButton", "Codes"));
-				codesbtnnotepad.setOnAction(actionEvent -> {
+				codesbtnnotepad.setOnAction(_ -> {
 					if (notesViewController.getCodeSelectionPane().isVisible()) {
 
 						double toWidth = 0;

@@ -3,6 +3,7 @@ package com.Guess.ReportsPlus;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.checkAndSetDefaultAppValues;
 import static com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig.appConfig.createAppConfig;
 import static com.Guess.ReportsPlus.config.ConfigReader.checkAndSetDefaultValues;
+import static com.Guess.ReportsPlus.config.ConfigReader.configRead;
 import static com.Guess.ReportsPlus.config.ConfigReader.createConfig;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.initLogging;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
@@ -62,6 +63,9 @@ public class Launcher {
 		checkAndSetDefaultValues(false);
 		checkAndSetDefaultAppValues();
 
+		clearOldLookupData();
+		clearOldCalloutData();
+
 		try {
 			if (ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true")) {
 				logDebug("skipOfficerLogin is true, trying to open main desktop..");
@@ -77,6 +81,72 @@ public class Launcher {
 		} catch (NullPointerException e) {
 			logWarn("skipOfficerLogin null, Likely first launch, running login window: ");
 			newOfficerApplication.main(args);
+		}
+	}
+
+	private static void clearOldLookupData() {
+		boolean deleteOldData = true;
+		try {
+			deleteOldData = configRead("desktopSettings", "clearLookupDataOnStartup").equalsIgnoreCase("true");
+		} catch (IOException e) {
+			logError("clearLookupDataOnStartup was null, using default: 'true': ", e);
+		}
+
+		if (deleteOldData) {
+			try {
+				String filePath = controllerUtils.getDataFolderPath() + "vehHistory.xml";
+				Path path = Path.of(filePath);
+				if (Files.exists(path)) {
+					Files.delete(path);
+					logInfo("vehHistory file deleted successfully.");
+				} else {
+					logWarn("vehHistory file does not exist.");
+				}
+				String filePath2 = controllerUtils.getDataFolderPath() + "pedHistory.xml";
+				Path path2 = Path.of(filePath2);
+				if (Files.exists(path2)) {
+					Files.delete(path2);
+					logInfo("pedHistory file deleted successfully.");
+				} else {
+					logWarn("pedHistory file does not exist.");
+				}
+			} catch (IOException e) {
+				logError("Error while deleting pedHistory/vehHistory file: ", e);
+			}
+
+		}
+	}
+
+	private static void clearOldCalloutData() {
+		boolean deleteOldData = true;
+		try {
+			deleteOldData = configRead("desktopSettings", "clearCalloutDataOnStartup").equalsIgnoreCase("true");
+		} catch (IOException e) {
+			logError("clearCalloutDataOnStartup was null, using default: 'true': ", e);
+		}
+
+		if (deleteOldData) {
+			try {
+				String filePath = controllerUtils.getDataFolderPath() + "calloutData.xml";
+				Path path = Path.of(filePath);
+				if (Files.exists(path)) {
+					Files.delete(path);
+					logInfo("calloutData file deleted successfully.");
+				} else {
+					logWarn("calloutData file does not exist.");
+				}
+				String filePath2 = controllerUtils.getDataFolderPath() + "calloutHistory.xml";
+				Path path2 = Path.of(filePath2);
+				if (Files.exists(path2)) {
+					Files.delete(path2);
+					logInfo("calloutHistory file deleted successfully.");
+				} else {
+					logWarn("calloutHistory file does not exist.");
+				}
+			} catch (IOException e) {
+				logError("Error while deleting calloutHistory/calloutData file: ", e);
+			}
+
 		}
 	}
 

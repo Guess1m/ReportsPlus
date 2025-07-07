@@ -152,7 +152,7 @@ public class IncidentReportUtils {
 		MenuButton pullnotesbtn = (MenuButton) incidentReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -184,7 +184,7 @@ public class IncidentReportUtils {
 
 		ComboBox<String> statusValue = (ComboBox) incidentReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (incidentnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Incident Number can't be empty!");

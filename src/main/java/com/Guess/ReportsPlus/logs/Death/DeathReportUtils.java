@@ -190,7 +190,7 @@ public class DeathReportUtils {
 
 		MenuButton pullnotesbtn = (MenuButton) deathReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -224,7 +224,7 @@ public class DeathReportUtils {
 		Button submitBtn = (Button) deathReport.get("submitBtn");
 		ComboBox<String> statusValue = (ComboBox) deathReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (deathNum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Death Number can't be empty!");
@@ -292,7 +292,7 @@ public class DeathReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.DeceasedInfoSectionHeader", "Deceased Information")
 						+ "_button");
 
-		pullDecedentInfoBtn.setOnAction(event -> {
+		pullDecedentInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {

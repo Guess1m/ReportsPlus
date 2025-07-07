@@ -153,7 +153,7 @@ public class CustomReport {
 					continue;
 				}
 
-				btn.setOnAction(event -> {
+				btn.setOnAction(_ -> {
 					logDebug("Auto-filling section: " + sectionTitle);
 
 					for (nestedReportUtils.RowConfig rowConfig : sectionConfig.getRowConfigs()) {
@@ -380,7 +380,7 @@ public class CustomReport {
 				}
 
 				MenuItem menuItem = new MenuItem(reportName);
-				menuItem.setOnAction(actionEvent -> {
+				menuItem.setOnAction(_ -> {
 					String targetReportName = menuItem.getText();
 					String dbFilePath = dataFolderPath + targetReportName + ".db";
 
@@ -509,7 +509,7 @@ public class CustomReport {
 			}
 		});
 
-		submitBtn.setOnAction(submitEvent -> {
+		submitBtn.setOnAction(_ -> {
 			Map<String, List<String>> selectedTypes = newMap.getOrDefault("selectedType", new HashMap<>());
 			Map<String, List<String>> fieldNames = newMap.getOrDefault("fieldNames", new HashMap<>());
 

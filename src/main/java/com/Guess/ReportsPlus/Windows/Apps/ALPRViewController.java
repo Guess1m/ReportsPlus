@@ -416,7 +416,7 @@ public class ALPRViewController {
 	}
 
 	@FXML
-	public void searchDMVButtonClick(ActionEvent actionEvent) {
+	public void searchDMVButtonClick(ActionEvent actionEvent) throws IOException {
 		if (licensePlateNumbers.getText() == null || licensePlateNumbers.getText().isEmpty()) {
 			return;
 		}
@@ -440,14 +440,12 @@ public class ALPRViewController {
 				vehWindow.restoreWindow(vehWindow.title);
 			}
 			if (vehLookupViewController != null) {
-				vehLookupViewController.getVehSearchField().getEditor().setText(licensePlateNumbers.getText());
-				try {
-					vehLookupViewController.onVehSearchBtnClick(new ActionEvent());
-					vehWindow.bringToFront();
-					logDebug("Bringing up veh search for: " + licensePlateNumbers.getText() + " from alpr");
-				} catch (IOException e) {
-					logError("Error searching plate from alpr window, plate: " + licensePlateNumbers.getText(), e);
-				}
+				vehLookupViewController.getDatabaseInfoPane().setVisible(false);
+				vehLookupViewController.getDatabaseSearchPane().setVisible(true);
+				vehLookupViewController.getVehSearchField().setText(licensePlateNumbers.getText());
+				vehWindow.bringToFront();
+				logDebug("Bringing up veh search for: " + licensePlateNumbers.getText() +
+						" from alpr");
 			}
 		}
 	}
@@ -614,7 +612,7 @@ public class ALPRViewController {
 		root.setPrefHeight(175);
 		root.setPrefWidth(400);
 
-		useDefaultCheckBox.setOnAction(event -> {
+		useDefaultCheckBox.setOnAction(_ -> {
 			boolean useDefault2 = useDefaultCheckBox.isSelected();
 			filePathField.setDisable(useDefault2);
 			browseButton.setDisable(useDefault2);
@@ -626,7 +624,7 @@ public class ALPRViewController {
 			}
 		});
 
-		browseButton.setOnAction(event -> {
+		browseButton.setOnAction(_ -> {
 			File selectedFile = fileChooser.showOpenDialog((javafx.stage.Window) mainRT);
 			if (selectedFile != null) {
 				filePathField.setText(selectedFile.getAbsolutePath());
@@ -637,7 +635,7 @@ public class ALPRViewController {
 				new Image(Objects.requireNonNull(
 						getClass().getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 
-		saveButton.setOnAction(event -> {
+		saveButton.setOnAction(_ -> {
 			boolean useDefault2 = useDefaultCheckBox.isSelected();
 			String imagePath = filePathField.getText();
 

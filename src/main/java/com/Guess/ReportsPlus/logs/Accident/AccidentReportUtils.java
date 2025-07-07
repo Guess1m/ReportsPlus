@@ -220,7 +220,7 @@ public class AccidentReportUtils {
 		MenuButton pullnotesbtn = (MenuButton) accidentReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -255,7 +255,7 @@ public class AccidentReportUtils {
 
 		ComboBox<String> statusValue = (ComboBox) accidentReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (accidentnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Accident Number can't be empty!");
@@ -335,7 +335,7 @@ public class AccidentReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information") + "_button");
 
-		offenderInfoBtn.setOnAction(event -> {
+		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {
@@ -347,7 +347,7 @@ public class AccidentReportUtils {
 			offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
 
-		vehInfoBtn.setOnAction(event -> {
+		vehInfoBtn.setOnAction(_ -> {
 			plateNumber.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			model.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
 			String typ = pullValueFromReport("vehicle", "Vehtypecombobox");

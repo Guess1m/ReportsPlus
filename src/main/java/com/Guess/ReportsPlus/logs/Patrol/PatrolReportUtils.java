@@ -131,7 +131,7 @@ public class PatrolReportUtils {
 		MenuButton pullnotesbtn = (MenuButton) patrolReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -157,7 +157,7 @@ public class PatrolReportUtils {
 		Label legacyLabel = (Label) patrolReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (patrolnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Patrol Number can't be empty!");

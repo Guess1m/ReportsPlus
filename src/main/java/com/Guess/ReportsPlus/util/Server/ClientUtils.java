@@ -1,8 +1,43 @@
 package com.Guess.ReportsPlus.util.Server;
 
+import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
+import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
+import static com.Guess.ReportsPlus.Windows.Server.CalloutPopupController.getCallout;
+import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
+import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
+import static com.Guess.ReportsPlus.util.Strings.URLStrings.serverLookupURL;
+import static com.Guess.ReportsPlus.util.Strings.updateStrings.version;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Objects;
+
+import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
-import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Windows.Apps.ALPRViewController;
 import com.Guess.ReportsPlus.Windows.Server.ClientController;
 import com.Guess.ReportsPlus.Windows.Server.trafficStopController;
@@ -11,33 +46,15 @@ import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
-import com.Guess.ReportsPlus.util.Other.Callout.CalloutManager;
 import com.Guess.ReportsPlus.util.Other.controllerUtils;
+import com.Guess.ReportsPlus.util.Other.Callout.CalloutManager;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Strings.URLStrings;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-
-import java.io.*;
-import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Objects;
-
-import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
-import static com.Guess.ReportsPlus.Windows.Apps.CalloutViewController.calloutViewController;
-import static com.Guess.ReportsPlus.Windows.Server.CalloutPopupController.getCallout;
-import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationErrorPersistent;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
-import static com.Guess.ReportsPlus.util.Strings.URLStrings.serverLookupURL;
-import static com.Guess.ReportsPlus.util.Strings.updateStrings.version;
 
 public class ClientUtils {
 	public static Boolean isConnected = false;
@@ -47,7 +64,7 @@ public class ClientUtils {
 	public static String serverVersion = null;
 	private static Socket socket = null;
 	private static ServerStatusListener statusListener;
-	
+
 	public static void connectToService(String serviceAddress, int servicePort) throws IOException {
 		if (socket != null && !socket.isClosed()) {
 			logInfo("Closing existing socket before reconnecting.");
@@ -58,33 +75,35 @@ public class ClientUtils {
 			try {
 				logInfo("Initializing socket.");
 				socket = new Socket();
-				
+
 				if (ClientController.clientController != null) {
 					Platform.runLater(() -> {
-						ClientController.clientController.getStatusLabel().setText(localization.getLocalizedMessage("ServerConnectionWindow.TestingConnection", "Testing Connection..."));
+						ClientController.clientController.getStatusLabel().setText(localization.getLocalizedMessage(
+								"ServerConnectionWindow.TestingConnection", "Testing Connection..."));
 						ClientController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
 					});
 				}
-				
+
 				logInfo("Attempting to connect to " + serviceAddress + ":" + servicePort);
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
 				logInfo("Socket connected successfully.");
-				
+
 				socket.setSoTimeout(Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
-				logInfo("Socket timeout set to " + Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
-				
+				logInfo("Socket timeout set to "
+						+ Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
+
 				isConnected = true;
 				notifyStatusChanged(isConnected);
-				
+
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				receiveMessages(in);
-				
+
 				logInfo("Reader thread started.");
 				logInfo("CONNECTED: " + serviceAddress + ":" + servicePort);
-				
+
 				port = String.valueOf(servicePort);
 				inet = serviceAddress;
-				
+
 				logInfo("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort);
 				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
 				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
@@ -99,24 +118,25 @@ public class ClientUtils {
 		WorkerThread serverConnectionThread = new WorkerThread("ServerConnectionThread", serverConnectionTask);
 		serverConnectionThread.start();
 	}
-	
-	public synchronized static void receiveFileFromServer(int fileSize, String serverFileName, boolean showdebug) throws IOException {
+
+	public synchronized static void receiveFileFromServer(int fileSize, String serverFileName, boolean showdebug)
+			throws IOException {
 		int bytesRead;
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		Socket sock = null;
-		
+
 		try {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			if (showdebug) {
 				logInfo("Starting file transfer: " + serverFileName + " (Size: " + fileSize + " bytes)");
 			}
-			
+
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
 			fos = new FileOutputStream(controllerUtils.getServerDataFolderPath() + serverFileName);
 			bos = new BufferedOutputStream(fos);
-			
+
 			if (showdebug) {
 				logDebug("{File Transfer} Receiving file: " + serverFileName);
 			}
@@ -126,9 +146,10 @@ public class ClientUtils {
 				totalBytesRead += bytesRead;
 			}
 			bos.flush();
-			
+
 			if (showdebug) {
-				logInfo("{File Transfer} File transfer completed successfully. Total bytes received: " + totalBytesRead);
+				logInfo("{File Transfer} File transfer completed successfully. Total bytes received: "
+						+ totalBytesRead);
 			}
 		} catch (IOException e) {
 			logError("{File Transfer} Error occurred while receiving the file: " + serverFileName + "; ", e);
@@ -152,7 +173,7 @@ public class ClientUtils {
 			}
 		}
 	}
-	
+
 	public static void sendMessageToServer(String message) {
 		if (socket != null && socket.isConnected()) {
 			try {
@@ -168,25 +189,25 @@ public class ClientUtils {
 			logWarn("Socket is not connected. Unable to send message: " + message);
 		}
 	}
-	
+
 	public static void receiveMessages(BufferedReader in) {
 		Runnable messageReceiverTask = () -> {
 			try {
 				String fromServer;
 				long lastUpdate = System.currentTimeMillis();
-				label:
-				while ((fromServer = in.readLine()) != null) {
+				label: while ((fromServer = in.readLine()) != null) {
 					if (fromServer.contains("VERSION=")) {
 						String[] split = fromServer.split("=");
 						String serverVer = split[1];
 						logInfo("Checking Server / Application Versions");
 						serverVersion = serverVer;
-						
+
 						if (!serverVer.equalsIgnoreCase(version)) {
 							logError("Versions dont match!");
 							logDebug("Server Version: " + serverVer);
 							logDebug("App Version: " + version);
-							showNotificationErrorPersistent("Mismatched Versions", "Your Application and Server have mismatched versions, check logs!");
+							showNotificationErrorPersistent("Mismatched Versions",
+									"Your Application and Server have mismatched versions, check logs!");
 						} else {
 							logInfo("Versions Match!");
 							logDebug("Server Version: " + serverVer);
@@ -199,53 +220,53 @@ public class ClientUtils {
 							logDebug("Received shutdown, Disconnecting...");
 							disconnectFromService();
 							break label;
-						
+
 						case "UPDATE_ALPR":
 							logDebug("ALPR Update");
 							receiveFileFromServer(4096, "ServerALPR.data", false);
 							ALPRViewController.loadData();
 							break;
-						
+
 						case "UPDATE_GAME_DATA":
 							logDebug("Received Location Update");
 							receiveFileFromServer(1024, "ServerGameData.data", true);
 							runUpdateLocation();
 							break;
-						
+
 						case "UPDATE_ID":
 							logDebug("Received ID Update");
 							receiveFileFromServer(4096, "ServerCurrentID.xml", true);
 							runUpdateID();
 							break;
-						
+
 						case "UPDATE_CALLOUT":
 							logDebug("Received Callout Update");
 							receiveFileFromServer(1024, "ServerCallout.xml", true);
 							runUpdateCallout();
 							break;
-						
+
 						case "UPDATE_WORLD_PED":
 							logDebug("Received World Ped Update");
 							receiveFileFromServer(8192, "ServerWorldPeds.data", true);
 							break;
-						
+
 						case "UPDATE_TRAFFIC_STOP":
 							logDebug("Received Traffic Stop Update");
 							receiveFileFromServer(1024, "ServerTrafficStop.data", true);
 							runTrafficStopUpdate();
 							break;
-						
+
 						case "UPDATE_WORLD_VEH":
 							logDebug("Received World Vehicle Update");
 							receiveFileFromServer(16384, "ServerWorldCars.data", true);
 							break;
-						
+
 						case "UPDATE_LOOKUP":
 							logDebug("Received Lookup Update");
 							receiveFileFromServer(256, "ServerLookup.data", true);
 							runLookupUpdate();
 							break;
-						
+
 						case "HEARTBEAT":
 							long now = System.currentTimeMillis();
 							long delta = now - lastUpdate;
@@ -253,11 +274,11 @@ public class ClientUtils {
 							sendMessageToServer("HEARTBEAT");
 							lastUpdate = now;
 							break;
-						
+
 						default:
 							logDebug("Received unknown message: " + fromServer);
 							break;
-						
+
 					}
 				}
 			} catch (SocketTimeoutException e) {
@@ -279,7 +300,7 @@ public class ClientUtils {
 		WorkerThread messageReceiverThread = new WorkerThread("MessageReceiverThread", messageReceiverTask);
 		messageReceiverThread.start();
 	}
-	
+
 	private static void runLookupUpdate() {
 		logInfo("Running Lookup Update");
 		File lookupFile = new File(serverLookupURL);
@@ -296,18 +317,22 @@ public class ClientUtils {
 		if (mainDesktopControllerObj != null && lookupFileContent.length() > 0) {
 			String finalLookupFileContent = lookupFileContent;
 			Platform.runLater(() -> {
-				if (!mainDesktopControllerObj.getTopBarHboxRight().getChildren().contains(mainDesktopControllerObj.getLookupLabel())) {
-					mainDesktopControllerObj.getTopBarHboxRight().getChildren().add(mainDesktopControllerObj.getLookupLabel());
+				if (!mainDesktopControllerObj.getTopBarHboxRight().getChildren()
+						.contains(mainDesktopControllerObj.getLookupLabel())) {
+					mainDesktopControllerObj.getTopBarHboxRight().getChildren()
+							.add(mainDesktopControllerObj.getLookupLabel());
 					mainDesktopControllerObj.getLookupLabel().toBack();
 				}
-				mainDesktopControllerObj.getLookupLabel().setText(localization.getLocalizedMessage("Desktop.CheckedLabel", "Checked:") + " " + finalLookupFileContent);
+				mainDesktopControllerObj.getLookupLabel()
+						.setText(localization.getLocalizedMessage("Desktop.CheckedLabel", "Checked:") + " "
+								+ finalLookupFileContent);
 				showNotificationInfo("Ped / Vehicle Check", "Ran check for: [" + finalLookupFileContent + "]");
 			});
 		} else {
 			logError("lookupFile content is null; not updating");
 		}
 	}
-	
+
 	public static void disconnectFromService() {
 		try {
 			sendMessageToServer("SHUTDOWN");
@@ -320,18 +345,18 @@ public class ClientUtils {
 			logError("Error disconnecting from service: " + e.getMessage());
 		}
 	}
-	
+
 	public static void setStatusListener(ServerStatusListener listener) {
 		statusListener = listener;
 	}
-	
+
 	private static void notifyStatusChanged(boolean status) {
 		if (statusListener != null) {
 			logDebug("Client Connection Status Changed: " + isConnected);
 			Platform.runLater(() -> statusListener.onStatusChanged(status));
 		}
 	}
-	
+
 	public static void listenForServerBroadcasts() {
 		int broadCastPort = 8888;
 		try {
@@ -340,7 +365,7 @@ public class ClientUtils {
 		} catch (IOException e) {
 			logError("Could not get broadcastPort from config: ", e);
 		}
-		
+
 		try (DatagramSocket socket = new DatagramSocket(broadCastPort, InetAddress.getByName("0.0.0.0"))) {
 			socket.setBroadcast(true);
 			while (true) {
@@ -353,19 +378,20 @@ public class ClientUtils {
 					byte[] buffer = new byte[256];
 					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 					socket.receive(packet);
-					
+
 					String message = new String(packet.getData(), 0, packet.getLength());
 					if (message.startsWith("SERVER_DISCOVERY:")) {
 						String[] parts = message.split(":");
 						String serverAddress = packet.getAddress().getHostAddress();
 						int serverPort = Integer.parseInt(parts[1]);
-						
+
 						logInfo("Discovered server at " + serverAddress + ":" + serverPort);
 						try {
 							connectToService(serverAddress, serverPort);
 							return;
 						} catch (IOException e) {
-							logError("Error connecting to server; " + serverAddress + ":" + serverPort + " | " + e.getMessage());
+							logError("Error connecting to server; " + serverAddress + ":" + serverPort + " | "
+									+ e.getMessage());
 							return;
 						}
 					}
@@ -379,11 +405,13 @@ public class ClientUtils {
 			return;
 		}
 	}
-	
+
 	private static void runUpdateLocation() {
 		Platform.runLater(() -> {
-			if (!mainDesktopControllerObj.getTopBarHboxRight().getChildren().contains(mainDesktopControllerObj.getLocationDataLabel())) {
-				mainDesktopControllerObj.getTopBarHboxRight().getChildren().add(mainDesktopControllerObj.getLocationDataLabel());
+			if (!mainDesktopControllerObj.getTopBarHboxRight().getChildren()
+					.contains(mainDesktopControllerObj.getLocationDataLabel())) {
+				mainDesktopControllerObj.getTopBarHboxRight().getChildren()
+						.add(mainDesktopControllerObj.getLocationDataLabel());
 				mainDesktopControllerObj.getLocationDataLabel().toBack();
 			}
 			try {
@@ -405,23 +433,27 @@ public class ClientUtils {
 			}
 		});
 	}
-	
+
 	private static void runUpdateID() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true")) {
-				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/currentID-view.fxml", "Current IDs", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
-				                                                         new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
-				
+				CustomWindow IDWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+						"Windows/Server/currentID-view.fxml", "Current IDs", true, 1, true, true,
+						mainDesktopControllerObj.getTaskBarApps(),
+						new Image(Objects.requireNonNull(Launcher.class
+								.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
+
 				try {
 					if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 						PauseTransition delay = null;
 						try {
-							delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
+							delay = new PauseTransition(Duration
+									.seconds(Double.parseDouble(ConfigReader.configRead("misc", "IDDuration"))));
 						} catch (IOException e) {
 							logError("ID could not be closed: ", e);
 						}
 						if (IDWindow != null) {
-							delay.setOnFinished(event -> {
+							delay.setOnFinished(_ -> {
 								try {
 									IDWindow.closeWindow();
 								} catch (NullPointerException e) {
@@ -442,12 +474,15 @@ public class ClientUtils {
 			logError("Could not get enableIDPopup from config: ", e);
 		}
 	}
-	
+
 	private static void runUpdateCallout() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true")) {
-				calloutWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/callout-view.fxml", "Callout Display", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
-				                                                 new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
+				calloutWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
+						"Windows/Server/callout-view.fxml", "Callout Display", false, 1, true, true,
+						mainDesktopControllerObj.getTaskBarApps(),
+						new Image(Objects.requireNonNull(Launcher.class
+								.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true")) {
 						playSound(controllerUtils.getJarPath() + "/sounds/alert-callout.wav");
@@ -455,43 +490,54 @@ public class ClientUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCallout: ", e);
 				}
-				
+
 				try {
 					if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
 						PauseTransition delay = null;
 						try {
-							delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "calloutDuration"))));
+							delay = new PauseTransition(Duration
+									.seconds(Double.parseDouble(ConfigReader.configRead("misc", "calloutDuration"))));
 						} catch (IOException e) {
 							logError("Callout could not be closed: ", e);
 						}
 						if (calloutWindow != null) {
-							delay.setOnFinished(event -> {
+							delay.setOnFinished(_ -> {
 								try {
 									calloutWindow.closeWindow();
 									Callout callout = getCallout();
-									
+
 									if (callout != null) {
 										String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
 										String type = callout.getType() != null ? callout.getType() : "Not Found";
 										String number = callout.getNumber() != null ? callout.getNumber() : "Not Found";
 										String area = callout.getArea() != null ? callout.getArea() : "Not Found";
-										String priority = callout.getPriority() != null ? callout.getPriority() : "Not Found";
-										String time = callout.getStartTime() != null ? callout.getStartTime() : "Not Found";
-										String date = callout.getStartDate() != null ? callout.getStartDate() : "Not Found";
+										String priority = callout.getPriority() != null ? callout.getPriority()
+												: "Not Found";
+										String time = callout.getStartTime() != null ? callout.getStartTime()
+												: "Not Found";
+										String date = callout.getStartDate() != null ? callout.getStartDate()
+												: "Not Found";
 										String county = callout.getCounty() != null ? callout.getCounty() : "Not Found";
-										String desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
-										String message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
-										String status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
+										String desc = callout.getDescription() != null ? callout.getDescription()
+												: "Not Found";
+										String message = callout.getMessage() != null ? callout.getMessage()
+												: "Not Found";
+										String status = callout.getStatus() != null ? callout.getStatus()
+												: "Not Responded";
 										if (desc.isEmpty()) {
 											desc = message;
 										} else {
 											desc = desc + "\n" + message;
 										}
-										CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status, null);
-										NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+										CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc,
+												message, priority, street, area, county, time, date, status, null);
+										NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #"
+												+ number + ", Type: " + type + ". Added To Active Calls.");
 										if (calloutViewController != null) {
-											CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
-											CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
+											CalloutManager
+													.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
+											CalloutManager.loadHistoryCallouts(
+													calloutViewController.getHistoryCalloutsTable());
 										}
 									}
 								} catch (NullPointerException e) {
@@ -508,7 +554,7 @@ public class ClientUtils {
 				logDebug("Callout Popups are disabled");
 				logInfo("Adding Callout To Active");
 				Callout callout = getCallout();
-				
+
 				if (callout != null) {
 					String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
 					String type = callout.getType() != null ? callout.getType() : "Not Found";
@@ -526,8 +572,10 @@ public class ClientUtils {
 					} else {
 						desc = desc + "\n" + message;
 					}
-					CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street, area, county, time, date, status, null);
-					NotificationManager.showNotificationInfo("Callout Manager", "Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
+					CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, desc, message, priority, street,
+							area, county, time, date, status, null);
+					NotificationManager.showNotificationInfo("Callout Manager",
+							"Callout Recieved #" + number + ", Type: " + type + ". Added To Active Calls.");
 					if (calloutViewController != null) {
 						CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
 						CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
@@ -538,16 +586,19 @@ public class ClientUtils {
 			logError("Could not get enableCallout config option, ", e);
 		}
 	}
-	
+
 	private static void runTrafficStopUpdate() {
 		try {
 			if (ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true")) {
-				CustomWindow trafficStopWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/trafficStop-view.fxml", "Traffic Stop Data", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
-				                                                                  new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/trafficStop.png"))));
-				
+				CustomWindow trafficStopWindow = WindowManager.createCustomWindow(
+						mainDesktopControllerObj.getDesktopContainer(), "Windows/Server/trafficStop-view.fxml",
+						"Traffic Stop Data", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
+						new Image(Objects.requireNonNull(Launcher.class
+								.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/trafficStop.png"))));
+
 				if (trafficStopWindow != null && trafficStopWindow.controller != null) {
 					trafficStopController.trafficStopController = (trafficStopController) trafficStopWindow.controller;
-					
+
 					try {
 						trafficStopController.trafficStopController.updateTrafficStopFields();
 					} catch (IOException e) {
@@ -561,12 +612,13 @@ public class ClientUtils {
 						logError("Error loading theme from trafficStop", e);
 					}
 				});
-				
+
 				try {
 					if (!ConfigReader.configRead("misc", "TrafficStopDuration").equals("infinite")) {
 						PauseTransition delay = null;
 						try {
-							delay = new PauseTransition(Duration.seconds(Double.parseDouble(ConfigReader.configRead("misc", "TrafficStopDuration"))));
+							delay = new PauseTransition(Duration.seconds(
+									Double.parseDouble(ConfigReader.configRead("misc", "TrafficStopDuration"))));
 						} catch (IOException e) {
 							logError("TrafficStop could not be closed: ", e);
 						}
@@ -591,9 +643,9 @@ public class ClientUtils {
 			logError("Could not get enableTrafficStopPopup from config, ", e);
 		}
 	}
-	
+
 	public interface ServerStatusListener {
-		
+
 		void onStatusChanged(boolean isConnected);
 	}
 }

@@ -1,6 +1,7 @@
 package com.Guess.ReportsPlus.util.Server;
 
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +12,83 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.Guess.ReportsPlus.util.History.Vehicle;
+
 public class recordUtils {
+
+	public static List<Vehicle> getAllVehicles() {
+		List<Vehicle> vehiclesList = new ArrayList<>();
+		String filePath = getServerDataFolderPath() + "ServerWorldCars.data";
+		final Path path = Paths.get(filePath);
+
+		if (!Files.exists(path)) {
+			return vehiclesList;
+		}
+
+		try {
+			String data = new String(Files.readAllBytes(path));
+			String[] vehicleRecords = data.split("\\|");
+
+			for (String record : vehicleRecords) {
+				if (record.trim().isEmpty())
+					continue;
+
+				Vehicle vehicle = new Vehicle();
+				String[] attributes = record.split("&");
+
+				for (String attribute : attributes) {
+					String[] keyValue = attribute.split("=");
+					if (keyValue.length > 1) {
+						String key = keyValue[0].trim().toLowerCase();
+						String value = keyValue[1].trim();
+
+						switch (key) {
+							case "licenseplate":
+								vehicle.setPlateNumber(value);
+								break;
+							case "model":
+								vehicle.setModel(value);
+								break;
+							case "regexp":
+								vehicle.setRegistrationExpiration(value);
+								break;
+							case "insexp":
+								vehicle.setInspection(value);
+								break;
+							case "vin":
+								vehicle.setVin(value);
+								break;
+							case "isstolen":
+								vehicle.setStolenStatus(value);
+								break;
+							case "ispolice":
+								vehicle.setPoliceStatus(value);
+								break;
+							case "owner":
+								vehicle.setOwner(value);
+								break;
+							case "registration":
+								vehicle.setRegistration(value);
+								break;
+							case "insurance":
+								vehicle.setInsurance(value);
+								break;
+							case "color":
+								vehicle.setColor(value);
+								break;
+						}
+					}
+				}
+				if (vehicle.getPlateNumber() != null && !vehicle.getPlateNumber().isEmpty()) {
+					vehiclesList.add(vehicle);
+				}
+			}
+		} catch (IOException e) {
+			logError("Failed to read vehicle data from file: " + filePath, e);
+		}
+
+		return vehiclesList;
+	}
 
 	public static List<String> getAllVehicleOwners(String filePath) {
 		List<String> owners = new ArrayList<>();

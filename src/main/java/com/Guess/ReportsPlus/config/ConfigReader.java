@@ -165,6 +165,10 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "appTextColor", "#ffffff");
 		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
 		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
+		checkAndSetDefaultValue("desktopSettings", "clearCalloutDataOnStartup", "false");
+		checkAndSetDefaultValue("desktopSettings", "clearLookupDataOnStartup", "true");
+		// TODO: !inprogress before release tell users to set this option to false in
+		// config.properties before running
 
 		checkAndSetDefaultValue("desktopSettings", "saveWindowPosition", "true");
 		checkAndSetDefaultValue("desktopSettings", "saveWindowSize", "true");
@@ -224,6 +228,7 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistory", "expiredLicenseChance", "15");
 		checkAndSetDefaultValue("pedHistory", "suspendedLicenseChance", "5");
 		checkAndSetDefaultValue("pedHistory", "baseFlagProbability", "5");
+		checkAndSetDefaultValue("pedHistory", "chancePedIsPolice", "5");
 
 		// Arrest
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "60");

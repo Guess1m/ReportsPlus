@@ -75,7 +75,6 @@ public class CurrentIDViewController {
 		TextField weight = (TextField) root.lookup("#weight");
 		TextField expiration = (TextField) root.lookup("#expiration");
 		TextField licNum = (TextField) root.lookup("#licensenumber");
-		// TODO: !inprogress make sure this matches when looked up
 
 		if (licNum != null) {
 			licNum.setText(licNumText);

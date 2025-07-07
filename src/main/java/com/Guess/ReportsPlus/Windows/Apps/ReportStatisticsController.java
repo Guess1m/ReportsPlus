@@ -1,8 +1,42 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
+import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.parseAndPopulateMap;
+import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
+import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
+import static com.Guess.ReportsPlus.logs.Accident.AccidentReportUtils.loadAccidentReports;
+import static com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils.loadArrestReports;
+import static com.Guess.ReportsPlus.logs.Callout.CalloutReportUtils.loadCalloutReports;
+import static com.Guess.ReportsPlus.logs.Death.DeathReportUtils.loadDeathReports;
+import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.loadImpoundReports;
+import static com.Guess.ReportsPlus.logs.Incident.IncidentReportUtils.loadIncidentReports;
+import static com.Guess.ReportsPlus.logs.Patrol.PatrolReportUtils.loadPatrolReports;
+import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.loadSearchReports;
+import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.loadTrafficStopReports;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.createFolderIfNotExists;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getCustomDataLogsFolderPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.hexToRgba;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.rgbToHexString;
+import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getPrimaryKeyColumn;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.TrafficCitation.TrafficCitationUtils;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
+
 import jakarta.xml.bind.JAXBException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,28 +51,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.*;
-
-import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.parseAndPopulateMap;
-import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UIDarkColor;
-import static com.Guess.ReportsPlus.Windows.Settings.settingsController.UILightColor;
-import static com.Guess.ReportsPlus.logs.Accident.AccidentReportUtils.loadAccidentReports;
-import static com.Guess.ReportsPlus.logs.Arrest.ArrestReportUtils.loadArrestReports;
-import static com.Guess.ReportsPlus.logs.Callout.CalloutReportUtils.loadCalloutReports;
-import static com.Guess.ReportsPlus.logs.Death.DeathReportUtils.loadDeathReports;
-import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.loadImpoundReports;
-import static com.Guess.ReportsPlus.logs.Incident.IncidentReportUtils.loadIncidentReports;
-import static com.Guess.ReportsPlus.logs.Patrol.PatrolReportUtils.loadPatrolReports;
-import static com.Guess.ReportsPlus.logs.Search.SearchReportUtils.loadSearchReports;
-import static com.Guess.ReportsPlus.logs.TrafficStop.TrafficStopReportUtils.loadTrafficStopReports;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
-import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getPrimaryKeyColumn;
 
 public class ReportStatisticsController {
 	public static ReportStatisticsController reportStatisticsController;
@@ -55,36 +67,36 @@ public class ReportStatisticsController {
 	private ComboBox reportsByCombobox;
 	@FXML
 	private Label reportsByLabel;
-	
+
 	public static NumberAxis getyAxis() {
 		return yAxis;
 	}
-	
+
 	public static AreaChart<String, Number> getChart() {
 		return chart;
 	}
-	
+
 	public static CategoryAxis getxAxis() {
 		return xAxis;
 	}
-	
+
 	private HashMap<String, Integer> parseDatabase(String path, String typeToGet) {
 		HashMap<String, Integer> counts = new HashMap<>();
-		
+
 		path = path.replace(".db", "");
 		createFolderIfNotExists(getCustomDataLogsFolderPath());
-		
+
 		if (path.isEmpty()) {
 			logError("[ReportStats] Database Path is Empty");
 		}
-		
+
 		String primaryKey = null;
 		try {
 			primaryKey = getPrimaryKeyColumn(path, "data");
 		} catch (SQLException e) {
 			logError("[ReportStats] Error getting primary key column", e);
 		}
-		
+
 		Map<String, String> layoutScheme = null;
 		Map<String, String> reportSchema = null;
 		try {
@@ -93,7 +105,7 @@ public class ReportStatisticsController {
 		} catch (SQLException e2) {
 			logError("[ReportStats] Failed to extract field names", e2);
 		}
-		
+
 		String layoutContent = null;
 		DynamicDB DatabaseLayout = new DynamicDB(path, "layout", "key", layoutScheme);
 		if (DatabaseLayout.initDB()) {
@@ -118,12 +130,12 @@ public class ReportStatisticsController {
 		} else {
 			logError("[ReportStats] Layout Database not initialized!");
 		}
-		
+
 		DynamicDB dbManager = null;
 		try {
 			dbManager = new DynamicDB(path, "data", primaryKey, reportSchema);
 			dbManager.initDB();
-			
+
 			Map<String, Map<String, List<String>>> mainMap = parseAndPopulateMap(layoutContent);
 			Map<String, List<String>> fieldMap = mainMap.getOrDefault("selectedType", new HashMap<>());
 			for (Map.Entry<String, List<String>> entry : fieldMap.entrySet()) {
@@ -133,13 +145,14 @@ public class ReportStatisticsController {
 					List<Map<String, Object>> allDataRecords = dbManager.getAllRecords();
 					for (Map<String, Object> record : allDataRecords) {
 						Object dataValue = record.get(key);
-						if (dataValue != null && !dataValue.toString().equalsIgnoreCase("n/a") && !dataValue.toString().equalsIgnoreCase("")) {
+						if (dataValue != null && !dataValue.toString().equalsIgnoreCase("n/a")
+								&& !dataValue.toString().equalsIgnoreCase("")) {
 							counts.put(dataValue.toString(), counts.getOrDefault(dataValue.toString(), 0) + 1);
 						}
 					}
 				}
 			}
-			
+
 		} catch (Exception e2) {
 			logError("Failed to extract field names", e2);
 		} finally {
@@ -149,11 +162,11 @@ public class ReportStatisticsController {
 				logError("Failed to close database connection, null", e2);
 			}
 		}
-		
+
 		return counts;
-		
+
 	}
-	
+
 	public HashMap<String, Integer> combineCounts(HashMap<String, Integer> map1, HashMap<String, Integer> map2) {
 		HashMap<String, Integer> combined = new HashMap<>();
 		if (map1 != null) {
@@ -168,7 +181,7 @@ public class ReportStatisticsController {
 		}
 		return combined;
 	}
-	
+
 	public HashMap<String, Integer> countOccurrencesAcrossFiles(String typeToGet) {
 		String dataFolderPath = getCustomDataLogsFolderPath();
 		File folder = new File(dataFolderPath);
@@ -176,15 +189,15 @@ public class ReportStatisticsController {
 			logError("NewReport; Invalid data folder path: " + dataFolderPath);
 			return null;
 		}
-		
+
 		File[] files = folder.listFiles((dir, name) -> name.endsWith(".db"));
 		if (files == null || files.length == 0) {
 			logInfo("NewReport; No database files found in: " + dataFolderPath);
 			return null;
 		}
-		
+
 		logInfo("NewReport; Found " + files.length + " database files in: " + dataFolderPath);
-		
+
 		HashMap<String, Integer> totalCounts = new HashMap<>();
 		for (File file : files) {
 			String filePath = file.getAbsolutePath();
@@ -193,10 +206,10 @@ public class ReportStatisticsController {
 				totalCounts.put(entry.getKey(), totalCounts.getOrDefault(entry.getKey(), 0) + entry.getValue());
 			}
 		}
-		
+
 		return totalCounts;
 	}
-	
+
 	private <T> HashMap<String, Integer> parseReport(List<T> reports, String getMethod) {
 		HashMap<String, Integer> counts = new HashMap<>();
 		if (reports != null) {
@@ -208,13 +221,14 @@ public class ReportStatisticsController {
 						counts.put(value, counts.getOrDefault(value, 0) + 1);
 					}
 				} catch (Exception e) {
-					logWarn("[ReportStats] Report: [" + report.getClass().getSimpleName() + "] missing method: " + getMethod);
+					logWarn("[ReportStats] Report: [" + report.getClass().getSimpleName() + "] missing method: "
+							+ getMethod);
 				}
 			}
 		}
 		return counts;
 	}
-	
+
 	private HashMap<String, Integer> parseLogReports(String getMethod) {
 		HashMap<String, Integer> counts = new HashMap<>();
 		try {
@@ -227,22 +241,23 @@ public class ReportStatisticsController {
 			mergeCounts(counts, parseReport(loadIncidentReports().getIncidentReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadPatrolReports().getPatrolReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadSearchReports().getSearchReportList(), getMethod));
-			mergeCounts(counts, parseReport(TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList(), getMethod));
+			mergeCounts(counts, parseReport(
+					TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadTrafficStopReports().getTrafficStopReportList(), getMethod));
-			
+
 		} catch (JAXBException e) {
 			logError("Error parsing reports: ", e);
 		}
 		logInfo("[ReportStats] Finished parsing all reports for [" + getMethod + "]; " + counts);
 		return counts;
 	}
-	
+
 	private void mergeCounts(HashMap<String, Integer> mainCounts, HashMap<String, Integer> additionalCounts) {
 		for (Map.Entry<String, Integer> entry : additionalCounts.entrySet()) {
 			mainCounts.put(entry.getKey(), mainCounts.getOrDefault(entry.getKey(), 0) + entry.getValue());
 		}
 	}
-	
+
 	private AreaChart<String, Number> createChart(String getMethod) {
 		ObservableList<String> xAxisElements = FXCollections.observableArrayList();
 		String getType = "";
@@ -257,40 +272,40 @@ public class ReportStatisticsController {
 				getType = "COMBO_BOX_AREA";
 				break;
 		}
-		
+
 		HashMap<String, Integer> fileCounts = countOccurrencesAcrossFiles(getType);
 		HashMap<String, Integer> logReports = parseLogReports(getMethod);
 		HashMap<String, Integer> totalCounts = combineCounts(fileCounts, logReports);
 		xAxisElements.addAll(totalCounts.keySet());
-		
+
 		xAxis = new CategoryAxis();
 		xAxis.setCategories(xAxisElements);
 		xAxis.setTickLabelRotation(20);
-		
+
 		yAxis = new NumberAxis();
 		yAxis.setTickLabelFill(Paint.valueOf("#ffffff"));
-		
+
 		chart = new AreaChart<>(xAxis, yAxis);
-		
+
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		
+
 		for (Map.Entry<String, Integer> entry : totalCounts.entrySet()) {
 			series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
 		}
-		
+
 		chart.getData().add(series);
-		
+
 		return chart;
 	}
-	
+
 	public void initialize() {
 		reportsByCombobox.getItems().clear();
 		reportsByCombobox.getItems().addAll(new ArrayList<>(Arrays.asList("Officer", "Area", "County")));
-		
+
 		reportsByCombobox.getSelectionModel().select(1);
 		updateChartPane("getArea");
-		
-		reportsByCombobox.setOnAction(actionEvent -> {
+
+		reportsByCombobox.setOnAction(_ -> {
 			String choice = reportsByCombobox.getSelectionModel().getSelectedItem().toString().trim();
 			switch (choice) {
 				case "Officer":
@@ -308,10 +323,10 @@ public class ReportStatisticsController {
 					break;
 			}
 		});
-		
+
 		reportsByLabel.setText(localization.getLocalizedMessage("ReportStatistics.reportsByLabel", "Reports By:"));
 	}
-	
+
 	private void updateChartPane(String getMethod) {
 		logDebug("Running ChartUpdate For: [" + getMethod + "]");
 		ArrayList<Node> nodes = new ArrayList<>();
@@ -325,23 +340,23 @@ public class ReportStatisticsController {
 			borderPane.getChildren().remove(nodes.get(0));
 			logDebug("[ReportStats] Removed old AreaChart Node");
 		}
-		
+
 		AreaChart<String, Number> chart = createChart(getMethod);
 		try {
 			updateChart(chart);
 		} catch (IOException e) {
 			logError("[ReportStats] Error updating chart config: ", e);
 		}
-		
+
 		chart.setLegendVisible(false);
 		borderPane.setCenter(chart);
 	}
-	
+
 	private void updateChart(AreaChart chart) throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
-		
+
 		Set<Node> symbolNodes = chart.lookupAll(".default-color0.chart-area-symbol");
 		for (Node symbolNode : symbolNodes) {
 			symbolNode.setStyle("-fx-background-color: " + secclr + ";");
@@ -350,7 +365,7 @@ public class ReportStatisticsController {
 		fillNode.setStyle("-fx-fill: " + hexToRgba(mainclr, 0.5) + ";");
 		Node lineNode = chart.lookup(".default-color0.chart-series-area-line");
 		lineNode.setStyle("-fx-stroke: " + accclr + ";");
-		
+
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			xAxis.setTickLabelFill(rgbToHexString(UIDarkColor));
 			yAxis.setTickLabelFill(rgbToHexString(UIDarkColor));
@@ -363,13 +378,13 @@ public class ReportStatisticsController {
 			bkgNode.setStyle("-fx-background-color: rgba(255,255,255, 0.1), rgba(255,255,255, 0.1);");
 		}
 	}
-	
+
 	public BorderPane getRoot() {
 		return root;
 	}
-	
+
 	public Label getReportsByLabel() {
 		return reportsByLabel;
 	}
-	
+
 }

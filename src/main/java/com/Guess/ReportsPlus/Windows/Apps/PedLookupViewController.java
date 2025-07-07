@@ -73,6 +73,7 @@ import com.Guess.ReportsPlus.logs.LookupObjects.WorldPedUtils;
 import com.Guess.ReportsPlus.util.History.IDHistory;
 import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.History.PedHistoryMath;
+import com.Guess.ReportsPlus.util.History.Vehicle;
 import com.Guess.ReportsPlus.util.Misc.Threading.WorkerThread;
 import com.Guess.ReportsPlus.util.Other.NoteTab;
 import com.Guess.ReportsPlus.util.Server.Objects.ID.ID;
@@ -123,6 +124,15 @@ import javafx.scene.text.Font;
 import javafx.stage.Popup;
 
 public class PedLookupViewController implements IShutdownable {
+
+	// #region FXML Variables
+
+	@FXML
+	private Label physicalinfosubheading;
+
+	@FXML
+	private Label otherinfosubheading;
+
 	@FXML
 	private BorderPane basicinfobutton;
 
@@ -200,11 +210,6 @@ public class PedLookupViewController implements IShutdownable {
 
 	@FXML
 	private Label gunlicSubheading;
-
-	// TODO: !inprogress not getting owners from worldvehdata
-	// Fixed?? must test with STP
-
-	// #region FXML Variables
 
 	@FXML
 	private Label pedWantedLabelField;
@@ -548,6 +553,27 @@ public class PedLookupViewController implements IShutdownable {
 			}
 		}
 
+		try {
+			Vehicle.Vehicles vehicleData = Vehicle.VehicleHistoryUtils.loadVehicles();
+			if (vehicleData != null && vehicleData.getVehicleList() != null) {
+				List<Vehicle> historyVehicles = vehicleData.getVehicleList();
+				for (Vehicle vehicle : historyVehicles) {
+					if (vehicle != null && vehicle.getOwner() != null && !vehicle.getOwner().trim().isEmpty()) {
+						String ownerName = vehicle.getOwner();
+						String lowerCaseOwnerName = ownerName.toLowerCase();
+						if (!realPedsMap.containsKey(lowerCaseOwnerName)) {
+							Ped ped = performPedLookup(ownerName);
+							if (ped != null) {
+								realPedsMap.put(lowerCaseOwnerName, ped);
+							}
+						}
+					}
+				}
+			}
+		} catch (JAXBException e) {
+			logError("Failed to load vehicle owners from VehHistory.xml", e);
+		}
+
 		List<ID> idsFromHistory = IDHistory.getAllHistoryIDs();
 		for (ID id : idsFromHistory) {
 			if (id != null && id.getName() != null && !id.getName().trim().isEmpty()) {
@@ -674,7 +700,7 @@ public class PedLookupViewController implements IShutdownable {
 		ped.setGender(random.nextBoolean() ? "Male" : "Female");
 		ped.setBirthday(PedHistoryMath.generateBirthday(18, 70));
 		ped.setAddress(PedHistoryMath.getRandomAddress());
-		ped.setWantedStatus(PedHistoryMath.calculateTrueFalseProbability("100") ? "True" : "False");
+		ped.setWantedStatus(PedHistoryMath.calculateTrueFalseProbability("10") ? "True" : "False");
 
 		String[] statuses = { "Valid", "Valid", "Valid", "Valid", "Valid", "Expired", "Suspended", "None" };
 		String licenseStatus = statuses[random.nextInt(statuses.length)];
@@ -1042,6 +1068,7 @@ public class PedLookupViewController implements IShutdownable {
 	}
 
 	private void addLocalization() {
+		backLabel.setText(localization.getLocalizedMessage("PedLookup.BackButton", "Back"));
 		lookupmainlbl.setText(localization.getLocalizedMessage("PedLookup.MainHeader", "D.M.V Pedestrian Lookup"));
 		lbl1.setText(localization.getLocalizedMessage("PedLookup.SearchPedLabel", "Search Ped:"));
 		noPedImageFoundlbl
@@ -1049,7 +1076,6 @@ public class PedLookupViewController implements IShutdownable {
 
 		addDataToNotesBtn
 				.setText(localization.getLocalizedMessage("PedLookup.AddDataToNotesButton", "Add Data To Notes"));
-
 		infobtn3.setText(
 				localization.getLocalizedMessage("PedLookup.UpdateOtherInfoButton", "Update Other Information"));
 
@@ -1059,11 +1085,34 @@ public class PedLookupViewController implements IShutdownable {
 		ped1.setText(localization.getLocalizedMessage("PedLookup.FieldFirstName", "First Name:"));
 		ped2.setText(localization.getLocalizedMessage("PedLookup.FieldLastName", "Last Name:"));
 		ped3.setText(localization.getLocalizedMessage("PedLookup.FieldGender", "Gender:"));
+		pedNEWheight.setText(localization.getLocalizedMessage("PedLookup.Height", "Height:"));
+		pedNEWweight.setText(localization.getLocalizedMessage("PedLookup.Weight", "Weight:"));
+		statusSubheading.setText(
+				localization.getLocalizedMessage("PedLookup.StatusAndAffiliations", "Status & Affiliations"));
+		criminalHistoryHeading
+				.setText(localization.getLocalizedMessage("PedLookup.CriminalHistory", "Criminal History"));
+		criminalHistorySideButton
+				.setText(localization.getLocalizedMessage("PedLookup.CriminalHistory", "Criminal History"));
+		pedNEWweight.setText(localization.getLocalizedMessage("PedLookup.Weight", "Weight:"));
+		licenseinfoheading
+				.setText(localization.getLocalizedMessage("PedLookup.LicenseInfoLabel", "Licensing Information"));
+		licenseInfoSideButton
+				.setText(localization.getLocalizedMessage("PedLookup.LicenseInfoLabel", "Licensing Information"));
+		physicalinfosubheading.setText(
+				localization.getLocalizedMessage("PedLookup.PhysicalInfoLabel", "Physical Information"));
+		otherinfosubheading.setText(
+				localization.getLocalizedMessage("PedLookup.OtherInfoLabel", "Other Information"));
+		basicinfosubheading.setText(localization.getLocalizedMessage("PedLookup.BasicInfoLabel", "Basic Information"));
+		basicInfoSideButton.setText(localization.getLocalizedMessage("PedLookup.BasicInfoLabel", "Basic Information"));
 		ped4.setText(localization.getLocalizedMessage("PedLookup.FieldWantedStatus", "Wanted Status:"));
 		ped5.setText(localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:"));
 		ped6.setText(localization.getLocalizedMessage("PedLookup.FieldBirthday", "Birthday:"));
 		ped7.setText(localization.getLocalizedMessage("PedLookup.FieldAddress", "Address:"));
 		ped8.setText(localization.getLocalizedMessage("PedLookup.FieldDescription", "Description:"));
+		pedNEWmaritalstatus.setText(localization.getLocalizedMessage("PedLookup.MaritalStatus", "Marital Status:"));
+		pedNEWdisability.setText(localization.getLocalizedMessage("PedLookup.Disability", "Disability:"));
+		pedNEWcitizenshipstatus
+				.setText(localization.getLocalizedMessage("PedLookup.CitizenshipStatus", "Citizenship Status:"));
 		ped9.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		ped10.setText(localization.getLocalizedMessage("PedLookup.FieldAlias", "Alias(s):"));
 		ped11.setText(localization.getLocalizedMessage("PedLookup.FieldAffiliations", "Affiliation(s):"));
@@ -1123,9 +1172,21 @@ public class PedLookupViewController implements IShutdownable {
 		peddobfield.setText(ped.getBirthday());
 		pedaddressfield.setText(ped.getAddress());
 
+		if (ped.getIsPolice().equalsIgnoreCase("true")) {
+			pedPoliceLabelField.setText(localization.getLocalizedMessage("PedLookup.PoliceField", "Police Officer"));
+			pedPoliceLabelField
+					.setStyle("-fx-text-fill:rgb(68, 141, 231) !important; -fx-font-family: 'Inter 28pt Bold';");
+		} else
+			pedPoliceLabelField.setText(localization.getLocalizedMessage("PedLookup.PedestrianField", "Pedestrian"));
+
 		pedlicensefield.setText(ped.getLicenseStatus());
 		if (ped.getLicenseStatus().equalsIgnoreCase("EXPIRED") || ped.getLicenseStatus().equalsIgnoreCase("SUSPENDED")
-				|| ped.getLicenseStatus().equalsIgnoreCase("REVOKED") || ped.getLicenseStatus().equalsIgnoreCase("NONE")
+				|| ped.getLicenseStatus().equalsIgnoreCase("REVOKED")) {
+			pedlicensefield.setText(
+					ped.getLicenseStatus() + " " + PedHistoryMath.parseExpirationDate(ped.getLicenseExpiration()));
+			pedlicensefield.setStyle("-fx-text-fill: red !important; -fx-font-family: 'Inter 28pt Bold';");
+			playAudio = true;
+		} else if (ped.getLicenseStatus().equalsIgnoreCase("NONE")
 				|| ped.getLicenseStatus().equalsIgnoreCase("UNLICENSED")) {
 			pedlicensefield.setStyle("-fx-text-fill: red !important; -fx-font-family: 'Inter 28pt Bold';");
 			playAudio = true;
@@ -1133,9 +1194,11 @@ public class PedLookupViewController implements IShutdownable {
 			pedlicensefield.setStyle("-fx-text-fill: #060 !important; -fx-font-family: 'Inter 28pt Bold';");
 		}
 
-		peddriverlicexpirationfield.setText(ped.getLicenseExpiration() != null
-				? ped.getLicenseExpiration()
-				: "No Data In System");
+		if (ped.getLicenseStatus().equalsIgnoreCase("NONE") || ped.getLicenseStatus().equalsIgnoreCase("UNLICENSED")) {
+			peddriverlicexpirationfield.setText("No Data In System");
+		} else {
+			peddriverlicexpirationfield.setText(ped.getLicenseExpiration() != null ? ped.getLicenseExpiration() : "");
+		}
 
 		pedwantedfield.getStyleClass().clear();
 		pedwantedfield.setOnMouseClicked(null);
@@ -1205,9 +1268,13 @@ public class PedLookupViewController implements IShutdownable {
 			pedgunlicensestatusfield.setStyle("-fx-text-fill: red !important; -fx-font-family: 'Inter 28pt Bold';");
 		}
 
-		pedgunlicexpirationfield.setText(ped.getGunLicenseExpiration() != null
-				? ped.getGunLicenseExpiration()
-				: "No Data In System");
+		if (ped.getGunLicenseStatus() == null || ped.getGunLicenseStatus().equalsIgnoreCase("Not Found")
+				|| ped.getGunLicenseStatus().equalsIgnoreCase("None")) {
+			pedgunlicexpirationfield.setText("No Data In System");
+		} else {
+			pedgunlicexpirationfield
+					.setText(ped.getGunLicenseExpiration() != null ? ped.getGunLicenseExpiration() : "");
+		}
 		pedgunlicnumberfield.setText(ped.getGunLicenseNumber() != null
 				? ped.getGunLicenseNumber()
 				: "No Data In System");
@@ -1246,9 +1313,13 @@ public class PedLookupViewController implements IShutdownable {
 			pedfishinglicstatusfield.setStyle("-fx-text-fill: red !important; -fx-font-family: 'Inter 28pt Bold';");
 		}
 
-		pedfishinglicexpirationfield.setText(ped.getFishingLicenseExpiration() != null
-				? ped.getFishingLicenseExpiration()
-				: "No Data In System");
+		if (ped.getFishingLicenseStatus() == null || ped.getFishingLicenseStatus().equalsIgnoreCase("Not Found")
+				|| ped.getFishingLicenseStatus().equalsIgnoreCase("None")) {
+			pedfishinglicexpirationfield.setText("No Data In System");
+		} else {
+			pedfishinglicexpirationfield
+					.setText(ped.getFishingLicenseExpiration() != null ? ped.getFishingLicenseExpiration() : "");
+		}
 		pedfishinglicensenumberfield.setText(ped.getFishingLicenseNumber() != null
 				? ped.getFishingLicenseNumber()
 				: "No Data In System");
@@ -1273,9 +1344,13 @@ public class PedLookupViewController implements IShutdownable {
 			pedboatinglicstatusfield.setStyle("-fx-text-fill: red !important; -fx-font-family: 'Inter 28pt Bold';");
 		}
 
-		pedboatinglicexpirationfield.setText(ped.getBoatingLicenseExpiration() != null
-				? ped.getBoatingLicenseExpiration()
-				: "No Data In System");
+		if (ped.getBoatingLicenseStatus() == null || ped.getBoatingLicenseStatus().equalsIgnoreCase("Not Found")
+				|| ped.getBoatingLicenseStatus().equalsIgnoreCase("None")) {
+			pedboatinglicexpirationfield.setText("No Data In System");
+		} else {
+			pedboatinglicexpirationfield
+					.setText(ped.getBoatingLicenseExpiration() != null ? ped.getBoatingLicenseExpiration() : "");
+		}
 		pedboatinglicensenumberfield.setText(ped.getBoatingLicenseNumber() != null
 				? ped.getBoatingLicenseNumber()
 				: "No Data In System");
@@ -1300,9 +1375,13 @@ public class PedLookupViewController implements IShutdownable {
 			pedhuntinglicstatusfield.setStyle("-fx-text-fill: red !important; -fx-font-family: 'Inter 28pt Bold';");
 		}
 
-		pedhuntinglicexpirationfield.setText(ped.getHuntingLicenseExpiration() != null
-				? ped.getHuntingLicenseExpiration()
-				: "No Data In System");
+		if (ped.getHuntingLicenseStatus() == null || ped.getHuntingLicenseStatus().equalsIgnoreCase("Not Found")
+				|| ped.getHuntingLicenseStatus().equalsIgnoreCase("None")) {
+			pedhuntinglicexpirationfield.setText("No Data In System");
+		} else {
+			pedhuntinglicexpirationfield
+					.setText(ped.getHuntingLicenseExpiration() != null ? ped.getHuntingLicenseExpiration() : "");
+		}
 		pedhuntinglicnumberfield.setText(ped.getHuntingLicenseNumber() != null
 				? ped.getHuntingLicenseNumber()
 				: "No Data In System");
@@ -1314,21 +1393,17 @@ public class PedLookupViewController implements IShutdownable {
 		String affiliations = ped.getAffiliations();
 		if (affiliations == null || affiliations.equalsIgnoreCase("No Data In System")) {
 			pedaffiliationfield.setText("No Data In System");
-			pedaffiliationfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedaffiliationfield.setText(affiliations);
-			pedaffiliationfield.setStyle("-fx-text-fill: black !important;");
 		}
 
 		String flags = ped.getFlags();
 		if (flags == null || flags.equalsIgnoreCase("No Data In System")) {
 			pedflagfield.setText("No Data In System");
-			pedflagfield.setStyle("-fx-text-fill: #603417 !important;");
 			pedFlagsLabelField.setText("");
 			pedFlagsLabelField.setStyle("-fx-text-fill: black !important;");
 		} else {
 			pedflagfield.setText(flags);
-			pedflagfield.setStyle("-fx-text-fill: red !important;");
 			pedFlagsLabelField.setText(flags);
 			pedFlagsLabelField.setStyle("-fx-text-fill: red !important;");
 		}
@@ -1336,19 +1411,15 @@ public class PedLookupViewController implements IShutdownable {
 		String description = ped.getDescription();
 		if (description == null || description.equalsIgnoreCase("No Data In System")) {
 			peddescfield.setText("No Data In System");
-			peddescfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			peddescfield.setText(description);
-			peddescfield.setStyle("-fx-text-fill: black !important;");
 		}
 
 		String aliases = ped.getAliases();
 		if (aliases == null || aliases.equalsIgnoreCase("No Data In System")) {
 			pedaliasfield.setText("No Data In System");
-			pedaliasfield.setStyle("-fx-text-fill: #603417 !important;");
 		} else {
 			pedaliasfield.setText(aliases);
-			pedaliasfield.setStyle("-fx-text-fill: black !important;");
 		}
 
 		pedparolestatusfield.setText(ped.getParoleStatus() != null ? ped.getParoleStatus() : "False");
@@ -1415,7 +1486,8 @@ public class PedLookupViewController implements IShutdownable {
 			pedmaritalstatusfield.setText(maritalStatus);
 		}
 
-		ped6.setText("Birthday: (" + calculateAge(ped.getBirthday()) + ")");
+		ped6.setText(localization.getLocalizedMessage("PedLookup.FieldBirthday", "Birthday:") + " ("
+				+ calculateAge(ped.getBirthday()) + ")");
 
 		String pedModel = ped.getModel();
 		if (pedModel != null && !pedModel.equalsIgnoreCase("Not Found")) {
@@ -1558,21 +1630,9 @@ public class PedLookupViewController implements IShutdownable {
 			{
 				String textColor = "black";
 				try {
-					if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
-						textColor = UIDarkColor;
-					} else {
-						textColor = UILightColor;
-					}
+					textColor = ConfigReader.configRead("uiColors", "labelColor");
 				} catch (Exception e) {
-					logError("Error reading UI color config, using default text color: ", e);
-				}
-
-				String mainclr;
-				try {
-					mainclr = ConfigReader.configRead("uiColors", "headingColor");
-				} catch (Exception e) {
-					logError("Error reading main color config, using default: ", e);
-					mainclr = "black";
+					logError("Error reading label color config, using default: ", e);
 				}
 
 				String secclr;
@@ -1594,7 +1654,7 @@ public class PedLookupViewController implements IShutdownable {
 				String titleStyle = "-fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr
 						+ ";";
 				nameLabel.setStyle("-fx-font-size: 16px; -fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: "
-						+ mainclr + ";");
+						+ secclr + ";");
 
 				Label dobTitle = new Label("DOB:");
 				dobTitle.setStyle(titleStyle);
@@ -1697,7 +1757,8 @@ public class PedLookupViewController implements IShutdownable {
 									ped.getHuntingLicenseStatus(), ped.getHuntingLicenseExpiration(),
 									ped.getParoleStatus(),
 									ped.getProbationStatus(), ped.getHeight(), ped.getWeight(),
-									ped.getDisabilityStatus(), ped.getMaritalStatus(), ped.getCitizenshipStatus());
+									ped.getDisabilityStatus(), ped.getMaritalStatus(), ped.getCitizenshipStatus(),
+									ped.getIsPolice());
 						} else if (worldPedObject.getName() != null && !worldPedObject.getName().equals("Not Found")) {
 							logInfo("Found: [" + worldPedObject.getName() + "] From WorldPed file");
 							processedPed = buildPedObject(false, worldPedObject.getName(),
@@ -1714,7 +1775,7 @@ public class PedLookupViewController implements IShutdownable {
 									worldPedObject.getIsOnProbation(), worldPedObject.getHeight(),
 									worldPedObject.getWeight(), worldPedObject.getDisabilityStatus(),
 									worldPedObject.getMaritalStatus(),
-									worldPedObject.getCitizenshipStatus());
+									worldPedObject.getCitizenshipStatus(), worldPedObject.getIsPolice());
 						} else if (isOwnerFound(ownerSearch)) {
 							String ownerName = ownerSearch.get("owner");
 							logInfo("Found Vehicle Owner: [" + ownerName + "] From WorldVeh file, plate#: "
@@ -1731,7 +1792,7 @@ public class PedLookupViewController implements IShutdownable {
 									ownerSearch.getOrDefault("ownerlicensestate",
 											null),
 									null, null, null, null,
-									null, null, null, null, null, null, null, null, null, null, null, null);
+									null, null, null, null, null, null, null, null, null, null, null, null, null);
 						} else if (searchIDHisForName(searchedName)) {
 							logWarn("Found Ped: [" + searchedName + "] From IDHistory (Possible Dead Ped)");
 							ID searchedNameID = getHistoryIDFromName(searchedName);
@@ -1745,7 +1806,7 @@ public class PedLookupViewController implements IShutdownable {
 										null, null, null, null,
 										null, null, null,
 										null, null, searchedNameID.getHeight(), searchedNameID.getWeight(), null, null,
-										null);
+										null, null);
 							}
 						}
 
@@ -1786,7 +1847,7 @@ public class PedLookupViewController implements IShutdownable {
 								newValue.getParoleStatus(),
 								newValue.getProbationStatus(), newValue.getHeight(), newValue.getWeight(),
 								newValue.getDisabilityStatus(), newValue.getMaritalStatus(),
-								newValue.getCitizenshipStatus());
+								newValue.getCitizenshipStatus(), newValue.getIsPolice());
 
 						if (ped == null) {
 							logError("No Ped With Name: [" + pedName + "] Found Anywhere [2]");
@@ -1858,7 +1919,7 @@ public class PedLookupViewController implements IShutdownable {
 					ped.getFishingLicenseStatus(), ped.getFishingLicenseExpiration(), ped.getTimesStopped(),
 					ped.getHuntingLicenseStatus(), ped.getHuntingLicenseExpiration(), ped.getParoleStatus(),
 					ped.getProbationStatus(), ped.getHeight(), ped.getWeight(),
-					ped.getDisabilityStatus(), ped.getMaritalStatus(), ped.getCitizenshipStatus());
+					ped.getDisabilityStatus(), ped.getMaritalStatus(), ped.getCitizenshipStatus(), ped.getIsPolice());
 		}
 
 		PedObject worldPedObject = new PedObject(getServerDataFolderPath() + "ServerWorldPeds.data", name);
@@ -1876,7 +1937,8 @@ public class PedLookupViewController implements IShutdownable {
 					worldPedObject.getHuntPermitExpiration(), worldPedObject.getIsOnParole(),
 					worldPedObject.getIsOnProbation(), worldPedObject.getHeight(),
 					worldPedObject.getWeight(), worldPedObject.getDisabilityStatus(),
-					worldPedObject.getMaritalStatus(), worldPedObject.getCitizenshipStatus());
+					worldPedObject.getMaritalStatus(), worldPedObject.getCitizenshipStatus(),
+					worldPedObject.getIsPolice());
 		}
 
 		Map<String, String> ownerSearch;
@@ -1884,7 +1946,7 @@ public class PedLookupViewController implements IShutdownable {
 			ownerSearch = grabPedData(getServerDataFolderPath() + "ServerWorldCars.data", name);
 		} catch (IOException e) {
 			logError("performPedLookup: Error reading WorldVeh file for owner search: ", e);
-			return null;
+			ownerSearch = new java.util.HashMap<>();
 		}
 
 		String ownerName = ownerSearch.getOrDefault("owner", null);
@@ -1907,7 +1969,29 @@ public class PedLookupViewController implements IShutdownable {
 					ownerSearch.getOrDefault("ownerlicensestate",
 							null),
 					null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-					null, null);
+					null, null, null);
+		}
+
+		try {
+			Vehicle.Vehicles vehicleData = Vehicle.VehicleHistoryUtils.loadVehicles();
+			if (vehicleData != null && vehicleData.getVehicleList() != null) {
+				Optional<Vehicle> foundVehicle = vehicleData.getVehicleList().stream()
+						.filter(v -> v != null && v.getOwner() != null && v.getOwner().equalsIgnoreCase(name))
+						.findFirst();
+
+				if (foundVehicle.isPresent()) {
+					String foundOwnerName = foundVehicle.get().getOwner();
+					logInfo("performPedLookup: Found Vehicle Owner [" + foundOwnerName + "] in vehhistory.xml");
+					return buildPedObject(true, foundOwnerName, foundVehicle.get().getOwnerLicenseNumber(),
+							foundVehicle.get().getOwnerModel(), foundVehicle.get().getOwnerDob(),
+							foundVehicle.get().getOwnerGender(), foundVehicle.get().getOwnerAddress(),
+							foundVehicle.get().getOwnerIsWanted(), foundVehicle.get().getOwnerLicenseState(), null,
+							null,
+							null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+				}
+			}
+		} catch (JAXBException e) {
+			logError("performPedLookup: Error reading vehhistory.xml for owner search: ", e);
 		}
 
 		if (searchIDHisForName(name)) {
@@ -1917,10 +2001,11 @@ public class PedLookupViewController implements IShutdownable {
 				return buildPedObject(false, searchedNameID.getName(),
 						searchedNameID.getLicenseNumber(),
 						searchedNameID.getPedModel(), searchedNameID.getBirthday(), searchedNameID.getGender(),
-						searchedNameID.getAddress(), null, searchedNameID.getExpiration(), null, null, null, null, null,
+						searchedNameID.getAddress(), null, null, searchedNameID.getExpiration(), null,
 						null, null, null, null,
-						null, null, searchedNameID.getHeight(),
-						searchedNameID.getWeight(), null, null, null);
+						null, null, null,
+						null, null, searchedNameID.getHeight(), searchedNameID.getWeight(), null, null,
+						null, null);
 			}
 		}
 
@@ -1935,7 +2020,7 @@ public class PedLookupViewController implements IShutdownable {
 			String fishPermitExpiration_value, String timesStopped_value, String huntPermitStatus_value,
 			String huntPermitExpiration_value, String isOnParole_value, String isOnProbation_value, String height_value,
 			String weight_value, String disabilityStatus_value, String maritalStatus_value,
-			String citizenshipStatus_value) {
+			String citizenshipStatus_value, String isPolice_value) {
 
 		Optional<Ped> searchedPed = owner ? findPedByName(name_value) : findPedByNumber(licenseNumber_value);
 
@@ -1973,6 +2058,7 @@ public class PedLookupViewController implements IShutdownable {
 
 		if (ped.getBirthday() == null) {
 			if (birthday_value != null) {
+				System.out.println("set birthday to " + birthday_value);
 				ped.setBirthday(birthday_value);
 			} else {
 				String newBirthday = generateBirthday(23, 65);
@@ -2356,6 +2442,33 @@ public class PedLookupViewController implements IShutdownable {
 			logError("Could not set gunLicenseStatus: ", e);
 		}
 
+		if (ped.getIsPolice() == null) {
+			if (isPolice_value != null) {
+				ped.setIsPolice(isPolice_value);
+			} else {
+				boolean isCleanRecord = (ped.getArrestPriors() == null || ped.getArrestPriors().isEmpty()) &&
+						(ped.getCitationPriors() == null || ped.getCitationPriors().isEmpty()) &&
+						("false".equalsIgnoreCase(ped.getParoleStatus()) || ped.getParoleStatus() == null) &&
+						("false".equalsIgnoreCase(ped.getProbationStatus()) || ped.getProbationStatus() == null) &&
+						("0".equals(ped.getTimesStopped()) || ped.getTimesStopped() == null) &&
+						("false".equalsIgnoreCase(ped.getWantedStatus()) || ped.getWantedStatus() == null);
+
+				String probabilityIsPolice;
+				try {
+					probabilityIsPolice = ConfigReader.configRead("pedHistory", "chancePedIsPolice");
+				} catch (IOException e) {
+					logError("Error reading config for chancePedIsPolice: ", e);
+					probabilityIsPolice = "5";
+				}
+				String probability = isCleanRecord ? probabilityIsPolice : "0";
+				String newIsPoliceValue = calculateTrueFalseProbability(probability) ? "True" : "False";
+				logInfo("Ped [" + pedId + "] missing isPolice. Clean Record: " + isCleanRecord + ". Generated with "
+						+ probability + "% chance: " + newIsPoliceValue);
+				ped.setIsPolice(newIsPoliceValue);
+			}
+			needsSave = true;
+		}
+
 		if (needsSave) {
 			try {
 				logInfo("Ped: [" + pedId + "] has new generated data and needs to be saved to PedHistory...");
@@ -2481,7 +2594,7 @@ public class PedLookupViewController implements IShutdownable {
 		}
 	}
 
-	@FXML // TODO: !inprogress test this more
+	@javafx.fxml.FXML
 	public void pedUpdateInfo(ActionEvent actionEvent) {
 		String searchedLicenseNum = pedlicnumfield.getText();
 		if (searchedLicenseNum == null || searchedLicenseNum.isEmpty()
@@ -2498,83 +2611,127 @@ public class PedLookupViewController implements IShutdownable {
 
 		Ped ped = optionalPed.get();
 
-		GridPane editorGrid = new GridPane();
-		editorGrid.setVgap(8);
-		editorGrid.setHgap(10);
-		editorGrid.setPadding(new Insets(15));
+		// --- Styling and Layout ---
+		String bkgColor = "#F0F2F5";
+		String cardColor = "#FFFFFF";
+		String shadowColor = "rgba(0, 0, 0, 0.1)";
+		String headerColor = "#1D2C4D";
+		String labelColor = "#555555";
+		String fieldBorderColor = "#B9B9B9";
+		String fieldFocusColor = "#0078D7";
+		String saveBtnColor = "#28a745";
+		String cancelBtnColor = "#6c757d";
 
-		ScrollPane scrollPane = new ScrollPane(editorGrid);
+		VBox editorContent = new VBox(20);
+		editorContent.setPadding(new Insets(20));
+		editorContent.setStyle("-fx-background-color: " + bkgColor + ";");
+
+		ScrollPane scrollPane = new ScrollPane(editorContent);
 		scrollPane.setFitToWidth(true);
-
-		Button saveButton = new Button("Save Changes");
-		saveButton.setStyle("-fx-background-color:rgb(92, 142, 93); -fx-text-fill: white; -fx-font-weight: bold;");
-		Button cancelButton = new Button("Cancel");
-		HBox buttonBox = new HBox(10, saveButton, cancelButton);
-		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-		buttonBox.setPadding(new Insets(10));
+		scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0;");
+		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
 		BorderPane layoutPane = new BorderPane();
 		layoutPane.setCenter(scrollPane);
-		layoutPane.setBottom(buttonBox);
-		layoutPane.setPrefSize(700, 600);
-		layoutPane.setStyle("-fx-background-color: #F4F4F4;");
+		layoutPane.setPrefSize(750, 650);
+		layoutPane.setStyle("-fx-background-color: " + bkgColor + ";");
 
 		Map<String, TextField> fieldMap = new HashMap<>();
-		int rowIndex = 0;
 
-		addEditorField(editorGrid, "Gender", ped.getGender(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Birthday", ped.getBirthday(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Address", ped.getAddress(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Description", ped.getDescription(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Height", ped.getHeight(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Weight", ped.getWeight(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Marital Status", ped.getMaritalStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Citizenship Status", ped.getCitizenshipStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Disability Status", ped.getDisabilityStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Aliases", ped.getAliases(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Affiliations", ped.getAffiliations(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Flags", ped.getFlags(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Wanted Status", ped.getWantedStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Outstanding Warrants", ped.getOutstandingWarrants(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Warrant Issued Date", ped.getDateWarrantIssued(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Warrant Number", ped.getWarrantNumber(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Warrant Agency", ped.getWarrantAgency(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "License Status", ped.getLicenseStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Parole Status", ped.getParoleStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Probation Status", ped.getProbationStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Times Stopped", ped.getTimesStopped(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Gun License Status", ped.getGunLicenseStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Gun License Expiration", ped.getGunLicenseExpiration(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Gun License Number", ped.getGunLicenseNumber(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Gun License Type", ped.getGunLicenseType(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Gun License Class", ped.getGunLicenseClass(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Fishing License Status", ped.getFishingLicenseStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Fishing License Expiration", ped.getFishingLicenseExpiration(), rowIndex++,
-				fieldMap);
-		addEditorField(editorGrid, "Fishing License Number", ped.getFishingLicenseNumber(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Boating License Status", ped.getBoatingLicenseStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Boating License Expiration", ped.getBoatingLicenseExpiration(), rowIndex++,
-				fieldMap);
-		addEditorField(editorGrid, "Boating License Number", ped.getBoatingLicenseNumber(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Hunting License Status", ped.getHuntingLicenseStatus(), rowIndex++, fieldMap);
-		addEditorField(editorGrid, "Hunting License Expiration", ped.getHuntingLicenseExpiration(), rowIndex++,
-				fieldMap);
-		addEditorField(editorGrid, "Hunting License Number", ped.getHuntingLicenseNumber(), rowIndex++, fieldMap);
+		// --- Biographical Information ---
+		Map<String, String> bioFields = new LinkedHashMap<>();
+		bioFields.put("Gender", ped.getGender());
+		bioFields.put("Birthday", ped.getBirthday());
+		bioFields.put("Address", ped.getAddress());
+		bioFields.put("Description", ped.getDescription());
+		bioFields.put("Height", ped.getHeight());
+		bioFields.put("Weight", ped.getWeight());
+		bioFields.put("Marital Status", ped.getMaritalStatus());
+		bioFields.put("Citizenship Status", ped.getCitizenshipStatus());
+		bioFields.put("Disability Status", ped.getDisabilityStatus());
+		editorContent.getChildren().add(createSection("Biographical Information", bioFields, fieldMap));
 
+		// --- Status & Identification ---
+		Map<String, String> statusFields = new LinkedHashMap<>();
+		statusFields.put("Police Status", ped.getIsPolice());
+		statusFields.put("Aliases", ped.getAliases());
+		statusFields.put("Affiliations", ped.getAffiliations());
+		statusFields.put("Flags", ped.getFlags());
+		editorContent.getChildren().add(createSection("Status & Identification", statusFields, fieldMap));
+
+		// --- Legal & Criminal ---
+		Map<String, String> legalFields = new LinkedHashMap<>();
+		legalFields.put("Wanted Status", ped.getWantedStatus());
+		legalFields.put("Outstanding Warrants", ped.getOutstandingWarrants());
+		legalFields.put("Warrant Issued Date", ped.getDateWarrantIssued());
+		legalFields.put("Warrant Number", ped.getWarrantNumber());
+		legalFields.put("Warrant Agency", ped.getWarrantAgency());
+		legalFields.put("Parole Status", ped.getParoleStatus());
+		legalFields.put("Probation Status", ped.getProbationStatus());
+		legalFields.put("Times Stopped", ped.getTimesStopped());
+		editorContent.getChildren().add(createSection("Legal & Criminal Status", legalFields, fieldMap));
+
+		// --- Licenses ---
+		Map<String, String> driverLicFields = new LinkedHashMap<>();
+		driverLicFields.put("License Status", ped.getLicenseStatus());
+		driverLicFields.put("License Expiration", ped.getLicenseExpiration());
+		editorContent.getChildren().add(createSection("Driver's License", driverLicFields, fieldMap));
+
+		Map<String, String> gunLicFields = new LinkedHashMap<>();
+		gunLicFields.put("Gun License Status", ped.getGunLicenseStatus());
+		gunLicFields.put("Gun License Expiration", ped.getGunLicenseExpiration());
+		gunLicFields.put("Gun License Number", ped.getGunLicenseNumber());
+		gunLicFields.put("Gun License Type", ped.getGunLicenseType());
+		gunLicFields.put("Gun License Class", ped.getGunLicenseClass());
+		editorContent.getChildren().add(createSection("Firearms License", gunLicFields, fieldMap));
+
+		Map<String, String> otherLicFields = new LinkedHashMap<>();
+		otherLicFields.put("Fishing License Status", ped.getFishingLicenseStatus());
+		otherLicFields.put("Fishing License Expiration", ped.getFishingLicenseExpiration());
+		otherLicFields.put("Fishing License Number", ped.getFishingLicenseNumber());
+		otherLicFields.put("Boating License Status", ped.getBoatingLicenseStatus());
+		otherLicFields.put("Boating License Expiration", ped.getBoatingLicenseExpiration());
+		otherLicFields.put("Boating License Number", ped.getBoatingLicenseNumber());
+		otherLicFields.put("Hunting License Status", ped.getHuntingLicenseStatus());
+		otherLicFields.put("Hunting License Expiration", ped.getHuntingLicenseExpiration());
+		otherLicFields.put("Hunting License Number", ped.getHuntingLicenseNumber());
+		editorContent.getChildren().add(createSection("Other Licenses", otherLicFields, fieldMap));
+
+		// --- Buttons ---
+		Button saveButton = new Button("Save Changes");
+		saveButton.setStyle("-fx-background-color: " + saveBtnColor
+				+ "; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 16;");
+		Button cancelButton = new Button("Cancel");
+		cancelButton.setStyle("-fx-background-color: " + cancelBtnColor
+				+ "; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 16;");
+
+		HBox buttonBox = new HBox(15, saveButton, cancelButton);
+		buttonBox.setAlignment(Pos.CENTER_RIGHT);
+		buttonBox.setPadding(new Insets(15, 20, 15, 20));
+		buttonBox.setStyle("-fx-background-color: " + cardColor + "; -fx-border-color: " + shadowColor
+				+ " transparent transparent transparent; -fx-border-width: 1;");
+		layoutPane.setBottom(buttonBox);
+
+		// --- Window ---
 		CustomWindow editorWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 				layoutPane, "Edit Ped: " + ped.getName(), true, 1, true, true,
 				mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 
+		// --- Actions ---
 		saveButton.setOnAction(event -> {
 			logInfo("Saving changes for Ped: " + ped.getName());
 
 			fieldMap.forEach((key, textField) -> {
 				String value = textField.getText();
-				String finalValue = (value == null || value.trim().isEmpty()) ? null : value.trim();
+				String finalValue = (value == null || value.trim().isEmpty()
+						|| value.equalsIgnoreCase("No Data In System")) ? null : value.trim();
 
 				switch (key) {
+					case "Police Status":
+						ped.setIsPolice(finalValue);
+						break;
 					case "Gender":
 						ped.setGender(finalValue);
 						break;
@@ -2628,6 +2785,9 @@ public class PedLookupViewController implements IShutdownable {
 						break;
 					case "License Status":
 						ped.setLicenseStatus(finalValue);
+						break;
+					case "License Expiration":
+						ped.setLicenseExpiration(finalValue);
 						break;
 					case "Parole Status":
 						ped.setParoleStatus(finalValue);
@@ -2686,7 +2846,7 @@ public class PedLookupViewController implements IShutdownable {
 			try {
 				Ped.PedHistoryUtils.addPed(ped);
 				showNotificationInfo("Update Successful", "Ped record for '" + ped.getName() + "' has been updated.");
-				setPedRecordFields(ped);
+				setPedRecordFields(ped); // Refresh the main view
 			} catch (JAXBException e) {
 				logError("Could not save updated ped record: ", e);
 				showNotificationError("Update Failed", "Could not save ped record to file.");
@@ -2698,12 +2858,61 @@ public class PedLookupViewController implements IShutdownable {
 		cancelButton.setOnAction(event -> editorWindow.closeWindow());
 	}
 
-	private void addEditorField(GridPane grid, String labelText, String value, int row, Map<String, TextField> map) {
+	private VBox createSection(String title, Map<String, String> fields, Map<String, TextField> fieldMap) {
+		VBox sectionBox = new VBox(15);
+		sectionBox.setPadding(new Insets(20));
+		sectionBox.setStyle(
+				"-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.1, 0, 2);");
+
+		Label titleLabel = new Label(title);
+		titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1D2C4D;");
+		titleLabel.setPadding(new Insets(0, 0, 5, 0));
+		titleLabel.setBorder(new javafx.scene.layout.Border(new javafx.scene.layout.BorderStroke(Color.web("#DDDDDD"),
+				javafx.scene.layout.BorderStrokeStyle.SOLID, null, new javafx.scene.layout.BorderWidths(0, 0, 1, 0))));
+		titleLabel.setMaxWidth(Double.MAX_VALUE);
+		sectionBox.getChildren().add(titleLabel);
+
+		GridPane grid = new GridPane();
+		grid.setVgap(12);
+		grid.setHgap(15);
+
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setPercentWidth(30);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col2.setPercentWidth(70);
+		grid.getColumnConstraints().addAll(col1, col2);
+
+		int rowIndex = 0;
+		for (Map.Entry<String, String> entry : fields.entrySet()) {
+			addStyledEditorField(grid, entry.getKey(), entry.getValue(), rowIndex++, fieldMap);
+		}
+		sectionBox.getChildren().add(grid);
+
+		return sectionBox;
+	}
+
+	private void addStyledEditorField(GridPane grid, String labelText, String value, int row,
+			Map<String, TextField> map) {
 		Label label = new Label(labelText + ":");
-		label.setStyle("-fx-font-weight: bold;");
-		TextField textField = new TextField(value != null ? value : "");
+		label.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #555555;");
+		label.setAlignment(Pos.CENTER_LEFT);
+
+		TextField textField = new TextField(value != null ? value : "No Data In System");
+		textField.setStyle(
+				"-fx-background-color: #F8F9FA; -fx-border-color: #CED4DA; -fx-border-radius: 4; -fx-padding: 5 8; -fx-font-size: 13px;");
+		textField.focusedProperty().addListener((obs, oldVal, newVal) -> {
+			if (newVal) {
+				textField.setStyle(
+						"-fx-background-color: #FFFFFF; -fx-border-color: #0078D7; -fx-border-radius: 4; -fx-padding: 5 8; -fx-font-size: 13px; -fx-effect: dropshadow(gaussian, rgba(0,120,215,0.3), 5, 0, 0, 0);");
+			} else {
+				textField.setStyle(
+						"-fx-background-color: #F8F9FA; -fx-border-color: #CED4DA; -fx-border-radius: 4; -fx-padding: 5 8; -fx-font-size: 13px;");
+			}
+		});
+
 		grid.add(label, 0, row);
 		grid.add(textField, 1, row);
+		GridPane.setValignment(label, javafx.geometry.VPos.CENTER);
 		map.put(labelText, textField);
 	}
 
@@ -2988,32 +3197,32 @@ public class PedLookupViewController implements IShutdownable {
 	// #region Dont Rename
 
 	// Dont rename
-	public TextField getPeddobfield() {
+	public TextField getpeddobfield() {
 		return peddobfield;
 	}
 
 	// Dont rename
-	public TextField getPedgenfield() {
+	public TextField getpedgenfield() {
 		return pedgenfield;
 	}
 
 	// Dont rename
-	public TextField getPedaddressfield() {
+	public TextField getpedaddressfield() {
 		return pedaddressfield;
 	}
 
 	// Dont rename
-	public TextField getPeddescfield() {
+	public TextField getpeddescfield() {
 		return peddescfield;
 	}
 
 	// Dont rename
-	public TextField getPedlnamefield() {
+	public TextField getpedlnamefield() {
 		return pedlnamefield;
 	}
 
 	// Dont rename
-	public TextField getPedfnamefield() {
+	public TextField getpedfnamefield() {
 		return pedfnamefield;
 	}
 
@@ -3082,6 +3291,36 @@ public class PedLookupViewController implements IShutdownable {
 		return pedlicensefield;
 	}
 
+	// dont rename
+	public TextField getpedmaritalstatusfield() {
+		return pedmaritalstatusfield;
+	}
+
+	// dont rename
+	public TextField getpeddisabilityfield() {
+		return peddisabilityfield;
+	}
+
+	// dont rename
+	public TextField getpedcitizenshipstatusfield() {
+		return pedcitizenshipstatusfield;
+	}
+
+	// Dont rename
+	public TextField getpedheightfield() {
+		return pedheightfield;
+	}
+
+	// Dont rename
+	public TextField getpedweightfield() {
+		return pedweightfield;
+	}
+
+	// Dont rename
+	public TextField getpeddriverlicenseexpirationfield() {
+		return peddriverlicexpirationfield;
+	}
+
 	// #endregion
 
 	private void addSettingRow(GridPane grid, String labelText, ColorPicker colorPicker, int rowIndex) {
@@ -3092,7 +3331,7 @@ public class PedLookupViewController implements IShutdownable {
 		grid.add(colorPicker, 1, rowIndex);
 	}
 
-	private Color loadColorFromConfig(String key, Color defaultColor) {
+	public static Color loadColorFromConfig(String key, Color defaultColor) {
 		try {
 			String colorStr = ConfigReader.configRead("uiColors", key);
 			if (colorStr != null && !colorStr.trim().isEmpty()) {
@@ -3104,7 +3343,7 @@ public class PedLookupViewController implements IShutdownable {
 		return defaultColor;
 	}
 
-	private String toWebString(Color color) {
+	public static String toWebString(Color color) {
 		int r = (int) (color.getRed() * 255);
 		int g = (int) (color.getGreen() * 255);
 		int b = (int) (color.getBlue() * 255);
@@ -3117,6 +3356,9 @@ public class PedLookupViewController implements IShutdownable {
 		Color headingColor = loadColorFromConfig("headingColor", Color.web("#0078D7"));
 		Color cardBkgColor = loadColorFromConfig("cardBkgColor", Color.web("#FFFFFF"));
 		Color buttonColor = loadColorFromConfig("buttonColor", Color.web("#DCDCDC"));
+
+		noPedImageFoundlbl.setStyle("-fx-text-fill: " + toWebString(labelColor)
+				+ " !important; -fx-font-family: 'Inter 24pt Regular';");
 
 		sidePane.setStyle("-fx-background-color: " + toWebString(
 				loadColorFromConfig("sidePaneColor", Color.web("#3E3E3E"))) + ";");

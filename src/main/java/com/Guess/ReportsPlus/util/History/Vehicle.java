@@ -33,6 +33,9 @@ public class Vehicle {
 	@XmlElement(name = "Model")
 	private String model;
 
+	@XmlElement(name = "Make")
+	private String make;
+
 	@XmlElement(name = "Stolen")
 	private String stolenStatus;
 
@@ -41,6 +44,27 @@ public class Vehicle {
 
 	@XmlElement(name = "Owner")
 	private String owner;
+
+	@XmlElement(name = "OwnerAddress")
+	private String ownerAddress;
+
+	@XmlElement(name = "OwnerModel")
+	private String ownerModel;
+
+	@XmlElement(name = "OwnerDOB")
+	private String ownerDob;
+
+	@XmlElement(name = "OwnerGender")
+	private String ownerGender;
+
+	@XmlElement(name = "OwnerIsWanted")
+	private String ownerIsWanted;
+
+	@XmlElement(name = "OwnerLicenseState")
+	private String ownerLicenseState;
+
+	@XmlElement(name = "OwnerLicenseNumber")
+	private String ownerLicenseNumber;
 
 	@XmlElement(name = "Registration")
 	private String registration;
@@ -60,6 +84,9 @@ public class Vehicle {
 	@XmlElement(name = "InsuranceExpiration")
 	private String insuranceExpiration;
 
+	@XmlElement(name = "Coverage")
+	private String coverage;
+
 	@XmlElement(name = "Type")
 	private String type;
 
@@ -74,15 +101,24 @@ public class Vehicle {
 		return "plateNumber=[" + plateNumber +
 				"]| color=[" + color +
 				"]| model=[" + model +
+				"]| make=[" + make +
 				"]| stolenStatus=[" + stolenStatus +
 				"]| policeStatus=[" + policeStatus +
 				"]| owner=[" + owner +
+				"]| ownerAddress=[" + ownerAddress +
+				"]| ownerModel=[" + ownerModel +
+				"]| ownerDob=[" + ownerDob +
+				"]| ownerGender=[" + ownerGender +
+				"]| ownerIsWanted=[" + ownerIsWanted +
+				"]| ownerLicenseState=[" + ownerLicenseState +
+				"]| ownerLicenseNumber=[" + ownerLicenseNumber +
 				"]| registration=[" + registration +
 				"]| registrationNumber=[" + registrationNumber +
 				"]| registrationExpiration=[" + registrationExpiration +
 				"]| insurance=[" + insurance +
 				"]| insuranceNumber=[" + insuranceNumber +
 				"]| insuranceExpiration=[" + insuranceExpiration +
+				"]| coverage=[" + coverage +
 				"]| type=[" + type +
 				"]| vin=[" + vin +
 				"]| inspection=[" + inspection + "]";
@@ -134,6 +170,62 @@ public class Vehicle {
 
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+
+	public String getOwnerAddress() {
+		return ownerAddress;
+	}
+
+	public void setOwnerAddress(String ownerAddress) {
+		this.ownerAddress = ownerAddress;
+	}
+
+	public String getOwnerModel() {
+		return ownerModel;
+	}
+
+	public void setOwnerModel(String ownerModel) {
+		this.ownerModel = ownerModel;
+	}
+
+	public String getOwnerDob() {
+		return ownerDob;
+	}
+
+	public void setOwnerDob(String ownerDob) {
+		this.ownerDob = ownerDob;
+	}
+
+	public String getOwnerGender() {
+		return ownerGender;
+	}
+
+	public void setOwnerGender(String ownerGender) {
+		this.ownerGender = ownerGender;
+	}
+
+	public String getOwnerIsWanted() {
+		return ownerIsWanted;
+	}
+
+	public void setOwnerIsWanted(String ownerIsWanted) {
+		this.ownerIsWanted = ownerIsWanted;
+	}
+
+	public String getOwnerLicenseState() {
+		return ownerLicenseState;
+	}
+
+	public void setOwnerLicenseState(String ownerLicenseState) {
+		this.ownerLicenseState = ownerLicenseState;
+	}
+
+	public String getOwnerLicenseNumber() {
+		return ownerLicenseNumber;
+	}
+
+	public void setOwnerLicenseNumber(String ownerLicenseNumber) {
+		this.ownerLicenseNumber = ownerLicenseNumber;
 	}
 
 	public String getVin() {
@@ -212,7 +304,7 @@ public class Vehicle {
 	@XmlAccessorType(XmlAccessType.FIELD)
 	public static class Vehicles {
 
-		@XmlElement(name = "Vehicle")
+		@XmlElement(name = "vehicle")
 		private List<Vehicle> VehicleList;
 
 		public List<Vehicle> getVehicleList() {
@@ -294,7 +386,7 @@ public class Vehicle {
 				logError("JAXB error while trying to loadVehicles() by number: ", e);
 			}
 
-			if (Vehicles.getVehicleList() != null) {
+			if (Vehicles != null && Vehicles.getVehicleList() != null) {
 				return Vehicles.getVehicleList().stream()
 						.filter(e -> e.getPlateNumber().equalsIgnoreCase(Vehiclenumber)).findFirst();
 			}
@@ -302,6 +394,22 @@ public class Vehicle {
 			return Optional.empty();
 		}
 
+	}
+
+	public String getMake() {
+		return make;
+	}
+
+	public void setMake(String make) {
+		this.make = make;
+	}
+
+	public String getCoverage() {
+		return coverage;
+	}
+
+	public void setCoverage(String coverage) {
+		this.coverage = coverage;
 	}
 
 }

@@ -137,7 +137,7 @@ public class CalloutReportUtils {
 		Label legacyLabel = (Label) calloutReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		pullNotesBtn.setOnMouseEntered(actionEvent -> {
+		pullNotesBtn.setOnMouseEntered(_ -> {
 			pullNotesBtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -164,7 +164,7 @@ public class CalloutReportUtils {
 		Label warningLabel = (Label) calloutReport.get("warningLabel");
 		ComboBox<String> statusValue = (ComboBox) calloutReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (calloutnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Callout Number can't be empty!");

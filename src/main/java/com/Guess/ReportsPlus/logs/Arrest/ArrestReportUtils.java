@@ -221,7 +221,7 @@ public class ArrestReportUtils {
 		Label legacyLabel = (Label) arrestReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -249,7 +249,7 @@ public class ArrestReportUtils {
 			}
 		});
 
-		transferimpoundbtn.setOnAction(event -> {
+		transferimpoundbtn.setOnAction(_ -> {
 
 			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound();
 
@@ -301,7 +301,7 @@ public class ArrestReportUtils {
 			numimp.setText(arrestnum.getText());
 		});
 
-		transferincidentbtn.setOnAction(event -> {
+		transferincidentbtn.setOnAction(_ -> {
 			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident();
 
 			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(
@@ -351,7 +351,7 @@ public class ArrestReportUtils {
 			notesinc.setText(notes.getText());
 		});
 
-		transfersearchbtn.setOnAction(event -> {
+		transfersearchbtn.setOnAction(_ -> {
 			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch();
 
 			Map<String, Object> ArrestReportMap = (Map<String, Object>) ArrestReportObj
@@ -403,7 +403,7 @@ public class ArrestReportUtils {
 
 		ComboBox<String> statusValue = (ComboBox) arrestReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (arrestnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Arrest Number can't be empty!");
@@ -601,7 +601,7 @@ public class ArrestReportUtils {
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information")
 						+ "_button");
 
-		offenderInfoBtn.setOnAction(event -> {
+		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {

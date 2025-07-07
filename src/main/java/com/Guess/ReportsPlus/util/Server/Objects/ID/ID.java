@@ -30,7 +30,6 @@ public class ID {
 	@XmlElement(name = "Address")
 	private String address;
 
-	// TODO: !inprogress add height and weight to ID (gen in plugin)
 	@XmlElement(name = "Height")
 	private String height;
 

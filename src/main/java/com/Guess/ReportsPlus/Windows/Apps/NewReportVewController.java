@@ -81,7 +81,7 @@ public class NewReportVewController {
 				"Death Report", "Impound Report", "Incident Report", "Patrol Report", "Search Report",
 				"Traffic Stop Report");
 
-		legacyReportsComboBox.setOnAction(event -> {
+		legacyReportsComboBox.setOnAction(_ -> {
 			String selectedReport = legacyReportsComboBox.getSelectionModel().getSelectedItem();
 			if (selectedReport == null)
 				return;
@@ -126,7 +126,7 @@ public class NewReportVewController {
 		addLocale();
 		refreshCustomReports();
 
-		importDefaultBtn.setOnAction(event -> {
+		importDefaultBtn.setOnAction(_ -> {
 			logInfo("NewReport; Importing default reports");
 			CustomReportUtilities.addDefaultReports();
 			refreshCustomReports();
@@ -241,7 +241,7 @@ public class NewReportVewController {
 			deleteButton.getStyleClass().add("removeButton");
 			deleteButton.setStyle("-fx-font-size: 10;");
 
-			deleteButton.setOnAction(event -> showConfirmDeleteWindow(dbFile, buttonText));
+			deleteButton.setOnAction(_ -> showConfirmDeleteWindow(dbFile, buttonText));
 
 			HBox buttonContainer = new HBox(3, dbButton, deleteButton);
 			buttonContainer.setAlignment(Pos.CENTER);
@@ -295,7 +295,7 @@ public class NewReportVewController {
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
 
-		yesBtn.setOnAction(event -> {
+		yesBtn.setOnAction(_ -> {
 			confirmDialog.closeWindow();
 			if (fileToDelete.delete()) {
 				logInfo("Successfully deleted report: " + fileToDelete.getName());
@@ -309,7 +309,7 @@ public class NewReportVewController {
 			}
 		});
 
-		noBtn.setOnAction(event -> confirmDialog.closeWindow());
+		noBtn.setOnAction(_ -> confirmDialog.closeWindow());
 	}
 
 	private void addLocale() {

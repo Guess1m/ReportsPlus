@@ -600,7 +600,7 @@ public class LogViewController {
 				Button delBtn = (Button) deathReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = deathNum.getText();
 					try {
 						DeathReportUtils.deleteDeathReport(numToDelete);
@@ -700,7 +700,7 @@ public class LogViewController {
 				Button delBtn = (Button) calloutReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = calloutnum.getText();
 					try {
 						CalloutReportUtils.deleteCalloutReport(numToDelete);
@@ -787,7 +787,7 @@ public class LogViewController {
 				Button delBtn = (Button) patrolReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = patrolnum.getText();
 					try {
 						PatrolReportUtils.deletePatrolReport(numToDelete);
@@ -915,7 +915,7 @@ public class LogViewController {
 				Button delBtn = (Button) trafficStopReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = stopnumts.getText();
 					try {
 						TrafficStopReportUtils.deleteTrafficStopReport(numToDelete);
@@ -1024,7 +1024,7 @@ public class LogViewController {
 				Button delBtn = (Button) incidentReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = incidentnum.getText();
 					try {
 						IncidentReportUtils.deleteIncidentReport(numToDelete);
@@ -1136,7 +1136,7 @@ public class LogViewController {
 				Button delBtn = (Button) impoundReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = num.getText();
 					try {
 						ImpoundReportUtils.deleteImpoundReport(numToDelete);
@@ -1262,7 +1262,7 @@ public class LogViewController {
 				Button delBtn = (Button) trafficCitationObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = num.getText();
 					try {
 						TrafficCitationUtils.deleteTrafficCitationReport(numToDelete);
@@ -1392,7 +1392,7 @@ public class LogViewController {
 				Button delBtn = (Button) searchReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = searchnum.getText();
 					try {
 						SearchReportUtils.deleteSearchReport(numToDelete);
@@ -1510,7 +1510,7 @@ public class LogViewController {
 				Button delBtn = (Button) arrestReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = arrestnum.getText();
 					try {
 						ArrestReportUtils.deleteArrestReport(numToDelete);
@@ -1653,7 +1653,7 @@ public class LogViewController {
 				Button delBtn = (Button) accidentReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
-				delBtn.setOnAction(actionEvent -> {
+				delBtn.setOnAction(_ -> {
 					String numToDelete = accidentnum.getText();
 					try {
 						AccidentReportUtils.deleteAccidentReport(numToDelete);
@@ -1969,7 +1969,7 @@ public class LogViewController {
 										delBtn.setVisible(true);
 										delBtn.setDisable(false);
 										String numToDelete = reportNum;
-										delBtn.setOnAction(actionEvent -> {
+										delBtn.setOnAction(_ -> {
 											databaseData.deleteRecord(dbFilePath, "data", finalFoundPrimaryKeyDataTable,
 													numToDelete);
 											CustomWindow window = getWindow(reportTitle);

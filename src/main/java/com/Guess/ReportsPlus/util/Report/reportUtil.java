@@ -225,7 +225,7 @@ public class reportUtil {
 					logDebug("SectionConfig: " + sectionConfig.getSectionTitle() + " has type: ["
 							+ sectionConfig.getLookupType() + "]");
 
-					button.setOnMouseClicked(event -> {
+					button.setOnMouseClicked(_ -> {
 						String lookupType = sectionConfig.getLookupType().toLowerCase();
 						logInfo("Pulling values from " + lookupType + " lookup for section: "
 								+ sectionConfig.getSectionTitle());
@@ -492,6 +492,8 @@ public class reportUtil {
 		String lowerLookup = lookupType.toLowerCase();
 		key = key.toLowerCase();
 
+		System.out.println("Pulling value for key: " + key + " from lookup type: " + lowerLookup);
+
 		switch (lowerLookup) {
 			case "ped":
 				if (pedLookupViewController != null && pedLookupViewController.getDatabaseInfoPane().isVisible()) {
@@ -499,18 +501,16 @@ public class reportUtil {
 				}
 				break;
 			case "vehicle":
-				if (vehLookupViewController != null && vehLookupViewController.getVehLookupPane().isVisible()) {
+				if (vehLookupViewController != null && vehLookupViewController.getDatabaseInfoPane().isVisible()) {
 					object = vehLookupViewController;
 				}
 				break;
 			case "both":
-				String pedValue = pullValueFromReport("ped", key);
-
-				if (pedValue != null && !pedValue.isEmpty()) {
-					return pedValue;
+				if (key.startsWith("ped")) {
+					return pullValueFromReport("ped", key);
+				} else {
+					return pullValueFromReport("vehicle", key);
 				}
-
-				return pullValueFromReport("vehicle", key);
 			default:
 				logError("Unknown lookup type: " + lookupType);
 				return "";
@@ -536,11 +536,11 @@ public class reportUtil {
 			}
 			return value != null ? value.toString() : "";
 		} catch (NoSuchMethodException e) {
-			logError("Method: get" + key + " does not exist or error: ", e);
+			logError("Method: [get" + key + "] with lookup type: [" + lookupType + "] does not exist or error: ", e);
 		} catch (InvocationTargetException e) {
-			logError("Invocation error for method: get" + key + " Trace:", e);
+			logError("Invocation error for method: [get" + key + "] Trace:", e);
 		} catch (IllegalAccessException e) {
-			logError("Illegal access error for method: get" + key + " Trace:", e);
+			logError("Illegal access error for method: [get" + key + "] Trace:", e);
 		}
 		return "";
 	}
@@ -1112,7 +1112,7 @@ public class reportUtil {
 							citationFineField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-					treeView.setOnMouseClicked(event -> {
+					treeView.setOnMouseClicked(_ -> {
 						TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
 						if (selectedItem != null && selectedItem.isLeaf()) {
 							citationNameField.setText(selectedItem.getValue());
@@ -1123,7 +1123,7 @@ public class reportUtil {
 							citationFineField.setText("");
 						}
 					});
-					addButton.setOnMouseClicked(event -> {
+					addButton.setOnMouseClicked(_ -> {
 						String citation = citationNameField.getText();
 						if (!(citation.isBlank() || citation.isEmpty())) {
 							CitationsData formData = null;
@@ -1140,7 +1140,7 @@ public class reportUtil {
 							citationTableView.getItems().add(formData);
 						}
 					});
-					removeButton.setOnMouseClicked(event -> {
+					removeButton.setOnMouseClicked(_ -> {
 						CitationsData selectedItem = citationTableView.getSelectionModel().getSelectedItem();
 						if (selectedItem != null) {
 							citationTableView.getItems().remove(selectedItem);
@@ -1305,7 +1305,7 @@ public class reportUtil {
 							chargeNameField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-					chargestreeView.setOnMouseClicked(event -> {
+					chargestreeView.setOnMouseClicked(_ -> {
 						TreeItem<String> selectedItem = chargestreeView.getSelectionModel().getSelectedItem();
 						if (selectedItem != null && selectedItem.isLeaf()) {
 							chargeNameField.setText(selectedItem.getValue());
@@ -1313,14 +1313,14 @@ public class reportUtil {
 							chargeNameField.setText("");
 						}
 					});
-					addButton2.setOnMouseClicked(event -> {
+					addButton2.setOnMouseClicked(_ -> {
 						String charge = chargeNameField.getText();
 						if (!(charge.isBlank() || charge.isEmpty())) {
 							ChargesData formData = new ChargesData(charge);
 							chargeTableView.getItems().add(formData);
 						}
 					});
-					removeButton2.setOnMouseClicked(event -> {
+					removeButton2.setOnMouseClicked(_ -> {
 						ChargesData selectedItem = chargeTableView.getSelectionModel().getSelectedItem();
 						if (selectedItem != null) {
 							chargeTableView.getItems().remove(selectedItem);

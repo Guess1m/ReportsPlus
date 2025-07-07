@@ -228,7 +228,7 @@ public class TrafficCitationUtils {
 		Label legacyLabel = (Label) citationReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -259,7 +259,7 @@ public class TrafficCitationUtils {
 			}
 		});
 
-		transferimpoundbtn.setOnAction(event -> {
+		transferimpoundbtn.setOnAction(_ -> {
 
 			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound();
 
@@ -329,7 +329,7 @@ public class TrafficCitationUtils {
 
 		ComboBox<String> statusValue = (ComboBox) citationReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (num.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Citation Number can't be empty!");
@@ -567,7 +567,7 @@ public class TrafficCitationUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.CitationVehicleInfoHeading",
 						"(If Applicable) Offender Vehicle Information") + "_button");
 
-		offenderInfoBtn.setOnAction(event -> {
+		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {
@@ -579,7 +579,7 @@ public class TrafficCitationUtils {
 			offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
 
-		vehInfoBtn.setOnAction(event -> {
+		vehInfoBtn.setOnAction(_ -> {
 			plateNumber.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			model.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
 			String typ = pullValueFromReport("vehicle", "Vehtypecombobox");

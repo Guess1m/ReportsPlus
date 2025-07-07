@@ -209,7 +209,7 @@ public class TrafficStopReportUtils {
 		Label legacyLabel = (Label) trafficStopReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		pullNotesBtnts.setOnMouseEntered(actionEvent -> {
+		pullNotesBtnts.setOnMouseEntered(_ -> {
 			pullNotesBtnts.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -240,7 +240,7 @@ public class TrafficStopReportUtils {
 			}
 		});
 
-		transferarrestbtnts.setOnAction(event -> {
+		transferarrestbtnts.setOnAction(_ -> {
 			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest();
 
 			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj
@@ -303,7 +303,7 @@ public class TrafficStopReportUtils {
 			notesarr.setText(notests.getText());
 		});
 
-		transfercitationbtnts.setOnAction(event -> {
+		transfercitationbtnts.setOnAction(_ -> {
 			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation();
 
 			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
@@ -387,7 +387,7 @@ public class TrafficStopReportUtils {
 
 		ComboBox<String> statusValue = (ComboBox) trafficStopReport.get("statusValue");
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (stopnumts.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Stop Number can't be empty!");
@@ -462,7 +462,7 @@ public class TrafficStopReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information") + "_button");
 
-		offenderInfoBtn.setOnAction(event -> {
+		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {
@@ -474,7 +474,7 @@ public class TrafficStopReportUtils {
 			offenderDescriptionts.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
 
-		vehInfoBtn.setOnAction(event -> {
+		vehInfoBtn.setOnAction(_ -> {
 			plateNumberts.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			modelts.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
 			String typ = pullValueFromReport("vehicle", "Vehtypecombobox");

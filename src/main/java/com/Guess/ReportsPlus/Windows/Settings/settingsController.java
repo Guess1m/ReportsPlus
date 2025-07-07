@@ -103,555 +103,19 @@ public class settingsController {
 	public static settingsController SettingsController;
 	private static AtomicReference<String> selectedNotification;
 	private static boolean soundPackInstalled = false;
-
-	public static void loadTheme() throws IOException {
-		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
-		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
-		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
-		String accclr = ConfigReader.configRead("uiColors", "accentColor");
-		String hoverStyle = "-fx-background-color: " + accclr;
-		String nonTransparentBtn = "-fx-background-color: " + mainclr + ";";
-
-		if (clientController != null) {
-			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
-			clientController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-		}
-		if (trafficStopController.trafficStopController != null) {
-			trafficStopController.trafficStopController.getRoot().setStyle("-fx-background-color: " + bkgclr);
-		}
-		if (newUserManagerController != null) {
-			newUserManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-			newUserManagerController.getHeader().setStyle("-fx-text-fill: " + mainclr + ";");
-			newUserManagerController.getNewUserBtn()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			newUserManagerController.getNewUserBtn().setOnMouseEntered(e -> newUserManagerController.getNewUserBtn()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			newUserManagerController.getNewUserBtn().setOnMouseExited(e -> newUserManagerController.getNewUserBtn()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-		}
-		if (vehLookupViewController != null) {
-			vehLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
-			vehLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
-			vehLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			vehLookupViewController.getVehLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			vehLookupViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-
-			vehLookupViewController.getInfo1().setStyle("-fx-background-color: " + secclr + ";");
-			vehLookupViewController.getInfo2().setStyle("-fx-background-color: " + secclr + ";");
-
-			vehLookupViewController.getVehSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			vehLookupViewController.getVehSearchBtn().setOnMouseEntered(
-					e -> vehLookupViewController.getVehSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			vehLookupViewController.getVehSearchBtn().setOnMouseExited(e -> vehLookupViewController.getVehSearchBtn()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
-
-			vehLookupViewController.getAddDataToNotesBtn()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getAddDataToNotesBtn()
-					.setOnMouseEntered(e -> vehLookupViewController.getAddDataToNotesBtn()
-							.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getAddDataToNotesBtn()
-					.setOnMouseExited(e -> vehLookupViewController.getAddDataToNotesBtn().setStyle(
-							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-
-			vehLookupViewController.getBtninfo1()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getBtninfo1().setOnMouseEntered(e -> vehLookupViewController.getBtninfo1()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getBtninfo1().setOnMouseExited(e -> vehLookupViewController.getBtninfo1()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-
-			vehLookupViewController.getBtninfo2()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getBtninfo2().setOnMouseEntered(e -> vehLookupViewController.getBtninfo2()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getBtninfo2().setOnMouseExited(e -> vehLookupViewController.getBtninfo2()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-
-			vehLookupViewController.getBtninfo3()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			vehLookupViewController.getBtninfo3().setOnMouseEntered(e -> vehLookupViewController.getBtninfo3()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			vehLookupViewController.getBtninfo3().setOnMouseExited(e -> vehLookupViewController.getBtninfo3()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-		}
-		if (newReportVewController != null) {
-			newReportVewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-		}
-		if (courtViewController != null) {
-			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasePrim1()
-					.setStyle("-fx-text-fill: " + mainclr + "; -fx-border-color: black; -fx-border-width: 0 0 1.5 0;");
-			courtViewController.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
-			courtViewController.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
-			courtViewController.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
-			courtViewController.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
-			courtViewController.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			courtViewController.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			courtViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-		}
-		if (logController != null) {
-			logController.getArrestTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getCalloutTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getCitationTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getImpoundTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getIncidentTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getDeathReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getAccidentReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
-			logController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-		}
-		if (calloutViewController != null) {
-			calloutViewController.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			calloutViewController.getCallInfoContainer().setStyle("-fx-background-color: " + bkgclr + ";");
-			CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
-			CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
-			calloutViewController.getExitBtn()
-					.setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-border-color", secclr));
-			calloutViewController.getSettingsBtn()
-					.setStyle(updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-border-color", secclr));
-			calloutViewController.getDisplayActiveCallsBtn().setStyle(
-					updateStyleProperty(calloutViewController.getDisplayActiveCallsBtn(), "-fx-border-color", secclr));
-			calloutViewController.getDisplayCallHistoryBtn().setStyle(
-					updateStyleProperty(calloutViewController.getDisplayCallHistoryBtn(), "-fx-border-color", secclr));
-			calloutViewController.getCreateCallBtn().setStyle(
-					updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-border-color", secclr));
-			calloutViewController.getNotesContainer().setStyle(
-					updateStyleProperty(calloutViewController.getNotesContainer(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoAreaField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoAreaField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoCountyField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoCountyField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoDateField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoDateField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoTimeField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoTimeField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoNumberField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoNumberField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoPriorityField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoPriorityField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoStreetField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoStreetField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoTypeField().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoTypeField(), "-fx-border-color", mainclr));
-			calloutViewController.getCallInfoTypeContainer().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoTypeContainer(), "-fx-border-color", secclr));
-			calloutViewController.getCallInfoTypeSend().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-border-color", secclr));
-			Tab tabContent = calloutViewController.getCallInfoNotesTab();
-			if (tabContent != null) {
-				tabContent.setStyle("-fx-border-color: " + mainclr + " !important;");
-			}
-		}
-		if (mainDesktopControllerObj != null) {
-			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
-			mainDesktopControllerObj.getTopBar().setStyle(
-					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "topBarColor") + ";");
-			String topBarText = ConfigReader.configRead("desktopSettings", "topBarTextColor");
-			mainDesktopControllerObj.getOfficerInfoName().setStyle("-fx-text-fill: " + topBarText + ";");
-			mainDesktopControllerObj.getVersionLabel().setStyle("-fx-text-fill: " + topBarText + ";");
-			mainDesktopControllerObj.getTopBar1().setStyle("-fx-text-fill: " + topBarText + ";");
-			mainDesktopControllerObj.getTopBar2().setStyle("-fx-text-fill: " + topBarText + ";");
-			String taskBarText = ConfigReader.configRead("desktopSettings", "taskBarTextColor");
-			mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
-			mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
-			mainDesktopControllerObj.getShutdownBtn()
-					.setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
-			mainDesktopControllerObj.getButton1()
-					.setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
-
-			mainDesktopControllerObj.getBottomBar().setStyle(
-					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "taskBarColor") + ";");
-			for (DesktopApp desktopApp : DesktopApps) {
-				desktopApp.getAppLabel()
-						.setTextFill(Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
-			}
-
-			if (mainDesktopControllerObj.getLocationAreaLabel() != null) {
-				mainDesktopControllerObj.getLocationAreaLabel().setStyle("-fx-text-fill: " + topBarText + ";");
-			}
-			if (mainDesktopControllerObj.getLocationStreetLabel() != null) {
-				mainDesktopControllerObj.getLocationStreetLabel().setStyle("-fx-text-fill: " + topBarText + ";");
-			}
-			if (mainDesktopControllerObj.getLocationCountyLabel() != null) {
-				mainDesktopControllerObj.getLocationCountyLabel().setStyle("-fx-text-fill: " + topBarText + ";");
-			}
-
-			if (isConnected) {
-				mainDesktopControllerObj.getServerStatusLabel()
-						.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
-			} else {
-				mainDesktopControllerObj.getServerStatusLabel()
-						.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
-			}
-		}
-		if (reportStatisticsController != null) {
-			reportStatisticsController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-			Node fillNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-fill");
-			fillNode.setStyle("-fx-fill: " + hexToRgba(mainclr, 0.5) + ";");
-			Node lineNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-line");
-			lineNode.setStyle("-fx-stroke: " + accclr + ";");
-			Set<Node> symbolNodes = reportStatisticsController.getChart()
-					.lookupAll(".default-color0.chart-area-symbol");
-			for (Node symbolNode : symbolNodes) {
-				symbolNode.setStyle("-fx-background-color: " + secclr + ";");
-			}
-		}
-		if (alprViewController != null) {
-			alprViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-		}
-
-		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
-			addDarkStyles();
-		} else {
-			addLightStyles();
-		}
-	}
-
-	private static HBox createNotificationPreview(String type) throws IOException {
-		String textClr, primClr;
-		switch (type) {
-			case "info":
-				textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
-				primClr = ConfigReader.configRead("notificationSettings", "notificationInfoPrimary");
-				break;
-			case "warn":
-				textClr = ConfigReader.configRead("notificationSettings", "notificationWarnTextColor");
-				primClr = ConfigReader.configRead("notificationSettings", "notificationWarnPrimary");
-				break;
-			default:
-				textClr = "#ffffff";
-				primClr = "#db4437";
-				break;
-		}
-
-		Label titleLabel = new Label("Sample Notification Title");
-		titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
-
-		Label messageLabel = new Label("Lorum ipsum dolor sit amet, consectetur adipiscing.");
-		messageLabel.setWrapText(true);
-		messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
-
-		ImageView icon = new ImageView(
-				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
-		icon.setImage(changeImageColor(icon.getImage(), textClr));
-		icon.setFitWidth(24);
-		icon.setFitHeight(24);
-
-		ImageView closeIcon = new ImageView(
-				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
-		closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
-		closeIcon.setFitWidth(12);
-		closeIcon.setFitHeight(13);
-
-		Button closeButton = new Button();
-		closeButton.setGraphic(closeIcon);
-		closeButton.setStyle("-fx-background-color: transparent;");
-
-		VBox contentBox = new VBox(5, titleLabel, messageLabel);
-		contentBox.setAlignment(Pos.CENTER_LEFT);
-		contentBox.setPadding(new Insets(0));
-		contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-
-		HBox mainBox = new HBox(10, icon, contentBox, closeButton);
-		mainBox.setAlignment(Pos.CENTER_LEFT);
-		mainBox.setPadding(new Insets(10));
-		mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-
-		mainBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-
-		return mainBox;
-	}
-
-	private static void addDarkStyles() {
-		if (vehLookupViewController != null) {
-			vehLookupViewController.getPlt1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getPlt11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		}
-		if (pedLookupViewController != null) {
-			pedLookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed5().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed21().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed22().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		}
-		if (courtViewController != null) {
-			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		}
-		if (clientController != null) {
-			clientController.getLbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			clientController.getLbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			clientController.getLbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			clientController.getLbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		}
-		if (calloutViewController != null) {
-			calloutViewController.getExitBtn()
-					.setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoTypeSend().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getSettingsBtn().setStyle(
-					updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(
-					calloutViewController.getDisplayCallHistoryBtn(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(
-					calloutViewController.getDisplayActiveCallsBtn(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCreateCallBtn().setStyle(
-					updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoArea().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoCounty().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoDate().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoTime().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoNumber().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoPriority().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoStreet().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoType().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			calloutViewController.getCallInfoAreaField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoAreaField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoCountyField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoCountyField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoDateField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoDateField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoTimeField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoTimeField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoNumberField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoNumberField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoPriorityField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoPriorityField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoStreetField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UIDarkColor));
-			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UIDarkColor));
-			// Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane
-			// .tab-label");
-			// node.setStyle("-fx-text-fill: " + UIDarkColor + " !important;");
-			// TODO: !important cant change tab text color
-			// BUG: not working
-		}
-		if (newReportVewController != null) {
-			newReportVewController.getCustomReportsLabel().setStyle(updateStyleProperty(
-					newReportVewController.getCustomReportsLabel(), "-fx-text-fill", UIDarkColor));
-		}
-		if (reportStatisticsController != null) {
-			reportStatisticsController.getReportsByLabel().setStyle(
-					updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UIDarkColor));
-			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
-			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
-			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
-			node.setStyle("-fx-background-color: rgba(0,0,0,0.05), rgba(0,0,0,0.05);");
-		}
-		if (alprViewController != null) {
-			alprViewController.getDistanceSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getFlagsSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getSpeedSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getTimestampSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getScannerUsedSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-
-			Node node = alprViewController.getScannerUsedField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			node = alprViewController.getPlateTypeField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			node = alprViewController.getSpeedField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			node = alprViewController.getDistanceField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			node = alprViewController.getTimeScannedField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			node = alprViewController.getSearchDMVButton().lookup(".button");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-			node = alprViewController.getClearButton().lookup(".button");
-			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
-		}
-	}
-
-	private static void addLightStyles() {
-		if (vehLookupViewController != null) {
-			vehLookupViewController.getPlt1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt10().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getPlt11().setStyle("-fx-text-fill: " + UILightColor + ";");
-			vehLookupViewController.getNoVehImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-		if (pedLookupViewController != null) {
-			pedLookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
-			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-		if (courtViewController != null) {
-			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
-			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-		if (clientController != null) {
-			clientController.getLbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
-			clientController.getLbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
-			clientController.getLbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
-			clientController.getLbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-		if (calloutViewController != null) {
-			calloutViewController.getCallInfoTypeSend().setStyle(
-					updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-text-fill", UILightColor));
-			calloutViewController.getExitBtn()
-					.setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-text-fill", UILightColor));
-			calloutViewController.getSettingsBtn().setStyle(
-					updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-text-fill", UILightColor));
-			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(
-					calloutViewController.getDisplayCallHistoryBtn(), "-fx-text-fill", UILightColor));
-			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(
-					calloutViewController.getDisplayActiveCallsBtn(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCreateCallBtn().setStyle(
-					updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoArea().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoCounty().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoDate().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoTime().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoNumber().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoPriority().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoStreet().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoType().setStyle("-fx-text-fill: " + UILightColor + ";");
-			calloutViewController.getCallInfoAreaField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoAreaField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoCountyField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoCountyField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoDateField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoDateField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoTimeField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoTimeField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoNumberField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoNumberField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoPriorityField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoPriorityField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoStreetField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UILightColor));
-			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(
-					calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UILightColor));
-			// Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane
-			// .tab-label");
-			// node.setStyle("-fx-text-fill: " + UILightColor + " !important;");
-			// TODO: !important cant change tab text color
-			// BUG: not working
-		}
-		if (newReportVewController != null) {
-			newReportVewController.getCustomReportsLabel().setStyle(updateStyleProperty(
-					newReportVewController.getCustomReportsLabel(), "-fx-text-fill", UILightColor));
-		}
-		if (reportStatisticsController != null) {
-			reportStatisticsController.getReportsByLabel().setStyle(
-					updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UILightColor));
-			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UILightColor));
-			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UILightColor));
-			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
-			node.setStyle("-fx-background-color: rgba(255,255,255, 0.1), rgba(255,255,255, 0.1);");
-		}
-		if (alprViewController != null) {
-			alprViewController.getDistanceSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getFlagsSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getSpeedSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getTimestampSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getScannerUsedSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-			alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-
-			Node node = alprViewController.getScannerUsedField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-			node = alprViewController.getPlateTypeField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-			node = alprViewController.getSpeedField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-			node = alprViewController.getDistanceField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-			node = alprViewController.getTimeScannedField().lookup(".text-field");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-			node = alprViewController.getSearchDMVButton().lookup(".button");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-			node = alprViewController.getClearButton().lookup(".button");
-			node.setStyle("-fx-text-fill: " + UILightColor + ";");
-		}
-	}
-
 	private boolean isInitialized = false;
 	private boolean imgPackInstalled = false;
+
+	// #region FXML Variables
+
+	@javafx.fxml.FXML
+	private Label desktopClearOldCalloutData;
+	@javafx.fxml.FXML
+	private ToggleButton desktopClearOldCalloutDataToggle;
+	@javafx.fxml.FXML
+	private Label desktopClearLookupOnStartupLabel;
+	@javafx.fxml.FXML
+	private ToggleButton desktopClearLookupOnStartupToggle;
 	@javafx.fxml.FXML
 	private BorderPane root;
 	@javafx.fxml.FXML
@@ -1116,64 +580,18 @@ public class settingsController {
 	private ToggleButton desktopSkipLoginToggle;
 	@javafx.fxml.FXML
 	private Button openTerminalBtn;
-
 	@javafx.fxml.FXML
 	private ToggleGroup DesktopSetting121;
-
 	@javafx.fxml.FXML
 	private ToggleButton reportShowFieldNamesToggleBtn;
-
 	@javafx.fxml.FXML
 	private Label reportFieldNameLabel;
-
 	@javafx.fxml.FXML
 	private Label reportFieldNameTT;
 
-	public void initialize() {
-		checkSoundsInstalled();
-		checkImagesInstalled();
+	// #endregion
 
-		try {
-			addActionEventsAndComboBoxes();
-		} catch (IOException e) {
-			logError("Error Loading Action Events: ", e);
-		}
-		addEventFilters();
-		setupListeners();
-		try {
-			addDefaultCheckboxSelections();
-		} catch (IOException e) {
-			logError("Error Loading Default Checkbox Values: ", e);
-		}
-		try {
-			loadTheme();
-		} catch (IOException e) {
-			logError("Error Loading Theme From Init: ", e);
-		}
-		loadColors();
-
-		previewNotificationBtn.setOnAction(actionEvent -> {
-			if (selectedNotification.get().equals("Information")) {
-				showNotificationInfo("Sample Info Notification",
-						"Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
-			}
-			if (selectedNotification.get().equals("Warning")) {
-				NotificationManager.showNotificationWarning("Sample Warning Notification",
-						"Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
-			}
-		});
-
-		setActive(paneWindow);
-
-		loadPaneActions();
-
-		refreshNotificationPreview("info");
-
-		isInitialized = true;
-
-		addLocale();
-	}
-
+	// #region Action Events
 	@javafx.fxml.FXML
 	public void clearSaveDataBtnClick(ActionEvent actionEvent) {
 		Stage stage = (Stage) root.getScene().getWindow();
@@ -1252,10 +670,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void enableSoundCheckboxClick(ActionEvent actionEvent) {
 		handleCheckboxClick("uiSettings", "enableSounds", enableSoundCheckbox);
-	}
-
-	public BorderPane getRoot() {
-		return root;
 	}
 
 	@javafx.fxml.FXML
@@ -1342,19 +756,6 @@ public class settingsController {
 		for (CustomWindow window : windows.values()) {
 			window.centerOnDesktop();
 		}
-	}
-
-	public String openFileSelectionDialog(Stage stage) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Select an Image File");
-
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
-
-		File selectedFile = fileChooser.showOpenDialog(stage);
-
-		return (selectedFile != null) ? selectedFile.getAbsolutePath() : null;
 	}
 
 	@javafx.fxml.FXML
@@ -1530,6 +931,529 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void showFieldNamesToggle(ActionEvent actionEvent) {
 		handleCheckboxClick("reportSettings", "useUpperLabels", reportShowFieldNamesToggleBtn);
+	}
+
+	@javafx.fxml.FXML
+	public void desktopClearLookupOnStartupToggle(ActionEvent actionEvent) {
+		handleCheckboxClick("desktopSettings", "clearLookupDataOnStartup", desktopClearLookupOnStartupToggle);
+	}
+
+	@javafx.fxml.FXML
+	public void desktopClearCalloutOnStartupToggle(ActionEvent actionEvent) {
+		handleCheckboxClick("desktopSettings", "clearCalloutDataOnStartup", desktopClearOldCalloutDataToggle);
+	}
+
+	// #endregion
+
+	public static void loadTheme() throws IOException {
+		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
+		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
+		String bkgclr = ConfigReader.configRead("uiColors", "bkgColor");
+		String accclr = ConfigReader.configRead("uiColors", "accentColor");
+		String hoverStyle = "-fx-background-color: " + accclr;
+		String nonTransparentBtn = "-fx-background-color: " + mainclr + ";";
+
+		if (clientController != null) {
+			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
+			clientController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+		if (trafficStopController.trafficStopController != null) {
+			trafficStopController.trafficStopController.getRoot().setStyle("-fx-background-color: " + bkgclr);
+		}
+		if (newUserManagerController != null) {
+			newUserManagerController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			newUserManagerController.getHeader().setStyle("-fx-text-fill: " + mainclr + ";");
+			newUserManagerController.getNewUserBtn()
+					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
+			newUserManagerController.getNewUserBtn().setOnMouseEntered(e -> newUserManagerController.getNewUserBtn()
+					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+			newUserManagerController.getNewUserBtn().setOnMouseExited(e -> newUserManagerController.getNewUserBtn()
+					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
+		}
+		if (newReportVewController != null) {
+			newReportVewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+		if (courtViewController != null) {
+			courtViewController.getCaseSec1().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasePrim1()
+					.setStyle("-fx-text-fill: " + mainclr + "; -fx-border-color: black; -fx-border-width: 0 0 1.5 0;");
+			courtViewController.getCaseprim1().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseprim2().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseprim3().setStyle("-fx-text-fill: " + mainclr + ";");
+			courtViewController.getCaseSec2().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec1().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec2().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec3().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCasesec4().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCaseSuspensionDurationlbl().setStyle("-fx-text-fill: " + secclr + ";");
+			courtViewController.getCourtPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			courtViewController.getBlankCourtInfoPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			courtViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+		if (logController != null) {
+			logController.getArrestTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getCalloutTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getCitationTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getImpoundTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getIncidentTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getPatrolTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getSearchTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getTrafficStopTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getDeathReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getAccidentReportTable().setStyle("-fx-background-color: " + bkgclr + ";");
+			logController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+		if (calloutViewController != null) {
+			calloutViewController.getCalloutPane().setStyle("-fx-background-color: " + bkgclr + ";");
+			calloutViewController.getCallInfoContainer().setStyle("-fx-background-color: " + bkgclr + ";");
+			CalloutManager.loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
+			CalloutManager.loadHistoryCallouts(calloutViewController.getHistoryCalloutsTable());
+			calloutViewController.getExitBtn()
+					.setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-border-color", secclr));
+			calloutViewController.getSettingsBtn()
+					.setStyle(updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-border-color", secclr));
+			calloutViewController.getDisplayActiveCallsBtn().setStyle(
+					updateStyleProperty(calloutViewController.getDisplayActiveCallsBtn(), "-fx-border-color", secclr));
+			calloutViewController.getDisplayCallHistoryBtn().setStyle(
+					updateStyleProperty(calloutViewController.getDisplayCallHistoryBtn(), "-fx-border-color", secclr));
+			calloutViewController.getCreateCallBtn().setStyle(
+					updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-border-color", secclr));
+			calloutViewController.getNotesContainer().setStyle(
+					updateStyleProperty(calloutViewController.getNotesContainer(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoAreaField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoAreaField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoCountyField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoCountyField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoDateField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoDateField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoTimeField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoTimeField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoNumberField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoNumberField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoPriorityField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoPriorityField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoStreetField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoStreetField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoTypeField().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoTypeField(), "-fx-border-color", mainclr));
+			calloutViewController.getCallInfoTypeContainer().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoTypeContainer(), "-fx-border-color", secclr));
+			calloutViewController.getCallInfoTypeSend().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-border-color", secclr));
+			Tab tabContent = calloutViewController.getCallInfoNotesTab();
+			if (tabContent != null) {
+				tabContent.setStyle("-fx-border-color: " + mainclr + " !important;");
+			}
+		}
+		if (mainDesktopControllerObj != null) {
+			mainDesktopControllerObj.getServerStatusLabel().setStyle("-fx-label-padding: 5; -fx-border-radius: 5;");
+			mainDesktopControllerObj.getTopBar().setStyle(
+					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "topBarColor") + ";");
+			String topBarText = ConfigReader.configRead("desktopSettings", "topBarTextColor");
+			mainDesktopControllerObj.getOfficerInfoName().setStyle("-fx-text-fill: " + topBarText + ";");
+			mainDesktopControllerObj.getVersionLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			mainDesktopControllerObj.getTopBar1().setStyle("-fx-text-fill: " + topBarText + ";");
+			mainDesktopControllerObj.getTopBar2().setStyle("-fx-text-fill: " + topBarText + ";");
+			String taskBarText = ConfigReader.configRead("desktopSettings", "taskBarTextColor");
+			mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
+			mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + taskBarText + ";");
+			mainDesktopControllerObj.getShutdownBtn()
+					.setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
+			mainDesktopControllerObj.getButton1()
+					.setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
+
+			mainDesktopControllerObj.getBottomBar().setStyle(
+					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "taskBarColor") + ";");
+			for (DesktopApp desktopApp : DesktopApps) {
+				desktopApp.getAppLabel()
+						.setTextFill(Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
+			}
+
+			if (mainDesktopControllerObj.getLookupLabel() != null) {
+				mainDesktopControllerObj.getLookupLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			}
+			if (mainDesktopControllerObj.getLocationAreaLabel() != null) {
+				mainDesktopControllerObj.getLocationAreaLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			}
+			if (mainDesktopControllerObj.getLocationStreetLabel() != null) {
+				mainDesktopControllerObj.getLocationStreetLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			}
+			if (mainDesktopControllerObj.getLocationCountyLabel() != null) {
+				mainDesktopControllerObj.getLocationCountyLabel().setStyle("-fx-text-fill: " + topBarText + ";");
+			}
+
+			if (isConnected) {
+				mainDesktopControllerObj.getServerStatusLabel()
+						.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
+			} else {
+				mainDesktopControllerObj.getServerStatusLabel()
+						.setStyle("-fx-text-fill: darkred; -fx-label-padding: 5; -fx-border-radius: 5;");
+			}
+		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+			Node fillNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-fill");
+			fillNode.setStyle("-fx-fill: " + hexToRgba(mainclr, 0.5) + ";");
+			Node lineNode = reportStatisticsController.getChart().lookup(".default-color0.chart-series-area-line");
+			lineNode.setStyle("-fx-stroke: " + accclr + ";");
+			Set<Node> symbolNodes = reportStatisticsController.getChart()
+					.lookupAll(".default-color0.chart-area-symbol");
+			for (Node symbolNode : symbolNodes) {
+				symbolNode.setStyle("-fx-background-color: " + secclr + ";");
+			}
+		}
+		if (alprViewController != null) {
+			alprViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
+		}
+
+		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
+			addDarkStyles();
+		} else {
+			addLightStyles();
+		}
+	}
+
+	private static HBox createNotificationPreview(String type) throws IOException {
+		String textClr, primClr;
+		switch (type) {
+			case "info":
+				textClr = ConfigReader.configRead("notificationSettings", "notificationInfoTextColor");
+				primClr = ConfigReader.configRead("notificationSettings", "notificationInfoPrimary");
+				break;
+			case "warn":
+				textClr = ConfigReader.configRead("notificationSettings", "notificationWarnTextColor");
+				primClr = ConfigReader.configRead("notificationSettings", "notificationWarnPrimary");
+				break;
+			default:
+				textClr = "#ffffff";
+				primClr = "#db4437";
+				break;
+		}
+
+		Label titleLabel = new Label("Sample Notification Title");
+		titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
+
+		Label messageLabel = new Label("Lorum ipsum dolor sit amet, consectetur adipiscing.");
+		messageLabel.setWrapText(true);
+		messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
+
+		ImageView icon = new ImageView(
+				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
+		icon.setImage(changeImageColor(icon.getImage(), textClr));
+		icon.setFitWidth(24);
+		icon.setFitHeight(24);
+
+		ImageView closeIcon = new ImageView(
+				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
+		closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
+		closeIcon.setFitWidth(12);
+		closeIcon.setFitHeight(13);
+
+		Button closeButton = new Button();
+		closeButton.setGraphic(closeIcon);
+		closeButton.setStyle("-fx-background-color: transparent;");
+
+		VBox contentBox = new VBox(5, titleLabel, messageLabel);
+		contentBox.setAlignment(Pos.CENTER_LEFT);
+		contentBox.setPadding(new Insets(0));
+		contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
+
+		HBox mainBox = new HBox(10, icon, contentBox, closeButton);
+		mainBox.setAlignment(Pos.CENTER_LEFT);
+		mainBox.setPadding(new Insets(10));
+		mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
+
+		mainBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+
+		return mainBox;
+	}
+
+	private static void addDarkStyles() {
+		if (courtViewController != null) {
+			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl9().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		}
+		if (clientController != null) {
+			clientController.getLbl1().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			clientController.getLbl2().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			clientController.getLbl3().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			clientController.getLbl4().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		}
+		if (calloutViewController != null) {
+			calloutViewController.getExitBtn()
+					.setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoTypeSend().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getSettingsBtn().setStyle(
+					updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(
+					calloutViewController.getDisplayCallHistoryBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(
+					calloutViewController.getDisplayActiveCallsBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCreateCallBtn().setStyle(
+					updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoArea().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoCounty().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoDate().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoTime().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoNumber().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoPriority().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoStreet().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoType().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			calloutViewController.getCallInfoAreaField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoAreaField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoCountyField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoCountyField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoDateField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoDateField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoTimeField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoTimeField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoNumberField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoNumberField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoPriorityField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoPriorityField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoStreetField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UIDarkColor));
+			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UIDarkColor));
+			// Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane
+			// .tab-label");
+			// node.setStyle("-fx-text-fill: " + UIDarkColor + " !important;");
+			// TODO: !important cant change tab text color
+			// BUG: not working
+		}
+		if (newReportVewController != null) {
+			newReportVewController.getCustomReportsLabel().setStyle(updateStyleProperty(
+					newReportVewController.getCustomReportsLabel(), "-fx-text-fill", UIDarkColor));
+		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getReportsByLabel().setStyle(
+					updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UIDarkColor));
+			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
+			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UIDarkColor));
+			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
+			node.setStyle("-fx-background-color: rgba(0,0,0,0.05), rgba(0,0,0,0.05);");
+		}
+		if (alprViewController != null) {
+			alprViewController.getDistanceSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getFlagsSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getSpeedSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getTimestampSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getScannerUsedSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
+
+			Node node = alprViewController.getScannerUsedField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			node = alprViewController.getPlateTypeField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			node = alprViewController.getSpeedField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			node = alprViewController.getDistanceField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			node = alprViewController.getTimeScannedField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			node = alprViewController.getSearchDMVButton().lookup(".button");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+			node = alprViewController.getClearButton().lookup(".button");
+			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
+		}
+	}
+
+	private static void addLightStyles() {
+		if (vehLookupViewController != null) {
+		}
+		if (pedLookupViewController != null) {
+			pedLookupViewController.getNoPedImageFoundlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed3().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed4().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed5().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed6().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed7().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed8().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed9().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed11().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed12().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed13().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed14().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed15().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed18().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed19().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed20().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed21().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed22().setStyle("-fx-text-fill: " + UILightColor + ";");
+			pedLookupViewController.getPed23().setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
+		if (courtViewController != null) {
+			courtViewController.getNoCourtCaseSelectedlbl().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl6().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl7().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl8().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl9().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl10().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl11().setStyle("-fx-text-fill: " + UILightColor + ";");
+			courtViewController.getCaselbl12().setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
+		if (clientController != null) {
+			clientController.getLbl1().setStyle("-fx-text-fill: " + UILightColor + ";");
+			clientController.getLbl2().setStyle("-fx-text-fill: " + UILightColor + ";");
+			clientController.getLbl3().setStyle("-fx-text-fill: " + UILightColor + ";");
+			clientController.getLbl4().setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
+		if (calloutViewController != null) {
+			calloutViewController.getCallInfoTypeSend().setStyle(
+					updateStyleProperty(calloutViewController.getCallInfoTypeSend(), "-fx-text-fill", UILightColor));
+			calloutViewController.getExitBtn()
+					.setStyle(updateStyleProperty(calloutViewController.getExitBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getSettingsBtn().setStyle(
+					updateStyleProperty(calloutViewController.getSettingsBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getDisplayCallHistoryBtn().setStyle(updateStyleProperty(
+					calloutViewController.getDisplayCallHistoryBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getDisplayActiveCallsBtn().setStyle(updateStyleProperty(
+					calloutViewController.getDisplayActiveCallsBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCreateCallBtn().setStyle(
+					updateStyleProperty(calloutViewController.getCreateCallBtn(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoArea().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoCounty().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoDate().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoTime().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoNumber().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoPriority().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoStreet().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoType().setStyle("-fx-text-fill: " + UILightColor + ";");
+			calloutViewController.getCallInfoAreaField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoAreaField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoCountyField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoCountyField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoDateField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoDateField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoTimeField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoTimeField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoNumberField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoNumberField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoPriorityField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoPriorityField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoStreetField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UILightColor));
+			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(
+					calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UILightColor));
+			// Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane
+			// .tab-label");
+			// node.setStyle("-fx-text-fill: " + UILightColor + " !important;");
+			// TODO: !important cant change tab text color
+			// BUG: not working
+		}
+		if (newReportVewController != null) {
+			newReportVewController.getCustomReportsLabel().setStyle(updateStyleProperty(
+					newReportVewController.getCustomReportsLabel(), "-fx-text-fill", UILightColor));
+		}
+		if (reportStatisticsController != null) {
+			reportStatisticsController.getReportsByLabel().setStyle(
+					updateStyleProperty(reportStatisticsController.getReportsByLabel(), "-fx-text-fill", UILightColor));
+			reportStatisticsController.getyAxis().setTickLabelFill(rgbToHexString(UILightColor));
+			reportStatisticsController.getxAxis().setTickLabelFill(rgbToHexString(UILightColor));
+			Node node = reportStatisticsController.getChart().lookup("AreaChart .chart-content .chart-plot-background");
+			node.setStyle("-fx-background-color: rgba(255,255,255, 0.1), rgba(255,255,255, 0.1);");
+		}
+		if (alprViewController != null) {
+			alprViewController.getDistanceSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getFlagsSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getSpeedSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getTimestampSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getScannerUsedSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+			alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
+
+			Node node = alprViewController.getScannerUsedField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+			node = alprViewController.getPlateTypeField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+			node = alprViewController.getSpeedField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+			node = alprViewController.getDistanceField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+			node = alprViewController.getTimeScannedField().lookup(".text-field");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+			node = alprViewController.getSearchDMVButton().lookup(".button");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+			node = alprViewController.getClearButton().lookup(".button");
+			node.setStyle("-fx-text-fill: " + UILightColor + ";");
+		}
+	}
+
+	public void initialize() {
+		checkSoundsInstalled();
+		checkImagesInstalled();
+
+		try {
+			addActionEventsAndComboBoxes();
+		} catch (IOException e) {
+			logError("Error Loading Action Events: ", e);
+		}
+		addEventFilters();
+		setupListeners();
+		try {
+			addDefaultCheckboxSelections();
+		} catch (IOException e) {
+			logError("Error Loading Default Checkbox Values: ", e);
+		}
+		try {
+			loadTheme();
+		} catch (IOException e) {
+			logError("Error Loading Theme From Init: ", e);
+		}
+		loadColors();
+
+		previewNotificationBtn.setOnAction(_ -> {
+			if (selectedNotification.get().equals("Information")) {
+				showNotificationInfo("Sample Info Notification",
+						"Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
+			}
+			if (selectedNotification.get().equals("Warning")) {
+				NotificationManager.showNotificationWarning("Sample Warning Notification",
+						"Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
+			}
+		});
+
+		setActive(paneWindow);
+
+		loadPaneActions();
+
+		refreshNotificationPreview("info");
+
+		isInitialized = true;
+
+		addLocale();
+	}
+
+	public String openFileSelectionDialog(Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select an Image File");
+
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
+
+		File selectedFile = fileChooser.showOpenDialog(stage);
+
+		return (selectedFile != null) ? selectedFile.getAbsolutePath() : null;
 	}
 
 	private boolean checkSoundsInstalled() {
@@ -1728,6 +1652,12 @@ public class settingsController {
 		desktopUseMilitaryTimeLabel
 				.setText(localization.getLocalizedMessage("Settings.desktopUseMilitaryTimeLabel", "Use 24-Hour Time"));
 		desktopSkipLoginLabel.setText(localization.getLocalizedMessage("Settings.desktopSkipLoginLabel", "Skip Login"));
+		desktopClearLookupOnStartupLabel
+				.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabel",
+						"Clear Old Lookup Data on Launch"));
+		desktopClearOldCalloutData
+				.setText(localization.getLocalizedMessage("Settings.clearOldCalloutDataLabel",
+						"Clear Previous Callout History on Launch"));
 
 		// Report
 		reportWindowCustomizationHeader.setText(localization
@@ -1959,31 +1889,31 @@ public class settingsController {
 	}
 
 	private void loadPaneActions() {
-		audioBtn.setOnAction(actionEvent -> {
+		audioBtn.setOnAction(_ -> {
 			setActive(paneAudio);
 		});
-		appDesignBtn.setOnAction(actionEvent -> {
+		appDesignBtn.setOnAction(_ -> {
 			setActive(paneApplication);
 		});
-		devBtn.setOnAction(actionEvent -> {
+		devBtn.setOnAction(_ -> {
 			setActive(paneDeveloper);
 		});
-		notiSettingsBtn.setOnAction(actionEvent -> {
+		notiSettingsBtn.setOnAction(_ -> {
 			setActive(paneNotification);
 		});
-		reportDesignBtn.setOnAction(actionEvent -> {
+		reportDesignBtn.setOnAction(_ -> {
 			setActive(paneReport);
 		});
-		keybindSettingsBtn.setOnAction(actionEvent -> {
+		keybindSettingsBtn.setOnAction(_ -> {
 			setActive(paneKeybind);
 		});
-		windowSettingsBtn.setOnAction(actionEvent -> {
+		windowSettingsBtn.setOnAction(_ -> {
 			setActive(paneWindow);
 		});
-		serverBtn.setOnAction(actionEvent -> {
+		serverBtn.setOnAction(_ -> {
 			setActive(paneNetworking);
 		});
-		desktopSettingsBtn.setOnAction(actionEvent -> {
+		desktopSettingsBtn.setOnAction(_ -> {
 			setActive(paneDesktop);
 		});
 	}
@@ -2025,41 +1955,50 @@ public class settingsController {
 		closeKeybindField.setText(ConfigReader.configRead("keybindings", "closeWindow"));
 		minimizeKeybindField.setText(ConfigReader.configRead("keybindings", "minimizeWindow"));
 		maximizeKeybindField.setText(ConfigReader.configRead("keybindings", "toggleMaximize"));
-		audioLookupWarningCheckbox
-				.setSelected(ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
-		audioCalloutCheckbox
-				.setSelected(ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
-		audioReportCreate
-				.setSelected(ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
-		audioReportDeleteCheckbox
-				.setSelected(ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
-		enableCalloutPopupsCheckbox
-				.setSelected(ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
-		enableSoundCheckbox.setSelected(ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
-		enableIDPopupsCheckbox
-				.setSelected(ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
-		enableTrafficStopPopupsCheckbox
-				.setSelected(ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true"));
-		serverAutoconnectTogglebox.setSelected(
+		setToggleButtonStateAndText(audioLookupWarningCheckbox,
+				ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(audioCalloutCheckbox,
+				ConfigReader.configRead("soundSettings", "playCallout").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(audioReportCreate,
+				ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(audioReportDeleteCheckbox,
+				ConfigReader.configRead("soundSettings", "playDeleteReport").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(enableCalloutPopupsCheckbox,
+				ConfigReader.configRead("uiSettings", "enableCalloutPopup").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(enableSoundCheckbox,
+				ConfigReader.configRead("uiSettings", "enableSounds").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(enableIDPopupsCheckbox,
+				ConfigReader.configRead("uiSettings", "enableIDPopup").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(enableTrafficStopPopupsCheckbox,
+				ConfigReader.configRead("uiSettings", "enableTrafficStopPopup").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(serverAutoconnectTogglebox,
 				ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true"));
-		alwaysOnTopCheckbox.setSelected(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(alwaysOnTopCheckbox,
+				ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
 		solidColorToggle
 				.setSelected(ConfigReader.configRead("desktopSettings", "useSolidColor").equalsIgnoreCase("true"));
 		backgroundToggle
 				.setSelected(ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true"));
-		enablePedVehImgsCheckbox
-				.setSelected(ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
-		enableNotiTB.setSelected(ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
-		useGameTimeToggle
-				.setSelected(ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("true"));
-		autofillLocationInfoToggle.setSelected(
+		setToggleButtonStateAndText(enablePedVehImgsCheckbox,
+				ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(enableNotiTB,
+				ConfigReader.configRead("notificationSettings", "enabled").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(useGameTimeToggle,
+				ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(autofillLocationInfoToggle,
 				ConfigReader.configRead("connectionSettings", "autofillLocation").equalsIgnoreCase("true"));
-		desktopUseMilitaryTimeToggle
-				.setSelected(ConfigReader.configRead("uiSettings", "use24Hour").equalsIgnoreCase("true"));
-		desktopSkipLoginToggle
-				.setSelected(ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true"));
-		reportShowFieldNamesToggleBtn
-				.setSelected(ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(desktopUseMilitaryTimeToggle,
+				ConfigReader.configRead("uiSettings", "use24Hour").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(desktopSkipLoginToggle,
+				ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(reportShowFieldNamesToggleBtn,
+				ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(desktopClearLookupOnStartupToggle,
+				ConfigReader.configRead("desktopSettings", "clearLookupDataOnStartup")
+						.equalsIgnoreCase("true"));
+		setToggleButtonStateAndText(desktopClearOldCalloutDataToggle,
+				ConfigReader.configRead("desktopSettings", "clearCalloutDataOnStartup")
+						.equalsIgnoreCase("true"));
 	}
 
 	private void addEventFilters() {
@@ -2487,14 +2426,14 @@ public class settingsController {
 
 		}
 
-		reportStyleComboBox.setOnAction(event -> {
+		reportStyleComboBox.setOnAction(_ -> {
 			if (reportStyleComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
 				ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
 			} else {
 				ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "false");
 			}
 		});
-		textClrComboBox.setOnAction(event -> {
+		textClrComboBox.setOnAction(_ -> {
 			if (textClrComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
 				ConfigWriter.configwrite("uiColors", "UIDarkMode", "true");
 			} else {
@@ -2511,7 +2450,7 @@ public class settingsController {
 		String[] themes = { "dark", "purple", "blue", "grey", "green", "red", "orange", "pink", "teal", "brown",
 				"magenta", "indigo" };
 		themeComboBox.getItems().addAll(themes);
-		themeComboBox.setOnAction(actionEvent -> {
+		themeComboBox.setOnAction(_ -> {
 			String selectedTheme = (String) themeComboBox.getSelectionModel().getSelectedItem();
 
 			isInitialized = false;
@@ -2615,7 +2554,7 @@ public class settingsController {
 		String[] presets = { "dark", "light", "grey", "green", "blue", "red", "purple", "orange", "pink", "teal",
 				"brown", "magenta", "indigo" };
 		presetComboBoxReport.getItems().addAll(presets);
-		presetComboBoxReport.setOnAction(actionEvent -> {
+		presetComboBoxReport.setOnAction(_ -> {
 			String selectedTheme = (String) presetComboBoxReport.getSelectionModel().getSelectedItem();
 			isInitialized = false;
 			switch (selectedTheme) {
@@ -2718,7 +2657,7 @@ public class settingsController {
 		String[] calloutDurations = { "infinite", "1", "3", "5", "7", "10", "12" };
 		calloutDurComboBox.getItems().addAll(calloutDurations);
 		calloutDurComboBox.setValue(ConfigReader.configRead("misc", "calloutDuration"));
-		calloutDurComboBox.setOnAction(actionEvent -> {
+		calloutDurComboBox.setOnAction(_ -> {
 			String selectedDur = (String) calloutDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "calloutDuration", selectedDur);
 		});
@@ -2726,14 +2665,14 @@ public class settingsController {
 		String[] idDurations = { "infinite", "1", "3", "5", "7", "10", "12" };
 		idDurComboBox.getItems().addAll(idDurations);
 		idDurComboBox.setValue(ConfigReader.configRead("misc", "IDDuration"));
-		idDurComboBox.setOnAction(actionEvent -> {
+		idDurComboBox.setOnAction(_ -> {
 			String selectedDur = (String) idDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "IDDuration", selectedDur);
 		});
 
 		trafficStopDurComboBox.getItems().addAll(idDurations);
 		trafficStopDurComboBox.setValue(ConfigReader.configRead("misc", "TrafficStopDuration"));
-		trafficStopDurComboBox.setOnAction(actionEvent -> {
+		trafficStopDurComboBox.setOnAction(_ -> {
 			String selectedDur = (String) trafficStopDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "TrafficStopDuration", selectedDur);
 		});
@@ -2742,7 +2681,7 @@ public class settingsController {
 		selectedNotification = new AtomicReference<>("Information");
 		notificationComboBox.getItems().addAll(notifications);
 		notificationComboBox.setValue(selectedNotification);
-		notificationComboBox.setOnAction(actionEvent -> {
+		notificationComboBox.setOnAction(_ -> {
 			String selectedItem = (String) notificationComboBox.getSelectionModel().getSelectedItem();
 
 			switch (selectedItem) {
@@ -2787,7 +2726,7 @@ public class settingsController {
 		String[] notificationPositions = { "BottomLeft", "BottomRight", "TopLeft", "TopRight" };
 		notiPosCombobox.getItems().addAll(notificationPositions);
 		notiPosCombobox.setValue(ConfigReader.configRead("notificationSettings", "notificationPosition"));
-		notiPosCombobox.setOnAction(actionEvent -> {
+		notiPosCombobox.setOnAction(_ -> {
 			String selectedPosition = (String) notiPosCombobox.getSelectionModel().getSelectedItem();
 			switch (selectedPosition) {
 				case "BottomLeft" ->
@@ -2802,7 +2741,7 @@ public class settingsController {
 		String[] windowSetting = { "Fullscreen", "WindowedFullscreen" };
 		windowDisplaySettingCombobox.getItems().addAll(windowSetting);
 		windowDisplaySettingCombobox.setValue(ConfigReader.configRead("uiSettings", "windowDisplaySetting"));
-		windowDisplaySettingCombobox.setOnAction(actionEvent -> {
+		windowDisplaySettingCombobox.setOnAction(_ -> {
 			String selectedItem = (String) windowDisplaySettingCombobox.getSelectionModel().getSelectedItem();
 
 			switch (selectedItem) {
@@ -2829,16 +2768,24 @@ public class settingsController {
 
 		});
 
-		saveFadeDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
+		saveFadeDurBtn.setOnAction(_ -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
 				notiFadeOutDurField.getText()));
-		saveDisplayDurBtn.setOnAction(actionEvent -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
+		saveDisplayDurBtn.setOnAction(_ -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
 				notiDisplayDurField.getText()));
 	}
 
 	private void handleCheckboxClick(String section, String key, ToggleButton checkbox) {
-		String value = checkbox.isSelected() ? "true" : "false";
+		boolean isSelected = checkbox.isSelected();
+		String value = isSelected ? "true" : "false";
 		ConfigWriter.configwrite(section, key, value);
-		checkbox.setSelected(Boolean.parseBoolean(value));
+		checkbox.setText(isSelected ? localization.getLocalizedMessage("Settings.Enabled", "Enabled")
+				: localization.getLocalizedMessage("Settings.Disabled", "Disabled"));
+	}
+
+	private void setToggleButtonStateAndText(ToggleButton button, boolean isSelected) {
+		button.setSelected(isSelected);
+		button.setText(isSelected ? localization.getLocalizedMessage("Settings.Enabled", "Enabled")
+				: localization.getLocalizedMessage("Settings.Disabled", "Disabled"));
 	}
 
 	private void refreshNotificationPreview(String type) {
@@ -2849,4 +2796,9 @@ public class settingsController {
 			logError("Error creating {" + type + "} notification preview: ", e);
 		}
 	}
+
+	public BorderPane getRoot() {
+		return root;
+	}
+
 }

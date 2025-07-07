@@ -182,7 +182,7 @@ public class SearchReportUtils {
 		MenuButton pullnotesbtn = (MenuButton) searchReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -214,7 +214,7 @@ public class SearchReportUtils {
 		Label legacyLabel = (Label) searchReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (searchnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Search Number can't be empty!");

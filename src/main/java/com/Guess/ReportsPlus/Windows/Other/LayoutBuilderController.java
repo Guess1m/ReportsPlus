@@ -105,14 +105,18 @@ public class LayoutBuilderController {
 		FIRST_NAME("Pedfnamefield"), LAST_NAME("Pedlnamefield"), FULL_NAME("fullname"), DOB("Peddobfield"), AGE("age"),
 		GENDER("Pedgenfield"),
 		ADDRESS("Pedaddressfield"), DESCRIPTION("Peddescfield"), LICENSE_STATUS("pedlicensefield"),
-		LICENSE_NUMBER("pedlicnumfield"),
+		LICENSE_EXP("peddriverlicenseexpirationfield"), LICENSE_NUMBER("pedlicnumfield"),
 		TIMES_STOPPED("pedtimesstoppedfield"), WANTED_STATUS("pedwantedfield"),
 		PROBATION_STATUS("pedprobationstatusfield"),
 		PAROLE_STATUS("pedparolestatusfield"), BOATING_LICENSE_STATUS("pedboatinglicstatusfield"),
 		FISHING_LICENSE_STATUS("pedfishinglicstatusfield"),
 		HUNTING_LICENSE_STATUS("pedhuntinglicstatusfield"), GUN_LICENSE_STATUS("pedgunlicensestatusfield"),
 		FLAGS("pedflagfield"), AFFILIATIONS("pedaffiliationfield"),
-		ALIASES("pedaliasfield");
+		ALIASES("pedaliasfield"),
+		MARITAL_STATUS("pedmaritalstatusfield"), CITIZENSHIP_STATUS("pedcitizenshipstatusfield"),
+		DISABILITY("peddisabilityfield"),
+		HEIGHT("pedheightfield"),
+		WEIGHT("pedweightfield");
 
 		private final String value;
 
@@ -128,12 +132,17 @@ public class LayoutBuilderController {
 	}
 
 	public enum VehicleLayoutTypes implements ILayoutType {
-		PLATE_NUMBER("vehplatefield2"), MODEL("vehmodelfield"), STOLEN_STATUS("vehstolenfield"),
+		PLATE_NUMBER("vehplatefield2"), VEHICLE_MAKE("vehmakefield"), MODEL("vehmodelfield"),
+		STOLEN_STATUS("vehstolenfield"),
 		IS_POLICE("vehpolicefield"),
 		VEHICLE_TYPE("vehtypecombobox"),
 		OWNER_NAME("vehownerfield"),
-		REGISTRATION_STATUS("vehregfield"), INSURANCE_STATUS("vehinsfield"), INSPECTION_STATUS("vehinspectionfield"),
-		VIN("vehvinfield"),;
+		REGISTRATION_STATUS("vehregstatusfield"), REGISTRATION_NUM("vehregnumberfield"),
+		REGISTRATION_EXPIRATION("vehregexpfield"), INSURANCE_STATUS("vehinsstatusfield"),
+		INSURANCE_NUMBER("vehinsnumberfield"), INSURANCE_EXPIRATION("vehinsexpfield"),
+		INSURANCE_COVERAGE("vehinscoveragefield"),
+		INSPECTION_STATUS("vehinspectionfield"),
+		VIN("vehvinfield");
 
 		private final String value;
 
@@ -172,7 +181,7 @@ public class LayoutBuilderController {
 			moveUpButton.getStyleClass().add("moveButton");
 			moveDownButton.getStyleClass().add("moveButton");
 
-			moveUpButton.setOnAction(event -> {
+			moveUpButton.setOnAction(_ -> {
 				int index = sectionContainer.getChildren().indexOf(this);
 				if (index > 0) {
 					sectionContainer.getChildren().remove(index);
@@ -180,7 +189,7 @@ public class LayoutBuilderController {
 				}
 			});
 
-			moveDownButton.setOnAction(event -> {
+			moveDownButton.setOnAction(_ -> {
 				int index = sectionContainer.getChildren().indexOf(this);
 				if (index < sectionContainer.getChildren().size() - 1) {
 					sectionContainer.getChildren().remove(index);
@@ -192,7 +201,7 @@ public class LayoutBuilderController {
 					+ " " + localization.getLocalizedMessage("ReportWindows.SectionButton", "Section"));
 			removeSectionButton.setFocusTraversable(false);
 			removeSectionButton.getStyleClass().add("removeButton");
-			removeSectionButton.setOnAction(event -> sectionContainer.getChildren().remove(this));
+			removeSectionButton.setOnAction(_ -> sectionContainer.getChildren().remove(this));
 
 			pullFromLookupCheckbox = new CheckBox("Pull from Lookup");
 			lookupTypeComboBox = new ComboBox<>();
@@ -241,7 +250,7 @@ public class LayoutBuilderController {
 			addRowButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " "
 					+ localization.getLocalizedMessage("ReportWindows.RowButton", "Row"));
 			addRowButton.getStyleClass().add("addButton");
-			addRowButton.setOnAction(event -> addRow());
+			addRowButton.setOnAction(_ -> addRow());
 
 			addRowButton.setFocusTraversable(false);
 			getChildren().addAll(header, rowContainer, addRowButton);
@@ -347,7 +356,7 @@ public class LayoutBuilderController {
 			});
 			removeFieldButton = new Button("Remove Field");
 			removeFieldButton.setMinWidth(USE_PREF_SIZE);
-			removeFieldButton.setOnAction(event -> {
+			removeFieldButton.setOnAction(_ -> {
 				HBox parent = (HBox) getParent();
 				parent.getChildren().remove(this);
 				RowPane row = (RowPane) parent.getParent();
@@ -375,8 +384,8 @@ public class LayoutBuilderController {
 					new Label(localization.getLocalizedMessage("ReportWindows.WidthLabel", "Width:")), widthSpinner,
 					new Label(localization.getLocalizedMessage("ReportWindows.TypeLabel", "Type:")), fieldTypeComboBox,
 					lookupValueLabel, lookupValueComboBox, buttonBox);
-			moveLeftButton.setOnAction(event -> moveField(-1));
-			moveRightButton.setOnAction(event -> moveField(1));
+			moveLeftButton.setOnAction(_ -> moveField(-1));
+			moveRightButton.setOnAction(_ -> moveField(1));
 			getChildren().add(fieldRow);
 		}
 
@@ -474,11 +483,11 @@ public class LayoutBuilderController {
 			addFieldButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " "
 					+ localization.getLocalizedMessage("ReportWindows.FieldButton", "Field"));
 			addFieldButton.getStyleClass().add("addButton");
-			addFieldButton.setOnAction(event -> addField());
+			addFieldButton.setOnAction(_ -> addField());
 			removeRowButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove") + " "
 					+ localization.getLocalizedMessage("ReportWindows.RowButton", "Row"));
 			removeRowButton.getStyleClass().add("removeButton");
-			removeRowButton.setOnAction(event -> {
+			removeRowButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				parent.getChildren().remove(this);
 				recalcWidthLimits();
@@ -493,7 +502,7 @@ public class LayoutBuilderController {
 			removeRowButton.setFocusTraversable(false);
 			addFieldButton.setFocusTraversable(false);
 
-			moveUpButton.setOnAction(event -> {
+			moveUpButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
 				if (index > 0) {
@@ -502,7 +511,7 @@ public class LayoutBuilderController {
 				}
 			});
 
-			moveDownButton.setOnAction(event -> {
+			moveDownButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
 				if (index < parent.getChildren().size() - 1) {
@@ -590,14 +599,14 @@ public class LayoutBuilderController {
 			removeTransferButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove")
 					+ " " + localization.getLocalizedMessage("ReportWindows.TransferButton", "Transfer"));
 			removeTransferButton.getStyleClass().add("removeButton");
-			removeTransferButton.setOnAction(event -> transferContainer.getChildren().remove(this));
+			removeTransferButton.setOnAction(_ -> transferContainer.getChildren().remove(this));
 			header.getChildren().addAll(new Label("Transfer:"), transferNameField, removeTransferButton);
 			elementContainer = new VBox(5);
 			elementContainer.setStyle("-fx-background-color: rgba(0,0,0,0.05);");
 			addElementButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " "
 					+ localization.getLocalizedMessage("ReportWindows.ElementButton", "Element"));
 			addElementButton.getStyleClass().add("addButton");
-			addElementButton.setOnAction(event -> addElement());
+			addElementButton.setOnAction(_ -> addElement());
 			addElementButton.setFocusTraversable(false);
 			removeTransferButton.setFocusTraversable(false);
 			getChildren().addAll(header, elementContainer, addElementButton);
@@ -648,7 +657,7 @@ public class LayoutBuilderController {
 			removeElementButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove")
 					+ " " + localization.getLocalizedMessage("ReportWindows.ElementButton", "Element"));
 			removeElementButton.getStyleClass().add("removeButton");
-			removeElementButton.setOnAction(event -> ((VBox) getParent()).getChildren().remove(this));
+			removeElementButton.setOnAction(_ -> ((VBox) getParent()).getChildren().remove(this));
 			Button moveUpButton = new Button("↑");
 			Button moveDownButton = new Button("↓");
 			moveUpButton.getStyleClass().add("moveButton");
@@ -659,7 +668,7 @@ public class LayoutBuilderController {
 			removeElementButton.setFocusTraversable(false);
 			reportComboBox.setFocusTraversable(false);
 
-			moveUpButton.setOnAction(event -> {
+			moveUpButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
 				if (index > 0) {
@@ -668,7 +677,7 @@ public class LayoutBuilderController {
 				}
 			});
 
-			moveDownButton.setOnAction(event -> {
+			moveDownButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
 				if (index < parent.getChildren().size() - 1) {
@@ -854,12 +863,12 @@ public class LayoutBuilderController {
 	private Label heading;
 
 	public void initialize() {
-		addSectionButton.setOnAction(event -> addSection());
-		addTransferButton.setOnAction(event -> addTransfer());
+		addSectionButton.setOnAction(_ -> addSection());
+		addTransferButton.setOnAction(_ -> addTransfer());
 		buildLayoutButton.setOnAction(this::handleBuildLayoutClick);
 		importExportButton.setOnAction(this::handleImportExportClick);
 
-		customDropdownButton.setOnAction(event -> {
+		customDropdownButton.setOnAction(_ -> {
 			openCustomDropdownWindow();
 		});
 
@@ -1301,7 +1310,7 @@ public class LayoutBuilderController {
 					new Image(Objects.requireNonNull(
 							Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
 
-			yesBtn.setOnAction(event -> {
+			yesBtn.setOnAction(_ -> {
 				confirmDialog.closeWindow();
 				try {
 					if (deleteCustomField(dropdownName)) {
@@ -1322,7 +1331,7 @@ public class LayoutBuilderController {
 				}
 			});
 
-			noBtn.setOnAction(event -> confirmDialog.closeWindow());
+			noBtn.setOnAction(_ -> confirmDialog.closeWindow());
 
 		});
 
@@ -1350,7 +1359,7 @@ public class LayoutBuilderController {
 					new Image(Objects.requireNonNull(
 							Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
 
-			exportSelectedBtn.setOnAction(event -> {
+			exportSelectedBtn.setOnAction(_ -> {
 				List<String> selected = listView.getSelectionModel().getSelectedItems();
 				if (selected.isEmpty()) {
 					showNotificationWarning("Export Error", "No dropdowns selected");
@@ -1457,7 +1466,7 @@ public class LayoutBuilderController {
 						new Image(Objects.requireNonNull(
 								Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
 
-				confirmImportBtn.setOnAction(event -> {
+				confirmImportBtn.setOnAction(_ -> {
 					int successCount = 0;
 					for (Map.Entry<String, List<String>> entry : importCandidates.entrySet()) {
 						try {
@@ -1684,7 +1693,7 @@ public class LayoutBuilderController {
 			}
 		});
 
-		submitBtn.setOnAction(submitEvent -> {
+		submitBtn.setOnAction(_ -> {
 			logInfo("layoutBuilder; trying to create DB: " + reportTitle);
 
 			Map<String, String> layoutScheme = new HashMap<>();

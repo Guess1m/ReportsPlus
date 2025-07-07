@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -122,6 +123,35 @@ public class PedHistoryMath {
 			}
 		}
 		return departments[0];
+	}
+
+	public static String generateRandomPlate() {
+		Random rand = new Random();
+		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String numbers = "0123456789";
+
+		return "" + numbers.charAt(rand.nextInt(numbers.length()))
+				+ numbers.charAt(rand.nextInt(numbers.length()))
+				+ letters.charAt(rand.nextInt(letters.length()))
+				+ letters.charAt(rand.nextInt(letters.length()))
+				+ letters.charAt(rand.nextInt(letters.length()))
+				+ numbers.charAt(rand.nextInt(numbers.length()))
+				+ numbers.charAt(rand.nextInt(numbers.length()))
+				+ numbers.charAt(rand.nextInt(numbers.length()));
+	}
+
+	public static String generateRegStatus() {
+		Random rand = new Random();
+		int chance = rand.nextInt(100);
+		if (chance < 10) {
+			return "Expired";
+		} else if (chance < 20) {
+			return "None";
+		} else if (chance < 25) {
+			return "Revoked";
+		} else {
+			return "Valid";
+		}
 	}
 
 	public static String generateValidLicenseExpirationDate() {
@@ -579,6 +609,49 @@ public class PedHistoryMath {
 			}
 			return "";
 		}
+	}
+
+	public static String generateRandomCoverage() {
+		Random random = new Random();
+		Map<String, Integer> coverageProbabilities = new HashMap<>();
+		coverageProbabilities.put("Liability Coverage", 98);
+		coverageProbabilities.put("Collision Coverage", 70);
+		coverageProbabilities.put("Comprehensive Coverage", 65);
+
+		coverageProbabilities.put("Uninsured/Underinsured Motorist Coverage", 50);
+		coverageProbabilities.put("Medical Payments Coverage (MedPay)", 40);
+		coverageProbabilities.put("Personal Injury Protection (PIP)", 35);
+
+		coverageProbabilities.put("Rental Car Reimbursement", 25);
+		coverageProbabilities.put("Roadside Assistance", 20);
+
+		List<String> selectedCoverages = new ArrayList<>();
+
+		if (random.nextInt(100) + 1 <= coverageProbabilities.get("Liability Coverage")) {
+			selectedCoverages.add("Liability Coverage");
+		}
+
+		for (Map.Entry<String, Integer> entry : coverageProbabilities.entrySet()) {
+			if (entry.getKey().equals("Liability Coverage") && selectedCoverages.contains("Liability Coverage")) {
+				continue;
+			}
+
+			int roll = random.nextInt(100) + 1;
+
+			if (roll <= entry.getValue()) {
+				if (!selectedCoverages.contains(entry.getKey())) {
+					selectedCoverages.add(entry.getKey());
+				}
+			}
+		}
+
+		if (!selectedCoverages.contains("Liability Coverage")) {
+			selectedCoverages.add(0, "Liability Coverage");
+		}
+
+		Collections.sort(selectedCoverages);
+
+		return selectedCoverages.stream().collect(Collectors.joining(", "));
 	}
 
 	public static String generateMaritalStatus(int age) {

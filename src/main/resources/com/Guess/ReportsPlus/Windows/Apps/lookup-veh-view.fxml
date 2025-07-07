@@ -4,300 +4,370 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" prefHeight="604.0" prefWidth="780.0" stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController">
-    <center>
-        <AnchorPane fx:id="lookupPane">
-            <children>
-                <VBox style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <BorderPane>
-                            <left>
-                                <Label fx:id="lookupmainlbl" styleClass="Heading" text="D.M.V. Vehicle Lookup" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font name="Inter 28pt Bold" size="20.0" />
-                                    </font>
-                                    <BorderPane.margin>
-                                        <Insets left="20.0" />
-                                    </BorderPane.margin>
-                                </Label>
-                            </left>
-                        </BorderPane>
-                        <ScrollPane fx:id="vehPane" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="@../../css/main/scrollPane.css">
-                            <content>
-                                <AnchorPane fx:id="vehLookupPane" style="-fx-background-color: transparent;">
-                                    <children>
-                                        <AnchorPane fx:id="vehRecordPane" layoutX="87.0" layoutY="102.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
-                                            <children>
-                                                <VBox layoutY="5.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-                                                    <children>
-                                                        <AnchorPane>
-                                                            <children>
-                                                                <GridPane hgap="25.0" layoutX="19.0" layoutY="35.0" prefHeight="221.0" prefWidth="709.0" vgap="10.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="45.0">
-                                                                    <columnConstraints>
-                                                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.3" />
-                                                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.3" />
-                                                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.3" />
-                                                                    </columnConstraints>
-                                                                    <rowConstraints>
-                                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
-                                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
-                                                                    </rowConstraints>
-                                                                    <children>
-                                                                        <AnchorPane>
-                                                                            <children>
-                                                                                <Label fx:id="plt1" layoutY="14.0" text="License Plate:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <TextField fx:id="vehplatefield2" editable="false" layoutY="56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="1">
-                                                                            <children>
-                                                                                <TextField fx:id="vehmodelfield" editable="false" layoutY="56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt2" layoutY="14.0" text="Model:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.rowIndex="1">
-                                                                            <children>
-                                                                                <TextField fx:id="vehstolenfield" editable="false" layoutX="1.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt3" text="Vehicle Stolen:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.rowIndex="2">
-                                                                            <children>
-                                                                                <Label fx:id="plt4" layoutX="1.0" text="Color:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <AnchorPane fx:id="vehcolordisplay" layoutY="-48.0" prefHeight="40.0" prefWidth="403.0" style="-fx-background-color: #F2F2F2; -fx-border-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
-                                                                                    <children>
-                                                                                        <Label fx:id="vehnocolorlabel" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="2.0" style="-fx-padding: 10;" text="No Color on Record" textOverrun="WORD_ELLIPSIS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" />
-                                                                                    </children>
-                                                                                </AnchorPane>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                                            <children>
-                                                                                <TextField fx:id="vehpolicefield" editable="false" layoutX="1.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt8" text="Police Vehicle:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <BorderPane GridPane.columnIndex="2" GridPane.rowSpan="2">
-                                                                            <center>
-                                                                                <ImageView fx:id="vehImageView" fitHeight="120.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true" />
-                                                                            </center>
-                                                                            <top>
-                                                                                <Label fx:id="noVehImageFoundlbl" alignment="CENTER" text="No Image Found In System" textOverrun="WORD_ELLIPSIS" BorderPane.alignment="CENTER">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Bold" size="13.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </top>
-                                                                        </BorderPane>
-                                                                        <AnchorPane GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                                                                            <children>
-                                                                                <Label fx:id="plt10" layoutX="130.0" layoutY="2.0" text="Vehicle Type:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <ComboBox fx:id="vehtypecombobox" layoutX="61.0" layoutY="41.0" prefWidth="150.0" styleClass="combo-boxVehicle" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Button fx:id="btninfo1" layoutX="395.0" layoutY="34.0" mnemonicParsing="false" onAction="#vehUpdateInfo" opacity="0.73" styleClass="accentBtn" text="Update Vehicle Type" textOverrun="CLIP" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="15.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 24pt Regular" size="12.0" />
-                                                                                    </font>
-                                                                                </Button>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                    </children>
-                                                                </GridPane>
-                                                                <Label fx:id="info1" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Vehicle Information" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <font>
-                                                                        <Font name="Inter 28pt Bold" size="19.0" />
-                                                                    </font>
-                                                                </Label>
-                                                            </children>
-                                                        </AnchorPane>
-                                                        <AnchorPane>
-                                                            <children>
-                                                                <GridPane hgap="25.0" layoutX="31.0" layoutY="35.0" prefHeight="74.0" prefWidth="866.0" vgap="15.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="45.0">
-                                                                    <columnConstraints>
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" percentWidth="33.3" />
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" percentWidth="33.3" />
-                                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" percentWidth="33.3" />
-                                                                    </columnConstraints>
-                                                                    <rowConstraints>
-                                                                        <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
-                                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                    </rowConstraints>
-                                                                    <children>
-                                                                        <AnchorPane>
-                                                                            <children>
-                                                                                <TextField fx:id="vehownerfield" editable="false" layoutY="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt5" text="Owner:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="1">
-                                                                            <children>
-                                                                                <TextField fx:id="vehregfield" editable="false" layoutX="1.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt6" text="Registration Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="2">
-                                                                            <children>
-                                                                                <TextField fx:id="vehinsfield" editable="false" layoutX="1.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt7" text="Insurance Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <BorderPane GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
-                                                                            <right>
-                                                                                <Button fx:id="btninfo2" mnemonicParsing="false" onAction="#vehcreateimpreport" opacity="0.73" prefHeight="33.0" styleClass="accentBtn" text="Create Impound Report" textOverrun="CLIP" BorderPane.alignment="CENTER">
-                                                                                    <font>
-                                                                                        <Font name="Inter 24pt Regular" size="12.0" />
-                                                                                    </font>
-                                                                                </Button>
-                                                                            </right>
-                                                                            <left>
-                                                                                <Button fx:id="btninfo3" mnemonicParsing="false" onAction="#ownerLookup" opacity="0.73" prefHeight="33.0" styleClass="accentBtn" text="Owner Lookup" textOverrun="CLIP" BorderPane.alignment="CENTER">
-                                                                                    <font>
-                                                                                        <Font name="Inter 24pt Regular" size="12.0" />
-                                                                                    </font>
-                                                                                </Button>
-                                                                            </left>
-                                                                            <GridPane.margin>
-                                                                                <Insets left="15.0" right="15.0" />
-                                                                            </GridPane.margin>
-                                                                        </BorderPane>
-                                                                        <AnchorPane GridPane.rowIndex="1">
-                                                                            <children>
-                                                                                <TextField fx:id="vehinspectionfield" editable="false" layoutY="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt9" text="Inspection Status:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                                            <children>
-                                                                                <TextField fx:id="vehvinfield" editable="false" layoutY="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0" />
-                                                                                <Label fx:id="plt11" text="Registered VIN:" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                    <font>
-                                                                                        <Font name="Inter 28pt Medium" size="16.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                    </children>
-                                                                </GridPane>
-                                                                <Label fx:id="info2" alignment="CENTER" prefHeight="35.0" prefWidth="747.0" styleClass="Banner" text="Owner Information" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <font>
-                                                                        <Font name="Inter 28pt Bold" size="19.0" />
-                                                                    </font>
-                                                                </Label>
-                                                            </children>
-                                                        </AnchorPane>
-                                                    </children>
-                                                </VBox>
-                                            </children>
-                                        </AnchorPane>
-                                        <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" layoutX="430.0" layoutY="298.0" text="No Record In System." textAlignment="CENTER" textFill="#4d4d4d" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="298.0">
-                                            <font>
-                                                <Font name="Inter 28pt Bold" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <GridPane layoutX="60.0" layoutY="45.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
-                                                <ColumnConstraints hgrow="ALWAYS" />
-                                                <ColumnConstraints hgrow="NEVER" minWidth="50.0" />
-                                                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <Label fx:id="lbl1" styleClass="SubHeading" text="Search Plate:" textAlignment="CENTER">
-                                                    <font>
-                                                        <Font name="Inter 28pt Bold" size="20.0" />
-                                                    </font>
-                                                    <GridPane.margin>
-                                                        <Insets />
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <Button fx:id="vehSearchBtn" mnemonicParsing="false" onAction="#onVehSearchBtnClick" prefHeight="36.0" prefWidth="103.0" styleClass="searchBtn" text="Search" textOverrun="WORD_ELLIPSIS" GridPane.columnIndex="2" />
-                                                <AnchorPane GridPane.columnIndex="1">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" right="10.0" />
-                                                    </GridPane.margin>
-                                                    <children>
-                                                        <ComboBox fx:id="vehSearchField" editable="true" minWidth="100.0" styleClass="combo-boxSearch" visibleRowCount="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                    </children>
-                                                </AnchorPane>
-                                                <BorderPane GridPane.columnIndex="3">
-                                                    <center>
-                                                        <Button fx:id="addDataToNotesBtn" mnemonicParsing="false" onAction="#vehAddDataToNotes" opacity="0.73" styleClass="accentBtn" text="Add Data To Notes">
-                                                            <font>
-                                                                <Font name="Inter 24pt Regular" size="12.0" />
-                                                            </font>
-                                                            <BorderPane.margin>
-                                                                <Insets left="10.0" />
-                                                            </BorderPane.margin>
-                                                        </Button>
-                                                    </center>
-                                                </BorderPane>
-                                            </children>
-                                        </GridPane>
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </ScrollPane>
-                    </children>
-                </VBox>
-            </children>
-            <BorderPane.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </BorderPane.margin>
-        </AnchorPane>
-    </center>
+<BorderPane fx:id="root" prefHeight="604.0" prefWidth="900.0" stylesheets="@../../css/lookups/lookup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Guess.ReportsPlus.Windows.Apps.VehLookupViewController">
+  <center>
+    <AnchorPane fx:id="lookupPane">
+      <children>
+        <BorderPane fx:id="databaseSearchPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <top>
+            <GridPane hgap="15.0" vgap="15.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+                <ColumnConstraints hgrow="ALWAYS" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+                <Label fx:id="lbl1" styleClass="SubHeading" text="Search Plate:" textAlignment="CENTER" GridPane.rowIndex="1" />
+                <TextField fx:id="vehSearchField" styleClass="license-value-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="lookupmainlbl" styleClass="Heading" text="D.M.V. Vehicle Lookup" textAlignment="CENTER" wrapText="true" GridPane.columnSpan="2147483647">
+                  <font>
+                    <Font size="25.0" />
+                  </font>
+                </Label>
+              </children>
+              <BorderPane.margin>
+                <Insets left="30.0" right="30.0" top="10.0" />
+              </BorderPane.margin>
+            </GridPane>
+          </top>
+
+          <center>
+            <ListView fx:id="databaseListView" focusTraversable="false" style="-fx-background-color: rgb(0,0,0,0.05); -fx-border-color: black; -fx-border-radius: 7; -fx-background-radius: 7;" stylesheets="@../../css/courtListView.css" BorderPane.alignment="CENTER">
+              <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+              </BorderPane.margin>
+            </ListView>
+          </center>
+
+          <bottom>
+            <Label fx:id="noRecordFoundLabelVeh" alignment="CENTER" text="No Record In System." textFill="#4d4d4d" visible="false" BorderPane.alignment="CENTER">
+              <font>
+                <Font name="Inter 28pt Bold" size="20.0" />
+              </font>
+              <BorderPane.margin>
+                <Insets bottom="10.0" />
+              </BorderPane.margin>
+            </Label>
+          </bottom>
+        </BorderPane>
+        <BorderPane fx:id="databaseInfoPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <left>
+            <VBox fx:id="sidePane" maxWidth="250.0" prefWidth="175.0" spacing="10.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+              <children>
+                <BorderPane>
+                  <center>
+                    <Label fx:id="backLabel" onMouseClicked="#backLabelClicked" text="Back">
+                      <font>
+                        <Font size="15.0" />
+                      </font>
+                    </Label>
+                  </center>
+
+                  <VBox.margin>
+                    <Insets bottom="30.0" />
+                  </VBox.margin>
+                </BorderPane>
+                <BorderPane fx:id="vehicleInfoButton" onMouseClicked="#vehicleInfoClicked" styleClass="side-button">
+                  <left>
+                    <Label fx:id="vehInfoSideButton" text="Vehicle Information" BorderPane.alignment="CENTER" />
+                  </left>
+
+                  <VBox.margin>
+                    <Insets left="10.0" />
+                  </VBox.margin>
+                </BorderPane>
+                <BorderPane fx:id="ownerInfoButton" onMouseClicked="#ownerInfoClicked" styleClass="side-button">
+                  <left>
+                    <Label fx:id="ownerAndLegalSideButton" text="Owner &amp; Legal" BorderPane.alignment="CENTER" />
+                  </left>
+
+                  <VBox.margin>
+                    <Insets left="10.0" />
+                  </VBox.margin>
+                </BorderPane>
+              </children>
+              <padding>
+                <Insets bottom="10.0" top="10.0" />
+              </padding>
+              <effect>
+                <DropShadow />
+              </effect>
+            </VBox>
+          </left>
+
+          <center>
+            <StackPane fx:id="vehRecordPane" BorderPane.alignment="CENTER">
+              <children>
+                <ScrollPane fx:id="ownerInfoGrid" fitToHeight="true" fitToWidth="true" styleClass="license-grid-pane" visible="false">
+                  <content>
+                    <VBox spacing="20.0">
+                      <children>
+                        <Label fx:id="ownerAndLegalHeading" styleClass="main-title" text="Owner &amp; Legal Information" />
+                        <VBox fx:id="ownerInfoCard" spacing="15.0" styleClass="license-card">
+                          <children>
+                            <Label fx:id="info2" styleClass="license-title" text="Owner Information" />
+                            <GridPane hgap="30.0" vgap="15.0">
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints />
+                              </rowConstraints>
+                              <children>
+                                <VBox spacing="2.0">
+                                  <children>
+                                    <Label fx:id="plt5" styleClass="license-label" text="Owner:" />
+                                    <TextField fx:id="vehownerfield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                              </children>
+                            </GridPane>
+                            <BorderPane>
+                              <left>
+                                <Button fx:id="btninfo3" mnemonicParsing="false" onAction="#ownerLookup" styleClass="accentBtn" text="Owner Lookup" />
+                              </left>
+                            </BorderPane>
+                          </children>
+                        </VBox>
+                        <VBox fx:id="registrationInfoCard" spacing="15.0" styleClass="license-card">
+                          <children>
+                            <Label fx:id="registrationInfoSubHeading" styleClass="license-title" text="Registration Information" />
+                            <GridPane hgap="30.0" vgap="15.0">
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                              </rowConstraints>
+                              <children>
+                                <VBox spacing="2.0">
+                                  <children>
+                                    <Label fx:id="vehRegStatusFieldLabel" styleClass="license-label" text="Registration Status:" />
+                                    <TextField fx:id="vehRegStatusField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnIndex="1">
+                                  <children>
+                                    <Label fx:id="plt9" styleClass="license-label" text="Inspection Status:" />
+                                    <TextField fx:id="vehinspectionfield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.rowIndex="1">
+                                  <children>
+                                    <Label fx:id="vehRegNumberFieldLabel" styleClass="license-label" text="Registration Number:" />
+                                    <TextField fx:id="vehRegNumberField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                  <children>
+                                    <Label fx:id="plt11" styleClass="license-label" text="Registered VIN:" />
+                                    <TextField fx:id="vehvinfield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.rowIndex="2">
+                                  <children>
+                                    <Label fx:id="vehRegExpFieldLabel" styleClass="license-label" text="Registration Expiration:" />
+                                    <TextField fx:id="vehRegExpField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                              </children>
+                            </GridPane>
+                          </children>
+                        </VBox>
+                        <VBox fx:id="insuranceInfoCard" spacing="15.0" styleClass="license-card">
+                          <children>
+                            <Label fx:id="insInfoLabelSubHeading" styleClass="license-title" text="Insurance Information" />
+                            <GridPane hgap="30.0" vgap="15.0">
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                                <RowConstraints />
+                              </rowConstraints>
+                              <children>
+                                <VBox spacing="2.0">
+                                  <children>
+                                    <Label fx:id="vehInsStatusFieldLabel" styleClass="license-label" text="Insurance Status:" />
+                                    <TextField fx:id="vehInsStatusField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnIndex="1">
+                                  <children>
+                                    <Label fx:id="vehInsNumberFieldLabel" styleClass="license-label" text="Insurance Number:" />
+                                    <TextField fx:id="vehInsNumberField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.rowIndex="2">
+                                  <children>
+                                    <Label fx:id="vehInsExpFieldLabel" styleClass="license-label" text="Insurance Expiration:" />
+                                    <TextField fx:id="vehInsExpField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                  <children>
+                                    <Label fx:id="vehInsCoverageLabel" styleClass="license-label" text="Coverage:" />
+                                    <TextField fx:id="vehInsCoverageField" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                              </children>
+                            </GridPane>
+                            <BorderPane>
+                              <right>
+                                <Button fx:id="btninfo2" mnemonicParsing="false" onAction="#vehcreateimpreport" styleClass="accentBtn" text="Create Impound Report" />
+                              </right>
+                            </BorderPane>
+                          </children>
+                        </VBox>
+                      </children>
+                    </VBox>
+                  </content>
+                </ScrollPane>
+                <ScrollPane fx:id="vehInfoGrid" fitToHeight="true" fitToWidth="true" styleClass="license-grid-pane">
+                  <content>
+                    <VBox spacing="20.0">
+                      <children>
+                        <HBox fx:id="vehImageCard" alignment="CENTER_LEFT" spacing="25.0" styleClass="license-card">
+                          <children>
+                            <StackPane>
+                              <children>
+                                <BorderPane>
+                                  <center>
+                                    <ImageView fx:id="vehImageView" fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
+                                  </center>
+
+                                  <top>
+                                    <Label fx:id="noVehImageFoundlbl" style="-fx-border-width: 0;" text="No Image Found" BorderPane.alignment="CENTER" />
+                                  </top>
+                                </BorderPane>
+                              </children>
+                            </StackPane>
+                            <VBox alignment="CENTER_LEFT" spacing="5.0">
+                              <children>
+                                <Label fx:id="vehPlateLabelField" styleClass="namelabel" />
+                                <Label fx:id="vehModelLabelField" styleClass="smallLabel" />
+                                <Label fx:id="vehStolenLabelField" styleClass="smallLabel" />
+                              </children>
+                            </VBox>
+                            <BorderPane HBox.hgrow="SOMETIMES">
+                              <right>
+                                <Button fx:id="addDataToNotesBtn" focusTraversable="false" mnemonicParsing="false" onAction="#vehAddDataToNotes" styleClass="accentBtn" text="Add Data To Notes" textOverrun="WORD_ELLIPSIS" BorderPane.alignment="TOP_RIGHT" />
+                              </right>
+
+                              <top>
+                                <Button fx:id="updateotherinfobtn" focusTraversable="false" mnemonicParsing="false" onAction="#vehUpdateOtherInfo" styleClass="accentBtn" text="Update Other Information" BorderPane.alignment="CENTER_RIGHT">
+                                  <BorderPane.margin>
+                                    <Insets bottom="5.0" />
+                                  </BorderPane.margin>
+                                </Button>
+                              </top>
+                            </BorderPane>
+                          </children>
+                        </HBox>
+                        <VBox fx:id="vehicleDetailCard" spacing="15.0" styleClass="license-card">
+                          <children>
+                            <Label fx:id="info1" styleClass="license-title" text="Vehicle Information" />
+                            <GridPane hgap="30.0" vgap="15.0">
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                              </rowConstraints>
+                              <children>
+                                <VBox spacing="2.0" GridPane.rowIndex="1">
+                                  <children>
+                                    <Label fx:id="plt1" styleClass="license-label" text="License Plate:" />
+                                    <TextField fx:id="vehplatefield2" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnIndex="1">
+                                  <children>
+                                    <Label fx:id="plt2" styleClass="license-label" text="Model:" />
+                                    <TextField fx:id="vehmodelfield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                  <children>
+                                    <Label fx:id="plt3" styleClass="license-label" text="Vehicle Stolen:" />
+                                    <TextField fx:id="vehstolenfield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                  <children>
+                                    <Label fx:id="plt8" styleClass="license-label" text="Police Vehicle:" />
+                                    <TextField fx:id="vehpolicefield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0" GridPane.rowIndex="2">
+                                  <children>
+                                    <Label fx:id="plt4" styleClass="license-label" text="Color:" />
+                                    <AnchorPane fx:id="vehcolordisplay" prefHeight="35.0" style="-fx-background-color: #F2F2F2; -fx-border-color: grey; -fx-border-radius: 4; -fx-background-radius: 4;">
+                                      <children>
+                                        <Label fx:id="vehnocolorlabel" alignment="CENTER" text="No Color on Record" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                      </children>
+                                    </AnchorPane>
+                                  </children>
+                                </VBox>
+                                <VBox spacing="2.0">
+                                  <children>
+                                    <Label fx:id="makeLabel" styleClass="license-label" text="Make:" />
+                                    <TextField fx:id="vehmakefield" editable="false" styleClass="license-value-field" />
+                                  </children>
+                                </VBox>
+                              </children>
+                            </GridPane>
+                          </children>
+                        </VBox>
+                        <VBox fx:id="vehicleTypeCard" spacing="15.0" styleClass="license-card">
+                          <children>
+                            <Label fx:id="plt10" styleClass="license-title" text="Vehicle Type:" />
+                            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                              <children>
+                                <ComboBox fx:id="vehtypecombobox" prefWidth="250.0" style="-fx-padding: 1.5;" styleClass="license-value-field" />
+                                <Button fx:id="btninfo1" mnemonicParsing="false" onAction="#vehUpdateInfo" styleClass="accentBtn" text="Update Vehicle Type" />
+                              </children>
+                            </HBox>
+                          </children>
+                        </VBox>
+                      </children>
+                    </VBox>
+                  </content>
+                </ScrollPane>
+              </children>
+              <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+              </padding>
+            </StackPane>
+          </center>
+        </BorderPane>
+      </children>
+    </AnchorPane>
+  </center>
 </BorderPane>

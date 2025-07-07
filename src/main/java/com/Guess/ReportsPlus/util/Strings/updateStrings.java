@@ -20,13 +20,18 @@ public class updateStrings {
 	public static final String version = "v1.5.2-alpha-dev";
 	public static boolean showANSILoggingInConsole = true;
 	public static final String[] updatesList = { "UPDATED TO JDK24", "Redesign Callout Manager Window",
+			"Redesign Ped Lookup Window",
+			"Redesign Vehicle Lookup Window",
 			"Added Custom Pull From Lookup Options For Each Field In CustomReports",
 			"Added Transfering To Any Custom Report",
-			"Change LicensePlate Image In ALPR App", "Registration Window UI Updates", "Better Styled Settings Window",
+			"Change LicensePlate Image In ALPR App", "Clear Old Callout Data Config Setting",
+			"Clear Old History Data Config Setting",
+			"Registration Window UI Updates", "Better Styled Settings Window",
 			"Added Blank FieldType For Custom Reports", "Added Checkbox FieldType For Custom Reports",
 			"New Report App Legacy Reports Support", "LogViewer Legacy Report Section",
+			"Show Enabled/Disabled For Settings",
 			"Fix Bug With Vin Not Generating", "Ability To Get JSON Layout From DB File",
-			"Option To Remove Custom Reports",
+			"Option To Remove Custom Reports", "Press Enter To Send Callout Messages",
 			"Add Default Redesigned Reports Button", "Added Use Of Force Report",
 			"Fixed Not Showing Expiration Dates Symbols (> 1yr, etc.)", "Importing Report Layout From Templates",
 			"Ped/Vehicle Lookup Comands In Terminal" };
@@ -35,26 +40,47 @@ public class updateStrings {
 	public static final String localeChanges = """
 			Version: v1.5.2-alpha
 			NEW:
-				LogBrowser.legacyReportsButton=Legacy Reports
-				LogBrowser.ReportsButton=Reports
-				Callout_Manager.ExitButton=Exit
-				Callout_Manager.CreateCallButton=Create Call
-				Callout_Manager.SendButton=Send
-				Callout_Manager.CalloutTime=Time
-				Callout_Manager.CalloutDate=Date
-				Callout_Manager.NoCalloutHistory=No callout history.
-				Callout_Manager.Actions=Actions
-				Callout_Manager.CalloutCounty=County
-				Callout_Manager.CalloutNumberShort=Call#
-				Callout_Manager.NoActiveCallouts=No active callouts.
-				Settings.reportFieldNameTT=Show labels above fields in report windows
-				Settings.reportFieldNameLabel=Show Field Names
-				Desktop.lastNameLabel=Last Name:
-				Desktop.firstNameLabel=First Name:
-				NewReportApp.CancelButton=Cancel
-				NewReportApp.ConfirmDeletion=Are you sure you want to perform this action?
-				LayoutBuilder.ImportExportButton=Import/Export and Templates
-				ImportExport.importFromDbButton=Import from DB
+			Callout_Manager.Actions=Actions
+			Callout_Manager.Additional=Additional (Optional):
+			Callout_Manager.CalloutCounty=County
+			Callout_Manager.CalloutDate=Date
+			Callout_Manager.CalloutNumberShort=Call#
+			Callout_Manager.CalloutTime=Time
+			Callout_Manager.CreateCallButton=Create Call
+			Callout_Manager.ExitButton=Exit
+			Callout_Manager.NewCalloutButtonShort=Report
+			Callout_Manager.NoActiveCallouts=No active callouts.
+			Callout_Manager.NoCalloutHistory=No callout history.
+			Callout_Manager.SendButton=Send
+			ImportExport.importFromDbButton=Import from DB
+			LogBrowser.Apply=Apply
+			LogBrowser.ReportsButton=Reports
+			LogBrowser.legacyReportsButton=Legacy Reports
+			Login_Window.NamePromptText=Name
+			PedLookup.BackButton=Back
+			PedLookup.BoatingLicenseSubheading=Boating License Information
+			PedLookup.CitizenshipStatus=Citizenship Status:
+			PedLookup.ClassLabel=Class:
+			PedLookup.CriminalHistory=Criminal History
+			PedLookup.Disability=Disability:
+			PedLookup.DriverLicenseSubheading=Driver License Information
+			PedLookup.FishingLicenseSubheading=Fishing License Information
+			PedLookup.GunLicenseSubheading=Gun License Information
+			PedLookup.Height=Height:
+			PedLookup.HuntingLicenseSubheading=Hunting License Information
+			PedLookup.MaritalStatus=Marital Status:
+			PedLookup.PedestrianField=Pedestrian
+			PedLookup.PhysicalInfoLabel=Physical Information
+			PedLookup.StatusAndAffiliations=Status & Affiliations
+			PedLookup.Weight=Weight:
+			ReportWindows.PullFromLookup=Pull From Lookup
+			Settings.DelCalloutButton=Delete
+			Settings.Disabled=Disabled
+			Settings.Enabled=Enabled
+			Settings.clearOldCalloutDataLabel=Clear Previous Callout History on Launch
+			Settings.reportFieldNameLabel=Show Field Names
+			Settings.reportFieldNameTT=Show labels above fields in report windows
+			VehicleLookup.FieldMake=Make:
 
 
 			REMOVED:
@@ -71,9 +97,6 @@ public class updateStrings {
 			PedLookup.NoPedFoundInSystem", "No Record Found In System
 			PedLookup.SearchPedButton=Search
 			PedLookup.LegalInfoLabel", "Legal Information
-			PedLookup.BasicInfoLabel", "Basic Information
-			PedLookup.LicenseInfoLabel", "Licensing Information
-			PedLookup.OtherInfoLabel", "Other Information
 			PedLookup.PriorHistoryLabel", "Prior History
 			PedLookup.HuntLicenseInfoTitle", "Hunting License Information:
 

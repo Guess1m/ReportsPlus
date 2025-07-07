@@ -168,7 +168,7 @@ public class ImpoundReportUtils {
 
 		Label warningLabel = (Label) impoundReport.get("warningLabel");
 
-		pullnotesbtn.setOnMouseEntered(actionEvent -> {
+		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
@@ -201,7 +201,7 @@ public class ImpoundReportUtils {
 		Label legacyLabel = (Label) impoundReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
 
-		submitBtn.setOnAction(event -> {
+		submitBtn.setOnAction(_ -> {
 			if (num.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
 				warningLabel.setText("Impound Number can't be empty!");
@@ -270,7 +270,7 @@ public class ImpoundReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information") + "_button");
 
-		offenderInfoBtn.setOnAction(event -> {
+		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
 			if (!fulln.trim().isEmpty()) {
@@ -281,7 +281,7 @@ public class ImpoundReportUtils {
 			offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
 		});
 
-		vehInfoBtn.setOnAction(event -> {
+		vehInfoBtn.setOnAction(_ -> {
 			plateNumber.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			model.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
 			String typ = pullValueFromReport("vehicle", "Vehtypecombobox");

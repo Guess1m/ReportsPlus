@@ -148,6 +148,9 @@ public class Ped {
 	@XmlElement(name = "LicenseExpiration")
 	private String licenseExpiration;
 
+	@XmlElement(name = "IsPolice")
+	private String isPolice;
+
 	@Override
 	public String toString() {
 		return "name=[" + name +
@@ -161,6 +164,7 @@ public class Ped {
 				"]| birthday=[" + birthday +
 				"]| address=[" + address +
 				"]| wantedStatus=[" + wantedStatus +
+				"]| isPolice=[" + isPolice +
 				"]| dateWarrantIssued=[" + dateWarrantIssued +
 				"]| warrantNumber=[" + warrantNumber +
 				"]| warrantAgency=[" + warrantAgency +
@@ -686,6 +690,14 @@ public class Ped {
 
 	public void setLicenseExpiration(String licenseExpiration) {
 		this.licenseExpiration = licenseExpiration;
+	}
+
+	public String getIsPolice() {
+		return isPolice;
+	}
+
+	public void setIsPolice(String isPolice) {
+		this.isPolice = isPolice;
 	}
 
 }

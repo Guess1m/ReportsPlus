@@ -59,6 +59,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -243,6 +245,12 @@ public class CalloutViewController {
 		activeCalloutsTable.setVisible(true);
 		historyCalloutsContainer.setVisible(false);
 		callInfoContainer.setVisible(false);
+
+		callInfoCommentField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				onSendNoteClick(new ActionEvent());
+			}
+		});
 
 		displayActiveCallsBtn.setOnAction(event -> {
 			if (!displayActiveCallsBtn.isSelected()) {

@@ -1,0 +1,152 @@
+package com.guess.testproj;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
+public class AdaptiveLabel extends Label {
+
+    private final List<Region> parentChain = new ArrayList<>();
+    private final ChangeListener<Background> parentBackgroundListener = (obs, oldVal, newVal) -> updateTextColor();
+
+    private final ObjectProperty<Color> lightTextColor = new SimpleObjectProperty<>(this, "lightTextColor",
+            Color.BLACK);
+    private final ObjectProperty<Color> darkTextColor = new SimpleObjectProperty<>(this, "darkTextColor", Color.WHITE);
+    private final DoubleProperty luminanceThreshold = new SimpleDoubleProperty(this, "luminanceThreshold", 0.5);
+
+    public AdaptiveLabel() {
+        super();
+        parentProperty().addListener((obs, oldParent, newParent) -> {
+            updateParentListeners();
+            updateTextColor();
+        });
+        sceneProperty().addListener((obs, oldScene, newScene) -> {
+            updateParentListeners();
+            updateTextColor();
+        });
+    }
+
+    public AdaptiveLabel(String text) {
+        this();
+        setText(text);
+    }
+
+    private void updateParentListeners() {
+        for (Region region : parentChain) {
+            region.backgroundProperty().removeListener(parentBackgroundListener);
+        }
+        parentChain.clear();
+        Node current = getParent();
+        while (current != null) {
+            if (current instanceof Region) {
+                Region region = (Region) current;
+                region.backgroundProperty().addListener(parentBackgroundListener);
+                parentChain.add(region);
+            }
+            current = current.getParent();
+        }
+    }
+
+    private void updateTextColor() {
+        if (getParent() != null) {
+            Color effectiveBgColor = getEffectiveBackgroundColor(getParent());
+            double luminance = calculateLuminance(effectiveBgColor);
+            Color textColor = (luminance > getLuminanceThreshold()) ? getLightTextColor() : getDarkTextColor();
+            setStyle(String.format("-fx-text-fill: %s;", toRgbCode(textColor)));
+        }
+    }
+
+    private double calculateLuminance(Color color) {
+        return 0.299 * color.getRed() + 0.587 * color.getGreen() + 0.114 * color.getBlue();
+    }
+
+    private Color getEffectiveBackgroundColor(Node node) {
+        if (node == null) {
+            if (getScene() != null && getScene().getFill() instanceof Color) {
+                return (Color) getScene().getFill();
+            }
+            return Color.TRANSPARENT;
+        }
+
+        Color currentColor = Color.TRANSPARENT;
+        if (node instanceof Region) {
+            Region region = (Region) node;
+            Background bg = region.getBackground();
+            if (bg != null && !bg.getFills().isEmpty()) {
+                Paint paint = bg.getFills().get(0).getFill();
+                if (paint instanceof Color) {
+                    currentColor = (Color) paint;
+                }
+            }
+        }
+
+        if (currentColor.isOpaque()) {
+            return currentColor;
+        } else {
+            Color colorBehind = getEffectiveBackgroundColor(node.getParent());
+            return blend(currentColor, colorBehind);
+        }
+    }
+
+    private Color blend(Color foreground, Color background) {
+        if (background == null)
+            return foreground;
+        double alpha = foreground.getOpacity();
+        double r = foreground.getRed() * alpha + background.getRed() * (1.0 - alpha);
+        double g = foreground.getGreen() * alpha + background.getGreen() * (1.0 - alpha);
+        double b = foreground.getBlue() * alpha + background.getBlue() * (1.0 - alpha);
+        return new Color(r, g, b, 1.0);
+    }
+
+    private String toRgbCode(Color color) {
+        return String.format("#%02X%02X%02X", (int) (color.getRed() * 255), (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
+
+    public final ObjectProperty<Color> lightTextColorProperty() {
+        return lightTextColor;
+    }
+
+    public final Color getLightTextColor() {
+        return lightTextColor.get();
+    }
+
+    public final void setLightTextColor(Color color) {
+        lightTextColor.set(color);
+    }
+
+    public final ObjectProperty<Color> darkTextColorProperty() {
+        return darkTextColor;
+    }
+
+    public final Color getDarkTextColor() {
+        return darkTextColor.get();
+    }
+
+    public final void setDarkTextColor(Color color) {
+        darkTextColor.set(color);
+    }
+
+    public final DoubleProperty luminanceThresholdProperty() {
+        return luminanceThreshold;
+    }
+
+    public final double getLuminanceThreshold() {
+        return luminanceThreshold.get();
+    }
+
+    public final void setLuminanceThreshold(double value) {
+        luminanceThreshold.set(value);
+    }
+}

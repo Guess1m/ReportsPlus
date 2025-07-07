@@ -118,3 +118,9 @@ ScrollPane .viewport {
   -fx-border-width: 0;
   -fx-font-size: 15px;
 }
+
+.side-button {
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-padding: 8px;
+  -fx-background-radius: 10 0 0 10;
+}

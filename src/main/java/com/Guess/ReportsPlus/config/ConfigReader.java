@@ -106,6 +106,14 @@ public class ConfigReader {
 		checkAndSetDefaultValue("uiColors", "secondaryColor", "#323C41");
 		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
 
+		checkAndSetDefaultValue("uiColors", "sidePaneColor", "#323c41");
+		checkAndSetDefaultValue("uiColors", "sidePaneTextColor", "#FFFFFF");
+		checkAndSetDefaultValue("uiColors", "labelColor", "#323c41");
+		checkAndSetDefaultValue("uiColors", "bkgColor", "#FFFFFF");
+		checkAndSetDefaultValue("uiColors", "headingColor", "#323c41");
+		checkAndSetDefaultValue("uiColors", "cardBkgColor", "#f6f6f6");
+		checkAndSetDefaultValue("uiColors", "buttonColor", "#3c484e");
+
 		// Lookup Layout
 		checkAndSetDefaultValue("lookupWindow", "pedLookupVisible", "true");
 		checkAndSetDefaultValue("lookupWindow", "vehLookupVisible", "true");

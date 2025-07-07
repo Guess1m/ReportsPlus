@@ -1066,7 +1066,8 @@ public class VehLookupViewController {
 				pedWindow.restoreWindow(pedWindow.title);
 			}
 			if (pedLookupViewController != null) {
-				pedLookupViewController.getPedSearchField().getEditor().setText(vehownerfield.getText().strip());
+				pedLookupViewController.getPedSearchField().setText(vehownerfield.getText().strip());
+				pedLookupViewController.getDatabaseListView().layout();
 				try {
 					pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
 					pedWindow.bringToFront();

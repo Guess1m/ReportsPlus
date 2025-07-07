@@ -494,7 +494,7 @@ public class reportUtil {
 
 		switch (lowerLookup) {
 			case "ped":
-				if (pedLookupViewController != null && pedLookupViewController.getPedRecordPane().isVisible()) {
+				if (pedLookupViewController != null && pedLookupViewController.getDatabaseInfoPane().isVisible()) {
 					object = pedLookupViewController;
 				}
 				break;

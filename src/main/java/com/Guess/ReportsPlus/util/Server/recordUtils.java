@@ -17,7 +17,6 @@ public class recordUtils {
 		List<String> owners = new ArrayList<>();
 		final Path path = Paths.get(filePath);
 		if (!Files.exists(path)) {
-			logError("File does not exist: " + filePath);
 			return owners;
 		}
 

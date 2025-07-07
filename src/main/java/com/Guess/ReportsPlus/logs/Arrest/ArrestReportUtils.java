@@ -5,7 +5,6 @@ import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.getNextIndex;
 import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.needCourtRefresh;
 import static com.Guess.ReportsPlus.Windows.Apps.LogViewController.arrestLogUpdate;
-import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.findCaseByNumber;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.generateCaseNumber;
@@ -29,7 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
@@ -54,7 +52,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -563,21 +560,25 @@ public class ArrestReportUtils {
 					logError(
 							"Could not create court case from arrest because either name or offences field(s) were empty.");
 				}
-
-				if (pedLookupViewController != null) {
-					if (Objects.requireNonNull(pedLookupViewController).getPedRecordPane().isVisible()) {
-						if (pedLookupViewController.getPedSearchField().getEditor().getText()
-								.equalsIgnoreCase(offenderName.getText())) {
-							try {
-								pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
-							} catch (IOException e) {
-								logError("Error searching name to update ped lookup from arrestreport: "
-										+ pedLookupViewController.getPedfnamefield().getText().trim() + " "
-										+ pedLookupViewController.getPedlnamefield().getText().trim(), e);
-							}
-						}
-					}
-				}
+				/*
+				 * TODO: !inprogress remove this code, was to update ped lookup from arrest
+				 * report
+				 * if (pedLookupViewController != null) {
+				 * if (Objects.requireNonNull(pedLookupViewController).getDatabaseInfoPane().
+				 * isVisible()) {
+				 * if (pedLookupViewController.getPedSearchField().getEditor().getText()
+				 * .equalsIgnoreCase(offenderName.getText())) {
+				 * try {
+				 * pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
+				 * } catch (IOException e) {
+				 * logError("Error searching name to update ped lookup from arrestreport: "
+				 * + pedLookupViewController.getPedfnamefield().getText().trim() + " "
+				 * + pedLookupViewController.getPedlnamefield().getText().trim(), e);
+				 * }
+				 * }
+				 * }
+				 * }
+				 */
 
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {

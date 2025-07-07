@@ -175,55 +175,6 @@ public class settingsController {
 			vehLookupViewController.getBtninfo3().setOnMouseExited(e -> vehLookupViewController.getBtninfo3()
 					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
 		}
-		if (pedLookupViewController != null) {
-			pedLookupViewController.getLookupmainlbl().setStyle("-fx-text-fill: " + mainclr + ";-fx-font-size: 25;");
-			pedLookupViewController.getLbl1().setStyle("-fx-text-fill: " + secclr + ";-fx-font-size: 25;");
-			pedLookupViewController.getLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			pedLookupViewController.getPedLookupPane().setStyle("-fx-background-color: " + bkgclr + ";");
-			pedLookupViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
-
-			pedLookupViewController.getInfo1().setStyle("-fx-background-color: " + secclr + ";");
-			pedLookupViewController.getInfo2().setStyle("-fx-background-color: " + secclr + ";");
-			pedLookupViewController.getInfo3().setStyle("-fx-background-color: " + secclr + ";");
-			pedLookupViewController.getInfo4().setStyle("-fx-background-color: " + secclr + ";");
-			pedLookupViewController.getInfo5().setStyle("-fx-background-color: " + secclr + ";");
-
-			pedLookupViewController.getPedSearchBtn().setStyle(nonTransparentBtn + "-fx-text-fill: white;");
-			pedLookupViewController.getPedSearchBtn().setOnMouseEntered(
-					e -> pedLookupViewController.getPedSearchBtn().setStyle(hoverStyle + ";-fx-text-fill: white;"));
-			pedLookupViewController.getPedSearchBtn().setOnMouseExited(e -> pedLookupViewController.getPedSearchBtn()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white;"));
-
-			pedLookupViewController.getAddDataToNotesBtn()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getAddDataToNotesBtn()
-					.setOnMouseEntered(e -> pedLookupViewController.getAddDataToNotesBtn()
-							.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getAddDataToNotesBtn()
-					.setOnMouseExited(e -> pedLookupViewController.getAddDataToNotesBtn().setStyle(
-							nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-
-			pedLookupViewController.getInfobtn1()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getInfobtn1().setOnMouseEntered(e -> pedLookupViewController.getInfobtn1()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getInfobtn1().setOnMouseExited(e -> pedLookupViewController.getInfobtn1()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-
-			pedLookupViewController.getInfobtn2()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getInfobtn2().setOnMouseEntered(e -> pedLookupViewController.getInfobtn2()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getInfobtn2().setOnMouseExited(e -> pedLookupViewController.getInfobtn2()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-
-			pedLookupViewController.getInfobtn3()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12");
-			pedLookupViewController.getInfobtn3().setOnMouseEntered(e -> pedLookupViewController.getInfobtn3()
-					.setStyle(hoverStyle + ";-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-			pedLookupViewController.getInfobtn3().setOnMouseExited(e -> pedLookupViewController.getInfobtn3()
-					.setStyle(nonTransparentBtn + "-fx-text-fill: white; -fx-padding: 4 10; -fx-font-size: 12"));
-		}
 		if (newReportVewController != null) {
 			newReportVewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}

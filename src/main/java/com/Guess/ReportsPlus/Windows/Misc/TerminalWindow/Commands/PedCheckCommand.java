@@ -1,6 +1,6 @@
 package com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands;
 
-import com.Guess.ReportsPlus.Windows.Apps.PedLookupViewControllerCopy;
+import com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Command;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Output;
 import com.Guess.ReportsPlus.util.History.Ped;
@@ -29,7 +29,7 @@ public class PedCheckCommand implements Command {
 		String fullName = firstName + " " + lastName;
 
 		output.println("~g~Performing ped check for: [" + fullName + "]");
-		Ped ped = PedLookupViewControllerCopy.performPedLookup(fullName);
+		Ped ped = PedLookupViewController.performPedLookup(fullName);
 		if (ped == null) {
 			output.println("~r~Ped not found: [" + fullName + "]");
 			return;

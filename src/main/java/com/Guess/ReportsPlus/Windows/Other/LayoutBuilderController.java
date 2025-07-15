@@ -44,12 +44,14 @@ import java.util.function.BiFunction;
 
 import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.IShutdownable;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.FieldConfig;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.FieldType;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.FullLayoutConfig;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.RowConfig;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.SectionConfig;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils.TransferConfig;
+import com.Guess.ReportsPlus.util.Report.Database.CustomReport.CourtCaseFields;
 import com.Guess.ReportsPlus.util.Report.Database.DynamicDB;
 import com.Guess.ReportsPlus.util.Strings.reportLayoutTemplates;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -75,7 +77,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -88,13 +89,38 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
-public class LayoutBuilderController {
-
+public class LayoutBuilderController implements IShutdownable {
 	// TODO: !inprogress
 	// documentation for custom reports
 	// Add field sobriety
-	// Add solution for citation/accident
+	CustomWindow addDropdownWindow = null;
+	public static LayoutBuilderController layoutBuilderController;
+	// #region FXML Components
+	@FXML
+	private ScrollPane customLayoutScrollPane;
+	@FXML
+	private VBox containersVbox;
+	@FXML
+	private VBox sectionContainer;
+	@FXML
+	private Button addSectionButton;
+	@FXML
+	private Button buildLayoutButton;
+	@FXML
+	private TextField reportTitleField;
+	@FXML
+	private Button addTransferButton;
+	@FXML
+	private VBox transferContainer;
+	@FXML
+	private Button customDropdownButton;
+	@FXML
+	private Button importExportButton;
+	@FXML
+	private Label heading;
 
+	// #endregion
+	// #region LayoutTypes
 	public interface ILayoutType {
 		String getValue();
 
@@ -128,7 +154,6 @@ public class LayoutBuilderController {
 		public String getValue() {
 			return value;
 		}
-
 	}
 
 	public enum VehicleLayoutTypes implements ILayoutType {
@@ -156,6 +181,8 @@ public class LayoutBuilderController {
 		}
 	}
 
+	// #endregion
+	// #region CustomReportTypes
 	private class SectionPane extends VBox {
 		private TextField sectionTitleField;
 		private VBox rowContainer;
@@ -165,22 +192,26 @@ public class LayoutBuilderController {
 		private ComboBox<String> lookupTypeComboBox;
 
 		SectionPane() {
-			setSpacing(5);
-			setStyle(
-					"-fx-border-color: gray; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10; -fx-background-color: rgba(0,0,0,0.04);");
+			setSpacing(10);
+			setStyle("-fx-background-color: #ECEFF1; " +
+					"-fx-background-radius: 8; " +
+					"-fx-border-radius: 8; " +
+					"-fx-border-width: 2; " +
+					"-fx-border-color: #B0BEC5; " +
+					"-fx-padding: 12;");
 			HBox header = new HBox(10);
 			header.setAlignment(Pos.CENTER_LEFT);
+			header.setPadding(new Insets(0, 0, 10, 0));
+			header.setStyle("-fx-border-color: transparent transparent #CFD8DC transparent; -fx-border-width: 1.5;");
 			sectionTitleField = new TextField();
 			sectionTitleField.setPromptText(localization.getLocalizedMessage("ReportWindows.SectionButton", "Section")
 					+ " " + localization.getLocalizedMessage("Login_Window.NamePromptText", "Name"));
-
 			Button moveUpButton = new Button("↑");
 			Button moveDownButton = new Button("↓");
 			moveUpButton.setFocusTraversable(false);
 			moveDownButton.setFocusTraversable(false);
 			moveUpButton.getStyleClass().add("moveButton");
 			moveDownButton.getStyleClass().add("moveButton");
-
 			moveUpButton.setOnAction(_ -> {
 				int index = sectionContainer.getChildren().indexOf(this);
 				if (index > 0) {
@@ -188,7 +219,6 @@ public class LayoutBuilderController {
 					sectionContainer.getChildren().add(index - 1, this);
 				}
 			});
-
 			moveDownButton.setOnAction(_ -> {
 				int index = sectionContainer.getChildren().indexOf(this);
 				if (index < sectionContainer.getChildren().size() - 1) {
@@ -196,20 +226,17 @@ public class LayoutBuilderController {
 					sectionContainer.getChildren().add(index + 1, this);
 				}
 			});
-
 			removeSectionButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove")
 					+ " " + localization.getLocalizedMessage("ReportWindows.SectionButton", "Section"));
 			removeSectionButton.setFocusTraversable(false);
 			removeSectionButton.getStyleClass().add("removeButton");
 			removeSectionButton.setOnAction(_ -> sectionContainer.getChildren().remove(this));
-
 			pullFromLookupCheckbox = new CheckBox("Pull from Lookup");
 			lookupTypeComboBox = new ComboBox<>();
 			lookupTypeComboBox.getItems().addAll("Ped", "Vehicle", "Both");
 			lookupTypeComboBox.getSelectionModel().selectFirst();
 			lookupTypeComboBox.setVisible(false);
 			lookupTypeComboBox.setManaged(false);
-
 			lookupTypeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
 				if (newVal != null) {
 					for (Node rowNode : rowContainer.getChildren()) {
@@ -223,7 +250,6 @@ public class LayoutBuilderController {
 					}
 				}
 			});
-
 			pullFromLookupCheckbox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
 				lookupTypeComboBox.setVisible(isNowSelected);
 				lookupTypeComboBox.setManaged(isNowSelected);
@@ -237,21 +263,18 @@ public class LayoutBuilderController {
 					}
 				}
 			});
-
 			Pane spacer = new Pane();
 			HBox.setHgrow(spacer, Priority.ALWAYS);
-
 			header.getChildren().addAll(
 					new Label(localization.getLocalizedMessage("ReportWindows.SectionButton", "Section") + ":"),
 					sectionTitleField, pullFromLookupCheckbox, lookupTypeComboBox, spacer, moveUpButton, moveDownButton,
 					removeSectionButton);
-			rowContainer = new VBox(5);
-			rowContainer.setStyle("-fx-background-color: transparent;");
+			rowContainer = new VBox(8);
+			rowContainer.setStyle("-fx-background-color: transparent; -fx-padding: 10 2 2 2;");
 			addRowButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " "
 					+ localization.getLocalizedMessage("ReportWindows.RowButton", "Row"));
 			addRowButton.getStyleClass().add("addButton");
 			addRowButton.setOnAction(_ -> addRow());
-
 			addRowButton.setFocusTraversable(false);
 			getChildren().addAll(header, rowContainer, addRowButton);
 		}
@@ -263,7 +286,6 @@ public class LayoutBuilderController {
 
 		private SectionConfig buildSectionConfig() {
 			String title = sectionTitleField.getText();
-
 			List<RowConfig> rowConfigs = new ArrayList<>();
 			for (Node node : rowContainer.getChildren()) {
 				if (node instanceof RowPane) {
@@ -271,7 +293,6 @@ public class LayoutBuilderController {
 				}
 			}
 			SectionConfig config = new SectionConfig(title, rowConfigs.toArray(new RowConfig[0]));
-
 			boolean pullFromLookup = pullFromLookupCheckbox.isSelected();
 			config.setPullFromLookup(pullFromLookup);
 			if (pullFromLookup) {
@@ -281,7 +302,7 @@ public class LayoutBuilderController {
 		}
 	}
 
-	private class FieldPane extends VBox {
+	private class FieldPane extends HBox {
 		private TextField fieldNameField;
 		private TextField populateKeyField;
 		private Spinner<Integer> widthSpinner;
@@ -292,24 +313,38 @@ public class LayoutBuilderController {
 		private Button removeFieldButton;
 		private Button moveLeftButton;
 		private Button moveRightButton;
+		private VBox courtCaseMappingPane;
+		private Map<CourtCaseFields, ComboBox<String>> courtCaseMappingBoxes = new HashMap<>();
+		private Spinner<Integer> growthSpinner;
 
-		FieldPane(int defaultWidth) {
-			setSpacing(3);
+		FieldPane() {
+			super(10);
 			setStyle(
-					"-fx-border-color: gray; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10; -fx-background-color: rgba(0,0,0,0.04);");
-			VBox fieldRow = new VBox(10);
+					"-fx-background-color: white; " +
+							"-fx-border-color: #ECEFF1; " +
+							"-fx-border-width: 1; " +
+							"-fx-border-radius: 4; " +
+							"-fx-background-radius: 4; " +
+							"-fx-padding: 10;");
+			VBox leftControls = new VBox(5);
 			fieldNameField = new TextField();
 			fieldNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.FieldButton", "Field") + " "
 					+ localization.getLocalizedMessage("Login_Window.NamePromptText", "Name"));
 			populateKeyField = new TextField();
 			populateKeyField.setPromptText("Populate Key (optional)");
-			widthSpinner = new Spinner<>(1, defaultWidth, defaultWidth);
+			growthSpinner = new Spinner<>(1, 12, 1);
+			growthSpinner.valueProperty().addListener((obs, oldVal, newVal) -> {
+				if (getParent() != null && getParent().getParent() instanceof RowPane) {
+					((RowPane) getParent().getParent()).updateFieldWidths();
+				}
+			});
 			fieldTypeComboBox = new ComboBox<>();
 			fieldTypeComboBox.getItems().add("NUMBER_FIELD");
-			fieldTypeComboBox.getItems().addAll("TEXT_FIELD", "CUSTOM_DROPDOWN", "CHECK_BOX", "COMBO_BOX_STREET",
-					"COMBO_BOX_AREA", "COUNTY_FIELD", "COMBO_BOX_COLOR", "COMBO_BOX_TYPE", "BLANK_SPACE", "TEXT_AREA",
-					"TIME_FIELD", "DATE_FIELD", "OFFICER_NAME", "OFFICER_RANK", "OFFICER_DIVISION", "OFFICER_AGENCY",
-					"OFFICER_NUMBER", "OFFICER_CALLSIGN");
+			fieldTypeComboBox.getItems().addAll("CHARGES_TREE_VIEW", "CITATION_TREE_VIEW", "TEXT_FIELD",
+					"CUSTOM_DROPDOWN", "CHECK_BOX", "COMBO_BOX_STREET", "COMBO_BOX_AREA", "COUNTY_FIELD",
+					"COMBO_BOX_COLOR", "COMBO_BOX_TYPE", "BLANK_SPACE", "TEXT_AREA", "TIME_FIELD", "DATE_FIELD",
+					"OFFICER_NAME", "OFFICER_RANK", "OFFICER_DIVISION", "OFFICER_AGENCY", "OFFICER_NUMBER",
+					"OFFICER_CALLSIGN");
 			fieldTypeComboBox.getSelectionModel().selectFirst();
 			lookupValueComboBox = new ComboBox<>();
 			updateLookupOptions("Ped");
@@ -319,7 +354,51 @@ public class LayoutBuilderController {
 			lookupValueLabel = new Label("Lookup Value:");
 			lookupValueLabel.setVisible(false);
 			lookupValueLabel.setManaged(false);
+			courtCaseMappingPane = new VBox(5);
+			courtCaseMappingPane.setStyle(
+					"-fx-border-color: #007bff; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 8; -fx-background-color: rgba(0,123,255,0.05);");
+			courtCaseMappingPane.setVisible(false);
+			courtCaseMappingPane.setManaged(false);
 			fieldTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+				boolean isChargesTreeViewNew = "CHARGES_TREE_VIEW".equals(newVal);
+				boolean isCitationTreeViewNew = "CITATION_TREE_VIEW".equals(newVal);
+				if (isChargesTreeViewNew && treeViewExists("CITATION_TREE_VIEW")) {
+					showNotificationWarning("Invalid Operation",
+							"A Citation Tree View already exists. You cannot add a Charges Tree View.");
+					Platform.runLater(() -> fieldTypeComboBox.setValue(oldVal));
+					return;
+				}
+				if (isCitationTreeViewNew && treeViewExists("CHARGES_TREE_VIEW")) {
+					showNotificationWarning("Invalid Operation",
+							"A Charges Tree View already exists. You cannot add a Citation Tree View.");
+					Platform.runLater(() -> fieldTypeComboBox.setValue(oldVal));
+					return;
+				}
+				RowPane parentRow = (getParent() != null && getParent().getParent() instanceof RowPane)
+						? (RowPane) getParent().getParent()
+						: null;
+				boolean isTreeView = "CHARGES_TREE_VIEW".equals(newVal) || "CITATION_TREE_VIEW".equals(newVal);
+				courtCaseMappingPane.setVisible(isTreeView);
+				courtCaseMappingPane.setManaged(isTreeView);
+				if (isTreeView) {
+					updateCourtCaseMappingPane(newVal);
+				}
+				boolean wasTreeView = "CHARGES_TREE_VIEW".equals(oldVal) || "CITATION_TREE_VIEW".equals(oldVal);
+				if (isTreeView) {
+					if (parentRow != null && parentRow.fieldContainer.getChildren().size() > 1) {
+						showNotificationWarning("Invalid Operation",
+								"Tree View components must be the only field in a row.");
+						Platform.runLater(() -> fieldTypeComboBox.setValue(oldVal));
+						return;
+					}
+					if (parentRow != null) {
+						parentRow.addFieldButton.setDisable(true);
+					}
+				} else if (wasTreeView) {
+					if (parentRow != null) {
+						parentRow.addFieldButton.setDisable(false);
+					}
+				}
 				if ("CUSTOM_DROPDOWN".equals(newVal)) {
 					if (customDropdownComboBox == null) {
 						customDropdownComboBox = new ComboBox<>();
@@ -327,21 +406,26 @@ public class LayoutBuilderController {
 						customDropdownComboBox.getItems().setAll(customFields);
 						customDropdownComboBox.setPromptText(
 								localization.getLocalizedMessage("ReportWindows.customField", "Select Custom Field"));
-						getChildren().add(1, customDropdownComboBox);
+						int typeIndex = leftControls.getChildren().indexOf(fieldTypeComboBox);
+						leftControls.getChildren().add(typeIndex + 1, customDropdownComboBox);
 					}
 				} else {
 					if (customDropdownComboBox != null) {
-						getChildren().remove(customDropdownComboBox);
+						leftControls.getChildren().remove(customDropdownComboBox);
 						customDropdownComboBox = null;
 					}
 				}
 				boolean isBlank = "BLANK_SPACE".equals(newVal);
-				fieldNameField.setDisable(isBlank);
-				populateKeyField.setDisable(isBlank);
-				widthSpinner.setDisable(isBlank);
+				fieldNameField.setDisable(isBlank || isTreeView);
+				populateKeyField.setDisable(isBlank || isTreeView);
+				growthSpinner.setDisable(isBlank || isTreeView);
 				if (isBlank) {
 					int randomNumber = ThreadLocalRandom.current().nextInt(100000, 1000000);
 					fieldNameField.setText("blank_" + randomNumber);
+					populateKeyField.clear();
+				} else if (isTreeView) {
+					fieldNameField
+							.setText(newVal.toLowerCase() + "_" + ThreadLocalRandom.current().nextInt(100000, 1000000));
 					populateKeyField.clear();
 				}
 				boolean isLookupSection = false;
@@ -357,10 +441,30 @@ public class LayoutBuilderController {
 			removeFieldButton = new Button("Remove Field");
 			removeFieldButton.setMinWidth(USE_PREF_SIZE);
 			removeFieldButton.setOnAction(_ -> {
-				HBox parent = (HBox) getParent();
-				parent.getChildren().remove(this);
-				RowPane row = (RowPane) parent.getParent();
-				row.recalcWidthLimits();
+				HBox parentHBox = (HBox) getParent();
+				if (parentHBox == null)
+					return;
+				RowPane row = (RowPane) parentHBox.getParent();
+				String myType = this.fieldTypeComboBox.getValue();
+				boolean iWasATreeView = "CHARGES_TREE_VIEW".equals(myType) || "CITATION_TREE_VIEW".equals(myType);
+				parentHBox.getChildren().remove(this);
+				if (iWasATreeView) {
+					row.addFieldButton.setDisable(false);
+				}
+				List<Node> remainingChildren = parentHBox.getChildren();
+				if (remainingChildren.size() == 1) {
+					Node lastNode = remainingChildren.get(0);
+					if (lastNode instanceof FieldPane) {
+						FieldPane lastField = (FieldPane) lastNode;
+						if (!lastField.fieldTypeComboBox.getItems().contains("CHARGES_TREE_VIEW")) {
+							lastField.fieldTypeComboBox.getItems().add(1, "CHARGES_TREE_VIEW");
+						}
+						if (!lastField.fieldTypeComboBox.getItems().contains("CITATION_TREE_VIEW")) {
+							lastField.fieldTypeComboBox.getItems().add(2, "CITATION_TREE_VIEW");
+						}
+					}
+				}
+				row.updateFieldWidths();
 			});
 			removeFieldButton.getStyleClass().add("removeButton");
 			moveLeftButton = new Button("←");
@@ -372,21 +476,226 @@ public class LayoutBuilderController {
 			moveLeftButton.setFocusTraversable(false);
 			moveRightButton.setFocusTraversable(false);
 			removeFieldButton.setFocusTraversable(false);
-			widthSpinner.setFocusTraversable(false);
+			growthSpinner.setFocusTraversable(false);
 			fieldTypeComboBox.setFocusTraversable(false);
 			if (customDropdownComboBox != null) {
 				customDropdownComboBox.setFocusTraversable(false);
 			}
 			HBox buttonBox = new HBox(5, moveLeftButton, moveRightButton, removeFieldButton);
-			fieldRow.getChildren().addAll(
+			leftControls.getChildren().addAll(
 					new Label(localization.getLocalizedMessage("Login_Window.NamePromptText", "Name") + ": "),
-					fieldNameField, new Label("Populate Key:"), populateKeyField,
-					new Label(localization.getLocalizedMessage("ReportWindows.WidthLabel", "Width:")), widthSpinner,
+					fieldNameField, new Label("Populate Key:"), populateKeyField, new Label("Growth:"), growthSpinner,
 					new Label(localization.getLocalizedMessage("ReportWindows.TypeLabel", "Type:")), fieldTypeComboBox,
 					lookupValueLabel, lookupValueComboBox, buttonBox);
 			moveLeftButton.setOnAction(_ -> moveField(-1));
 			moveRightButton.setOnAction(_ -> moveField(1));
-			getChildren().add(fieldRow);
+			getChildren().addAll(leftControls, courtCaseMappingPane);
+			HBox.setHgrow(courtCaseMappingPane, Priority.ALWAYS);
+		}
+
+		private VBox getSectionContainer() {
+			Node parent = this.getParent(); // HBox fieldContainer
+			if (parent == null)
+				return null;
+			parent = parent.getParent(); // RowPane
+			if (parent == null)
+				return null;
+			parent = parent.getParent(); // VBox rowContainer
+			if (parent == null)
+				return null;
+			parent = parent.getParent(); // SectionPane
+			if (parent == null)
+				return null;
+			return (VBox) parent.getParent(); // VBox sectionContainer
+		}
+
+		private boolean treeViewExists(String treeViewType) {
+			VBox container = getSectionContainer();
+			if (container == null)
+				return false;
+			for (Node sectionNode : container.getChildren()) {
+				if (sectionNode instanceof SectionPane) {
+					for (Node rowNode : ((SectionPane) sectionNode).rowContainer.getChildren()) {
+						if (rowNode instanceof RowPane) {
+							for (Node fieldNode : ((RowPane) rowNode).fieldContainer.getChildren()) {
+								if (fieldNode instanceof FieldPane) {
+									FieldPane otherField = (FieldPane) fieldNode;
+									if (otherField != this
+											&& treeViewType.equals(otherField.fieldTypeComboBox.getValue())) {
+										return true;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		private FieldConfig buildFieldConfig() {
+			String name = fieldNameField.getText();
+			String populateKey = populateKeyField.getText().isEmpty() ? null : populateKeyField.getText();
+			HBox parentContainer = (HBox) getParent();
+			List<FieldPane> siblings = new ArrayList<>();
+			if (parentContainer != null) {
+				for (Node node : parentContainer.getChildren()) {
+					if (node instanceof FieldPane) {
+						siblings.add((FieldPane) node);
+					}
+				}
+			}
+			int width;
+			if (siblings.isEmpty()) {
+				width = 12;
+			} else {
+				List<Integer> growthFactors = new ArrayList<>();
+				int totalGrowth = 0;
+				for (FieldPane p : siblings) {
+					int growth = p.growthSpinner.getValue();
+					growthFactors.add(growth);
+					totalGrowth += growth;
+				}
+				if (totalGrowth == 0) {
+					width = 12 / siblings.size(); // Fallback for zero growth
+				} else {
+					List<Double> doubleWidths = new ArrayList<>();
+					for (int growth : growthFactors) {
+						doubleWidths.add((double) growth / totalGrowth * 12.0);
+					}
+					List<Integer> intWidths = new ArrayList<>();
+					double fractionalSum = 0;
+					for (double d : doubleWidths) {
+						intWidths.add((int) Math.floor(d));
+						fractionalSum += d - Math.floor(d);
+					}
+					int remainder = (int) Math.round(fractionalSum);
+					List<Integer> sortedIndices = new ArrayList<>();
+					for (int i = 0; i < siblings.size(); i++) {
+						sortedIndices.add(i);
+					}
+					sortedIndices.sort((i, j) -> {
+						double fracI = doubleWidths.get(i) - Math.floor(doubleWidths.get(i));
+						double fracJ = doubleWidths.get(j) - Math.floor(doubleWidths.get(j));
+						return Double.compare(fracJ, fracI);
+					});
+					for (int i = 0; i < remainder; i++) {
+						int indexToIncrement = sortedIndices.get(i);
+						intWidths.set(indexToIncrement, intWidths.get(indexToIncrement) + 1);
+					}
+					int myIndex = siblings.indexOf(this);
+					width = (myIndex != -1) ? intWidths.get(myIndex) : 12;
+				}
+			}
+			FieldType type = FieldType.valueOf(fieldTypeComboBox.getValue());
+			if (name == null) {
+				name = "";
+			}
+			FieldConfig config = new FieldConfig(name, width, type);
+			if ("CUSTOM_DROPDOWN".equals(fieldTypeComboBox.getValue()) && customDropdownComboBox != null) {
+				String customField = customDropdownComboBox.getValue();
+				if (customField != null && !customField.trim().isEmpty()) {
+					config.setDropdownType(customField);
+				}
+			}
+			if (courtCaseMappingPane.isVisible()) {
+				Map<String, String> mappings = new HashMap<>();
+				for (Map.Entry<CourtCaseFields, ComboBox<String>> entry : courtCaseMappingBoxes.entrySet()) {
+					String selectedField = entry.getValue().getValue();
+					if (selectedField != null && !"None".equals(selectedField)) {
+						mappings.put(entry.getKey().name(), selectedField);
+					}
+				}
+				config.setCourtCaseMapping(mappings);
+			}
+			config.setNodeType(type.getValue());
+			if (populateKey != null && populateKey.length() > 0) {
+				config.setPopulateKey(populateKey);
+			}
+			if (lookupValueComboBox.isVisible()) {
+				config.setLookupValue(lookupValueComboBox.getValue());
+			}
+			return config;
+		}
+
+		private void updateCourtCaseMappingPane(String treeViewType) {
+			courtCaseMappingPane.getChildren().clear();
+			courtCaseMappingBoxes.clear();
+			List<String> fieldNames = getAllCompatibleFieldNames();
+			Label title = new Label("Court Case Field Mappings");
+			title.setStyle("-fx-font-weight: bold; -fx-underline: true;");
+			courtCaseMappingPane.getChildren().add(title);
+			for (CourtCaseFields field : CourtCaseFields.values()) {
+				if (field == CourtCaseFields.PLATE_NUMBER && !"CITATION_TREE_VIEW".equals(treeViewType)) {
+					continue;
+				}
+				HBox row = new HBox(10);
+				row.setAlignment(Pos.CENTER_LEFT);
+				String labelText = field.name().replace('_', ' ').toLowerCase();
+				labelText = labelText.substring(0, 1).toUpperCase() + labelText.substring(1);
+				boolean isRequired = (field == CourtCaseFields.SUSPECT_NAME) ||
+						(field == CourtCaseFields.PLATE_NUMBER && "CITATION_TREE_VIEW".equals(treeViewType));
+				Label fieldLabel = new Label(labelText + (isRequired ? " *" : ""));
+				fieldLabel.setPrefWidth(120);
+				if (isRequired) {
+					fieldLabel.setStyle("-fx-font-weight: bold;");
+				}
+				ComboBox<String> fieldSelector = new ComboBox<>();
+				fieldSelector.getItems().add("None");
+				fieldSelector.getItems().addAll(fieldNames);
+				fieldSelector.getSelectionModel().selectFirst();
+				HBox.setHgrow(fieldSelector, Priority.ALWAYS);
+				row.getChildren().addAll(fieldLabel, fieldSelector);
+				courtCaseMappingPane.getChildren().add(row);
+				courtCaseMappingBoxes.put(field, fieldSelector);
+			}
+		}
+
+		private List<String> getAllCompatibleFieldNames() {
+			List<String> names = new ArrayList<>();
+			for (Node sectionNode : sectionContainer.getChildren()) {
+				if (sectionNode instanceof SectionPane) {
+					for (Node rowNode : ((SectionPane) sectionNode).rowContainer.getChildren()) {
+						if (rowNode instanceof RowPane) {
+							for (Node fieldNode : ((RowPane) rowNode).fieldContainer.getChildren()) {
+								if (fieldNode instanceof FieldPane && fieldNode != this) {
+									String fieldName = ((FieldPane) fieldNode).fieldNameField.getText();
+									if (fieldName != null && !fieldName.trim().isEmpty()) {
+										names.add(fieldName.trim());
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return names;
+		}
+
+		public boolean validateCourtCaseMappings() {
+			String fieldType = fieldTypeComboBox.getValue();
+			if ("CHARGES_TREE_VIEW".equals(fieldType)) {
+				ComboBox<String> nameBox = courtCaseMappingBoxes.get(CourtCaseFields.SUSPECT_NAME);
+				if (nameBox == null || nameBox.getValue() == null || "None".equals(nameBox.getValue())) {
+					showNotificationWarning("Mapping Incomplete",
+							"You must map the 'Suspect Name' field for a Charges report.");
+					return false;
+				}
+			} else if ("CITATION_TREE_VIEW".equals(fieldType)) {
+				ComboBox<String> nameBox = courtCaseMappingBoxes.get(CourtCaseFields.SUSPECT_NAME);
+				ComboBox<String> plateBox = courtCaseMappingBoxes.get(CourtCaseFields.PLATE_NUMBER);
+				if (nameBox == null || nameBox.getValue() == null || "None".equals(nameBox.getValue())) {
+					showNotificationWarning("Mapping Incomplete",
+							"You must map the 'Suspect Name' field for a Citation report.");
+					return false;
+				}
+				if (plateBox == null || plateBox.getValue() == null || "None".equals(plateBox.getValue())) {
+					showNotificationWarning("Mapping Incomplete",
+							"You must map the 'Plate Number' field for a Citation report.");
+					return false;
+				}
+			}
+			return true;
 		}
 
 		public void updateLookupOptions(String lookupType) {
@@ -442,43 +751,23 @@ public class LayoutBuilderController {
 				parentHBox.getChildren().add(newIndex, this);
 			}
 		}
-
-		private FieldConfig buildFieldConfig() {
-			String name = fieldNameField.getText();
-			String populateKey = populateKeyField.getText().isEmpty() ? null : populateKeyField.getText();
-			int width = widthSpinner.getValue();
-			FieldType type = FieldType.valueOf(fieldTypeComboBox.getValue());
-			if (name == null) {
-				name = "";
-			}
-			FieldConfig config = new FieldConfig(name, width, type);
-			if ("CUSTOM_DROPDOWN".equals(fieldTypeComboBox.getValue()) && customDropdownComboBox != null) {
-				String customField = customDropdownComboBox.getValue();
-				if (customField != null && !customField.trim().isEmpty()) {
-					config.setDropdownType(customField);
-				}
-			}
-			config.setNodeType(type.getValue());
-			if (populateKey != null && populateKey.length() > 0) {
-				config.setPopulateKey(populateKey);
-			}
-			if (lookupValueComboBox.isVisible()) {
-				config.setLookupValue(lookupValueComboBox.getValue());
-			}
-			return config;
-		}
 	}
 
 	private class RowPane extends VBox {
 		private HBox fieldContainer;
 		private Button addFieldButton;
-
 		private Button removeRowButton;
 
 		RowPane() {
-			setSpacing(5);
+			setSpacing(8);
 			setStyle(
-					"-fx-border-color: gray; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10; -fx-background-color: rgba(0,0,0,0.04);");
+					"-fx-background-color: #F5F5F5; " +
+							"-fx-border-color: #CFD8DC; " +
+							"-fx-border-width: 1.5; " +
+							"-fx-border-style: dashed; " +
+							"-fx-border-radius: 6; " +
+							"-fx-background-radius: 6; " +
+							"-fx-padding: 10;");
 			fieldContainer = new HBox(10);
 			addFieldButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " "
 					+ localization.getLocalizedMessage("ReportWindows.FieldButton", "Field"));
@@ -490,18 +779,15 @@ public class LayoutBuilderController {
 			removeRowButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				parent.getChildren().remove(this);
-				recalcWidthLimits();
 			});
 			Button moveUpButton = new Button("↑");
 			Button moveDownButton = new Button("↓");
 			moveUpButton.getStyleClass().add("moveButton");
 			moveDownButton.getStyleClass().add("moveButton");
-
 			moveUpButton.setFocusTraversable(false);
 			moveDownButton.setFocusTraversable(false);
 			removeRowButton.setFocusTraversable(false);
 			addFieldButton.setFocusTraversable(false);
-
 			moveUpButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
@@ -510,7 +796,6 @@ public class LayoutBuilderController {
 					parent.getChildren().add(index - 1, this);
 				}
 			});
-
 			moveDownButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
@@ -519,54 +804,55 @@ public class LayoutBuilderController {
 					parent.getChildren().add(index + 1, this);
 				}
 			});
-
 			HBox controlBox = new HBox(10, addFieldButton, moveUpButton, moveDownButton, removeRowButton);
 			getChildren().addAll(fieldContainer, controlBox);
-			recalcWidthLimits();
 		}
 
 		private void addField() {
-			int currentTotal = 0;
 			for (Node node : fieldContainer.getChildren()) {
 				if (node instanceof FieldPane) {
-					currentTotal += ((FieldPane) node).widthSpinner.getValue();
+					String fieldType = ((FieldPane) node).fieldTypeComboBox.getValue();
+					if ("CHARGES_TREE_VIEW".equals(fieldType) || "CITATION_TREE_VIEW".equals(fieldType)) {
+						showNotificationWarning("Invalid Operation",
+								"Tree View components must be the only field in a row.");
+						return;
+					}
 				}
 			}
-			int available = 12 - currentTotal;
-			if (available < 1) {
-				addFieldButton.setDisable(true);
-				return;
+			FieldPane fieldPane = new FieldPane();
+			fieldContainer.getChildren().add(fieldPane);
+			if (fieldContainer.getChildren().size() > 1) {
+				for (Node node : fieldContainer.getChildren()) {
+					if (node instanceof FieldPane) {
+						((FieldPane) node).fieldTypeComboBox.getItems().remove("CHARGES_TREE_VIEW");
+						((FieldPane) node).fieldTypeComboBox.getItems().remove("CITATION_TREE_VIEW");
+					}
+				}
 			}
-
-			FieldPane fieldPane = new FieldPane(available);
-
 			SectionPane parentSection = (SectionPane) getParent().getParent();
 			String currentLookupType = parentSection.lookupTypeComboBox.getValue();
 			fieldPane.updateLookupOptions(currentLookupType);
-
-			fieldContainer.getChildren().add(fieldPane);
-			fieldPane.widthSpinner.valueProperty().addListener((obs, oldVal, newVal) -> recalcWidthLimits());
-			recalcWidthLimits();
+			updateFieldWidths();
 		}
 
-		private void recalcWidthLimits() {
-			int currentTotal = 0;
+		private void updateFieldWidths() {
 			List<FieldPane> fields = new ArrayList<>();
 			for (Node node : fieldContainer.getChildren()) {
 				if (node instanceof FieldPane) {
-					FieldPane field = (FieldPane) node;
-					fields.add(field);
-					currentTotal += field.widthSpinner.getValue();
+					fields.add((FieldPane) node);
 				}
 			}
-			int remaining = 12 - currentTotal;
+			int totalGrowth = 0;
 			for (FieldPane field : fields) {
-				int currentValue = field.widthSpinner.getValue();
-				int allowedMax = currentValue + remaining;
-				field.widthSpinner.setValueFactory(
-						new SpinnerValueFactory.IntegerSpinnerValueFactory(1, allowedMax, currentValue));
+				totalGrowth += field.growthSpinner.getValue();
 			}
-			addFieldButton.setDisable(remaining == 0);
+			if (totalGrowth > 0) {
+				for (FieldPane field : fields) {
+					field.prefWidthProperty().unbind();
+					double proportion = (double) field.growthSpinner.getValue() / totalGrowth;
+					field.prefWidthProperty().bind(fieldContainer.widthProperty().multiply(proportion));
+				}
+			}
 		}
 
 		private RowConfig buildRowConfig() {
@@ -578,21 +864,27 @@ public class LayoutBuilderController {
 			}
 			return new RowConfig(fieldConfigs.toArray(new FieldConfig[0]));
 		}
-
 	}
 
 	private class TransferPane extends VBox {
 		private TextField transferNameField;
 		private VBox elementContainer;
 		private Button addElementButton;
-
 		private Button removeTransferButton;
 
 		TransferPane() {
-			setSpacing(5);
+			setSpacing(10);
 			setStyle(
-					"-fx-border-color: gray; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10; -fx-background-color: rgba(0,0,0,0.04);");
+					"-fx-background-color: #E0F2F1; " +
+							"-fx-background-radius: 8; " +
+							"-fx-border-radius: 8; " +
+							"-fx-border-width: 2; " +
+							"-fx-border-color: #80CBC4; " +
+							"-fx-padding: 12;");
 			HBox header = new HBox(10);
+			header.setAlignment(Pos.CENTER_LEFT);
+			header.setPadding(new Insets(0, 0, 10, 0));
+			header.setStyle("-fx-border-color: transparent transparent #B2DFDB transparent; -fx-border-width: 1.5;");
 			transferNameField = new TextField();
 			transferNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.TransferButton", "Transfer")
 					+ " " + localization.getLocalizedMessage("Login_Window.NamePromptText", "Name"));
@@ -600,9 +892,11 @@ public class LayoutBuilderController {
 					+ " " + localization.getLocalizedMessage("ReportWindows.TransferButton", "Transfer"));
 			removeTransferButton.getStyleClass().add("removeButton");
 			removeTransferButton.setOnAction(_ -> transferContainer.getChildren().remove(this));
-			header.getChildren().addAll(new Label("Transfer:"), transferNameField, removeTransferButton);
-			elementContainer = new VBox(5);
-			elementContainer.setStyle("-fx-background-color: rgba(0,0,0,0.05);");
+			Pane spacer = new Pane();
+			HBox.setHgrow(spacer, Priority.ALWAYS);
+			header.getChildren().addAll(new Label("Transfer:"), transferNameField, spacer, removeTransferButton);
+			elementContainer = new VBox(8);
+			elementContainer.setStyle("-fx-background-color: transparent; -fx-padding: 10 2 2 2;");
 			addElementButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add") + " "
 					+ localization.getLocalizedMessage("ReportWindows.ElementButton", "Element"));
 			addElementButton.getStyleClass().add("addButton");
@@ -621,19 +915,22 @@ public class LayoutBuilderController {
 	private class ElementPane extends HBox {
 		private TextField elementNameField;
 		private ComboBox<String> reportComboBox;
-
 		private Button removeElementButton;
 
 		ElementPane() {
 			setSpacing(5);
 			setStyle(
-					"-fx-border-color: gray; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10; -fx-background-color: rgba(0,0,0,0.02);");
+					"-fx-background-color: white; " +
+							"-fx-border-color: #B2DFDB; " +
+							"-fx-border-width: 1; " +
+							"-fx-border-radius: 4; " +
+							"-fx-background-radius: 4; " +
+							"-fx-padding: 10;");
 			elementNameField = new TextField();
 			elementNameField.setPromptText(localization.getLocalizedMessage("ReportWindows.ElementButton", "Element")
 					+ " " + localization.getLocalizedMessage("Login_Window.NamePromptText", "Name"));
 			reportComboBox = new ComboBox<>();
 			String dataFolderPath = getCustomDataLogsFolderPath();
-
 			ArrayList<String> dbArray = new ArrayList<>();
 			File dataFolder = new File(dataFolderPath);
 			if (dataFolder.exists() && dataFolder.isDirectory()) {
@@ -652,7 +949,6 @@ public class LayoutBuilderController {
 					}
 				}
 			}
-
 			reportComboBox.getItems().addAll(dbArray);
 			removeElementButton = new Button(localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove")
 					+ " " + localization.getLocalizedMessage("ReportWindows.ElementButton", "Element"));
@@ -662,12 +958,10 @@ public class LayoutBuilderController {
 			Button moveDownButton = new Button("↓");
 			moveUpButton.getStyleClass().add("moveButton");
 			moveDownButton.getStyleClass().add("moveButton");
-
 			moveUpButton.setFocusTraversable(false);
 			moveDownButton.setFocusTraversable(false);
 			removeElementButton.setFocusTraversable(false);
 			reportComboBox.setFocusTraversable(false);
-
 			moveUpButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
@@ -676,7 +970,6 @@ public class LayoutBuilderController {
 					parent.getChildren().add(index - 1, this);
 				}
 			});
-
 			moveDownButton.setOnAction(_ -> {
 				VBox parent = (VBox) getParent();
 				int index = parent.getChildren().indexOf(this);
@@ -692,11 +985,44 @@ public class LayoutBuilderController {
 					reportComboBox, removeElementButton, moveUpButton,
 					moveDownButton);
 		}
-
 	}
 
-	public static LayoutBuilderController layoutBuilderController;
+	// #endregion
+	// #region Init/Close
+	public void initialize() {
+		addSectionButton.setOnAction(_ -> addSection());
+		addTransferButton.setOnAction(_ -> addTransfer());
+		buildLayoutButton.setOnAction(this::handleBuildLayoutClick);
+		importExportButton.setOnAction(this::handleImportExportClick);
+		customDropdownButton.setOnAction(_ -> {
+			openCustomDropdownWindow();
+		});
+		addLocale();
+	}
 
+	private void addLocale() {
+		customDropdownButton
+				.setText(localization.getLocalizedMessage("LayoutBuilder.CustomDropdownButton", "Custom Dropdowns"));
+		importExportButton
+				.setText(localization.getLocalizedMessage("LayoutBuilder.ImportExportButton",
+						"Import/Export and Templates"));
+		heading.setText(localization.getLocalizedMessage("LayoutBuilder.Heading", "Custom Layout Designer"));
+		buildLayoutButton
+				.setText(localization.getLocalizedMessage("LayoutBuilder.BuildLayoutButton", "View Report Layout"));
+	}
+
+	@Override
+	public void shutdown() {
+		logInfo("Shutting down Layout Builder and all resources...");
+		if (addDropdownWindow != null) {
+			addDropdownWindow.closeWindow();
+		}
+		if (layoutBuilderController == this) {
+			layoutBuilderController = null;
+		}
+	}
+
+	// #endregion
 	public static String extractNumberField(String jsonString) {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root;
@@ -706,14 +1032,12 @@ public class LayoutBuilderController {
 			logError("Error parsing JSON: " + jsonString, e);
 			return null;
 		}
-
 		if (root.isArray()) {
 			for (JsonNode sectionNode : root) {
 				Iterator<Map.Entry<String, JsonNode>> fields = sectionNode.fields();
 				while (fields.hasNext()) {
 					Map.Entry<String, JsonNode> entry = fields.next();
 					JsonNode valueNode = entry.getValue();
-
 					if (valueNode.isArray()) {
 						for (JsonNode elementNode : valueNode) {
 							JsonNode fieldConfigs = elementNode.get("fieldConfigs");
@@ -741,14 +1065,12 @@ public class LayoutBuilderController {
 		Map<String, String> reportSchema = new HashMap<>();
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = mapper.readTree(jsonString);
-
 		if (root.isArray()) {
 			for (JsonNode sectionNode : root) {
 				Iterator<Map.Entry<String, JsonNode>> fields = sectionNode.fields();
 				while (fields.hasNext()) {
 					Map.Entry<String, JsonNode> entry = fields.next();
 					JsonNode valueNode = entry.getValue();
-
 					if (valueNode.isArray()) {
 						for (JsonNode elementNode : valueNode) {
 							JsonNode fieldConfigs = elementNode.get("fieldConfigs");
@@ -774,7 +1096,6 @@ public class LayoutBuilderController {
 			Map<String, Map<String, List<String>>> map = new HashMap<>();
 			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode rootNode = objectMapper.readTree(jsonString);
-
 			for (JsonNode section : rootNode) {
 				for (JsonNode rowConfig : section.get("rowConfigs")) {
 					for (JsonNode fieldConfig : rowConfig.get("fieldConfigs")) {
@@ -785,19 +1106,14 @@ public class LayoutBuilderController {
 						String populateKey = fieldConfig.has("populateKey") && !fieldConfig.get("populateKey").isNull()
 								? fieldConfig.get("populateKey").asText()
 								: "null";
-
 						map.computeIfAbsent("dropdownType", k -> new HashMap<>())
 								.computeIfAbsent(fieldName, k -> new ArrayList<>()).add(dropdownType);
-
 						map.computeIfAbsent("fieldNames", k -> new HashMap<>()).computeIfAbsent(fieldName,
 								k -> new ArrayList<>());
-
 						map.computeIfAbsent("nodeType", k -> new HashMap<>())
 								.computeIfAbsent(fieldName, k -> new ArrayList<>()).add(nodeType);
-
 						map.computeIfAbsent("selectedType", k -> new HashMap<>())
 								.computeIfAbsent(fieldName, k -> new ArrayList<>()).add(fieldType);
-
 						map.computeIfAbsent("keyMap", k -> new HashMap<>())
 								.computeIfAbsent(populateKey, k -> new ArrayList<>()).add(fieldName);
 					}
@@ -833,48 +1149,6 @@ public class LayoutBuilderController {
 		return null;
 	}
 
-	CustomWindow addDropdownWindow = null;
-
-	@FXML
-	private VBox sectionContainer;
-
-	@FXML
-	private Button addSectionButton;
-
-	@FXML
-	private Button buildLayoutButton;
-
-	@FXML
-	private TextField reportTitleField;
-
-	@FXML
-	private Button addTransferButton;
-
-	@FXML
-	private VBox transferContainer;
-
-	@FXML
-	private Button customDropdownButton;
-
-	@FXML
-	private Button importExportButton;
-
-	@FXML
-	private Label heading;
-
-	public void initialize() {
-		addSectionButton.setOnAction(_ -> addSection());
-		addTransferButton.setOnAction(_ -> addTransfer());
-		buildLayoutButton.setOnAction(this::handleBuildLayoutClick);
-		importExportButton.setOnAction(this::handleImportExportClick);
-
-		customDropdownButton.setOnAction(_ -> {
-			openCustomDropdownWindow();
-		});
-
-		addLocale();
-	}
-
 	public String saveLayoutToJSON() {
 		List<SectionConfig> layout = buildLayout();
 		try {
@@ -884,7 +1158,6 @@ public class LayoutBuilderController {
 		} catch (JsonProcessingException e) {
 			logError("Error saving layout to json: " + layout, e);
 		}
-
 		return null;
 	}
 
@@ -897,72 +1170,7 @@ public class LayoutBuilderController {
 		} catch (JsonProcessingException e) {
 			logError("Error saving transferConfig to json: " + layout, e);
 		}
-
 		return null;
-	}
-
-	private SectionPane createSectionPaneFromConfig(SectionConfig config) {
-		SectionPane pane = new SectionPane();
-		pane.sectionTitleField.setText(config.getSectionTitle());
-
-		if (config.isPullFromLookup()) {
-			pane.pullFromLookupCheckbox.setSelected(true);
-			pane.lookupTypeComboBox.setValue(config.getLookupType());
-		}
-
-		for (RowConfig rowConfig : config.getRowConfigs()) {
-			RowPane rowPane = createRowPaneFromConfig(rowConfig);
-			pane.rowContainer.getChildren().add(rowPane);
-		}
-
-		if (config.isPullFromLookup()) {
-			for (Node rowNode : pane.rowContainer.getChildren()) {
-				if (rowNode instanceof RowPane) {
-					for (Node fieldNode : ((RowPane) rowNode).fieldContainer.getChildren()) {
-						if (fieldNode instanceof FieldPane) {
-							((FieldPane) fieldNode).setLookupValueSelectorVisible(true);
-						}
-					}
-				}
-			}
-		}
-		return pane;
-	}
-
-	private FieldPane createFieldPaneFromConfig(FieldConfig config) {
-		FieldPane pane = new FieldPane(config.getSize());
-		pane.fieldNameField.setText(config.getFieldName());
-		if (config.getPopulateKey() != null) {
-			pane.populateKeyField.setText(config.getPopulateKey());
-		}
-		pane.fieldTypeComboBox.setValue(config.getFieldType().name());
-		if (config.getFieldType() == FieldType.CUSTOM_DROPDOWN) {
-			pane.customDropdownComboBox.setValue(config.getDropdownType());
-		}
-		if (config.getFieldType() == FieldType.BLANK_SPACE) {
-			pane.fieldNameField.setDisable(true);
-			pane.populateKeyField.setDisable(true);
-			pane.widthSpinner.setDisable(true);
-		}
-		if (config.getLookupValue() != null) {
-			pane.lookupValueComboBox.setValue(config.getLookupValue());
-		}
-		pane.widthSpinner.valueProperty().addListener((obs, oldVal, newVal) -> {
-			RowPane rowPane = (RowPane) pane.getParent().getParent();
-			rowPane.recalcWidthLimits();
-		});
-		return pane;
-	}
-
-	private void addLocale() {
-		customDropdownButton
-				.setText(localization.getLocalizedMessage("LayoutBuilder.CustomDropdownButton", "Custom Dropdowns"));
-		importExportButton
-				.setText(localization.getLocalizedMessage("LayoutBuilder.ImportExportButton",
-						"Import/Export and Templates"));
-		heading.setText(localization.getLocalizedMessage("LayoutBuilder.Heading", "Custom Layout Designer"));
-		buildLayoutButton
-				.setText(localization.getLocalizedMessage("LayoutBuilder.BuildLayoutButton", "View Report Layout"));
 	}
 
 	private void handleImportExportClick(ActionEvent actionEvent) {
@@ -980,7 +1188,7 @@ public class LayoutBuilderController {
 		ComboBox<String> templateComboBox = new ComboBox<>();
 		templateComboBox.setPromptText("Select a template...");
 		templateComboBox.getItems().addAll("Callout", "Traffic Stop", "Impound", "Search", "Accident", "Death",
-				"Patrol", "Incident", "Use of Force");
+				"Patrol", "Incident", "Use of Force", "Arrest", "Citation");
 		templateComboBox.setPrefWidth(Double.MAX_VALUE);
 		TextArea jsonTextArea = new TextArea();
 		jsonTextArea.setWrapText(false);
@@ -1051,6 +1259,10 @@ public class LayoutBuilderController {
 
 	private String getTemplateJsonFor(String newValue) {
 		switch (newValue) {
+			case "Citation":
+				return reportLayoutTemplates.citationReport;
+			case "Arrest":
+				return reportLayoutTemplates.arrestReport;
 			case "Use of Force":
 				return reportLayoutTemplates.useOfForceReport;
 			case "Callout":
@@ -1078,7 +1290,6 @@ public class LayoutBuilderController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(localization.getLocalizedMessage("ImportExport.openFileTitle", "Open JSON File"));
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-
 		File file = fileChooser.showOpenDialog(mainRT);
 		if (file != null) {
 			try {
@@ -1098,13 +1309,11 @@ public class LayoutBuilderController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle(localization.getLocalizedMessage("ImportExport.saveFileTitle", "Save JSON File"));
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-
 		String jsonExportText;
 		try {
 			FullLayoutConfig config = new FullLayoutConfig();
 			config.setLayout(buildLayout());
 			config.setTransfer(buildTransferConfig());
-
 			ObjectMapper mapper = new ObjectMapper();
 			jsonExportText = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(config);
 			showNotificationInfo("Export Successful", "Configuration exported successfully");
@@ -1112,7 +1321,6 @@ public class LayoutBuilderController {
 			showNotificationWarning("Export Error", "Failed to generate JSON: " + e.getMessage());
 			return;
 		}
-
 		File file = fileChooser.showSaveDialog(mainRT);
 		if (file != null) {
 			try {
@@ -1132,51 +1340,39 @@ public class LayoutBuilderController {
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(15));
 		layout.setStyle("-fx-background-color: #F4F4F4; -fx-border-radius: 10; -fx-background-radius: 10;");
-
 		ComboBox<String> dropdownSelector = new ComboBox<>();
 		dropdownSelector
 				.setPromptText(localization.getLocalizedMessage("DropdownCreator.selectPrompt", "Select Dropdown"));
 		dropdownSelector.setPrefWidth(250);
-
 		List<String> fields = getCustomizationFields();
 		dropdownSelector.getItems().setAll("New Dropdown");
 		dropdownSelector.getItems().addAll(fields);
 		dropdownSelector.setValue("New Dropdown");
-
 		Label dropdownTitleLabel = new Label(
 				localization.getLocalizedMessage("DropdownCreator.titleLabel", "Dropdown Title:"));
 		dropdownTitleLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 		TextField dropdownTitleField = new TextField();
 		dropdownTitleField.setPrefWidth(250);
-
 		Label dropdownItemsLabel = new Label(
 				localization.getLocalizedMessage("DropdownCreator.itemsLabel", "Dropdown Items:"));
 		dropdownItemsLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\";");
 		VBox dropdownItemsBox = new VBox(5);
 		dropdownItemsBox.setStyle(
 				"-fx-background-color: #FFFFFF; -fx-border-color: #CCC; -fx-border-width: 1; -fx-border-radius: 7; -fx-background-radius: 7; -fx-padding: 10;");
-
 		Button addItemBtn = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
-
 		Button saveBtn = new Button(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
-
 		Button deleteBtn = new Button(localization.getLocalizedMessage("Settings.DelCalloutButton", "Delete"));
 		deleteBtn.setDisable(true);
-
 		Button importBtn = new Button("Import");
 		Button exportBtn = new Button("Export");
-
 		HBox selectorBox = new HBox(10, dropdownSelector, importBtn, exportBtn);
 		selectorBox.setAlignment(Pos.CENTER_LEFT);
-
 		BiFunction<String, Boolean, HBox> createItemRow = (value, deletable) -> {
 			HBox row = new HBox(5);
 			row.setAlignment(Pos.CENTER_LEFT);
-
 			TextField field = new TextField(value);
 			field.setPromptText("Item Name");
 			HBox.setHgrow(field, Priority.ALWAYS);
-
 			Button upBtn = new Button("↑");
 			upBtn.setFocusTraversable(false);
 			upBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
@@ -1186,7 +1382,6 @@ public class LayoutBuilderController {
 			Button itemDelBtn = new Button("×");
 			itemDelBtn.setFocusTraversable(false);
 			itemDelBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #ff4444;");
-
 			upBtn.setOnAction(e -> {
 				int index = dropdownItemsBox.getChildren().indexOf(row);
 				if (index > 0) {
@@ -1194,7 +1389,6 @@ public class LayoutBuilderController {
 					dropdownItemsBox.getChildren().add(index - 1, row);
 				}
 			});
-
 			downBtn.setOnAction(e -> {
 				int index = dropdownItemsBox.getChildren().indexOf(row);
 				if (index < dropdownItemsBox.getChildren().size() - 1) {
@@ -1202,23 +1396,18 @@ public class LayoutBuilderController {
 					dropdownItemsBox.getChildren().add(index + 1, row);
 				}
 			});
-
 			itemDelBtn.setOnAction(e -> dropdownItemsBox.getChildren().remove(row));
-
 			if (deletable) {
 				row.getChildren().addAll(field, upBtn, downBtn, itemDelBtn);
 			} else {
 				row.getChildren().add(field);
 			}
-
 			return row;
 		};
-
 		addItemBtn.setOnAction(e -> {
 			HBox itemRow = createItemRow.apply("", true);
 			dropdownItemsBox.getChildren().add(itemRow);
 		});
-
 		dropdownSelector.valueProperty().addListener((obs, oldVal, selectedDropdown) -> {
 			if (selectedDropdown == null || selectedDropdown.equals("New Dropdown")) {
 				dropdownTitleField.clear();
@@ -1235,16 +1424,13 @@ public class LayoutBuilderController {
 				deleteBtn.setDisable(false);
 			}
 		});
-
 		saveBtn.setOnAction(e -> {
 			String title = dropdownTitleField.getText().trim();
 			String originalName = dropdownSelector.getValue();
-
 			if (title.isEmpty()) {
 				showNotificationWarning("Validation Error", "Title cannot be empty");
 				return;
 			}
-
 			List<String> items = new ArrayList<>();
 			for (Node node : dropdownItemsBox.getChildren()) {
 				HBox row = (HBox) node;
@@ -1254,20 +1440,15 @@ public class LayoutBuilderController {
 					items.add(text);
 				}
 			}
-
 			if (items.isEmpty()) {
 				showNotificationWarning("Validation Error", "Must have at least one item");
 				return;
 			}
-
 			try {
-
 				if (originalName != null && !originalName.equals("New Dropdown")) {
 					deleteCustomField(originalName);
 				}
-
 				if (addCustomField(title, items)) {
-
 					List<String> updatedFields = getCustomizationFields();
 					dropdownSelector.getItems().setAll("New Dropdown");
 					dropdownSelector.getItems().addAll(updatedFields);
@@ -1277,45 +1458,35 @@ public class LayoutBuilderController {
 				logError("Dropdown save failed", ex);
 			}
 		});
-
 		deleteBtn.setOnAction(e -> {
 			String dropdownName = dropdownSelector.getValue();
-
 			if (dropdownName == null || dropdownName.equals("New Dropdown")) {
 				showNotificationError("Invalid Selection", "No dropdown selected");
 				return;
 			}
-
 			Label message = new Label("Are you sure you want to delete '" + dropdownName + "'?");
 			message.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-font-size: 14;");
-
 			Button yesBtn = new Button("Yes");
 			yesBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
 			Button noBtn = new Button("No");
 			noBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-
 			HBox buttonBox = new HBox(10, yesBtn, noBtn);
 			buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
 			VBox dialogContent = new VBox(15, message, buttonBox);
 			dialogContent.setPadding(new Insets(20));
 			dialogContent.setStyle("-fx-background-color: #F4F4F4;");
-
 			BorderPane layoutPane = new BorderPane();
 			layoutPane.setCenter(dialogContent);
 			layoutPane.setPrefSize(450, 150);
-
 			CustomWindow confirmDialog = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), layoutPane,
 					"Confirm", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 					new Image(Objects.requireNonNull(
 							Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
-
 			yesBtn.setOnAction(_ -> {
 				confirmDialog.closeWindow();
 				try {
 					if (deleteCustomField(dropdownName)) {
 						showNotificationInfo("Success", "Deleted '" + dropdownName + "' successfully");
-
 						List<String> updatedFields = getCustomizationFields();
 						dropdownSelector.getItems().setAll("New Dropdown");
 						dropdownSelector.getItems().addAll(updatedFields);
@@ -1330,42 +1501,32 @@ public class LayoutBuilderController {
 					showNotificationError("Error", "Failed to delete '" + dropdownName + "'");
 				}
 			});
-
 			noBtn.setOnAction(_ -> confirmDialog.closeWindow());
-
 		});
-
 		exportBtn.setOnAction(e -> {
 			List<String> customFields = getCustomizationFields();
 			if (customFields.isEmpty()) {
 				showNotificationWarning("Export Error", "No custom dropdowns to export");
 				return;
 			}
-
 			ListView<String> listView = new ListView<>();
 			listView.getItems().addAll(customFields);
 			listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
 			Button exportSelectedBtn = new Button("Export Selected");
-
 			VBox exportLayout = new VBox(10, listView, exportSelectedBtn);
 			exportLayout.setPadding(new Insets(15));
-
 			BorderPane exportBorderPane = new BorderPane(exportLayout);
 			exportBorderPane.setPrefSize(350, 400);
-
 			CustomWindow exportDialog = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 					exportBorderPane, "Export", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 					new Image(Objects.requireNonNull(
 							Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
-
 			exportSelectedBtn.setOnAction(_ -> {
 				List<String> selected = listView.getSelectionModel().getSelectedItems();
 				if (selected.isEmpty()) {
 					showNotificationWarning("Export Error", "No dropdowns selected");
 					return;
 				}
-
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Save Export File");
 				fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
@@ -1373,29 +1534,24 @@ public class LayoutBuilderController {
 				if (file == null) {
 					return;
 				}
-
 				try {
 					ObjectMapper mapper = new ObjectMapper();
 					ObjectNode exportData = mapper.createObjectNode();
-
 					for (String field : selected) {
 						List<String> items = getValuesForField(field);
 						ArrayNode arrayNode = mapper.createArrayNode();
 						items.forEach(arrayNode::add);
 						exportData.set(field, arrayNode);
 					}
-
 					mapper.writerWithDefaultPrettyPrinter().writeValue(file, exportData);
 					showNotificationInfo("Export Successful", "Exported " + selected.size() + " dropdown(s)");
 				} catch (IOException ex) {
 					logError("Export failed: ", ex);
 					showNotificationError("Export Error", "Failed to export dropdowns");
 				}
-
 				exportDialog.closeWindow();
 			});
 		});
-
 		importBtn.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Import Dropdowns");
@@ -1404,32 +1560,26 @@ public class LayoutBuilderController {
 			if (file == null) {
 				return;
 			}
-
 			try {
 				ObjectMapper mapper = new ObjectMapper();
 				JsonNode rootNode = mapper.readTree(file);
-
 				if (!rootNode.isObject()) {
 					showNotificationError("Import Error", "Invalid file format");
 					return;
 				}
-
 				List<String> existingFields = getCustomizationFields();
 				Map<String, List<String>> importCandidates = new LinkedHashMap<>();
-
 				Iterator<Map.Entry<String, JsonNode>> fieldsTwo = rootNode.fields();
 				while (fieldsTwo.hasNext()) {
 					Map.Entry<String, JsonNode> entry = fieldsTwo.next();
 					String fieldName = entry.getKey();
 					JsonNode itemsNode = entry.getValue();
-
 					if (DEFAULT_FIELDS.contains(fieldName) || existingFields.contains(fieldName)) {
 						continue;
 					}
 					if (!itemsNode.isArray()) {
 						continue;
 					}
-
 					Set<String> uniqueItems = new LinkedHashSet<>();
 					uniqueItems.add("N/A");
 					itemsNode.forEach(itemNode -> {
@@ -1438,34 +1588,26 @@ public class LayoutBuilderController {
 							uniqueItems.add(item);
 						}
 					});
-
 					if (uniqueItems.size() > 1) {
 						importCandidates.put(fieldName, new ArrayList<>(uniqueItems));
 					}
 				}
-
 				if (importCandidates.isEmpty()) {
 					showNotificationInfo("Import", "No new dropdowns to import");
 					return;
 				}
-
 				ListView<String> listView = new ListView<>();
 				listView.getItems().addAll(importCandidates.keySet());
-
 				Button confirmImportBtn = new Button("Import");
-
 				VBox confirmLayout = new VBox(10, new Label("The following dropdowns will be imported:"), listView,
 						confirmImportBtn);
 				confirmLayout.setPadding(new Insets(15));
-
 				BorderPane layoutPane = new BorderPane(confirmLayout);
 				layoutPane.setPrefSize(350, 400);
-
 				CustomWindow confirmDialog = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 						layoutPane, "Import", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 						new Image(Objects.requireNonNull(
 								Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
-
 				confirmImportBtn.setOnAction(_ -> {
 					int successCount = 0;
 					for (Map.Entry<String, List<String>> entry : importCandidates.entrySet()) {
@@ -1477,24 +1619,19 @@ public class LayoutBuilderController {
 							logError("Import failed for " + entry.getKey() + ": ", ex);
 						}
 					}
-
 					List<String> updatedFields = getCustomizationFields();
 					dropdownSelector.getItems().setAll("New Dropdown");
 					dropdownSelector.getItems().addAll(updatedFields);
-
 					showNotificationInfo("Import Successful", "Imported " + successCount + " dropdown(s)");
 					confirmDialog.closeWindow();
 				});
-
 			} catch (IOException ex) {
 				logError("Import failed: ", ex);
 				showNotificationError("Import Error", "Failed to import dropdowns");
 			}
 		});
-
 		HBox buttonBox = new HBox(10, saveBtn, deleteBtn);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
 		ScrollPane dropdownScrollPane = new ScrollPane(dropdownItemsBox);
 		VBox.setVgrow(dropdownScrollPane, Priority.ALWAYS);
 		dropdownScrollPane.getStylesheets().add(Launcher.class
@@ -1504,16 +1641,13 @@ public class LayoutBuilderController {
 		dropdownScrollPane.setFitToWidth(true);
 		dropdownScrollPane.setFitToHeight(true);
 		dropdownScrollPane.setPannable(true);
-
 		layout.getStylesheets()
 				.add(Launcher.class.getResource("/com/Guess/ReportsPlus/css/newReport/newReport.css").toExternalForm());
 		layout.getChildren().addAll(selectorBox, dropdownTitleLabel, dropdownTitleField, dropdownItemsLabel,
 				dropdownScrollPane, addItemBtn, buttonBox);
-
 		BorderPane window = new BorderPane();
 		window.setCenter(layout);
 		window.setPrefSize(500, 550);
-
 		addDropdownWindow = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), window,
 				localization.getLocalizedMessage("DropdownCreator.windowTitle", "Dropdown Manager"), true, 1, true,
 				true, mainDesktopControllerObj.getTaskBarApps(),
@@ -1525,10 +1659,8 @@ public class LayoutBuilderController {
 		if (transferContainer.getChildren().isEmpty()) {
 			return null;
 		}
-
 		TransferPane transferPane = (TransferPane) transferContainer.getChildren().get(0);
 		String transferName = transferPane.transferNameField.getText();
-
 		List<RowConfig> rowConfigs = new ArrayList<>();
 		for (Node node : transferPane.elementContainer.getChildren()) {
 			if (node instanceof ElementPane) {
@@ -1569,7 +1701,6 @@ public class LayoutBuilderController {
 
 	private void handleBuildLayoutClick(ActionEvent event) {
 		String reportTitle = reportTitleField.getText().trim();
-
 		if (!validateFields()) {
 			logError("LayoutBuilder; " + "Could not validate fields");
 			return;
@@ -1586,14 +1717,11 @@ public class LayoutBuilderController {
 				}
 			}
 		}
-
 		String data = saveLayoutToJSON();
 		List<SectionConfig> layout = loadLayoutFromJSON(data);
 		String transferData = saveTransferConfigToJSON();
 		TransferConfig transferConfig = loadTransferConfigFromJSON(transferData);
-
 		Map<String, Map<String, List<String>>> newMap = parseAndPopulateMap(data);
-
 		var numFieldCount = newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream)
 				.filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count();
 		if (numFieldCount != 1) {
@@ -1603,22 +1731,17 @@ public class LayoutBuilderController {
 			newMap.put("selectedType", null);
 			return;
 		}
-
 		Map<String, Object> reportWindow = createReportWindow(reportTitle, transferConfig,
 				layout.toArray(new SectionConfig[0]));
 		Map<String, Object> reportMap = (Map<String, Object>) reportWindow.get(reportTitle + " Map");
-
 		MenuButton pullNotesBtn = (MenuButton) reportWindow.get("pullNotesBtn");
 		Button submitBtn = (Button) reportWindow.get("submitBtn");
-
 		submitBtn.setText("Create New Report Type: " + reportTitle);
-
 		Map<String, List<String>> dropdownTypeMap = newMap.getOrDefault("dropdownType", null);
 		if (dropdownTypeMap != null) {
 			for (Map.Entry<String, List<String>> entry : dropdownTypeMap.entrySet()) {
 				String key = entry.getKey();
 				List<String> values = entry.getValue();
-
 				for (int i = 0; i < values.size(); i++) {
 					String value = values.get(i);
 					if (value != null) {
@@ -1632,7 +1755,6 @@ public class LayoutBuilderController {
 				}
 			}
 		}
-
 		for (String name : reportMap.keySet()) {
 			if (name.startsWith("transfer_")) {
 				String[] values = name.split("_");
@@ -1640,18 +1762,14 @@ public class LayoutBuilderController {
 				btn.setText(values[1]);
 			}
 		}
-
 		pullNotesBtn.setOnMouseEntered(event2 -> {
 			pullNotesBtn.getItems().clear();
-
 			if (notesViewController != null) {
 				for (Tab tab : notesViewController.getTabPane().getTabs()) {
 					MenuItem menuItem = new MenuItem(tab.getText());
 					pullNotesBtn.getItems().add(menuItem);
-
 					AnchorPane anchorPane = (AnchorPane) tab.getContent();
 					TextArea noteArea = (TextArea) anchorPane.lookup("#notepadTextArea");
-
 					if (noteArea != null) {
 						menuItem.setOnAction(event3 -> {
 							if (newMap == null) {
@@ -1660,22 +1778,17 @@ public class LayoutBuilderController {
 							}
 							for (String field : newMap.getOrDefault("nodeType", new HashMap<>()).keySet()) {
 								logDebug("LayoutBuilder; Processing field: " + field);
-
 								Object fieldValue = reportMap.get(field);
-
 								if (fieldValue == null) {
 									logError("LayoutBuilder; Field is null: " + field);
 									continue;
 								}
-
 								String key = newMap.getOrDefault("keyMap", new HashMap<>()).entrySet().stream()
 										.filter(entry -> entry.getValue().contains(field)).map(Map.Entry::getKey)
 										.findFirst().orElse(null);
-
 								if (key == null) {
 									continue;
 								}
-
 								if (fieldValue instanceof TextField) {
 									updateTextFromNotepad((TextField) fieldValue, noteArea, "-" + key);
 								} else if (fieldValue instanceof ComboBox) {
@@ -1692,10 +1805,8 @@ public class LayoutBuilderController {
 				}
 			}
 		});
-
 		submitBtn.setOnAction(_ -> {
 			logInfo("layoutBuilder; trying to create DB: " + reportTitle);
-
 			Map<String, String> layoutScheme = new HashMap<>();
 			layoutScheme.put("key", "TEXT");
 			layoutScheme.put("layoutData", "TEXT");
@@ -1706,7 +1817,6 @@ public class LayoutBuilderController {
 			Map<String, Object> transferMap = new HashMap<>();
 			transferMap.put("key", "2");
 			transferMap.put("transferData", transferData);
-
 			Map<String, String> reportSchema = new HashMap<>();
 			DynamicDB dbManager = null;
 			try {
@@ -1724,7 +1834,6 @@ public class LayoutBuilderController {
 					logError("Failed to close database connection, null", e);
 				}
 			}
-
 			DynamicDB DatabaseLayout = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "layout", "key",
 					layoutScheme);
 			if (DatabaseLayout.initDB()) {
@@ -1753,7 +1862,6 @@ public class LayoutBuilderController {
 					}
 				}
 			}
-
 			DynamicDB Database = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "data",
 					extractNumberField(data), reportSchema);
 			try {
@@ -1770,7 +1878,6 @@ public class LayoutBuilderController {
 					logError("Error closing Database: [" + Database.getTableName() + "]", e);
 				}
 			}
-
 			showNotificationInfo("Report Manager", "New Report Type [" + reportTitle + "] Created!");
 			CustomWindow window = getWindow(reportTitle);
 			if (window != null) {
@@ -1797,7 +1904,6 @@ public class LayoutBuilderController {
 			return false;
 		}
 		usedNames.add(reportTitle);
-
 		if (!transferContainer.getChildren().isEmpty()) {
 			TransferPane transferPane = (TransferPane) transferContainer.getChildren().get(0);
 			String transferName = transferPane.transferNameField.getText().trim();
@@ -1817,7 +1923,6 @@ public class LayoutBuilderController {
 				return false;
 			}
 			usedNames.add(transferName);
-
 			for (Node node : transferPane.elementContainer.getChildren()) {
 				if (node instanceof ElementPane) {
 					ElementPane elementPane = (ElementPane) node;
@@ -1838,7 +1943,6 @@ public class LayoutBuilderController {
 						return false;
 					}
 					usedNames.add(elementName);
-
 					String reportValue = elementPane.reportComboBox.getValue() != null
 							? elementPane.reportComboBox.getValue().trim()
 							: "";
@@ -1856,7 +1960,6 @@ public class LayoutBuilderController {
 				}
 			}
 		}
-
 		for (Node node : sectionContainer.getChildren()) {
 			if (node instanceof SectionPane) {
 				SectionPane sectionPane = (SectionPane) node;
@@ -1877,7 +1980,6 @@ public class LayoutBuilderController {
 					return false;
 				}
 				usedNames.add(sectionTitle);
-
 				for (Node rowNode : sectionPane.rowContainer.getChildren()) {
 					if (rowNode instanceof RowPane) {
 						RowPane rowPane = (RowPane) rowNode;
@@ -1886,7 +1988,6 @@ public class LayoutBuilderController {
 								FieldPane fieldPane = (FieldPane) fieldNode;
 								String fieldName = fieldPane.fieldNameField.getText().trim();
 								String normalizedFieldName = fieldName.toLowerCase();
-
 								if (fieldName.isEmpty()) {
 									logError("Field Name cannot be empty.");
 									showNotificationWarning("Report Creation Utility", "Field Name cannot be empty.");
@@ -1908,7 +2009,9 @@ public class LayoutBuilderController {
 									return false;
 								}
 								usedNames.add(normalizedFieldName);
-
+								if (!fieldPane.validateCourtCaseMappings()) {
+									return false;
+								}
 								String fieldType = fieldPane.fieldTypeComboBox.getValue() != null
 										? fieldPane.fieldTypeComboBox.getValue().trim()
 										: "";
@@ -1930,7 +2033,6 @@ public class LayoutBuilderController {
 											"Field Type cannot contain spaces.");
 									return false;
 								}
-
 								String keyFieldName = fieldPane.populateKeyField.getText().trim();
 								if (containsNumbers(keyFieldName)) {
 									logError("Key Field cannot contain numbers.");
@@ -1953,34 +2055,6 @@ public class LayoutBuilderController {
 		return true;
 	}
 
-	private TransferPane createTransferPaneFromConfig(TransferConfig config) {
-		TransferPane pane = new TransferPane();
-		pane.transferNameField.setText(config.getTitle());
-		for (RowConfig rowConfig : config.getRowConfigs()) {
-
-			FieldConfig elementConfig = rowConfig.getFieldConfigs()[0];
-			ElementPane elementPane = createElementPaneFromConfig(elementConfig);
-			pane.elementContainer.getChildren().add(elementPane);
-		}
-		return pane;
-	}
-
-	private ElementPane createElementPaneFromConfig(FieldConfig config) {
-		ElementPane pane = new ElementPane();
-
-		String[] parts = config.getFieldName().split("_");
-		if (parts.length >= 3) {
-			pane.elementNameField.setText(parts[1]);
-			String reportName = parts[2];
-			pane.reportComboBox.setValue(reportName);
-
-			if (!pane.reportComboBox.getItems().contains(reportName)) {
-				pane.reportComboBox.getItems().add(reportName);
-			}
-		}
-		return pane;
-	}
-
 	private boolean validateJsonStructure(String json) {
 		try {
 			JsonNode root = new ObjectMapper().readTree(json);
@@ -1994,43 +2068,72 @@ public class LayoutBuilderController {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			FullLayoutConfig config = mapper.readValue(jsonTextArea.getText(), FullLayoutConfig.class);
-
 			if (!validateJsonStructure(jsonTextArea.getText())) {
 				logError("Invalid JSON format", new IllegalArgumentException("Invalid JSON Structure"));
 			}
-
 			sectionContainer.getChildren().clear();
 			transferContainer.getChildren().clear();
-
 			if (config.getLayout() != null) {
 				for (SectionConfig sectionConfig : config.getLayout()) {
 					SectionPane sectionPane = createSectionPaneFromConfig(sectionConfig);
 					sectionContainer.getChildren().add(sectionPane);
 				}
 			}
-
 			if (config.getTransfer() != null) {
 				TransferPane transferPane = createTransferPaneFromConfig(config.getTransfer());
 				transferContainer.getChildren().add(transferPane);
 			}
-
-			Platform.runLater(() -> {
-				for (Node sectionNode : sectionContainer.getChildren()) {
-					if (sectionNode instanceof SectionPane) {
-						SectionPane sectionPane = (SectionPane) sectionNode;
-						for (Node rowNode : sectionPane.rowContainer.getChildren()) {
-							if (rowNode instanceof RowPane) {
-								((RowPane) rowNode).recalcWidthLimits();
-							}
-						}
-					}
-				}
-			});
-
 			showNotificationInfo("Import Successful", "Configuration loaded successfully");
 		} catch (Exception e) {
 			showNotificationWarning("Import Error", "Invalid JSON format: " + e.getMessage());
 		}
+	}
+
+	// #region Config Creation Methods
+	private FieldPane createFieldPaneFromConfig(FieldConfig config) {
+		FieldPane pane = new FieldPane();
+		pane.fieldNameField.setText(config.getFieldName());
+		if (config.getPopulateKey() != null) {
+			pane.populateKeyField.setText(config.getPopulateKey());
+		}
+		pane.fieldTypeComboBox.setValue(config.getFieldType().name());
+		pane.growthSpinner.getValueFactory().setValue(config.getSize());
+		if (config.getFieldType() == FieldType.CUSTOM_DROPDOWN) {
+			pane.customDropdownComboBox.setValue(config.getDropdownType());
+		}
+		boolean isTreeView = config.getFieldType() == FieldType.CHARGES_TREE_VIEW
+				|| config.getFieldType() == FieldType.CITATION_TREE_VIEW;
+		if (config.getFieldType() == FieldType.BLANK_SPACE || isTreeView) {
+			pane.fieldNameField.setDisable(true);
+			pane.populateKeyField.setDisable(true);
+			pane.growthSpinner.setDisable(true);
+		}
+		if (config.getLookupValue() != null) {
+			pane.lookupValueComboBox.setValue(config.getLookupValue());
+		}
+		if (isTreeView && config.getCourtCaseMapping() != null && !config.getCourtCaseMapping().isEmpty()) {
+			Platform.runLater(() -> {
+				List<String> allFieldNames = pane.getAllCompatibleFieldNames();
+				for (ComboBox<String> box : pane.courtCaseMappingBoxes.values()) {
+					box.getItems().clear();
+					box.getItems().add("None");
+					box.getItems().addAll(allFieldNames);
+				}
+				for (Map.Entry<String, String> mappingEntry : config.getCourtCaseMapping().entrySet()) {
+					try {
+						CourtCaseFields fieldEnum = CourtCaseFields.valueOf(mappingEntry.getKey());
+						String targetFieldName = mappingEntry.getValue();
+						ComboBox<String> box = pane.courtCaseMappingBoxes.get(fieldEnum);
+						if (box != null) {
+							box.setValue(targetFieldName);
+						}
+					} catch (IllegalArgumentException e) {
+						logError("Invalid CourtCaseField enum in imported JSON: " + mappingEntry.getKey());
+					}
+				}
+			});
+		}
+		return pane;
 	}
 
 	private RowPane createRowPaneFromConfig(RowConfig config) {
@@ -2039,8 +2142,58 @@ public class LayoutBuilderController {
 			FieldPane fieldPane = createFieldPaneFromConfig(fieldConfig);
 			pane.fieldContainer.getChildren().add(fieldPane);
 		}
-		pane.recalcWidthLimits();
+		Platform.runLater(pane::updateFieldWidths);
 		return pane;
 	}
 
+	private TransferPane createTransferPaneFromConfig(TransferConfig config) {
+		TransferPane pane = new TransferPane();
+		pane.transferNameField.setText(config.getTitle());
+		for (RowConfig rowConfig : config.getRowConfigs()) {
+			FieldConfig elementConfig = rowConfig.getFieldConfigs()[0];
+			ElementPane elementPane = createElementPaneFromConfig(elementConfig);
+			pane.elementContainer.getChildren().add(elementPane);
+		}
+		return pane;
+	}
+
+	private ElementPane createElementPaneFromConfig(FieldConfig config) {
+		ElementPane pane = new ElementPane();
+		String[] parts = config.getFieldName().split("_");
+		if (parts.length >= 3) {
+			pane.elementNameField.setText(parts[1]);
+			String reportName = parts[2];
+			pane.reportComboBox.setValue(reportName);
+			if (!pane.reportComboBox.getItems().contains(reportName)) {
+				pane.reportComboBox.getItems().add(reportName);
+			}
+		}
+		return pane;
+	}
+
+	private SectionPane createSectionPaneFromConfig(SectionConfig config) {
+		SectionPane pane = new SectionPane();
+		pane.sectionTitleField.setText(config.getSectionTitle());
+		if (config.isPullFromLookup()) {
+			pane.pullFromLookupCheckbox.setSelected(true);
+			pane.lookupTypeComboBox.setValue(config.getLookupType());
+		}
+		for (RowConfig rowConfig : config.getRowConfigs()) {
+			RowPane rowPane = createRowPaneFromConfig(rowConfig);
+			pane.rowContainer.getChildren().add(rowPane);
+		}
+		if (config.isPullFromLookup()) {
+			for (Node rowNode : pane.rowContainer.getChildren()) {
+				if (rowNode instanceof RowPane) {
+					for (Node fieldNode : ((RowPane) rowNode).fieldContainer.getChildren()) {
+						if (fieldNode instanceof FieldPane) {
+							((FieldPane) fieldNode).setLookupValueSelectorVisible(true);
+						}
+					}
+				}
+			}
+		}
+		return pane;
+	}
+	// #endregion
 }

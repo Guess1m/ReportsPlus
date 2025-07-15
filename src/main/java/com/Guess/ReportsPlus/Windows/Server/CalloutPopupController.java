@@ -13,6 +13,7 @@ import static com.Guess.ReportsPlus.util.Strings.URLStrings.calloutDataURL;
 import java.io.File;
 import java.util.List;
 
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.IShutdownable;
 import com.Guess.ReportsPlus.util.Other.Callout.CalloutManager;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callout;
 import com.Guess.ReportsPlus.util.Server.Objects.Callout.Callouts;
@@ -30,8 +31,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
-public class CalloutPopupController {
-
+public class CalloutPopupController implements IShutdownable {
+	private PauseTransition pause;
 	@FXML
 	private BorderPane root;
 	@FXML
@@ -85,17 +86,14 @@ public class CalloutPopupController {
 	public static Callout getCallout() {
 		String filePath = getServerDataFolderPath() + "ServerCallout.xml";
 		File file = new File(filePath);
-
 		if (!file.exists()) {
 			logWarn("File does not exist: " + filePath);
 			return null;
 		}
-
 		if (file.length() == 0) {
 			logError("File is empty: " + filePath);
 			return null;
 		}
-
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Callouts.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -115,9 +113,7 @@ public class CalloutPopupController {
 		statusLabel.setVisible(false);
 		respondBtn.setVisible(true);
 		ignoreBtn.setVisible(true);
-
 		Callout callout = getCallout();
-
 		String message;
 		String desc;
 		if (callout != null) {
@@ -132,7 +128,6 @@ public class CalloutPopupController {
 			desc = callout.getDescription() != null ? callout.getDescription() : "Not Found";
 			message = callout.getMessage() != null ? callout.getMessage() : "Not Found";
 			status = callout.getStatus() != null ? callout.getStatus() : "Not Responded";
-
 			respondBtn.setOnAction(_ -> {
 				status = "Responded";
 				statusLabel.setText("Responded.");
@@ -143,7 +138,6 @@ public class CalloutPopupController {
 				statusLabel.setText("Ignored.");
 				addResponseCode(message, desc);
 			});
-
 			streetField.setText(street);
 			numberField.setText(number);
 			areaField.setText(area);
@@ -153,7 +147,6 @@ public class CalloutPopupController {
 			countyField.setText(county);
 			typeField.setText(type);
 			descriptionField.setText(desc.isEmpty() ? message : desc + "\n" + message);
-
 		} else {
 			message = "No Data";
 			desc = "No Data";
@@ -169,7 +162,6 @@ public class CalloutPopupController {
 			typeField.setText("No Data");
 			logError("Null Callout");
 		}
-
 		calloutInfoTitle.setText(localization.getLocalizedMessage("CalloutPopup.MainHeading", "Callout Information"));
 		num.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		typ.setText(localization.getLocalizedMessage("CalloutPopup.TypeLabel", "Type:"));
@@ -182,26 +174,31 @@ public class CalloutPopupController {
 		dsc.setText(localization.getLocalizedMessage("CalloutPopup.DescriptionLabel", "Description:"));
 		respondBtn.setText(localization.getLocalizedMessage("CalloutPopup.RespondButton", "Respond"));
 		ignoreBtn.setText(localization.getLocalizedMessage("CalloutPopup.IgnoreButton", "Ignore"));
-
 	}
 
 	private void addResponseCode(String message, String desc) {
 		statusLabel.setVisible(true);
 		respondBtn.setVisible(false);
 		ignoreBtn.setVisible(false);
-
-		PauseTransition pause = new PauseTransition(Duration.seconds(2));
+		pause = new PauseTransition(Duration.seconds(2));
 		pause.setOnFinished(_ -> {
 			logInfo("Added Callout To Active as: " + status);
 			CalloutManager.addCallout(calloutDataURL, numberField.getText(), typeField.getText(), desc, message,
 					priorityField.getText(), streetField.getText(), areaField.getText(), countyField.getText(),
 					timeField.getText(), dateField.getText(), status, null);
 			calloutWindow.closeWindow();
-
 			if (calloutViewController != null) {
 				loadActiveCallouts(calloutViewController.getActiveCalloutsTable());
 			}
 		});
 		pause.play();
+	}
+
+	@Override
+	public void shutdown() {
+		logInfo("Shutting down CalloutPopupController and all resources...");
+		if (pause != null) {
+			pause.stop();
+		}
 	}
 }

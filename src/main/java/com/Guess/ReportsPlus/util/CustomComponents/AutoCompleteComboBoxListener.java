@@ -1,4 +1,4 @@
-package com.Guess.ReportsPlus.util.Report;
+package com.Guess.ReportsPlus.util.CustomComponents;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,21 +8,21 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
-	
+
 	private final ComboBox<T> comboBox;
 	private final ObservableList<T> data;
 	private boolean moveCaretToPos = false;
 	private int caretPos;
-	
+
 	public AutoCompleteComboBoxListener(ComboBox<T> comboBox) {
 		this.comboBox = comboBox;
 		data = comboBox.getItems();
-		
+
 		this.comboBox.setEditable(true);
 		this.comboBox.setOnKeyPressed(t -> comboBox.hide());
 		this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
 	}
-	
+
 	@Override
 	public void handle(KeyEvent event) {
 		if (event.getCode() == KeyCode.UP) {
@@ -43,11 +43,13 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 			moveCaretToPos = true;
 			caretPos = comboBox.getEditor().getCaretPosition();
 		}
-		
-		if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT || event.isControlDown() || event.getCode() == KeyCode.HOME || event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB) {
+
+		if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT || event.isControlDown()
+				|| event.getCode() == KeyCode.HOME || event.getCode() == KeyCode.END
+				|| event.getCode() == KeyCode.TAB) {
 			return;
 		}
-		
+
 		ObservableList<T> list = FXCollections.observableArrayList();
 		for (int i = 0; i < data.size(); i++) {
 			if (data.get(i).toString().toLowerCase().startsWith(comboBox.getEditor().getText().toLowerCase())) {
@@ -55,7 +57,7 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 			}
 		}
 		String t = comboBox.getEditor().getText();
-		
+
 		comboBox.setItems(list);
 		comboBox.getEditor().setText(t);
 		if (!moveCaretToPos) {
@@ -66,7 +68,7 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 			comboBox.show();
 		}
 	}
-	
+
 	private void moveCaret(int textLength) {
 		if (caretPos == -1) {
 			comboBox.getEditor().positionCaret(textLength);

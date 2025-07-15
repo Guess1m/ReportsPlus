@@ -2,6 +2,7 @@ package com.Guess.ReportsPlus.util.Report;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -121,6 +122,7 @@ public class nestedReportUtils {
 		private String nodeType;
 		private String dropdownType;
 		private String lookupValue;
+		private Map<String, String> courtCaseMapping;
 
 		@JsonCreator
 		public FieldConfig(@JsonProperty("fieldName") String fieldName, @JsonProperty("size") int size,
@@ -128,6 +130,14 @@ public class nestedReportUtils {
 			this.fieldName = fieldName;
 			this.size = size;
 			this.fieldType = fieldType;
+		}
+
+		public Map<String, String> getCourtCaseMapping() {
+			return courtCaseMapping;
+		}
+
+		public void setCourtCaseMapping(Map<String, String> courtCaseMapping) {
+			this.courtCaseMapping = courtCaseMapping;
 		}
 
 		public String getLookupValue() {

@@ -52,6 +52,7 @@ import com.Guess.ReportsPlus.Launcher;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.logs.ChargesData;
 import com.Guess.ReportsPlus.logs.CitationsData;
+import com.Guess.ReportsPlus.util.CustomComponents.AutoCompleteComboBoxListener;
 import com.Guess.ReportsPlus.util.Strings.dropdownInfo;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -242,8 +243,7 @@ public class reportUtil {
 			rowIndex++;
 
 			for (nestedReportUtils.RowConfig rowConfig : sectionConfig.getRowConfigs()) {
-				addRowToGridPane(gridPane, rowConfig, rowIndex, fieldsMap);
-				rowIndex++;
+				rowIndex += addRowToGridPane(gridPane, rowConfig, rowIndex, fieldsMap);
 			}
 
 			if (sectionConfig != sectionConfigs[sectionConfigs.length - 1]) {
@@ -256,12 +256,6 @@ public class reportUtil {
 				GridPane.setColumnSpan(separatorPane, 12);
 				gridPane.add(separatorPane, 0, rowIndex);
 				rowIndex++;
-			}
-
-			if (sectionConfig.getSectionTitle().equals("Citation Treeview")) {
-				rowIndex += 5;
-			} else {
-				rowIndex += 2;
 			}
 		}
 
@@ -485,8 +479,6 @@ public class reportUtil {
 		return DeathReportNumber.toString();
 	}
 
-	// BUG: make sure pulling into legacy reports still works after finished (the
-	// getters are lower)
 	public static String pullValueFromReport(String lookupType, String key) {
 		Object object = null;
 		String lowerLookup = lookupType.toLowerCase();
@@ -575,7 +567,7 @@ public class reportUtil {
 		return accentColor;
 	}
 
-	private static void addRowToGridPane(GridPane gridPane, nestedReportUtils.RowConfig rowConfig, int rowIndex,
+	private static int addRowToGridPane(GridPane gridPane, nestedReportUtils.RowConfig rowConfig, int rowIndex,
 			Map<String, Object> fieldsMap) {
 		String placeholder;
 		try {
@@ -599,6 +591,7 @@ public class reportUtil {
 
 		int totalSize = 0;
 		int columnIndex = 0;
+		int rowsUsed = 1;
 		for (nestedReportUtils.FieldConfig fieldConfig : rowConfig.getFieldConfigs()) {
 			if (fieldConfig.getSize() <= 0 || totalSize + fieldConfig.getSize() > 12) {
 				logError(fieldConfig.getFieldName());
@@ -962,9 +955,18 @@ public class reportUtil {
 						}
 					});
 
-					gridPane.add(searchCitationField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
+					int citationTreeSpan = fieldConfig.getSize();
+					int citationDetailsSpan;
 
-					rowIndex += 1;
+					if (citationTreeSpan >= 12) {
+						citationTreeSpan = 6;
+						citationDetailsSpan = 6;
+					} else {
+						citationDetailsSpan = 12 - citationTreeSpan;
+					}
+
+					gridPane.add(searchCitationField, columnIndex, rowIndex, citationTreeSpan, 1);
+					gridPane.add(treeView, columnIndex, rowIndex + 1, citationTreeSpan, 5);
 
 					File file = new File(getJarPath() + "/data/Citations.xml");
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -1007,22 +1009,19 @@ public class reportUtil {
 					citationTableView.setTableMenuButtonVisible(false);
 
 					citationTableView.getColumns().add(citationColumn);
-					gridPane.add(treeView, columnIndex, rowIndex, fieldConfig.getSize(), 5);
 
-					int additionalColumnIndex = columnIndex + fieldConfig.getSize();
+					int additionalColumnIndex = columnIndex + citationTreeSpan;
 
-					int remainingColumns = gridPane.getColumnCount() - additionalColumnIndex;
-
-					gridPane.add(citationInfoLabel, additionalColumnIndex, rowIndex - 2, remainingColumns, 1);
+					gridPane.add(citationInfoLabel, additionalColumnIndex, rowIndex, citationDetailsSpan, 1);
 					GridPane.setHalignment(citationInfoLabel, HPos.CENTER);
-					gridPane.add(citationNameField, additionalColumnIndex, rowIndex - 1, remainingColumns, 1);
-					gridPane.add(citationFineField, additionalColumnIndex, rowIndex + 1, remainingColumns, 1);
+					gridPane.add(citationNameField, additionalColumnIndex, rowIndex + 1, citationDetailsSpan, 1);
+					gridPane.add(citationFineField, additionalColumnIndex, rowIndex + 2, citationDetailsSpan, 1);
 
 					HBox buttonBox = new HBox(40, addButton, removeButton);
 					buttonBox.setAlignment(Pos.CENTER);
-					gridPane.add(buttonBox, additionalColumnIndex, rowIndex + 3, remainingColumns, 1);
+					gridPane.add(buttonBox, additionalColumnIndex, rowIndex + 3, citationDetailsSpan, 1);
 
-					gridPane.add(citationTableView, additionalColumnIndex, rowIndex + 4, remainingColumns, 1);
+					gridPane.add(citationTableView, additionalColumnIndex, rowIndex + 4, citationDetailsSpan, 1);
 
 					ComboBox<String> citationTypeDropdown = new ComboBox<>();
 					citationTypeDropdown.getStyleClass().add("comboboxnew");
@@ -1054,7 +1053,7 @@ public class reportUtil {
 					});
 					citationTypeDropdown.setMaxWidth(Double.MAX_VALUE);
 
-					gridPane.add(citationTypeDropdown, additionalColumnIndex, rowIndex + 5, remainingColumns, 1);
+					gridPane.add(citationTypeDropdown, additionalColumnIndex, rowIndex + 5, citationDetailsSpan, 1);
 
 					fieldsMap.put("CitationNameField", citationNameField);
 					fieldsMap.put("CitationFineField", citationFineField);
@@ -1146,7 +1145,7 @@ public class reportUtil {
 							citationTableView.getItems().remove(selectedItem);
 						}
 					});
-					rowIndex += 6;
+					rowsUsed = 7;
 					break;
 				case TRANSFER_BUTTON:
 					Button transferButton = new Button("Transfer Information");
@@ -1202,10 +1201,18 @@ public class reportUtil {
 						}
 					});
 
-					gridPane.add(searchChargeField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
-					gridPane.add(chargestreeView, columnIndex, rowIndex + 1, fieldConfig.getSize(), 5);
+					int treeSpan = fieldConfig.getSize();
+					int detailsSpan;
 
-					rowIndex += 1;
+					if (treeSpan >= 12) {
+						treeSpan = 6;
+						detailsSpan = 6;
+					} else {
+						detailsSpan = 12 - treeSpan;
+					}
+
+					gridPane.add(searchChargeField, columnIndex, rowIndex, treeSpan, 1);
+					gridPane.add(chargestreeView, columnIndex, rowIndex + 1, treeSpan, 5);
 
 					File file2 = new File(getJarPath() + "/data/Charges.xml");
 					DocumentBuilderFactory factory2 = DocumentBuilderFactory.newInstance();
@@ -1246,19 +1253,17 @@ public class reportUtil {
 
 					chargeTableView.getColumns().add(chargeColumn);
 
-					int additionalColumnIndex2 = columnIndex + fieldConfig.getSize();
+					int additionalColumnIndex2 = columnIndex + treeSpan;
 
-					int remainingColumns2 = gridPane.getColumnCount() - additionalColumnIndex2;
-
-					gridPane.add(chargeInfoLabel, additionalColumnIndex2, rowIndex - 2, remainingColumns2, 1);
+					gridPane.add(chargeInfoLabel, additionalColumnIndex2, rowIndex, detailsSpan, 1);
 					GridPane.setHalignment(chargeInfoLabel, HPos.CENTER);
-					gridPane.add(chargeNameField, additionalColumnIndex2, rowIndex - 1, remainingColumns2, 1);
+					gridPane.add(chargeNameField, additionalColumnIndex2, rowIndex + 1, detailsSpan, 1);
 
 					HBox buttonBox2 = new HBox(40, addButton2, removeButton2);
 					buttonBox2.setAlignment(Pos.CENTER);
-					gridPane.add(buttonBox2, additionalColumnIndex2, rowIndex + 2, remainingColumns2, 1);
+					gridPane.add(buttonBox2, additionalColumnIndex2, rowIndex + 2, detailsSpan, 1);
 
-					gridPane.add(chargeTableView, additionalColumnIndex2, rowIndex + 4, remainingColumns2, 1);
+					gridPane.add(chargeTableView, additionalColumnIndex2, rowIndex + 3, detailsSpan, 3);
 
 					fieldsMap.put("ChargeNameField", chargeNameField);
 					fieldsMap.put("AddButton", addButton2);
@@ -1326,7 +1331,7 @@ public class reportUtil {
 							chargeTableView.getItems().remove(selectedItem);
 						}
 					});
-					rowIndex += 6;
+					rowsUsed = 7;
 					break;
 				case BLANK_SPACE:
 					AnchorPane blankBox = new AnchorPane();
@@ -1343,7 +1348,7 @@ public class reportUtil {
 			columnIndex += fieldConfig.getSize();
 
 		}
-
+		return rowsUsed;
 	}
 
 	private static void collapseTree(TreeItem<String> node) {

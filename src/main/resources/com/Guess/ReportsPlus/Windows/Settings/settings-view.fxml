@@ -515,7 +515,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneDesktop" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneDesktop" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
                                 <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
@@ -1470,7 +1470,7 @@
                                 </AnchorPane>
                             </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="paneDeveloper" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="paneDeveloper" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
                                 <AnchorPane style="-fx-background-color: transparent;">
                                     <children>
@@ -1531,7 +1531,7 @@
                                                         <RowConstraints minHeight="-Infinity" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label fx:id="clearLookupDataLabel" alignment="CENTER" styleClass="paneHeading" text="Clear Old Ped / Veh Data" GridPane.valignment="CENTER" />
+                                                        <Label fx:id="clearLookupDataLabel" alignment="CENTER" styleClass="paneHeading" text="Clear Old Ped / Veh Data" wrapText="true" GridPane.valignment="CENTER" />
                                                         <Label fx:id="clearLookupDataLabelTT" alignment="CENTER" styleClass="paneSubtext" text="ONLY delete saved ped / veh history data from previous lookups to free space" wrapText="true" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                             <GridPane.margin>
                                                                 <Insets />

@@ -1,10 +1,16 @@
 package com.Guess.ReportsPlus.util.Report.Database;
 
 import static com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.getWindow;
+import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.Windows.Apps.CourtViewController.getNextIndex;
 import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.loadLayoutFromJSON;
 import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.loadTransferConfigFromJSON;
 import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.parseAndPopulateMap;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.findCaseByNumber;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.generateCaseNumber;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.loadCourtCases;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.parseCourtData;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateAge;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
@@ -21,7 +27,10 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.updateTextFromNot
 import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.getPrimaryKeyColumn;
 import static com.Guess.ReportsPlus.util.Report.Database.DynamicDB.isValidDatabase;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.createReportWindow;
+import static com.Guess.ReportsPlus.util.Report.reportUtil.extractMaxFine;
 import static com.Guess.ReportsPlus.util.Report.reportUtil.pullValueFromReport;
+import static com.Guess.ReportsPlus.util.Report.treeViewUtils.findXMLValue;
+import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 import static com.Guess.ReportsPlus.util.Strings.customizationDataLoader.getValuesForField;
 
 import java.io.File;
@@ -30,16 +39,27 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
+import com.Guess.ReportsPlus.Windows.Apps.CourtViewController;
 import com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.ILayoutType;
 import com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.PedLayoutTypes;
 import com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.VehicleLayoutTypes;
 import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.logs.ChargesData;
+import com.Guess.ReportsPlus.logs.CitationsData;
+import com.Guess.ReportsPlus.util.CourtData.Case;
+import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
+import com.Guess.ReportsPlus.util.History.Ped;
 import com.Guess.ReportsPlus.util.Misc.NotificationManager;
 import com.Guess.ReportsPlus.util.Report.nestedReportUtils;
+import com.Guess.ReportsPlus.util.Server.ClientUtils;
 
+import jakarta.xml.bind.JAXBException;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -47,6 +67,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -78,7 +99,8 @@ public class CustomReport {
 			logError("CustomReport; Failed to extract field names", e2);
 		} finally {
 			try {
-				dbManager.close();
+				if (dbManager != null)
+					dbManager.close();
 			} catch (SQLException e2) {
 				logError("CustomReport; Failed to close database connection, null", e2);
 			}
@@ -119,8 +141,14 @@ public class CustomReport {
 		}
 
 		Map<String, Map<String, List<String>>> newMap = parseAndPopulateMap(layoutContent);
-		var layout = loadLayoutFromJSON(layoutContent);
+		List<nestedReportUtils.SectionConfig> layout = loadLayoutFromJSON(layoutContent);
 		nestedReportUtils.TransferConfig transferConfig = loadTransferConfigFromJSON(transferContent);
+
+		if (layout == null) {
+			logError("Failed to load layout from content for report: " + reportTitle);
+			showNotificationError("Layout Error", "Could not load the report layout.");
+			return;
+		}
 
 		Map<String, Object> reportWindow = createReportWindow(reportTitle, transferConfig,
 				layout.toArray(new nestedReportUtils.SectionConfig[0]));
@@ -130,12 +158,10 @@ public class CustomReport {
 		this.mainMap = newMap;
 		this.reportMap = reportMap;
 
-		if (newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream)
-				.filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count() != 1) {
-			logError("CustomReport; Exactly one NUMBER_FIELD is required, found: "
-					+ newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream)
-							.filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count());
-			newMap.put("selectedType", null);
+		if (newMap != null
+				&& newMap.getOrDefault("selectedType", new HashMap<>()).values().stream().flatMap(List::stream)
+						.filter(type -> type.equalsIgnoreCase("NUMBER_FIELD")).count() != 1) {
+			logError("CustomReport; Exactly one NUMBER_FIELD is required.");
 			return;
 		}
 
@@ -205,33 +231,8 @@ public class CustomReport {
 										&& !valueToSet.equalsIgnoreCase("Not Found")) {
 									logDebug("  -> Populating field: '" + fieldName + "' with value: '" + valueToSet
 											+ "'" + " (lookupKey: " + lookupKey + ")");
-
-									if (uiComponent instanceof TextInputControl) {
-										((TextInputControl) uiComponent).setText(valueToSet);
-									} else if (uiComponent instanceof ComboBox) {
-										ComboBox<String> comboBox = (ComboBox<String>) uiComponent;
-										if (fieldConfig.getFieldType().toString().contains("COMBO_BOX_STREET")
-												|| fieldConfig.getFieldType().toString().contains("COMBO_BOX_AREA")) {
-											if (comboBox.getEditor() != null) {
-												comboBox.getEditor().setText(valueToSet);
-											}
-										} else {
-											comboBox.setValue(valueToSet);
-										}
-									} else if (uiComponent instanceof CheckBox) {
-										CheckBox checkBox = (CheckBox) uiComponent;
-										if (fieldConfig.getFieldType().toString().contains("CHECK_BOX")) {
-											if (valueToSet.equalsIgnoreCase("true")
-													|| valueToSet.equalsIgnoreCase("valid")
-													|| valueToSet.equalsIgnoreCase("false")) {
-												checkBox.setSelected(valueToSet.equalsIgnoreCase("true")
-														|| valueToSet.equalsIgnoreCase("valid"));
-											}
-										}
-									} else {
-										logError("Cannot auto-fill unsupported component type: "
-												+ uiComponent.getClass().getSimpleName());
-									}
+									setTextInUIComponent(uiComponent, valueToSet,
+											mainMap.get("selectedType").get(fieldName));
 								}
 							}
 						}
@@ -269,9 +270,6 @@ public class CustomReport {
 											logError("Error getting primary key column [2]", e);
 										}
 
-										logDebug("CustomReport; Clicked Database: " + dbFile.getName());
-										createFolderIfNotExists(getCustomDataLogsFolderPath());
-
 										Map<String, String> transferLayoutScheme = null;
 										Map<String, String> transferSchema = null;
 										try {
@@ -289,10 +287,11 @@ public class CustomReport {
 												.getMainMap();
 										Map<String, Object> customReportUIMap = customReport.getReportMap();
 
-										Map<String, List<String>> currentReportKeyMap = newMap.get("keyMap");
+										Map<String, List<String>> currentReportKeyMap = mainMap.get("keyMap");
 										Map<String, List<String>> customReportKeyMap = customReportMap.get("keyMap");
 
-										for (Map.Entry<String, List<String>> entry : currentReportKeyMap.entrySet()) {
+										for (Map.Entry<String, List<String>> entry : currentReportKeyMap
+												.entrySet()) {
 											String key = entry.getKey();
 											if (customReportKeyMap.containsKey(key)) {
 												List<String> currentFields = entry.getValue();
@@ -306,7 +305,7 @@ public class CustomReport {
 													Object currentUIComponent = reportMap.get(currentField);
 													String textToTransfer = extractTextFromUIComponent(
 															currentUIComponent,
-															newMap.get("selectedType").get(currentField));
+															mainMap.get("selectedType").get(currentField));
 
 													Object customUIComponent = customReportUIMap.get(customField);
 													setTextInUIComponent(customUIComponent, textToTransfer,
@@ -332,19 +331,21 @@ public class CustomReport {
 			}
 		}
 
-		Map<String, List<String>> dropdownTypeMap = newMap.getOrDefault("dropdownType", null);
-		if (dropdownTypeMap != null) {
-			for (Map.Entry<String, List<String>> entry : dropdownTypeMap.entrySet()) {
-				String key = entry.getKey();
-				List<String> values = entry.getValue();
+		if (mainMap != null) {
+			Map<String, List<String>> dropdownTypeMap = mainMap.getOrDefault("dropdownType", null);
+			if (dropdownTypeMap != null) {
+				for (Map.Entry<String, List<String>> entry : dropdownTypeMap.entrySet()) {
+					String key = entry.getKey();
+					List<String> values = entry.getValue();
 
-				for (int i = 0; i < values.size(); i++) {
-					String value = values.get(i);
-					if (value != null) {
-						Object component = reportMap.get(key);
-						if (component instanceof ComboBox box) {
-							if (!value.equalsIgnoreCase("null")) {
-								box.getItems().addAll(getValuesForField(value));
+					for (int i = 0; i < values.size(); i++) {
+						String value = values.get(i);
+						if (value != null) {
+							Object component = reportMap.get(key);
+							if (component instanceof ComboBox box) {
+								if (!value.equalsIgnoreCase("null")) {
+									box.getItems().addAll(getValuesForField(value));
+								}
 							}
 						}
 					}
@@ -362,94 +363,95 @@ public class CustomReport {
 			transferBox.getItems().clear();
 			File dataFolder = new File(dataFolderPath);
 
-			if (!dataFolder.exists() || !dataFolder.isDirectory()) {
-				return;
-			}
+			if (dataFolder.exists() && dataFolder.isDirectory()) {
+				File[] dbFiles = dataFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".db"));
+				if (dbFiles != null) {
+					for (File dbFile : dbFiles) {
+						String fileNameWithExt = dbFile.getName();
+						String reportName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf('.'));
 
-			File[] dbFiles = dataFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".db"));
-			if (dbFiles == null) {
-				return;
-			}
+						if (reportName.equals(reportTitle)) {
+							continue;
+						}
 
-			for (File dbFile : dbFiles) {
-				String fileNameWithExt = dbFile.getName();
-				String reportName = fileNameWithExt.substring(0, fileNameWithExt.lastIndexOf('.'));
+						MenuItem menuItem = new MenuItem(reportName);
+						menuItem.setOnAction(_ -> {
+							String targetReportName = menuItem.getText();
+							String dbFilePath = dataFolderPath + targetReportName + ".db";
 
-				if (reportName.equals(reportTitle)) {
-					continue;
-				}
+							if (!isValidDatabase(dbFilePath, targetReportName + ".db")) {
+								logWarn("CustomReport; transferBox transfer selected an invalid database: "
+										+ dbFilePath);
+								showNotificationWarning("Report Transfer", "Selected report database is invalid.");
+								return;
+							}
 
-				MenuItem menuItem = new MenuItem(reportName);
-				menuItem.setOnAction(_ -> {
-					String targetReportName = menuItem.getText();
-					String dbFilePath = dataFolderPath + targetReportName + ".db";
+							String targetPrimaryKey = null;
+							Map<String, String> targetLayoutScheme = null;
+							Map<String, String> targetDataSchema = null;
+							try {
+								targetPrimaryKey = getPrimaryKeyColumn(dbFilePath, "data");
+								targetLayoutScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "layout");
+								targetDataSchema = DynamicDB.getTableColumnsDefinition(dbFilePath, "data");
+							} catch (SQLException e) {
+								logError(
+										"CustomReport; Failed to extract schema for transfer target: "
+												+ targetReportName,
+										e);
+								showNotificationError("Report Transfer", "Could not read target report schema.");
+								return;
+							}
 
-					if (!isValidDatabase(dbFilePath, targetReportName + ".db")) {
-						logWarn("CustomReport; transferBox transfer selected an invalid database: " + dbFilePath);
-						showNotificationWarning("Report Transfer", "Selected report database is invalid.");
-						return;
-					}
+							if (targetPrimaryKey == null || targetLayoutScheme == null || targetDataSchema == null) {
+								logError("CustomReport; Schema information for target report is incomplete: "
+										+ targetReportName);
+								showNotificationError("Report Transfer", "Target report information is incomplete.");
+								return;
+							}
 
-					String targetPrimaryKey = null;
-					Map<String, String> targetLayoutScheme = null;
-					Map<String, String> targetDataSchema = null;
-					try {
-						targetPrimaryKey = getPrimaryKeyColumn(dbFilePath, "data");
-						targetLayoutScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "layout");
-						targetDataSchema = DynamicDB.getTableColumnsDefinition(dbFilePath, "data");
-					} catch (SQLException e) {
-						logError("CustomReport; Failed to extract schema for transfer target: " + targetReportName,
-								e);
-						showNotificationError("Report Transfer", "Could not read target report schema.");
-						return;
-					}
+							CustomReport targetReport = new CustomReport(targetReportName, targetPrimaryKey,
+									targetLayoutScheme, targetDataSchema, null, null);
+							Map<String, Map<String, List<String>>> targetMainMap = targetReport.getMainMap();
+							Map<String, Object> targetUIMap = targetReport.getReportMap();
 
-					if (targetPrimaryKey == null || targetLayoutScheme == null || targetDataSchema == null) {
-						logError("CustomReport; Schema information for target report is incomplete: "
-								+ targetReportName);
-						showNotificationError("Report Transfer", "Target report information is incomplete.");
-						return;
-					}
+							Map<String, List<String>> currentKeyMap = mainMap.get("keyMap");
+							Map<String, List<String>> targetKeyMap = targetMainMap.get("keyMap");
 
-					CustomReport targetReport = new CustomReport(targetReportName, targetPrimaryKey,
-							targetLayoutScheme, targetDataSchema, null, null);
-					Map<String, Map<String, List<String>>> targetMainMap = targetReport.getMainMap();
-					Map<String, Object> targetUIMap = targetReport.getReportMap();
+							for (Map.Entry<String, List<String>> entry : currentKeyMap.entrySet()) {
+								String key = entry.getKey();
+								if (targetKeyMap.containsKey(key)) {
+									List<String> currentFields = entry.getValue();
+									List<String> targetFields = targetKeyMap.get(key);
 
-					Map<String, List<String>> currentKeyMap = newMap.get("keyMap");
-					Map<String, List<String>> targetKeyMap = targetMainMap.get("keyMap");
+									int minSize = Math.min(currentFields.size(), targetFields.size());
+									for (int i = 0; i < minSize; i++) {
+										String sourceFieldName = currentFields.get(i);
+										String targetFieldName = targetFields.get(i);
 
-					for (Map.Entry<String, List<String>> entry : currentKeyMap.entrySet()) {
-						String key = entry.getKey();
-						if (targetKeyMap.containsKey(key)) {
-							List<String> currentFields = entry.getValue();
-							List<String> targetFields = targetKeyMap.get(key);
+										Object sourceComponent = reportMap.get(sourceFieldName);
+										List<String> sourceFieldType = mainMap.get("selectedType").get(sourceFieldName);
+										String textToTransfer = extractTextFromUIComponent(sourceComponent,
+												sourceFieldType);
 
-							int minSize = Math.min(currentFields.size(), targetFields.size());
-							for (int i = 0; i < minSize; i++) {
-								String sourceFieldName = currentFields.get(i);
-								String targetFieldName = targetFields.get(i);
+										Object targetComponent = targetUIMap.get(targetFieldName);
+										List<String> targetFieldType = targetMainMap.get("selectedType")
+												.get(targetFieldName);
 
-								Object sourceComponent = reportMap.get(sourceFieldName);
-								List<String> sourceFieldType = newMap.get("selectedType").get(sourceFieldName);
-								String textToTransfer = extractTextFromUIComponent(sourceComponent,
-										sourceFieldType);
-
-								Object targetComponent = targetUIMap.get(targetFieldName);
-								List<String> targetFieldType = targetMainMap.get("selectedType")
-										.get(targetFieldName);
-
-								if (sourceComponent != null && targetComponent != null && textToTransfer != null &&
-										!textToTransfer.isEmpty()) {
-									logDebug("Transferring data for key '" + key + "': {" + sourceFieldName + " -> "
-											+ targetFieldName + "} with value [" + textToTransfer + "]");
-									setTextInUIComponent(targetComponent, textToTransfer, targetFieldType);
+										if (sourceComponent != null && targetComponent != null && textToTransfer != null
+												&&
+												!textToTransfer.isEmpty()) {
+											logDebug("Transferring data for key '" + key + "': {" + sourceFieldName
+													+ " -> "
+													+ targetFieldName + "} with value [" + textToTransfer + "]");
+											setTextInUIComponent(targetComponent, textToTransfer, targetFieldType);
+										}
+									}
 								}
 							}
-						}
+						});
+						transferBox.getItems().add(menuItem);
 					}
-				});
-				transferBox.getItems().add(menuItem);
+				}
 			}
 		}
 
@@ -466,11 +468,11 @@ public class CustomReport {
 
 					if (noteArea != null) {
 						menuItem.setOnAction(event3 -> {
-							if (newMap == null) {
-								logError("CustomReport; newMap is null");
+							if (mainMap == null) {
+								logError("CustomReport; mainMap is null");
 								return;
 							}
-							for (String field : newMap.getOrDefault("nodeType", new HashMap<>()).keySet()) {
+							for (String field : mainMap.getOrDefault("nodeType", new HashMap<>()).keySet()) {
 								logDebug("CustomReport; Processing field: " + field);
 
 								Object fieldValue = reportMap.get(field);
@@ -480,11 +482,11 @@ public class CustomReport {
 									continue;
 								}
 
-								String key = newMap.getOrDefault("keyMap", new HashMap<>()).entrySet().stream()
+								String key = mainMap.getOrDefault("keyMap", new HashMap<>()).entrySet().stream()
 										.filter(entry -> entry.getValue().contains(field)).map(Map.Entry::getKey)
 										.findFirst().orElse(null);
 
-								if (key == null) {
+								if (key == null || key.equals("null")) {
 									continue;
 								}
 
@@ -494,12 +496,8 @@ public class CustomReport {
 									updateTextFromNotepad(((ComboBox<?>) fieldValue).getEditor(), noteArea, "-" + key);
 								} else if (fieldValue instanceof TextArea) {
 									updateTextFromNotepad((TextArea) fieldValue, noteArea, "-" + key);
-								} else if (fieldValue instanceof CheckBox) {
-									updateTextFromNotepad((CheckBox) fieldValue, noteArea, "-" + key);
-								} else if (fieldValue instanceof AnchorPane) {
-
 								} else {
-									logError("CustomReport; Unknown field type: "
+									logError("LayoutBuilder; Unknown field type: "
 											+ fieldValue.getClass().getSimpleName());
 								}
 							}
@@ -509,11 +507,279 @@ public class CustomReport {
 			}
 		});
 
+		// TODO: !inprogress citation/arrest require MUCH more testing
 		submitBtn.setOnAction(_ -> {
-			Map<String, List<String>> selectedTypes = newMap.getOrDefault("selectedType", new HashMap<>());
-			Map<String, List<String>> fieldNames = newMap.getOrDefault("fieldNames", new HashMap<>());
-
+			Map<String, List<String>> selectedTypes = mainMap.getOrDefault("selectedType", new HashMap<>());
+			Map<String, List<String>> fieldNames = mainMap.getOrDefault("fieldNames", new HashMap<>());
 			Map<String, Object> reportRecord = new HashMap<>();
+
+			if (reportMap.containsKey("ChargeTableView")) {
+				TableView<ChargesData> chargetable = (TableView<ChargesData>) reportMap.get("ChargeTableView");
+				ObservableList<ChargesData> formDataList = chargetable.getItems();
+				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder chargesBuilder = new StringBuilder();
+
+				for (ChargesData formData : formDataList) {
+					String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
+					String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
+					String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
+					String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
+					String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
+					String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
+					String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
+					String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
+					String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
+					String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
+					String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
+					String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
+
+					stringBuilder.append(formData.getCharge()).append(" | ");
+					chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths,
+							maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek)).append(" | ");
+				}
+
+				if (stringBuilder.length() > 0) {
+					stringBuilder.setLength(stringBuilder.length() - 3);
+				}
+				reportRecord.put("Charges", stringBuilder.toString());
+
+				Map<String, String> courtMapping = findCourtCaseMapping(layout, "CHARGES_TREE_VIEW");
+				if (courtMapping != null) {
+					String offenderName = getMappedValue(courtMapping, CourtCaseFields.SUSPECT_NAME, reportMap,
+							mainMap);
+
+					Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(offenderName);
+					if (pedOptional.isPresent()) {
+						logDebug("Ped is present in history, adding new charges.. ");
+						Ped ped1 = pedOptional.get();
+						String beforePriors = ped1.getArrestPriors() != null ? ped1.getArrestPriors() : "";
+						if (!beforePriors.contains(stringBuilder.toString())) {
+							ped1.setArrestPriors(beforePriors + stringBuilder.toString().trim());
+							try {
+								Ped.PedHistoryUtils.addPed(ped1);
+							} catch (JAXBException e) {
+								logError("Error updating ped priors from custom report: ", e);
+							}
+						}
+					}
+
+					if (!offenderName.isEmpty() && stringBuilder.length() > 0) {
+						String caseNumberField = getMappedValue(courtMapping, CourtCaseFields.CASE_NUMBER, reportMap,
+								mainMap);
+						String casenum = generateCaseNumber(caseNumberField);
+
+						if (!findCaseByNumber(casenum).isPresent()) {
+							Case case1 = new Case();
+							case1.setCaseNumber(casenum);
+							case1.setName(toTitleCase(offenderName));
+							case1.setOffenceDate(
+									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+							case1.setCourtDate(
+									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+							case1.setCaseTime(
+									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_TIME, reportMap, mainMap)
+											.replace(".", ""));
+							case1.setAge(toTitleCase(
+									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_AGE, reportMap, mainMap)));
+							case1.setAddress(toTitleCase(
+									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_ADDRESS, reportMap, mainMap)));
+							case1.setGender(toTitleCase(
+									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_GENDER, reportMap, mainMap)));
+							case1.setCounty(
+									toTitleCase(
+											getMappedValue(courtMapping, CourtCaseFields.COUNTY, reportMap, mainMap)));
+							case1.setStreet(
+									toTitleCase(
+											getMappedValue(courtMapping, CourtCaseFields.STREET, reportMap, mainMap)));
+							case1.setArea(
+									toTitleCase(
+											getMappedValue(courtMapping, CourtCaseFields.AREA, reportMap, mainMap)));
+							case1.setNotes(getMappedValue(courtMapping, CourtCaseFields.NOTES, reportMap, mainMap));
+							case1.setOffences(stringBuilder.toString());
+							case1.setOutcomes(chargesBuilder.toString());
+							case1.setStatus("Pending");
+							try {
+								case1.setIndex(getNextIndex(loadCourtCases()));
+								CourtUtils.addCase(case1);
+								CourtUtils.scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
+								NotificationManager.showNotificationInfo("Report Manager",
+										"A new court case has been created. Case#: " + casenum);
+								logInfo("Added case from custom report, Case#: " + casenum + " Name: " + offenderName);
+								CourtViewController.needCourtRefresh.set(1);
+							} catch (JAXBException | IOException e) {
+								logError("Failed to create or schedule court case: ", e);
+								showNotificationError("Court Case Error", "Failed to create or schedule court case.");
+							}
+						} else {
+							logWarn("Case #: " + casenum + " already exists, not adding new case");
+						}
+					} else {
+						showWarning(warningLabel,
+								"Mapped Name or Offences can't be blank");
+						logWarn(
+								"Could not create court case from report because either mapped name or offences were empty.");
+						return;
+					}
+				}
+			}
+
+			if (reportMap.containsKey("CitationTableView")) {
+				TableView<CitationsData> citationTable = (TableView<CitationsData>) reportMap.get("CitationTableView");
+				ComboBox<String> citationType = (ComboBox<String>) reportMap.get("CitationType");
+				Map<String, String> courtMapping = findCourtCaseMapping(layout, "CITATION_TREE_VIEW");
+
+				if (citationType.getValue() == null || citationType.getValue().toString().trim().isEmpty()) {
+					citationType.getSelectionModel().selectFirst();
+				}
+
+				if (courtMapping != null) {
+					String offenderNameValue = getMappedValue(courtMapping, CourtCaseFields.SUSPECT_NAME, reportMap,
+							mainMap);
+					String plateNumberValue = getMappedValue(courtMapping, CourtCaseFields.PLATE_NUMBER, reportMap,
+							mainMap);
+					String selectedCitationType = citationType.getValue();
+
+					String printedCitationStr = localization.getLocalizedMessage("ReportWindows.CitationTypePrinted",
+							"Printed Citation");
+					String parkingCitationStr = localization.getLocalizedMessage("ReportWindows.CitationTypeParking",
+							"Parking Citation");
+
+					if (selectedCitationType.equalsIgnoreCase(printedCitationStr)
+							&& offenderNameValue.trim().isEmpty()) {
+						showWarning(warningLabel, "Offender Name Field Empty!");
+						logError("Offender Name Cant Be Empty if printing a ticket.");
+						return;
+					} else if (selectedCitationType.equalsIgnoreCase(parkingCitationStr)) {
+						if (offenderNameValue.trim().isEmpty()) {
+							showWarning(warningLabel, "Offender Name must be filled for Parking Citations!");
+							logError("Offender Name Cant Be Empty if issuing a parking ticket.");
+							return;
+						}
+						if (plateNumberValue.trim().isEmpty()) {
+							showWarning(warningLabel, "Plate Number must be filled for Parking Citations!");
+							logError("Vehicle Plate Cant Be Empty if issuing a parking ticket.");
+							return;
+						}
+					}
+				}
+
+				ObservableList<CitationsData> formDataList = citationTable.getItems();
+				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder chargesBuilder = new StringBuilder();
+
+				for (CitationsData formData : formDataList) {
+					stringBuilder.append(formData.getCitation()).append(" | ");
+					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
+					if (fine != null) {
+						chargesBuilder.append("Fined: ").append(fine).append(" | ");
+					} else if (formData.getCitation().contains("MaxFine:")) {
+						int maxFine = Integer.parseInt(Objects.requireNonNull(extractMaxFine(formData.getCitation())));
+						chargesBuilder.append("Fined: ").append(maxFine).append(" | ");
+					} else {
+						chargesBuilder.append("Fined: Not Found | ");
+					}
+				}
+				if (stringBuilder.length() > 0) {
+					stringBuilder.setLength(stringBuilder.length() - 3);
+				}
+				reportRecord.put("Citations", stringBuilder.toString());
+				reportRecord.put("Citation Type",
+						citationType.getValue() != null ? citationType.getValue().toString().trim() : "N/A");
+
+				if (courtMapping != null) {
+					String offenderName = getMappedValue(courtMapping, CourtCaseFields.SUSPECT_NAME, reportMap,
+							mainMap);
+
+					Optional<Ped> pedOptional = Ped.PedHistoryUtils.findPedByName(offenderName);
+					if (pedOptional.isPresent()) {
+						logDebug("Ped is present in history, adding new citations.. ");
+						Ped ped1 = pedOptional.get();
+						String beforePriors = ped1.getCitationPriors() != null ? ped1.getCitationPriors() : "";
+						if (!beforePriors.contains(stringBuilder.toString())) {
+							ped1.setCitationPriors(beforePriors + stringBuilder.toString().trim());
+							try {
+								Ped.PedHistoryUtils.addPed(ped1);
+							} catch (JAXBException e) {
+								logError("Error updating ped priors from citation report: ", e);
+							}
+						}
+					}
+
+					if (!offenderName.isEmpty() && stringBuilder.length() > 0) {
+						String caseNumberField = getMappedValue(courtMapping, CourtCaseFields.CASE_NUMBER, reportMap,
+								mainMap);
+						String casenum = generateCaseNumber(caseNumberField);
+
+						if (!findCaseByNumber(casenum).isPresent()) {
+							Case case1 = new Case();
+							case1.setCaseNumber(casenum);
+							case1.setName(toTitleCase(offenderName));
+							case1.setOffenceDate(
+									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+							case1.setCourtDate(
+									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+							case1.setCaseTime(
+									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_TIME, reportMap, mainMap)
+											.replace(".", ""));
+							case1.setAge(toTitleCase(
+									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_AGE, reportMap, mainMap)));
+							case1.setAddress(toTitleCase(
+									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_ADDRESS, reportMap, mainMap)));
+							case1.setGender(toTitleCase(
+									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_GENDER, reportMap, mainMap)));
+							case1.setCounty(
+									toTitleCase(
+											getMappedValue(courtMapping, CourtCaseFields.COUNTY, reportMap, mainMap)));
+							case1.setStreet(
+									toTitleCase(
+											getMappedValue(courtMapping, CourtCaseFields.STREET, reportMap, mainMap)));
+							case1.setArea(
+									toTitleCase(
+											getMappedValue(courtMapping, CourtCaseFields.AREA, reportMap, mainMap)));
+							case1.setNotes(getMappedValue(courtMapping, CourtCaseFields.NOTES, reportMap, mainMap));
+							case1.setOffences(stringBuilder.toString());
+							case1.setOutcomes(chargesBuilder.toString());
+							case1.setStatus("Pending");
+							try {
+								case1.setIndex(getNextIndex(CourtUtils.loadCourtCases()));
+								CourtUtils.addCase(case1);
+								CourtUtils.scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
+								NotificationManager.showNotificationInfo("Report Manager",
+										"A new citation case has been created. Case#: " + casenum);
+								logInfo("Added case from citation, Case#: " + casenum + " Name: " + offenderName);
+								CourtViewController.needCourtRefresh.set(1);
+							} catch (JAXBException | IOException e) {
+								logError("Failed to create or schedule citation case: ", e);
+								showNotificationError("Court Case Error",
+										"Failed to create or schedule citation case.");
+							}
+
+							if (isConnected) {
+								String plateNumber = getMappedValue(courtMapping, CourtCaseFields.PLATE_NUMBER,
+										reportMap, mainMap);
+								String selectedCitationType = citationType.getValue();
+								int type = 1;
+								if (selectedCitationType.equalsIgnoreCase(localization
+										.getLocalizedMessage("ReportWindows.CitationTypePrinted", "Printed Citation")))
+									type = 2;
+								else if (selectedCitationType.equalsIgnoreCase(localization
+										.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation")))
+									type = 3;
+								ClientUtils.sendMessageToServer("CITATION_UPDATE:name=" + offenderName.trim()
+										+ "|plate=" + plateNumber.trim() + "|type=" + type);
+							}
+						} else {
+							logWarn("Case #: " + casenum + " already exists, not adding new case");
+						}
+					} else {
+						showWarning(warningLabel,
+								"Mapped Name or Offences can't be blank");
+						logWarn(
+								"Could not create court case from citation because either mapped name or offences were empty.");
+						return;
+					}
+				}
+			}
 
 			String identifier = null;
 
@@ -532,16 +798,11 @@ public class CustomReport {
 				if ("NUMBER_FIELD".equalsIgnoreCase(selectedType)) {
 					if (reportMap.get(field) instanceof TextField numberField) {
 						if (numberField.getText().trim().isEmpty()) {
-							warningLabel.setVisible(true);
-							warningLabel.setText("Number can't be empty!");
-							warningLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-text-fill: red;");
-							PauseTransition pause = new PauseTransition(Duration.seconds(2));
-							pause.setOnFinished(e2 -> warningLabel.setVisible(false));
-							pause.play();
+							showWarning(warningLabel, "Number can't be empty!");
 							logWarn("CustomReport; Number field blank, returning");
 							return;
 						} else {
-							identifier = field;
+							identifier = numberField.getText().trim();
 							logDebug("CustomReport; Set identifier for report [" + reportTitle + "] to: " + identifier);
 						}
 					}
@@ -550,40 +811,29 @@ public class CustomReport {
 				Object f = reportMap.get(field);
 				if (f == null) {
 					logError("CustomReport; Field " + field + " not found in map: " + reportMap);
+					continue;
 				}
 
-				if (f instanceof ComboBox<?>) {
-					if (selectedType.equalsIgnoreCase("combo_box_street")
-							|| selectedType.equalsIgnoreCase("combo_box_area")) {
-						reportRecord.put(field, toTitleCase(((ComboBox) f).getEditor().getText().trim()));
-					} else {
-						if (((ComboBox) f).getValue() == null) {
-							logWarn("CustomReport; Field " + field + " is null, putting N/A");
-							reportRecord.put(field, "N/A");
-						} else {
-							reportRecord.put(field, ((ComboBox) f).getValue().toString().trim());
-						}
-					}
-				} else if (f instanceof TextField) {
-					reportRecord.put(field, toTitleCase(((TextInputControl) f).getText().trim()));
+				String valueToStore = extractTextFromUIComponent(f, selectedTypes.get(field));
+				if (f instanceof TextField) {
+					reportRecord.put(field, toTitleCase(valueToStore));
 				} else if (f instanceof TextArea) {
-					reportRecord.put(field, ((TextInputControl) f).getText().trim());
-				} else if (f instanceof CheckBox) {
-					String selected = ((CheckBox) f).isSelected() ? "true" : "false";
-					reportRecord.put(field, selected);
-				} else if (f instanceof AnchorPane) {
-
+					reportRecord.put(field, valueToStore);
 				} else {
-					logError("CustomReport; Unknown field type: " + f.getClass().getSimpleName());
+					reportRecord.put(field, valueToStore);
 				}
 			}
 
 			reportRecord.put("report_status", statusValue.getValue().trim());
 
 			if (identifier == null) {
-				logError("CustomReport; Identifier is null");
+				logError("CustomReport; Identifier is null, cannot save report.");
+				showNotificationError("Report Manager",
+						"Could not save report, required Number field is missing or misconfigured.");
 				return;
 			}
+
+			reportRecord.put(dataTablePrimaryKey, identifier);
 
 			DynamicDB Database = new DynamicDB(dataFolderPath + reportTitle, "data", dataTablePrimaryKey, reportSchema);
 			if (Database.initDB()) {
@@ -726,5 +976,77 @@ public class CustomReport {
 		} catch (IllegalArgumentException ex) {
 			return false;
 		}
+	}
+
+	public enum CourtCaseFields {
+		CASE_NUMBER("Case Number"),
+		SUSPECT_NAME("Suspect Name"),
+		SUSPECT_AGE("Suspect Age"),
+		SUSPECT_GENDER("Suspect Gender"),
+		SUSPECT_ADDRESS("Suspect Address"),
+		PLATE_NUMBER("Plate Number"),
+		OFFENSE_DATE("Offense Date"),
+		OFFENSE_TIME("Offense Time"),
+		COUNTY("County"),
+		STREET("Street"),
+		AREA("Area"),
+		NOTES("Notes");
+
+		private final String displayName;
+
+		CourtCaseFields(String displayName) {
+			this.displayName = displayName;
+		}
+
+		public String getDisplayName() {
+			return displayName;
+		}
+	}
+
+	private Map<String, String> findCourtCaseMapping(List<nestedReportUtils.SectionConfig> layout, String fieldType) {
+		if (layout == null)
+			return null;
+
+		for (nestedReportUtils.SectionConfig section : layout) {
+			for (nestedReportUtils.RowConfig row : section.getRowConfigs()) {
+				for (nestedReportUtils.FieldConfig field : row.getFieldConfigs()) {
+					if (field.getFieldType().name().equals(fieldType) && field.getCourtCaseMapping() != null) {
+						return field.getCourtCaseMapping();
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private String getMappedValue(Map<String, String> mapping, CourtCaseFields key, Map<String, Object> reportMap,
+			Map<String, Map<String, List<String>>> mainMap) {
+		if (mapping == null) {
+			logError("Court case mapping is null. Cannot get value for key: " + key.name());
+			return "";
+		}
+		String fieldName = mapping.get(key.name());
+		if (fieldName == null) {
+			logWarn("Court case mapping not found for key: " + key.name());
+			return "";
+		}
+
+		Object uiComponent = reportMap.get(fieldName);
+		if (uiComponent == null) {
+			logError("UI Component '" + fieldName + "' for mapped key '" + key.name() + "' not found in reportMap.");
+			return "";
+		}
+
+		List<String> selectedType = mainMap.get("selectedType").get(fieldName);
+		return extractTextFromUIComponent(uiComponent, selectedType);
+	}
+
+	private void showWarning(Label warningLabel, String message) {
+		warningLabel.setText(message);
+		warningLabel.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-text-fill: red;");
+		warningLabel.setVisible(true);
+		PauseTransition pause = new PauseTransition(Duration.seconds(3));
+		pause.setOnFinished(e -> warningLabel.setVisible(false));
+		pause.play();
 	}
 }

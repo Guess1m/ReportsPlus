@@ -157,6 +157,7 @@ public class NewReportVewController {
 		customReportsGrid.getChildren().clear();
 		customReportsGrid.getRowConstraints().clear();
 		customReportsGrid.getColumnConstraints().clear();
+		logDebug("NewReport; ---------- Loading Databases ----------");
 		try {
 			if (!loadDatabaseButtons(getCustomDataLogsFolderPath(), customReportsGrid)) {
 				logInfo("NewReport; No Custom Databases Found");
@@ -165,6 +166,8 @@ public class NewReportVewController {
 		} catch (IOException e) {
 			logError("Error loading database buttons", e);
 		}
+		logDebug("NewReport; ---------- Finished Loading Databases ----------");
+
 	}
 
 	private boolean loadDatabaseButtons(String dataFolderPath, GridPane gridPane) throws IOException {
@@ -198,6 +201,7 @@ public class NewReportVewController {
 		int buttonCount = 0;
 		for (File dbFile : files) {
 			String dbFilePath = dbFile.getAbsolutePath();
+
 			if (!isValidDatabase(dbFilePath, dbFile.getName())) {
 				logWarn("NewReport; Invalid or unreadable database file: " + dbFilePath);
 				continue;
@@ -271,6 +275,7 @@ public class NewReportVewController {
 		Label message = new Label(localization.getLocalizedMessage("NewReportApp.ConfirmDeletion",
 				"Are you sure you want to perform this action?") + " Delete '" + reportName + "'?");
 		message.setWrapText(true);
+		message.setPrefHeight(Region.USE_COMPUTED_SIZE);
 		message.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-font-size: 14;");
 		message.setPrefWidth(Region.USE_COMPUTED_SIZE);
 
@@ -283,11 +288,13 @@ public class NewReportVewController {
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
 		VBox dialogContent = new VBox(20, message, buttonBox);
-		dialogContent.setPadding(new Insets(25));
+		dialogContent.setPadding(new Insets(10));
 		dialogContent.setStyle("-fx-background-color: #F4F4F4;");
+		VBox.setVgrow(buttonBox, Priority.ALWAYS);
 
-		BorderPane layoutPane = new BorderPane(dialogContent);
-		layoutPane.setPrefSize(470, 160);
+		BorderPane layoutPane = new BorderPane();
+		layoutPane.setCenter(dialogContent);
+		layoutPane.setPrefSize(550, Region.USE_COMPUTED_SIZE);
 
 		CustomWindow confirmDialog = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 				layoutPane, "Confirm Deletion", true, 1, true, true,

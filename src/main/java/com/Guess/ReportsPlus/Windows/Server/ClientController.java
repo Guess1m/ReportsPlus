@@ -1,11 +1,13 @@
 package com.Guess.ReportsPlus.Windows.Server;
 
 import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
 
 import java.io.IOException;
 
+import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.IShutdownable;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.Server.ClientUtils;
 
@@ -20,7 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class ClientController {
+public class ClientController implements IShutdownable {
 	public static ClientController clientController;
 	@javafx.fxml.FXML
 	private TextField inetField;
@@ -46,6 +48,14 @@ public class ClientController {
 	private Label lbl3;
 	@javafx.fxml.FXML
 	private Button helpbtn;
+
+	@Override
+	public void shutdown() {
+		logInfo("Shutting down ClientController and all resources...");
+		if (clientController == this) {
+			clientController = null;
+		}
+	}
 
 	public void initialize() throws IOException {
 		if (ConfigReader.configRead("connectionSettings", "lastIPV4Connection") != null) {

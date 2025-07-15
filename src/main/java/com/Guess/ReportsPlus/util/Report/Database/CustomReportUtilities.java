@@ -25,6 +25,8 @@ public class CustomReportUtilities {
         List<String> defaultReports = new ArrayList<String>() {
             {
                 add("Callout Report");
+                add("Arrest Report");
+                add("Citation Report");
                 add("Traffic Stop Report");
                 add("Impound Report");
                 add("Search Report");
@@ -139,6 +141,10 @@ public class CustomReportUtilities {
 
     private static String getLayoutJsonFor(String newValue) throws JsonProcessingException {
         switch (newValue.toLowerCase()) {
+            case "citation report":
+                return getLayoutFromJson(reportLayoutTemplates.citationReport);
+            case "arrest report":
+                return getLayoutFromJson(reportLayoutTemplates.arrestReport);
             case "use of force report":
                 return getLayoutFromJson(reportLayoutTemplates.useOfForceReport);
             case "callout report":

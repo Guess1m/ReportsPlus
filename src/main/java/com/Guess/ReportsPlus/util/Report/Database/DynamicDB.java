@@ -380,9 +380,6 @@ public class DynamicDB {
 			}
 			int affected = ps.executeUpdate();
 			if (affected == 0) {
-				// This can happen in a race condition or if the PK value is invalid.
-				// Changed from logError to logWarn as it's not always a critical application
-				// error.
 				logWarn("Update statement affected 0 rows for primary key: " + record.get(primaryKeyColumn));
 			}
 		}

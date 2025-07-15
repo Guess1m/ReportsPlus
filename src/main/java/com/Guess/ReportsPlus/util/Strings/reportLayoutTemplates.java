@@ -2626,4 +2626,649 @@ public class reportLayoutTemplates {
 			"    \"lookupType\" : null\r\n" +
 			"  } ]\r\n" +
 			"}";
+
+	public static String arrestReport = "{\n" +
+			"  \"layout\" : [ {\n" +
+			"    \"sectionTitle\" : \"Reporting Officer\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Officer Name\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"OFFICER_NAME\",\n" +
+			"        \"populateKey\" : \"officername\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Rank\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"OFFICER_RANK\",\n" +
+			"        \"populateKey\" : \"rank\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Officer Num\",\n" +
+			"        \"size\" : 2,\n" +
+			"        \"fieldType\" : \"OFFICER_NUMBER\",\n" +
+			"        \"populateKey\" : \"officernumber\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Callsign\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"OFFICER_CALLSIGN\",\n" +
+			"        \"populateKey\" : \"callsign\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Agency\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"OFFICER_AGENCY\",\n" +
+			"        \"populateKey\" : \"agency\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Division\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"OFFICER_DIVISION\",\n" +
+			"        \"populateKey\" : \"division\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Timestamp / Location Information\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Date\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"DATE_FIELD\",\n" +
+			"        \"populateKey\" : \"date\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Time\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"TIME_FIELD\",\n" +
+			"        \"populateKey\" : \"time\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Report Num\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"NUMBER_FIELD\",\n" +
+			"        \"populateKey\" : \"number\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Street\",\n" +
+			"        \"size\" : 5,\n" +
+			"        \"fieldType\" : \"COMBO_BOX_STREET\",\n" +
+			"        \"populateKey\" : \"street\",\n" +
+			"        \"nodeType\" : \"COMBO_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Area\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"COMBO_BOX_AREA\",\n" +
+			"        \"populateKey\" : \"area\",\n" +
+			"        \"nodeType\" : \"COMBO_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"County\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"COUNTY_FIELD\",\n" +
+			"        \"populateKey\" : \"county\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Suspect Details\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Name\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"name\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"FULL_NAME\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Date of Birth\",\n" +
+			"        \"size\" : 2,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"dob\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"DOB\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Gender\",\n" +
+			"        \"size\" : 2,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"gender\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"GENDER\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Address\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"address\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"ADDRESS\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Description\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"description\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"DESCRIPTION\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Other Info\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"other\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"None\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : true,\n" +
+			"    \"lookupType\" : \"Ped\"\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Medical Details (Where Applicable)\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Use of Force Applied\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"CHECK_BOX\",\n" +
+			"        \"populateKey\" : \"useofforceapplied\",\n" +
+			"        \"nodeType\" : \"CHECK_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Weapons Utilized\",\n" +
+			"        \"size\" : 8,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"weaponutilized\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Other Information\",\n" +
+			"        \"size\" : 12,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"otherinformation\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"blank_481360\",\n" +
+			"        \"size\" : 12,\n" +
+			"        \"fieldType\" : \"BLANK_SPACE\",\n" +
+			"        \"populateKey\" : null,\n" +
+			"        \"nodeType\" : \"BLANK_SPACE\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Injury Type\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"injurytype\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Refused Medical\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"CHECK_BOX\",\n" +
+			"        \"populateKey\" : \"refusedmedical\",\n" +
+			"        \"nodeType\" : \"CHECK_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"EMS Transport\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"CHECK_BOX\",\n" +
+			"        \"populateKey\" : \"emstransport\",\n" +
+			"        \"nodeType\" : \"CHECK_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Injury Details\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"injurydetails\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Transport Details\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"transportdetails\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Arrest Details\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"charges_tree_view_385381\",\n" +
+			"        \"size\" : 12,\n" +
+			"        \"fieldType\" : \"CHARGES_TREE_VIEW\",\n" +
+			"        \"populateKey\" : null,\n" +
+			"        \"nodeType\" : \"TREE_VIEW\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : {\n" +
+			"          \"SUSPECT_NAME\" : \"Name\",\n" +
+			"          \"NOTES\" : \"Notes\",\n" +
+			"          \"OFFENSE_TIME\" : \"Time\",\n" +
+			"          \"SUSPECT_AGE\" : \"Date of Birth\",\n" +
+			"          \"SUSPECT_GENDER\" : \"Gender\",\n" +
+			"          \"AREA\" : \"Area\",\n" +
+			"          \"CASE_NUMBER\" : \"Report Num\",\n" +
+			"          \"SUSPECT_ADDRESS\" : \"Address\",\n" +
+			"          \"OFFENSE_DATE\" : \"Date\",\n" +
+			"          \"STREET\" : \"Street\",\n" +
+			"          \"COUNTY\" : \"County\"\n" +
+			"        }\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Self Transported\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"CHECK_BOX\",\n" +
+			"        \"populateKey\" : \"selftransported\",\n" +
+			"        \"nodeType\" : \"CHECK_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Transporting Officer\",\n" +
+			"        \"size\" : 8,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"transportingofficer\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Notes / Comments\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Notes\",\n" +
+			"        \"size\" : 12,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"notes\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  } ]\n" +
+			"}";
+
+	public static String citationReport = "{\n" +
+			"  \"layout\" : [ {\n" +
+			"    \"sectionTitle\" : \"Reporting Officer\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Officer Name\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"OFFICER_NAME\",\n" +
+			"        \"populateKey\" : \"officername\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Rank\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"OFFICER_RANK\",\n" +
+			"        \"populateKey\" : \"rank\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Officer Num\",\n" +
+			"        \"size\" : 2,\n" +
+			"        \"fieldType\" : \"OFFICER_NUMBER\",\n" +
+			"        \"populateKey\" : \"officernumber\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Callsign\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"OFFICER_CALLSIGN\",\n" +
+			"        \"populateKey\" : \"callsign\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Agency\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"OFFICER_AGENCY\",\n" +
+			"        \"populateKey\" : \"agency\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Division\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"OFFICER_DIVISION\",\n" +
+			"        \"populateKey\" : \"division\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Timestamp / Location Information\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Date\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"DATE_FIELD\",\n" +
+			"        \"populateKey\" : \"date\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Time\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"TIME_FIELD\",\n" +
+			"        \"populateKey\" : \"time\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Report Num\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"NUMBER_FIELD\",\n" +
+			"        \"populateKey\" : \"number\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Street\",\n" +
+			"        \"size\" : 5,\n" +
+			"        \"fieldType\" : \"COMBO_BOX_STREET\",\n" +
+			"        \"populateKey\" : \"street\",\n" +
+			"        \"nodeType\" : \"COMBO_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Area\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"COMBO_BOX_AREA\",\n" +
+			"        \"populateKey\" : \"area\",\n" +
+			"        \"nodeType\" : \"COMBO_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"County\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"COUNTY_FIELD\",\n" +
+			"        \"populateKey\" : \"county\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Suspect Details\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Name\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"name\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"FULL_NAME\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Date of Birth\",\n" +
+			"        \"size\" : 2,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"dob\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"DOB\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Gender\",\n" +
+			"        \"size\" : 2,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"gender\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"GENDER\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Address\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"address\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"ADDRESS\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Description\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"description\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"DESCRIPTION\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Other Info\",\n" +
+			"        \"size\" : 6,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"other\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"None\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : true,\n" +
+			"    \"lookupType\" : \"Ped\"\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Vehicle Details\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Plate Number\",\n" +
+			"        \"size\" : 3,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"plate\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"PLATE_NUMBER\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Model\",\n" +
+			"        \"size\" : 5,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"model\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"MODEL\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Type\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"COMBO_BOX_TYPE\",\n" +
+			"        \"populateKey\" : \"type\",\n" +
+			"        \"nodeType\" : \"COMBO_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"VEHICLE_TYPE\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    }, {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Color\",\n" +
+			"        \"size\" : 4,\n" +
+			"        \"fieldType\" : \"COMBO_BOX_COLOR\",\n" +
+			"        \"populateKey\" : \"color\",\n" +
+			"        \"nodeType\" : \"COMBO_BOX\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"None\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      }, {\n" +
+			"        \"fieldName\" : \"Other Vehicle Info\",\n" +
+			"        \"size\" : 8,\n" +
+			"        \"fieldType\" : \"TEXT_FIELD\",\n" +
+			"        \"populateKey\" : \"othervehicleinfo\",\n" +
+			"        \"nodeType\" : \"TEXT_FIELD\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : \"None\",\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : true,\n" +
+			"    \"lookupType\" : \"Vehicle\"\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Citation Details\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"citation_tree_view_362791\",\n" +
+			"        \"size\" : 12,\n" +
+			"        \"fieldType\" : \"CITATION_TREE_VIEW\",\n" +
+			"        \"populateKey\" : null,\n" +
+			"        \"nodeType\" : \"TREE_VIEW\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : {\n" +
+			"          \"SUSPECT_NAME\" : \"Name\",\n" +
+			"          \"NOTES\" : \"Notes\",\n" +
+			"          \"OFFENSE_TIME\" : \"Time\",\n" +
+			"          \"SUSPECT_AGE\" : \"Date of Birth\",\n" +
+			"          \"AREA\" : \"Area\",\n" +
+			"          \"SUSPECT_GENDER\" : \"Gender\",\n" +
+			"          \"CASE_NUMBER\" : \"Report Num\",\n" +
+			"          \"SUSPECT_ADDRESS\" : \"Address\",\n" +
+			"          \"OFFENSE_DATE\" : \"Date\",\n" +
+			"          \"STREET\" : \"Street\",\n" +
+			"          \"PLATE_NUMBER\" : \"Plate Number\",\n" +
+			"          \"COUNTY\" : \"County\"\n" +
+			"        }\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  }, {\n" +
+			"    \"sectionTitle\" : \"Notes / Comments\",\n" +
+			"    \"rowConfigs\" : [ {\n" +
+			"      \"fieldConfigs\" : [ {\n" +
+			"        \"fieldName\" : \"Notes\",\n" +
+			"        \"size\" : 12,\n" +
+			"        \"fieldType\" : \"TEXT_AREA\",\n" +
+			"        \"populateKey\" : \"notes\",\n" +
+			"        \"nodeType\" : \"TEXT_AREA\",\n" +
+			"        \"dropdownType\" : null,\n" +
+			"        \"lookupValue\" : null,\n" +
+			"        \"courtCaseMapping\" : null\n" +
+			"      } ]\n" +
+			"    } ],\n" +
+			"    \"pullFromLookup\" : false,\n" +
+			"    \"lookupType\" : null\n" +
+			"  } ]\n" +
+			"}";
 }

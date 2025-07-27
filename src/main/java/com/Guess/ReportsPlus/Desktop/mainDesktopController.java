@@ -172,11 +172,9 @@ public class mainDesktopController {
 					if (path != null && !path.isEmpty()) {
 						Image image = loadImageFromAbsolutePath(path);
 						logDebug("Loading image from path: " + path);
-
 						BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
 								BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
 								new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
-
 						container.setBackground(new Background(backgroundImage));
 					} else {
 						Image errorImg = new Image(Objects.requireNonNull(
@@ -186,13 +184,11 @@ public class mainDesktopController {
 								new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
 						container.setBackground(new Background(errorBkgImg));
 						logWarn("Cant update image, path is empty, showing noImgFound bkg: " + path);
-
 					}
 				} else {
 					String color = ConfigReader.configRead("desktopSettings", "desktopColor");
 					BackgroundFill background_fill = new BackgroundFill(Color.web(color), CornerRadii.EMPTY,
 							Insets.EMPTY);
-
 					Background background = new Background(background_fill);
 					container.setBackground(background);
 				}
@@ -207,15 +203,12 @@ public class mainDesktopController {
 		if (!file.exists()) {
 			throw new IllegalArgumentException("The specified file does not exist: " + absolutePath);
 		}
-
 		String imagePath = file.toURI().toString();
-
 		return new Image(imagePath);
 	}
 
 	public void initialize() throws IOException {
 		infoHBox.setVisible(false);
-
 		button1.setOnAction(event -> {
 			editableDesktop = !editableDesktop;
 			if (!editableDesktop) {
@@ -237,7 +230,6 @@ public class mainDesktopController {
 				}
 			}
 		});
-
 		inputLockButton.setOnMouseClicked(event -> {
 			isInputLocked = !isInputLocked;
 			if (isInputLocked) {
@@ -247,36 +239,25 @@ public class mainDesktopController {
 			}
 			inputLock.setDisable(isInputLocked);
 		});
-
 		NotesViewController.notesText = "";
-
 		updateDesktopBackground(container);
-
 		getTopBarHboxRight().getChildren().remove(locationDataLabel);
 		getTopBarHboxRight().getChildren().remove(lookupLabel);
-
 		if (ConfigReader.configRead("uiSettings", "firstLogin").equalsIgnoreCase("true")) {
 			ConfigWriter.configwrite("uiSettings", "firstLogin", "false");
 			logDebug("First Login...");
-
 			CustomReportUtilities.addDefaultReports();
-
 		} else {
 			logDebug("Not First Login...");
 		}
-
 		addApps();
-
 		ClientUtils.setStatusListener(this::updateConnectionStatus);
-
 		updateTime();
 		updateDate();
-
 		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> updateTime()),
 				new KeyFrame(Duration.seconds(5)));
 		clock.setCycleCount(Animation.INDEFINITE);
 		clock.play();
-
 		locationStreetLabel.setOnMouseClicked(mouseEvent -> {
 			if (getTopBarHboxRight().getChildren().contains(locationDataLabel)) {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -286,7 +267,6 @@ public class mainDesktopController {
 				clipboard.setContent(content);
 			}
 		});
-
 		locationAreaLabel.setOnMouseClicked(mouseEvent -> {
 			if (getTopBarHboxRight().getChildren().contains(locationDataLabel)) {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -296,7 +276,6 @@ public class mainDesktopController {
 				clipboard.setContent(content);
 			}
 		});
-
 		locationCountyLabel.setOnMouseClicked(mouseEvent -> {
 			if (getTopBarHboxRight().getChildren().contains(locationDataLabel)) {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -306,7 +285,6 @@ public class mainDesktopController {
 				clipboard.setContent(content);
 			}
 		});
-
 		lookupLabel.setOnMouseClicked(mouseEvent -> {
 			if (getTopBarHboxRight().getChildren().contains(lookupLabel)) {
 				Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -318,7 +296,6 @@ public class mainDesktopController {
 				clipboard.setContent(content);
 			}
 		});
-
 		try {
 			if (ConfigReader.configRead("connectionSettings", "serverAutoConnect").equalsIgnoreCase("true")) {
 				logDebug("Searching For Server...");
@@ -331,59 +308,46 @@ public class mainDesktopController {
 		} catch (IOException e) {
 			logError("Not able to read serverautoconnect: ", e);
 		}
-
 		try {
 			scheduleOutcomeRevealsForPendingCases();
 		} catch (JAXBException | IOException e) {
 			logError("Error scheduling outcomes for cases: ", e);
 		}
-
 		try {
 			officerInfoName.setText(
 					ConfigReader.configRead("userInfo", "Name") + ", " + ConfigReader.configRead("userInfo", "Agency"));
 		} catch (IOException e) {
 			logError("Unable to read userInfo name from config (2), ", e);
 		}
-
 		if (notesTabList == null) {
 			notesTabList = new ArrayList<>();
 		}
-
 		addLocale();
-
 		Platform.runLater(() -> {
 			configureNotificationPane();
-
 			try {
 				settingsController.loadTheme();
 			} catch (IOException e) {
 				logError("Unable to load theme from config (01), ", e);
 			}
-
 			versionLabel.setText(updateStrings.version);
-
 			checkForUpdates();
 			checkForServerSameDir();
-
 			Stage stge = (Stage) container.getScene().getWindow();
 			stge.setOnHiding(event -> {
 				handleClose();
 			});
 			stge.show();
-
 		});
-
 		getMainDesktop().addEventHandler(KeyEvent.KEY_PRESSED, event -> keybindEvent(event));
 	}
 
 	private void checkForServerSameDir() {
 		File directory = new File(getJarPath());
-
 		if (!directory.isDirectory()) {
 			logError("Error: '" + directory.getPath() + "' is not a valid directory.");
 			return;
 		}
-
 		File jarFile = new File(directory, "ReportsPlusServer.jar");
 		if (jarFile.exists()) {
 			showNotificationErrorPersistent("ERROR",
@@ -397,9 +361,7 @@ public class mainDesktopController {
 		if (!event.isControlDown()) {
 			return;
 		}
-
 		KeyCode code = event.getCode();
-
 		try {
 			KeyCode inputLockKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "inputLock").toUpperCase());
 			KeyCode closeKey = KeyCode.valueOf(ConfigReader.configRead("keybindings", "closeWindow").toUpperCase());
@@ -409,9 +371,7 @@ public class mainDesktopController {
 					.valueOf(ConfigReader.configRead("keybindings", "toggleMaximize").toUpperCase());
 			KeyCode fullscreenKey = KeyCode
 					.valueOf(ConfigReader.configRead("keybindings", "applicationFullscreen").toUpperCase());
-
 			KeyCode terminalKey = KeyCode.SLASH;
-
 			if (code == inputLockKey) {
 				isInputLocked = !isInputLocked;
 				logInfo("Keybinds[" + code + "]; Input " + (isInputLocked ? "Locked!" : "Unlocked!"));
@@ -444,7 +404,6 @@ public class mainDesktopController {
 				}
 			} else if (code == terminalKey && event.isShiftDown()) {
 				showNotificationInfo("DEV", "Opening Terminal");
-
 				CustomWindow terminalApp = WindowManager.createCustomWindow(desktopContainer,
 						"Windows/Misc/terminal.fxml", "Terminal", true, 1, true, true, taskBarApps,
 						new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
@@ -466,11 +425,9 @@ public class mainDesktopController {
 		notificationContainerScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		notificationContainerScrollPane.setHmax(0);
 		notificationContainerScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
 		notificationContainerScrollPane.getStylesheets().add(Launcher.class
 				.getResource("/com/Guess/ReportsPlus/css/main/transparentScrollPane.css").toExternalForm());
 		desktopContainer.getChildren().add(notificationContainerScrollPane);
-
 		notificationContainer.setStyle("-fx-background-color: transparent;");
 	}
 
@@ -507,7 +464,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, notesApp, appConfigRead("Notes", "x"), appConfigRead("Notes", "y"));
-
 		settingsAppObj = new DesktopApp("Settings", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
 		VBox settingsApp = settingsAppObj.createDesktopApp(mouseEvent -> {
@@ -523,7 +479,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, settingsApp, appConfigRead("Settings", "x"), appConfigRead("Settings", "y"));
-
 		updatesAppObj = new DesktopApp("Updates", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/updates.png"))));
 		VBox updatesApp = updatesAppObj.createDesktopApp(mouseEvent -> {
@@ -540,7 +495,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, updatesApp, appConfigRead("Updates", "x"), appConfigRead("Updates", "y"));
-
 		DesktopApp logBrowserAppObj = new DesktopApp("Log Browser", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/logs.png"))));
 		VBox logBrowserApp = logBrowserAppObj.createDesktopApp(mouseEvent -> {
@@ -561,7 +515,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, logBrowserApp, appConfigRead("Log Browser", "x"),
 				appConfigRead("Log Browser", "y"));
-
 		calloutManagerAppObj = new DesktopApp("Callouts", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/callout.png"))));
 		VBox calloutManagerApp = calloutManagerAppObj.createDesktopApp(mouseEvent -> {
@@ -583,7 +536,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, calloutManagerApp, appConfigRead("Callouts", "x"),
 				appConfigRead("Callouts", "y"));
-
 		courtAppObj = new DesktopApp("CourtCase", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/courtIcon.png"))));
 		VBox courtApp = courtAppObj.createDesktopApp(mouseEvent -> {
@@ -604,7 +556,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, courtApp, appConfigRead("CourtCase", "x"), appConfigRead("CourtCase", "y"));
-
 		pedLookupAppObj = new DesktopApp("Ped Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/ped-search.png"))));
 		VBox lookupApp = pedLookupAppObj.createDesktopApp(mouseEvent -> {
@@ -626,7 +577,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, lookupApp, appConfigRead("Ped Lookup", "x"),
 				appConfigRead("Ped Lookup", "y"));
-
 		vehLookupAppObj = new DesktopApp("Veh Lookup", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/veh-search.png"))));
 		VBox vehLookupApp = vehLookupAppObj.createDesktopApp(mouseEvent -> {
@@ -648,7 +598,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, vehLookupApp, appConfigRead("Veh Lookup", "x"),
 				appConfigRead("Veh Lookup", "y"));
-
 		newReportAppObj = new DesktopApp("New Report", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/new-report.png"))));
 		VBox newReportApp = newReportAppObj.createDesktopApp(mouseEvent -> {
@@ -670,7 +619,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, newReportApp, appConfigRead("New Report", "x"),
 				appConfigRead("New Report", "y"));
-
 		connectionAppObj = new DesktopApp("Server", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/server.png"))));
 		VBox connectionApp = connectionAppObj.createDesktopApp(mouseEvent -> {
@@ -691,7 +639,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, connectionApp, appConfigRead("Server", "x"), appConfigRead("Server", "y"));
-
 		showIDAppObj = new DesktopApp("Show IDs", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
 		VBox showIDApp = showIDAppObj.createDesktopApp(mouseEvent -> {
@@ -708,7 +655,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, showIDApp, appConfigRead("Show IDs", "x"), appConfigRead("Show IDs", "y"));
-
 		profileAppObj = new DesktopApp("Profile", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/profile.png"))));
 		VBox profileApp = profileAppObj.createDesktopApp(mouseEvent -> {
@@ -728,7 +674,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, profileApp, appConfigRead("Profile", "x"), appConfigRead("Profile", "y"));
-
 		reportStatisticsAppObj = new DesktopApp("Report Statistics", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/statistics.png"))));
 		VBox reportStatisticsApp = reportStatisticsAppObj.createDesktopApp(mouseEvent -> {
@@ -737,11 +682,9 @@ public class mainDesktopController {
 					CustomWindow statisticWindow = WindowManager.createCustomWindow(desktopContainer,
 							"Windows/Apps/report-statistics-view.fxml", "Report Statistics", true, 1, true, false,
 							taskBarApps, reportStatisticsAppObj.getImage());
-
 					ReportStatisticsController.reportStatisticsController = (ReportStatisticsController) (statisticWindow != null
 							? statisticWindow.controller
 							: null);
-
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -752,7 +695,6 @@ public class mainDesktopController {
 		});
 		addAppToDesktop(desktopContainer, reportStatisticsApp, appConfigRead("Report Statistics", "x"),
 				appConfigRead("Report Statistics", "y"));
-
 		alprAppObj = new DesktopApp("ALPR", new Image(Objects.requireNonNull(
 				Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/alpr.png"))));
 		VBox alprApp = alprAppObj.createDesktopApp(mouseEvent -> {
@@ -761,11 +703,9 @@ public class mainDesktopController {
 					CustomWindow alprWindow = WindowManager.createCustomWindow(desktopContainer,
 							"Windows/Apps/alpr-view.fxml", "ALPR", true, 1, true, false, taskBarApps,
 							alprAppObj.getImage());
-
 					ALPRViewController.alprViewController = (ALPRViewController) (alprWindow != null
 							? alprWindow.controller
 							: null);
-
 					try {
 						settingsController.loadTheme();
 					} catch (IOException e) {
@@ -775,7 +715,6 @@ public class mainDesktopController {
 			}
 		});
 		addAppToDesktop(desktopContainer, alprApp, appConfigRead("ALPR", "x"), appConfigRead("ALPR", "y"));
-
 	}
 
 	private void updateTime() {
@@ -785,7 +724,6 @@ public class mainDesktopController {
 	private void updateDate() {
 		LocalDate currentDate = LocalDate.now();
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
 		dateLabel.setText(currentDate.format(dateFormatter));
 	}
 
@@ -825,7 +763,6 @@ public class mainDesktopController {
 			}
 		} else {
 			serverStatusLabel.setText("Connected");
-
 			showNotificationInfo("Server Connection", "Server Connection Established");
 			serverStatusLabel.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
 			if (clientController != null) {

@@ -1,32 +1,33 @@
 package com.Guess.ReportsPlus.util.Report;
 
-import com.Guess.ReportsPlus.logs.ChargesData;
-import com.Guess.ReportsPlus.logs.CitationsData;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TreeItem;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
+import com.Guess.ReportsPlus.logs.ChargesData;
+import com.Guess.ReportsPlus.logs.CitationsData;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TreeItem;
 
 public class treeViewUtils {
-	
 	public static String findXMLValue(String selectedValue, String value, String path) {
 		try {
 			File file = new File(getJarPath() + "/" + path);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			Document document = factory.newDocumentBuilder().parse(file);
-			
 			Element selectedElement = findElementByValue(document.getDocumentElement(), selectedValue);
 			if (selectedElement != null) {
 				String XMLValue = selectedElement.getAttribute(value);
@@ -40,7 +41,7 @@ public class treeViewUtils {
 			return null;
 		}
 	}
-	
+
 	private static Element findElementByValue(Element parentElement, String value) {
 		NodeList childNodes = parentElement.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
@@ -50,7 +51,6 @@ public class treeViewUtils {
 				if (childElement.getAttribute("name").equals(value)) {
 					return childElement;
 				}
-				
 				Element foundElement = findElementByValue(childElement, value);
 				if (foundElement != null) {
 					return foundElement;
@@ -59,7 +59,7 @@ public class treeViewUtils {
 		}
 		return null;
 	}
-	
+
 	public static void parseTreeXML(Element parentElement, TreeItem<String> parentItem) {
 		NodeList childNodes = parentElement.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
@@ -76,7 +76,7 @@ public class treeViewUtils {
 			}
 		}
 	}
-	
+
 	public static void addChargesToTable(String chargesString, ObservableList<ChargesData> chargeList) {
 		String[] chargesArray = chargesString.split("\\|");
 		for (String charge : chargesArray) {
@@ -86,7 +86,7 @@ public class treeViewUtils {
 			}
 		}
 	}
-	
+
 	public static void addCitationsToTable(String citationsString, ObservableList<CitationsData> citList) {
 		String[] citationsArray = citationsString.split("\\|");
 		for (String cit : citationsArray) {
@@ -96,5 +96,4 @@ public class treeViewUtils {
 			}
 		}
 	}
-	
 }

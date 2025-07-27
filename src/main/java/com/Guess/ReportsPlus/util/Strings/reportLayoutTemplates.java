@@ -1,7 +1,6 @@
 package com.Guess.ReportsPlus.util.Strings;
 
 public class reportLayoutTemplates {
-
 	public static String calloutReport = "{\r\n" +
 			"  \"layout\" : [ {\r\n" +
 			"    \"sectionTitle\" : \"Officer information\",\r\n" +
@@ -2626,7 +2625,6 @@ public class reportLayoutTemplates {
 			"    \"lookupType\" : null\r\n" +
 			"  } ]\r\n" +
 			"}";
-
 	public static String arrestReport = "{\n" +
 			"  \"layout\" : [ {\n" +
 			"    \"sectionTitle\" : \"Reporting Officer\",\n" +
@@ -2979,7 +2977,6 @@ public class reportLayoutTemplates {
 			"    \"lookupType\" : null\n" +
 			"  } ]\n" +
 			"}";
-
 	public static String citationReport = "{\n" +
 			"  \"layout\" : [ {\n" +
 			"    \"sectionTitle\" : \"Reporting Officer\",\n" +

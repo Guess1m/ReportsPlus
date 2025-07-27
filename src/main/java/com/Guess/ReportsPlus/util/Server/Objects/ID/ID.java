@@ -17,44 +17,32 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ID {
-
 	@XmlElement(name = "Name")
 	private String name;
-
 	@XmlElement(name = "Birthday")
 	private String birthday;
-
 	@XmlElement(name = "Gender")
 	private String gender;
-
 	@XmlElement(name = "Address")
 	private String address;
-
 	@XmlElement(name = "Height")
 	private String height;
-
 	@XmlElement(name = "Weight")
 	private String weight;
-
 	@XmlElement(name = "PedModel")
 	private String pedModel;
-
 	@XmlElement(name = "LicenseNumber")
 	private String licenseNumber;
-
 	@XmlElement(name = "Status")
 	private String status;
-
 	@XmlElement(name = "Expiration")
 	private String expiration;
 
 	public static IDs loadServerIDs() throws JAXBException {
 		File file = new File(currentIDFileURL);
-
 		if (!file.exists() || file.length() == 0) {
 			return new IDs();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(IDs.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -75,14 +63,11 @@ public class ID {
 
 	public static void addServerID(ID ID) throws JAXBException {
 		IDs IDs = loadServerIDs();
-
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-
 		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName()))
 				.findFirst();
-
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
@@ -91,7 +76,6 @@ public class ID {
 			IDs.getIdList().add(ID);
 			logInfo("ServerID with name " + ID.getName() + " added.");
 		}
-
 		saveServerIDs(IDs);
 	}
 

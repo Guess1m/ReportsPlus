@@ -92,12 +92,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 //TODO: controlsfx searchable combobox
-
 public class reportUtil {
 	public static Map<String, Object> createReportWindow(String reportName,
 			nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {
 		Map<String, Object> mainMap = new HashMap<>();
-
 		String placeholder;
 		try {
 			placeholder = ConfigReader.configRead("reportSettings", "reportHeading");
@@ -105,40 +103,32 @@ public class reportUtil {
 			logError("Could not read reportHeading from config: ", e);
 			throw new RuntimeException(e);
 		}
-
 		BorderPane mainRoot = new BorderPane();
 		mainRoot.setStyle("-fx-border-color: black; -fx-border-width: 1.5;");
-
 		GridPane gridPane = new GridPane();
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
-
 		Label warningLabel = new Label("Please fill out the form");
 		warningLabel.setVisible(false);
 		warningLabel.setStyle("-fx-text-fill: red; -fx-font-family: 'Inter 24pt Regular'; -fx-font-size: 14;");
-
 		for (int i = 0; i < 12; i++) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setPercentWidth(100 / 12.0);
 			gridPane.getColumnConstraints().add(column);
 		}
-
 		Label mainHeaderLabel = new Label(
 				localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " " + reportName);
 		mainHeaderLabel.setStyle(
 				"-fx-font-size: 29px; -fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Bold\";");
-
 		Label statusLabel = new Label(
 				localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status:") + " ");
 		statusLabel.setStyle(
 				"-fx-font-size: 15.5px;-fx-text-fill: " + placeholder + "; -fx-font-family: \"Inter 28pt Medium\";");
-
 		// TODO: remove when legacy reports are no longer supported
 		Label legacyLabel = new Label("Legacy Report");
 		legacyLabel.setStyle(
 				"-fx-font-size: 10px;-fx-text-fill: " + "tomato" + "; -fx-font-family: \"Inter 28pt Medium\";");
 		legacyLabel.setVisible(false);
-
 		ComboBox<String> statusValue = new ComboBox<>();
 		statusValue.getStyleClass().add("comboboxnew");
 		statusValue.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-font-size: 10;");
@@ -177,10 +167,8 @@ public class reportUtil {
 			}
 		});
 		statusValue.setMaxWidth(Region.USE_COMPUTED_SIZE);
-
 		HBox statusBox = new HBox(statusLabel, statusValue);
 		statusBox.setAlignment(Pos.CENTER_RIGHT);
-
 		GridPane topHeaderGridPane = new GridPane();
 		topHeaderGridPane.add(mainHeaderLabel, 0, 0);
 		topHeaderGridPane.add(legacyLabel, 0, 0);
@@ -194,19 +182,15 @@ public class reportUtil {
 		ColumnConstraints col2 = new ColumnConstraints();
 		col2.setPercentWidth(50);
 		topHeaderGridPane.getColumnConstraints().addAll(col2, col3);
-
 		Map<String, Object> fieldsMap = new HashMap<>();
 		int rowIndex = 1;
-
 		for (nestedReportUtils.SectionConfig sectionConfig : sectionConfigs) {
 			HBox labelContainer = new HBox();
 			labelContainer.setSpacing(10);
-
 			Label sectionLabel = new Label(sectionConfig.getSectionTitle());
 			sectionLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: " + placeholder
 					+ "; -fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 			labelContainer.getChildren().add(sectionLabel);
-
 			if (sectionConfig.hasButton() || sectionConfig.getLookupType() != null) {
 				Button button = new Button(
 						localization.getLocalizedMessage("ReportWindows.PullFromLookup", "Pull From Lookup"));
@@ -220,45 +204,35 @@ public class reportUtil {
 						button.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-font-size: 10;");
 					}
 				});
-
 				if (sectionConfig.getLookupType() != null
 						&& !sectionConfig.getLookupType().isEmpty()) {
 					logDebug("SectionConfig: " + sectionConfig.getSectionTitle() + " has type: ["
 							+ sectionConfig.getLookupType() + "]");
-
 					button.setOnMouseClicked(_ -> {
 						String lookupType = sectionConfig.getLookupType().toLowerCase();
 						logInfo("Pulling values from " + lookupType + " lookup for section: "
 								+ sectionConfig.getSectionTitle());
 					});
-
 					mainMap.put(sectionConfig.getSectionTitle() + "_button_" + sectionConfig.getLookupType(), button);
 				} else {
 					mainMap.put(sectionConfig.getSectionTitle() + "_button", button);
 				}
-
 			}
-
 			gridPane.add(labelContainer, 0, rowIndex, 12, 1);
 			rowIndex++;
-
 			for (nestedReportUtils.RowConfig rowConfig : sectionConfig.getRowConfigs()) {
 				rowIndex += addRowToGridPane(gridPane, rowConfig, rowIndex, fieldsMap);
 			}
-
 			if (sectionConfig != sectionConfigs[sectionConfigs.length - 1]) {
 				Separator separator = new Separator();
 				separator.setMaxWidth(Double.MAX_VALUE);
-
 				StackPane separatorPane = new StackPane(separator);
 				separatorPane.setPadding(new Insets(20, 0, 0, 0));
-
 				GridPane.setColumnSpan(separatorPane, 12);
 				gridPane.add(separatorPane, 0, rowIndex);
 				rowIndex++;
 			}
 		}
-
 		Button submitBtn = new Button(
 				localization.getLocalizedMessage("ReportWindows.SubmitReportButton", "Submit Report"));
 		submitBtn.setMinWidth(Region.USE_PREF_SIZE);
@@ -271,7 +245,6 @@ public class reportUtil {
 				submitBtn.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 			}
 		});
-
 		MenuButton pullNotesBtn = new MenuButton(
 				localization.getLocalizedMessage("ReportWindows.PullFromNotesButton", "Pull From Notes"));
 		pullNotesBtn.setMinWidth(Region.USE_PREF_SIZE);
@@ -284,7 +257,6 @@ public class reportUtil {
 				pullNotesBtn.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-padding: 5px 2px;");
 			}
 		});
-
 		Button delBtn = new Button(
 				localization.getLocalizedMessage("ReportWindows.DeleteReportButton", "Delete Report"));
 		delBtn.setVisible(false);
@@ -301,11 +273,9 @@ public class reportUtil {
 						"-fx-background-color: " + getPrimaryColor() + "; -fx-border-color:red; -fx-border-width: 1;");
 			}
 		});
-
 		HBox buttonBox = new HBox(10, delBtn, warningLabel, pullNotesBtn, submitBtn);
 		buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 		VBox root = new VBox(10, topHeaderGridPane, gridPane);
-
 		BorderPane transferBorderPane = new BorderPane();
 		MenuButton transferBox = new MenuButton(
 				localization.getLocalizedMessage("ReportWindows.TransferReportInfoButton",
@@ -320,42 +290,34 @@ public class reportUtil {
 				transferBox.setStyle("-fx-background-color: " + getPrimaryColor() + "; -fx-padding: 5px 2px;");
 			}
 		});
-
 		VBox.setVgrow(transferBorderPane, Priority.NEVER);
 		transferBorderPane.setBottom(transferBox);
 		BorderPane.setAlignment(transferBox, Pos.CENTER_RIGHT);
-
 		if (transferConfig != null) {
 			TitledPane titledPane = new TitledPane();
 			titledPane.setExpanded(false);
 			titledPane.setText(transferConfig.getTitle());
 			titledPane.getStyleClass().add("paneoptions");
-
 			GridPane paneGrid = new GridPane();
 			paneGrid.setHgap(10);
 			paneGrid.setVgap(10);
-
 			paneGrid.getColumnConstraints().clear();
 			for (int i = 0; i < 12; i++) {
 				ColumnConstraints columnConstraints = new ColumnConstraints();
 				columnConstraints.setPercentWidth(100.0 / 12);
 				paneGrid.getColumnConstraints().add(columnConstraints);
 			}
-
 			int rowIndex1 = 0;
 			for (nestedReportUtils.RowConfig rowConfig : transferConfig.getRowConfigs()) {
 				addRowToGridPane(paneGrid, rowConfig, rowIndex1++, fieldsMap);
 			}
-
 			titledPane.setContent(paneGrid);
-
 			Pane spacerPane1 = new Pane();
 			spacerPane1.setMinHeight(20);
 			spacerPane1.setPrefHeight(20);
 			Pane spacerPane2 = new Pane();
 			spacerPane2.setMinHeight(20);
 			spacerPane1.setPrefHeight(20);
-
 			Accordion accordion = new Accordion();
 			accordion.setStyle("-fx-box-border: transparent;");
 			accordion.getPanes().add(titledPane);
@@ -363,29 +325,24 @@ public class reportUtil {
 			accordion.setMinHeight(Region.USE_PREF_SIZE);
 			accordion.setPrefHeight(Region.USE_COMPUTED_SIZE);
 			accordion.setMaxHeight(Region.USE_COMPUTED_SIZE);
-
 			paneGrid.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: "
 					+ getSecondaryColor() + ";");
 			accordion.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: "
 					+ getSecondaryColor() + ";");
 			titledPane.setStyle("-fx-background-color: " + getSecondaryColor() + "; -fx-border-color: "
 					+ getSecondaryColor() + ";");
-
 			root.getChildren().addAll(spacerPane1, titledPane, spacerPane2);
 		}
-
 		root.getChildren().add(buttonBox);
 		root.getChildren().add(transferBorderPane);
 		root.setAlignment(Pos.CENTER);
 		root.setStyle("-fx-background-color: " + getAccentColor() + ";");
 		Insets insets = new Insets(20, 25, 15, 25);
 		root.setPadding(insets);
-
 		ScrollPane scrollPane = new ScrollPane(root);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		mainRoot.setCenter(scrollPane);
-
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				mainRoot.getStylesheets().add(Launcher.class
@@ -425,13 +382,10 @@ public class reportUtil {
 		} catch (IOException e) {
 			logError("Could not add stylesheets to reports: ", e);
 		}
-
 		scrollPane.getStyleClass().add("formPane");
 		scrollPane.setStyle(
 				"-fx-background-color: " + getAccentColor() + "; " + "-fx-focus-color: " + getAccentColor() + ";");
-
 		mainMap.put(reportName + " Map", fieldsMap);
-
 		mainMap.put("delBtn", delBtn);
 		mainMap.put("pullNotesBtn", pullNotesBtn);
 		mainMap.put("statusValue", statusValue);
@@ -440,14 +394,11 @@ public class reportUtil {
 		mainMap.put("submitBtn", submitBtn);
 		mainMap.put("transferBox", transferBox);
 		mainMap.put("root", mainRoot);
-
 		BorderPane root1 = (BorderPane) mainMap.get("root");
 		StringProperty reportNameProperty = new SimpleStringProperty(reportName);
 		root1.getProperties().put("reportName", reportNameProperty);
-
 		mainRoot.setPrefHeight(570.0);
 		mainRoot.setPrefWidth(780.0);
-
 		createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), mainRoot, reportName, true, 1, true, false,
 				mainDesktopControllerObj.getTaskBarApps(), new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/newReport.png"))));
@@ -460,11 +411,9 @@ public class reportUtil {
 		}
 		Pattern pattern = Pattern.compile("MaxFine:(\\S+)");
 		Matcher matcher = pattern.matcher(citation);
-
 		if (matcher.find()) {
 			return matcher.group(1);
 		}
-
 		return null;
 	}
 
@@ -483,9 +432,7 @@ public class reportUtil {
 		Object object = null;
 		String lowerLookup = lookupType.toLowerCase();
 		key = key.toLowerCase();
-
 		System.out.println("Pulling value for key: " + key + " from lookup type: " + lowerLookup);
-
 		switch (lowerLookup) {
 			case "ped":
 				if (pedLookupViewController != null && pedLookupViewController.getDatabaseInfoPane().isVisible()) {
@@ -507,15 +454,12 @@ public class reportUtil {
 				logError("Unknown lookup type: " + lookupType);
 				return "";
 		}
-
 		if (object == null) {
 			return "";
 		}
-
 		try {
 			Method method = object.getClass().getMethod("get" + key);
 			Object value = method.invoke(object);
-
 			if (value instanceof TextInputControl) {
 				return ((TextInputControl) value).getText();
 			}
@@ -580,7 +524,6 @@ public class reportUtil {
 			logError("Could not read reportWindowDarkMode from config: ", e);
 			throw new RuntimeException(e);
 		}
-
 		String labelColor;
 		try {
 			labelColor = ConfigReader.configRead("reportSettings", "reportHeading");
@@ -588,7 +531,6 @@ public class reportUtil {
 			logError("Could not read reportHeading from config [2]: ", e);
 			throw new RuntimeException(e);
 		}
-
 		int totalSize = 0;
 		int columnIndex = 0;
 		int rowsUsed = 1;
@@ -607,7 +549,6 @@ public class reportUtil {
 					GridPane.setValignment(checkBox, VPos.CENTER);
 					checkBox.setText(fieldConfig.getFieldName().toUpperCase().replace("_", " "));
 					checkBox.setStyle("-fx-text-fill: " + labelColor + " !important;");
-
 					checkBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue) {
 							checkBox.setStyle("-fx-text-fill: " + getSecondaryColor() + "; -fx-border-color: "
@@ -616,7 +557,6 @@ public class reportUtil {
 							checkBox.setStyle("-fx-text-fill: " + placeholder + "; -fx-border-color: transparent;");
 						}
 					});
-
 					gridPane.add(checkBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					fieldsMap.put(fieldConfig.getFieldName(), checkBox);
 					break;
@@ -634,18 +574,15 @@ public class reportUtil {
 					TextField textField = new TextField();
 					textField.getStyleClass().add("formField3");
 					textField.setStyle("-fx-background-color: " + getPrimaryColor());
-
 					textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
 						textField.setStyle(
 								"-fx-background-color: " + (newValue ? getSecondaryColor() : getPrimaryColor()) + ";");
 					});
-
 					textField.textProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue != null && !newValue.equals(newValue.toUpperCase())) {
 							textField.setText(newValue.toUpperCase());
 						}
 					});
-
 					try {
 						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
 							VBox vBox = new VBox();
@@ -653,21 +590,17 @@ public class reportUtil {
 							label.setStyle("-fx-text-fill: " + labelColor);
 							vBox.getChildren().add(label);
 							vBox.getChildren().add(textField);
-
 							vBox.setPrefWidth(200);
 							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						} else {
 							textField.setPromptText(fieldConfig.getFieldName().toUpperCase());
-
 							textField.setPrefWidth(200);
 							gridPane.add(textField, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						}
 					} catch (IOException e) {
 						logError("Error getting reportSettings.useUpperLabels [1]: ", e);
 					}
-
 					fieldsMap.put(fieldConfig.getFieldName(), textField);
-
 					try {
 						if (fieldConfig.getFieldType().equals(OFFICER_NAME)) {
 							textField.setText(ConfigReader.configRead("userInfo", "Name"));
@@ -736,7 +669,6 @@ public class reportUtil {
 							}
 						}
 					});
-
 					if (fieldConfig.getFieldType().equals(COMBO_BOX_SEARCH_METHOD)) {
 						box.getItems().addAll(dropdownInfo.searchMethods);
 					} else if (fieldConfig.getFieldType().equals(COMBO_BOX_COLOR)) {
@@ -746,7 +678,6 @@ public class reportUtil {
 					} else if (fieldConfig.getFieldType().equals(COMBO_BOX_TYPE)) {
 						box.getItems().addAll(dropdownInfo.vehicleTypes);
 					}
-
 					try {
 						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
 							VBox vBox = new VBox();
@@ -754,20 +685,17 @@ public class reportUtil {
 							label.setStyle("-fx-text-fill: " + labelColor);
 							vBox.getChildren().add(label);
 							vBox.getChildren().add(box);
-
 							vBox.setMaxWidth(Double.MAX_VALUE);
 							box.setMaxWidth(Double.MAX_VALUE);
 							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						} else {
 							box.setPromptText(fieldConfig.getFieldName().toUpperCase());
-
 							box.setMaxWidth(Double.MAX_VALUE);
 							gridPane.add(box, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						}
 					} catch (IOException e) {
 						logError("Error getting reportSettings.useUpperLabels [2]: ", e);
 					}
-
 					fieldsMap.put(fieldConfig.getFieldName(), box);
 					break;
 				case COMBO_BOX_AREA:
@@ -805,7 +733,6 @@ public class reportUtil {
 						}
 					});
 					comboBox.setMaxWidth(Double.MAX_VALUE);
-
 					if (fieldConfig.getFieldType().equals(COMBO_BOX_AREA)) {
 						comboBox.getItems().addAll(dropdownInfo.areaList);
 						try {
@@ -855,7 +782,6 @@ public class reportUtil {
 									+ "]: ", e);
 						}
 					}
-
 					try {
 						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
 							VBox vBox = new VBox();
@@ -863,19 +789,16 @@ public class reportUtil {
 							label.setStyle("-fx-text-fill: " + labelColor);
 							vBox.getChildren().add(label);
 							vBox.getChildren().add(comboBox);
-
 							vBox.setMaxWidth(Double.MAX_VALUE);
 							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						} else {
 							comboBox.setPromptText(fieldConfig.getFieldName().toUpperCase());
-
 							comboBox.setMaxWidth(Double.MAX_VALUE);
 							gridPane.add(comboBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						}
 					} catch (IOException e) {
 						logError("Error getting reportSettings.useUpperLabels [3]: ", e);
 					}
-
 					fieldsMap.put(fieldConfig.getFieldName(), comboBox);
 					break;
 				case TEXT_AREA:
@@ -891,7 +814,6 @@ public class reportUtil {
 						}
 					});
 					textArea.setPrefRowCount(5);
-
 					try {
 						if (ConfigReader.configRead("reportSettings", "useUpperLabels").equalsIgnoreCase("true")) {
 							VBox vBox = new VBox();
@@ -899,12 +821,10 @@ public class reportUtil {
 							label.setStyle("-fx-text-fill: " + labelColor);
 							vBox.getChildren().add(label);
 							vBox.getChildren().add(textArea);
-
 							vBox.setMaxWidth(Double.MAX_VALUE);
 							vBox.setMinHeight(150);
 							vBox.setPrefHeight(150);
 							vBox.setMaxHeight(Region.USE_COMPUTED_SIZE);
-
 							gridPane.add(vBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 						} else {
 							textArea.setPromptText(fieldConfig.getFieldName().toUpperCase());
@@ -917,9 +837,7 @@ public class reportUtil {
 					} catch (IOException e) {
 						logError("Error getting reportSettings.useUpperLabels [4]: ", e);
 					}
-
 					fieldsMap.put(fieldConfig.getFieldName(), textArea);
-
 					GridPane.setHgrow(textArea, Priority.ALWAYS);
 					GridPane.setVgrow(textArea, Priority.ALWAYS);
 					break;
@@ -928,7 +846,6 @@ public class reportUtil {
 					treeView.setPrefHeight(350);
 					treeView.setMinHeight(350);
 					treeView.setMaxHeight(350);
-
 					TextField searchCitationField = new TextField();
 					searchCitationField.setPromptText(
 							localization.getLocalizedMessage("ReportWindows.SearchCitationPrompt", "Search Citation"));
@@ -954,20 +871,16 @@ public class reportUtil {
 							searchCitationField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-
 					int citationTreeSpan = fieldConfig.getSize();
 					int citationDetailsSpan;
-
 					if (citationTreeSpan >= 12) {
 						citationTreeSpan = 6;
 						citationDetailsSpan = 6;
 					} else {
 						citationDetailsSpan = 12 - citationTreeSpan;
 					}
-
 					gridPane.add(searchCitationField, columnIndex, rowIndex, citationTreeSpan, 1);
 					gridPane.add(treeView, columnIndex, rowIndex + 1, citationTreeSpan, 5);
-
 					File file = new File(getJarPath() + "/data/Citations.xml");
 					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 					Document document = null;
@@ -976,53 +889,39 @@ public class reportUtil {
 					} catch (SAXException | IOException | ParserConfigurationException e) {
 						throw new RuntimeException(e);
 					}
-
 					Element root = document.getDocumentElement();
-
 					TreeItem<String> rootItem = new TreeItem<>(root.getNodeName());
-
 					parseTreeXML(root, rootItem);
 					treeView.setRoot(rootItem);
 					expandTreeItem(rootItem);
-
 					TextField citationNameField = new TextField();
 					citationNameField.setPromptText(
 							localization.getLocalizedMessage("ReportWindows.CitationNamePrompt", "Citation Name"));
 					TextField citationFineField = new TextField();
 					citationFineField.setPromptText(localization
 							.getLocalizedMessage("ReportWindows.CitationMaxFinePrompt", "Citation Maximum Fine"));
-
 					Button addButton = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
 					Button removeButton = new Button(
 							localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
-
 					Label citationInfoLabel = new Label(localization
 							.getLocalizedMessage("ReportWindows.CitationInformationHeader", "Citation Information"));
 					citationInfoLabel.setAlignment(Pos.CENTER);
-
 					TableView<CitationsData> citationTableView = new TableView<>();
 					citationTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 					citationTableView.getStyleClass().add("calloutTABLE");
-
 					TableColumn<CitationsData, String> citationColumn = new TableColumn<>("Citation");
 					citationColumn.setCellValueFactory(new PropertyValueFactory<>("citation"));
 					citationTableView.setTableMenuButtonVisible(false);
-
 					citationTableView.getColumns().add(citationColumn);
-
 					int additionalColumnIndex = columnIndex + citationTreeSpan;
-
 					gridPane.add(citationInfoLabel, additionalColumnIndex, rowIndex, citationDetailsSpan, 1);
 					GridPane.setHalignment(citationInfoLabel, HPos.CENTER);
 					gridPane.add(citationNameField, additionalColumnIndex, rowIndex + 1, citationDetailsSpan, 1);
 					gridPane.add(citationFineField, additionalColumnIndex, rowIndex + 2, citationDetailsSpan, 1);
-
 					HBox buttonBox = new HBox(40, addButton, removeButton);
 					buttonBox.setAlignment(Pos.CENTER);
 					gridPane.add(buttonBox, additionalColumnIndex, rowIndex + 3, citationDetailsSpan, 1);
-
 					gridPane.add(citationTableView, additionalColumnIndex, rowIndex + 4, citationDetailsSpan, 1);
-
 					ComboBox<String> citationTypeDropdown = new ComboBox<>();
 					citationTypeDropdown.getStyleClass().add("comboboxnew");
 					citationTypeDropdown.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
@@ -1052,9 +951,7 @@ public class reportUtil {
 						}
 					});
 					citationTypeDropdown.setMaxWidth(Double.MAX_VALUE);
-
 					gridPane.add(citationTypeDropdown, additionalColumnIndex, rowIndex + 5, citationDetailsSpan, 1);
-
 					fieldsMap.put("CitationNameField", citationNameField);
 					fieldsMap.put("CitationFineField", citationFineField);
 					fieldsMap.put("AddButton", addButton);
@@ -1062,7 +959,6 @@ public class reportUtil {
 					fieldsMap.put("CitationType", citationTypeDropdown);
 					fieldsMap.put("CitationTableView", citationTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), treeView);
-
 					citationInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder
 							+ ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					addButton.getStyleClass().add("incidentformButton");
@@ -1126,7 +1022,6 @@ public class reportUtil {
 						String citation = citationNameField.getText();
 						if (!(citation.isBlank() || citation.isEmpty())) {
 							CitationsData formData = null;
-
 							String fine = findXMLValue(citation, "fine", "data/Citations.xml");
 							if (fine != null) {
 								formData = new CitationsData(citation);
@@ -1135,7 +1030,6 @@ public class reportUtil {
 										+ citationFineField.getText());
 								formData = new CitationsData(citation + " MaxFine:" + citationFineField.getText());
 							}
-
 							citationTableView.getItems().add(formData);
 						}
 					});
@@ -1152,11 +1046,9 @@ public class reportUtil {
 					transferButton.setMaxWidth(Double.MAX_VALUE);
 					GridPane.setHgrow(transferButton, Priority.ALWAYS);
 					GridPane.setVgrow(transferButton, Priority.NEVER);
-
 					transferButton.setMinHeight(Button.USE_PREF_SIZE);
 					transferButton.setPrefHeight(Button.USE_COMPUTED_SIZE);
 					transferButton.setMaxHeight(Button.USE_PREF_SIZE);
-
 					transferButton.getStyleClass().add("incidentformButton");
 					transferButton.setStyle("-fx-background-color: " + getAccentColor());
 					transferButton.hoverProperty().addListener((observable, oldValue, newValue) -> {
@@ -1174,7 +1066,6 @@ public class reportUtil {
 					chargestreeView.setPrefHeight(350);
 					chargestreeView.setMinHeight(350);
 					chargestreeView.setMaxHeight(350);
-
 					TextField searchChargeField = new TextField();
 					searchChargeField.setPromptText(
 							localization.getLocalizedMessage("ReportWindows.SearchChargePrompt", "Search Charge"));
@@ -1200,20 +1091,16 @@ public class reportUtil {
 							searchChargeField.setStyle("-fx-background-color: " + getPrimaryColor() + ";");
 						}
 					});
-
 					int treeSpan = fieldConfig.getSize();
 					int detailsSpan;
-
 					if (treeSpan >= 12) {
 						treeSpan = 6;
 						detailsSpan = 6;
 					} else {
 						detailsSpan = 12 - treeSpan;
 					}
-
 					gridPane.add(searchChargeField, columnIndex, rowIndex, treeSpan, 1);
 					gridPane.add(chargestreeView, columnIndex, rowIndex + 1, treeSpan, 5);
-
 					File file2 = new File(getJarPath() + "/data/Charges.xml");
 					DocumentBuilderFactory factory2 = DocumentBuilderFactory.newInstance();
 					Document document2 = null;
@@ -1222,55 +1109,42 @@ public class reportUtil {
 					} catch (SAXException | IOException | ParserConfigurationException e) {
 						throw new RuntimeException(e);
 					}
-
 					Element root2 = document2.getDocumentElement();
 					TreeItem<String> rootItem2 = new TreeItem<>(root2.getNodeName());
 					parseTreeXML(root2, rootItem2);
 					chargestreeView.setRoot(rootItem2);
 					expandTreeItem(rootItem2);
-
 					TextField chargeNameField = new TextField();
 					chargeNameField.setEditable(false);
 					chargeNameField.setPromptText(
 							localization.getLocalizedMessage("ReportWindows.ChargeNamePrompt", "Charge Name"));
-
 					Button addButton2 = new Button(localization.getLocalizedMessage("ReportWindows.AddButton", "Add"));
 					Button removeButton2 = new Button(
 							localization.getLocalizedMessage("ReportWindows.RemoveButton", "Remove"));
-
 					Label chargeInfoLabel = new Label(localization
 							.getLocalizedMessage("ReportWindows.ChargeInformationHeader", "Charge Information"));
 					chargeInfoLabel.setAlignment(Pos.CENTER);
-
 					TableView<ChargesData> chargeTableView = new TableView<>();
 					chargeTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 					chargeTableView.getStyleClass().add("calloutTABLE");
-
 					TableColumn<ChargesData, String> chargeColumn = new TableColumn<>(
 							localization.getLocalizedMessage("ReportWindows.chargeColumn", "Charge"));
 					chargeColumn.setCellValueFactory(new PropertyValueFactory<>("charge"));
 					chargeTableView.setTableMenuButtonVisible(false);
-
 					chargeTableView.getColumns().add(chargeColumn);
-
 					int additionalColumnIndex2 = columnIndex + treeSpan;
-
 					gridPane.add(chargeInfoLabel, additionalColumnIndex2, rowIndex, detailsSpan, 1);
 					GridPane.setHalignment(chargeInfoLabel, HPos.CENTER);
 					gridPane.add(chargeNameField, additionalColumnIndex2, rowIndex + 1, detailsSpan, 1);
-
 					HBox buttonBox2 = new HBox(40, addButton2, removeButton2);
 					buttonBox2.setAlignment(Pos.CENTER);
 					gridPane.add(buttonBox2, additionalColumnIndex2, rowIndex + 2, detailsSpan, 1);
-
 					gridPane.add(chargeTableView, additionalColumnIndex2, rowIndex + 3, detailsSpan, 3);
-
 					fieldsMap.put("ChargeNameField", chargeNameField);
 					fieldsMap.put("AddButton", addButton2);
 					fieldsMap.put("RemoveButton", removeButton2);
 					fieldsMap.put("ChargeTableView", chargeTableView);
 					fieldsMap.put(fieldConfig.getFieldName(), chargestreeView);
-
 					chargeInfoLabel.setStyle("-fx-font-size: 17px; -fx-text-fill: " + placeholder
 							+ ";-fx-font-family: 'Inter 28pt Bold'; -fx-background-color: transparent; -fx-padding: 0px 40px;");
 					addButton2.getStyleClass().add("incidentformButton");
@@ -1336,17 +1210,14 @@ public class reportUtil {
 				case BLANK_SPACE:
 					AnchorPane blankBox = new AnchorPane();
 					blankBox.setMinHeight(35);
-
 					gridPane.add(blankBox, columnIndex, rowIndex, fieldConfig.getSize(), 1);
 					fieldsMap.put(fieldConfig.getFieldName(), blankBox);
 					break;
 				default:
 					logError("Unknown field type: " + fieldConfig.getFieldType());
 					break;
-
 			}
 			columnIndex += fieldConfig.getSize();
-
 		}
 		return rowsUsed;
 	}
@@ -1369,9 +1240,7 @@ public class reportUtil {
 
 	private static void searchTreeAndExpand(TreeItem<String> root, String query, TreeView chargestreeView) {
 		chargestreeView.getSelectionModel().clearSelection();
-
 		collapseTree(root);
-
 		if (searchAndSelect(root, query, chargestreeView)) {
 			chargestreeView.scrollTo(chargestreeView.getSelectionModel().getSelectedIndex());
 		}
@@ -1383,7 +1252,6 @@ public class reportUtil {
 			expandTreeItem(node);
 			return true;
 		}
-
 		for (TreeItem<String> child : node.getChildren()) {
 			if (searchAndSelect(child, query, chargestreeView)) {
 				return true;

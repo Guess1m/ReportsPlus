@@ -45,7 +45,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class desktopLoginController {
-
 	private class MissingCredential {
 		User user;
 		TextField usernameField;
@@ -124,7 +123,6 @@ public class desktopLoginController {
 	private ImageView showPassImageView;
 	@javafx.fxml.FXML
 	private TextField passwordFieldUnmasked;
-
 	@javafx.fxml.FXML
 	private PasswordField passwordFieldMasked;
 
@@ -132,24 +130,19 @@ public class desktopLoginController {
 		addLocale();
 		checkConfigUserInProfiles();
 		Platform.runLater(() -> checkForMissingCredentials());
-
 		passwordFieldMasked.textProperty().bindBidirectional(passwordFieldUnmasked.textProperty());
-
 		passwordFieldMasked.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				loginBtnClick(new ActionEvent());
 			}
 		});
-
 		passwordFieldMasked.setVisible(true);
 		passwordFieldUnmasked.setVisible(false);
-
 		showPassImageView.setOnMousePressed(_ -> {
 			passwordFieldMasked.setVisible(false);
 			passwordFieldUnmasked.setVisible(true);
 			passwordFieldUnmasked.requestFocus();
 		});
-
 		showPassImageView.setOnMouseReleased(_ -> {
 			passwordFieldMasked.setVisible(true);
 			passwordFieldUnmasked.setVisible(false);
@@ -193,7 +186,6 @@ public class desktopLoginController {
 		String rank = registrationRankBox.getValue() == null ? null : registrationRankBox.getValue().toString();
 		String officerNumber = registrationOfficerNumberField.getText().trim();
 		String callsign = registrationCallsignField.getText().trim();
-
 		String first = registrationOfficerFirstNameField.getText().trim();
 		String last = registrationOfficerLastNameField.getText().trim();
 		String name = first + " " + last;
@@ -205,18 +197,15 @@ public class desktopLoginController {
 		try {
 			User user = new User(name, agency, division, rank, officerNumber, callsign);
 			Profiles userProfiles = User.loadUserProfiles();
-
 			if (userProfiles.getUserList() == null) {
 				userProfiles.setUserList(new ArrayList<>());
 			}
-
 			for (User u : userProfiles.getUserList()) {
 				if (u.getUsername() != null && u.getUsername().equalsIgnoreCase(username)) {
 					showError(registrationErrorLabel, "Username already exists");
 					return;
 				}
 			}
-
 			user.setUsername(username);
 			user.setPassword(password);
 			User.addUser(user);
@@ -233,11 +222,9 @@ public class desktopLoginController {
 		loginWindow.setVisible(false);
 		loginWindow.getChildren().clear();
 		loginWindow = null;
-
 		registrationRankBox.getItems().addAll(dropdownInfo.ranks);
 		registrationDivisionBox.getItems().addAll(dropdownInfo.divisions);
 		registrationAgencyBox.getItems().addAll(dropdownInfo.agencies);
-
 		registrationWindow.setVisible(true);
 	}
 
@@ -247,10 +234,8 @@ public class desktopLoginController {
 			if (userName == null || userName.isEmpty()) {
 				return;
 			}
-
 			Profiles userProfiles = User.loadUserProfiles();
 			boolean userExists = false;
-
 			if (userProfiles.getUserList() != null) {
 				for (User user : userProfiles.getUserList()) {
 					if (userName.equals(user.getName())) {
@@ -259,14 +244,12 @@ public class desktopLoginController {
 					}
 				}
 			}
-
 			if (!userExists) {
 				String agency = ConfigReader.configRead("userInfo", "Agency");
 				String division = ConfigReader.configRead("userInfo", "Division");
 				String rank = ConfigReader.configRead("userInfo", "Rank");
 				String number = ConfigReader.configRead("userInfo", "Number");
 				String callsign = ConfigReader.configRead("userInfo", "Callsign");
-
 				User newUser = new User(userName, agency, division, rank, number, callsign);
 				User.addUser(newUser);
 			}
@@ -283,14 +266,12 @@ public class desktopLoginController {
 		usernameLabel.setText(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 		loginRegisterButton.setText(localization.getLocalizedMessage("Desktop.registerButton", "Register"));
 		loginButton.setText(localization.getLocalizedMessage("Desktop.loginButton", "Login"));
-
 		userLabel.setText(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 		passwordLabel.setText(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
 		oCallsignLabel.setText(localization.getLocalizedMessage("UserManager.CallsignLabel", "Callsign:"));
 		oNumLabel.setText(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		oFirstName.setText(localization.getLocalizedMessage("Desktop.firstNameLabel", "First Name:"));
 		oLastName.setText(localization.getLocalizedMessage("Desktop.lastNameLabel", "Last Name:"));
-
 		rankLabel.setText(localization.getLocalizedMessage("UserManager.RankLabel", "Rank:"));
 		divisionLabel.setText(localization.getLocalizedMessage("UserManager.DivisionLabel", "Division:"));
 		agencyLabel.setText(localization.getLocalizedMessage("UserManager.Agencylabel", "Agency:"));
@@ -352,31 +333,25 @@ public class desktopLoginController {
 		VBox rootVBox = new VBox(20);
 		rootVBox.setPadding(new Insets(20));
 		rootVBox.setStyle("-fx-background-color: #f4f4f4;");
-
 		Label header = new Label("Update Missing Credentials");
 		header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
 		header.setMaxWidth(Double.MAX_VALUE);
 		header.setAlignment(javafx.geometry.Pos.CENTER);
 		rootVBox.getChildren().add(header);
-
 		Separator headerSeparator = new Separator();
 		headerSeparator.setStyle("-fx-background-color: #e0e0e0;");
 		rootVBox.getChildren().add(headerSeparator);
-
 		List<MissingCredential> missingList = new ArrayList<>();
 		for (User user : users) {
 			VBox userContainer = new VBox(15);
 			userContainer.setPadding(new Insets(15));
 			userContainer.setStyle(
 					"-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-color: #e0e0e0; -fx-border-radius: 8;");
-
 			Label officerLabel = new Label("Officer: " + user.getName());
 			officerLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;");
 			userContainer.getChildren().add(officerLabel);
-
 			HBox credentialsBox = new HBox(30);
 			MissingCredential mc = new MissingCredential(user, null, null);
-
 			VBox usernameBox = new VBox(8);
 			Label usernameLabel = new Label(localization.getLocalizedMessage("Desktop.usernameLabel", "Username:"));
 			usernameLabel.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 14px;");
@@ -391,7 +366,6 @@ public class desktopLoginController {
 				usernameValue.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50;");
 				usernameBox.getChildren().addAll(usernameLabel, usernameValue);
 			}
-
 			VBox passwordBox = new VBox(8);
 			Label passwordLabel = new Label(localization.getLocalizedMessage("Desktop.passLabel", "Password:"));
 			passwordLabel.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 14px;");
@@ -406,16 +380,13 @@ public class desktopLoginController {
 				passwordValue.setStyle("-fx-font-size: 14px; -fx-text-fill: #2c3e50;");
 				passwordBox.getChildren().addAll(passwordLabel, passwordValue);
 			}
-
 			credentialsBox.getChildren().addAll(usernameBox, passwordBox);
 			userContainer.getChildren().add(credentialsBox);
 			rootVBox.getChildren().add(userContainer);
 			missingList.add(mc);
 		}
-
 		Label errorLabel = new Label();
 		errorLabel.setStyle("-fx-text-fill: #e74c3c; -fx-font-size: 14px; -fx-font-family: 'Inter 28pt Medium';");
-
 		Button saveButton = new Button("Save All");
 		saveButton.setStyle(
 				"-fx-font-size: 13px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 5 10 ;");
@@ -430,7 +401,6 @@ public class desktopLoginController {
 					return;
 				}
 			}
-
 			Set<String> usernames = new HashSet<>();
 			for (MissingCredential entry : missingList) {
 				if (entry.usernameField != null) {
@@ -442,7 +412,6 @@ public class desktopLoginController {
 					usernames.add(username);
 				}
 			}
-
 			for (MissingCredential entry : missingList) {
 				if (entry.usernameField != null) {
 					entry.user.setUsername(entry.usernameField.getText().trim());
@@ -459,17 +428,13 @@ public class desktopLoginController {
 			}
 			popupStage.close();
 		});
-
 		var bottomHBox = new HBox(saveButton, errorLabel);
 		bottomHBox.setSpacing(20);
 		bottomHBox.setAlignment(Pos.CENTER_LEFT);
-
 		rootVBox.getChildren().add(bottomHBox);
-
 		Scene scene = new Scene(rootVBox);
 		popupStage.setScene(scene);
 		popupStage.setTitle("Update Missing Credentials");
 		popupStage.showAndWait();
 	}
-
 }

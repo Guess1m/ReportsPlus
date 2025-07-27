@@ -97,7 +97,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class settingsController {
-
 	public static final String UILightColor = "rgb(255,255,255,0.75)";
 	public static final String UIDarkColor = "rgb(0,0,0,0.75)";
 	public static settingsController SettingsController;
@@ -105,9 +104,7 @@ public class settingsController {
 	private static boolean soundPackInstalled = false;
 	private boolean isInitialized = false;
 	private boolean imgPackInstalled = false;
-
 	// #region FXML Variables
-
 	@javafx.fxml.FXML
 	private Label desktopClearOldCalloutData;
 	@javafx.fxml.FXML
@@ -590,7 +587,6 @@ public class settingsController {
 	private Label reportFieldNameTT;
 
 	// #endregion
-
 	// #region Action Events
 	@javafx.fxml.FXML
 	public void clearSaveDataBtnClick(ActionEvent actionEvent) {
@@ -710,7 +706,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void backgroundToggle(ActionEvent actionEvent) {
 		solidColorToggle.setOnAction(null);
-
 		if (backgroundToggle.isSelected()) {
 			ConfigWriter.configwrite("desktopSettings", "useBackground", "true");
 			ConfigWriter.configwrite("desktopSettings", "useSolidColor", "false");
@@ -727,7 +722,6 @@ public class settingsController {
 	@javafx.fxml.FXML
 	public void solidColorToggle(ActionEvent actionEvent) {
 		backgroundToggle.setOnAction(null);
-
 		if (solidColorToggle.isSelected()) {
 			ConfigWriter.configwrite("desktopSettings", "useBackground", "false");
 			ConfigWriter.configwrite("desktopSettings", "useSolidColor", "true");
@@ -763,7 +757,6 @@ public class settingsController {
 		try {
 			logDebug("Clear lookup data btn pressed: ");
 			String dataFolderPath = getJarPath() + File.separator + "data";
-
 			File pedHistoryFile = new File(dataFolderPath + File.separator + "pedHistory.xml");
 			if (pedHistoryFile.exists() && pedHistoryFile.isFile()) {
 				logInfo("pedHistory.xml exists.");
@@ -772,7 +765,6 @@ public class settingsController {
 			} else {
 				logWarn("pedHistory.xml does not exist.");
 			}
-
 			File vehHistoryFile = new File(dataFolderPath + File.separator + "vehHistory.xml");
 			if (vehHistoryFile.exists() && vehHistoryFile.isFile()) {
 				logInfo("vehHistory.xml exists.");
@@ -806,7 +798,6 @@ public class settingsController {
 			}
 			installSoundsBtn.setText(beforeText);
 		});
-
 		WorkerThread updateThread = new WorkerThread("SoundUpdateThread", updateTask);
 		updateThread.start();
 	}
@@ -830,7 +821,6 @@ public class settingsController {
 			}
 			installImagesBtn.setText(beforeText);
 		});
-
 		WorkerThread updateThread = new WorkerThread("ImageUpdateThread", updateTask);
 		updateThread.start();
 	}
@@ -854,7 +844,6 @@ public class settingsController {
 		appConfigWrite("Notes", "y", String.valueOf(120.0));
 		appConfigWrite("Show IDs", "x", x1);
 		appConfigWrite("Show IDs", "y", String.valueOf(420.0));
-
 		String x2 = String.valueOf(175.0);
 		appConfigWrite("New Report", "x", x2);
 		appConfigWrite("New Report", "y", String.valueOf(220.0));
@@ -864,7 +853,6 @@ public class settingsController {
 		appConfigWrite("Veh Lookup", "y", String.valueOf(120.0));
 		appConfigWrite("ALPR", "x", x2);
 		appConfigWrite("ALPR", "y", String.valueOf(320.0));
-
 		String x3 = String.valueOf(305.0);
 		appConfigWrite("Server", "x", x3);
 		appConfigWrite("Server", "y", String.valueOf(20.0));
@@ -872,7 +860,6 @@ public class settingsController {
 		appConfigWrite("Settings", "y", String.valueOf(220.0));
 		appConfigWrite("Updates", "x", x3);
 		appConfigWrite("Updates", "y", String.valueOf(120.0));
-
 		String x4 = String.valueOf(420.0);
 		appConfigWrite("Profile", "x", x4);
 		appConfigWrite("Profile", "y", String.valueOf(20.0));
@@ -881,7 +868,6 @@ public class settingsController {
 		for (DesktopApp desktopApp : DesktopApps) {
 			double appX = appConfigRead(desktopApp.getName(), "x");
 			double appY = appConfigRead(desktopApp.getName(), "y");
-
 			desktopApp.getMainPane().setTranslateX(appX);
 			desktopApp.getMainPane().setTranslateY(appY);
 			logInfo("Reset App Position for: " + desktopApp.getName());
@@ -944,7 +930,6 @@ public class settingsController {
 	}
 
 	// #endregion
-
 	public static void loadTheme() throws IOException {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
@@ -952,7 +937,6 @@ public class settingsController {
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
 		String hoverStyle = "-fx-background-color: " + accclr;
 		String nonTransparentBtn = "-fx-background-color: " + mainclr + ";";
-
 		if (clientController != null) {
 			clientController.getConnectBtn().setStyle("-fx-background-color: " + mainclr + ";");
 			clientController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
@@ -1061,14 +1045,12 @@ public class settingsController {
 					.setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
 			mainDesktopControllerObj.getButton1()
 					.setStyle("-fx-text-fill: " + taskBarText + "; -fx-background-color: rgb(0,0,0,0.1)");
-
 			mainDesktopControllerObj.getBottomBar().setStyle(
 					"-fx-background-color: " + ConfigReader.configRead("desktopSettings", "taskBarColor") + ";");
 			for (DesktopApp desktopApp : DesktopApps) {
 				desktopApp.getAppLabel()
 						.setTextFill(Paint.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			}
-
 			if (mainDesktopControllerObj.getLookupLabel() != null) {
 				mainDesktopControllerObj.getLookupLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			}
@@ -1081,7 +1063,6 @@ public class settingsController {
 			if (mainDesktopControllerObj.getLocationCountyLabel() != null) {
 				mainDesktopControllerObj.getLocationCountyLabel().setStyle("-fx-text-fill: " + topBarText + ";");
 			}
-
 			if (isConnected) {
 				mainDesktopControllerObj.getServerStatusLabel()
 						.setStyle("-fx-text-fill: darkgreen; -fx-label-padding: 5; -fx-border-radius: 5;");
@@ -1105,7 +1086,6 @@ public class settingsController {
 		if (alprViewController != null) {
 			alprViewController.getRoot().setStyle("-fx-background-color: " + bkgclr + ";");
 		}
-
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			addDarkStyles();
 		} else {
@@ -1129,42 +1109,33 @@ public class settingsController {
 				primClr = "#db4437";
 				break;
 		}
-
 		Label titleLabel = new Label("Sample Notification Title");
 		titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
-
 		Label messageLabel = new Label("Lorum ipsum dolor sit amet, consectetur adipiscing.");
 		messageLabel.setWrapText(true);
 		messageLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: " + textClr + ";");
-
 		ImageView icon = new ImageView(
 				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 		icon.setImage(changeImageColor(icon.getImage(), textClr));
 		icon.setFitWidth(24);
 		icon.setFitHeight(24);
-
 		ImageView closeIcon = new ImageView(
 				new Image(Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 		closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
 		closeIcon.setFitWidth(12);
 		closeIcon.setFitHeight(13);
-
 		Button closeButton = new Button();
 		closeButton.setGraphic(closeIcon);
 		closeButton.setStyle("-fx-background-color: transparent;");
-
 		VBox contentBox = new VBox(5, titleLabel, messageLabel);
 		contentBox.setAlignment(Pos.CENTER_LEFT);
 		contentBox.setPadding(new Insets(0));
 		contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-
 		HBox mainBox = new HBox(10, icon, contentBox, closeButton);
 		mainBox.setAlignment(Pos.CENTER_LEFT);
 		mainBox.setPadding(new Insets(10));
 		mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-
 		mainBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-
 		return mainBox;
 	}
 
@@ -1252,7 +1223,6 @@ public class settingsController {
 			alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UIDarkColor + ";");
-
 			Node node = alprViewController.getScannerUsedField().lookup(".text-field");
 			node.setStyle("-fx-text-fill: " + UIDarkColor + ";");
 			node = alprViewController.getPlateTypeField().lookup(".text-field");
@@ -1380,7 +1350,6 @@ public class settingsController {
 			alprViewController.getScannerInfoSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
 			alprViewController.getPlateTypeSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
 			alprViewController.getScannedPlatesSubLabel().setStyle("-fx-text-fill: " + UILightColor + ";");
-
 			Node node = alprViewController.getScannerUsedField().lookup(".text-field");
 			node.setStyle("-fx-text-fill: " + UILightColor + ";");
 			node = alprViewController.getPlateTypeField().lookup(".text-field");
@@ -1401,7 +1370,6 @@ public class settingsController {
 	public void initialize() {
 		checkSoundsInstalled();
 		checkImagesInstalled();
-
 		try {
 			addActionEventsAndComboBoxes();
 		} catch (IOException e) {
@@ -1420,7 +1388,6 @@ public class settingsController {
 			logError("Error Loading Theme From Init: ", e);
 		}
 		loadColors();
-
 		previewNotificationBtn.setOnAction(_ -> {
 			if (selectedNotification.get().equals("Information")) {
 				showNotificationInfo("Sample Info Notification",
@@ -1431,28 +1398,19 @@ public class settingsController {
 						"Lorum ipsum dolor sit amet, consectetur adipiscing elit.");
 			}
 		});
-
 		setActive(paneWindow);
-
 		loadPaneActions();
-
 		refreshNotificationPreview("info");
-
 		isInitialized = true;
-
 		addLocale();
 	}
 
 	public String openFileSelectionDialog(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select an Image File");
-
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
-
 		File selectedFile = fileChooser.showOpenDialog(stage);
-
 		return (selectedFile != null) ? selectedFile.getAbsolutePath() : null;
 	}
 
@@ -1461,12 +1419,10 @@ public class settingsController {
 		String soundPath = getJarPath() + "/sounds/";
 		File soundFolder = new File(soundPath);
 		boolean soundsInstalled = true;
-
 		if (!soundFolder.exists() || !soundFolder.isDirectory()) {
 			logWarn("Sound folder not found");
 			soundsInstalled = false;
 		}
-
 		for (String soundFile : soundList) {
 			File file = new File(soundPath + soundFile);
 			if (!file.exists()) {
@@ -1474,17 +1430,14 @@ public class settingsController {
 				soundsInstalled = false;
 			}
 		}
-
 		if (audioVBox.getChildren().contains(installSoundsPane)) {
 			audioVBox.getChildren().remove(installSoundsPane);
 		}
 		soundPackInstalled = soundsInstalled;
-
 		if (!soundPackInstalled) {
 			audioVBox.getChildren().add(installSoundsPane);
 			installSoundsPane.toBack();
 		}
-
 		logDebug("Sounds Installed/Updated: " + soundsInstalled);
 		return soundsInstalled;
 	}
@@ -1493,35 +1446,29 @@ public class settingsController {
 		logInfo("Checking if ped/veh images are installed");
 		boolean imgsInstalled = true;
 		String imgPath = getJarPath() + "/images/";
-
 		File imagesFolder = new File(imgPath);
 		if (!imagesFolder.exists() || !imagesFolder.isDirectory()) {
 			logWarn("Images folder not found");
 			imgsInstalled = false;
 		}
-
 		File pedImagesFolder = new File(imgPath + "/peds");
 		if (!pedImagesFolder.exists() || !pedImagesFolder.isDirectory()) {
 			logWarn("Ped Images folder not found");
 			imgsInstalled = false;
 		}
-
 		File vehImagesFolder = new File(imgPath + "/vehicles");
 		if (!vehImagesFolder.exists() || !vehImagesFolder.isDirectory()) {
 			logWarn("Vehicle Images folder not found");
 			imgsInstalled = false;
 		}
-
 		if (audioVBox.getChildren().contains(installImagesPane)) {
 			audioVBox.getChildren().remove(installImagesPane);
 		}
 		imgPackInstalled = imgsInstalled;
-
 		if (!imgPackInstalled) {
 			audioVBox.getChildren().add(installImagesPane);
 			installImagesPane.toBack();
 		}
-
 		logDebug("Pedestrian/Vehicle Images Installed: " + imgsInstalled);
 		return imgsInstalled;
 	}
@@ -1537,7 +1484,6 @@ public class settingsController {
 				.setText(localization.getLocalizedMessage("Settings.MiscSettingsSubheader", "MISC / SERVER SETTINGS"));
 		developerSubheader
 				.setText(localization.getLocalizedMessage("Settings.developerSubheader", "DEVELOPER / RESET DATA"));
-
 		// Window
 		winSettingsHeader.setText(localization.getLocalizedMessage("Settings.WindowSettingsHeader", "WINDOW SETTINGS"));
 		appDisLabel.setText(localization.getLocalizedMessage("Settings.AppDisLabel", "Application Display Setting"));
@@ -1569,7 +1515,6 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.TrafficStopDurLabel", "Traffic Stop Display Duration"));
 		trafficStopDurTT.setText(localization.getLocalizedMessage("Settings.TrafficStopDurTT",
 				"Duration traffic stop window will be shown"));
-
 		// Notification
 		notiSettingsHeader
 				.setText(localization.getLocalizedMessage("Settings.NotiSettingsHeader", "NOTIFICATION SETTINGS"));
@@ -1598,7 +1543,6 @@ public class settingsController {
 		resetNotiDefaultsBtn.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
 		saveDisplayDurBtn.setText(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		saveFadeDurBtn.setText(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
-
 		// Desktop
 		desktopSetingsHeader
 				.setText(localization.getLocalizedMessage("Settings.DesktopSettingsHeader", "DESKTOP SETTINGS"));
@@ -1628,27 +1572,22 @@ public class settingsController {
 				.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrLabel", "Top Bar Text Color"));
 		desktopTopBarTextClrTT.setText(localization.getLocalizedMessage("Settings.DesktopTopBarTextClrTT",
 				"Set the color of the text on the top bar"));
-
 		desktopAppTextClrLabel
 				.setText(localization.getLocalizedMessage("Settings.desktopAppTextClrLabel", "App Text Color"));
 		desktopAppTextClrTT.setText(
 				localization.getLocalizedMessage("Settings.desktopAppTextClrTT", "Set the color of the app name text"));
-
 		desktopTaskBarClrLabel
 				.setText(localization.getLocalizedMessage("Settings.desktopTaskBarClrLabel", "Taskbar Color"));
 		desktopTaskBarClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarClrTT",
 				"Set the color of the bottom task bar"));
-
 		desktopTaskBarTextClrLabel
 				.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrLabel", "Taskbar Text Color"));
 		desktopTaskBarTextClrTT.setText(localization.getLocalizedMessage("Settings.desktopTaskBarTextClrTT",
 				"Set the color of the text on the bottom taskbar"));
-
 		inputLockKeybindLabel
 				.setText(localization.getLocalizedMessage("Settings.inputLockKeybindLabel", "Input Lock Keybind"));
 		inputLockKeybindTT.setText(localization.getLocalizedMessage("Settings.inputLockKeybindTT",
 				"Keybind to use for activating desktop input lock"));
-
 		desktopUseMilitaryTimeLabel
 				.setText(localization.getLocalizedMessage("Settings.desktopUseMilitaryTimeLabel", "Use 24-Hour Time"));
 		desktopSkipLoginLabel.setText(localization.getLocalizedMessage("Settings.desktopSkipLoginLabel", "Skip Login"));
@@ -1658,7 +1597,6 @@ public class settingsController {
 		desktopClearOldCalloutData
 				.setText(localization.getLocalizedMessage("Settings.clearOldCalloutDataLabel",
 						"Clear Previous Callout History on Launch"));
-
 		// Report
 		reportWindowCustomizationHeader.setText(localization
 				.getLocalizedMessage("Settings.ReportWindowCustomizationHeader", "REPORT WINDOW CUSTOMIZATION"));
@@ -1693,7 +1631,6 @@ public class settingsController {
 				.setText(localization.getLocalizedMessage("Settings.reportFieldNameLabel", "Show Field Names"));
 		reportFieldNameTT.setText(localization.getLocalizedMessage("Settings.reportFieldNameTT",
 				"Show labels above fields in report windows"));
-
 		// Application
 		appWindowCustomizationHeader.setText(localization.getLocalizedMessage("Settings.AppWindowCustomizationHeader",
 				"APPLICATION WINDOW CUSTOMIZATION"));
@@ -1718,7 +1655,6 @@ public class settingsController {
 		appResetDefaultsTT.setText(localization.getLocalizedMessage("Settings.AppResetDefaultsTT",
 				"Restore the default application color settings"));
 		resetDefaultsBtn.setText(localization.getLocalizedMessage("Settings.ResetDefaultsLabel", "Reset Defaults"));
-
 		// Networking
 		networkingSettingsHeader.setText(
 				localization.getLocalizedMessage("Settings.NetworkingSettingsHeader", "SERVER / NETWORKING SETTINGS"));
@@ -1744,7 +1680,6 @@ public class settingsController {
 				"AutoFill Location Information"));
 		autofillLocationInfoTT.setText(localization.getLocalizedMessage("Settings.autofillLocationInfoTT",
 				"Automatically fill in street, area, county information into reports when connected"));
-
 		// Audio
 		audioSettingsHeader
 				.setText(localization.getLocalizedMessage("Settings.AudioSettingsHeader", "AUDIO/OPTIONAL SETTINGS"));
@@ -1764,19 +1699,16 @@ public class settingsController {
 				localization.getLocalizedMessage("Settings.CalloutSoundTT", "Sound when a callout is recieved"));
 		delReportLabel.setText(localization.getLocalizedMessage("Settings.DelReportLabel", "Delete Report Sound"));
 		delReportTT.setText(localization.getLocalizedMessage("Settings.DelReportTT", "Sound when report is deleted"));
-
 		enablePedVehImages
 				.setText(localization.getLocalizedMessage("Settings.enablePedVehImages", "Enable Ped/Veh Images"));
 		enablePedVehImagesTT.setText(localization.getLocalizedMessage("Settings.enablePedVehImagesTT",
 				"Toggle whether ped/veh images will be shown in lookup"));
-
 		soundPackNotDetectedLbl.setText(
 				localization.getLocalizedMessage("Settings.soundPackNotDetectedLbl", "Sound Pack Not Detected"));
 		installSoundsBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
 		imagesNotDetectedLbl.setText(
 				localization.getLocalizedMessage("Settings.imagesNotDetectedLbl", "Ped/Veh Images Not Detected"));
 		installImagesBtn.setText(localization.getLocalizedMessage("Settings.installSoundsBtn", "INSTALL/UPDATE"));
-
 		// Developer
 		devSettingsHeader.setText(
 				localization.getLocalizedMessage("Settings.DevSettingsHeader", "DEVELOPER SETTINGS / CLEAR DATA"));
@@ -1794,26 +1726,21 @@ public class settingsController {
 		centerWindowsTT.setText(localization.getLocalizedMessage("Settings.CenterWindowsTT",
 				"Center all windows on the screen in case of issues"));
 		centerWindowsBtn.setText(localization.getLocalizedMessage("Settings.CenterWindowsBtn", "CENTER WINDOWS"));
-
 		clrLookupDataBtn.setText(localization.getLocalizedMessage("Settings.ClearLookupDataBtn", "CLEAR LOOKUP DATA"));
 		clearLookupDataLabel
 				.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabel", "Clear Old Ped / Veh Data"));
 		clearLookupDataLabelTT.setText(localization.getLocalizedMessage("Settings.clearLookupDataLabelTT",
 				"ONLY delete saved ped / veh history data from previous lookups to free space"));
-
 		resetAppPosBtn.setText(localization.getLocalizedMessage("Settings.resetAppPosBtn", "RESET APP POSITIONS"));
 		resetAppPosLabel.setText(localization.getLocalizedMessage("Settings.resetAppPosLabel", "Reset App Positions"));
 		resetAppPosTT.setText(
 				localization.getLocalizedMessage("Settings.resetAppPosTT", "Reset apps to their default positions"));
-
 		probabilitySettingsButton.setText(
 				localization.getLocalizedMessage("PedLookup.ProbabilitySettingsButton", "Probability Settings"));
 		openTerminalBtn.setText(localization.getLocalizedMessage("Settings.openTerminal", "Open Terminal"));
-
 		// Keybind
 		keybindSettingsHeader
 				.setText(localization.getLocalizedMessage("Settings.KeybindSettingsHeader", "KEYBIND SETTINGS"));
-
 		// LeftButtons
 		windowSettingsBtn.setText(localization.getLocalizedMessage("Settings.WindowSettingsBtn", "Window Settings"));
 		notiSettingsBtn.setText(localization.getLocalizedMessage("Settings.NotiSettingsBtn", "Notification Settings"));
@@ -1824,7 +1751,6 @@ public class settingsController {
 		serverBtn.setText(localization.getLocalizedMessage("Settings.ServerBtn", "Networking / Server"));
 		audioBtn.setText(localization.getLocalizedMessage("Settings.AudioBtn", "Audio/Optionals"));
 		devBtn.setText(localization.getLocalizedMessage("Settings.DevBtn", "Developer"));
-
 	}
 
 	private void loadColors() {
@@ -1833,21 +1759,17 @@ public class settingsController {
 			Color secondary = Color.valueOf(ConfigReader.configRead("uiColors", "secondaryColor"));
 			Color accent = Color.valueOf(ConfigReader.configRead("uiColors", "accentColor"));
 			Color bkg = Color.valueOf(ConfigReader.configRead("uiColors", "bkgColor"));
-
 			Color reportBackground = Color.valueOf(ConfigReader.configRead("reportSettings", "reportBackground"));
 			Color reportSecondary = Color.valueOf(ConfigReader.configRead("reportSettings", "reportSecondary"));
 			Color reportAccent = Color.valueOf(ConfigReader.configRead("reportSettings", "reportAccent"));
 			Color reportHeading = Color.valueOf(ConfigReader.configRead("reportSettings", "reportHeading"));
-
 			primPicker.setValue(primary);
 			desktopBackgroundPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "desktopColor")));
 			topBarPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarColor")));
 			topBarTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "topBarTextColor")));
-
 			taskBarClrPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "taskBarColor")));
 			taskBarTextClrPicker
 					.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "taskBarTextColor")));
-
 			appTextPicker.setValue(Color.valueOf(ConfigReader.configRead("desktopSettings", "appTextColor")));
 			secPicker.setValue(secondary);
 			accPicker.setValue(accent);
@@ -1855,19 +1777,16 @@ public class settingsController {
 			primLabel.setStyle("-fx-text-fill: " + toHexString(primary) + ";");
 			secLabel.setStyle("-fx-text-fill: " + toHexString(secondary) + ";");
 			accLabel.setStyle("-fx-text-fill: " + toHexString(accent) + ";");
-
 			if (toHexString(bkg).equalsIgnoreCase("#ffffff") || toHexString(bkg).equalsIgnoreCase("#f2f2f2")
 					|| toHexString(bkg).equalsIgnoreCase("#e6e6e6") || toHexString(bkg).equalsIgnoreCase("#cccccc")) {
 				bkgLabel.setStyle("-fx-text-fill: black;");
 			} else {
 				bkgLabel.setStyle("-fx-text-fill: " + toHexString(bkg) + ";");
 			}
-
 			backgroundPickerReport.setValue(reportBackground);
 			accentPickerReport.setValue(reportAccent);
 			headingPickerReport.setValue(reportHeading);
 			secPickerReport.setValue(reportSecondary);
-
 			if (selectedNotification.get().equals("Information")) {
 				notiTextColorPicker.setValue(
 						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationInfoTextColor")));
@@ -1879,7 +1798,6 @@ public class settingsController {
 				notiPrimPicker.setValue(
 						Color.valueOf(ConfigReader.configRead("notificationSettings", "notificationWarnPrimary")));
 			}
-
 			backgroundLabelReport.setStyle("-fx-text-fill: " + toHexString(reportBackground) + ";");
 			accentLabelReport.setStyle("-fx-text-fill: " + toHexString(reportAccent) + ";");
 			secLabelReport.setStyle("-fx-text-fill: " + toHexString(reportSecondary) + ";");
@@ -2005,42 +1923,33 @@ public class settingsController {
 		broadcastPortField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = broadcastPortField.getText();
-
 			if (!character.matches("[0-9]")) {
 				event.consume();
 				return;
 			}
-
 			String newText = text + character;
-
 			if (newText.length() > 5) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("connectionSettings", "broadcastPort", newText);
 		});
 		notiDisplayDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = notiDisplayDurField.getText();
-
 			if (!character.matches("[0-9]") && !character.equals(".")) {
 				event.consume();
 				return;
 			}
-
 			if (character.equals(".") && text.contains(".")) {
 				event.consume();
 				return;
 			}
-
 			if (text.length() >= 5) {
 				event.consume();
 				return;
 			}
-
 			String newText = text + character;
-
 			try {
 				if (!newText.equals(".") && !newText.endsWith(".")) {
 					Double.parseDouble(newText);
@@ -2048,29 +1957,23 @@ public class settingsController {
 			} catch (NumberFormatException e) {
 				event.consume();
 			}
-
 		});
 		notiFadeOutDurField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = notiFadeOutDurField.getText();
-
 			if (!character.matches("[0-9]") && !character.equals(".")) {
 				event.consume();
 				return;
 			}
-
 			if (character.equals(".") && text.contains(".")) {
 				event.consume();
 				return;
 			}
-
 			if (text.length() >= 5) {
 				event.consume();
 				return;
 			}
-
 			String newText = text + character;
-
 			try {
 				if (!newText.equals(".") && !newText.endsWith(".")) {
 					Double.parseDouble(newText);
@@ -2082,91 +1985,69 @@ public class settingsController {
 		socketTimeoutField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = socketTimeoutField.getText();
-
 			if (!character.matches("[0-9]")) {
 				event.consume();
 				return;
 			}
-
 			String newText = text + character;
-
 			if (newText.length() > 5) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("connectionSettings", "socketTimeout", newText);
 		});
-
 		inputLockKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = inputLockKeybindField.getText();
-
 			String newText = text + character;
-
 			if (newText.length() > 1) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("keybindings", "inputLock", newText.toUpperCase());
 			logDebug("Keybinds; Wrote new inputLock keybind: " + newText.toUpperCase());
-
 		});
 		closeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = closeKeybindField.getText();
-
 			String newText = text + character;
-
 			if (newText.length() > 1) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("keybindings", "closeWindow", newText.toUpperCase());
 			logDebug("Keybinds; Wrote new closeWindow keybind: " + newText.toUpperCase());
 		});
 		minimizeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = minimizeKeybindField.getText();
-
 			String newText = text + character;
-
 			if (newText.length() > 1) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("keybindings", "minimizeWindow", newText.toUpperCase());
 			logDebug("Keybinds; Wrote new minimizeWindow keybind: " + newText.toUpperCase());
-
 		});
 		maximizeKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = maximizeKeybindField.getText();
-
 			String newText = text + character;
-
 			if (newText.length() > 1) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("keybindings", "toggleMaximize", newText.toUpperCase());
 			logDebug("Keybinds; Wrote new toggleMaximize keybind: " + newText.toUpperCase());
 		});
 		appFullscreenKeybindField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
 			String character = event.getCharacter();
 			String text = appFullscreenKeybindField.getText();
-
 			String newText = text + character;
-
 			if (newText.length() > 1) {
 				event.consume();
 				return;
 			}
-
 			ConfigWriter.configwrite("keybindings", "applicationFullscreen", newText.toUpperCase());
 			logDebug("Keybinds; Wrote new applicationFullscreen keybind: " + newText.toUpperCase());
 		});
@@ -2177,43 +2058,34 @@ public class settingsController {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			if (selectedNotification.get().equals("Information")) {
 				updateInfoNotiPrim(selectedColor);
-
 				refreshNotificationPreview("info");
 			}
 			if (selectedNotification.get().equals("Warning")) {
 				updateWarnNotiPrim(selectedColor);
-
 				refreshNotificationPreview("warn");
 			}
 		});
-
 		notiTextColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			if (selectedNotification.get().equals("Information")) {
 				updateInfoNotiTextColor(selectedColor);
-
 				refreshNotificationPreview("info");
 			}
 			if (selectedNotification.get().equals("Warning")) {
 				updateWarnNotiTextColor(selectedColor);
-
 				refreshNotificationPreview("warn");
 			}
 		});
-
 		bkgPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updatebackground(selectedColor);
 			try {
@@ -2223,12 +2095,10 @@ public class settingsController {
 				logError("LoadTheme IO Error Code 33", e);
 			}
 		});
-
 		primPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateMain(selectedColor);
 			try {
@@ -2238,33 +2108,27 @@ public class settingsController {
 				logError("LoadTheme IO Error Code 3", e);
 			}
 		});
-
 		desktopBackgroundPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			String hexColor = toHexString(newValue);
 			ConfigWriter.configwrite("desktopSettings", "desktopColor", hexColor);
 			updateDesktopBackground(mainDesktopControllerObj.getContainer());
 		});
-
 		topBarPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			if (mainDesktopControllerObj.getTopBar() != null) {
 				mainDesktopControllerObj.getTopBar().setStyle("-fx-background-color: " + toHexString(newValue) + ";");
 			}
 			ConfigWriter.configwrite("desktopSettings", "topBarColor", toHexString(newValue));
 		});
-
 		topBarTextPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			if (mainDesktopControllerObj != null) {
 				mainDesktopControllerObj.getOfficerInfoName().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getVersionLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
@@ -2285,24 +2149,20 @@ public class settingsController {
 			}
 			ConfigWriter.configwrite("desktopSettings", "topBarTextColor", toHexString(newValue));
 		});
-
 		taskBarClrPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			if (mainDesktopControllerObj != null) {
 				mainDesktopControllerObj.getBottomBar()
 						.setStyle("-fx-background-color: " + toHexString(newValue) + ";");
 			}
 			ConfigWriter.configwrite("desktopSettings", "taskBarColor", toHexString(newValue));
 		});
-
 		taskBarTextClrPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			if (mainDesktopControllerObj != null) {
 				mainDesktopControllerObj.getDateLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
 				mainDesktopControllerObj.getTimeLabel().setStyle("-fx-text-fill: " + toHexString(newValue) + ";");
@@ -2313,12 +2173,10 @@ public class settingsController {
 			}
 			ConfigWriter.configwrite("desktopSettings", "taskBarTextColor", toHexString(newValue));
 		});
-
 		appTextPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			if (mainDesktopControllerObj != null) {
 				for (DesktopApp desktopApp : DesktopApps) {
 					desktopApp.getAppLabel().setTextFill(Paint.valueOf(toHexString(newValue)));
@@ -2326,12 +2184,10 @@ public class settingsController {
 			}
 			ConfigWriter.configwrite("desktopSettings", "appTextColor", toHexString(newValue));
 		});
-
 		secPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateSecondary(selectedColor);
 			try {
@@ -2341,12 +2197,10 @@ public class settingsController {
 				logError("LoadTheme IO Error Code 4", e);
 			}
 		});
-
 		accPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateAccent(selectedColor);
 			try {
@@ -2356,42 +2210,34 @@ public class settingsController {
 				logError("LoadTheme IO Error Code 5", e);
 			}
 		});
-
 		backgroundPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateReportBackground(selectedColor);
 			loadColors();
 		});
-
 		accentPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateReportAccent(selectedColor);
 			loadColors();
 		});
-
 		headingPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateReportHeading(selectedColor);
 			loadColors();
 		});
-
 		secPickerReport.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (!isInitialized) {
 				return;
 			}
-
 			Color selectedColor = newValue;
 			updateReportSecondary(selectedColor);
 			loadColors();
@@ -2401,10 +2247,8 @@ public class settingsController {
 	private void addActionEventsAndComboBoxes() throws IOException {
 		String[] reportdarklight = { "dark", "light" };
 		String[] uidarklight = { "dark", "light" };
-
 		reportStyleComboBox.getItems().addAll(reportdarklight);
 		textClrComboBox.getItems().addAll(uidarklight);
-
 		try {
 			if (ConfigReader.configRead("reportSettings", "reportWindowDarkMode").equalsIgnoreCase("true")) {
 				reportStyleComboBox.getSelectionModel().selectFirst();
@@ -2413,7 +2257,6 @@ public class settingsController {
 			}
 		} catch (IOException e) {
 			logError("DarkMode IO Error Code 1 ", e);
-
 		}
 		try {
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
@@ -2423,9 +2266,7 @@ public class settingsController {
 			}
 		} catch (IOException e) {
 			logError("DarkMode IO Error Code 1 ", e);
-
 		}
-
 		reportStyleComboBox.setOnAction(_ -> {
 			if (reportStyleComboBox.getSelectionModel().getSelectedItem().equals("dark")) {
 				ConfigWriter.configwrite("reportSettings", "reportWindowDarkMode", "true");
@@ -2446,15 +2287,12 @@ public class settingsController {
 				logError("loadtheme code 28939: ", e);
 			}
 		});
-
 		String[] themes = { "dark", "purple", "blue", "grey", "green", "red", "orange", "pink", "teal", "brown",
 				"magenta", "indigo" };
 		themeComboBox.getItems().addAll(themes);
 		themeComboBox.setOnAction(_ -> {
 			String selectedTheme = (String) themeComboBox.getSelectionModel().getSelectedItem();
-
 			isInitialized = false;
-
 			switch (selectedTheme) {
 				case "dark" -> {
 					logDebug("Dark Theme Selected");
@@ -2541,7 +2379,6 @@ public class settingsController {
 					updatebackground(Color.valueOf("#ffffff"));
 				}
 			}
-
 			try {
 				loadTheme();
 				loadColors();
@@ -2550,7 +2387,6 @@ public class settingsController {
 			}
 			isInitialized = true;
 		});
-
 		String[] presets = { "dark", "light", "grey", "green", "blue", "red", "purple", "orange", "pink", "teal",
 				"brown", "magenta", "indigo" };
 		presetComboBoxReport.getItems().addAll(presets);
@@ -2653,7 +2489,6 @@ public class settingsController {
 			loadColors();
 			isInitialized = true;
 		});
-
 		String[] calloutDurations = { "infinite", "1", "3", "5", "7", "10", "12" };
 		calloutDurComboBox.getItems().addAll(calloutDurations);
 		calloutDurComboBox.setValue(ConfigReader.configRead("misc", "calloutDuration"));
@@ -2661,7 +2496,6 @@ public class settingsController {
 			String selectedDur = (String) calloutDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "calloutDuration", selectedDur);
 		});
-
 		String[] idDurations = { "infinite", "1", "3", "5", "7", "10", "12" };
 		idDurComboBox.getItems().addAll(idDurations);
 		idDurComboBox.setValue(ConfigReader.configRead("misc", "IDDuration"));
@@ -2669,21 +2503,18 @@ public class settingsController {
 			String selectedDur = (String) idDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "IDDuration", selectedDur);
 		});
-
 		trafficStopDurComboBox.getItems().addAll(idDurations);
 		trafficStopDurComboBox.setValue(ConfigReader.configRead("misc", "TrafficStopDuration"));
 		trafficStopDurComboBox.setOnAction(_ -> {
 			String selectedDur = (String) trafficStopDurComboBox.getSelectionModel().getSelectedItem();
 			ConfigWriter.configwrite("misc", "TrafficStopDuration", selectedDur);
 		});
-
 		String[] notifications = { "Information", "Warning" };
 		selectedNotification = new AtomicReference<>("Information");
 		notificationComboBox.getItems().addAll(notifications);
 		notificationComboBox.setValue(selectedNotification);
 		notificationComboBox.setOnAction(_ -> {
 			String selectedItem = (String) notificationComboBox.getSelectionModel().getSelectedItem();
-
 			switch (selectedItem) {
 				case "Information" -> {
 					selectedNotification.set("Information");
@@ -2699,9 +2530,7 @@ public class settingsController {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-
 					refreshNotificationPreview("info");
-
 				}
 				case "Warning" -> {
 					selectedNotification.set("Warning");
@@ -2720,9 +2549,7 @@ public class settingsController {
 					refreshNotificationPreview("warn");
 				}
 			}
-
 		});
-
 		String[] notificationPositions = { "BottomLeft", "BottomRight", "TopLeft", "TopRight" };
 		notiPosCombobox.getItems().addAll(notificationPositions);
 		notiPosCombobox.setValue(ConfigReader.configRead("notificationSettings", "notificationPosition"));
@@ -2737,13 +2564,11 @@ public class settingsController {
 				case "TopRight" -> ConfigWriter.configwrite("notificationSettings", "notificationPosition", "TopRight");
 			}
 		});
-
 		String[] windowSetting = { "Fullscreen", "WindowedFullscreen" };
 		windowDisplaySettingCombobox.getItems().addAll(windowSetting);
 		windowDisplaySettingCombobox.setValue(ConfigReader.configRead("uiSettings", "windowDisplaySetting"));
 		windowDisplaySettingCombobox.setOnAction(_ -> {
 			String selectedItem = (String) windowDisplaySettingCombobox.getSelectionModel().getSelectedItem();
-
 			switch (selectedItem) {
 				case "Fullscreen" -> {
 					mainDesktopStage.setFullScreen(true);
@@ -2765,9 +2590,7 @@ public class settingsController {
 					ConfigWriter.configwrite("uiSettings", "windowDisplaySetting", "WindowedFullscreen");
 				}
 			}
-
 		});
-
 		saveFadeDurBtn.setOnAction(_ -> ConfigWriter.configwrite("notificationSettings", "fadeOutDuration",
 				notiFadeOutDurField.getText()));
 		saveDisplayDurBtn.setOnAction(_ -> ConfigWriter.configwrite("notificationSettings", "displayDuration",
@@ -2800,5 +2623,4 @@ public class settingsController {
 	public BorderPane getRoot() {
 		return root;
 	}
-
 }

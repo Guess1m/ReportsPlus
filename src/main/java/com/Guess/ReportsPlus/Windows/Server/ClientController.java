@@ -64,15 +64,12 @@ public class ClientController implements IShutdownable {
 		if (ConfigReader.configRead("connectionSettings", "lastPortConnection") != null) {
 			inputPortField.setText(ConfigReader.configRead("connectionSettings", "lastPortConnection"));
 		}
-
 		inputPortField.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue.matches("\\d*")) {
 				inputPortField.setText(newValue.replaceAll("[^\\d]", ""));
 			}
 		});
-
 		addLocalization();
-
 		Platform.runLater(() -> {
 			if (isConnected) {
 				portField.setText(ClientUtils.port);
@@ -94,12 +91,10 @@ public class ClientController implements IShutdownable {
 		lbl3.setText(localization.getLocalizedMessage("ServerConnectionWindow.InputAddressLabel", "Input Address:"));
 		lbl4.setText(
 				localization.getLocalizedMessage("ServerConnectionWindow.ConnectionPortLabel", "Connection Port:"));
-
 		connectBtn.setText(localization.getLocalizedMessage("ServerConnectionWindow.ConnectButton", "Connect"));
 		helpbtn.setText(localization.getLocalizedMessage("ServerConnectionWindow.Help", "Help"));
 		helpbtn.setText(localization.getLocalizedMessage("ServerConnectionWindow.Help", "Help"));
 		statusLabel.setText(localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
-
 		inetField.setPromptText(
 				localization.getLocalizedMessage("ServerConnectionWindow.NotConnected", "Not Connected"));
 		portField.setPromptText(
@@ -149,10 +144,8 @@ public class ClientController implements IShutdownable {
 								"ServerConnectionWindow.HelpLineFour",
 								"4. The bottom right field is the port of the established connection.")
 						+ "\n\n");
-
 		helpDialog.initOwner(owner);
 		helpDialog.initModality(Modality.APPLICATION_MODAL);
-
 		helpDialog.showAndWait();
 	}
 

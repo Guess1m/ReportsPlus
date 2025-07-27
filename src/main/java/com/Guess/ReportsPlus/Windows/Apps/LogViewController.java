@@ -132,7 +132,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class LogViewController {
-
 	public class ColumnItem {
 		private final StringProperty name = new SimpleStringProperty();
 		private final BooleanProperty visible = new SimpleBooleanProperty();
@@ -341,9 +340,7 @@ public class LogViewController {
 	}
 
 	TableView currentTable;
-
 	List<Label> sideButtons = new ArrayList<>();
-
 	private Label activePane;
 	@FXML
 	private AnchorPane logPane;
@@ -429,7 +426,6 @@ public class LogViewController {
 		initializeTrafficStopColumns(trafficStopTable);
 		initializeDeathReportColumns(deathReportTable);
 		initializeAccidentColumns(accidentReportTable);
-
 		addHoverListener(calloutTable, callout);
 		addHoverListener(arrestTable, arrest);
 		addHoverListener(deathReportTable, death);
@@ -440,10 +436,8 @@ public class LogViewController {
 		addHoverListener(citationTable, citation);
 		addHoverListener(impoundTable, impound);
 		addHoverListener(incidentTable, incident);
-
 		Platform.runLater(() -> {
 			loadLogs();
-
 			sideButtons.addAll(Arrays.asList(callout, arrest, citation, impound, incident, patrol, search, trafficstop,
 					death, accident));
 			for (Node child : customReportsVBox.getChildren()) {
@@ -451,23 +445,18 @@ public class LogViewController {
 					sideButtons.add((Label) child);
 				}
 			}
-
 			List<Node> nodesToRemove = new ArrayList<>();
 			for (Node table : tableStackPane.getChildren()) {
 				if (table instanceof TableView) {
 					nodesToRemove.add(table);
 				}
 			}
-
 			for (Label otherPane : sideButtons) {
 				otherPane.setStyle("-fx-background-color: transparent;");
 			}
-
 			customReportsTitlePane.setExpanded(true);
 			setActive(null, null);
-
 		});
-
 		loadLocale();
 	}
 
@@ -482,13 +471,11 @@ public class LogViewController {
 		calloutLogUpdate();
 		deathReportLogUpdate();
 		accidentReportUpdate();
-
 		String dataFolderPath = getCustomDataLogsFolderPath();
 		createFolderIfNotExists(dataFolderPath);
 		File dataFolder = new File(dataFolderPath);
 		if (dataFolder.exists() && dataFolder.isDirectory()) {
 			customReportsVBox.getChildren().clear();
-
 			File[] files = dataFolder.listFiles((dir, filen) -> filen.endsWith(".db"));
 			if (files != null && files.length != 0) {
 				logInfo("LogViewer; Found " + files.length + " Database(s)");
@@ -496,10 +483,8 @@ public class LogViewController {
 					String fileNameWithoutExt = dbFile.getName().replaceFirst("[.][^.]+$", "");
 					String dbFilePath = dbFile.getAbsolutePath();
 					logInfo("LogViewer; [" + dbFile.getName() + "] Being Checked..");
-
 					if (isValidDatabase(dbFilePath, dbFile.getName())) {
 						logInfo("LogViewer; [" + dbFile.getName() + "] Valid");
-
 						Label reportBtn = new Label();
 						reportBtn.setAlignment(Pos.CENTER);
 						reportBtn.setText(fileNameWithoutExt);
@@ -507,9 +492,7 @@ public class LogViewController {
 						reportBtn.setOnMouseClicked(event -> {
 							loadTableForCustomReport(dbFilePath, fileNameWithoutExt, false);
 						});
-
 						customReportsVBox.getChildren().add(reportBtn);
-
 					} else {
 						logWarn("LogViewer; Invalid database file: " + dbFilePath);
 					}
@@ -522,13 +505,10 @@ public class LogViewController {
 	public void onDeathReportRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			DeathReport deathReport = (DeathReport) deathReportTable.getSelectionModel().getSelectedItem();
-
 			if (deathReport != null) {
 				Map<String, Object> deathReportObj = newDeathReport();
-
 				Map<String, Object> deathReport1 = (Map<String, Object>) deathReportObj.get(
 						localization.getLocalizedMessage("ReportWindows.DeathReportTitle", "Death Report") + " Map");
-
 				TextField name = (TextField) deathReport1
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField rank = (TextField) deathReport1
@@ -573,7 +553,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.TimeOfDeathField", "time of death"));
 				TextField dateofdeath = (TextField) deathReport1
 						.get(localization.getLocalizedMessage("ReportWindows.DateOfDeathField", "date of death"));
-
 				timeofdeath.setText(deathReport.getTimeOfDeath());
 				dateofdeath.setText(deathReport.getDateOfDeath());
 				name.setText(deathReport.getOfficerName());
@@ -596,7 +575,6 @@ public class LogViewController {
 				modeofdeath.setText(deathReport.getModeOfDeath());
 				witnesses.setText(deathReport.getWitnesses());
 				notes.setText(deathReport.getNotesTextArea());
-
 				Button delBtn = (Button) deathReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -621,17 +599,13 @@ public class LogViewController {
 					}
 					deathReportLogUpdate();
 				});
-
 				deathNum.setEditable(false);
 				MenuButton pullnotesbtn = (MenuButton) deathReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) deathReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) deathReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				deathReportTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -641,15 +615,11 @@ public class LogViewController {
 	public void onCalloutRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			CalloutReport calloutReport = (CalloutReport) calloutTable.getSelectionModel().getSelectedItem();
-
 			if (calloutReport != null) {
-
 				Map<String, Object> calloutReportObj = newCallout();
-
 				Map<String, Object> calloutReportMap = (Map<String, Object>) calloutReportObj
 						.get(localization.getLocalizedMessage("ReportWindows.CalloutReportTitle", "Callout Report")
 								+ " Map");
-
 				TextField officername = (TextField) calloutReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField officerrank = (TextField) calloutReportMap
@@ -678,7 +648,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
 				TextField calloutcode = (TextField) calloutReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.CalloutCodeField", "code"));
-
 				officername.setText(calloutReport.getOfficerName());
 				officerrank.setText(calloutReport.getRank());
 				officerdiv.setText(calloutReport.getDivision());
@@ -693,10 +662,8 @@ public class LogViewController {
 				calloutnum.setText(calloutReport.getCalloutNumber());
 				callouttype.setText(calloutReport.getResponseType());
 				calloutcode.setText(calloutReport.getResponseGrade());
-
 				ComboBox<String> statusValue = (ComboBox<String>) calloutReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button delBtn = (Button) calloutReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -721,14 +688,11 @@ public class LogViewController {
 					}
 					calloutLogUpdate();
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) calloutReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				calloutnum.setEditable(false);
-
 				Button submitBtn = (Button) calloutReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				calloutTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -738,14 +702,10 @@ public class LogViewController {
 	public void onPatrolRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			PatrolReport patrolReport = (PatrolReport) patrolTable.getSelectionModel().getSelectedItem();
-
 			if (patrolReport != null) {
-
 				Map<String, Object> patrolReportObj = newPatrol();
-
 				Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReportObj.get(
 						localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report") + " Map");
-
 				TextField name = (TextField) patrolReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField rank = (TextField) patrolReportMap
@@ -770,7 +730,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.LengthField", "length"));
 				TextField vehicle = (TextField) patrolReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"));
-
 				name.setText(patrolReport.getOfficerName());
 				patrolnum.setText(patrolReport.getPatrolNumber());
 				rank.setText(patrolReport.getOfficerRank());
@@ -783,7 +742,6 @@ public class LogViewController {
 				length.setText(patrolReport.getPatrolLength());
 				vehicle.setText(patrolReport.getOfficerVehicle());
 				notes.setText(patrolReport.getPatrolComments());
-
 				Button delBtn = (Button) patrolReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -808,17 +766,13 @@ public class LogViewController {
 					}
 					patrolLogUpdate();
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) patrolReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				patrolnum.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) patrolReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) patrolReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				patrolTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -829,15 +783,11 @@ public class LogViewController {
 		if (event.getClickCount() == 1) {
 			TrafficStopReport trafficStopReport = (TrafficStopReport) trafficStopTable.getSelectionModel()
 					.getSelectedItem();
-
 			if (trafficStopReport != null) {
-
 				Map<String, Object> trafficStopReportObj = newTrafficStop();
-
 				Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj.get(
 						localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report")
 								+ " Map");
-
 				TextField officernamets = (TextField) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField officerrankts = (TextField) trafficStopReportMap
@@ -848,7 +798,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField officernumarrestts = (TextField) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 				TextField offenderNamets = (TextField) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 				TextField offenderAgets = (TextField) trafficStopReportMap
@@ -859,7 +808,6 @@ public class LogViewController {
 						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 				TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(localization
 						.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 				ComboBox colorts = (ComboBox) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 				ComboBox typets = (ComboBox) trafficStopReportMap
@@ -870,7 +818,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 				TextField modelts = (TextField) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 				ComboBox areats = (ComboBox) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 				ComboBox streetts = (ComboBox) trafficStopReportMap
@@ -883,23 +830,19 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField timets = (TextField) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 				TextArea notests = (TextArea) trafficStopReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 				stopnumts.setText(trafficStopReport.getStopNumber());
 				datets.setText(trafficStopReport.getDate());
 				timets.setText(trafficStopReport.getTime());
 				officerrankts.setText(trafficStopReport.getRank());
 				notests.setText(trafficStopReport.getCommentsTextArea());
 				plateNumberts.setText(trafficStopReport.getPlateNumber());
-
 				offenderDescriptionts.setText(trafficStopReport.getOperatorDescription());
 				otherInfots.setText(trafficStopReport.getResponseOtherInfo());
 				areats.setValue(trafficStopReport.getArea());
 				streetts.getEditor().setText(trafficStopReport.getStreet());
 				countyts.setText(trafficStopReport.getCounty());
-
 				offenderNamets.setText(trafficStopReport.getOperatorName());
 				officernamets.setText(trafficStopReport.getOfficerName());
 				officerdivts.setText(trafficStopReport.getDivision());
@@ -911,7 +854,6 @@ public class LogViewController {
 				colorts.setValue(trafficStopReport.getColor());
 				typets.setValue(trafficStopReport.getType());
 				modelts.setText(trafficStopReport.getResponseModel());
-
 				Button delBtn = (Button) trafficStopReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -935,19 +877,14 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					trafficStopLogUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) trafficStopReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				stopnumts.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) trafficStopReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) trafficStopReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				trafficStopTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -957,15 +894,11 @@ public class LogViewController {
 	public void onIncidentRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			IncidentReport incidentReport = (IncidentReport) incidentTable.getSelectionModel().getSelectedItem();
-
 			if (incidentReport != null) {
-
 				Map<String, Object> incidentReportObj = newIncident();
-
 				Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj
 						.get(localization.getLocalizedMessage("ReportWindows.IncidentReportTitle", "Incident Report")
 								+ " Map");
-
 				TextField name = (TextField) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField rank = (TextField) incidentReportMap
@@ -976,7 +909,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField num = (TextField) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 				TextField incidentnum = (TextField) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.IncidentNumField", "incident num"));
 				TextField date = (TextField) incidentReportMap
@@ -989,38 +921,32 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 				TextField county = (TextField) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-
 				TextField suspects = (TextField) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.SuspectsField", "suspect(s)"));
 				TextField vicwit = (TextField) incidentReportMap.get(localization
 						.getLocalizedMessage("ReportWindows.VictimsWitnessField", "victim(s) / witness(s)"));
 				TextArea statement = (TextArea) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.StatementField", "statement"));
-
 				TextArea summary = (TextArea) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.IncidentSummaryField", "summary"));
 				TextArea notes = (TextArea) incidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 				name.setText(incidentReport.getOfficerName());
 				incidentnum.setText(incidentReport.getIncidentNumber());
 				rank.setText(incidentReport.getOfficerRank());
 				div.setText(incidentReport.getOfficerDivision());
 				agen.setText(incidentReport.getOfficerAgency());
 				num.setText(incidentReport.getOfficerNumber());
-
 				street.getEditor().setText(incidentReport.getIncidentStreet());
 				area.setValue(incidentReport.getArea());
 				county.setText(incidentReport.getCounty());
 				suspects.setText(incidentReport.getIncidentWitnesses());
 				vicwit.setText(incidentReport.getIncidentVictims());
 				statement.setText(incidentReport.getIncidentStatement());
-
 				date.setText(incidentReport.getIncidentDate());
 				time.setText(incidentReport.getIncidentTime());
 				summary.setText(incidentReport.getIncidentActionsTaken());
 				notes.setText(incidentReport.getIncidentComments());
-
 				Button delBtn = (Button) incidentReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1044,19 +970,14 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					incidentLogUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) incidentReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				incidentnum.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) incidentReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) incidentReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				incidentTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1066,15 +987,11 @@ public class LogViewController {
 	public void onImpoundRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			ImpoundReport impoundReport = (ImpoundReport) impoundTable.getSelectionModel().getSelectedItem();
-
 			if (impoundReport != null) {
-
 				Map<String, Object> impoundReportObj = newImpound();
-
 				Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj
 						.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report")
 								+ " Map");
-
 				TextField officername = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField officerrank = (TextField) impoundReportMap
@@ -1085,7 +1002,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField officernum = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 				TextField offenderName = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 				TextField offenderAge = (TextField) impoundReportMap
@@ -1094,14 +1010,12 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
 				TextField offenderAddress = (TextField) impoundReportMap.get(
 						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-
 				TextField num = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.ImpoundNumField", "impound number"));
 				TextField date = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField time = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 				ComboBox color = (ComboBox) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 				ComboBox type = (ComboBox) impoundReportMap
@@ -1110,17 +1024,14 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 				TextField model = (TextField) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 				TextArea notes = (TextArea) impoundReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 				num.setText(impoundReport.getImpoundNumber());
 				date.setText(impoundReport.getImpoundDate());
 				time.setText(impoundReport.getImpoundTime());
 				officerrank.setText(impoundReport.getOfficerRank());
 				notes.setText(impoundReport.getImpoundComments());
 				plateNumber.setText(impoundReport.getImpoundPlateNumber());
-
 				offenderName.setText(impoundReport.getOwnerName());
 				officername.setText(impoundReport.getOfficerName());
 				officerdiv.setText(impoundReport.getOfficerDivision());
@@ -1132,7 +1043,6 @@ public class LogViewController {
 				color.setValue(impoundReport.getImpoundColor());
 				type.setValue(impoundReport.getImpoundType());
 				model.setText(impoundReport.getImpoundModel());
-
 				Button delBtn = (Button) impoundReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1156,19 +1066,14 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					impoundLogUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) impoundReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				num.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) impoundReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) impoundReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				impoundTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1179,14 +1084,11 @@ public class LogViewController {
 		if (event.getClickCount() == 1) {
 			TrafficCitationReport trafficCitationReport = (TrafficCitationReport) citationTable.getSelectionModel()
 					.getSelectedItem();
-
 			if (trafficCitationReport != null) {
 				Map<String, Object> trafficCitationObj = newCitation();
-
 				Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj
 						.get(localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report")
 								+ " Map");
-
 				TextField officername = (TextField) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField officerrank = (TextField) citationReportMap
@@ -1197,7 +1099,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField officernum = (TextField) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 				TextField offenderName = (TextField) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 				TextField offenderAge = (TextField) citationReportMap
@@ -1208,7 +1109,6 @@ public class LogViewController {
 						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 				TextField offenderDescription = (TextField) citationReportMap.get(localization
 						.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 				ComboBox area = (ComboBox) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 				ComboBox street = (ComboBox) citationReportMap
@@ -1221,7 +1121,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField time = (TextField) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 				ComboBox color = (ComboBox) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 				ComboBox type = (ComboBox) citationReportMap
@@ -1232,10 +1131,8 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 				TextField model = (TextField) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 				TextArea notes = (TextArea) citationReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 				officername.setText(trafficCitationReport.getOfficerName());
 				officerrank.setText(trafficCitationReport.getOfficerRank());
 				officerdiv.setText(trafficCitationReport.getOfficerDivision());
@@ -1258,7 +1155,6 @@ public class LogViewController {
 				offenderGender.setText(trafficCitationReport.getOffenderGender());
 				offenderDescription.setText(trafficCitationReport.getOffenderDescription());
 				offenderAddress.setText(trafficCitationReport.getOffenderHomeAddress());
-
 				Button delBtn = (Button) trafficCitationObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1282,25 +1178,18 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					citationLogUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) trafficCitationObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				num.setEditable(false);
-
 				TableView citationtable1 = (TableView) citationReportMap.get("CitationTableView");
 				ObservableList<CitationsData> citationList = FXCollections.observableArrayList();
 				citationtable1.setItems(citationList);
-
 				ComboBox<String> statusValue = (ComboBox<String>) trafficCitationObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				addCitationsToTable(trafficCitationReport.getCitationCharges(), citationList);
-
 				Button submitBtn = (Button) trafficCitationObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				citationTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1310,13 +1199,10 @@ public class LogViewController {
 	public void onSearchRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			SearchReport searchReport = (SearchReport) searchTable.getSelectionModel().getSelectedItem();
-
 			if (searchReport != null) {
 				Map<String, Object> searchReportObj = newSearch();
-
 				Map<String, Object> searchReportMap = (Map<String, Object>) searchReportObj.get(
 						localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
-
 				TextField name = (TextField) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField rank = (TextField) searchReportMap
@@ -1327,7 +1213,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField num = (TextField) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 				TextField searchnum = (TextField) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
 				TextField date = (TextField) searchReportMap
@@ -1340,7 +1225,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 				TextField county = (TextField) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-
 				TextField grounds = (TextField) searchReportMap.get(
 						localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
 				TextField witness = (TextField) searchReportMap
@@ -1351,28 +1235,23 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
 				ComboBox method = (ComboBox) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
-
 				TextField testconducted = (TextField) searchReportMap.get(
 						localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
 				TextField result = (TextField) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
 				TextField bacmeasurement = (TextField) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
-
 				TextArea seizeditems = (TextArea) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
 				TextArea notes = (TextArea) searchReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
-
 				name.setText(searchReport.getOfficerName());
 				div.setText(searchReport.getOfficerDivision());
 				agen.setText(searchReport.getOfficerAgency());
 				num.setText(searchReport.getOfficerNumber());
-
 				street.getEditor().setText(searchReport.getSearchStreet());
 				area.setValue(searchReport.getArea());
 				county.setText(searchReport.getCounty());
-
 				testconducted.setText(searchReport.getTestsConducted());
 				grounds.setText(searchReport.getSearchGrounds());
 				witness.setText(searchReport.getSearchWitnesses());
@@ -1381,14 +1260,12 @@ public class LogViewController {
 				method.setValue(searchReport.getSearchMethod());
 				result.setText(searchReport.getTestResults());
 				bacmeasurement.setText(searchReport.getBreathalyzerBACMeasure());
-
 				searchnum.setText(searchReport.getSearchNumber());
 				rank.setText(searchReport.getOfficerRank());
 				date.setText(searchReport.getSearchDate());
 				time.setText(searchReport.getSearchTime());
 				seizeditems.setText(searchReport.getSearchSeizedItems());
 				notes.setText(searchReport.getSearchComments());
-
 				Button delBtn = (Button) searchReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1412,19 +1289,14 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					searchLogUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) searchReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				searchnum.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) searchReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) searchReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				searchTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1434,13 +1306,10 @@ public class LogViewController {
 	public void onArrestRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			ArrestReport arrestReport = (ArrestReport) arrestTable.getSelectionModel().getSelectedItem();
-
 			if (arrestReport != null) {
 				Map<String, Object> arrestReportObj = newArrest();
-
 				Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj.get(
 						localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
-
 				TextField officername = (TextField) arrestReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField officerrank = (TextField) arrestReportMap
@@ -1451,7 +1320,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 				TextField officernumarrest = (TextField) arrestReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 				TextField offenderName = (TextField) arrestReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 				TextField offenderAge = (TextField) arrestReportMap
@@ -1462,7 +1330,6 @@ public class LogViewController {
 						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 				TextField offenderDescription = (TextField) arrestReportMap.get(localization
 						.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 				ComboBox area = (ComboBox) arrestReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 				ComboBox street = (ComboBox) arrestReportMap
@@ -1475,17 +1342,14 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 				TextField time = (TextField) arrestReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 				TextField ambulancereq = (TextField) arrestReportMap.get(localization
 						.getLocalizedMessage("ReportWindows.FieldAmbulanceRequired", "ambulance required (Y/N)"));
 				TextField taserdep = (TextField) arrestReportMap.get(
 						localization.getLocalizedMessage("ReportWindows.FieldTaserDeployed", "taser deployed (Y/N)"));
 				TextField othermedinfo = (TextField) arrestReportMap.get(
 						localization.getLocalizedMessage("ReportWindows.FieldOtherInformation", "other information"));
-
 				TextArea notes = (TextArea) arrestReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 				arrestnum.setText(arrestReport.getArrestNumber());
 				officername.setText(arrestReport.getOfficerName());
 				officerdiv.setText(arrestReport.getOfficerDivision());
@@ -1506,7 +1370,6 @@ public class LogViewController {
 				date.setText(arrestReport.getArrestDate());
 				time.setText(arrestReport.getArrestTime());
 				notes.setText(arrestReport.getArrestDetails());
-
 				Button delBtn = (Button) arrestReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1531,25 +1394,18 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					arrestLogUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) arrestReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				arrestnum.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) arrestReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
 				ObservableList<ChargesData> chargeList = FXCollections.observableArrayList();
 				chargetable.setItems(chargeList);
-
 				addChargesToTable(arrestReport.getArrestCharges(), chargeList);
-
 				Button submitBtn = (Button) arrestReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				arrestTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1559,14 +1415,11 @@ public class LogViewController {
 	public void onAccidentReportRowClick(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			AccidentReport accidentReport = (AccidentReport) accidentReportTable.getSelectionModel().getSelectedItem();
-
 			if (accidentReport != null) {
 				Map<String, Object> accidentReportObj = newAccident();
-
 				Map<String, Object> accidentReportMap = (Map<String, Object>) accidentReportObj
 						.get(localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report")
 								+ " Map");
-
 				TextField name = (TextField) accidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 				TextField rank = (TextField) accidentReportMap
@@ -1621,7 +1474,6 @@ public class LogViewController {
 						.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 				TextArea notes = (TextArea) accidentReportMap
 						.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 				accidentnum.setText(accidentReport.getAccidentNumber());
 				name.setText(accidentReport.getOfficerName());
 				rank.setText(accidentReport.getOfficerRank());
@@ -1649,7 +1501,6 @@ public class LogViewController {
 				type.setValue(accidentReport.getType());
 				color.setValue(accidentReport.getColor());
 				notes.setText(accidentReport.getComments());
-
 				Button delBtn = (Button) accidentReportObj.get("delBtn");
 				delBtn.setVisible(true);
 				delBtn.setDisable(false);
@@ -1674,19 +1525,14 @@ public class LogViewController {
 						logError("Error getting configValue for playDeleteReport: ", e);
 					}
 					accidentReportUpdate();
-
 				});
-
 				MenuButton pullnotesbtn = (MenuButton) accidentReportObj.get("pullNotesBtn");
 				pullnotesbtn.setVisible(false);
 				accidentnum.setEditable(false);
-
 				ComboBox<String> statusValue = (ComboBox<String>) accidentReportObj.get("statusValue");
 				statusValue.setValue("Reopened");
-
 				Button submitBtn = (Button) accidentReportObj.get("submitBtn");
 				submitBtn.setText("Update Information");
-
 				accidentReportTable.getSelectionModel().clearSelection();
 			}
 		}
@@ -1749,27 +1595,21 @@ public class LogViewController {
 
 	private void loadTableForCustomReport(String dbFilePath, String fileNameWithoutExt, boolean expandTableSettings) {
 		AtomicBoolean firstLoad = new AtomicBoolean(false);
-
 		Platform.runLater(() -> {
 			String dataFolderPath = getCustomDataLogsFolderPath();
-
 			String reportTitle = fileNameWithoutExt.trim();
-
 			currentTable = null;
 			totalReportsLabel.setText("0");
 			reportsInProgressLabel.setText("0");
 			closedReportsLabel.setText("0");
 			tableStackPane.getChildren().clear();
-
 			BorderPane customReportPane = new BorderPane();
 			tableStackPane.getChildren().add(customReportPane);
-
 			currentTable = new TableView();
 			currentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 			currentTable.getColumns().clear();
 			currentTable.getItems().clear();
 			customReportPane.setCenter(currentTable);
-
 			final Map<String, String> layoutScheme;
 			try {
 				layoutScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "layout");
@@ -1777,7 +1617,6 @@ public class LogViewController {
 				logError("LogViewer; Failed to extract field names", e2);
 				return;
 			}
-
 			String layoutContent = null;
 			String columnLayoutContent = null;
 			DynamicDB DatabaseLayout = new DynamicDB(dataFolderPath + reportTitle, "layout", "key", layoutScheme);
@@ -1807,7 +1646,6 @@ public class LogViewController {
 									new HashMap<>());
 							Map<String, List<String>> selectedTypes = elementMap.getOrDefault("selectedType",
 									new HashMap<>());
-
 							for (String key : fieldNames.keySet()) {
 								String selectedType = selectedTypes.getOrDefault(key, List.of()).isEmpty() ? ""
 										: selectedTypes.get(key).get(0);
@@ -1822,11 +1660,9 @@ public class LogViewController {
 								columnLayoutBuilder.append(",");
 							}
 							columnLayoutBuilder.append("report_status=true");
-
 							columnLayoutContent = columnLayoutBuilder.toString();
 							columnRecord.put("columnLayoutData", columnLayoutBuilder.toString());
 							DatabaseLayout.addOrReplaceRecord(columnRecord);
-
 							firstLoad.set(true);
 						}
 					}
@@ -1843,14 +1679,11 @@ public class LogViewController {
 				logError("LogViewer; Layout Database not initialized!");
 				showNotificationError("Report Creation Utility", "Error initializing layout database!");
 			}
-
 			if (columnLayoutContent != null) {
 				try {
-
 					List<String> allColumns = new ArrayList<>(Arrays.asList(columnLayoutContent.split(",")));
 					List<String> visibleColumns = new ArrayList<>();
 					List<String> hiddenColumns = new ArrayList<>();
-
 					for (String column : allColumns) {
 						String[] parts = column.split("=");
 						if (parts.length == 2) {
@@ -1861,7 +1694,6 @@ public class LogViewController {
 							}
 						}
 					}
-
 					for (String columnName : visibleColumns) {
 						TableColumn<Map<String, Object>, String> col;
 						if (columnName.equals("report_status")) {
@@ -1907,10 +1739,8 @@ public class LogViewController {
 								}
 							}
 						});
-
 						currentTable.getColumns().add(col);
 					}
-
 					Map<String, String> dataScheme = null;
 					try {
 						dataScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "data");
@@ -1929,7 +1759,6 @@ public class LogViewController {
 						logInfo("LogViewer; data Database for: [" + reportTitle + "] Initialized");
 						try {
 							currentTable.getItems().setAll(databaseData.getAllRecords());
-
 							Map<String, String> finalDataScheme = dataScheme;
 							Map<String, String> finalLayoutScheme = layoutScheme;
 							String finalFoundPrimaryKeyDataTable = foundPrimaryKeyDataTable;
@@ -1939,19 +1768,15 @@ public class LogViewController {
 								row.setOnMouseClicked(mouseEvent -> {
 									if (mouseEvent.getClickCount() == 1 && !row.isEmpty()) {
 										Map<String, Object> record = row.getItem();
-
 										Map<String, Map<String, List<String>>> elementMap = parseAndPopulateMap(
 												finalLayoutContent);
-
 										CustomReport customReport = new CustomReport(reportTitle,
 												finalFoundPrimaryKeyDataTable, finalLayoutScheme, finalDataScheme,
 												record, elementMap);
-
 										Map<String, List<String>> selectedTypes = customReport.getMainMap()
 												.getOrDefault("selectedType", new HashMap<>());
 										Map<String, List<String>> fieldNames = customReport.getMainMap()
 												.getOrDefault("fieldNames", new HashMap<>());
-
 										String reportNum = "";
 										for (String field : fieldNames.keySet()) {
 											String selectedType = selectedTypes.getOrDefault(field, List.of()).isEmpty()
@@ -1964,7 +1789,6 @@ public class LogViewController {
 												number_field.setEditable(false);
 											}
 										}
-
 										Button delBtn = (Button) customReport.getReportWindowMap().get("delBtn");
 										delBtn.setVisible(true);
 										delBtn.setDisable(false);
@@ -1986,25 +1810,19 @@ public class LogViewController {
 											}
 											showNotificationInfo("Report Manager",
 													"Deleted [" + reportTitle + "] #: " + numToDelete);
-
 										});
-
 										MenuButton pullnotesbtn = (MenuButton) customReport.getReportWindowMap()
 												.get("pullNotesBtn");
 										pullnotesbtn.setVisible(false);
-
 										ComboBox<String> statusValue = (ComboBox<String>) customReport
 												.getReportWindowMap().get("statusValue");
 										statusValue.setValue("Reopened");
-
 										Button submitBtn = (Button) customReport.getReportWindowMap().get("submitBtn");
 										submitBtn.setText("Update Information");
-
 									}
 								});
 								return row;
 							});
-
 						} finally {
 							try {
 								databaseData.close();
@@ -2017,7 +1835,6 @@ public class LogViewController {
 						logError("LogViewer; data Database not initialized!");
 						showNotificationError("Report Creation Utility", "Error initializing data database!");
 					}
-
 					HBox tableSettingsHbox = new HBox(10);
 					tableSettingsHbox.setAlignment(Pos.CENTER_LEFT);
 					TitledPane titledPane = new TitledPane(
@@ -2025,13 +1842,10 @@ public class LogViewController {
 							tableSettingsHbox);
 					titledPane.setExpanded(expandTableSettings);
 					titledPane.setStyle("-fx-background-color: rgba(255,255,255,0.25);");
-
 					ListView<ColumnItem> columnManagerList = new ListView<>();
 					columnManagerList.setMaxHeight(180);
-
 					ObservableList<ColumnItem> columnItems = FXCollections
 							.observableArrayList(item -> new javafx.beans.Observable[] { item.visibleProperty() });
-
 					List<String> allColumns2 = new ArrayList<>(Arrays.asList(columnLayoutContent.split(",")));
 					for (String column : allColumns2) {
 						String[] parts = column.split("=");
@@ -2041,7 +1855,6 @@ public class LogViewController {
 					}
 					columnItems.sort(Comparator.comparing(ColumnItem::isVisible).reversed());
 					columnManagerList.setItems(columnItems);
-
 					final AtomicBoolean isSorting = new AtomicBoolean(false);
 					columnItems.addListener((ListChangeListener<ColumnItem>) c -> {
 						while (c.next()) {
@@ -2053,7 +1866,6 @@ public class LogViewController {
 							}
 						}
 					});
-
 					columnManagerList.setCellFactory(param -> {
 						CheckBoxListCell<ColumnItem> cell = new CheckBoxListCell<>(ColumnItem::visibleProperty);
 						cell.setOnDragDetected(event -> {
@@ -2066,50 +1878,39 @@ public class LogViewController {
 							db.setContent(content);
 							event.consume();
 						});
-
 						cell.setOnDragOver(event -> {
 							if (event.getGestureSource() != cell && event.getDragboard().hasString()) {
 								event.acceptTransferModes(TransferMode.MOVE);
 							}
 							event.consume();
 						});
-
 						cell.setOnDragDropped(event -> {
 							if (event.getDragboard().hasString()) {
 								int draggedIndex = Integer.parseInt(event.getDragboard().getString());
 								int dropIndex = columnItems.indexOf(cell.getItem());
-
 								ColumnItem draggedItem = columnItems.remove(draggedIndex);
 								columnItems.add(dropIndex, draggedItem);
-
 								event.setDropCompleted(true);
 								columnManagerList.getSelectionModel().select(dropIndex);
 							}
 							event.consume();
 						});
-
 						return cell;
 					});
-
 					VBox controlsVBox = new VBox(5);
 					controlsVBox.setAlignment(Pos.CENTER);
 					Button moveUpBtn = new Button("↑");
 					Button moveDownBtn = new Button("↓");
 					Button applyButton = new Button(localization.getLocalizedMessage("LogBrowser.Apply", "Apply"));
-
 					String buttonStyle = "-fx-min-width: 40px;";
 					moveUpBtn.setStyle(buttonStyle);
 					moveDownBtn.setStyle(buttonStyle);
-
 					moveUpBtn.getStyleClass().add("small-button");
 					moveDownBtn.getStyleClass().add("small-button");
 					applyButton.getStyleClass().add("small-button");
-
 					controlsVBox.getChildren().addAll(moveUpBtn, moveDownBtn, new Separator(), applyButton);
-
 					HBox.setHgrow(columnManagerList, Priority.ALWAYS);
 					tableSettingsHbox.getChildren().addAll(columnManagerList, controlsVBox);
-
 					moveUpBtn.setOnAction(e -> {
 						int selectedIndex = columnManagerList.getSelectionModel().getSelectedIndex();
 						if (selectedIndex > 0) {
@@ -2117,7 +1918,6 @@ public class LogViewController {
 							columnManagerList.getSelectionModel().select(selectedIndex - 1);
 						}
 					});
-
 					moveDownBtn.setOnAction(e -> {
 						int selectedIndex = columnManagerList.getSelectionModel().getSelectedIndex();
 						if (selectedIndex != -1 && selectedIndex < columnItems.size() - 1) {
@@ -2125,7 +1925,6 @@ public class LogViewController {
 							columnManagerList.getSelectionModel().select(selectedIndex + 1);
 						}
 					});
-
 					applyButton.setOnAction(e -> {
 						logDebug("Apply button clicked, updating column layout");
 						StringBuilder newLayoutBuilder = new StringBuilder();
@@ -2137,7 +1936,6 @@ public class LogViewController {
 							}
 						}
 						String newColumnLayout = newLayoutBuilder.toString();
-
 						DynamicDB dbLayout = new DynamicDB(dataFolderPath + reportTitle, "layout", "key", layoutScheme);
 						try {
 							if (dbLayout.initDB()) {
@@ -2158,11 +1956,8 @@ public class LogViewController {
 						}
 						loadTableForCustomReport(dbFilePath, fileNameWithoutExt, true);
 					});
-
 					customReportPane.setBottom(titledPane);
-
 					ObservableList<Map<String, Object>> items = currentTable.getItems();
-
 					Map<String, Long> statusCount = items.stream().map(row -> row.get("report_status"))
 							.filter(Objects::nonNull).map(Object::toString).collect(Collectors.groupingBy(status -> {
 								if (status.equalsIgnoreCase("In Progress") || status.equalsIgnoreCase("Pending")
@@ -2174,11 +1969,9 @@ public class LogViewController {
 									return status;
 								}
 							}, Collectors.counting()));
-
 					long totalReports = items.size();
 					long reportsInProgress = statusCount.getOrDefault("In Progress", 0L);
 					long closedReports = statusCount.getOrDefault("Closed", 0L);
-
 					Platform.runLater(() -> {
 						totalReportsLabel.setText(String.valueOf(totalReports));
 						reportsInProgressLabel.setText(String.valueOf(reportsInProgress));
@@ -2186,7 +1979,6 @@ public class LogViewController {
 						reportsInProgressBar.setProgress((double) reportsInProgress / totalReports);
 						closedReportsProgressBar.setProgress((double) closedReports / totalReports);
 					});
-
 				} catch (Exception e) {
 					logError("LogViewer; Failed to initialize report columns", e);
 				}
@@ -2201,25 +1993,20 @@ public class LogViewController {
 			}
 			pane.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-background-radius: 7 0 0 7;");
 		});
-
 		pane.setOnMouseExited(event -> {
 			if (activePane == pane) {
 				return;
 			}
 			pane.setStyle("-fx-background-color: transparent;");
 		});
-
 		pane.setOnMouseClicked(event -> {
-
 			if (activePane == pane) {
 				return;
 			}
 			setActive(table, pane);
-
 			for (Label otherPane : sideButtons) {
 				otherPane.setStyle("-fx-background-color: transparent;");
 			}
-
 			activePane = pane;
 			pane.setStyle("-fx-background-color: rgb(0,0,0,0.1); -fx-background-radius: 7 0 0 7;");
 		});
@@ -2227,22 +2014,16 @@ public class LogViewController {
 
 	private <T> void setActive(TableView<T> table, Label sideButton) {
 		tableStackPane.getChildren().clear();
-
 		if (table == null || sideButton == null) {
 			return;
 		}
-
 		tableStackPane.getChildren().add(table);
-
 		ObservableList<T> items = table.getItems();
-
 		long closed = 0, inProg = 0, pending = 0, cancelled = 0, reOpen = 0;
-
 		for (T item : items) {
 			try {
 				Method getStatusMethod = item.getClass().getMethod("getStatus");
 				String status = (String) getStatusMethod.invoke(item);
-
 				if ("Closed".equalsIgnoreCase(status)) {
 					closed++;
 				} else if ("In Progress".equalsIgnoreCase(status)) {
@@ -2258,21 +2039,16 @@ public class LogViewController {
 				logError("Could not obtain getStatus method for update: ", e);
 			}
 		}
-
 		long totalReports = (closed + inProg + reOpen + pending + cancelled);
 		long totalInProgress = (reOpen + inProg + pending);
 		long totalClosed = (closed + cancelled);
-
 		double closedPercentage = ((double) totalClosed / totalReports) * 100;
 		double inProgressPercentage = ((double) totalInProgress / totalReports) * 100;
-
 		closedReportsProgressBar.setProgress(closedPercentage / 100);
 		reportsInProgressBar.setProgress(inProgressPercentage / 100);
-
 		reportsInProgressLabel.setText(String.valueOf(totalInProgress));
 		closedReportsLabel.setText(String.valueOf(totalClosed));
 		totalReportsLabel.setText(String.valueOf(totalReports));
-
 		activePane = sideButton;
 	}
 }

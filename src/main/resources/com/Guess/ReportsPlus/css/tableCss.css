@@ -1,57 +1,57 @@
 .calloutTABLE {
-    -fx-background-color: #323C41;
-    -fx-text-fill: white;
+  -fx-background-color: #323c41;
+  -fx-text-fill: white;
 }
 
 .calloutTABLE:focused {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-effect: none;
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-effect: none;
 }
 
 .calloutTABLE .column-header-background {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .calloutTABLE .column-header-background .label {
-    -fx-background-color: transparent;
-    -fx-text-fill: #CCC;
-    -fx-font-size: 16.2px;
-    -fx-padding: 5px;
-    -fx-font-family: "Inter 28pt Bold";
+  -fx-background-color: transparent;
+  -fx-text-fill: #ccc;
+  -fx-font-size: 16.2px;
+  -fx-padding: 5px;
+  -fx-font-family: "Inter 28pt Bold";
 }
 
 .calloutTABLE .column-header {
-    -fx-background-color: #383838;
-    -fx-border-width: 0 0 0 0;
-    -fx-border-color: #D2D9E0;
+  -fx-background-color: #383838;
+  -fx-border-width: 0 0 0 0;
+  -fx-border-color: #d2d9e0;
 }
 
 .calloutTABLE .table-cell {
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 24pt Regular";
-    -fx-alignment: center;
-    -fx-padding: 0 30px;
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-alignment: center;
+  -fx-padding: 0 30px;
 }
 
 .calloutTABLE .table-row-cell {
-    -fx-table-cell-border-color: transparent;
-    -fx-cell-size: 30px;
-    -fx-alignment: center;
+  -fx-table-cell-border-color: transparent;
+  -fx-cell-size: 30px;
+  -fx-alignment: center;
 }
 
 .calloutTABLE .table-row-cell:odd {
-    -fx-background-color: #F2F2F2;
+  -fx-background-color: #f2f2f2;
 }
 
 .calloutTABLE .table-row-cell:even {
-    -fx-background-color: white;
+  -fx-background-color: white;
 }
 
 .calloutTABLE .table-row-cell:selected {
-    -fx-text-fill: white;
-    -fx-background-color: grey;
+  -fx-text-fill: white;
+  -fx-background-color: grey;
 }
 
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical,
@@ -60,32 +60,31 @@
 .calloutTABLE > .virtual-flow > .scroll-bar:horizontal,
 .calloutTABLE > .virtual-flow > .scroll-bar:horizontal > .track,
 .calloutTABLE > .virtual-flow > .scroll-bar:horizontal > .track-background {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .calloutTABLE > .virtual-flow > .scroll-bar > .increment-button,
 .calloutTABLE > .virtual-flow > .scroll-bar > .decrement-button {
-    -fx-opacity: 0;
+  -fx-opacity: 0;
 }
 
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .thumb,
 .calloutTABLE > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
-    -fx-background-color: #8C8C8C;
-
+  -fx-background-color: #8c8c8c;
 }
 
 .calloutTABLE .filler {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .databaseReportLabel {
-    -fx-text-fill: white;
-    -fx-font-family: "Inter 28pt Bold";
-    -fx-font-size: 30px;
+  -fx-text-fill: white;
+  -fx-font-family: "Inter 28pt Bold";
+  -fx-font-size: 30px;
 }
 
 .viewerLabel {
-    -fx-text-fill: #CDCDCD;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 27px;
+  -fx-text-fill: #cdcdcd;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 27px;
 }

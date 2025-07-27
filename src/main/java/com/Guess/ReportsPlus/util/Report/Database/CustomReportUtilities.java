@@ -39,9 +39,7 @@ public class CustomReportUtilities {
         };
         for (String reportTitle : defaultReports) {
             logInfo("CustomReportUtility; Adding default report: " + reportTitle);
-
             boolean skipReport = false;
-
             String dataFolderPath = getCustomDataLogsFolderPath();
             controllerUtils.createFolderIfNotExists(dataFolderPath);
             File[] files = new File(dataFolderPath).listFiles((dir, name) -> name.endsWith(".db"));
@@ -53,19 +51,16 @@ public class CustomReportUtilities {
                     }
                 }
             }
-
             if (skipReport) {
                 logWarn("CustomReportUtility; Skipping report creation for: " + reportTitle);
                 continue;
             }
-
             String data = null;
             try {
                 data = getLayoutJsonFor(reportTitle);
             } catch (JsonProcessingException e) {
                 logError("CustomReportUtility: Error getting layoutjson for [" + reportTitle + "]: ", e);
             }
-
             Map<String, String> layoutScheme = new HashMap<>();
             layoutScheme.put("key", "TEXT");
             layoutScheme.put("layoutData", "TEXT");
@@ -76,7 +71,6 @@ public class CustomReportUtilities {
             Map<String, Object> transferMap = new HashMap<>();
             transferMap.put("key", "2");
             transferMap.put("transferData", "null");
-
             Map<String, String> reportSchema = new HashMap<>();
             DynamicDB dbManager = null;
             try {
@@ -95,7 +89,6 @@ public class CustomReportUtilities {
                     logError("CustomReportUtility; Failed to close database connection, null", e);
                 }
             }
-
             DynamicDB DatabaseLayout = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "layout", "key",
                     layoutScheme);
             if (DatabaseLayout.initDB()) {
@@ -117,7 +110,6 @@ public class CustomReportUtilities {
                 logError("CustomReportUtility; Layout Database not initialized!");
                 showNotificationError("Report Creation Utility", "Error initializing layout database!");
             }
-
             DynamicDB Database = new DynamicDB(getCustomDataLogsFolderPath() + reportTitle, "data",
                     LayoutBuilderController.extractNumberField(data), reportSchema);
             try {
@@ -134,7 +126,6 @@ public class CustomReportUtilities {
                     logError("CustomReportUtility; Error closing Database: [" + Database.getTableName() + "]", e);
                 }
             }
-
             logInfo("New Report Type [" + reportTitle + "] Created!");
         }
     }
@@ -171,7 +162,6 @@ public class CustomReportUtilities {
     public static String getLayoutFromJson(String jsonString) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(jsonString);
-
         return rootNode.get("layout").toString();
     }
 }

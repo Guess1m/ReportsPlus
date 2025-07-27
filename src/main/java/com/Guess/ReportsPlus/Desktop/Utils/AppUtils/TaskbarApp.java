@@ -39,7 +39,6 @@ public class TaskbarApp {
 		this.taskBarApps = taskBarApps;
 		this.customWindow = customWindow;
 		this.image = image;
-
 		initializeApp();
 		addTooltip(appButton, appTitle);
 	}
@@ -50,21 +49,17 @@ public class TaskbarApp {
 				"-fx-background-color: rgb(0,0,0,0.3); -fx-text-fill: white; -fx-padding: 5 10; -fx-border-color: #313131; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;");
 		tooltipPopup.getContent().clear();
 		tooltipPopup.getContent().add(tooltipButton);
-
 		FadeTransition fadeIn = new FadeTransition(Duration.millis(100), tooltipButton);
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(1);
-
 		FadeTransition fadeOut = new FadeTransition(Duration.millis(100), tooltipButton);
 		fadeOut.setFromValue(1);
 		fadeOut.setToValue(0);
 		fadeOut.setOnFinished(event -> tooltipPopup.hide());
-
 		tooltipButton.widthProperty()
 				.addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, tooltipPopup, tooltipButton));
 		tooltipButton.heightProperty()
 				.addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, tooltipPopup, tooltipButton));
-
 		container.setOnMouseEntered(event -> {
 			if (!optionsPopupVisible) {
 				updatePopupPosition(icon, tooltipPopup, tooltipButton);
@@ -72,7 +67,6 @@ public class TaskbarApp {
 				fadeIn.play();
 			}
 		});
-
 		container.setOnMouseExited(event -> fadeOut.play());
 	}
 
@@ -88,7 +82,6 @@ public class TaskbarApp {
 			optionsPopup.hide();
 			optionsPopupVisible = false;
 		}));
-
 		if (!customWindow.isMinimized) {
 			buttonContainer.getChildren().add(createStyledButton("Minimize", _ -> {
 				customWindow.minimizeWindow();
@@ -96,15 +89,12 @@ public class TaskbarApp {
 				optionsPopupVisible = false;
 			}));
 		}
-
 		buttonContainer.widthProperty()
 				.addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, optionsPopup, buttonContainer));
 		buttonContainer.heightProperty()
 				.addListener((obs, oldVal, newVal) -> updatePopupPosition(icon, optionsPopup, buttonContainer));
-
 		optionsPopup.getContent().clear();
 		optionsPopup.getContent().add(buttonContainer);
-
 		optionsPopup.show(icon.getScene().getWindow());
 		optionsPopupVisible = true;
 	}
@@ -119,16 +109,12 @@ public class TaskbarApp {
 	private void updatePopupPosition(ImageView icon, Popup popup, VBox container) {
 		double buttonX = icon.localToScreen(icon.getBoundsInLocal()).getMinX();
 		double buttonY = icon.localToScreen(icon.getBoundsInLocal()).getMinY();
-
 		double popupWidth = 0;
 		double popupHeight = 0;
-
 		popupWidth = Math.max(popupWidth, container.getWidth());
 		popupHeight += container.getHeight();
-
 		double x = buttonX + (icon.getFitWidth() - popupWidth) / 2;
 		double y = buttonY - popupHeight - height;
-
 		popup.setX(x);
 		popup.setY(y);
 	}
@@ -136,18 +122,14 @@ public class TaskbarApp {
 	private void updatePopupPosition(ImageView icon, Popup popup, Button... buttons) {
 		double buttonX = icon.localToScreen(icon.getBoundsInLocal()).getMinX();
 		double buttonY = icon.localToScreen(icon.getBoundsInLocal()).getMinY();
-
 		double popupWidth = 0;
 		double popupHeight = 0;
-
 		for (Button btn : buttons) {
 			popupWidth = Math.max(popupWidth, btn.getWidth());
 			popupHeight += btn.getHeight();
 		}
-
 		double x = buttonX + (icon.getFitWidth() - popupWidth) / 2;
 		double y = buttonY - popupHeight - height;
-
 		popup.setX(x);
 		popup.setY(y);
 	}
@@ -157,14 +139,10 @@ public class TaskbarApp {
 		appButton.setFitWidth(30);
 		appButton.setFitHeight(30);
 		appButton.setPreserveRatio(true);
-
 		container = new BorderPane(appButton);
 		container.setPadding(new Insets(0, 10, 0, 10));
-
 		Platform.runLater(() -> taskBarApps.getChildren().add(container));
-
 		taskBarAppButtons.put(name, appButton);
-
 		container.setOnMouseClicked(event -> {
 			if (event.getClickCount() == 1 && event.getButton() == MouseButton.PRIMARY) {
 				if (customWindow != null) {

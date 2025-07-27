@@ -10,7 +10,6 @@ import com.Guess.ReportsPlus.util.History.Vehicle;
 import jakarta.xml.bind.JAXBException;
 
 public class CreateVehicleCommand implements Command {
-
     @Override
     public String getName() {
         return "createveh";
@@ -27,7 +26,6 @@ public class CreateVehicleCommand implements Command {
             output.println("~d~Usage:~g~ createveh ~y~platenumber");
             return;
         }
-
         String plateNumber = args[0];
         output.println("~g~Created Vehicle: [" + plateNumber + "]");
         Vehicle vehicle = new Vehicle();
@@ -38,8 +36,6 @@ public class CreateVehicleCommand implements Command {
             output.println("~r~Error creating Vehicle");
             return;
         }
-
         VehLookupViewController.performVehicleLookup(plateNumber);
-
     }
 }

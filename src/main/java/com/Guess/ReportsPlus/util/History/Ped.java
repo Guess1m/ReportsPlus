@@ -21,133 +21,90 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ped")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ped {
-
 	@XmlElement(name = "Name")
 	private String name;
-
 	@XmlElement(name = "LicenseNumber")
 	private String licenseNumber;
-
 	@XmlElement(name = "Model")
 	private String model;
-
 	@XmlElement(name = "Aliases")
 	private String aliases;
-
 	@XmlElement(name = "Flags")
 	private String flags;
-
 	@XmlElement(name = "Description")
 	private String description;
-
 	@XmlElement(name = "Affiliations")
 	private String affiliations;
-
 	@XmlElement(name = "Gender")
 	private String gender;
-
 	@XmlElement(name = "Birthday")
 	private String birthday;
-
 	@XmlElement(name = "Address")
 	private String address;
-
 	@XmlElement(name = "WantedStatus")
 	private String wantedStatus;
-
 	@XmlElement(name = "DateWarrantIssued")
 	private String dateWarrantIssued;
-
 	@XmlElement(name = "WarrantNumber")
 	private String warrantNumber;
-
 	@XmlElement(name = "WarrantAgency")
 	private String warrantAgency;
-
 	@XmlElement(name = "OutstandingWarrants")
 	private String outstandingWarrants;
-
 	@XmlElement(name = "LicenseStatus")
 	private String licenseStatus;
-
 	@XmlElement(name = "ParoleStatus")
 	private String paroleStatus;
-
 	@XmlElement(name = "ProbationStatus")
 	private String probationStatus;
-
 	@XmlElement(name = "TimesStopped")
 	private String timesStopped;
-
 	@XmlElement(name = "GunLicenseStatus")
 	private String gunLicenseStatus;
-
 	@XmlElement(name = "GunLicenseExpiration")
 	private String gunLicenseExpiration;
-
 	@XmlElement(name = "GunLicenseNumber")
 	private String gunLicenseNumber;
-
 	@XmlElement(name = "GunLicenseType")
 	private String gunLicenseType;
-
 	@XmlElement(name = "GunLicenseClass")
 	private String gunLicenseClass;
-
 	@XmlElement(name = "FishingLicenseStatus")
 	private String fishingLicenseStatus;
-
 	@XmlElement(name = "FishingLicenseExpiration")
 	private String fishingLicenseExpiration;
-
 	@XmlElement(name = "FishingLicenseNumber")
 	private String fishingLicenseNumber;
-
 	@XmlElement(name = "BoatingLicenseStatus")
 	private String boatingLicenseStatus;
-
 	@XmlElement(name = "BoatingLicenseExpiration")
 	private String boatingLicenseExpiration;
-
 	@XmlElement(name = "BoatingLicenseNumber")
 	private String boatingLicenseNumber;
-
 	@XmlElement(name = "HuntingLicenseExpiration")
 	private String huntingLicenseExpiration;
-
 	@XmlElement(name = "HuntingLicenseNumber")
 	private String huntingLicenseNumber;
-
 	@XmlElement(name = "HuntingLicenseStatus")
 	private String huntingLicenseStatus;
-
 	@XmlElement(name = "ArrestPriors")
 	private String arrestPriors;
-
 	@XmlElement(name = "CitationPriors")
 	private String citationPriors;
-
 	@XmlElement(name = "VehiclePlateNum")
 	private String vehiclePlateNum;
-
 	@XmlElement(name = "DisabilityStatus")
 	private String disabilityStatus;
-
 	@XmlElement(name = "Height")
 	private String height;
-
 	@XmlElement(name = "Weight")
 	private String weight;
-
 	@XmlElement(name = "MaritalStatus")
 	private String maritalStatus;
-
 	@XmlElement(name = "CitizenshipStatus")
 	private String citizenshipStatus;
-
 	@XmlElement(name = "LicenseExpiration")
 	private String licenseExpiration;
-
 	@XmlElement(name = "IsPolice")
 	private String isPolice;
 
@@ -554,7 +511,6 @@ public class Ped {
 	@XmlRootElement(name = "PedDatabase")
 	@XmlAccessorType(XmlAccessType.FIELD)
 	public static class Peds {
-
 		@XmlElement(name = "Ped")
 		private List<Ped> pedList;
 
@@ -568,7 +524,6 @@ public class Ped {
 	}
 
 	public static class PedHistoryUtils {
-
 		public static List<Ped> getAllPeds() {
 			try {
 				Peds peds = loadPeds();
@@ -586,7 +541,6 @@ public class Ped {
 			if (!file.exists()) {
 				return new Peds();
 			}
-
 			try {
 				JAXBContext context = JAXBContext.newInstance(Peds.class);
 				Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -607,14 +561,11 @@ public class Ped {
 
 		public static void addPed(Ped Ped) throws JAXBException {
 			Peds Peds = loadPeds();
-
 			if (Peds.getPedList() == null) {
 				Peds.setPedList(new java.util.ArrayList<>());
 			}
-
 			Optional<Ped> existingReport = Peds.getPedList().stream()
 					.filter(e -> e.getLicenseNumber().equals(Ped.getLicenseNumber())).findFirst();
-
 			if (existingReport.isPresent()) {
 				Peds.getPedList().remove(existingReport.get());
 				Peds.getPedList().add(Ped);
@@ -623,13 +574,11 @@ public class Ped {
 				Peds.getPedList().add(Ped);
 				logInfo("Ped with license number " + Ped.getLicenseNumber() + " added.");
 			}
-
 			savePeds(Peds);
 		}
 
 		public static void deletePed(String Pednumber) throws JAXBException {
 			Peds Peds = loadPeds();
-
 			if (Peds.getPedList() != null) {
 				Peds.getPedList().removeIf(e -> e.getLicenseNumber().equals(Pednumber));
 				savePeds(Peds);
@@ -644,11 +593,9 @@ public class Ped {
 			} catch (JAXBException e) {
 				logError("JAXB error while trying to loadPeds() by number: ", e);
 			}
-
 			if (Peds.getPedList() != null) {
 				return Peds.getPedList().stream().filter(e -> e.getLicenseNumber().equals(Pednumber)).findFirst();
 			}
-
 			return Optional.empty();
 		}
 
@@ -659,17 +606,14 @@ public class Ped {
 			} catch (JAXBException e) {
 				logError("JAXB error while trying to loadPeds() by name: ", e);
 			}
-
 			if (Peds.getPedList() != null) {
 				return Peds.getPedList().stream().filter(e -> e.getName().equalsIgnoreCase(pedname)).findFirst();
 			}
-
 			return Optional.empty();
 		}
 
 		public static void modifyPed(String number, Ped updatedPed) throws JAXBException {
 			Peds Peds = loadPeds();
-
 			if (Peds.getPedList() != null) {
 				for (int i = 0; i < Peds.getPedList().size(); i++) {
 					Ped e = Peds.getPedList().get(i);
@@ -681,7 +625,6 @@ public class Ped {
 				}
 			}
 		}
-
 	}
 
 	public String getLicenseExpiration() {
@@ -699,5 +642,4 @@ public class Ped {
 	public void setIsPolice(String isPolice) {
 		this.isPolice = isPolice;
 	}
-
 }

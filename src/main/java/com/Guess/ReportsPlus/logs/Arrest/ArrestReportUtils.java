@@ -66,7 +66,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class ArrestReportUtils {
-
 	public static Map<String, Object> arrestLayout() {
 		SectionConfig offenderInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information"),
@@ -85,7 +84,6 @@ public class ArrestReportUtils {
 						new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
 								"offender description"), 6, FieldType.TEXT_FIELD)));
 		offenderInfoSection.setHasButton(true);
-
 		Map<String, Object> arrestReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report"),
 				new TransferConfig(
@@ -154,10 +152,8 @@ public class ArrestReportUtils {
 
 	public static Map<String, Object> newArrest() {
 		Map<String, Object> arrestReport = arrestLayout();
-
 		Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReport
 				.get(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
-
 		TextField officername = (TextField) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField officerrank = (TextField) arrestReportMap
@@ -168,7 +164,6 @@ public class ArrestReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField officernumarrest = (TextField) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 		TextField offenderName = (TextField) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField offenderAge = (TextField) arrestReportMap
@@ -179,7 +174,6 @@ public class ArrestReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 		TextField offenderDescription = (TextField) arrestReportMap.get(
 				localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 		ComboBox area = (ComboBox) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		ComboBox street = (ComboBox) arrestReportMap
@@ -192,19 +186,15 @@ public class ArrestReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 		TextField time = (TextField) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 		TextField ambulancereq = (TextField) arrestReportMap.get(
 				localization.getLocalizedMessage("ReportWindows.FieldAmbulanceRequired", "ambulance required (Y/N)"));
 		TextField taserdep = (TextField) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldTaserDeployed", "taser deployed (Y/N)"));
 		TextField othermedinfo = (TextField) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOtherInformation", "other information"));
-
 		TextArea notes = (TextArea) arrestReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 		TableView chargetable = (TableView) arrestReportMap.get("ChargeTableView");
-
 		Button transferimpoundbtn = (Button) arrestReportMap.get("transferimpoundbtn");
 		transferimpoundbtn.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " "
 				+ localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report"));
@@ -214,13 +204,10 @@ public class ArrestReportUtils {
 		Button transfersearchbtn = (Button) arrestReportMap.get("transfersearchbtn");
 		transfersearchbtn.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " "
 				+ localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report"));
-
 		MenuButton pullnotesbtn = (MenuButton) arrestReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		Label legacyLabel = (Label) arrestReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -248,14 +235,10 @@ public class ArrestReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		transferimpoundbtn.setOnAction(_ -> {
-
 			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound();
-
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(
 					localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
-
 			TextField officernameimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 			TextField officerrankimp = (TextField) impoundReportMap
@@ -266,7 +249,6 @@ public class ArrestReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 			TextField officernumimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 			TextField offenderNameimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 			TextField offenderAgeimp = (TextField) impoundReportMap
@@ -275,17 +257,14 @@ public class ArrestReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
 			TextField offenderAddressimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-
 			TextField numimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.ImpoundNumField", "impound number"));
 			TextField dateimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 			TextField timeimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 			TextArea notesimp = (TextArea) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 			officernameimp.setText(officername.getText());
 			officerdivimp.setText(officerdiv.getText());
 			officerrankimp.setText(officerrank.getText());
@@ -300,13 +279,10 @@ public class ArrestReportUtils {
 			notesimp.setText(notes.getText());
 			numimp.setText(arrestnum.getText());
 		});
-
 		transferincidentbtn.setOnAction(_ -> {
 			Map<String, Object> incidentReportObj = IncidentReportUtils.newIncident();
-
 			Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReportObj.get(
 					localization.getLocalizedMessage("ReportWindows.IncidentReportTitle", "Incident Report") + " Map");
-
 			TextField nameinc = (TextField) incidentReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 			TextField rankinc = (TextField) incidentReportMap
@@ -317,7 +293,6 @@ public class ArrestReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 			TextField officernuminc = (TextField) incidentReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 			TextField incidentnum = (TextField) incidentReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.IncidentNumField", "incident num"));
 			TextField dateinc = (TextField) incidentReportMap
@@ -330,12 +305,10 @@ public class ArrestReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 			TextField countyinc = (TextField) incidentReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-
 			TextField suspectsinc = (TextField) incidentReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.SuspectsField", "suspect(s)"));
 			TextArea notesinc = (TextArea) incidentReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 			nameinc.setText(officername.getText());
 			divinc.setText(officerdiv.getText());
 			rankinc.setText(officerrank.getText());
@@ -350,13 +323,10 @@ public class ArrestReportUtils {
 			suspectsinc.setText(offenderName.getText());
 			notesinc.setText(notes.getText());
 		});
-
 		transfersearchbtn.setOnAction(_ -> {
 			Map<String, Object> ArrestReportObj = SearchReportUtils.newSearch();
-
 			Map<String, Object> ArrestReportMap = (Map<String, Object>) ArrestReportObj
 					.get(localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
-
 			TextField namesrch = (TextField) ArrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 			TextField ranksrch = (TextField) ArrestReportMap
@@ -367,7 +337,6 @@ public class ArrestReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 			TextField numsrch = (TextField) ArrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 			TextField searchnum = (TextField) ArrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
 			TextField datesrch = (TextField) ArrestReportMap
@@ -380,10 +349,8 @@ public class ArrestReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 			TextField countysrch = (TextField) ArrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-
 			TextField searchedindividualsrch = (TextField) ArrestReportMap.get(
 					localization.getLocalizedMessage("ReportWindows.SearchedIndividualField", "searched individual"));
-
 			searchnum.setText(arrestnum.getText());
 			namesrch.setText(officername.getText());
 			divsrch.setText(officerdiv.getText());
@@ -397,12 +364,9 @@ public class ArrestReportUtils {
 			areasrch.setValue(area.getEditor().getText());
 			streetsrch.getEditor().setText(street.getEditor().getText());
 		});
-
 		Button submitBtn = (Button) arrestReport.get("submitBtn");
 		Label warningLabel = (Label) arrestReport.get("warningLabel");
-
 		ComboBox<String> statusValue = (ComboBox) arrestReport.get("statusValue");
-
 		submitBtn.setOnAction(_ -> {
 			if (arrestnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -420,45 +384,35 @@ public class ArrestReportUtils {
 						}
 					}
 				}
-
 				ObservableList<ChargesData> formDataList = chargetable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
 				StringBuilder chargesBuilder = new StringBuilder();
-
 				for (ChargesData formData : formDataList) {
 					String probationChance = findXMLValue(formData.getCharge(), "probation_chance", "data/Charges.xml");
-
 					String minYears = findXMLValue(formData.getCharge(), "min_years", "data/Charges.xml");
 					String maxYears = findXMLValue(formData.getCharge(), "max_years", "data/Charges.xml");
 					String minMonths = findXMLValue(formData.getCharge(), "min_months", "data/Charges.xml");
 					String maxMonths = findXMLValue(formData.getCharge(), "max_months", "data/Charges.xml");
-
 					String suspChance = findXMLValue(formData.getCharge(), "susp_chance", "data/Charges.xml");
 					String minSusp = findXMLValue(formData.getCharge(), "min_susp", "data/Charges.xml");
 					String maxSusp = findXMLValue(formData.getCharge(), "max_susp", "data/Charges.xml");
 					String revokeChance = findXMLValue(formData.getCharge(), "revoke_chance", "data/Charges.xml");
-
 					String fine = findXMLValue(formData.getCharge(), "fine", "data/Charges.xml");
 					String finek = findXMLValue(formData.getCharge(), "fine_k", "data/Charges.xml");
-
 					String isTraffic = findXMLValue(formData.getCharge(), "traffic", "data/Charges.xml");
-
 					stringBuilder.append(formData.getCharge()).append(" | ");
 					chargesBuilder.append(parseCourtData(isTraffic, probationChance, minYears, maxYears, minMonths,
 							maxMonths, suspChance, minSusp, maxSusp, revokeChance, fine, finek) + " | ");
 				}
-
 				/*
 				 * TODO: Custom charge option in arrest report
 				 * stringBuilder.append(" | ");
 				 * chargesBuilder.append("1"+ "2"+ "3"+ "4"+ "5"+ "6"+ "7"+ "8"+ "9"+ "10"+
 				 * "11"+ "12" + " | ");
 				 */
-
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 1);
 				}
-
 				ArrestReport arrestReport1 = new ArrestReport();
 				arrestReport1.setStatus(statusValue.getValue());
 				arrestReport1.setArrestNumber((arrestnum.getText()));
@@ -467,7 +421,6 @@ public class ArrestReportUtils {
 				arrestReport1.setArrestCharges((stringBuilder.toString()));
 				arrestReport1.setArrestDetails((notes.getText()));
 				arrestReport1.setOfficerRank((officerrank.getText()));
-
 				arrestReport1.setArrestCounty(toTitleCase(county.getText()));
 				arrestReport1.setArrestArea(toTitleCase(area.getEditor().getText()));
 				arrestReport1.setArrestStreet(toTitleCase(street.getEditor().getText()));
@@ -488,7 +441,6 @@ public class ArrestReportUtils {
 				} catch (JAXBException e) {
 					logError("Could not create new ArrestReport: ", e);
 				}
-
 				// BUG: !important get ped priors and ensure no duplicates
 				// (Changing arrest report status duplicates charge history entries)
 				// (I think it needs to be changed here)
@@ -505,12 +457,10 @@ public class ArrestReportUtils {
 						logError("Error updating ped priors from arrestReport: ", e);
 					}
 				}
-
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null
 						&& !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 					Case case1 = new Case();
 					String casenum = generateCaseNumber(arrestnum.getText());
-
 					Optional<Case> caseToUpdateOptional = findCaseByNumber(casenum);
 					if (!caseToUpdateOptional.isPresent()) {
 						case1.setCaseNumber(casenum);
@@ -579,7 +529,6 @@ public class ArrestReportUtils {
 				 * }
 				 * }
 				 */
-
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");
@@ -588,7 +537,6 @@ public class ArrestReportUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				arrestLogUpdate();
-
 				CustomWindow window = getWindow(
 						localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report"));
 				if (window != null) {
@@ -596,11 +544,9 @@ public class ArrestReportUtils {
 				}
 			}
 		});
-
 		Button offenderInfoBtn = (Button) arrestReport.get(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information")
 						+ "_button");
-
 		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
@@ -612,7 +558,6 @@ public class ArrestReportUtils {
 			offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
 			offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
-
 		return arrestReport;
 	}
 
@@ -621,7 +566,6 @@ public class ArrestReportUtils {
 		if (!file.exists()) {
 			return new ArrestReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(ArrestReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -636,21 +580,17 @@ public class ArrestReportUtils {
 		JAXBContext context = JAXBContext.newInstance(ArrestReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 		File file = new File(arrestLogURL);
 		marshaller.marshal(ArrestReports, file);
 	}
 
 	public static void addArrestReport(ArrestReport ArrestReport) throws JAXBException {
 		ArrestReports ArrestReports = loadArrestReports();
-
 		if (ArrestReports.getArrestReportList() == null) {
 			ArrestReports.setArrestReportList(new ArrayList<>());
 		}
-
 		Optional<ArrestReport> existingReport = ArrestReports.getArrestReportList().stream()
 				.filter(e -> e.getArrestNumber().equals(ArrestReport.getArrestNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			ArrestReports.getArrestReportList().remove(existingReport.get());
 			ArrestReports.getArrestReportList().add(ArrestReport);
@@ -659,18 +599,15 @@ public class ArrestReportUtils {
 			ArrestReports.getArrestReportList().add(ArrestReport);
 			logInfo("ArrestReport with number " + ArrestReport.getArrestNumber() + " added.");
 		}
-
 		saveArrestReports(ArrestReports);
 	}
 
 	public static void deleteArrestReport(String ArrestReportnumber) throws JAXBException {
 		ArrestReports ArrestReports = loadArrestReports();
-
 		if (ArrestReports.getArrestReportList() != null) {
 			ArrestReports.getArrestReportList().removeIf(e -> e.getArrestNumber().equals(ArrestReportnumber));
 			saveArrestReports(ArrestReports);
 			logInfo("ArrestReport with number " + ArrestReportnumber + " deleted.");
 		}
 	}
-
 }

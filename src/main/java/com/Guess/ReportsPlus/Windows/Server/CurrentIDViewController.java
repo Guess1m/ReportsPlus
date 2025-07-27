@@ -34,7 +34,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class CurrentIDViewController {
-
 	public static final String defaultPedImagePath = "/com/Guess/ReportsPlus/imgs/CityLosSantosLogo.png";
 	@javafx.fxml.FXML
 	private BorderPane root;
@@ -47,15 +46,12 @@ public class CurrentIDViewController {
 		if (digits <= 0) {
 			throw new IllegalArgumentException("Number of digits must be positive");
 		}
-
 		Random random = new Random();
 		int lowerBound = (int) Math.pow(10, digits - 1);
 		int upperBound = (int) Math.pow(10, digits) - 1;
-
 		if (digits == 1) {
 			lowerBound = 0;
 		}
-
 		int randomNumber = random.nextInt((upperBound - lowerBound) + 1) + lowerBound;
 		return String.valueOf(randomNumber);
 	}
@@ -75,7 +71,6 @@ public class CurrentIDViewController {
 		TextField weight = (TextField) root.lookup("#weight");
 		TextField expiration = (TextField) root.lookup("#expiration");
 		TextField licNum = (TextField) root.lookup("#licensenumber");
-
 		if (licNum != null) {
 			licNum.setText(licNumText);
 		}
@@ -114,14 +109,11 @@ public class CurrentIDViewController {
 				File pedImgFolder = new File(pedImageFolderURL);
 				if (pedImgFolder.exists()) {
 					logDebug("pedImage folder detected..");
-
 					File[] matchingFiles = pedImgFolder
 							.listFiles((dir, name) -> name.equalsIgnoreCase(pedModel + ".jpg"));
-
 					if (matchingFiles != null && matchingFiles.length > 0) {
 						File matchingFile = matchingFiles[0];
 						logInfo("Matching pedImage found: " + matchingFile.getName());
-
 						try {
 							String fileURI = matchingFile.toURI().toString();
 							pedImageView.setImage(new Image(fileURI));
@@ -133,15 +125,12 @@ public class CurrentIDViewController {
 					} else {
 						logWarn("No matching pedImage found for the model: " + pedModel
 								+ " Trying base image for ID..");
-
 						Pattern pattern = Pattern.compile("\\[([^\\]]+)\\]");
 						Matcher matcher = pattern.matcher(pedModel);
 						String fallbackModel;
-
 						if (matcher.find()) {
 							fallbackModel = "[" + matcher.group(1) + "][0][0]";
 							logDebug("Extracted base model for ID: " + fallbackModel);
-
 							File[] fallbackFiles = pedImgFolder
 									.listFiles((dir, name) -> name.equalsIgnoreCase(fallbackModel + ".jpg"));
 							if (fallbackFiles != null && fallbackFiles.length > 0) {
@@ -172,11 +161,8 @@ public class CurrentIDViewController {
 
 	public void initialize() {
 		noIDFoundlbl.setVisible(true);
-
 		IDUpdate();
-
 		noIDFoundlbl.setText(localization.getLocalizedMessage("CurrentIDWindow.NoIDFoundLabel", "No IDs Found."));
-
 	}
 
 	private void IDUpdate() {
@@ -190,7 +176,6 @@ public class CurrentIDViewController {
 					logInfo("ID list not null");
 					tabPane.getTabs().clear();
 					noIDFoundlbl.setVisible(false);
-
 					for (ID mostRecentID : idList.getIdList()) {
 						String status = mostRecentID.getStatus();
 						if (status == null) {
@@ -203,7 +188,6 @@ public class CurrentIDViewController {
 						}
 						addServerIDToHistoryIfNotExists(mostRecentID);
 					}
-
 					for (ID historyID : IDHistory.loadHistoryIDs().getIdList()) {
 						if (!historyID.getStatus().equalsIgnoreCase("closed")) {
 							String firstName = historyID.getFirstName();
@@ -219,12 +203,10 @@ public class CurrentIDViewController {
 							String weight = historyID.getWeight();
 							String expiration = historyID.getExpiration();
 							String licenseNumber = historyID.getLicenseNumber();
-
 							FXMLLoader loader = new FXMLLoader(
 									Launcher.class.getResource("Windows/Templates/IDTemplate.fxml"));
 							Parent vBoxParent = loader.load();
 							VBox vBox = (VBox) vBoxParent;
-
 							Tab newTab = new Tab(firstName);
 							newTab.setOnClosed(event2 -> {
 								try {

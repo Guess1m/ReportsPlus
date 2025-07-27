@@ -18,7 +18,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 public class IDHistory {
-
 	public static List<ID> getAllHistoryIDs() {
 		try {
 			IDs ids = loadHistoryIDs();
@@ -36,7 +35,6 @@ public class IDHistory {
 		if (!file.exists()) {
 			return new IDs();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(IDs.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -62,11 +60,9 @@ public class IDHistory {
 		} catch (JAXBException e) {
 			logError("Error loading IDs from searchIDHisForName: ", e);
 		}
-
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-
 		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equalsIgnoreCase(name))
 				.findFirst();
 		return existingReport.isPresent();
@@ -79,11 +75,9 @@ public class IDHistory {
 		} catch (JAXBException e) {
 			logError("Error loading IDs from searchIDHisForName: ", e);
 		}
-
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-
 		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equalsIgnoreCase(name))
 				.findFirst();
 		return existingReport.orElse(null);
@@ -91,14 +85,11 @@ public class IDHistory {
 
 	public static void addHistoryID(ID ID) throws JAXBException {
 		IDs IDs = loadHistoryIDs();
-
 		if (IDs.getIdList() == null) {
 			IDs.setIdList(new java.util.ArrayList<>());
 		}
-
 		Optional<ID> existingReport = IDs.getIdList().stream().filter(e -> e.getName().equals(ID.getName()))
 				.findFirst();
-
 		if (existingReport.isPresent()) {
 			IDs.getIdList().remove(existingReport.get());
 			IDs.getIdList().add(ID);
@@ -107,19 +98,16 @@ public class IDHistory {
 			IDs.getIdList().add(ID);
 			logInfo("HistoryID with name " + ID.getName() + " added.");
 		}
-
 		saveHistoryIDs(IDs);
 	}
 
 	public static void addServerIDToHistoryIfNotExists(ID serverID) throws JAXBException {
 		IDs historyIDs = loadHistoryIDs();
-
 		if (historyIDs.getIdList() == null) {
 			historyIDs.setIdList(new ArrayList<>());
 		}
 		Optional<ID> existingID = historyIDs.getIdList().stream().filter(id -> id.getName().equals(serverID.getName()))
 				.findFirst();
-
 		if (existingID.isEmpty()) {
 			if (historyIDs.getIdList() == null) {
 				historyIDs.setIdList(new java.util.ArrayList<>());
@@ -138,16 +126,12 @@ public class IDHistory {
 			logInfo("No history IDs found");
 			return false;
 		}
-
 		boolean allClosed = historyIDs.stream().allMatch(id -> "closed".equalsIgnoreCase(id.getStatus()));
-
 		if (allClosed) {
 			logInfo("All history IDs are closed");
 		} else {
 			logInfo("Not all history IDs are closed");
 		}
-
 		return allClosed;
 	}
-
 }

@@ -37,7 +37,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class trafficStopController {
-
 	public static trafficStopController trafficStopController;
 	@javafx.fxml.FXML
 	private TextField insurance;
@@ -93,15 +92,12 @@ public class trafficStopController {
 	public void initialize() {
 		noColorFoundlbl.setVisible(true);
 		color.setStyle("-fx-background-color: white; -fx-border-color: black;");
-
 		try {
 			updateTrafficStopFields();
 		} catch (IOException e) {
 			System.err.println("Could not update traffic stop fields");
 		}
-
 		addLocalization();
-
 	}
 
 	private void addLocalization() {
@@ -125,7 +121,6 @@ public class trafficStopController {
 	public void updateTrafficStopFields() throws IOException {
 		String filePath = getServerDataFolderPath() + "ServerTrafficStop.data";
 		Map<String, String> vehData = grabTrafficStop(filePath);
-
 		String licensePlate = vehData.getOrDefault("licenseplate", "no value provided");
 		String model = vehData.getOrDefault("model", "no value provided");
 		String isStolen = vehData.getOrDefault("isstolen", "no value provided");
@@ -135,10 +130,8 @@ public class trafficStopController {
 		String owner = vehData.getOrDefault("owner", "no value provided");
 		String street = vehData.getOrDefault("street", "no value provided");
 		String area = vehData.getOrDefault("area", "no value provided");
-
 		String[] rgb = colorValue.split("-");
 		String color = "Not Found";
-
 		if (rgb.length == 3) {
 			color = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
 			getColor().setStyle("-fx-background-color: " + color + "; -fx-border-color: black;");
@@ -147,11 +140,9 @@ public class trafficStopController {
 			getNoColorFoundlbl().setVisible(true);
 			getColor().setStyle("-fx-background-color: white; -fx-border-color: black;");
 		}
-
 		setStyleBasedOnCondition(registration, getRegistration());
 		setStyleBasedOnCondition(insurance, getInsurance());
 		setStyleBasedOnCondition(isStolen, getStolen());
-
 		getPlatenum().setText(licensePlate);
 		getModel().setText(model);
 		getRegistration().setText(registration);
@@ -160,21 +151,17 @@ public class trafficStopController {
 		getOwner().setText(owner);
 		getStreet().setText(street);
 		getArea().setText(area);
-
 		if (model != null && !model.equalsIgnoreCase("Not Found") && !model.equalsIgnoreCase("no value provided")) {
 			File pedImgFolder = new File(vehImageFolderURL);
 			if (pedImgFolder.exists()) {
 				logDebug("TrafficStopController; Detected vehImage folder..");
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
-
 						File[] matchingFiles = pedImgFolder
 								.listFiles((dir, name) -> name.equalsIgnoreCase(model + ".jpg"));
-
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
 							logInfo("TrafficStopController; Matching vehImage found: " + matchingFile.getName());
-
 							try {
 								String fileURI = matchingFile.toURI().toString();
 								modelImageView.setImage(new Image(fileURI));
@@ -222,7 +209,6 @@ public class trafficStopController {
 			noImageFoundLbl.setText(
 					localization.getLocalizedMessage("VehicleLookup.NoVehImageFoundlbl", "No Image Found In System"));
 		}
-
 	}
 
 	private void setStyleBasedOnCondition(String condition, TextInputControl control) {
@@ -316,7 +302,6 @@ public class trafficStopController {
 		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReportObj
 				.get(localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report")
 						+ " Map");
-
 		TextField offenderNamets = (TextField) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField plateNumberts = (TextField) trafficStopReportMap
@@ -327,7 +312,6 @@ public class trafficStopController {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		ComboBox streetts = (ComboBox) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldStreet", "street"));
-
 		String filePath = getServerDataFolderPath() + "ServerTrafficStop.data";
 		Map<String, String> vehData;
 		try {
@@ -335,13 +319,11 @@ public class trafficStopController {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 		String licensePlate = vehData.getOrDefault("licenseplate", "no value provided");
 		String model = vehData.getOrDefault("model", "no value provided");
 		String owner = vehData.getOrDefault("owner", "no value provided");
 		String street = vehData.getOrDefault("street", "no value provided");
 		String area = vehData.getOrDefault("area", "no value provided");
-
 		plateNumberts.setText(licensePlate);
 		areats.setValue(area);
 		streetts.setValue(street);

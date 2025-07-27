@@ -1,52 +1,52 @@
 .formPane {
-    -fx-background-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
+  -fx-background-color: transparent;
+  -fx-focus-color: transparent;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
 }
 
 .formPane .corner {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .formPane .scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 14px;
+  -fx-background-color: transparent;
+  -fx-pref-width: 14px;
 }
 
 .formPane .scroll-bar:vertical .thumb {
-    -fx-background-color: #383838;
-    -fx-min-height: 14px;
+  -fx-background-color: #383838;
+  -fx-min-height: 14px;
 }
 
 .formPane .scroll-bar:vertical .increment-button,
 .formPane .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .formPane .scroll-bar:horizontal {
-    -fx-background-color: transparent;
-    -fx-pref-height: 14px;
+  -fx-background-color: transparent;
+  -fx-pref-height: 14px;
 }
 
 .formPane .scroll-bar:horizontal .thumb {
-    -fx-background-color: #383838;
-    -fx-min-width: 14px;
+  -fx-background-color: #383838;
+  -fx-min-width: 14px;
 }
 
 .formPane .scroll-bar:horizontal .increment-button,
 .formPane .scroll-bar:horizontal .decrement-button {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .formPane .scroll-bar .track {
-    -fx-background-color: none;
+  -fx-background-color: none;
 }
 
 .formPane .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #262626;
+  -fx-background-color: #262626;
 }
 
 .formPane .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #262626;
+  -fx-background-color: #262626;
 }

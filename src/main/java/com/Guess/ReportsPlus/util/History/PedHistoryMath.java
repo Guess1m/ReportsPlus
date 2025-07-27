@@ -36,7 +36,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class PedHistoryMath {
-
 	public static final List<String> maleNames = new ArrayList<>(
 			Arrays.asList("James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph", "Thomas",
 					"Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul",
@@ -54,7 +53,6 @@ public class PedHistoryMath {
 					"Clark", "Ramirez", "Lewis", "Robinson", "Walker", "Young", "Allen", "King", "Wright", "Scott",
 					"Torres", "Nguyen", "Hill", "Flores", "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera",
 					"Campbell", "Mitchell", "Carter", "Roberts"));
-
 	private static final Map<String, String> pedAddresses = new HashMap<>();
 	private static final List<String> losSantosAddresses = new ArrayList<>(
 			List.of("Abattoir Avenue", "Abe Milton Parkway", "Ace Jones Drive", "Adam's Apple Boulevard",
@@ -109,12 +107,9 @@ public class PedHistoryMath {
 
 	public static String getRandomDepartment() {
 		String[] departments = { "LSPD", "LSSO", "BCSO", "SAHP", "FIB", "IAA" };
-
 		int[] weights = { 27, 26, 26, 15, 3, 3 };
-
 		Random random = new Random();
 		int randomValue = random.nextInt(100);
-
 		int cumulativeWeight = 0;
 		for (int i = 0; i < weights.length; i++) {
 			cumulativeWeight += weights[i];
@@ -129,7 +124,6 @@ public class PedHistoryMath {
 		Random rand = new Random();
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String numbers = "0123456789";
-
 		return "" + numbers.charAt(rand.nextInt(numbers.length()))
 				+ numbers.charAt(rand.nextInt(numbers.length()))
 				+ letters.charAt(rand.nextInt(letters.length()))
@@ -157,30 +151,22 @@ public class PedHistoryMath {
 	public static String generateValidLicenseExpirationDate() {
 		int maxYears = 4;
 		LocalDate currentDate = LocalDate.now();
-
 		long minDaysAhead = 0;
 		long maxDaysAhead = maxYears * 365L + (maxYears / 4);
 		long randomDaysAhead = ThreadLocalRandom.current().nextLong(minDaysAhead, maxDaysAhead + 1);
-
 		LocalDate expirationDate = currentDate.plusDays(randomDaysAhead);
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-
 		return expirationDate.format(formatter);
 	}
 
 	public static String generateExpiredLicenseExpirationDate(int maxYears) {
 		int maxYearsAgo = maxYears;
 		LocalDate currentDate = LocalDate.now();
-
 		long minDaysAgo = 1;
 		long maxDaysAgo = maxYearsAgo * 365L + (maxYearsAgo / 4);
 		long randomDaysAgo = ThreadLocalRandom.current().nextLong(minDaysAgo, maxDaysAgo + 1);
-
 		LocalDate expirationDate = currentDate.minusDays(randomDaysAgo);
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-
 		return expirationDate.format(formatter);
 	}
 
@@ -193,7 +179,6 @@ public class PedHistoryMath {
 			showNotificationError("Error", message);
 			percentage1 = 50;
 		}
-
 		Random random = new Random();
 		return random.nextInt(100) < percentage1;
 	}
@@ -209,10 +194,8 @@ public class PedHistoryMath {
 			chanceExpired = 22;
 			chanceSuspended = 23;
 		}
-
 		Random random = new Random();
 		int roll = random.nextInt(100) + 1;
-
 		if (roll <= chanceValid) {
 			return "Valid";
 		} else if (roll <= chanceValid + chanceSuspended) {
@@ -233,14 +216,11 @@ public class PedHistoryMath {
 			chanceShotgun = 22;
 			chanceLonggun = 28;
 		}
-
 		Random random = new Random();
 		Set<String> result = new HashSet<>();
-
 		boolean hasHandgun = random.nextInt(100) < chanceHandgun;
 		boolean hasShotgun = random.nextInt(100) < chanceShotgun;
 		boolean hasLonggun = random.nextInt(100) < chanceLonggun;
-
 		if (hasHandgun) {
 			result.add("Handguns");
 		}
@@ -250,7 +230,6 @@ public class PedHistoryMath {
 		if (hasLonggun) {
 			result.add("Longguns");
 		}
-
 		if (result.isEmpty()) {
 			int roll = random.nextInt(3);
 			switch (roll) {
@@ -265,7 +244,6 @@ public class PedHistoryMath {
 					break;
 			}
 		}
-
 		return result;
 	}
 
@@ -275,7 +253,6 @@ public class PedHistoryMath {
 		if (random.nextDouble() * 100 < 50) {
 			increase = random.nextInt(3 + 1);
 		}
-
 		return baseValue + increase;
 	}
 
@@ -283,7 +260,6 @@ public class PedHistoryMath {
 			double oneToTwoChargesProbability, double twoToThreeChargesProbability,
 			double threeToFiveChargesProbability) throws IOException, ParserConfigurationException, SAXException {
 		List<String> charges = new ArrayList<>();
-
 		double totalProbability = noChargesProbability + oneToTwoChargesProbability + twoToThreeChargesProbability
 				+ threeToFiveChargesProbability;
 		if (totalProbability != 100.0) {
@@ -298,36 +274,29 @@ public class PedHistoryMath {
 			twoToThreeChargesProbability = 10;
 			threeToFiveChargesProbability = 5;
 		}
-
 		File file = new File(filePath);
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document document = builder.parse(file);
-
 		NodeList chargeNodes = document.getElementsByTagName("Charge");
 		List<Element> chargeElements = new ArrayList<>();
 		for (int i = 0; i < chargeNodes.getLength(); i++) {
 			chargeElements.add((Element) chargeNodes.item(i));
 		}
-
 		Random random = new Random();
-
 		int numberOfCharges = determineNumberOfCharges(noChargesProbability, oneToTwoChargesProbability,
 				twoToThreeChargesProbability, threeToFiveChargesProbability, random);
-
 		for (int i = 0; i < numberOfCharges && !chargeElements.isEmpty(); i++) {
 			int index = random.nextInt(chargeElements.size());
 			Element chargeElement = chargeElements.remove(index);
 			charges.add(chargeElement.getAttribute("name"));
 		}
-
 		return charges;
 	}
 
 	private static int determineNumberOfCharges(double noChargesProbability, double oneToTwoChargesProbability,
 			double twoToThreeChargesProbability, double threeToFiveChargesProbability, Random random) {
 		double randomValue = random.nextDouble() * 100;
-
 		if (randomValue < noChargesProbability) {
 			return 0;
 		} else if (randomValue < noChargesProbability + oneToTwoChargesProbability) {
@@ -343,7 +312,6 @@ public class PedHistoryMath {
 			double oneToTwoCitationsProbability, double twoToThreeCitationsProbability,
 			double threeToFiveCitationsProbability) throws IOException, ParserConfigurationException, SAXException {
 		List<String> citations = new ArrayList<>();
-
 		double totalProbability = noCitationsProbability + oneToTwoCitationsProbability + twoToThreeCitationsProbability
 				+ threeToFiveCitationsProbability;
 		if (totalProbability != 100.0) {
@@ -357,36 +325,29 @@ public class PedHistoryMath {
 			twoToThreeCitationsProbability = 10;
 			threeToFiveCitationsProbability = 5;
 		}
-
 		File file = new File(filePath);
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document document = builder.parse(file);
-
 		NodeList citationNodes = document.getElementsByTagName("Citation");
 		List<Element> citationElements = new ArrayList<>();
 		for (int i = 0; i < citationNodes.getLength(); i++) {
 			citationElements.add((Element) citationNodes.item(i));
 		}
-
 		Random random = new Random();
-
 		int numberOfCitations = determineNumberOfCitations(noCitationsProbability, oneToTwoCitationsProbability,
 				twoToThreeCitationsProbability, threeToFiveCitationsProbability, random);
-
 		for (int i = 0; i < numberOfCitations && !citationElements.isEmpty(); i++) {
 			int index = random.nextInt(citationElements.size());
 			Element citationElement = citationElements.remove(index);
 			citations.add(citationElement.getAttribute("name"));
 		}
-
 		return citations;
 	}
 
 	private static int determineNumberOfCitations(double noCitationsProbability, double oneToTwoCitationsProbability,
 			double twoToThreeCitationsProbability, double threeToFiveCitationsProbability, Random random) {
 		double randomValue = random.nextDouble() * 100;
-
 		if (randomValue < noCitationsProbability) {
 			return 0;
 		} else if (randomValue < noCitationsProbability + oneToTwoCitationsProbability) {
@@ -402,29 +363,23 @@ public class PedHistoryMath {
 	public static String getRandomChargeWithWarrant(String filePath)
 			throws IOException, ParserConfigurationException, SAXException {
 		List<String> charges = new ArrayList<>();
-
 		File file = new File(filePath);
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document document = builder.parse(file);
-
 		NodeList chargeNodes = document.getElementsByTagName("Charge");
 		for (int i = 0; i < chargeNodes.getLength(); i++) {
 			Element chargeElement = (Element) chargeNodes.item(i);
 			String chargeName = chargeElement.getAttribute("name");
-
 			String canBeWarrant = chargeElement.getAttribute("can_be_warrant");
-
 			if (("true".equalsIgnoreCase(canBeWarrant) || canBeWarrant.isEmpty())
 					&& !chargeName.toLowerCase().contains("warrant")) {
 				charges.add(chargeName);
 			}
 		}
-
 		if (charges.isEmpty()) {
 			return "No Data";
 		}
-
 		Random random = new Random();
 		int index = random.nextInt(charges.size());
 		return charges.get(index);
@@ -460,7 +415,6 @@ public class PedHistoryMath {
 			String addressNumber = java.lang.String.format("%03d", random.nextInt(1000));
 			address = addressNumber + " " + chosenList.get(index);
 		} while (pedAddresses.containsValue(address));
-
 		pedAddresses.put(java.lang.String.valueOf(pedAddresses.size() + 1), address);
 		return address;
 	}
@@ -492,7 +446,6 @@ public class PedHistoryMath {
 						localization.getLocalizedMessage("Other.FlagFlightRisk", "Flight Risk"),
 						localization.getLocalizedMessage("Other.FlagViolent", "Violent"),
 						localization.getLocalizedMessage("Other.FLagArgumentative", "Argumentative")));
-
 		Map<String, Double> flagWeights = new HashMap<>() {
 			{
 				put(localization.getLocalizedMessage("Other.FlagRestrainingOrder", "Active Restraining Order"), 0.20);
@@ -510,19 +463,14 @@ public class PedHistoryMath {
 				put(localization.getLocalizedMessage("Other.FLagArgumentative", "Argumentative"), 0.65);
 			}
 		};
-
 		if (chargePriors <= 0) {
 			return null;
 		}
-
 		Random random = new Random();
 		ArrayList<String> assignedFlags = new ArrayList<>();
-
 		double baseProbability = Math.min((baseFactorPercent / 100.0) * chargePriors, maxProbability);
-
 		int maxFlags = Math.min((chargePriors / flagIncrement) + random.nextInt(2), flags.size());
 		Collections.shuffle(flags);
-
 		for (String flag : flags) {
 			double weightedProbability = baseProbability * flagWeights.get(flag);
 			if (random.nextDouble() < weightedProbability) {
@@ -532,7 +480,6 @@ public class PedHistoryMath {
 				}
 			}
 		}
-
 		return String.join(", ", assignedFlags);
 	}
 
@@ -540,12 +487,10 @@ public class PedHistoryMath {
 		if (dateOfBirth == null || dateOfBirth.isEmpty()) {
 			return "Not Found";
 		}
-
 		try {
 			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
 			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy", Locale.ENGLISH);
 			DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("M/d/yy", Locale.ENGLISH);
-
 			LocalDate birthDate;
 			try {
 				birthDate = LocalDate.parse(dateOfBirth, formatter1);
@@ -556,13 +501,11 @@ public class PedHistoryMath {
 					birthDate = LocalDate.parse(dateOfBirth, formatter3);
 				}
 			}
-
 			LocalDate currentDate = LocalDate.now();
 			if (birthDate.isAfter(currentDate)) {
 				logError("Error calculating age, birthdate after current date");
 				return "Not Found";
 			}
-
 			Period age = Period.between(birthDate, currentDate);
 			return String.valueOf(age.getYears());
 		} catch (DateTimeParseException e) {
@@ -617,40 +560,30 @@ public class PedHistoryMath {
 		coverageProbabilities.put("Liability Coverage", 98);
 		coverageProbabilities.put("Collision Coverage", 70);
 		coverageProbabilities.put("Comprehensive Coverage", 65);
-
 		coverageProbabilities.put("Uninsured/Underinsured Motorist Coverage", 50);
 		coverageProbabilities.put("Medical Payments Coverage (MedPay)", 40);
 		coverageProbabilities.put("Personal Injury Protection (PIP)", 35);
-
 		coverageProbabilities.put("Rental Car Reimbursement", 25);
 		coverageProbabilities.put("Roadside Assistance", 20);
-
 		List<String> selectedCoverages = new ArrayList<>();
-
 		if (random.nextInt(100) + 1 <= coverageProbabilities.get("Liability Coverage")) {
 			selectedCoverages.add("Liability Coverage");
 		}
-
 		for (Map.Entry<String, Integer> entry : coverageProbabilities.entrySet()) {
 			if (entry.getKey().equals("Liability Coverage") && selectedCoverages.contains("Liability Coverage")) {
 				continue;
 			}
-
 			int roll = random.nextInt(100) + 1;
-
 			if (roll <= entry.getValue()) {
 				if (!selectedCoverages.contains(entry.getKey())) {
 					selectedCoverages.add(entry.getKey());
 				}
 			}
 		}
-
 		if (!selectedCoverages.contains("Liability Coverage")) {
 			selectedCoverages.add(0, "Liability Coverage");
 		}
-
 		Collections.sort(selectedCoverages);
-
 		return selectedCoverages.stream().collect(Collectors.joining(", "));
 	}
 

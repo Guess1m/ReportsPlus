@@ -44,7 +44,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class SearchReportUtils {
-
 	public static Map<String, Object> searchLayout() {
 		Map<String, Object> searchReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report"), null,
@@ -126,10 +125,8 @@ public class SearchReportUtils {
 
 	public static Map<String, Object> newSearch() {
 		Map<String, Object> searchReport = searchLayout();
-
 		Map<String, Object> searchReportMap = (Map<String, Object>) searchReport
 				.get(localization.getLocalizedMessage("ReportWindows.SearchReportTitle", "Search Report") + " Map");
-
 		TextField name = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField rank = (TextField) searchReportMap
@@ -140,7 +137,6 @@ public class SearchReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField num = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 		TextField searchnum = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.SearchNumField", "search num"));
 		TextField date = (TextField) searchReportMap
@@ -153,7 +149,6 @@ public class SearchReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		TextField county = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-
 		TextField grounds = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.GroundsForSearchField", "grounds for search"));
 		TextField witness = (TextField) searchReportMap
@@ -164,24 +159,19 @@ public class SearchReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.SearchTypeField", "search type"));
 		ComboBox method = (ComboBox) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.SearchMethodField", "search method"));
-
 		TextField testconducted = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.TestsConductedField", "test(s) conducted"));
 		TextField result = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.TestResultField", "result"));
 		TextField bacmeasurement = (TextField) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.BACMeasurementField", "bac measurement"));
-
 		TextArea seizeditems = (TextArea) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.SeizedItemsField", "seized item(s)"));
 		TextArea notes = (TextArea) searchReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.CommentsField", "comments"));
-
 		Label warningLabel = (Label) searchReport.get("warningLabel");
-
 		MenuButton pullnotesbtn = (MenuButton) searchReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -206,14 +196,10 @@ public class SearchReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		Button submitBtn = (Button) searchReport.get("submitBtn");
-
 		ComboBox<String> statusValue = (ComboBox) searchReport.get("statusValue");
-
 		Label legacyLabel = (Label) searchReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		submitBtn.setOnAction(_ -> {
 			if (searchnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -231,7 +217,6 @@ public class SearchReportUtils {
 						}
 					}
 				}
-
 				SearchReport searchReport1 = new SearchReport();
 				searchReport1.setStatus(statusValue.getValue());
 				searchReport1.setSearchNumber(searchnum.getText());
@@ -240,7 +225,6 @@ public class SearchReportUtils {
 				searchReport1.setOfficerRank(rank.getText());
 				searchReport1.setSearchComments(notes.getText());
 				searchReport1.setSearchSeizedItems(seizeditems.getText());
-
 				searchReport1.setSearchGrounds(toTitleCase(grounds.getText()));
 				searchReport1.setSearchType(toTitleCase(type.getValue().toString()));
 				searchReport1.setSearchMethod(toTitleCase(method.getValue().toString()));
@@ -256,13 +240,11 @@ public class SearchReportUtils {
 				searchReport1.setTestsConducted(toTitleCase(testconducted.getText()));
 				searchReport1.setTestResults(toTitleCase(result.getText()));
 				searchReport1.setBreathalyzerBACMeasure(toTitleCase(bacmeasurement.getText()));
-
 				try {
 					SearchReportUtils.addSearchReport(searchReport1);
 				} catch (JAXBException e) {
 					logError("Error creating SearchReport: ", e);
 				}
-
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");
@@ -271,7 +253,6 @@ public class SearchReportUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				searchLogUpdate();
-
 				NotificationManager.showNotificationInfo("Report Manager", "A new Search Report has been submitted.");
 				CustomWindow window = getWindow("Search Report");
 				if (window != null) {
@@ -287,7 +268,6 @@ public class SearchReportUtils {
 		if (!file.exists()) {
 			return new SearchReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(SearchReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -302,21 +282,17 @@ public class SearchReportUtils {
 		JAXBContext context = JAXBContext.newInstance(SearchReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 		File file = new File(searchLogURL);
 		marshaller.marshal(SearchReports, file);
 	}
 
 	public static void addSearchReport(SearchReport SearchReport) throws JAXBException {
 		SearchReports SearchReports = loadSearchReports();
-
 		if (SearchReports.getSearchReportList() == null) {
 			SearchReports.setSearchReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<SearchReport> existingReport = SearchReports.getSearchReportList().stream()
 				.filter(e -> e.getSearchNumber().equals(SearchReport.getSearchNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			SearchReports.getSearchReportList().remove(existingReport.get());
 			SearchReports.getSearchReportList().add(SearchReport);
@@ -325,18 +301,15 @@ public class SearchReportUtils {
 			SearchReports.getSearchReportList().add(SearchReport);
 			logInfo("SearchReport with number " + SearchReport.getSearchNumber() + " added.");
 		}
-
 		saveSearchReports(SearchReports);
 	}
 
 	public static void deleteSearchReport(String SearchReportnumber) throws JAXBException {
 		SearchReports SearchReports = loadSearchReports();
-
 		if (SearchReports.getSearchReportList() != null) {
 			SearchReports.getSearchReportList().removeIf(e -> e.getSearchNumber().equals(SearchReportnumber));
 			saveSearchReports(SearchReports);
 			logInfo("SearchReport with number " + SearchReportnumber + " deleted.");
 		}
 	}
-
 }

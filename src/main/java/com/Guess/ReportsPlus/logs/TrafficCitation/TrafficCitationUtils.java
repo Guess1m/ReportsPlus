@@ -67,7 +67,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class TrafficCitationUtils {
-
 	public static Map<String, Object> citationLayout() {
 		SectionConfig offenderInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information"),
@@ -86,7 +85,6 @@ public class TrafficCitationUtils {
 						new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
 								"offender description"), 6, FieldType.TEXT_FIELD)));
 		offenderInfoSection.setHasButton(true);
-
 		SectionConfig vehicleInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.CitationVehicleInfoHeading",
 						"(If Applicable) Offender Vehicle Information"),
@@ -106,7 +104,6 @@ public class TrafficCitationUtils {
 										localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info")),
 								8, FieldType.TEXT_FIELD)));
 		vehicleInfoSection.setHasButton(true);
-
 		Map<String, Object> citationReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report"),
 				new TransferConfig(
@@ -161,10 +158,8 @@ public class TrafficCitationUtils {
 
 	public static Map<String, Object> newCitation() {
 		Map<String, Object> citationReport = citationLayout();
-
 		Map<String, Object> citationReportMap = (Map<String, Object>) citationReport
 				.get(localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
-
 		TextField officername = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField officerrank = (TextField) citationReportMap
@@ -175,7 +170,6 @@ public class TrafficCitationUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField officernum = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 		TextField offenderName = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField offenderAge = (TextField) citationReportMap
@@ -186,7 +180,6 @@ public class TrafficCitationUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 		TextField offenderDescription = (TextField) citationReportMap.get(
 				localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 		ComboBox area = (ComboBox) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		ComboBox street = (ComboBox) citationReportMap
@@ -199,35 +192,27 @@ public class TrafficCitationUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 		TextField time = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 		ComboBox color = (ComboBox) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 		ComboBox type = (ComboBox) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
-
 		TextField plateNumber = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 		TextField otherInfo = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 		TextField model = (TextField) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 		TextArea notes = (TextArea) citationReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
-
 		TableView citationtable = (TableView) citationReportMap.get("CitationTableView");
 		ComboBox citationType = (ComboBox) citationReportMap.get("CitationType");
-
 		Button transferimpoundbtn = (Button) citationReportMap.get("transferimpoundbtn");
 		transferimpoundbtn.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " "
 				+ localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report"));
-
 		MenuButton pullnotesbtn = (MenuButton) citationReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		Label legacyLabel = (Label) citationReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -258,14 +243,10 @@ public class TrafficCitationUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		transferimpoundbtn.setOnAction(_ -> {
-
 			Map<String, Object> impoundReportObj = ImpoundReportUtils.newImpound();
-
 			Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj.get(
 					localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
-
 			TextField officernameimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 			TextField officerrankimp = (TextField) impoundReportMap
@@ -276,7 +257,6 @@ public class TrafficCitationUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 			TextField officernumimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 			TextField offenderNameimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 			TextField offenderAgeimp = (TextField) impoundReportMap
@@ -285,14 +265,12 @@ public class TrafficCitationUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
 			TextField offenderAddressimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-
 			TextField numimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.ImpoundNumField", "impound number"));
 			TextField dateimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 			TextField timeimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 			ComboBox colorimp = (ComboBox) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 			ComboBox typeimp = (ComboBox) impoundReportMap
@@ -301,10 +279,8 @@ public class TrafficCitationUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 			TextField modelimp = (TextField) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 			TextArea notesimp = (TextArea) impoundReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
-
 			officernameimp.setText(officername.getText());
 			officerdivimp.setText(officerdiv.getText());
 			officerrankimp.setText(officerrank.getText());
@@ -323,12 +299,9 @@ public class TrafficCitationUtils {
 			colorimp.getSelectionModel().select(color.getSelectionModel().getSelectedItem());
 			numimp.setText(num.getText());
 		});
-
 		Button submitBtn = (Button) citationReport.get("submitBtn");
 		Label warningLabel = (Label) citationReport.get("warningLabel");
-
 		ComboBox<String> statusValue = (ComboBox) citationReport.get("statusValue");
-
 		submitBtn.setOnAction(_ -> {
 			if (num.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -346,7 +319,6 @@ public class TrafficCitationUtils {
 						}
 					}
 				}
-
 				if (citationType.getSelectionModel().getSelectedIndex() == 1 && offenderName.getText().isEmpty()) {
 					if (offenderName.getText().trim().isEmpty()) {
 						logError("Offender Name Cant Be Empty if Printing Ticket");
@@ -369,15 +341,12 @@ public class TrafficCitationUtils {
 					pause.play();
 					return;
 				}
-
 				ObservableList<CitationsData> formDataList = citationtable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
 				StringBuilder chargesBuilder = new StringBuilder();
 				for (CitationsData formData : formDataList) {
 					stringBuilder.append(formData.getCitation()).append(" | ");
-
 					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
-
 					if (fine != null) {
 						try {
 							int maxFine = Integer.parseInt(fine);
@@ -403,7 +372,6 @@ public class TrafficCitationUtils {
 				if (stringBuilder.length() > 0) {
 					stringBuilder.setLength(stringBuilder.length() - 1);
 				}
-
 				TrafficCitationReport trafficCitationReport = new TrafficCitationReport();
 				trafficCitationReport.setStatus(statusValue.getValue());
 				trafficCitationReport.setOfficerRank(officerrank.getText());
@@ -413,7 +381,6 @@ public class TrafficCitationUtils {
 				trafficCitationReport.setCitationCharges(stringBuilder.toString());
 				trafficCitationReport.setCitationComments(notes.getText());
 				trafficCitationReport.setOffenderVehiclePlate((plateNumber.getText()));
-
 				trafficCitationReport.setCitationCounty(toTitleCase(county.getText()));
 				trafficCitationReport.setCitationArea(toTitleCase(area.getEditor().getText()));
 				trafficCitationReport.setCitationStreet(toTitleCase(street.getEditor().getText()));
@@ -448,11 +415,9 @@ public class TrafficCitationUtils {
 						logError("Error updating ped priors from citationReport: ", e);
 					}
 				}
-
 				if (!offenderName.getText().isEmpty() && offenderName.getText() != null
 						&& !stringBuilder.toString().isEmpty() && stringBuilder.toString() != null) {
 					String casenum = generateCaseNumber(num.getText());
-
 					Optional<Case> caseToUpdateOptional = findCaseByNumber(casenum);
 					if (!caseToUpdateOptional.isPresent()) {
 						Case case1 = new Case();
@@ -492,10 +457,8 @@ public class TrafficCitationUtils {
 										+ offenderName.getText());
 						logInfo("Added case from citation, Case#: " + casenum + " Name: " + offenderName.getText());
 						needCourtRefresh.set(1);
-
 						if (isConnected) {
 							logDebug("Trying to send Citation_Update Signal to server...");
-
 							String selectedCitationType = (String) citationType.getSelectionModel().getSelectedItem();
 							if (selectedCitationType.equalsIgnoreCase(localization
 									.getLocalizedMessage("ReportWindows.CitationTypeNonPrinted", "Non-Printed"))) {
@@ -551,22 +514,18 @@ public class TrafficCitationUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				citationLogUpdate();
-
 				CustomWindow window = getWindow("Citation Report");
 				if (window != null) {
 					window.closeWindow();
 				}
 			}
 		});
-
 		Button offenderInfoBtn = (Button) citationReport.get(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information")
 						+ "_button");
-
 		Button vehInfoBtn = (Button) citationReport
 				.get(localization.getLocalizedMessage("ReportWindows.CitationVehicleInfoHeading",
 						"(If Applicable) Offender Vehicle Information") + "_button");
-
 		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
@@ -578,7 +537,6 @@ public class TrafficCitationUtils {
 			offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
 			offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
-
 		vehInfoBtn.setOnAction(_ -> {
 			plateNumber.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			model.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
@@ -587,7 +545,6 @@ public class TrafficCitationUtils {
 				type.setValue(typ);
 			}
 		});
-
 		return citationReport;
 	}
 
@@ -596,7 +553,6 @@ public class TrafficCitationUtils {
 		if (!file.exists()) {
 			return new TrafficCitationReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(TrafficCitationReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -611,21 +567,17 @@ public class TrafficCitationUtils {
 		JAXBContext context = JAXBContext.newInstance(TrafficCitationReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 		File file = new File(trafficCitationLogURL);
 		marshaller.marshal(TrafficCitationReports, file);
 	}
 
 	public static void addTrafficCitationReport(TrafficCitationReport TrafficCitationReport) throws JAXBException {
 		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
-
 		if (TrafficCitationReports.getTrafficCitationReportList() == null) {
 			TrafficCitationReports.setTrafficCitationReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<TrafficCitationReport> existingReport = TrafficCitationReports.getTrafficCitationReportList().stream()
 				.filter(e -> e.getCitationNumber().equals(TrafficCitationReport.getCitationNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			TrafficCitationReports.getTrafficCitationReportList().remove(existingReport.get());
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
@@ -634,13 +586,11 @@ public class TrafficCitationUtils {
 			TrafficCitationReports.getTrafficCitationReportList().add(TrafficCitationReport);
 			logInfo("TrafficCitationReport with number " + TrafficCitationReport.getCitationNumber() + " added.");
 		}
-
 		saveTrafficCitationReports(TrafficCitationReports);
 	}
 
 	public static void deleteTrafficCitationReport(String TrafficCitationReportnumber) throws JAXBException {
 		TrafficCitationReports TrafficCitationReports = loadTrafficCitationReports();
-
 		if (TrafficCitationReports.getTrafficCitationReportList() != null) {
 			TrafficCitationReports.getTrafficCitationReportList()
 					.removeIf(e -> e.getCitationNumber().equals(TrafficCitationReportnumber));
@@ -648,5 +598,4 @@ public class TrafficCitationUtils {
 			logInfo("TrafficCitationReport with number " + TrafficCitationReportnumber + " deleted.");
 		}
 	}
-
 }

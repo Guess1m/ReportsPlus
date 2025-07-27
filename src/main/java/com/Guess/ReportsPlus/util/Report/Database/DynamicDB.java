@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class DynamicDB {
-
 	private final String dbFilePath;
 	private final String tableName;
 	private final String primaryKeyColumn;
@@ -36,7 +35,6 @@ public class DynamicDB {
 		this.dbFilePath = dbFilePath + ".db";
 		this.tableName = tableName;
 		this.primaryKeyColumn = primaryKeyColumn;
-
 		this.columnsDefinition = new LinkedHashMap<>(columnsDefinition);
 		if (!this.columnsDefinition.containsKey(primaryKeyColumn)) {
 			logError("Columns definition must include the primary key column: " + primaryKeyColumn,
@@ -56,11 +54,9 @@ public class DynamicDB {
 			logDebug("Database; [" + name + "] has layout table: " + hasLayoutTable + " has data table: "
 					+ hasDataTable);
 			boolean isValid = hasLayoutTable && hasDataTable;
-
 			if (!isValid) {
 				logWarn("Database; [" + name + "] Database missing required tables");
 			}
-
 			return isValid;
 		} catch (SQLException e) {
 			logError("Database; [" + name + "] SQL Exception while checking database: ");
@@ -73,7 +69,6 @@ public class DynamicDB {
 			throws SQLException {
 		String fullPath = dbFilePath.endsWith(".db") ? dbFilePath : dbFilePath + ".db";
 		Map<String, String> columnsDefinition = new LinkedHashMap<>();
-
 		String sql = "SELECT sql FROM sqlite_master WHERE type='table' AND name=?";
 		try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -87,7 +82,6 @@ public class DynamicDB {
 				}
 			}
 		}
-
 		return columnsDefinition;
 	}
 
@@ -157,16 +151,13 @@ public class DynamicDB {
 		if (start == -1 || end == -1) {
 			return;
 		}
-
 		String columnsPart = createTableSql.substring(start + 1, end).trim();
 		String[] definitions = columnsPart.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-
 		for (String def : definitions) {
 			def = def.trim();
 			if (def.startsWith("PRIMARY KEY") || def.startsWith("FOREIGN KEY") || def.startsWith("CHECK")) {
 				continue;
 			}
-
 			String columnName;
 			String columnDef;
 			if (def.startsWith("\"")) {
@@ -178,7 +169,6 @@ public class DynamicDB {
 				columnName = def.substring(0, firstSpace);
 				columnDef = def.substring(firstSpace + 1).trim();
 			}
-
 			columnsDefinition.put(columnName, columnDef);
 		}
 	}
@@ -198,27 +188,21 @@ public class DynamicDB {
 	public static String getPrimaryKeyColumn(String dbFilePath, String tableName) throws SQLException {
 		String fullPath = dbFilePath.endsWith(".db") ? dbFilePath : dbFilePath + ".db";
 		List<String> pkColumns = new ArrayList<>();
-
 		String pragmaSql = "PRAGMA table_info(" + tableName + ")";
 		try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + fullPath);
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(pragmaSql)) {
-
 			while (rs.next()) {
-
 				int pkIndex = rs.getInt("pk");
 				if (pkIndex > 0) {
 					String columnName = rs.getString("name");
-
 					pkColumns.add(pkIndex - 1, columnName);
 				}
 			}
 		}
-
 		if (pkColumns.isEmpty()) {
 			throw new SQLException("Table '" + tableName + "' has no primary key.");
 		}
-
 		return String.join(", ", pkColumns);
 	}
 
@@ -233,11 +217,9 @@ public class DynamicDB {
 				}
 			}
 		}
-
 		if (!columnExists) {
 			String sql = String.format("ALTER TABLE %s ADD COLUMN %s %s", escapeIdentifier(tableName),
 					escapeIdentifier(columnName), columnType);
-
 			try (Statement stmt = connection.createStatement()) {
 				stmt.executeUpdate(sql);
 				columnsDefinition.put(columnName, columnType);
@@ -289,20 +271,16 @@ public class DynamicDB {
 	private void createTableIfNotExists() {
 		StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS ");
 		sql.append(escapeIdentifier(tableName)).append(" (");
-
 		for (Map.Entry<String, String> entry : columnsDefinition.entrySet()) {
 			String escapedColumn = escapeIdentifier(entry.getKey());
 			sql.append(escapedColumn).append(" ").append(entry.getValue());
-
 			if (entry.getKey().equals(primaryKeyColumn)) {
 				sql.append(" PRIMARY KEY");
 			}
 			sql.append(", ");
 		}
-
 		sql.setLength(sql.length() - 2);
 		sql.append(");");
-
 		try (Statement stmt = connection.createStatement()) {
 			stmt.execute(sql.toString());
 			logInfo("Created table: " + tableName);
@@ -318,10 +296,8 @@ public class DynamicDB {
 			logError("Record must contain a value for primary key column: " + primaryKeyColumn,
 					new IllegalArgumentException());
 		}
-
 		String checkSQL = "SELECT COUNT(*) FROM " + escapeIdentifier(tableName) + " WHERE "
 				+ escapeIdentifier(primaryKeyColumn) + " = ?";
-
 		try (PreparedStatement ps = connection.prepareStatement(checkSQL)) {
 			ps.setObject(1, pkValue);
 			ResultSet rs = ps.executeQuery();
@@ -343,14 +319,12 @@ public class DynamicDB {
 	private void updateRecord(Map<String, Object> record) throws SQLException {
 		StringBuilder setClause = new StringBuilder();
 		List<Object> values = new ArrayList<>();
-
 		// Iterate through the columns defined for the table
 		for (String col : columnsDefinition.keySet()) {
 			// Skip the primary key in the SET clause
 			if (col.equals(primaryKeyColumn)) {
 				continue;
 			}
-
 			// Check if the record map contains the column to be updated
 			if (record.containsKey(col)) {
 				if (setClause.length() > 0) {
@@ -360,20 +334,16 @@ public class DynamicDB {
 				values.add(record.get(col));
 			}
 		}
-
 		// *** FIX: Check if there are any columns to update ***
 		if (setClause.length() == 0) {
 			logInfo("No updatable columns found in the record for primary key: " + record.get(primaryKeyColumn)
 					+ ". Skipping update.");
 			return; // Exit the method gracefully
 		}
-
 		// Add the primary key value for the WHERE clause
 		values.add(record.get(primaryKeyColumn));
-
 		String sql = "UPDATE " + escapeIdentifier(tableName) + " SET " + setClause.toString() + " WHERE "
 				+ escapeIdentifier(primaryKeyColumn) + " = ?";
-
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			for (int i = 0; i < values.size(); i++) {
 				ps.setObject(i + 1, values.get(i));
@@ -389,7 +359,6 @@ public class DynamicDB {
 		StringBuilder columnsPart = new StringBuilder();
 		StringBuilder valuesPart = new StringBuilder();
 		List<Object> values = new ArrayList<>();
-
 		for (String col : columnsDefinition.keySet()) {
 			if (record.containsKey(col)) {
 				columnsPart.append(escapeIdentifier(col)).append(", ");
@@ -397,7 +366,6 @@ public class DynamicDB {
 				values.add(record.get(col));
 			}
 		}
-
 		if (columnsPart.length() > 0) {
 			columnsPart.setLength(columnsPart.length() - 2);
 			valuesPart.setLength(valuesPart.length() - 2);
@@ -451,11 +419,9 @@ public class DynamicDB {
 			String column = entry.getKey();
 			String expectedType = entry.getValue().toUpperCase();
 			Object value = record.get(column);
-
 			if (value == null) {
 				continue;
 			}
-
 			switch (expectedType) {
 				case "INTEGER":
 					if (!(value instanceof Number)) {

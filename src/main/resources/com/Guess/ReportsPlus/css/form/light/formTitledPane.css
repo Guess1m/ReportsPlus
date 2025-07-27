@@ -1,39 +1,39 @@
 .paneoptions {
-    -fx-text-fill: black;
+  -fx-text-fill: black;
 }
 
 .paneoptions:expanded {
-    -fx-text-fill: white;
+  -fx-text-fill: white;
 }
 
 .paneoptions .content {
-    -fx-border-color: #383838;
+  -fx-border-color: #383838;
 }
 
 .paneoptions > .title {
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 19;
-    -fx-background-color: transparent;
-    -fx-padding: 6;
-    -fx-alignment: center;
-    -fx-border-width: 0 0 0 0;
-    -fx-border-color: transparent;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 19;
+  -fx-background-color: transparent;
+  -fx-padding: 6;
+  -fx-alignment: center;
+  -fx-border-width: 0 0 0 0;
+  -fx-border-color: transparent;
 }
 
 .paneoptions:expanded > .title {
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 19;
-    -fx-background-color: #383838;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 19;
+  -fx-background-color: #383838;
 }
 
 .paneoptions > .title > .arrow-button .arrow {
-    -fx-background-color: white;
-    -fx-border-color: transparent;
-    -fx-effect: null;
+  -fx-background-color: white;
+  -fx-border-color: transparent;
+  -fx-effect: null;
 }
 
 .paneoptions:expanded > .title > .arrow-button .arrow {
-    -fx-background-color: white;
-    -fx-border-color: transparent;
-    -fx-effect: null;
+  -fx-background-color: white;
+  -fx-border-color: transparent;
+  -fx-effect: null;
 }

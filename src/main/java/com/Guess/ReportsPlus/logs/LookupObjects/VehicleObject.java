@@ -21,7 +21,6 @@ public class VehicleObject {
 	String coverage;
 	String color;
 	String vin;
-
 	String ownerModel;
 	String ownerAddress;
 	String ownerGender;
@@ -29,7 +28,6 @@ public class VehicleObject {
 	String owneriswanted;
 	String ownerlicensenumber;
 	String ownerlicensestate;
-
 	String driver;
 
 	public VehicleObject(String licensePlate) {
@@ -39,12 +37,10 @@ public class VehicleObject {
 		} catch (IOException e) {
 			logError("Failed to load ServerWorldCars: ", e);
 		}
-
 		String vin = vehDataMap.getOrDefault("vin", "no value provided");
 		String insexp = vehDataMap.getOrDefault("insexp", "no value provided");
 		String regexp = vehDataMap.getOrDefault("regexp", "no value provided");
 		String driver = vehDataMap.getOrDefault("driver", "no value provided");
-
 		String ownerModel = vehDataMap.getOrDefault("ownermodel", "no value provided");
 		String ownerAddress = vehDataMap.getOrDefault("owneraddress", "no value provided");
 		String ownerGender = vehDataMap.getOrDefault("ownergender", "no value provided");
@@ -52,7 +48,6 @@ public class VehicleObject {
 		String owneriswanted = vehDataMap.getOrDefault("owneriswanted", "no value provided");
 		String ownerlicensenumber = vehDataMap.getOrDefault("ownerlicensenumber", "no value provided");
 		String ownerlicensestate = vehDataMap.getOrDefault("ownerlicensestate", "no value provided");
-
 		String model = vehDataMap.getOrDefault("model", "no value provided");
 		String make = vehDataMap.getOrDefault("make", "no value provided");
 		String isStolen = vehDataMap.getOrDefault("isstolen", "no value provided");
@@ -63,9 +58,7 @@ public class VehicleObject {
 		String owner = vehDataMap.getOrDefault("owner", "no value provided");
 		String plate = vehDataMap.getOrDefault("licenseplate", "no value provided");
 		String color = getColorFromRGB(vehDataMap.getOrDefault("color", "no value provided"));
-
 		this.driver = driver;
-
 		this.vin = vin;
 		this.registrationDate = regexp;
 		this.insuranceDate = insexp;

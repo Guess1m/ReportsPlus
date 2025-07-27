@@ -1,46 +1,50 @@
 Button {
-    fx-padding: 3 5;
-    -fx-background-radius: 7px;
-    -fx-text-fill: white;
-    -fx-font-family: "Inter 24pt Regular" !important;
-    -fx-font-size: 14px;
+  fx-padding: 3 5;
+  -fx-background-radius: 7px;
+  -fx-text-fill: white;
+  -fx-font-family: "Inter 24pt Regular" !important;
+  -fx-font-size: 14px;
 }
 
 .LoginButton {
-    -fx-background-color: #306494;
+  -fx-background-color: #306494;
 }
 
 .LoginButton:hover {
-    -fx-background-color: #26527a;
+  -fx-background-color: #26527a;
 }
 
 .LoginButton:pressed {
-    -fx-background-color: #1d3557;
+  -fx-background-color: #1d3557;
 }
 
 .RegisterButton {
-    -fx-background-color: rgba(0, 0, 0, 0.4);
+  -fx-background-color: rgba(0, 0, 0, 0.4);
 }
 
 .RegisterButton:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.47);
+  -fx-background-color: rgba(0, 0, 0, 0.47);
 }
 
 .RegisterButton:pressed {
-    -fx-background-color: rgba(0, 0, 0, 0.56);
+  -fx-background-color: rgba(0, 0, 0, 0.56);
 }
 
-TextField, ComboBox, PasswordField {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Inter 24pt Regular";
-    -fx-font-size: 14px;
-    -fx-background-color: transparent;
-    -fx-padding: 6 13;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: #a3a3a3;
+TextField,
+ComboBox,
+PasswordField {
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 14px;
+  -fx-background-color: transparent;
+  -fx-padding: 6 13;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: #a3a3a3;
 }
 
-TextField:focused, ComboBox:focused, PasswordField:focused {
-    -fx-border-color: #306494;
-    -fx-border-width: 0 0 2px 0;
+TextField:focused,
+ComboBox:focused,
+PasswordField:focused {
+  -fx-border-color: #306494;
+  -fx-border-width: 0 0 2px 0;
 }

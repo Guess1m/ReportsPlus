@@ -45,7 +45,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class AccidentReportUtils {
-
 	public static Map<String, Object> accidentLayout() {
 		SectionConfig offenderInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information"),
@@ -64,7 +63,6 @@ public class AccidentReportUtils {
 						new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
 								"offender description"), 6, FieldType.TEXT_FIELD)));
 		offenderInfoSection.setHasButton(true);
-
 		SectionConfig vehInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information"),
@@ -80,7 +78,6 @@ public class AccidentReportUtils {
 						new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 5,
 								FieldType.COMBO_BOX_COLOR)));
 		vehInfoSection.setHasButton(true);
-
 		Map<String, Object> accidentReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report"), null,
 				new SectionConfig(
@@ -154,10 +151,8 @@ public class AccidentReportUtils {
 
 	public static Map<String, Object> newAccident() {
 		Map<String, Object> accidentReport = accidentLayout();
-
 		Map<String, Object> accidentReportMap = (Map<String, Object>) accidentReport
 				.get(localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report") + " Map");
-
 		TextField name = (TextField) accidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField rank = (TextField) accidentReportMap
@@ -212,14 +207,11 @@ public class AccidentReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 		TextArea notes = (TextArea) accidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 		Label warningLabel = (Label) accidentReport.get("warningLabel");
 		Label legacyLabel = (Label) accidentReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		MenuButton pullnotesbtn = (MenuButton) accidentReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -250,11 +242,8 @@ public class AccidentReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		Button submitBtn = (Button) accidentReport.get("submitBtn");
-
 		ComboBox<String> statusValue = (ComboBox) accidentReport.get("statusValue");
-
 		submitBtn.setOnAction(_ -> {
 			if (accidentnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -281,7 +270,6 @@ public class AccidentReportUtils {
 				accidentReport1.setComments(notes.getText());
 				accidentReport1.setOfficerNumber(num.getText());
 				accidentReport1.setPlateNumber(plateNumber.getText());
-
 				accidentReport1.setOfficerName(toTitleCase(name.getText()));
 				accidentReport1.setOfficerDivision(toTitleCase(div.getText()));
 				accidentReport1.setOfficerAgency(toTitleCase(agen.getText()));
@@ -302,7 +290,6 @@ public class AccidentReportUtils {
 				accidentReport1.setModel(toTitleCase(model.getText()));
 				accidentReport1.setType(toTitleCase(type.getValue().toString()));
 				accidentReport1.setColor(toTitleCase(color.getValue().toString()));
-
 				try {
 					AccidentReportUtils.addAccidentReport(accidentReport1);
 				} catch (JAXBException e) {
@@ -316,9 +303,7 @@ public class AccidentReportUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				accidentReportUpdate();
-
 				NotificationManager.showNotificationInfo("Report Manager", "A new Accident Report has been submitted.");
-
 				CustomWindow window = getWindow(
 						localization.getLocalizedMessage("ReportWindows.AccidentReportTitle", "Accident Report"));
 				if (window != null) {
@@ -326,15 +311,12 @@ public class AccidentReportUtils {
 				}
 			}
 		});
-
 		Button offenderInfoBtn = (Button) accidentReport.get(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information")
 						+ "_button");
-
 		Button vehInfoBtn = (Button) accidentReport
 				.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information") + "_button");
-
 		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
@@ -346,7 +328,6 @@ public class AccidentReportUtils {
 			offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
 			offenderDescription.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
-
 		vehInfoBtn.setOnAction(_ -> {
 			plateNumber.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			model.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
@@ -355,7 +336,6 @@ public class AccidentReportUtils {
 				type.setValue(typ);
 			}
 		});
-
 		return accidentReport;
 	}
 
@@ -364,7 +344,6 @@ public class AccidentReportUtils {
 		if (!file.exists()) {
 			return new AccidentReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(AccidentReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -385,14 +364,11 @@ public class AccidentReportUtils {
 
 	public static void addAccidentReport(AccidentReport AccidentReport) throws JAXBException {
 		AccidentReports AccidentReports = loadAccidentReports();
-
 		if (AccidentReports.getAccidentReportList() == null) {
 			AccidentReports.setAccidentReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<AccidentReport> existingReport = AccidentReports.getAccidentReportList().stream()
 				.filter(e -> e.getAccidentNumber().equals(AccidentReport.getAccidentNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			AccidentReports.getAccidentReportList().remove(existingReport.get());
 			AccidentReports.getAccidentReportList().add(AccidentReport);
@@ -401,18 +377,15 @@ public class AccidentReportUtils {
 			AccidentReports.getAccidentReportList().add(AccidentReport);
 			logInfo("AccidentReport with number " + AccidentReport.getAccidentNumber() + " added.");
 		}
-
 		saveAccidentReports(AccidentReports);
 	}
 
 	public static void deleteAccidentReport(String AccidentReportnumber) throws JAXBException {
 		AccidentReports AccidentReports = loadAccidentReports();
-
 		if (AccidentReports.getAccidentReportList() != null) {
 			AccidentReports.getAccidentReportList().removeIf(e -> e.getAccidentNumber().equals(AccidentReportnumber));
 			saveAccidentReports(AccidentReports);
 			logInfo("AccidentReport with number " + AccidentReportnumber + " deleted.");
 		}
 	}
-
 }

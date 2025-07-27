@@ -30,7 +30,6 @@ public class nestedReportUtils {
 		public String getValue() {
 			return value;
 		}
-
 	}
 
 	public static class SectionConfig {
@@ -189,7 +188,6 @@ public class nestedReportUtils {
 	public static class FullLayoutConfig {
 		@JsonProperty("layout")
 		private List<SectionConfig> layout;
-
 		@JsonProperty("transfer")
 		private TransferConfig transfer;
 
@@ -217,5 +215,4 @@ public class nestedReportUtils {
 			this.transfer = transfer;
 		}
 	}
-
 }

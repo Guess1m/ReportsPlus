@@ -6,7 +6,6 @@ import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Output;
 import com.Guess.ReportsPlus.util.History.Ped;
 
 public class PedCheckCommand implements Command {
-
 	@Override
 	public String getName() {
 		return "pc";
@@ -23,18 +22,15 @@ public class PedCheckCommand implements Command {
 			output.println("~d~Usage:~g~ pc ~y~firstname lastname");
 			return;
 		}
-
 		String firstName = args[0];
 		String lastName = args[1];
 		String fullName = firstName + " " + lastName;
-
 		output.println("~g~Performing ped check for: [" + fullName + "]");
 		Ped ped = PedLookupViewController.performPedLookup(fullName);
 		if (ped == null) {
 			output.println("~r~Ped not found: [" + fullName + "]");
 			return;
 		}
-
 		String[] pedDetails = ped.toString().split("\\| ");
 		if (pedDetails.length == 0) {
 			output.println("~r~No details found for ped: [" + fullName + "]");
@@ -49,6 +45,5 @@ public class PedCheckCommand implements Command {
 			String value = detailParts[1].trim();
 			output.println("~y~" + key + ": ~d~" + value);
 		}
-
 	}
 }

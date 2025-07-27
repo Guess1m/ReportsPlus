@@ -40,7 +40,6 @@ public class PedObject {
 		} catch (IOException e) {
 			logError("Failed to load ServerWorldPeds: ", e);
 		}
-
 		this.name = pedData.getOrDefault("name", null);
 		this.licenseNumber = pedData.getOrDefault("licensenumber", null);
 		this.modelName = pedData.getOrDefault("pedmodel", null);
@@ -270,5 +269,4 @@ public class PedObject {
 	public void setIsPolice(String isPolice) {
 		this.isPolice = isPolice;
 	}
-
 }

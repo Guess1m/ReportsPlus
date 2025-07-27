@@ -15,33 +15,26 @@ import java.util.Map;
 import com.Guess.ReportsPlus.util.History.Vehicle;
 
 public class recordUtils {
-
 	public static List<Vehicle> getAllVehicles() {
 		List<Vehicle> vehiclesList = new ArrayList<>();
 		String filePath = getServerDataFolderPath() + "ServerWorldCars.data";
 		final Path path = Paths.get(filePath);
-
 		if (!Files.exists(path)) {
 			return vehiclesList;
 		}
-
 		try {
 			String data = new String(Files.readAllBytes(path));
 			String[] vehicleRecords = data.split("\\|");
-
 			for (String record : vehicleRecords) {
 				if (record.trim().isEmpty())
 					continue;
-
 				Vehicle vehicle = new Vehicle();
 				String[] attributes = record.split("&");
-
 				for (String attribute : attributes) {
 					String[] keyValue = attribute.split("=");
 					if (keyValue.length > 1) {
 						String key = keyValue[0].trim().toLowerCase();
 						String value = keyValue[1].trim();
-
 						switch (key) {
 							case "licenseplate":
 								vehicle.setPlateNumber(value);
@@ -86,7 +79,6 @@ public class recordUtils {
 		} catch (IOException e) {
 			logError("Failed to read vehicle data from file: " + filePath, e);
 		}
-
 		return vehiclesList;
 	}
 
@@ -96,12 +88,10 @@ public class recordUtils {
 		if (!Files.exists(path)) {
 			return owners;
 		}
-
 		try {
 			byte[] encodedBytes = Files.readAllBytes(path);
 			String data = new String(encodedBytes);
 			String[] vehicles = data.split("\\|");
-
 			for (String vehicle : vehicles) {
 				String[] attributes = vehicle.split("&");
 				for (String attribute : attributes) {
@@ -118,7 +108,6 @@ public class recordUtils {
 		} catch (IOException e) {
 			logError("Failed to read vehicle owners from file: " + filePath, e);
 		}
-
 		return owners;
 	}
 
@@ -128,10 +117,8 @@ public class recordUtils {
 			logError("File does not exist: " + filePath);
 			return new HashMap<>();
 		}
-
 		byte[] encodedBytes = Files.readAllBytes(path);
 		String data = new String(encodedBytes);
-
 		String[] pedestrians = data.split("\\|");
 		for (String pedestrian : pedestrians) {
 			Map<String, String> attributesMap = new HashMap<>();
@@ -144,14 +131,12 @@ public class recordUtils {
 					attributesMap.put(keyValue[0].toLowerCase(), "No value provided");
 				}
 			}
-
 			if (attributesMap.containsKey("name") && attributesMap.get("name").equalsIgnoreCase(pedName)) {
 				return attributesMap;
 			} else if (attributesMap.containsKey("owner") && attributesMap.get("owner").equalsIgnoreCase(pedName)) {
 				return attributesMap;
 			}
 		}
-
 		Map<String, String> notFoundMap = new HashMap<>();
 		notFoundMap.put("Error", "Pedestrian not found");
 		return notFoundMap;
@@ -162,11 +147,9 @@ public class recordUtils {
 			logError("File does not exist: " + filePath);
 			return new HashMap<>();
 		}
-
 		String normalizedLicensePlate = licensePlate.toLowerCase();
 		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
 		String data = new String(encodedBytes);
-
 		String[] vehicles = data.split("\\|");
 		for (String vehicle : vehicles) {
 			Map<String, String> attributesMap = new HashMap<>();
@@ -179,12 +162,10 @@ public class recordUtils {
 					attributesMap.put(keyValue[0], "no value provided");
 				}
 			}
-
 			if (attributesMap.getOrDefault("licenseplate", "").toLowerCase().equals(normalizedLicensePlate)) {
 				return attributesMap;
 			}
 		}
-
 		Map<String, String> notFoundMap = new HashMap<>();
 		notFoundMap.put("error", "vehicle not found");
 		return notFoundMap;
@@ -195,10 +176,8 @@ public class recordUtils {
 			logError("File does not exist: " + filePath);
 			return new HashMap<>();
 		}
-
 		byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
 		String data = new String(encodedBytes);
-
 		String[] vehicles = data.split("\\|");
 		for (String vehicle : vehicles) {
 			Map<String, String> attributesMap = new HashMap<>();
@@ -211,12 +190,10 @@ public class recordUtils {
 					attributesMap.put(keyValue[0], "no value provided");
 				}
 			}
-
 			if (attributesMap.getOrDefault("licenseplate", "") != null) {
 				return attributesMap;
 			}
 		}
-
 		Map<String, String> notFoundMap = new HashMap<>();
 		notFoundMap.put("error", "vehicle not found");
 		return notFoundMap;
@@ -236,5 +213,4 @@ public class recordUtils {
 		}
 		return null;
 	}
-
 }

@@ -3,7 +3,6 @@ module com.Guess.ReportsPlus {
 	requires javafx.fxml;
 	requires transitive javafx.graphics;
 	requires transitive javafx.base;
-	
 	requires jakarta.activation;
 	requires jakarta.xml.bind;
 	requires java.desktop;
@@ -11,7 +10,7 @@ module com.Guess.ReportsPlus {
 	requires jdk.compiler;
 	requires java.rmi;
 	requires java.sql;
-	
+
 	opens com.Guess.ReportsPlus.logs to javafx.base;
 	opens com.Guess.ReportsPlus.Windows.Misc.TerminalWindow to javafx.fxml;
 	opens com.Guess.ReportsPlus to javafx.fxml;
@@ -27,7 +26,7 @@ module com.Guess.ReportsPlus {
 	opens com.Guess.ReportsPlus.logs.Death to jakarta.xml.bind, javafx.base;
 	opens com.Guess.ReportsPlus.logs.Accident to jakarta.xml.bind, javafx.base;
 	opens com.Guess.ReportsPlus.util.History to jakarta.xml.bind, javafx.base;
-	
+
 	exports com.Guess.ReportsPlus;
 	exports com.Guess.ReportsPlus.logs.Callout;
 	exports com.Guess.ReportsPlus.logs.TrafficStop;
@@ -39,40 +38,75 @@ module com.Guess.ReportsPlus {
 	exports com.Guess.ReportsPlus.logs.TrafficCitation;
 	exports com.Guess.ReportsPlus.util.Server;
 	exports com.Guess.ReportsPlus.Windows.Misc.TerminalWindow;
+
 	opens com.Guess.ReportsPlus.util.Server to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Server.Objects.Callout;
+
 	opens com.Guess.ReportsPlus.util.Server.Objects.Callout to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Server.Objects.ID;
+
 	opens com.Guess.ReportsPlus.util.Server.Objects.ID to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Report;
+
 	opens com.Guess.ReportsPlus.util.Report to com.fasterxml.jackson.databind, jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Misc;
+
 	opens com.Guess.ReportsPlus.util.Misc to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Windows.Settings;
+
 	opens com.Guess.ReportsPlus.Windows.Settings to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.UserProfiles;
+
 	opens com.Guess.ReportsPlus.util.UserProfiles to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Windows.Misc;
+
 	opens com.Guess.ReportsPlus.Windows.Misc to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Windows.Server;
+
 	opens com.Guess.ReportsPlus.Windows.Server to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Windows.Other;
+
 	opens com.Guess.ReportsPlus.Windows.Other to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Desktop;
+
 	opens com.Guess.ReportsPlus.Desktop to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Windows.Apps;
+
 	opens com.Guess.ReportsPlus.Windows.Apps to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Other;
+
 	opens com.Guess.ReportsPlus.util.Other to jakarta.xml.bind, javafx.fxml, com.fasterxml.jackson.databind;
+
 	exports com.Guess.ReportsPlus.util.Strings;
+
 	opens com.Guess.ReportsPlus.util.Strings to jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Report.Database;
+
 	opens com.Guess.ReportsPlus.util.Report.Database to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils;
+
 	opens com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils to javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Other.Callout;
+
 	opens com.Guess.ReportsPlus.util.Other.Callout to com.fasterxml.jackson.databind, jakarta.xml.bind, javafx.fxml;
+
 	exports com.Guess.ReportsPlus.util.Other.Callout.Messages;
-	opens com.Guess.ReportsPlus.util.Other.Callout.Messages to com.fasterxml.jackson.databind, jakarta.xml.bind, javafx.fxml;
-	
+
+	opens com.Guess.ReportsPlus.util.Other.Callout.Messages
+			to com.fasterxml.jackson.databind, jakarta.xml.bind, javafx.fxml;
 }

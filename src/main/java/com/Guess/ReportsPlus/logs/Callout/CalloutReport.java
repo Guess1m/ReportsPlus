@@ -8,49 +8,34 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "logs")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CalloutReport {
-
 	@XmlElement(name = "CalloutNumber")
 	private String calloutNumber;
-
 	@XmlElement(name = "CalloutStatus")
 	private String calloutStatus;
-
 	@XmlElement(name = "NotesTextArea")
 	private String notesTextArea;
-
 	@XmlElement(name = "ResponseGrade")
 	private String responseGrade;
-
 	@XmlElement(name = "ResponseType")
 	private String responseType;
-
 	@XmlElement(name = "Time")
 	private String time;
-
 	@XmlElement(name = "Date")
 	private String date;
-
 	@XmlElement(name = "Division")
 	private String division;
-
 	@XmlElement(name = "Agency")
 	private String agency;
-
 	@XmlElement(name = "Number")
 	private String number;
-
 	@XmlElement(name = "Rank")
 	private String rank;
-
 	@XmlElement(name = "Name")
 	private String name;
-
 	@XmlElement(name = "Address")
 	private String address;
-
 	@XmlElement(name = "County")
 	private String county;
-
 	@XmlElement(name = "Area")
 	private String area;
 

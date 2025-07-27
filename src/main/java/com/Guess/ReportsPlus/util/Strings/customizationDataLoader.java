@@ -27,7 +27,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class customizationDataLoader {
-
 	public static final Set<String> DEFAULT_FIELDS = new HashSet<>(Arrays.asList("agencies", "streets", "ranks",
 			"divisions", "areaList", "searchMethods", "searchTypes", "carColors", "vehicleTypes"));
 	private static final List<String> DEFAULT_STREETS = Arrays.asList("N/A", "Abattoir Avenue", "Abe Milton Parkway",
@@ -176,11 +175,9 @@ public class customizationDataLoader {
 	private static void processCustomFields() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		File customFile = new File(customDropdownURL);
-
 		if (!customFile.exists()) {
 			return;
 		}
-
 		ObjectNode rootNode;
 		try {
 			rootNode = (ObjectNode) mapper.readTree(customFile);
@@ -188,19 +185,15 @@ public class customizationDataLoader {
 			logError("Error reading custom dropdown file: ", e);
 			throw e;
 		}
-
 		boolean modified = false;
-
 		Iterator<Map.Entry<String, JsonNode>> fields = rootNode.fields();
 		while (fields.hasNext()) {
 			Map.Entry<String, JsonNode> field = fields.next();
 			JsonNode node = field.getValue();
-
 			if (node.isArray()) {
 				ArrayNode arrayNode = (ArrayNode) node;
 				boolean hasNA = false;
 				int naIndex = -1;
-
 				for (int i = 0; i < arrayNode.size(); i++) {
 					String value = arrayNode.get(i).asText();
 					if ("N/A".equalsIgnoreCase(value)) {
@@ -209,7 +202,6 @@ public class customizationDataLoader {
 						break;
 					}
 				}
-
 				if (hasNA) {
 					if (naIndex != 0) {
 						arrayNode.remove(naIndex);
@@ -220,7 +212,6 @@ public class customizationDataLoader {
 					arrayNode.insert(0, "N/A");
 					modified = true;
 				}
-
 				List<Integer> duplicates = new ArrayList<>();
 				for (int i = 1; i < arrayNode.size(); i++) {
 					String value = arrayNode.get(i).asText();
@@ -235,7 +226,6 @@ public class customizationDataLoader {
 				}
 			}
 		}
-
 		if (modified) {
 			try {
 				mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, rootNode);
@@ -250,7 +240,6 @@ public class customizationDataLoader {
 	private static void loadDataFromJson() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		File file = new File(customizationURL);
-
 		Map<String, List<String>> predefinedSections = new HashMap<>();
 		predefinedSections.put("agencies", DEFAULT_AGENCIES);
 		predefinedSections.put("streets", DEFAULT_STREETS);
@@ -261,22 +250,17 @@ public class customizationDataLoader {
 		predefinedSections.put("searchTypes", DEFAULT_SEARCH_TYPES);
 		predefinedSections.put("carColors", DEFAULT_CAR_COLORS);
 		predefinedSections.put("vehicleTypes", DEFAULT_VEHICLE_TYPES);
-
 		ObjectNode rootNode;
 		boolean fileExists = file.exists();
-
 		if (fileExists) {
 			rootNode = (ObjectNode) mapper.readTree(file);
 		} else {
 			rootNode = mapper.createObjectNode();
 		}
-
 		boolean modified = false;
-
 		for (Map.Entry<String, List<String>> entry : predefinedSections.entrySet()) {
 			String section = entry.getKey();
 			List<String> defaults = entry.getValue();
-
 			if (!rootNode.has(section)) {
 				ArrayNode arrayNode = mapper.createArrayNode();
 				defaults.forEach(arrayNode::add);
@@ -294,13 +278,11 @@ public class customizationDataLoader {
 				}
 			}
 		}
-
 		Iterator<Map.Entry<String, JsonNode>> fields = rootNode.fields();
 		while (fields.hasNext()) {
 			Map.Entry<String, JsonNode> field = fields.next();
 			String fieldName = field.getKey();
 			JsonNode node = field.getValue();
-
 			if (node.isArray()) {
 				ArrayNode arrayNode = (ArrayNode) node;
 				if (arrayNode.size() == 0) {
@@ -318,7 +300,6 @@ public class customizationDataLoader {
 				}
 			}
 		}
-
 		if (modified) {
 			logInfo("Customization.json Modified");
 			try {
@@ -330,7 +311,6 @@ public class customizationDataLoader {
 				throw e;
 			}
 		}
-
 		loadSection(rootNode, "agencies", agencies);
 		loadSection(rootNode, "ranks", ranks);
 		loadSection(rootNode, "streets", streets);
@@ -359,11 +339,9 @@ public class customizationDataLoader {
 			showNotificationWarning("Customization Utility", "Cannot add default field as custom.");
 			return false;
 		}
-
 		ObjectMapper mapper = new ObjectMapper();
 		File customFile = new File(customDropdownURL);
 		ObjectNode customRoot;
-
 		if (customFile.exists()) {
 			try {
 				customRoot = (ObjectNode) mapper.readTree(customFile);
@@ -375,19 +353,15 @@ public class customizationDataLoader {
 		} else {
 			customRoot = mapper.createObjectNode();
 		}
-
 		if (customRoot.has(fieldName)) {
 			logInfo("Field '" + fieldName + "' already exists in custom dropdown file.");
 			showNotificationWarning("Customization Utility", "Field '" + fieldName + "' already exists.");
 			return false;
 		}
-
 		ArrayNode arrayNode = mapper.createArrayNode();
 		Set<String> addedValues = new HashSet<>();
-
 		arrayNode.add("N/A");
 		addedValues.add("N/A");
-
 		for (String value : values) {
 			if (value == null || value.trim().isEmpty()) {
 				continue;
@@ -405,7 +379,6 @@ public class customizationDataLoader {
 			arrayNode.add("N/A");
 		}
 		customRoot.set(fieldName, arrayNode);
-
 		try {
 			File parentDir = customFile.getParentFile();
 			if (parentDir != null) {
@@ -498,14 +471,11 @@ public class customizationDataLoader {
 			logError("Cannot delete default field '" + fieldName + "'.");
 			return false;
 		}
-
 		ObjectMapper mapper = new ObjectMapper();
 		File customFile = new File(customDropdownURL);
-
 		if (!customFile.exists()) {
 			return false;
 		}
-
 		ObjectNode root;
 		try {
 			root = (ObjectNode) mapper.readTree(customFile);
@@ -513,11 +483,9 @@ public class customizationDataLoader {
 			logError("Error reading custom dropdown file: ", e);
 			throw e;
 		}
-
 		if (!root.has(fieldName)) {
 			return false;
 		}
-
 		root.remove(fieldName);
 		try {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(customFile, root);

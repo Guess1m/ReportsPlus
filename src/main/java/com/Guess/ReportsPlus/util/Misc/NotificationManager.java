@@ -67,7 +67,6 @@ public class NotificationManager {
 		if (notificationQueue.isEmpty()) {
 			return;
 		}
-
 		Notification notification = notificationQueue.poll();
 		if (notification != null) {
 			displayNotification(notification);
@@ -80,7 +79,6 @@ public class NotificationManager {
 				boolean notificationsGloballyEnabled = ConfigReader.configRead("notificationSettings", "enabled")
 						.equalsIgnoreCase("true");
 				if (notification.persistent || notificationsGloballyEnabled) {
-
 					String textClr = "#ffffff", primClr = "#db4437";
 					try {
 						if (notification.type == NotificationType.INFO) {
@@ -96,58 +94,46 @@ public class NotificationManager {
 					} catch (IOException e) {
 						logError("Could not pull notification color from config: ", e);
 					}
-
 					Label titleLabel = new Label(notification.title);
 					titleLabel.setStyle(
 							"-fx-font-family: 'Inter 28pt Bold'; -fx-font-size: 14px; -fx-text-fill: " + textClr + ";");
-
 					Label messageLabel = new Label(notification.message);
 					messageLabel.setWrapText(true);
 					messageLabel.setStyle("-fx-font-family: 'Inter 28pt Medium'; -fx-font-size: 12px; -fx-text-fill: "
 							+ textClr + ";");
-
 					ImageView icon = new ImageView(new Image(
 							Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/warning.png"))));
 					icon.setImage(changeImageColor(icon.getImage(), textClr));
 					icon.setFitWidth(24);
 					icon.setFitHeight(24);
-
 					ImageView closeIcon = new ImageView(new Image(
 							Objects.requireNonNull(Launcher.class.getResourceAsStream("imgs/icons/cross.png"))));
 					closeIcon.setImage(changeImageColor(closeIcon.getImage(), textClr));
 					closeIcon.setFitWidth(12);
 					closeIcon.setFitHeight(13);
-
 					Button closeButton = new Button();
 					closeButton.setGraphic(closeIcon);
 					closeButton.setStyle("-fx-background-color: transparent;");
-
 					VBox contentBox = new VBox(5, titleLabel, messageLabel);
 					contentBox.setAlignment(Pos.CENTER_LEFT);
 					contentBox.setPadding(new Insets(0));
 					contentBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-
 					HBox mainBox = new HBox(10, icon, contentBox, closeButton);
 					mainBox.setAlignment(Pos.CENTER_LEFT);
 					mainBox.setPadding(new Insets(10));
 					mainBox.setStyle("-fx-background-color: " + primClr + "; -fx-background-radius: 7;");
-
 					AnchorPane anchorPane = new AnchorPane(mainBox);
-
 					notificationContainer.getChildren().add(0, anchorPane);
 					notificationContainerScrollPane.setVvalue(0.0);
 					currentNotifications.add(anchorPane);
-
 					String configPosition = "BottomRight";
 					try {
 						configPosition = ConfigReader.configRead("notificationSettings", "notificationPosition");
 					} catch (IOException e) {
 						logError("Could not pull notificationPosition from config: ", e);
 					}
-
 					AnchorPane.clearConstraints(mainBox);
 					AnchorPane.clearConstraints(notificationContainerScrollPane);
-
 					switch (configPosition) {
 						case "BottomLeft" -> {
 							AnchorPane.setBottomAnchor(notificationContainerScrollPane, 20.0);
@@ -178,16 +164,13 @@ public class NotificationManager {
 							AnchorPane.setRightAnchor(mainBox, 0.0);
 						}
 					}
-
 					notificationContainerScrollPane
 							.setMaxHeight(mainDesktopControllerObj.getDesktopContainer().getHeight() - 50);
-
 					closeButton.setOnAction(_ -> {
 						notificationContainer.getChildren().remove(anchorPane);
 						currentNotifications.remove(anchorPane);
 						showNextNotification();
 					});
-
 					if (notification.type != NotificationType.ERROR_PERSISTENT && !notification.persistent) {
 						String displayDuration = "3.5";
 						try {
@@ -201,7 +184,6 @@ public class NotificationManager {
 						} catch (IOException e) {
 							logError("Could not pull fadeOutDuration from config: ", e);
 						}
-
 						PauseTransition pauseTransition = new PauseTransition(
 								Duration.seconds(Double.parseDouble(displayDuration)));
 						String finalFadeDuration = fadeDuration;
@@ -219,7 +201,6 @@ public class NotificationManager {
 						});
 						pauseTransition.play();
 					}
-
 				} else {
 					logDebug("Notifications Are Disabled; not showing: [" + notification.title + "]");
 				}

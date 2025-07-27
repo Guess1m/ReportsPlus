@@ -1,166 +1,166 @@
 .button {
-    -fx-background-color: #5E7387;
-    -fx-padding: 8px 16px;
-    -fx-background-radius: 7px;
-    -fx-text-fill: white;
-    -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 16px;
+  -fx-background-color: #5e7387;
+  -fx-padding: 8px 16px;
+  -fx-background-radius: 7px;
+  -fx-text-fill: white;
+  -fx-font-family: "Inter 28pt Medium" !important;
+  -fx-font-size: 16px;
 }
 
 .button:hover {
-    -fx-background-color: #495A69;
-    -fx-text-fill: white;
-    -fx-font-family: "Inter 28pt Medium" !important;
-    -fx-font-size: 16px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
+  -fx-background-color: #495a69;
+  -fx-text-fill: white;
+  -fx-font-family: "Inter 28pt Medium" !important;
+  -fx-font-size: 16px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
 }
 
 .button:pressed {
-    -fx-background-color: #34404B;
-    -fx-text-fill: white;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 16px;
+  -fx-background-color: #34404b;
+  -fx-text-fill: white;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 16px;
 }
 
 .codesBtn {
-    -fx-background-color: transparent;
-    -fx-border-width: 0 0 1.5 0;
-    -fx-padding: 5 0 5 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3);
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 14;
+  -fx-background-color: transparent;
+  -fx-border-width: 0 0 1.5 0;
+  -fx-padding: 5 0 5 0;
+  -fx-border-color: rgb(40, 40, 40, 0.3);
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 14;
 }
 
 .newBtn {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
-    -fx-padding: 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3);
-    -fx-text-fill: white;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 14;
+  -fx-background-color: transparent;
+  -fx-border-width: 0;
+  -fx-padding: 0;
+  -fx-border-color: rgb(40, 40, 40, 0.3);
+  -fx-text-fill: white;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 14;
 }
 
 .codesBtn:hover {
-    -fx-background-color: rgb(200, 200, 200, 0.2);
-    -fx-border-width: 0 0 1.5 0;
-    -fx-padding: 5 0 5 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3);
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 14.4;
+  -fx-background-color: rgb(200, 200, 200, 0.2);
+  -fx-border-width: 0 0 1.5 0;
+  -fx-padding: 5 0 5 0;
+  -fx-border-color: rgb(40, 40, 40, 0.3);
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 14.4;
 }
 
 .codesBtn:pressed {
-    -fx-background-color: rgb(200, 200, 200, 0.4);
-    -fx-border-width: 0 0 1.5 0;
-    -fx-padding: 5 0 5 0;
-    -fx-border-color: rgb(40, 40, 40, 0.3);
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 14.5;
+  -fx-background-color: rgb(200, 200, 200, 0.4);
+  -fx-border-width: 0 0 1.5 0;
+  -fx-padding: 5 0 5 0;
+  -fx-border-color: rgb(40, 40, 40, 0.3);
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 14.5;
 }
 
 .text-area {
-    -fx-background-color: white;
-    -fx-border-width: 0.35 0.35 0.35 0.35;
-    -fx-border-color: grey;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-text-fill: black;
-    -fx-font-family: "Inter 24pt Regular";
-    -fx-font-size: 17px;
+  -fx-background-color: white;
+  -fx-border-width: 0.35 0.35 0.35 0.35;
+  -fx-border-color: grey;
+  -fx-border-radius: 5;
+  -fx-background-radius: 5;
+  -fx-text-fill: black;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-font-size: 17px;
 }
 
 .text-area .scroll-pane {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane .viewport {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane .content {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane .corner {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane .scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 15px;
+  -fx-background-color: transparent;
+  -fx-pref-width: 15px;
 }
 
 .text-area .scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-color: #5E7387;
-    -fx-min-height: 15px;
+  -fx-background-color: #5e7387;
+  -fx-min-height: 15px;
 }
 
 .text-area .scroll-pane .scroll-bar:vertical .increment-button,
 .text-area .scroll-pane .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal {
-    -fx-background-color: transparent;
-    -fx-pref-height: 15px;
+  -fx-background-color: transparent;
+  -fx-pref-height: 15px;
 }
 
 .text-area {
-    -fx-cursor: text;
+  -fx-cursor: text;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal .thumb {
-    -fx-background-color: #5E7387;
-    -fx-min-width: 15px;
+  -fx-background-color: #5e7387;
+  -fx-min-width: 15px;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal .increment-button,
 .text-area .scroll-pane .scroll-bar:horizontal .decrement-button {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane .scroll-bar .track {
-    -fx-background-color: none;
+  -fx-background-color: none;
 }
 
 .text-area .scroll-pane .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #495A69;
+  -fx-background-color: #495a69;
 }
 
 .text-area .scroll-pane .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #495A69;
+  -fx-background-color: #495a69;
 }
 
 TabPane .tab-pane {
-    -fx-background-color: white;
+  -fx-background-color: white;
 }
 
 TabPane .tab {
-    -fx-font-family: "Inter 24pt Regular";
-    -fx-text-fill: white !important;
-    -fx-background-radius: 8 8 0 0;
-    -fx-border-width: 0 0 0 0;
-    -fx-padding: 0 10;
+  -fx-font-family: "Inter 24pt Regular";
+  -fx-text-fill: white !important;
+  -fx-background-radius: 8 8 0 0;
+  -fx-border-width: 0 0 0 0;
+  -fx-padding: 0 10;
 }
 
 TabPane .tab-label {
-    -fx-text-fill: black;
-    -fx-font-size: 15px;
-    -fx-font-family: "Inter 24pt Regular";
+  -fx-text-fill: black;
+  -fx-font-size: 15px;
+  -fx-font-family: "Inter 24pt Regular";
 }
 
 TabPane .tab:selected .tab-label {
-    -fx-font-family: "Inter 28pt Medium";
+  -fx-font-family: "Inter 28pt Medium";
 }
 
 TabPane .tab:selected .focus-indicator {
-    -fx-border-color: transparent;
+  -fx-border-color: transparent;
 }
 
 TabPane .tab-header-background {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }

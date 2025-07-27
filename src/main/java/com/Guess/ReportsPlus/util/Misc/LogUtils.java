@@ -21,9 +21,7 @@ import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands.ShowOutputComm
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 
 public class LogUtils {
-
 	// TODO: showoutput is showing ansi in terminal
-
 	public enum Severity {
 		DEBUG, INFO, WARN, ERROR,
 	}
@@ -31,7 +29,6 @@ public class LogUtils {
 	private static PrintStream filePrintStream;
 	private static PrintStream consolePrintStream;
 	private static PrintStream consoleErrorStream;
-
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
 	public static final String ANSI_GREEN = "\u001B[32m";
@@ -43,16 +40,12 @@ public class LogUtils {
 		try {
 			consolePrintStream = System.out;
 			consoleErrorStream = System.err;
-
 			String logFilePath = getJarPath() + File.separator + "output.log";
 			filePrintStream = new PrintStream(new FileOutputStream(logFilePath, true), true);
-
 			Thread.setDefaultUncaughtExceptionHandler(
 					(thread, e) -> logError("Uncaught exception in thread: " + thread.getName(), e));
-
 			logInfo("---=== Client Log Initialized ===---");
 			getOperatingSystemAndArch();
-
 		} catch (IOException e) {
 			consolePrintStream.println("Failed to initialize file logging.");
 			consolePrintStream.println(checkFolderPermissions(Path.of(getJarPath())));
@@ -89,18 +82,14 @@ public class LogUtils {
 
 	public static void logError(String message, Throwable e) {
 		log(message, Severity.ERROR, ANSI_RED);
-
 		String stackTrace = getStackTraceAsString(e);
-
 		String coloredStackTrace = updateStrings.showANSILoggingInConsole ? ANSI_RED + stackTrace + ANSI_RESET
 				: stackTrace;
 		consoleErrorStream.print(coloredStackTrace);
 		filePrintStream.print(stackTrace);
-
 		if (TerminalController.terminalController != null && ShowOutputCommand.TerminalLogging) {
 			TerminalController.terminalController.printToOutput(message + "\n" + stackTrace);
 		}
-
 		showNotificationError("ERROR Manager", message);
 	}
 
@@ -116,14 +105,12 @@ public class LogUtils {
 		if (threadInfo.equalsIgnoreCase("JavaFX Application Thread")) {
 			threadInfo = "FXThread";
 		}
-
 		String plainLog = String.format("[%s] [%s] [%s] [%s] %s",
 				threadInfo,
 				getDate(),
 				getTime(true, true),
 				severity,
 				message);
-
 		String coloredLog;
 		if (updateStrings.showANSILoggingInConsole) {
 			coloredLog = String.format("%s[%s] [%s] [%s] [%s] %s%s%s",
@@ -139,10 +126,8 @@ public class LogUtils {
 		} else {
 			coloredLog = plainLog;
 		}
-
 		consolePrintStream.println(coloredLog);
 		filePrintStream.println(plainLog);
-
 		if (TerminalController.terminalController != null && ShowOutputCommand.TerminalLogging) {
 			TerminalController.terminalController.printToOutput(plainLog);
 		}

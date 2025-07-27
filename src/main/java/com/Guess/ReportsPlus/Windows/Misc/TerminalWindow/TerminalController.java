@@ -34,13 +34,10 @@ import javafx.scene.text.Text;
 
 public class TerminalController implements Initializable {
 	public static TerminalController terminalController;
-
 	private final CommandRegistry commandRegistry = new CommandRegistry();
 	private final String prompt = "user@system~: ";
-
 	private final List<String> commandHistory = new ArrayList<>();
 	private int currentHistoryIndex = 0;
-
 	@FXML
 	private TextField inputField;
 	@FXML
@@ -63,14 +60,12 @@ public class TerminalController implements Initializable {
 			Pattern errorPattern = Pattern.compile("\\*\\*\\*.*?\\*\\*\\*", Pattern.DOTALL);
 			Matcher matcher = errorPattern.matcher(text);
 			int lastIndex = 0;
-
 			while (matcher.find()) {
 				addStyledSegment(text.substring(lastIndex, matcher.start()), false);
 				addStyledSegment(matcher.group(), true);
 				lastIndex = matcher.end();
 			}
 			addStyledSegment(text.substring(lastIndex), false);
-
 			outputContainer.getChildren().add(new Text(""));
 			scrollToBottom();
 		});
@@ -82,7 +77,6 @@ public class TerminalController implements Initializable {
 			if (line.isEmpty()) {
 				continue;
 			}
-
 			if (isErrorBlock) {
 				HBox hbox = new HBox(new Text(line));
 				hbox.getChildren().forEach(n -> ((Text) n).getStyleClass().add("error-text"));
@@ -110,11 +104,9 @@ public class TerminalController implements Initializable {
 	private HBox processColorCodesAndLogStyles(String line) {
 		HBox container = new HBox();
 		container.setSpacing(0);
-
 		Pattern colorPattern = Pattern.compile("~(\\w)~|([^~]+)");
 		Matcher matcher = colorPattern.matcher(line);
 		String currentColor = null;
-
 		while (matcher.find()) {
 			if (matcher.group(1) != null) {
 				String code = matcher.group(1).toLowerCase();
@@ -123,18 +115,15 @@ public class TerminalController implements Initializable {
 				String segment = matcher.group(2);
 				if (!segment.isEmpty()) {
 					Text textNode = new Text(segment);
-
 					if (currentColor != null) {
 						applyColorStyle(textNode, currentColor);
 					} else {
 						applyLogTypeStyling(textNode, segment);
 					}
-
 					container.getChildren().add(textNode);
 				}
 			}
 		}
-
 		return container;
 	}
 
@@ -171,11 +160,9 @@ public class TerminalController implements Initializable {
 		Text header = new Text("ReportsPlus [" + version + "]");
 		header.getStyleClass().add("system-text");
 		outputContainer.getChildren().add(header);
-
 		Text helpMsg = new Text("Type 'help' for available commands");
 		helpMsg.getStyleClass().add("system-text");
 		outputContainer.getChildren().addAll(helpMsg, new Text(""));
-
 		commandRegistry.registerCommand(new HelpCommand(commandRegistry));
 		commandRegistry.registerCommand(new TestCommand());
 		commandRegistry.registerCommand(new ShowOutputCommand());
@@ -187,7 +174,6 @@ public class TerminalController implements Initializable {
 		commandRegistry.registerCommand(new PedCheckCommand());
 		commandRegistry.registerCommand(new CreatePedCommand());
 		commandRegistry.registerCommand(new CreateVehicleCommand());
-
 		javafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(
 				javafx.util.Duration.seconds(0.4));
 		pause.setOnFinished(e -> {
@@ -204,17 +190,14 @@ public class TerminalController implements Initializable {
 		if (event.getCode() == KeyCode.ENTER) {
 			String commandLine = inputField.getText().trim();
 			inputField.clear();
-
 			if (commandLine.isEmpty()) {
 				return;
 			}
-
 			commandHistory.add(commandLine);
 			if (commandHistory.size() > 5) {
 				commandHistory.remove(0);
 			}
 			currentHistoryIndex = commandHistory.size();
-
 			addCommandLine(commandLine);
 			processCommand(commandLine);
 			scrollToBottom();
@@ -244,7 +227,6 @@ public class TerminalController implements Initializable {
 			String[] parts = commandLine.split(" ", 2);
 			String commandName = parts[0];
 			String[] args = parts.length > 1 ? parts[1].split(" ") : new String[0];
-
 			Command command = commandRegistry.getCommand(commandName);
 			if (command != null) {
 				command.execute(args, this::printToOutput);

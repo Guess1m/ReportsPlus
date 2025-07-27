@@ -1,12 +1,9 @@
 package com.Guess.ReportsPlus;
 
-import com.Guess.ReportsPlus.Desktop.mainDesktopController;
-import com.Guess.ReportsPlus.config.ConfigReader;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
+import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
+import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,28 +15,29 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.getServerDataFolderPath;
-import static com.Guess.ReportsPlus.util.Server.ClientUtils.isConnected;
-import static com.Guess.ReportsPlus.util.Server.recordUtils.extractValueByKey;
+import com.Guess.ReportsPlus.Desktop.mainDesktopController;
+import com.Guess.ReportsPlus.config.ConfigReader;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 public class MainApplication extends Application {
-	
 	public static Stage mainRT;
 	public static mainDesktopController mainDesktopControllerObj;
 	public static Stage mainDesktopStage;
-	
-	//TODO: implement sending test file
-	
+
+	// TODO: implement sending test file
 	public static String getDate() {
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 		return currentTime.format(formatter);
 	}
-	
+
 	public static String getTime(boolean systemTime, boolean ignoreConfigSetting) {
 		LocalDateTime currentTime = LocalDateTime.now();
-		
 		boolean use24Hour = false;
 		if (!ignoreConfigSetting) {
 			try {
@@ -49,52 +47,45 @@ public class MainApplication extends Application {
 				logError("Error getting uiSettings.use24Hour: ", e);
 			}
 		}
-		
 		DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 		DateTimeFormatter displayFormatter;
-		
 		if (use24Hour) {
 			displayFormatter = DateTimeFormatter.ofPattern("HH:mm a", Locale.ENGLISH);
 		} else {
 			displayFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
 		}
-		
 		try {
-			if (systemTime || !isConnected || ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("false")) {
+			if (systemTime || !isConnected
+					|| ConfigReader.configRead("connectionSettings", "useGameTime").equalsIgnoreCase("false")) {
 				return currentTime.format(displayFormatter);
 			}
 		} catch (IOException e) {
 			logError("Error checking time source: ", e);
 		}
-		
 		String serverDataFolderPath = getServerDataFolderPath();
 		if (!serverDataFolderPath.isEmpty()) {
 			File gameDataFile = new File(serverDataFolderPath + "ServerGameData.data");
-			
 			if (gameDataFile.isFile()) {
 				try {
 					String gameDataFileContent = Files.readString(Paths.get(gameDataFile.toURI()));
 					String timeValue = extractValueByKey(gameDataFileContent, "time");
-					
 					if (timeValue != null) {
 						LocalTime parsedTime = LocalTime.parse(timeValue, storageFormatter);
 						return parsedTime.format(displayFormatter);
 					}
-					
 					logError("timeValue was null; using system time instead");
 				} catch (IOException | DateTimeParseException e) {
 					logError("Error parsing time, using system time: ", e);
 				}
 			}
 		}
-		
 		return currentTime.format(displayFormatter);
 	}
-	
+
 	public static void main(String[] args) {
 		launch();
 	}
-	
+
 	public static void openMainDesktop() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("Windows/Desktop/desktop-main.fxml"));
 		Scene scene = new Scene(fxmlLoader.load());
@@ -102,10 +93,10 @@ public class MainApplication extends Application {
 		Stage primaryStage = new Stage();
 		primaryStage.setTitle("ReportsPlus Desktop");
 		primaryStage.setScene(scene);
-		primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
+		primaryStage.getIcons()
+				.add(new Image(Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Logo.png")));
 		primaryStage.show();
 		mainDesktopStage = primaryStage;
-		
 		String windowConfig = ConfigReader.configRead("uiSettings", "windowDisplaySetting");
 		if (windowConfig.equalsIgnoreCase("Fullscreen")) {
 			primaryStage.setMaximized(false);
@@ -116,10 +107,9 @@ public class MainApplication extends Application {
 			primaryStage.centerOnScreen();
 			primaryStage.setAlwaysOnTop(ConfigReader.configRead("uiSettings", "windowAOT").equalsIgnoreCase("true"));
 		}
-		
 		MainApplication.mainRT = mainDesktopStage;
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		openMainDesktop();

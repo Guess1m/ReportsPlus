@@ -16,7 +16,6 @@ import java.nio.charset.StandardCharsets;
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 
 public class Localization {
-
 	private final CommentedProperties properties = new CommentedProperties();
 	private final String filePath = getJarPath() + "/locale/locale.properties";
 
@@ -26,7 +25,6 @@ public class Localization {
 
 	public synchronized String getLocalizedMessage(String key, String defaultValue) {
 		String value = properties.getProperty(key);
-
 		if (value == null) {
 			properties.put(key, defaultValue);
 			saveProperties();
@@ -34,7 +32,6 @@ public class Localization {
 			logDebug("Locale Missing: [" + key + "="
 					+ defaultValue + "]");
 		}
-
 		return value;
 	}
 
@@ -64,5 +61,4 @@ public class Localization {
 			e.printStackTrace();
 		}
 	}
-
 }

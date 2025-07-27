@@ -1,25 +1,25 @@
 .incidentformButton {
-    -fx-background-color: rgb(94, 115, 135, 0.8);
-    -fx-border-width: 1;
-    -fx-border-color: rgb(1, 1, 1, 0.2);
-    -fx-text-fill: black !important;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 16px;
+  -fx-background-color: rgb(94, 115, 135, 0.8);
+  -fx-border-width: 1;
+  -fx-border-color: rgb(1, 1, 1, 0.2);
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 16px;
 }
 
 .incidentformButton > .label {
-    -fx-text-fill: black !important;
-    -fx-alignment: center-left;
-    -fx-font-size: 16px;
-    -fx-padding: 0 10px 0 10;
+  -fx-text-fill: black !important;
+  -fx-alignment: center-left;
+  -fx-font-size: 16px;
+  -fx-padding: 0 10px 0 10;
 }
 
 .incidentformButton:hover {
-    -fx-background-color: #546778;
-    -fx-border-width: 0;
+  -fx-background-color: #546778;
+  -fx-border-width: 0;
 }
 
 .incidentformButton:pressed {
-    -fx-background-color: #495A69;
-    -fx-border-width: 0;
+  -fx-background-color: #495a69;
+  -fx-border-width: 0;
 }

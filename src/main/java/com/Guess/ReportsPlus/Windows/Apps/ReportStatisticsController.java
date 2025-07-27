@@ -82,21 +82,17 @@ public class ReportStatisticsController {
 
 	private HashMap<String, Integer> parseDatabase(String path, String typeToGet) {
 		HashMap<String, Integer> counts = new HashMap<>();
-
 		path = path.replace(".db", "");
 		createFolderIfNotExists(getCustomDataLogsFolderPath());
-
 		if (path.isEmpty()) {
 			logError("[ReportStats] Database Path is Empty");
 		}
-
 		String primaryKey = null;
 		try {
 			primaryKey = getPrimaryKeyColumn(path, "data");
 		} catch (SQLException e) {
 			logError("[ReportStats] Error getting primary key column", e);
 		}
-
 		Map<String, String> layoutScheme = null;
 		Map<String, String> reportSchema = null;
 		try {
@@ -105,7 +101,6 @@ public class ReportStatisticsController {
 		} catch (SQLException e2) {
 			logError("[ReportStats] Failed to extract field names", e2);
 		}
-
 		String layoutContent = null;
 		DynamicDB DatabaseLayout = new DynamicDB(path, "layout", "key", layoutScheme);
 		if (DatabaseLayout.initDB()) {
@@ -130,12 +125,10 @@ public class ReportStatisticsController {
 		} else {
 			logError("[ReportStats] Layout Database not initialized!");
 		}
-
 		DynamicDB dbManager = null;
 		try {
 			dbManager = new DynamicDB(path, "data", primaryKey, reportSchema);
 			dbManager.initDB();
-
 			Map<String, Map<String, List<String>>> mainMap = parseAndPopulateMap(layoutContent);
 			Map<String, List<String>> fieldMap = mainMap.getOrDefault("selectedType", new HashMap<>());
 			for (Map.Entry<String, List<String>> entry : fieldMap.entrySet()) {
@@ -152,7 +145,6 @@ public class ReportStatisticsController {
 					}
 				}
 			}
-
 		} catch (Exception e2) {
 			logError("Failed to extract field names", e2);
 		} finally {
@@ -162,9 +154,7 @@ public class ReportStatisticsController {
 				logError("Failed to close database connection, null", e2);
 			}
 		}
-
 		return counts;
-
 	}
 
 	public HashMap<String, Integer> combineCounts(HashMap<String, Integer> map1, HashMap<String, Integer> map2) {
@@ -189,15 +179,12 @@ public class ReportStatisticsController {
 			logError("NewReport; Invalid data folder path: " + dataFolderPath);
 			return null;
 		}
-
 		File[] files = folder.listFiles((dir, name) -> name.endsWith(".db"));
 		if (files == null || files.length == 0) {
 			logInfo("NewReport; No database files found in: " + dataFolderPath);
 			return null;
 		}
-
 		logInfo("NewReport; Found " + files.length + " database files in: " + dataFolderPath);
-
 		HashMap<String, Integer> totalCounts = new HashMap<>();
 		for (File file : files) {
 			String filePath = file.getAbsolutePath();
@@ -206,7 +193,6 @@ public class ReportStatisticsController {
 				totalCounts.put(entry.getKey(), totalCounts.getOrDefault(entry.getKey(), 0) + entry.getValue());
 			}
 		}
-
 		return totalCounts;
 	}
 
@@ -244,7 +230,6 @@ public class ReportStatisticsController {
 			mergeCounts(counts, parseReport(
 					TrafficCitationUtils.loadTrafficCitationReports().getTrafficCitationReportList(), getMethod));
 			mergeCounts(counts, parseReport(loadTrafficStopReports().getTrafficStopReportList(), getMethod));
-
 		} catch (JAXBException e) {
 			logError("Error parsing reports: ", e);
 		}
@@ -272,39 +257,29 @@ public class ReportStatisticsController {
 				getType = "COMBO_BOX_AREA";
 				break;
 		}
-
 		HashMap<String, Integer> fileCounts = countOccurrencesAcrossFiles(getType);
 		HashMap<String, Integer> logReports = parseLogReports(getMethod);
 		HashMap<String, Integer> totalCounts = combineCounts(fileCounts, logReports);
 		xAxisElements.addAll(totalCounts.keySet());
-
 		xAxis = new CategoryAxis();
 		xAxis.setCategories(xAxisElements);
 		xAxis.setTickLabelRotation(20);
-
 		yAxis = new NumberAxis();
 		yAxis.setTickLabelFill(Paint.valueOf("#ffffff"));
-
 		chart = new AreaChart<>(xAxis, yAxis);
-
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
-
 		for (Map.Entry<String, Integer> entry : totalCounts.entrySet()) {
 			series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
 		}
-
 		chart.getData().add(series);
-
 		return chart;
 	}
 
 	public void initialize() {
 		reportsByCombobox.getItems().clear();
 		reportsByCombobox.getItems().addAll(new ArrayList<>(Arrays.asList("Officer", "Area", "County")));
-
 		reportsByCombobox.getSelectionModel().select(1);
 		updateChartPane("getArea");
-
 		reportsByCombobox.setOnAction(_ -> {
 			String choice = reportsByCombobox.getSelectionModel().getSelectedItem().toString().trim();
 			switch (choice) {
@@ -323,7 +298,6 @@ public class ReportStatisticsController {
 					break;
 			}
 		});
-
 		reportsByLabel.setText(localization.getLocalizedMessage("ReportStatistics.reportsByLabel", "Reports By:"));
 	}
 
@@ -340,14 +314,12 @@ public class ReportStatisticsController {
 			borderPane.getChildren().remove(nodes.get(0));
 			logDebug("[ReportStats] Removed old AreaChart Node");
 		}
-
 		AreaChart<String, Number> chart = createChart(getMethod);
 		try {
 			updateChart(chart);
 		} catch (IOException e) {
 			logError("[ReportStats] Error updating chart config: ", e);
 		}
-
 		chart.setLegendVisible(false);
 		borderPane.setCenter(chart);
 	}
@@ -356,7 +328,6 @@ public class ReportStatisticsController {
 		String mainclr = ConfigReader.configRead("uiColors", "mainColor");
 		String secclr = ConfigReader.configRead("uiColors", "secondaryColor");
 		String accclr = ConfigReader.configRead("uiColors", "accentColor");
-
 		Set<Node> symbolNodes = chart.lookupAll(".default-color0.chart-area-symbol");
 		for (Node symbolNode : symbolNodes) {
 			symbolNode.setStyle("-fx-background-color: " + secclr + ";");
@@ -365,7 +336,6 @@ public class ReportStatisticsController {
 		fillNode.setStyle("-fx-fill: " + hexToRgba(mainclr, 0.5) + ";");
 		Node lineNode = chart.lookup(".default-color0.chart-series-area-line");
 		lineNode.setStyle("-fx-stroke: " + accclr + ";");
-
 		if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 			xAxis.setTickLabelFill(rgbToHexString(UIDarkColor));
 			yAxis.setTickLabelFill(rgbToHexString(UIDarkColor));
@@ -386,5 +356,4 @@ public class ReportStatisticsController {
 	public Label getReportsByLabel() {
 		return reportsByLabel;
 	}
-
 }

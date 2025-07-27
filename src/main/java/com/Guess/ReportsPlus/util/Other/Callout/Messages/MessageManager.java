@@ -1,18 +1,18 @@
 package com.Guess.ReportsPlus.util.Other.Callout.Messages;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MessageManager {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
-	
+
 	public static String serializeMessages(List<StoredMessage> messages) {
 		if (messages == null || messages.isEmpty()) {
 			return "[]";
@@ -24,7 +24,7 @@ public class MessageManager {
 			return "[]";
 		}
 	}
-	
+
 	public static List<StoredMessage> deserializeMessages(String messagesJson) {
 		if (messagesJson == null || messagesJson.trim().isEmpty() || messagesJson.trim().equals("null")) {
 			return new ArrayList<>();

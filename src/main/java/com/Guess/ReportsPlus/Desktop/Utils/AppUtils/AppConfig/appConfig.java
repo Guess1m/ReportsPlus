@@ -1,20 +1,26 @@
 package com.Guess.ReportsPlus.Desktop.Utils.AppUtils.AppConfig;
 
-import com.Guess.ReportsPlus.config.ConfigReader;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.getDataFolderPath;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Objects;
 import java.util.Properties;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.getDataFolderPath;
+import com.Guess.ReportsPlus.config.ConfigReader;
 
 public class appConfig {
-	
 	static String appConfigFilePath = getDataFolderPath() + "app.properties";
-	
+
 	public static void createAppConfig() {
 		File appConfigFile = new File(appConfigFilePath);
 		if (!appConfigFile.exists()) {
@@ -26,16 +32,14 @@ public class appConfig {
 			}
 		}
 	}
-	
+
 	public static Double appConfigRead(String database, String property) {
 		Properties prop = new Properties();
 		ProtectionDomain protectionDomain = appConfig.class.getProtectionDomain();
 		CodeSource codeSource = protectionDomain.getCodeSource();
 		if (codeSource != null) {
 			try (InputStream input = new FileInputStream(appConfigFilePath)) {
-				
 				prop.load(input);
-				
 				return Double.valueOf(prop.getProperty(database + "." + property));
 			} catch (IOException e) {
 				throw new RuntimeException(e);
@@ -45,18 +49,16 @@ public class appConfig {
 			return null;
 		}
 	}
-	
+
 	public static void checkAndSetDefaultAppValue(String newDatabase, String property, String defaultValue) {
 		try {
 			Properties prop = new Properties();
 			ProtectionDomain protectionDomain = ConfigReader.class.getProtectionDomain();
 			CodeSource codeSource = protectionDomain.getCodeSource();
 			if (codeSource != null) {
-				
 				try (InputStream input = new FileInputStream(appConfigFilePath)) {
 					prop.load(input);
 				}
-				
 				String oldKey = "database." + property;
 				if (prop.containsKey(oldKey)) {
 					String value = prop.getProperty(oldKey);
@@ -65,11 +67,11 @@ public class appConfig {
 				} else if (!prop.containsKey(newDatabase + "." + property)) {
 					prop.setProperty(newDatabase + "." + property, defaultValue);
 				}
-				
 				try (OutputStream output = new FileOutputStream(appConfigFilePath)) {
 					prop.store(output, null);
 				}
-				logDebug("Loaded " + newDatabase + " '" + property + "' with value: " + prop.getProperty(newDatabase + "." + property));
+				logDebug("Loaded " + newDatabase + " '" + property + "' with value: "
+						+ prop.getProperty(newDatabase + "." + property));
 			} else {
 				logError("Unable to determine the location of the JAR file ");
 			}
@@ -77,7 +79,7 @@ public class appConfig {
 			logError("Error reading or writing app.properties file ");
 		}
 	}
-	
+
 	public static void checkAndSetDefaultAppValues() {
 		logInfo("====================== App Config ======================");
 		String x1 = String.valueOf(45.0);
@@ -91,7 +93,6 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Notes", "y", String.valueOf(120.0));
 		checkAndSetDefaultAppValue("Show IDs", "x", x1);
 		checkAndSetDefaultAppValue("Show IDs", "y", String.valueOf(420.0));
-		
 		String x2 = String.valueOf(175.0);
 		checkAndSetDefaultAppValue("New Report", "x", x2);
 		checkAndSetDefaultAppValue("New Report", "y", String.valueOf(220.0));
@@ -101,7 +102,6 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Veh Lookup", "y", String.valueOf(120.0));
 		checkAndSetDefaultAppValue("ALPR", "x", x2);
 		checkAndSetDefaultAppValue("ALPR", "y", String.valueOf(320.0));
-		
 		String x3 = String.valueOf(305.0);
 		checkAndSetDefaultAppValue("Server", "x", x3);
 		checkAndSetDefaultAppValue("Server", "y", String.valueOf(20.0));
@@ -109,7 +109,6 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Settings", "y", String.valueOf(220.0));
 		checkAndSetDefaultAppValue("Updates", "x", x3);
 		checkAndSetDefaultAppValue("Updates", "y", String.valueOf(120.0));
-		
 		String x4 = String.valueOf(420.0);
 		checkAndSetDefaultAppValue("Profile", "x", x4);
 		checkAndSetDefaultAppValue("Profile", "y", String.valueOf(20.0));
@@ -117,12 +116,11 @@ public class appConfig {
 		checkAndSetDefaultAppValue("Report Statistics", "y", String.valueOf(120.0));
 		logInfo("=========================================================");
 	}
-	
+
 	public static void appConfigWrite(String database, String property, String value) {
 		Properties prop = new Properties();
 		OutputStream output = null;
 		FileInputStream input = null;
-		
 		try {
 			input = new FileInputStream(appConfigFilePath);
 			prop.load(input);
@@ -137,7 +135,6 @@ public class appConfig {
 				}
 			}
 		}
-		
 		try {
 			prop.setProperty(database + "." + property, value);
 			output = new FileOutputStream(Objects.requireNonNull(appConfigFilePath));
@@ -154,5 +151,4 @@ public class appConfig {
 			}
 		}
 	}
-	
 }

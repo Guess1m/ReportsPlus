@@ -59,9 +59,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 public class NewReportVewController {
-
 	public static NewReportVewController newReportVewController;
-
 	@FXML
 	private BorderPane root;
 	@FXML
@@ -80,7 +78,6 @@ public class NewReportVewController {
 				"Arrest Report", "Accident Report", "Callout Report",
 				"Death Report", "Impound Report", "Incident Report", "Patrol Report", "Search Report",
 				"Traffic Stop Report");
-
 		legacyReportsComboBox.setOnAction(_ -> {
 			String selectedReport = legacyReportsComboBox.getSelectionModel().getSelectedItem();
 			if (selectedReport == null)
@@ -122,10 +119,8 @@ public class NewReportVewController {
 			}
 			closeWindow();
 		});
-
 		addLocale();
 		refreshCustomReports();
-
 		importDefaultBtn.setOnAction(_ -> {
 			logInfo("NewReport; Importing default reports");
 			CustomReportUtilities.addDefaultReports();
@@ -141,11 +136,9 @@ public class NewReportVewController {
 				mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
-
 		LayoutBuilderController.layoutBuilderController = (LayoutBuilderController) (layoutWindow != null
 				? layoutWindow.controller
 				: null);
-
 		closeWindow();
 	}
 
@@ -167,7 +160,6 @@ public class NewReportVewController {
 			logError("Error loading database buttons", e);
 		}
 		logDebug("NewReport; ---------- Finished Loading Databases ----------");
-
 	}
 
 	private boolean loadDatabaseButtons(String dataFolderPath, GridPane gridPane) throws IOException {
@@ -176,58 +168,44 @@ public class NewReportVewController {
 			logError("NewReport; Invalid data folder path: " + dataFolderPath);
 			return false;
 		}
-
 		File[] files = folder.listFiles((dir, name) -> name.endsWith(".db"));
 		if (files == null || files.length == 0) {
 			logInfo("NewReport; No database files found in: " + dataFolderPath);
 			return false;
 		}
-
 		logInfo("NewReport; Found " + files.length + " database files in: " + dataFolderPath);
-
 		gridPane.setHgap(20);
 		gridPane.setVgap(20);
-
 		ColumnConstraints col1 = new ColumnConstraints();
 		col1.setHgrow(Priority.SOMETIMES);
 		col1.setPercentWidth(50.0);
-
 		ColumnConstraints col2 = new ColumnConstraints();
 		col2.setHgrow(Priority.SOMETIMES);
 		col2.setPercentWidth(50.0);
-
 		gridPane.getColumnConstraints().addAll(col1, col2);
-
 		int buttonCount = 0;
 		for (File dbFile : files) {
 			String dbFilePath = dbFile.getAbsolutePath();
-
 			if (!isValidDatabase(dbFilePath, dbFile.getName())) {
 				logWarn("NewReport; Invalid or unreadable database file: " + dbFilePath);
 				continue;
 			}
-
 			logInfo("NewReport; [" + dbFile.getName() + "] Valid database detected, creating button.");
 			String buttonText = dbFile.getName().replace(".db", "");
-
 			Button dbButton = new Button(buttonText);
 			dbButton.setMaxWidth(Double.MAX_VALUE);
 			dbButton.getStyleClass().add("custom-report-button");
-
 			dbButton.setOnAction(e -> {
 				logDebug("NewReport; Clicked Database: " + dbFile.getName());
 				String reportTitle = dbFile.getName().replace(".db", "").trim();
 				createFolderIfNotExists(getCustomDataLogsFolderPath());
-
 				if (reportTitle.isEmpty()) {
 					logError("LayoutBuilder; Report Title Field is Empty");
 					return;
 				}
-
 				String data;
 				Map<String, String> layoutScheme;
 				Map<String, String> reportSchema;
-
 				try {
 					data = getPrimaryKeyColumn(dbFilePath, "data");
 					layoutScheme = DynamicDB.getTableColumnsDefinition(dbFilePath, "layout");
@@ -236,24 +214,18 @@ public class NewReportVewController {
 					logError("Failed to extract schemas from database: " + dbFile.getName(), ex);
 					return;
 				}
-
 				new CustomReport(reportTitle, data, layoutScheme, reportSchema, null, null);
 				closeWindow();
 			});
-
 			Button deleteButton = new Button("X");
 			deleteButton.getStyleClass().add("removeButton");
 			deleteButton.setStyle("-fx-font-size: 10;");
-
 			deleteButton.setOnAction(_ -> showConfirmDeleteWindow(dbFile, buttonText));
-
 			HBox buttonContainer = new HBox(3, dbButton, deleteButton);
 			buttonContainer.setAlignment(Pos.CENTER);
 			HBox.setHgrow(dbButton, Priority.ALWAYS);
-
 			int column = buttonCount % 2;
 			int row = buttonCount / 2;
-
 			if (column == 0) {
 				RowConstraints rowConstraints = new RowConstraints();
 				rowConstraints.setMinHeight(Region.USE_COMPUTED_SIZE);
@@ -261,11 +233,9 @@ public class NewReportVewController {
 				rowConstraints.setVgrow(Priority.NEVER);
 				gridPane.getRowConstraints().add(rowConstraints);
 			}
-
 			gridPane.add(buttonContainer, column, row);
 			GridPane.setHalignment(buttonContainer, HPos.CENTER);
 			GridPane.setValignment(buttonContainer, VPos.CENTER);
-
 			buttonCount++;
 		}
 		return buttonCount > 0;
@@ -278,30 +248,24 @@ public class NewReportVewController {
 		message.setPrefHeight(Region.USE_COMPUTED_SIZE);
 		message.setStyle("-fx-font-family: \"Inter 28pt Bold\"; -fx-font-size: 14;");
 		message.setPrefWidth(Region.USE_COMPUTED_SIZE);
-
 		Button yesBtn = new Button(localization.getLocalizedMessage("Callout_Manager.DelCalloutButton", "Delete"));
 		yesBtn.setStyle("-fx-background-color:rgb(135, 69, 69); -fx-text-fill: white;");
-
 		Button noBtn = new Button(localization.getLocalizedMessage("NewReportApp.CancelButton", "Cancel"));
 		noBtn.setStyle("-fx-background-color:rgb(92, 142, 93); -fx-text-fill: white;");
 		HBox buttonBox = new HBox(10, yesBtn, noBtn);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
 		VBox dialogContent = new VBox(20, message, buttonBox);
 		dialogContent.setPadding(new Insets(10));
 		dialogContent.setStyle("-fx-background-color: #F4F4F4;");
 		VBox.setVgrow(buttonBox, Priority.ALWAYS);
-
 		BorderPane layoutPane = new BorderPane();
 		layoutPane.setCenter(dialogContent);
 		layoutPane.setPrefSize(550, Region.USE_COMPUTED_SIZE);
-
 		CustomWindow confirmDialog = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 				layoutPane, "Confirm Deletion", true, 1, true, true,
 				mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/report.png"))));
-
 		yesBtn.setOnAction(_ -> {
 			confirmDialog.closeWindow();
 			if (fileToDelete.delete()) {
@@ -315,7 +279,6 @@ public class NewReportVewController {
 				errorAlert.showAndWait();
 			}
 		});
-
 		noBtn.setOnAction(_ -> confirmDialog.closeWindow());
 	}
 

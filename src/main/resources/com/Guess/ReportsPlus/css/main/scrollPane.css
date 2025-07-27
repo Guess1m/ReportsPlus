@@ -1,50 +1,49 @@
-
 .scroll-pane {
-    -fx-background: white;
+  -fx-background: white;
 }
 
 .scroll-pane .corner {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 14px;
+  -fx-background-color: transparent;
+  -fx-pref-width: 14px;
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #5E7387;
-    -fx-min-height: 14px;
+  -fx-background-color: #5e7387;
+  -fx-min-height: 14px;
 }
 
 .scroll-bar:vertical .increment-button,
 .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .scroll-bar:horizontal {
-    -fx-background-color: transparent;
-    -fx-pref-height: 14px;
+  -fx-background-color: transparent;
+  -fx-pref-height: 14px;
 }
 
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: #5E7387;
-    -fx-min-width: 14px;
+  -fx-background-color: #5e7387;
+  -fx-min-width: 14px;
 }
 
 .scroll-bar:horizontal .increment-button,
 .scroll-bar:horizontal .decrement-button {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .scroll-bar .track {
-    -fx-background-color: none;
+  -fx-background-color: none;
 }
 
 .scroll-bar:vertical:pressed .thumb {
-    -fx-background-color: #34404B;
+  -fx-background-color: #34404b;
 }
 
 .scroll-bar:horizontal:pressed .thumb {
-    -fx-background-color: #34404B;
+  -fx-background-color: #34404b;
 }

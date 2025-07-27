@@ -1,19 +1,19 @@
 .formField3 {
-    -fx-text-fill: white !important;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 16px;
-    -fx-background-color: rgb(242, 242, 242, 0.6);
-    -fx-prompt-text-fill: rgb(200, 200, 200, 0.6) !important;
-    -fx-background-insets: 0;
-    -fx-padding: 8px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: #262626;
+  -fx-text-fill: white !important;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 16px;
+  -fx-background-color: rgb(242, 242, 242, 0.6);
+  -fx-prompt-text-fill: rgb(200, 200, 200, 0.6) !important;
+  -fx-background-insets: 0;
+  -fx-padding: 8px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: #262626;
 }
 
 .formField3:focused {
-    -fx-border-color: #E6E6E6;
-    -fx-border-width: 0 0 3px 0;
-    -fx-background-color: rgb(242, 242, 242);
-    -fx-effect: none;
+  -fx-border-color: #e6e6e6;
+  -fx-border-width: 0 0 3px 0;
+  -fx-background-color: rgb(242, 242, 242);
+  -fx-effect: none;
 }

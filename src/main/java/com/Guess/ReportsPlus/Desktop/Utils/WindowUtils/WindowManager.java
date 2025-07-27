@@ -37,7 +37,6 @@ public class WindowManager {
 			if (fxmlUrl == null) {
 				throw new RuntimeException("FXML file not found: " + fileName);
 			}
-
 			CustomWindow customWindow = new CustomWindow(fileName, title, resizable, priority, taskBarApps, root,
 					image);
 			if (customWindow.getWindowPane() != null) {
@@ -45,38 +44,29 @@ public class WindowManager {
 					if (root != null) {
 						Platform.runLater(() -> {
 							windows.put(title, customWindow);
-
 							double screenWidth = root.getWidth();
 							double screenHeight = root.getHeight();
-
 							double fxmlWidth = customWindow.getWindowPane().prefWidth(-1);
 							double fxmlHeight = customWindow.getWindowPane().prefHeight(-1);
-
 							if (fxmlWidth <= 0 || fxmlHeight <= 0) {
 								fxmlWidth = customWindow.getWindowPane().getLayoutBounds().getWidth();
 								fxmlHeight = customWindow.getWindowPane().getLayoutBounds().getHeight();
 							}
-
 							if (fxmlWidth <= 0) {
 								fxmlWidth = 800;
 							}
 							if (fxmlHeight <= 0) {
 								fxmlHeight = 600;
 							}
-
 							double scaleByWidth = (screenWidth * 0.8) / fxmlWidth;
 							double scaleByHeight = (screenHeight * 0.75) / fxmlHeight;
 							double scale = Math.min(scaleByWidth, scaleByHeight);
-
 							if (scale > 1) {
 								scale = 1;
 							}
-
 							double windowWidth = fxmlWidth * scale;
 							double windowHeight = fxmlHeight * scale;
-
 							customWindow.setSize(windowWidth, windowHeight);
-
 							double[] savedPosition = windowPositions.get(title);
 							try {
 								if (savedPosition != null && ConfigReader
@@ -89,7 +79,6 @@ public class WindowManager {
 								logError("Error getting config value desktopSettings.saveWindowPosition for: " + title,
 										e);
 							}
-
 							double[] savedSize = windowSizes.get(title);
 							try {
 								if (savedSize != null && ConfigReader.configRead("desktopSettings", "saveWindowSize")
@@ -99,9 +88,7 @@ public class WindowManager {
 							} catch (IOException e) {
 								logError("Error getting config value desktopSettings.saveWindowSize for: " + title, e);
 							}
-
 							customWindow.bringToFront();
-
 							Platform.runLater(() -> {
 								root.getChildren().add(customWindow.getWindowPane());
 							});
@@ -123,11 +110,9 @@ public class WindowManager {
 				windowPositions.put(title, new double[] { x, y });
 				windowSizes.put(title, new double[] { customWindow.getWindowPane().getWidth(),
 						customWindow.getWindowPane().getHeight() });
-
 				LogUtils.logWarn(customWindow.title + " is already created, closing");
 				customWindow.closeWindow();
 				windows.remove(title);
-
 				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false,
 						taskBarApps, image);
 			}
@@ -140,42 +125,32 @@ public class WindowManager {
 		logInfo("Creating Window: " + title);
 		if (!windows.containsKey(title)) {
 			CustomWindow customWindow = new CustomWindow(window, title, resizable, priority, taskBarApps, root, image);
-
 			if (root != null) {
 				Platform.runLater(() -> {
 					windows.put(title, customWindow);
-
 					double screenWidth = root.getWidth();
 					double screenHeight = root.getHeight();
-
 					double fxmlWidth = customWindow.getWindowPane().prefWidth(-1);
 					double fxmlHeight = customWindow.getWindowPane().prefHeight(-1);
-
 					if (fxmlWidth <= 0 || fxmlHeight <= 0) {
 						fxmlWidth = customWindow.getWindowPane().getLayoutBounds().getWidth();
 						fxmlHeight = customWindow.getWindowPane().getLayoutBounds().getHeight();
 					}
-
 					if (fxmlWidth <= 0) {
 						fxmlWidth = 800;
 					}
 					if (fxmlHeight <= 0) {
 						fxmlHeight = 600;
 					}
-
 					double scaleByWidth = (screenWidth * 0.8) / fxmlWidth;
 					double scaleByHeight = (screenHeight * .75) / fxmlHeight;
 					double scale = Math.min(scaleByWidth, scaleByHeight);
-
 					if (scale > 1) {
 						scale = 1;
 					}
-
 					double windowWidth = fxmlWidth * scale;
 					double windowHeight = fxmlHeight * scale;
-
 					customWindow.setSize(windowWidth, windowHeight);
-
 					double[] savedPosition = windowPositions.get(title);
 					try {
 						if (savedPosition != null && ConfigReader.configRead("desktopSettings", "saveWindowPosition")
@@ -187,7 +162,6 @@ public class WindowManager {
 					} catch (IOException e) {
 						logError("Error getting config value desktopSettings.saveWindowPosition for: " + title, e);
 					}
-
 					double[] savedSize = windowSizes.get(title);
 					try {
 						if (savedSize != null && ConfigReader.configRead("desktopSettings", "saveWindowSize")
@@ -197,10 +171,8 @@ public class WindowManager {
 					} catch (IOException e) {
 						logError("Error getting config value desktopSettings.saveWindowSize for: " + title, e);
 					}
-
 					customWindow.bringToFront();
 					root.getChildren().add(customWindow.getWindowPane());
-
 				});
 			}
 			return customWindow;
@@ -213,11 +185,9 @@ public class WindowManager {
 				windowPositions.put(title, new double[] { x, y });
 				windowSizes.put(title, new double[] { customWindow.getWindowPane().getWidth(),
 						customWindow.getWindowPane().getHeight() });
-
 				LogUtils.logWarn(customWindow.title + " is already created, closing");
 				customWindow.closeWindow();
 				windows.remove(title);
-
 				return createCustomWindow(root, window, title, resizable, priority, centerOnDesktop, false, taskBarApps,
 						image);
 			} else {

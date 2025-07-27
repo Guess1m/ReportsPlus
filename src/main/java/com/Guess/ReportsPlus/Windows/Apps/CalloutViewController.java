@@ -73,9 +73,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class CalloutViewController {
-
 	public static CalloutViewController calloutViewController;
-
 	@FXML
 	private BorderPane root;
 	@FXML
@@ -146,7 +144,6 @@ public class CalloutViewController {
 	private TextField callInfoCommentField;
 	@FXML
 	private Button callInfoTypeSend;
-
 	private CalloutDisplayItem selectedCallout;
 	private boolean inActiveCallout;
 
@@ -154,7 +151,6 @@ public class CalloutViewController {
 		if (priority == null) {
 			return "black";
 		}
-
 		String highPriority = "code3";
 		String mediumPriority = "code2";
 		String lowPriority = "code1";
@@ -167,7 +163,6 @@ public class CalloutViewController {
 		} catch (IOException e) {
 			logError("CalloutManager; Error reading priority values from config: ", e);
 		}
-
 		String highValue = "#FF3B30";
 		String mediumValue = "#FF9500";
 		String lowValue = "#34C759";
@@ -180,7 +175,6 @@ public class CalloutViewController {
 		} catch (IOException e) {
 			logError("CalloutManager; Error reading priority colors from config: ", e);
 		}
-
 		if (priority.equalsIgnoreCase(highPriority)) {
 			return highValue;
 		} else if (priority.equalsIgnoreCase(mediumPriority)) {
@@ -201,12 +195,9 @@ public class CalloutViewController {
 			cell.setStyle("");
 			return;
 		}
-
 		cell.setText(textValue);
-
 		String styleToApply = "-fx-text-fill: " + getTextColorForPriority(null)
 				+ ";  -fx-font-family: 'Inter 24pt Regular';";
-
 		if (rowItem != null) {
 			String priority = rowItem.getPriority();
 			styleToApply = "-fx-text-fill: " + getTextColorForPriority(priority)
@@ -233,30 +224,24 @@ public class CalloutViewController {
 
 	public void initialize() {
 		calloutViewController = this;
-
 		setupActiveCalloutsTable();
 		setupHistoryCalloutsTable();
-
 		CalloutManager.loadActiveCallouts(activeCalloutsTable);
 		CalloutManager.loadHistoryCallouts(historyCalloutsTable);
-
 		inActiveCallout = true;
 		displayActiveCallsBtn.setSelected(true);
 		activeCalloutsTable.setVisible(true);
 		historyCalloutsContainer.setVisible(false);
 		callInfoContainer.setVisible(false);
-
 		callInfoCommentField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				onSendNoteClick(new ActionEvent());
 			}
 		});
-
 		displayActiveCallsBtn.setOnAction(event -> {
 			if (!displayActiveCallsBtn.isSelected()) {
 				displayActiveCallsBtn.setSelected(true);
 			}
-
 			inActiveCallout = true;
 			activeCalloutsTable.setVisible(true);
 			historyCalloutsContainer.setVisible(false);
@@ -265,12 +250,10 @@ public class CalloutViewController {
 			CalloutManager.loadActiveCallouts(activeCalloutsTable);
 			activeCalloutsTable.getSelectionModel().clearSelection();
 		});
-
 		displayCallHistoryBtn.setOnAction(event -> {
 			if (!displayCallHistoryBtn.isSelected()) {
 				displayCallHistoryBtn.setSelected(true);
 			}
-
 			inActiveCallout = false;
 			historyCalloutsContainer.setVisible(true);
 			activeCalloutsTable.setVisible(false);
@@ -279,21 +262,18 @@ public class CalloutViewController {
 			CalloutManager.loadHistoryCallouts(historyCalloutsTable);
 			historyCalloutsTable.getSelectionModel().clearSelection();
 		});
-
 		activeCalloutsTable.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
 						showCallDetails(newSelection);
 					}
 				});
-
 		historyCalloutsTable.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
 						showCallDetails(newSelection);
 					}
 				});
-
 		Platform.runLater(() -> {
 			loadLocale();
 		});
@@ -308,7 +288,6 @@ public class CalloutViewController {
 		callInfoTime.setText(localization.getLocalizedMessage("Callout_Manager.CalloutTime", "Time"));
 		callInfoPriority.setText(localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority"));
 		callInfoType.setText(localization.getLocalizedMessage("Callout_Manager.CalloutType", "Type"));
-
 		callInfoTypeSend.setText(localization.getLocalizedMessage("Callout_Manager.SendButton", "Send"));
 		displayActiveCallsBtn
 				.setText(localization.getLocalizedMessage("Callout_Manager.ActiveCallsLabel", "Active Calls"));
@@ -325,7 +304,6 @@ public class CalloutViewController {
 		activeCalloutsTable.setVisible(false);
 		historyCalloutsContainer.setVisible(false);
 		callInfoContainer.setVisible(true);
-
 		callInfoNumberField.setText(callout.getNumber());
 		callInfoTypeField.setText(callout.getType());
 		callInfoPriorityField.setText(callout.getPriority());
@@ -334,9 +312,7 @@ public class CalloutViewController {
 		callInfoCountyField.setText(callout.getCounty());
 		callInfoDateField.setText(callout.getStartDate());
 		callInfoTimeField.setText(callout.getStartTime());
-
 		refreshNotesForCallout(callout);
-
 		selectedCallout = callout;
 	}
 
@@ -346,12 +322,10 @@ public class CalloutViewController {
 			notesContainer.getChildren().add(createCalloutNote(callout.getStartDate(), callout.getStartTime(),
 					"DISPATCH", callout.getDescription(), null, callout));
 		}
-
 		if (callout.getMessage() != null && !callout.getMessage().isEmpty()) {
 			notesContainer.getChildren().add(createCalloutNote(callout.getStartDate(), callout.getStartTime(),
 					"DISPATCH", callout.getMessage(), null, callout));
 		}
-
 		for (StoredMessage storedMessage : callout.getStoredMessages()) {
 			notesContainer.getChildren().add(createCalloutNote(storedMessage.getDate(), storedMessage.getTime(),
 					storedMessage.getSender(), storedMessage.getMessage(), storedMessage, callout));
@@ -368,9 +342,7 @@ public class CalloutViewController {
 			logError("Could not load callout note template", e);
 			return null;
 		}
-
 		GridPane anchorPane = (GridPane) anchorPaneParent;
-
 		GridPane container = (GridPane) anchorPane.lookup("#notesTemplateContainer");
 		Label datelbl = (Label) anchorPane.lookup("#notesTemplateDate");
 		Label timelbl = (Label) anchorPane.lookup("#notesTemplateTime");
@@ -378,11 +350,9 @@ public class CalloutViewController {
 		Label textlbl = (Label) anchorPane.lookup("#notesTemplateText");
 		Button deleteButton = (Button) anchorPane.lookup("#deleteNoteButton");
 		deleteButton.setVisible(false);
-
 		datelbl.setStyle("-fx-font-family: 'Inter 24pt Regular';");
 		timelbl.setStyle("-fx-font-family: 'Inter 24pt Regular';");
 		textlbl.setStyle("-fx-font-family: 'Inter 24pt Regular';");
-
 		if (container != null && datelbl != null && timelbl != null && senderlbl != null && textlbl != null) {
 			datelbl.setText(date);
 			timelbl.setText(time);
@@ -397,22 +367,18 @@ public class CalloutViewController {
 		} catch (IOException e) {
 			logError("Could not read config for secondary/accent, using default: ", e);
 		}
-
 		if (message != null) {
 			deleteButton.setVisible(true);
 			deleteButton.setOnAction(event -> {
 				callout.removeStoredMessage(message);
-
 				if (inActiveCallout) {
 					CalloutManager.updateCallout(calloutDataURL, callout);
 				} else {
 					CalloutManager.updateCallout(calloutHistoryURL, callout);
 				}
-
 				refreshNotesForCallout(callout);
 			});
 		}
-
 		try {
 			if (ConfigReader.configRead("uiColors", "UIDarkMode").equalsIgnoreCase("true")) {
 				container.setStyle("-fx-background-color: rgb(0,0,0,0.05); -fx-border-color: " + accclr
@@ -434,7 +400,6 @@ public class CalloutViewController {
 		} catch (IOException e) {
 			logError("Error loading uiColors.UIDarkMode from createCalloutNote: ", e);
 		}
-
 		return anchorPane;
 	}
 
@@ -444,54 +409,44 @@ public class CalloutViewController {
 				new Label(localization.getLocalizedMessage("Callout_Manager.NoActiveCallouts", "No active callouts.")));
 		activeCalloutsTable.getItems().clear();
 		activeCalloutsTable.getColumns().clear();
-
 		Callback<TableColumn<CalloutDisplayItem, String>, TableCell<CalloutDisplayItem, String>> priorityStyledCellFactory = createPriorityStyledCellFactory();
-
 		TableColumn<CalloutDisplayItem, String> numberCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutNumberShort", "Call#"));
 		numberCol.setCellValueFactory(new PropertyValueFactory<>("number"));
 		numberCol.setPrefWidth(50);
 		numberCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> streetCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutStreet", "Street"));
 		streetCol.setCellValueFactory(new PropertyValueFactory<>("street"));
 		streetCol.setPrefWidth(120);
 		streetCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> areaCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutArea", "Area"));
 		areaCol.setCellValueFactory(new PropertyValueFactory<>("area"));
 		areaCol.setPrefWidth(90);
 		areaCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> countyCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutCounty", "County"));
 		countyCol.setCellValueFactory(new PropertyValueFactory<>("county"));
 		countyCol.setPrefWidth(80);
 		countyCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> typeCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutType", "Type"));
 		typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 		typeCol.setPrefWidth(150);
 		typeCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> priorityCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority"));
 		priorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
 		priorityCol.setPrefWidth(80);
 		priorityCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> statusCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status"));
 		statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 		statusCol.setPrefWidth(110);
 		statusCol.setEditable(true);
-
 		statusCol.setCellFactory(column -> new TableCell<>() {
 			private final ComboBox<String> statusDropdown = new ComboBox<>();
-
 			{
 				String[] statuses = { "Responded", "Not Responded" };
 				statusDropdown.getItems().addAll(statuses);
@@ -504,13 +459,11 @@ public class CalloutViewController {
 					logError("CSS for ComboBox not found: css/callout/calloutManager.css", e);
 				}
 				statusDropdown.setPrefWidth(Double.MAX_VALUE);
-
 				statusDropdown.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
 					if (newVal != null) {
 						updateComboBoxStyle(newVal);
 					}
 				});
-
 				statusDropdown.setOnAction(event -> {
 					if (getTableRow() != null && getTableRow().getItem() != null) {
 						CalloutDisplayItem item = getTableRow().getItem();
@@ -538,7 +491,6 @@ public class CalloutViewController {
 			}
 
 			private void updateComboBoxStyle(String status) {
-
 				statusDropdown.pseudoClassStateChanged(PseudoClass.getPseudoClass("responded"),
 						status.equals("Responded"));
 				statusDropdown.pseudoClassStateChanged(PseudoClass.getPseudoClass("notresponded"),
@@ -560,7 +512,6 @@ public class CalloutViewController {
 				}
 			}
 		});
-
 		TableColumn<CalloutDisplayItem, Void> actionCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.Actions", "Actions"));
 		actionCol.setPrefWidth(110);
@@ -568,7 +519,6 @@ public class CalloutViewController {
 			return new TableCell<>() {
 				private final Button btn = new Button(
 						localization.getLocalizedMessage("Callout_Manager.CloseCalloutButton", "Close Callout"));
-
 				{
 					try {
 						String defStyle = "-fx-background-color: "
@@ -579,7 +529,6 @@ public class CalloutViewController {
 						logError("Error loading uiColors.secondaryColor (for close button): ", e);
 						btn.setStyle("-fx-padding: 3 10 3 10;");
 					}
-
 					btn.setOnAction((ActionEvent event) -> {
 						CalloutDisplayItem item = getTableView().getItems().get(getIndex());
 						if (item != null) {
@@ -589,7 +538,6 @@ public class CalloutViewController {
 									item.getStatus(),
 									item.getMessages());
 							CalloutManager.deleteCallout(URLStrings.calloutDataURL, item.getNumber());
-
 							CalloutManager.loadActiveCallouts(activeCalloutsTable);
 							CalloutManager.loadHistoryCallouts(historyCalloutsTable);
 						}
@@ -609,7 +557,6 @@ public class CalloutViewController {
 			};
 		};
 		actionCol.setCellFactory(cellFactory);
-
 		activeCalloutsTable.getColumns().addAll(numberCol, streetCol, areaCol, countyCol, typeCol, priorityCol,
 				statusCol, actionCol);
 		for (TableColumn<CalloutDisplayItem, ?> column : activeCalloutsTable.getColumns()) {
@@ -624,45 +571,37 @@ public class CalloutViewController {
 				new Label(localization.getLocalizedMessage("Callout_Manager.NoCalloutHistory", "No callout history.")));
 		historyCalloutsTable.getItems().clear();
 		historyCalloutsTable.getColumns().clear();
-
 		Callback<TableColumn<CalloutDisplayItem, String>, TableCell<CalloutDisplayItem, String>> priorityStyledCellFactory = createPriorityStyledCellFactory();
-
 		TableColumn<CalloutDisplayItem, String> numberCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutNumberShort", "Call#"));
 		numberCol.setCellValueFactory(new PropertyValueFactory<>("number"));
 		numberCol.setPrefWidth(50);
 		numberCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> streetCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutStreet", "Street"));
 		streetCol.setCellValueFactory(new PropertyValueFactory<>("street"));
 		streetCol.setPrefWidth(120);
 		streetCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> areaCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutArea", "Area"));
 		areaCol.setCellValueFactory(new PropertyValueFactory<>("area"));
 		areaCol.setPrefWidth(90);
 		areaCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> countyCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutCounty", "County"));
 		countyCol.setCellValueFactory(new PropertyValueFactory<>("county"));
 		countyCol.setPrefWidth(80);
 		countyCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> typeCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutType", "Type"));
 		typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 		typeCol.setPrefWidth(150);
 		typeCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> priorityCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutPriority", "Priority"));
 		priorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
 		priorityCol.setPrefWidth(80);
 		priorityCol.setCellFactory(priorityStyledCellFactory);
-
 		TableColumn<CalloutDisplayItem, String> statusCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.CalloutStatus", "Status"));
 		statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -679,9 +618,7 @@ public class CalloutViewController {
 					Label statusLabel = new Label();
 					String baseStyle = "-fx-padding: 3px 7px; -fx-background-radius: 4px; -fx-border-radius: 4px;";
 					statusLabel.setText(statusValue);
-
 					String priorityTextColor = getTextColorForPriority(null);
-
 					String finalLabelStyle;
 					if ("Not Responded".equals(statusValue)) {
 						finalLabelStyle = baseStyle
@@ -690,19 +627,16 @@ public class CalloutViewController {
 						finalLabelStyle = baseStyle
 								+ "-fx-text-fill: white; -fx-background-color: #38a169;  -fx-font-family: 'Inter 24pt Regular';";
 					} else {
-
 						finalLabelStyle = baseStyle + "-fx-background-color: #e2e8f0; -fx-text-fill: "
 								+ priorityTextColor + "; -fx-font-family: 'Inter 24pt Regular';";
 					}
 					statusLabel.setStyle(finalLabelStyle);
-
 					setGraphic(statusLabel);
 					setText(null);
 					setAlignment(Pos.CENTER_LEFT);
 				}
 			}
 		});
-
 		TableColumn<CalloutDisplayItem, Void> actionCol = new TableColumn<>(
 				localization.getLocalizedMessage("Callout_Manager.Actions", "Actions"));
 		actionCol.setPrefWidth(130);
@@ -713,7 +647,6 @@ public class CalloutViewController {
 				private final Button deleteHistoryBtn = new Button(
 						localization.getLocalizedMessage("Callout_Manager.DelCalloutButton", "Delete"));
 				private final HBox buttonsPane = new HBox(5);
-
 				{
 					buttonsPane.setAlignment(Pos.CENTER);
 					try {
@@ -726,13 +659,10 @@ public class CalloutViewController {
 						createReportBtn.setStyle("-fx-padding: 3 10 3 10;");
 					}
 					createReportBtn.setMinWidth(Region.USE_PREF_SIZE);
-
 					String deleteBtnStyle = "-fx-background-color: tomato; -fx-text-fill: white; -fx-padding: 3 10;";
 					deleteHistoryBtn.setStyle(deleteBtnStyle);
 					deleteHistoryBtn.setMinWidth(Region.USE_PREF_SIZE);
-
 					buttonsPane.getChildren().addAll(createReportBtn, deleteHistoryBtn);
-
 					createReportBtn.setOnAction((ActionEvent event) -> {
 						CalloutDisplayItem item = getTableView().getItems().get(getIndex());
 						if (item != null) {
@@ -740,7 +670,6 @@ public class CalloutViewController {
 							Map<String, Object> calloutControls = (Map<String, Object>) calloutReportObj
 									.get(localization.getLocalizedMessage("ReportWindows.CalloutReportTitle",
 											"Callout Report") + " Map");
-
 							((TextField) calloutControls.get(localization
 									.getLocalizedMessage("ReportWindows.CalloutNumberField", "callout num")))
 									.setText(item.getNumber());
@@ -774,7 +703,6 @@ public class CalloutViewController {
 									.setText(item.getPriority());
 						}
 					});
-
 					deleteHistoryBtn.setOnAction((ActionEvent event) -> {
 						CalloutDisplayItem item = getTableView().getItems().get(getIndex());
 						if (item != null) {
@@ -798,7 +726,6 @@ public class CalloutViewController {
 			};
 		};
 		actionCol.setCellFactory(cellFactory);
-
 		historyCalloutsTable.getColumns().addAll(numberCol, streetCol, areaCol, countyCol, typeCol, priorityCol,
 				statusCol, actionCol);
 		for (TableColumn<CalloutDisplayItem, ?> column : historyCalloutsTable.getColumns()) {
@@ -934,16 +861,13 @@ public class CalloutViewController {
 		createCallLayout.setPadding(new Insets(5));
 		createCallLayout.setAlignment(Pos.CENTER);
 		createCallLayout.setStyle("-fx-background-color: #f4f6f8;");
-
 		GridPane formGrid = new GridPane();
 		formGrid.setHgap(10);
 		formGrid.setVgap(7);
 		formGrid.setAlignment(Pos.CENTER);
-
 		int rowIndex = 0;
 		String labelStyle = "-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-font-family: 'Inter 24pt Regular';";
 		String fieldStyle = "-fx-font-size: 13px; -fx-border-color: #bdc3c7; -fx-border-radius: 3; -fx-background-radius: 3; -fx-font-family: 'Inter 24pt Regular';";
-
 		Label numberLabel = new Label(localization.getLocalizedMessage("Callout_Manager.CalloutNumber", "Number:"));
 		numberLabel.setStyle(labelStyle);
 		TextField numberField = new TextField(generateRandomNumber(5));
@@ -951,14 +875,12 @@ public class CalloutViewController {
 		numberField.setStyle(fieldStyle);
 		formGrid.add(numberLabel, 0, rowIndex);
 		formGrid.add(numberField, 1, rowIndex++);
-
 		Label typeLabel = new Label(localization.getLocalizedMessage("CalloutPopup.TypeLabel", "Type:"));
 		typeLabel.setStyle(labelStyle);
 		TextField typeField = new TextField();
 		typeField.setStyle(fieldStyle);
 		formGrid.add(typeLabel, 0, rowIndex);
 		formGrid.add(typeField, 1, rowIndex++);
-
 		Label priorityLabel = new Label(localization.getLocalizedMessage("CalloutPopup.PriorityLabel", "Priority:"));
 		priorityLabel.setStyle(labelStyle);
 		ComboBox<String> priorityComboBox = new ComboBox<>();
@@ -977,28 +899,24 @@ public class CalloutViewController {
 		priorityComboBox.setPrefWidth(Double.MAX_VALUE);
 		formGrid.add(priorityLabel, 0, rowIndex);
 		formGrid.add(priorityComboBox, 1, rowIndex++);
-
 		Label streetLabel = new Label(localization.getLocalizedMessage("CalloutPopup.Streetlabel", "Street:"));
 		streetLabel.setStyle(labelStyle);
 		TextField streetField = new TextField();
 		streetField.setStyle(fieldStyle);
 		formGrid.add(streetLabel, 0, rowIndex);
 		formGrid.add(streetField, 1, rowIndex++);
-
 		Label areaLabel = new Label(localization.getLocalizedMessage("CalloutPopup.AreaLabel", "Area:"));
 		areaLabel.setStyle(labelStyle);
 		TextField areaField = new TextField();
 		areaField.setStyle(fieldStyle);
 		formGrid.add(areaLabel, 0, rowIndex);
 		formGrid.add(areaField, 1, rowIndex++);
-
 		Label countyLabel = new Label(localization.getLocalizedMessage("CalloutPopup.CountyLabel", "County:"));
 		countyLabel.setStyle(labelStyle);
 		TextField countyField = new TextField();
 		countyField.setStyle(fieldStyle);
 		formGrid.add(countyLabel, 0, rowIndex);
 		formGrid.add(countyField, 1, rowIndex++);
-
 		Label startDateLabel = new Label(localization.getLocalizedMessage("CalloutPopup.DateLabel", "Date:"));
 		startDateLabel.setStyle(labelStyle);
 		TextField startDatePicker = new TextField(getDate());
@@ -1007,7 +925,6 @@ public class CalloutViewController {
 		startDatePicker.setPrefWidth(Double.MAX_VALUE);
 		formGrid.add(startDateLabel, 0, rowIndex);
 		formGrid.add(startDatePicker, 1, rowIndex++);
-
 		Label startTimeLabel = new Label(localization.getLocalizedMessage("CalloutPopup.TimeLabel", "Time:"));
 		startTimeLabel.setStyle(labelStyle);
 		TextField startTimeField = new TextField(getTime(false, false));
@@ -1015,7 +932,6 @@ public class CalloutViewController {
 		startTimeField.setStyle(fieldStyle);
 		formGrid.add(startTimeLabel, 0, rowIndex);
 		formGrid.add(startTimeField, 1, rowIndex++);
-
 		Label descriptionLabel = new Label(
 				localization.getLocalizedMessage("CalloutPopup.DescriptionLabel", "Description:"));
 		descriptionLabel.setStyle(labelStyle);
@@ -1025,7 +941,6 @@ public class CalloutViewController {
 		descriptionArea.setWrapText(true);
 		formGrid.add(descriptionLabel, 0, rowIndex);
 		formGrid.add(descriptionArea, 1, rowIndex++);
-
 		Label messageLabel = new Label(
 				localization.getLocalizedMessage("Callout_Manager.Additional", "Additional (Optional):"));
 		messageLabel.setStyle(labelStyle);
@@ -1035,7 +950,6 @@ public class CalloutViewController {
 		messageArea.setWrapText(true);
 		formGrid.add(messageLabel, 0, rowIndex);
 		formGrid.add(messageArea, 1, rowIndex++);
-
 		for (Node node : formGrid.getChildren()) {
 			if (GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == 1 && node instanceof Region) {
 				((Region) node).setPrefWidth(280);
@@ -1047,33 +961,26 @@ public class CalloutViewController {
 		ColumnConstraints col1 = new ColumnConstraints();
 		col1.setHgrow(Priority.ALWAYS);
 		formGrid.getColumnConstraints().addAll(col0, col1);
-
 		Button createButton = new Button(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		createButton.setStyle(
 				"-fx-background-color: #3f8157; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 4 8; -fx-font-family: \"Inter 28pt Medium\"");
-
 		HBox buttonBox = new HBox(createButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 		buttonBox.setPadding(new Insets(3));
-
 		ScrollPane scrollPane = new ScrollPane(formGrid);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		scrollPane.setStyle("-fx-background-color: transparent; -fx-background: transparent; -fx-padding: 5;");
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		VBox.setVgrow(scrollPane, Priority.ALWAYS);
-
 		createCallLayout.getChildren().addAll(scrollPane, buttonBox);
-
 		BorderPane createCallWindowRoot = new BorderPane(createCallLayout);
 		createCallWindowRoot.setPrefHeight(520);
 		createCallWindowRoot.setPrefWidth(500);
-
 		CustomWindow window = createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), createCallWindowRoot,
 				"Create New Callout", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
-
 		createButton.setOnAction(e -> {
 			String number = numberField.getText().trim();
 			String type = typeField.getText().trim();
@@ -1086,7 +993,6 @@ public class CalloutViewController {
 			String description = descriptionArea.getText().trim();
 			String message = messageArea.getText().trim();
 			String status = "Not Responded";
-
 			String errorTitle = "Error";
 			if (number.isEmpty()) {
 				showNotificationInfo(errorTitle, "Callout Number is required.");
@@ -1128,15 +1034,11 @@ public class CalloutViewController {
 				startTimeField.requestFocus();
 				return;
 			}
-
 			CalloutManager.addCallout(URLStrings.calloutDataURL, number, type, description, message, priority, street,
 					area, county, startTime, localDate, status, null);
-
 			logInfo("New callout created: #" + number);
 			showNotificationInfo("Callout Manager", "Callout #" + number + " created successfully.");
-
 			CalloutManager.loadActiveCallouts(activeCalloutsTable);
-
 			if (window != null) {
 				window.closeWindow();
 			}
@@ -1157,12 +1059,10 @@ public class CalloutViewController {
 		settingsLayout.setPadding(new Insets(20));
 		settingsLayout.setAlignment(Pos.TOP_CENTER);
 		settingsLayout.setStyle("-fx-background-color: #f0f0f0;");
-
 		GridPane priorityGrid = new GridPane();
 		priorityGrid.setHgap(10);
 		priorityGrid.setVgap(8);
 		priorityGrid.setAlignment(Pos.CENTER);
-
 		Label p1NameLabel = new Label("Priority 1 Name:");
 		p1NameLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		TextField p1NameField = new TextField();
@@ -1173,7 +1073,6 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading highPriorityValue from config: ", e);
 			p1NameField.setText("High");
 		}
-
 		Label p1ColorLabel = new Label("Color:");
 		p1ColorLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		ColorPicker p1ColorPicker = new ColorPicker();
@@ -1183,12 +1082,10 @@ public class CalloutViewController {
 			p1ColorPicker.setValue(Color.RED);
 			logError("CalloutManagerSettings; Error reading highPriorityColor from config: ", e);
 		}
-
 		priorityGrid.add(p1NameLabel, 0, 0);
 		priorityGrid.add(p1NameField, 1, 0);
 		priorityGrid.add(p1ColorLabel, 2, 0);
 		priorityGrid.add(p1ColorPicker, 3, 0);
-
 		Label p2NameLabel = new Label("Priority 2 Name:");
 		p2NameLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		TextField p2NameField = new TextField();
@@ -1199,7 +1096,6 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading mediumPriorityValue from config: ", e);
 			p2NameField.setText("Medium");
 		}
-
 		Label p2ColorLabel = new Label("Color:");
 		p2ColorLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		ColorPicker p2ColorPicker = new ColorPicker(Color.ORANGE);
@@ -1209,12 +1105,10 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading mediumPriorityColor from config: ", e);
 			p2ColorPicker.setValue(Color.ORANGE);
 		}
-
 		priorityGrid.add(p2NameLabel, 0, 1);
 		priorityGrid.add(p2NameField, 1, 1);
 		priorityGrid.add(p2ColorLabel, 2, 1);
 		priorityGrid.add(p2ColorPicker, 3, 1);
-
 		Label p3NameLabel = new Label("Priority 3 Name:");
 		p3NameLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		TextField p3NameField = new TextField();
@@ -1225,7 +1119,6 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading lowPriorityValue from config: ", e);
 			p3NameField.setText("Low");
 		}
-
 		Label p3ColorLabel = new Label("Color:");
 		p3ColorLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		ColorPicker p3ColorPicker = new ColorPicker(Color.GREEN);
@@ -1235,12 +1128,10 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading lowPriorityColor from config: ", e);
 			p3ColorPicker.setValue(Color.YELLOWGREEN);
 		}
-
 		priorityGrid.add(p3NameLabel, 0, 2);
 		priorityGrid.add(p3NameField, 1, 2);
 		priorityGrid.add(p3ColorLabel, 2, 2);
 		priorityGrid.add(p3ColorPicker, 3, 2);
-
 		Label p4NameLabel = new Label("Priority 4 Name:");
 		p4NameLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		TextField p4NameField = new TextField();
@@ -1251,7 +1142,6 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading defaultValue from config: ", e);
 			p4NameField.setText("Default");
 		}
-
 		Label p4ColorLabel = new Label("Color:");
 		p4ColorLabel.setStyle("-fx-font-size: 12px; -fx-font-family: 'Inter 24pt Regular';");
 		ColorPicker p4ColorPicker = new ColorPicker();
@@ -1261,23 +1151,18 @@ public class CalloutViewController {
 			logError("CalloutManagerSettings; Error reading defaultColor from config: ", e);
 			p4ColorPicker.setValue(Color.LIGHTBLUE);
 		}
-
 		priorityGrid.add(p4NameLabel, 0, 3);
 		priorityGrid.add(p4NameField, 1, 3);
 		priorityGrid.add(p4ColorLabel, 2, 3);
 		priorityGrid.add(p4ColorPicker, 3, 3);
-
 		settingsLayout.getChildren().add(priorityGrid);
-
 		settingsLayout.getChildren().add(new Separator(Orientation.HORIZONTAL));
-
 		Button saveButton = new Button(localization.getLocalizedMessage("Settings.NotiSaveButton", "Save"));
 		saveButton.setStyle(
 				"-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-family: 'Inter 24pt Regular';");
 		saveButton.setPadding(new Insets(5));
 		saveButton.setOnAction(e -> {
 			logInfo("--- Callout Settings Saved ---");
-
 			String p1Name = p1NameField.getText();
 			Color p1Color = p1ColorPicker.getValue();
 			String p1HexColor = String.format("#%02x%02x%02x", (int) (p1Color.getRed() * 255),
@@ -1285,7 +1170,6 @@ public class CalloutViewController {
 			logInfo("Priority 1: Name='" + p1Name + "', Color=" + p1HexColor);
 			ConfigWriter.configwrite("calloutManager", "highPriorityColor", p1HexColor);
 			ConfigWriter.configwrite("calloutManager", "highPriorityValue", p1Name);
-
 			String p2Name = p2NameField.getText();
 			Color p2Color = p2ColorPicker.getValue();
 			String p2HexColor = String.format("#%02x%02x%02x", (int) (p2Color.getRed() * 255),
@@ -1293,7 +1177,6 @@ public class CalloutViewController {
 			logInfo("Priority 2: Name='" + p2Name + "', Color=" + p2HexColor);
 			ConfigWriter.configwrite("calloutManager", "mediumPriorityColor", p2HexColor);
 			ConfigWriter.configwrite("calloutManager", "mediumPriorityValue", p2Name);
-
 			String p3Name = p3NameField.getText();
 			Color p3Color = p3ColorPicker.getValue();
 			String p3HexColor = String.format("#%02x%02x%02x", (int) (p3Color.getRed() * 255),
@@ -1301,7 +1184,6 @@ public class CalloutViewController {
 			logInfo("Priority 3: Name='" + p3Name + "', Color=" + p3HexColor);
 			ConfigWriter.configwrite("calloutManager", "lowPriorityColor", p3HexColor);
 			ConfigWriter.configwrite("calloutManager", "lowPriorityValue", p3Name);
-
 			String p4Name = p4NameField.getText();
 			Color p4Color = p4ColorPicker.getValue();
 			String p4HexColor = String.format("#%02x%02x%02x", (int) (p4Color.getRed() * 255),
@@ -1310,16 +1192,13 @@ public class CalloutViewController {
 			ConfigWriter.configwrite("calloutManager", "defaultColor", p4HexColor);
 			ConfigWriter.configwrite("calloutManager", "defaultValue", p4Name);
 			logInfo("----------------------");
-
 			CalloutManager.loadActiveCallouts(activeCalloutsTable);
 			CalloutManager.loadHistoryCallouts(historyCalloutsTable);
 		});
 		settingsLayout.getChildren().add(saveButton);
-
 		BorderPane settingsWindowRoot = new BorderPane(settingsLayout);
 		settingsWindowRoot.setPrefWidth(600);
 		settingsWindowRoot.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
 		createCustomWindow(mainDesktopControllerObj.getDesktopContainer(), settingsWindowRoot,
 				"Callout Manager Settings", false, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
@@ -1340,11 +1219,9 @@ public class CalloutViewController {
 	@FXML
 	public void onSendNoteClick(ActionEvent actionEvent) {
 		String text = callInfoCommentField.getText().trim();
-
 		if (text.isEmpty()) {
 			return;
 		}
-
 		String sender = "";
 		String rank = "";
 		try {
@@ -1355,13 +1232,11 @@ public class CalloutViewController {
 		}
 		selectedCallout.addStoredMessage(
 				new StoredMessage(rank + " " + sender, getDate(), getTime(false, false), "Message", text));
-
 		if (inActiveCallout) {
 			CalloutManager.updateCallout(calloutDataURL, selectedCallout);
 		} else {
 			CalloutManager.updateCallout(calloutHistoryURL, selectedCallout);
 		}
-
 		refreshNotesForCallout(selectedCallout);
 	}
 }

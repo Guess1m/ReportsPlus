@@ -5,12 +5,17 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 
 public class CommentedProperties extends Properties {
-	
 	private final LinkedHashMap<String, String> comments = new LinkedHashMap<>();
-	
+
 	@Override
 	public synchronized Object put(Object key, Object value) {
 		if (!containsKey(key)) {
@@ -21,7 +26,7 @@ public class CommentedProperties extends Properties {
 		}
 		return super.put(key, value);
 	}
-	
+
 	private Map<String, List<String>> organizeBySections() {
 		Map<String, List<String>> sectionedKeys = new TreeMap<>();
 		for (String key : stringPropertyNames()) {
@@ -30,7 +35,7 @@ public class CommentedProperties extends Properties {
 		}
 		return sectionedKeys;
 	}
-	
+
 	public void storeWithComments(OutputStream out, String header) throws IOException {
 		try (PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8))) {
 			writer.println("# " + new Date());
@@ -39,7 +44,6 @@ public class CommentedProperties extends Properties {
 			}
 			writer.println();
 			Map<String, List<String>> sectionedKeys = organizeBySections();
-			
 			for (Map.Entry<String, List<String>> entry : sectionedKeys.entrySet()) {
 				if (comments.containsKey(entry.getKey())) {
 					writer.println();
@@ -51,9 +55,8 @@ public class CommentedProperties extends Properties {
 			}
 		}
 	}
-	
+
 	private String getSection(Object key) {
 		return key.toString().contains(".") ? key.toString().split("\\.")[0] : "default";
 	}
-	
 }

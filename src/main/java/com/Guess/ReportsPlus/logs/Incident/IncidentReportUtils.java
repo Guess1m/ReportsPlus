@@ -44,7 +44,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class IncidentReportUtils {
-
 	public static Map<String, Object> incidentLayout() {
 		Map<String, Object> incidentReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.IncidentReportTitle", "Incident Report"), null,
@@ -109,10 +108,8 @@ public class IncidentReportUtils {
 
 	public static Map<String, Object> newIncident() {
 		Map<String, Object> incidentReport = incidentLayout();
-
 		Map<String, Object> incidentReportMap = (Map<String, Object>) incidentReport
 				.get(localization.getLocalizedMessage("ReportWindows.IncidentReportTitle", "Incident Report") + " Map");
-
 		TextField name = (TextField) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField rank = (TextField) incidentReportMap
@@ -123,7 +120,6 @@ public class IncidentReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField num = (TextField) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 		TextField incidentnum = (TextField) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.IncidentNumField", "incident num"));
 		TextField date = (TextField) incidentReportMap
@@ -136,22 +132,18 @@ public class IncidentReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		TextField county = (TextField) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldCounty", "county"));
-
 		TextField suspects = (TextField) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.SuspectsField", "suspect(s)"));
 		TextField vicwit = (TextField) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.VictimsWitnessField", "victim(s) / witness(s)"));
 		TextArea statement = (TextArea) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.StatementField", "statement"));
-
 		TextArea summary = (TextArea) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.IncidentSummaryField", "summary"));
 		TextArea notes = (TextArea) incidentReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "Notes"));
-
 		MenuButton pullnotesbtn = (MenuButton) incidentReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -175,15 +167,11 @@ public class IncidentReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		Button submitBtn = (Button) incidentReport.get("submitBtn");
 		Label warningLabel = (Label) incidentReport.get("warningLabel");
-
 		Label legacyLabel = (Label) incidentReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		ComboBox<String> statusValue = (ComboBox) incidentReport.get("statusValue");
-
 		submitBtn.setOnAction(_ -> {
 			if (incidentnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -201,7 +189,6 @@ public class IncidentReportUtils {
 						}
 					}
 				}
-
 				IncidentReport incidentReport1 = new IncidentReport();
 				incidentReport1.setStatus(statusValue.getValue());
 				incidentReport1.setIncidentArea(toTitleCase(area.getEditor().getText()));
@@ -225,7 +212,6 @@ public class IncidentReportUtils {
 				} catch (JAXBException e) {
 					logError("Error creating IncidentReport: ", e);
 				}
-
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");
@@ -234,7 +220,6 @@ public class IncidentReportUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				incidentLogUpdate();
-
 				NotificationManager.showNotificationInfo("Report Manager", "A new Incident Report has been submitted.");
 				CustomWindow window = getWindow("Incident Report");
 				if (window != null) {
@@ -250,7 +235,6 @@ public class IncidentReportUtils {
 		if (!file.exists()) {
 			return new IncidentReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(IncidentReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -265,21 +249,17 @@ public class IncidentReportUtils {
 		JAXBContext context = JAXBContext.newInstance(IncidentReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 		File file = new File(incidentLogURL);
 		marshaller.marshal(IncidentReports, file);
 	}
 
 	public static void addIncidentReport(IncidentReport IncidentReport) throws JAXBException {
 		IncidentReports IncidentReports = loadIncidentReports();
-
 		if (IncidentReports.getIncidentReportList() == null) {
 			IncidentReports.setIncidentReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<IncidentReport> existingReport = IncidentReports.getIncidentReportList().stream()
 				.filter(e -> e.getIncidentNumber().equals(IncidentReport.getIncidentNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			IncidentReports.getIncidentReportList().remove(existingReport.get());
 			IncidentReports.getIncidentReportList().add(IncidentReport);
@@ -288,13 +268,11 @@ public class IncidentReportUtils {
 			IncidentReports.getIncidentReportList().add(IncidentReport);
 			logInfo("IncidentReport with number " + IncidentReport.getIncidentNumber() + " added.");
 		}
-
 		saveIncidentReports(IncidentReports);
 	}
 
 	public static void deleteIncidentReport(String IncidentReportnumber) throws JAXBException {
 		IncidentReports IncidentReports = loadIncidentReports();
-
 		if (IncidentReports.getIncidentReportList() != null) {
 			IncidentReports.getIncidentReportList().removeIf(e -> e.getIncidentNumber().equals(IncidentReportnumber));
 			saveIncidentReports(IncidentReports);

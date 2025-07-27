@@ -105,9 +105,7 @@ public class VehLookupViewController implements IShutdownable {
 		return t;
 	});
 	private Task<?> currentSearchTask;
-
 	// #region FXML Components
-
 	@FXML
 	private Label insInfoLabelSubHeading;
 	@FXML
@@ -258,7 +256,6 @@ public class VehLookupViewController implements IShutdownable {
 	private Button btninfo2;
 
 	// #endregion
-
 	@Override
 	public void shutdown() {
 		logInfo("Shutting down Vehicle Lookup View and all resources...");
@@ -281,10 +278,8 @@ public class VehLookupViewController implements IShutdownable {
 		databaseSearchPane.setVisible(true);
 		databaseInfoPane.setVisible(false);
 		noRecordFoundLabelVeh.setVisible(false);
-
 		setupVehListView();
 		setupSearchListener();
-
 		Platform.runLater(() -> {
 			addLocalization();
 			loadAllRealVehicles(true);
@@ -295,14 +290,12 @@ public class VehLookupViewController implements IShutdownable {
 
 	private void loadAllRealVehicles(boolean printCount) {
 		Map<String, Vehicle> vehicleMap = new HashMap<>();
-
 		List<Vehicle> serverVehicles = getAllVehicles();
 		for (Vehicle vehicle : serverVehicles) {
 			if (vehicle.getPlateNumber() != null && !vehicle.getPlateNumber().isEmpty()) {
 				vehicleMap.put(vehicle.getPlateNumber().toUpperCase(), vehicle);
 			}
 		}
-
 		try {
 			Vehicle.Vehicles vehicleData = Vehicle.VehicleHistoryUtils.loadVehicles();
 			if (vehicleData != null && vehicleData.getVehicleList() != null) {
@@ -316,10 +309,8 @@ public class VehLookupViewController implements IShutdownable {
 		} catch (JAXBException e) {
 			logError("Failed to load vehicles from VehHistory.xml", e);
 		}
-
 		allRealVehicles.clear();
 		allRealVehicles.addAll(vehicleMap.values());
-
 		if (printCount) {
 			logInfo("Loaded " + allRealVehicles.size() + " unique real vehicles into memory from all sources.");
 		}
@@ -335,27 +326,21 @@ public class VehLookupViewController implements IShutdownable {
 		if (currentSearchTask != null && currentSearchTask.isRunning()) {
 			currentSearchTask.cancel();
 		}
-
 		currentSearchTask = new Task<List<Vehicle>>() {
 			@Override
 			protected List<Vehicle> call() throws Exception {
 				loadAllRealVehicles(false);
-
 				if (isCancelled() || searchText == null || searchText.trim().isEmpty()) {
 					return Collections.emptyList();
 				}
-
 				String upperSearchText = searchText.trim().toUpperCase();
-
 				List<Vehicle> results = allRealVehicles.stream()
 						.filter(v -> v.getPlateNumber() != null
 								&& v.getPlateNumber().toUpperCase().startsWith(upperSearchText))
 						.collect(Collectors.toList());
-
 				Set<String> existingPlates = results.stream()
 						.map(Vehicle::getPlateNumber)
 						.collect(Collectors.toSet());
-
 				int vehiclesToGenerate = 25 - results.size();
 				if (vehiclesToGenerate > 0) {
 					for (int i = 0; i < vehiclesToGenerate; i++) {
@@ -371,16 +356,13 @@ public class VehLookupViewController implements IShutdownable {
 				return results;
 			}
 		};
-
 		currentSearchTask.setOnSucceeded(e -> {
 			masterVehicleList.setAll(((Task<List<Vehicle>>) e.getSource()).getValue());
 			noRecordFoundLabelVeh.setVisible(masterVehicleList.isEmpty() && !vehSearchField.getText().trim().isEmpty());
 		});
-
 		currentSearchTask.setOnFailed(e -> {
 			logError("Vehicle search task failed: ", currentSearchTask.getException());
 		});
-
 		searchExecutor.submit(currentSearchTask);
 	}
 
@@ -402,7 +384,6 @@ public class VehLookupViewController implements IShutdownable {
 			private final HBox vinBox = new HBox(5);
 			private final Label registrationLabel = new Label();
 			private final VBox plateBox = new VBox(5);
-
 			{
 				String textColor = "black";
 				try {
@@ -410,7 +391,6 @@ public class VehLookupViewController implements IShutdownable {
 				} catch (Exception e) {
 					logError("Error reading label color config, using default: ", e);
 				}
-
 				String secclr;
 				try {
 					secclr = ConfigReader.configRead("uiColors", "headingColor");
@@ -418,31 +398,24 @@ public class VehLookupViewController implements IShutdownable {
 					logError("Error reading secondary color config, using default: ", e);
 					secclr = "black";
 				}
-
 				String labelstyle = "-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: " + textColor
 						+ ";";
 				String titleStyle = "-fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr
 						+ ";";
-
 				plateLabel.setStyle(titleStyle);
 				vinTextLabel.setStyle(titleStyle);
 				vinValueLabel.setStyle(labelstyle);
-
 				vinBox.getChildren().addAll(vinTextLabel, vinValueLabel);
 				plateBox.getChildren().addAll(plateLabel, vinBox);
-
 				registrationLabel.setStyle(
 						"-fx-font-family: 'Inter 24pt Regular'; -fx-font-size: 12; -fx-text-fill: black;-fx-background-radius: 5;");
 				registrationLabel.setPadding(new Insets(4, 8, 4, 8));
-
 				gridPane.setHgap(10);
 				gridPane.setPadding(new Insets(3, 10, 3, 10));
-
 				ColumnConstraints col1 = new ColumnConstraints();
 				col1.setHgrow(Priority.ALWAYS);
 				ColumnConstraints col2 = new ColumnConstraints();
 				col2.setHgrow(Priority.NEVER);
-
 				gridPane.getColumnConstraints().addAll(col1, col2);
 				gridPane.add(plateBox, 0, 0);
 				gridPane.add(registrationLabel, 1, 0);
@@ -459,11 +432,9 @@ public class VehLookupViewController implements IShutdownable {
 				} else {
 					plateLabel.setText(vehicle.getPlateNumber());
 					vinValueLabel.setText(vehicle.getVin() != null ? vehicle.getVin() : "N/A");
-
 					String regStatus = vehicle.getRegistration() != null ? vehicle.getRegistration().toUpperCase()
 							: "UNKNOWN";
 					registrationLabel.setText(regStatus);
-
 					switch (regStatus) {
 						case "VALID":
 							registrationLabel.setStyle(
@@ -487,14 +458,11 @@ public class VehLookupViewController implements IShutdownable {
 				}
 			}
 		});
-
 		databaseListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
 			if (newVal == null) {
 				return;
 			}
-
 			Vehicle fullDetails = performVehicleLookup(newVal.getPlateNumber());
-
 			if (fullDetails != null) {
 				displayVehicleDetails(fullDetails);
 			} else {
@@ -512,13 +480,10 @@ public class VehLookupViewController implements IShutdownable {
 
 	private void displayVehicleDetails(Vehicle vehicle) {
 		boolean playAudio = false;
-
 		databaseSearchPane.setVisible(false);
 		databaseInfoPane.setVisible(true);
 		setActiveGrid(vehInfoGrid);
-
 		vehtypecombobox.getItems().setAll(vehicleTypes);
-
 		vehplatefield2.setText(vehicle.getPlateNumber());
 		vehmodelfield.setText(vehicle.getModel());
 		vehmakefield.setText(vehicle.getMake());
@@ -528,11 +493,9 @@ public class VehLookupViewController implements IShutdownable {
 		vehpolicefield.setText(vehicle.getPoliceStatus());
 		vehinspectionfield.setText(vehicle.getInspection());
 		vehtypecombobox.setValue(vehicle.getType());
-
 		vehPlateLabelField.setText(vehicle.getPlateNumber());
 		vehModelLabelField.setText(vehicle.getModel());
 		vehStolenLabelField.setText("Stolen: " + vehicle.getStolenStatus());
-
 		String regStatus = vehicle.getRegistration();
 		if (regStatus != null) {
 			vehRegStatusField.setText(regStatus);
@@ -547,7 +510,6 @@ public class VehLookupViewController implements IShutdownable {
 			} else if (regStatus.equalsIgnoreCase("VALID")) {
 				vehRegStatusField.setStyle("-fx-text-fill: #060 !important; -fx-font-family: 'Inter 28pt Bold';");
 			}
-
 			if (regStatus.equalsIgnoreCase("NONE") || regStatus.equalsIgnoreCase("UNLICENSED")) {
 				vehRegExpField.setText("No Data In System");
 			} else {
@@ -560,7 +522,6 @@ public class VehLookupViewController implements IShutdownable {
 		}
 		vehRegNumberField.setText(
 				vehicle.getRegistrationNumber() != null ? vehicle.getRegistrationNumber() : "No Data In System");
-
 		String insStatus = vehicle.getInsurance();
 		if (insStatus != null) {
 			vehInsStatusField.setText(insStatus);
@@ -576,7 +537,6 @@ public class VehLookupViewController implements IShutdownable {
 			} else if (insStatus.equalsIgnoreCase("VALID")) {
 				vehInsStatusField.setStyle("-fx-text-fill: #060 !important; -fx-font-family: 'Inter 28pt Bold';");
 			}
-
 			if (insStatus.equalsIgnoreCase("NONE") || insStatus.equalsIgnoreCase("UNLICENSED")) {
 				vehInsExpField.setText("No Data In System");
 			} else {
@@ -590,7 +550,6 @@ public class VehLookupViewController implements IShutdownable {
 		}
 		vehInsNumberField
 				.setText(vehicle.getInsuranceNumber() != null ? vehicle.getInsuranceNumber() : "No Data In System");
-
 		if ("true".equalsIgnoreCase(vehicle.getStolenStatus())) {
 			vehstolenfield.setStyle("-fx-text-fill: red !important;");
 			vehStolenLabelField.setStyle("-fx-text-fill: red !important;");
@@ -599,20 +558,17 @@ public class VehLookupViewController implements IShutdownable {
 			vehstolenfield.setStyle("-fx-text-fill: black !important;");
 			vehStolenLabelField.setStyle("-fx-text-fill: black !important;");
 		}
-
 		if ("expired".equalsIgnoreCase(vehicle.getInspection())
 				|| "invalid".equalsIgnoreCase(vehicle.getInspection())) {
 			vehinspectionfield.setStyle("-fx-text-fill: red !important;");
 		} else {
 			vehinspectionfield.setStyle("-fx-text-fill: black !important;");
 		}
-
 		if ("true".equalsIgnoreCase(vehicle.getPoliceStatus())) {
 			vehpolicefield.setStyle("-fx-text-fill: green !important;");
 		} else {
 			vehpolicefield.setStyle("-fx-text-fill: black !important;");
 		}
-
 		if (vehicle.getColor() != null && !vehicle.getColor().equals("Not Found")
 				&& !vehicle.getColor().equals("no value provided")) {
 			vehnocolorlabel.setVisible(false);
@@ -621,9 +577,7 @@ public class VehLookupViewController implements IShutdownable {
 			vehnocolorlabel.setVisible(true);
 			vehcolordisplay.setStyle("-fx-background-color: #F2F2F2; -fx-border-color: grey;");
 		}
-
 		runModelUpdate(vehicle.getModel());
-
 		if (playAudio) {
 			try {
 				if (ConfigReader.configRead("soundSettings", "playLookupWarning").equalsIgnoreCase("true")) {
@@ -680,18 +634,15 @@ public class VehLookupViewController implements IShutdownable {
 
 	public static Vehicle performVehicleLookup(String plate) {
 		Optional<Vehicle> historyVehicle = findVehicleByNumber(plate);
-
 		if (historyVehicle.isPresent()) {
 			logDebug("performVehicleLookup: Found " + plate + " in VehHistory file");
 			return processVehicleInfo(historyVehicle.get());
 		}
-
 		logDebug("performVehicleLookup: " + plate + " not in VehHistory. Checking world vehicle.");
 		VehicleObject worldVehicle = new VehicleObject(plate);
 		boolean worldVehicleIsValid = worldVehicle.getPlate() != null
 				&& !worldVehicle.getPlate().equalsIgnoreCase("Not Found")
 				&& !worldVehicle.getPlate().equalsIgnoreCase("no value provided");
-
 		if (worldVehicleIsValid) {
 			logDebug("performVehicleLookup: Found " + plate + " from WorldVeh file.");
 			Vehicle transientVehicle = new Vehicle();
@@ -717,7 +668,6 @@ public class VehLookupViewController implements IShutdownable {
 			transientVehicle.setCoverage(worldVehicle.getCoverage());
 			return processVehicleInfo(transientVehicle);
 		}
-
 		logWarn("performVehicleLookup: No Vehicle With Plate: [" + plate + "] Found Anywhere");
 		return null;
 	}
@@ -730,14 +680,11 @@ public class VehLookupViewController implements IShutdownable {
 				logDebug("Detected vehImage folder..");
 				try {
 					if (ConfigReader.configRead("uiSettings", "enablePedVehImages").equalsIgnoreCase("true")) {
-
 						File[] matchingFiles = pedImgFolder
 								.listFiles((dir, name) -> name.equalsIgnoreCase(vehModelString + ".jpg"));
-
 						if (matchingFiles != null && matchingFiles.length > 0) {
 							File matchingFile = matchingFiles[0];
 							logInfo("Matching vehImage found: " + matchingFile.getName());
-
 							try {
 								String fileURI = matchingFile.toURI().toString();
 								vehImageView.setImage(new Image(fileURI));
@@ -789,18 +736,14 @@ public class VehLookupViewController implements IShutdownable {
 
 	private static Vehicle processVehicleInfo(Vehicle vehicle) {
 		boolean needsSave = false;
-
 		if (vehicle.getPlateNumber() == null)
 			return null;
-
 		String vehicleId = vehicle.getPlateNumber();
-
 		if (vehicle.getMake() == null) {
 			logInfo("Vehicle [" + vehicleId + "] missing make. Generated: " + "Unknown");
 			vehicle.setMake("Unknown");
 			needsSave = true;
 		}
-
 		if (vehicle.getColor() == null) {
 			List<String> colors = Arrays.asList(
 					"rgb(0,0,0)", "rgb(128,128,128)", "rgb(255,255,255)", "rgb(192,192,192)", "rgb(255,0,0)",
@@ -810,7 +753,6 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setColor(newColor);
 			needsSave = true;
 		}
-
 		if (vehicle.getModel() == null) {
 			List<String> models = Arrays.asList("baller", "gresley", "seminole", "rebla", "toros", "patriot",
 					"landstalker", "tailgater", "premier", "intruder", "fugitive", "glendale", "asterope", "warrener");
@@ -819,20 +761,17 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setModel(newModel);
 			needsSave = true;
 		}
-
 		if (vehicle.getStolenStatus() == null) {
 			String stolenStatus = String.valueOf(calculateTrueFalseProbability("10"));
 			logInfo("Vehicle [" + vehicleId + "] missing stolen status. Generated: " + stolenStatus);
 			vehicle.setStolenStatus(stolenStatus);
 			needsSave = true;
 		}
-
 		if (vehicle.getPoliceStatus() == null) {
 			logInfo("Vehicle [" + vehicleId + "] missing police status. Generated: false");
 			vehicle.setPoliceStatus("false");
 			needsSave = true;
 		}
-
 		if (vehicle.getOwner() == null) {
 			Random random = new Random();
 			String firstName = PedHistoryMath.genericFirstNames
@@ -843,34 +782,29 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setOwner(newOwner);
 			needsSave = true;
 		}
-
 		if (vehicle.getVin() == null) {
 			String newVin = generateVin();
 			logInfo("Vehicle [" + vehicleId + "] missing VIN. Generated: " + newVin);
 			vehicle.setVin(newVin);
 			needsSave = true;
 		}
-
 		if (vehicle.getType() == null) {
 			logInfo("Vehicle [" + vehicleId + "] missing type. Generated: N/A");
 			vehicle.setType("N/A");
 			needsSave = true;
 		}
-
 		if (vehicle.getInspection() == null) {
 			String newInspectionStatus = generateInspectionStatus();
 			logInfo("Vehicle [" + vehicleId + "] missing inspection status. Generated: " + newInspectionStatus);
 			vehicle.setInspection(newInspectionStatus);
 			needsSave = true;
 		}
-
 		if (vehicle.getRegistration() == null) {
 			String newRegStatus = generateRegStatus();
 			logInfo("Vehicle [" + vehicleId + "] missing registration status. Generated: " + newRegStatus);
 			vehicle.setRegistration(newRegStatus);
 			needsSave = true;
 		}
-
 		if (vehicle.getRegistrationNumber() == null) {
 			String regStatus = vehicle.getRegistration();
 			if (regStatus != null && (regStatus.equalsIgnoreCase("valid") || regStatus.equalsIgnoreCase("expired"))) {
@@ -880,7 +814,6 @@ public class VehLookupViewController implements IShutdownable {
 				needsSave = true;
 			}
 		}
-
 		if (vehicle.getRegistrationExpiration() == null) {
 			String expiration = "Not Applicable";
 			if ("valid".equalsIgnoreCase(vehicle.getRegistration())) {
@@ -892,14 +825,12 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setRegistrationExpiration(expiration);
 			needsSave = true;
 		}
-
 		if (vehicle.getInsurance() == null) {
 			String newInsStatus = generateRegStatus();
 			logInfo("Vehicle [" + vehicleId + "] missing insurance status. Generated: " + newInsStatus);
 			vehicle.setInsurance(newInsStatus);
 			needsSave = true;
 		}
-
 		if (vehicle.getInsuranceNumber() == null) {
 			String insStatus = vehicle.getInsurance();
 			if (insStatus != null && (insStatus.equalsIgnoreCase("valid") || insStatus.equalsIgnoreCase("expired")
@@ -910,7 +841,6 @@ public class VehLookupViewController implements IShutdownable {
 				needsSave = true;
 			}
 		}
-
 		if (vehicle.getInsuranceExpiration() == null) {
 			String expiration = "Not Applicable";
 			if ("valid".equalsIgnoreCase(vehicle.getInsurance())) {
@@ -922,7 +852,6 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setInsuranceExpiration(expiration);
 			needsSave = true;
 		}
-
 		if (vehicle.getCoverage() == null) {
 			String insStatus = vehicle.getInsurance();
 			if (insStatus != null && (insStatus.equalsIgnoreCase("valid") || insStatus.equalsIgnoreCase("expired")
@@ -938,7 +867,6 @@ public class VehLookupViewController implements IShutdownable {
 				needsSave = true;
 			}
 		}
-
 		if (needsSave) {
 			logInfo("Vehicle: [" + vehicleId + "] has new generated data and needs to be saved to VehicleHistory...");
 			try {
@@ -947,7 +875,6 @@ public class VehLookupViewController implements IShutdownable {
 				logError("Error saving updated vehicle to VehicleHistory: ", e);
 			}
 		}
-
 		return vehicle;
 	}
 
@@ -957,11 +884,9 @@ public class VehLookupViewController implements IShutdownable {
 		String model = vehmodelfield.getText().trim();
 		String owner = vehownerfield.getText().trim();
 		Object type = vehtypecombobox.getValue();
-
 		Map<String, Object> impoundReportObj = newImpound();
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReportObj
 				.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
-
 		TextField offenderNameimp = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField plateNumberimp = (TextField) impoundReportMap
@@ -970,7 +895,6 @@ public class VehLookupViewController implements IShutdownable {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
 		ComboBox vehType = (ComboBox) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldType", "type"));
-
 		plateNumberimp.setText(plate);
 		modelimp.setText(model);
 		offenderNameimp.setText(owner);
@@ -982,10 +906,8 @@ public class VehLookupViewController implements IShutdownable {
 	public void vehUpdateInfo(ActionEvent actionEvent) {
 		String searchedPlate = vehplatefield2.getText().trim();
 		Optional<Vehicle> vehOptional = findVehicleByNumber(searchedPlate);
-
 		if (vehOptional.isPresent()) {
 			Vehicle vehicle = vehOptional.get();
-
 			vehtypecombobox.getStyleClass().remove("combo-boxType");
 			vehtypecombobox.getStyleClass().remove("combo-boxVehicle");
 			if (vehicle.getType() != null) {
@@ -1001,7 +923,6 @@ public class VehLookupViewController implements IShutdownable {
 					logError("Could not add ped from update fields button: ", e);
 				}
 			}
-
 		}
 	}
 
@@ -1029,9 +950,7 @@ public class VehLookupViewController implements IShutdownable {
 				owner = vehtypecombobox.getValue().toString().trim();
 				fullString.append("-type ").append(owner).append(" ");
 			}
-
 			notesTabList.add(new NoteTab(plate, fullString.toString()));
-
 			if (notesViewController != null) {
 				createNoteTabs();
 			}
@@ -1102,37 +1021,29 @@ public class VehLookupViewController implements IShutdownable {
 			showNotificationError("Update Error", "Cannot update a Vehicle with no Plate Number.");
 			return;
 		}
-
 		Optional<Vehicle> optionalVehicle = findVehicleByNumber(searchedPlate);
 		if (!optionalVehicle.isPresent()) {
 			showNotificationError("Update Error", "Could not find Vehicle with Plate #: " + searchedPlate);
 			return;
 		}
-
 		Vehicle vehicle = optionalVehicle.get();
-
 		// --- Styling and Layout ---
 		String bkgColor = "#F0F2F5";
 		String cardColor = "#FFFFFF";
 		String saveBtnColor = "#28a745";
 		String cancelBtnColor = "#6c757d";
-
 		VBox editorContent = new VBox(20);
 		editorContent.setPadding(new Insets(20));
 		editorContent.setStyle("-fx-background-color: " + bkgColor + ";");
-
 		ScrollPane scrollPane = new ScrollPane(editorContent);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setStyle("-fx-background-color: transparent; -fx-background-insets: 0;");
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
 		BorderPane layoutPane = new BorderPane();
 		layoutPane.setCenter(scrollPane);
 		layoutPane.setPrefSize(750, 650);
 		layoutPane.setStyle("-fx-background-color: " + bkgColor + ";");
-
 		Map<String, TextField> fieldMap = new HashMap<>();
-
 		// --- Vehicle Identification (Owner is non-editable) ---
 		Map<String, String> idFields = new LinkedHashMap<>();
 		idFields.put("Make", vehicle.getMake());
@@ -1141,21 +1052,18 @@ public class VehLookupViewController implements IShutdownable {
 		idFields.put("VIN", vehicle.getVin());
 		editorContent.getChildren()
 				.add(createVehSection("Vehicle Identification", vehicle.getOwner(), idFields, fieldMap));
-
 		// --- Status ---
 		Map<String, String> statusFields = new LinkedHashMap<>();
 		statusFields.put("Stolen Status", vehicle.getStolenStatus());
 		statusFields.put("Police Status", vehicle.getPoliceStatus());
 		statusFields.put("Inspection", vehicle.getInspection());
 		editorContent.getChildren().add(createVehSection("Vehicle Status", null, statusFields, fieldMap));
-
 		// --- Registration ---
 		Map<String, String> regFields = new LinkedHashMap<>();
 		regFields.put("Registration", vehicle.getRegistration());
 		regFields.put("Registration Number", vehicle.getRegistrationNumber());
 		regFields.put("Registration Expiration", vehicle.getRegistrationExpiration());
 		editorContent.getChildren().add(createVehSection("Registration Details", null, regFields, fieldMap));
-
 		// --- Insurance ---
 		Map<String, String> insFields = new LinkedHashMap<>();
 		insFields.put("Insurance", vehicle.getInsurance());
@@ -1163,7 +1071,6 @@ public class VehLookupViewController implements IShutdownable {
 		insFields.put("Insurance Expiration", vehicle.getInsuranceExpiration());
 		insFields.put("Coverage", vehicle.getCoverage());
 		editorContent.getChildren().add(createVehSection("Insurance Details", null, insFields, fieldMap));
-
 		// --- Buttons ---
 		Button saveButton = new Button("Save Changes");
 		saveButton.setStyle("-fx-background-color: " + saveBtnColor
@@ -1171,21 +1078,18 @@ public class VehLookupViewController implements IShutdownable {
 		Button cancelButton = new Button("Cancel");
 		cancelButton.setStyle("-fx-background-color: " + cancelBtnColor
 				+ "; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 16;");
-
 		HBox buttonBox = new HBox(15, saveButton, cancelButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 		buttonBox.setPadding(new Insets(15, 20, 15, 20));
 		buttonBox.setStyle("-fx-background-color: " + cardColor
 				+ "; -fx-border-color: rgba(0,0,0,0.1) transparent transparent transparent; -fx-border-width: 1;");
 		layoutPane.setBottom(buttonBox);
-
 		// --- Window ---
 		CustomWindow editorWindow = WindowManager.createCustomWindow(mainDesktopControllerObj.getDesktopContainer(),
 				layoutPane, "Edit Vehicle: " + vehicle.getPlateNumber(), true, 1, true, true,
 				mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
-
 		// --- Actions ---
 		saveButton.setOnAction(_ -> {
 			logInfo("Saving changes for Vehicle: " + vehicle.getPlateNumber());
@@ -1193,7 +1097,6 @@ public class VehLookupViewController implements IShutdownable {
 				String value = textField.getText();
 				String finalValue = (value == null || value.trim().isEmpty()
 						|| value.equalsIgnoreCase("No Data In System")) ? null : value.trim();
-
 				switch (key) {
 					case "Make":
 						vehicle.setMake(finalValue);
@@ -1239,7 +1142,6 @@ public class VehLookupViewController implements IShutdownable {
 						break;
 				}
 			});
-
 			try {
 				Vehicle.VehicleHistoryUtils.addVehicle(vehicle);
 				showNotificationInfo("Update Successful",
@@ -1260,7 +1162,6 @@ public class VehLookupViewController implements IShutdownable {
 		sectionBox.setPadding(new Insets(20));
 		sectionBox.setStyle(
 				"-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.1, 0, 2);");
-
 		Label titleLabel = new Label(title);
 		titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1D2C4D;");
 		titleLabel.setPadding(new Insets(0, 0, 5, 0));
@@ -1268,27 +1169,22 @@ public class VehLookupViewController implements IShutdownable {
 				javafx.scene.layout.BorderStrokeStyle.SOLID, null, new javafx.scene.layout.BorderWidths(0, 0, 1, 0))));
 		titleLabel.setMaxWidth(Double.MAX_VALUE);
 		sectionBox.getChildren().add(titleLabel);
-
 		GridPane grid = new GridPane();
 		grid.setVgap(12);
 		grid.setHgap(15);
-
 		ColumnConstraints col1 = new ColumnConstraints();
 		col1.setPercentWidth(30);
 		ColumnConstraints col2 = new ColumnConstraints();
 		col2.setPercentWidth(70);
 		grid.getColumnConstraints().addAll(col1, col2);
-
 		int rowIndex = 0;
 		if (ownerName != null) {
 			addStyledStaticField(grid, "Registered Owner", ownerName, rowIndex++);
 		}
-
 		for (Map.Entry<String, String> entry : fields.entrySet()) {
 			addStyledVehEditorField(grid, entry.getKey(), entry.getValue(), rowIndex++, fieldMap);
 		}
 		sectionBox.getChildren().add(grid);
-
 		return sectionBox;
 	}
 
@@ -1296,11 +1192,9 @@ public class VehLookupViewController implements IShutdownable {
 		Label label = new Label(labelText + ":");
 		label.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #555555;");
 		label.setAlignment(Pos.CENTER_LEFT);
-
 		Label valueLabel = new Label(value != null ? value : "No Data In System");
 		valueLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: normal; -fx-text-fill: #333333; -fx-padding: 5 0;");
 		valueLabel.setWrapText(true);
-
 		grid.add(label, 0, row);
 		grid.add(valueLabel, 1, row);
 		GridPane.setValignment(label, javafx.geometry.VPos.CENTER);
@@ -1311,7 +1205,6 @@ public class VehLookupViewController implements IShutdownable {
 		Label label = new Label(labelText + ":");
 		label.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #555555;");
 		label.setAlignment(Pos.CENTER_LEFT);
-
 		TextField textField = new TextField(value != null ? value : "No Data In System");
 		textField.setStyle(
 				"-fx-background-color: #F8F9FA; -fx-border-color: #CED4DA; -fx-border-radius: 4; -fx-padding: 5 8; -fx-font-size: 13px;");
@@ -1324,7 +1217,6 @@ public class VehLookupViewController implements IShutdownable {
 						"-fx-background-color: #F8F9FA; -fx-border-color: #CED4DA; -fx-border-radius: 4; -fx-padding: 5 8; -fx-font-size: 13px;");
 			}
 		});
-
 		grid.add(label, 0, row);
 		grid.add(textField, 1, row);
 		GridPane.setValignment(label, javafx.geometry.VPos.CENTER);
@@ -1342,30 +1234,25 @@ public class VehLookupViewController implements IShutdownable {
 		Color headingColor = loadColorFromConfig("headingColor", Color.web("#0078D7"));
 		Color cardBkgColor = loadColorFromConfig("cardBkgColor", Color.web("#FFFFFF"));
 		Color buttonColor = loadColorFromConfig("buttonColor", Color.web("#DCDCDC"));
-
 		noVehImageFoundlbl.setStyle("-fx-text-fill: " + toWebString(labelColor)
 				+ " !important; -fx-font-family: 'Inter 24pt Regular';");
 		noRecordFoundLabelVeh.setStyle("-fx-text-fill: " + toWebString(labelColor)
 				+ " !important; -fx-font-family: 'Inter 24pt Regular';");
-
 		sidePane.setStyle("-fx-background-color: " + toWebString(
 				loadColorFromConfig("sidePaneColor", Color.web("#3E3E3E"))) + ";");
 		root.setStyle(
 				"-fx-background-color: " + toWebString(loadColorFromConfig("bkgColor", Color.web("#F4F4F4")))
 						+ ";");
-
 		for (Node card : Arrays.asList(vehicleDetailCard, vehicleTypeCard, ownerInfoCard,
 				registrationInfoCard, insuranceInfoCard, vehImageCard)) {
 			card.setStyle("-fx-background-color: " + toWebString(cardBkgColor)
 					+ "; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0.1, 0, 2);");
 		}
-
 		for (Label heading : Arrays.asList(ownerAndLegalHeading, vehPlateLabelField, lbl1, lookupmainlbl)) {
 			heading.setStyle(
 					"-fx-text-fill: " + toWebString(headingColor)
 							+ " !important; -fx-font-family: 'Inter 28pt Bold';");
 		}
-
 		backLabel.setStyle("-fx-text-fill: " + toWebString(sidePaneTextColor)
 				+ " !important; -fx-font-family: 'Inter 28pt Medium'; -fx-cursor: hand; -fx-border-color: "
 				+ toWebString(sidePaneTextColor) + "; -fx-border-width: 0.3; -fx-padding: 1 10;");
@@ -1373,7 +1260,6 @@ public class VehLookupViewController implements IShutdownable {
 			sidebutton.setStyle("-fx-text-fill: " + toWebString(sidePaneTextColor)
 					+ " !important; -fx-font-family: 'Inter 28pt Medium';");
 		}
-
 		for (Label label : Arrays.asList(plt1, plt2, plt3, plt4, plt8, makeLabel, info1, plt10, info2, plt5,
 				registrationInfoSubHeading, vehRegStatusFieldLabel, plt9, vehRegNumberFieldLabel, plt11,
 				vehRegExpFieldLabel, insInfoLabelSubHeading, vehInsStatusFieldLabel, vehInsNumberFieldLabel,
@@ -1386,13 +1272,11 @@ public class VehLookupViewController implements IShutdownable {
 											"#3E3E3E")))
 							+ ";");
 		}
-
 		btninfo1.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
 		btninfo2.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
 		btninfo3.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
 		updateotherinfobtn.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
 		addDataToNotesBtn.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
-
 		ownerInfoButton.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
 		vehicleInfoButton.setStyle("-fx-background-color: " + toWebString(buttonColor) + " !important;");
 	}
@@ -1539,5 +1423,4 @@ public class VehLookupViewController implements IShutdownable {
 	public TextField getvehmakefield() {
 		return vehmakefield;
 	}
-
 }

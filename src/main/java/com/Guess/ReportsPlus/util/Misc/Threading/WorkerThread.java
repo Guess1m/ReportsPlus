@@ -11,7 +11,6 @@ public class WorkerThread extends Thread {
 	public WorkerThread(String name, Runnable runnable) {
 		this.name = name;
 		this.runnable = runnable;
-
 		this.setName(name);
 	}
 

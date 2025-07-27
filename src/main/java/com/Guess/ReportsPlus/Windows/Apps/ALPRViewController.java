@@ -110,7 +110,6 @@ public class ALPRViewController {
 			} catch (IOException e) {
 				logError("error loading styles for vehicle list: ", e);
 			}
-
 			setupLayout();
 			setupStyling();
 		}
@@ -139,7 +138,6 @@ public class ALPRViewController {
 				timeLabel.setStyle(" -fx-text-fill: " + fontcolor
 						+ ";-fx-font-family: \"Inter 24pt Regular\"; -fx-font-size: 11px;");
 				timeBox.getChildren().setAll(timeLabel);
-
 				setGraphic(container);
 			}
 		}
@@ -147,9 +145,7 @@ public class ALPRViewController {
 		private void setupLayout() {
 			VBox leftBox = new VBox(4);
 			leftBox.getChildren().addAll(plateLabel, detailsLabel, flagContainer);
-
 			timeBox.setAlignment(Pos.CENTER_RIGHT);
-
 			container.setLeft(leftBox);
 			container.setRight(timeBox);
 			container.setPadding(new Insets(5));
@@ -171,7 +167,6 @@ public class ALPRViewController {
 	public static ALPRViewController alprViewController;
 	private static ObservableList<Vehicle> vehicleList = FXCollections.observableArrayList();
 	private static Set<String> alertedPlates;
-
 	private static Set<String> vehicleIdentifiers;
 
 	public static void loadData() {
@@ -199,18 +194,15 @@ public class ALPRViewController {
 	public static List<Vehicle> parseVehicleData(String input) {
 		List<Vehicle> newVehicles = new ArrayList<>();
 		String[] entries = input.split("\\|");
-
 		for (String entry : entries) {
 			if (entry.trim().isEmpty()) {
 				continue;
 			}
-
 			Vehicle vehicle = parseVehicleEntry(entry);
 			if (vehicle == null || !vehicle.isValid()) {
 				logWarn("Skipping invalid vehicle entry: " + entry);
 				continue;
 			}
-
 			newVehicles.add(vehicle);
 		}
 		return newVehicles;
@@ -220,12 +212,10 @@ public class ALPRViewController {
 		Vehicle vehicle = new Vehicle();
 		Arrays.stream(entry.split("&")).filter(pair -> pair.contains("="))
 				.forEach(pair -> processKeyValuePair(pair, vehicle));
-
 		if (!vehicle.isValid()) {
 			logWarn("Skipping invalid vehicle entry: " + entry);
 			return null;
 		}
-
 		return vehicle;
 	}
 
@@ -255,10 +245,8 @@ public class ALPRViewController {
 		if (parts.length != 2) {
 			return;
 		}
-
 		String key = parts[0];
 		String value = parts[1];
-
 		switch (key) {
 			case "licenseplate":
 				vehicle.licenseplate = value;
@@ -331,51 +319,37 @@ public class ALPRViewController {
 	private TextField scannerUsedField;
 	@FXML
 	private Button searchDMVButton;
-
 	@FXML
 	private Label timestampSubLabel;
-
 	@FXML
 	private Label scannerInfoSubLabel;
-
 	@FXML
 	private Label speedSubLabel;
-
 	@FXML
 	private Label distanceSubLabel;
-
 	@FXML
 	private Label scannerUsedSubLabel;
-
 	@FXML
 	private Label scannedPlatesSubLabel;
-
 	@FXML
 	private Label plateTypeSubLabel;
-
 	@FXML
 	private Button clearButton;
-
 	@FXML
 	private ImageView licensePlateImageView;
-
 	@FXML
 	private Button settingsBtn;
 
 	public void initialize() {
 		alprViewController = this;
-
 		updateLicensePlateImage();
-
 		alertedPlates = new HashSet<>();
 		vehicleIdentifiers = Collections.synchronizedSet(new HashSet<>());
-
 		plateListView.setCellFactory(lv -> new VehicleListCell());
 		plateListView.setItems(vehicleList);
 		plateListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
 			updateFields((Vehicle) newVal);
 		});
-
 		loadData();
 		loadLocale();
 	}
@@ -385,9 +359,7 @@ public class ALPRViewController {
 			logWarn("Skipping invalid vehicle: One or more fields are null or empty");
 			return;
 		}
-
 		String vehicleId = vehicle.licenseplate + "|" + vehicle.timescanned.format(DateTimeFormatter.ISO_INSTANT);
-
 		Platform.runLater(() -> {
 			synchronized (vehicleIdentifiers) {
 				if (vehicleIdentifiers.contains(vehicleId)) {
@@ -395,9 +367,7 @@ public class ALPRViewController {
 				}
 				vehicleIdentifiers.add(vehicleId);
 			}
-
 			vehicleList.add(0, vehicle);
-
 			if (!vehicle.flags.isEmpty() && !alertedPlates.contains(vehicle.licenseplate)) {
 				showNotificationWarning("ALPR Alert [" + vehicle.licenseplate + "]",
 						"Flag(s) detected: " + vehicle.flags);
@@ -457,7 +427,6 @@ public class ALPRViewController {
 		alertedPlates.clear();
 		vehicleIdentifiers.clear();
 		clearData();
-
 		File alprFile = new File(serverALPRFileURL);
 		if (alprFile.exists()) {
 			try {
@@ -466,7 +435,6 @@ public class ALPRViewController {
 				logError("Error clearing alpr data file:", e);
 			}
 		}
-
 		showNotificationInfo("ALPR Alert", "Successfully Cleared ALPR Data");
 	}
 
@@ -546,41 +514,33 @@ public class ALPRViewController {
 	public void settingsBtnPress(ActionEvent actionEvent) {
 		BorderPane root = new BorderPane();
 		root.setPadding(new Insets(3));
-
 		CheckBox useDefaultCheckBox = new CheckBox("Use Default Image");
-
 		Label filePathLabel = new Label("Image Path:");
 		TextField filePathField = new TextField();
 		filePathField.setPromptText("Select an image file");
 		filePathField.setEditable(false);
 		filePathField.setDisable(true);
 		HBox.setHgrow(filePathField, Priority.ALWAYS);
-
 		Button browseButton = new Button("Browse...");
 		browseButton.setDisable(true);
-
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"),
 				new FileChooser.ExtensionFilter("All Files", "*.*"));
-
 		HBox filePathBox = new HBox(15);
 		filePathBox.setAlignment(Pos.CENTER_LEFT);
 		filePathBox.getChildren().addAll(filePathLabel, filePathField, browseButton);
-
 		VBox centerContent = new VBox(20);
 		centerContent.setPadding(new Insets(15));
 		centerContent.setAlignment(Pos.CENTER_LEFT);
 		centerContent.getChildren().addAll(useDefaultCheckBox, filePathBox);
 		root.setCenter(centerContent);
-
 		Button saveButton = new Button("Save");
 		HBox buttonBox = new HBox();
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 		buttonBox.setPadding(new Insets(10, 0, 0, 0));
 		buttonBox.getChildren().add(saveButton);
 		root.setBottom(buttonBox);
-
 		boolean useDefault = true;
 		String savedImagePath = "";
 		try {
@@ -598,7 +558,6 @@ public class ALPRViewController {
 			useDefault = true;
 		}
 		useDefaultCheckBox.setSelected(useDefault);
-
 		filePathField.setDisable(useDefault);
 		browseButton.setDisable(useDefault);
 		if (useDefault) {
@@ -608,10 +567,8 @@ public class ALPRViewController {
 			filePathField.setText(savedImagePath);
 			filePathField.setPromptText("Select an image file");
 		}
-
 		root.setPrefHeight(175);
 		root.setPrefWidth(400);
-
 		useDefaultCheckBox.setOnAction(_ -> {
 			boolean useDefault2 = useDefaultCheckBox.isSelected();
 			filePathField.setDisable(useDefault2);
@@ -623,7 +580,6 @@ public class ALPRViewController {
 				filePathField.setPromptText("Select an image file");
 			}
 		});
-
 		browseButton.setOnAction(_ -> {
 			File selectedFile = fileChooser.showOpenDialog((javafx.stage.Window) mainRT);
 			if (selectedFile != null) {
@@ -634,21 +590,16 @@ public class ALPRViewController {
 				true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 				new Image(Objects.requireNonNull(
 						getClass().getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
-
 		saveButton.setOnAction(_ -> {
 			boolean useDefault2 = useDefaultCheckBox.isSelected();
 			String imagePath = filePathField.getText();
-
 			logInfo("--- ALPR Settings Saved ---");
 			logInfo("Use Default Image: " + useDefault2);
 			logInfo("Image Path: " + (useDefault2 ? "Default" : imagePath));
 			logInfo("---------------------");
-
 			ConfigWriter.configwrite("alprSettings", "useDefaultImage", useDefault2 ? "true" : "false");
 			ConfigWriter.configwrite("alprSettings", "licensePlateImagePath", useDefault2 ? "" : imagePath);
-
 			updateLicensePlateImage();
-
 			if (window != null) {
 				window.closeWindow();
 			}
@@ -683,7 +634,6 @@ public class ALPRViewController {
 			}
 		}
 		alprViewController.getFlagsBox().getChildren().removeAll(nodesToDelete);
-
 		licensePlateNumbers.setText(vehicle.licenseplate);
 		plateTypeField.setText(vehicle.plateType);
 		speedField.setText(String.format("%.2f", vehicle.speed));
@@ -722,7 +672,6 @@ public class ALPRViewController {
 
 	private void updateLicensePlateImage() {
 		boolean useDefaultImageConfig = true;
-
 		try {
 			String useDefaultStr = ConfigReader.configRead("alprSettings", "useDefaultImage");
 			if (useDefaultStr != null) {
@@ -735,7 +684,6 @@ public class ALPRViewController {
 					e);
 			useDefaultImageConfig = true;
 		}
-
 		if (useDefaultImageConfig) {
 			logDebug(
 					"ALPR; Using default image for ALPR license plate (either by configuration or due to error in 'useDefaultImage' config).");
@@ -743,10 +691,8 @@ public class ALPRViewController {
 		} else {
 			boolean customImageLoadedSuccessfully = false;
 			String filePath;
-
 			try {
 				filePath = ConfigReader.configRead("alprSettings", "licensePlateImagePath");
-
 				if (filePath != null && !filePath.isEmpty()) {
 					File file = new File(filePath);
 					if (file.exists() && file.isFile()) {
@@ -773,7 +719,6 @@ public class ALPRViewController {
 						"ALPR; Unexpected error occurred while trying to load custom license plate image. Using default image.",
 						ex);
 			}
-
 			if (!customImageLoadedSuccessfully) {
 				logDebug(
 						"ALPR; Falling back to default image for license plate due to issues with loading the custom image.");

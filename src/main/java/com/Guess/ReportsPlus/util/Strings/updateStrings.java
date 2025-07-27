@@ -16,7 +16,6 @@ public class updateStrings {
 	 * Completed locale file
 	 * updatesList
 	 */
-
 	public static final String version = "v1.5.2-alpha-dev";
 	public static boolean showANSILoggingInConsole = true;
 	public static final String[] updatesList = { "UPDATED TO JDK24", "Redesign Callout Manager Window",
@@ -81,8 +80,6 @@ public class updateStrings {
 			Settings.reportFieldNameLabel=Show Field Names
 			Settings.reportFieldNameTT=Show labels above fields in report windows
 			VehicleLookup.FieldMake=Make:
-
-
 			REMOVED:
 				NewReportApp.customReport=Custom Reports:
 				NewReportApp.search=Search Report
@@ -99,8 +96,6 @@ public class updateStrings {
 			PedLookup.LegalInfoLabel", "Legal Information
 			PedLookup.PriorHistoryLabel", "Prior History
 			PedLookup.HuntLicenseInfoTitle", "Hunting License Information:
-
-
 			Version: v1.5.1-alpha
 			NEW:
 			    Settings.autofillLocationInfoLabel=AutoFill Location Information
@@ -108,10 +103,7 @@ public class updateStrings {
 				Settings.desktopUseMilitaryTimeLabel=Use 24-Hour Time
 				Settings.desktopSkipLoginLabel=Skip Login
 				Settings.openTerminal=Open Terminal
-
 			REMOVED:
-
-
 			Version: v1.5.0-alpha
 			NEW:
 			    ALPR.flagsSubLabel=Vehicle Flags:
@@ -129,15 +121,12 @@ public class updateStrings {
 			    Desktop.passLabel=Password:
 			    Desktop.usernameLabel=Username:
 			    Desktop.registerButton=Register
-
 			REMOVED:
 			    Login_Window.LoginButton=Login
 			    Login_Window.NumberPromptText=Number
 			    Login_Window.NamePromptText=Name
 			    Login_Window.MainHeaderLabel=ReportsPlus Officer Login
 			    Login_Window.IncompleteFormLabel=Please Fill Out the Form Completely.
-
-
 			Version: v1.4.1-alpha
 			NEW:
 				DropdownCreator.selectPrompt=Select Dropdown
@@ -174,11 +163,8 @@ public class updateStrings {
 			    LayoutBuilder.Heading=Custom Layout Designer
 			    LayoutBuilder.CustomDropdownButton=Custom Dropdowns
 			    LayoutBuilder.BuildLayoutButton=View Report Layout
-
 			REMOVED:
 				LogBrowser.SubHeading=Log Browser
-
-
 			Version: v1.4.0-alpha
 			NEW:
 				NewReportApp.patrol=Patrol Report
@@ -208,7 +194,6 @@ public class updateStrings {
 				Settings.useGameTimeTT=Toggle whether game time is used when connected
 				VehicleLookup.FieldVIN=Registered VIN:
 				ReportStatistics.reportsByLabel=Reports By:
-
 			REMOVED:
 				UserManager.MainHeader
 				UserManager.NameFieldPrompt
@@ -216,7 +201,6 @@ public class updateStrings {
 				Callout_Manager.CalloutNum
 				CalloutPopup.NumberLabel
 				ServerConnectionWindow.ClientHeading
-
 			Version: v1.3-alpha
 			NEW:
 				Settings.mainSettingsSubheader=MAIN SETTINGS
@@ -247,13 +231,11 @@ public class updateStrings {
 				LogBrowser.SubHeading=Log Browser
 				LogBrowser.reportDatabaseLabel=Report Database
 				Desktop.CheckedLabel=Checked:
-
 			REMOVED:
 				Desktop.CreateReportButton=Create Report
 				UpdatesWindow.IntelChipCheckbox=Intel Chip (ONLY For Intel MacOS!)
 				UpdatesWindow.UpdateButton=AutoUpdate
 				LogBrowser.SubHeading=Log Browser
-
 			Version: v1.2-alpha
 			NEW:
 				Desktop.AvailableLabel=Available!
@@ -273,10 +255,8 @@ public class updateStrings {
 				Settings.clearLookupDataLabel=Clear Old Ped / Veh Data
 				Settings.clearLookupDataLabelTT=ONLY delete saved ped / veh history data from previous lookups to free space
 				PedLookup.PedImageFoundlbl=Image Found in File:
-
 			REMOVED:
 				UpdatesWindow.CheckUpdatesButton=Check For Updates
-
 			CHANGED:
 				Settings.AudioSettingsHeader=AUDIO SETTINGS  ->  Settings.AudioSettingsHeader=AUDIO/OPTIONAL SETTINGS
 				Settings.AudioBtn=Audio  ->  Settings.AudioBtn=Audio/Optionals

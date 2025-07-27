@@ -44,10 +44,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class PatrolReportUtils {
-
 	public static Map<String, Object> patrolLayout() {
 		;
-
 		Map<String, Object> patrolReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report"), null,
 				new SectionConfig(
@@ -97,10 +95,8 @@ public class PatrolReportUtils {
 
 	public static Map<String, Object> newPatrol() {
 		Map<String, Object> patrolReport = patrolLayout();
-
 		Map<String, Object> patrolReportMap = (Map<String, Object>) patrolReport
 				.get(localization.getLocalizedMessage("ReportWindows.PatrolReportTitle", "Patrol Report") + " Map");
-
 		TextField name = (TextField) patrolReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField rank = (TextField) patrolReportMap
@@ -125,12 +121,9 @@ public class PatrolReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.LengthField", "length"));
 		TextField vehicle = (TextField) patrolReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.VehicleField", "vehicle"));
-
 		Label warningLabel = (Label) patrolReport.get("warningLabel");
-
 		MenuButton pullnotesbtn = (MenuButton) patrolReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -150,13 +143,10 @@ public class PatrolReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		Button submitBtn = (Button) patrolReport.get("submitBtn");
 		ComboBox<String> statusValue = (ComboBox) patrolReport.get("statusValue");
-
 		Label legacyLabel = (Label) patrolReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		submitBtn.setOnAction(_ -> {
 			if (patrolnum.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -188,13 +178,11 @@ public class PatrolReportUtils {
 				patrolReport1.setOfficerAgency(toTitleCase(agen.getText()));
 				patrolReport1.setOfficerVehicle(toTitleCase(vehicle.getText()));
 				patrolReport1.setPatrolComments(notes.getText());
-
 				try {
 					PatrolReportUtils.addPatrolReport(patrolReport1);
 				} catch (JAXBException e) {
 					logError("Could not add new PatrolReport: ", e);
 				}
-
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");
@@ -202,18 +190,14 @@ public class PatrolReportUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
-
 				patrolLogUpdate();
-
 				NotificationManager.showNotificationInfo("Report Manager", "A new Patrol Report has been submitted.");
-
 				CustomWindow window = getWindow("Patrol Report");
 				if (window != null) {
 					window.closeWindow();
 				}
 			}
 		});
-
 		return patrolReport;
 	}
 
@@ -222,7 +206,6 @@ public class PatrolReportUtils {
 		if (!file.exists()) {
 			return new PatrolReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(PatrolReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -243,14 +226,11 @@ public class PatrolReportUtils {
 
 	public static void addPatrolReport(PatrolReport PatrolReport) throws JAXBException {
 		PatrolReports PatrolReports = loadPatrolReports();
-
 		if (PatrolReports.getPatrolReportList() == null) {
 			PatrolReports.setPatrolReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<PatrolReport> existingReport = PatrolReports.getPatrolReportList().stream()
 				.filter(e -> e.getPatrolNumber().equals(PatrolReport.getPatrolNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			PatrolReports.getPatrolReportList().remove(existingReport.get());
 			PatrolReports.getPatrolReportList().add(PatrolReport);
@@ -259,18 +239,15 @@ public class PatrolReportUtils {
 			PatrolReports.getPatrolReportList().add(PatrolReport);
 			logInfo("PatrolReport with number " + PatrolReport.getPatrolNumber() + " added.");
 		}
-
 		savePatrolReports(PatrolReports);
 	}
 
 	public static void deletePatrolReport(String PatrolReportnumber) throws JAXBException {
 		PatrolReports PatrolReports = loadPatrolReports();
-
 		if (PatrolReports.getPatrolReportList() != null) {
 			PatrolReports.getPatrolReportList().removeIf(e -> e.getPatrolNumber().equals(PatrolReportnumber));
 			savePatrolReports(PatrolReports);
 			logInfo("PatrolReport with number " + PatrolReportnumber + " deleted.");
 		}
 	}
-
 }

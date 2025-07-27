@@ -4,7 +4,6 @@ import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Command;
 import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.CommandUtils.Output;
 
 public class TestCommand implements Command {
-
 	@Override
 	public String getName() {
 		return "test";

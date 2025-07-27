@@ -48,7 +48,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class TrafficStopReportUtils {
-
 	public static Map<String, Object> trafficStopLayout() {
 		SectionConfig offenderInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information"),
@@ -67,7 +66,6 @@ public class TrafficStopReportUtils {
 						new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription",
 								"offender description"), 6, FieldType.TEXT_FIELD)));
 		offenderInfoSection.setHasButton(true);
-
 		SectionConfig vehicleInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information"),
@@ -87,7 +85,6 @@ public class TrafficStopReportUtils {
 										localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info")),
 								8, FieldType.TEXT_FIELD)));
 		vehicleInfoSection.setHasButton(true);
-
 		Map<String, Object> trafficStopReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report"),
 				new TransferConfig(
@@ -142,11 +139,9 @@ public class TrafficStopReportUtils {
 
 	public static Map<String, Object> newTrafficStop() {
 		Map<String, Object> trafficStopReport = trafficStopLayout();
-
 		Map<String, Object> trafficStopReportMap = (Map<String, Object>) trafficStopReport
 				.get(localization.getLocalizedMessage("ReportWindows.TrafficStopReportTitle", "Traffic Stop Report")
 						+ " Map");
-
 		TextField officernamets = (TextField) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField officerrankts = (TextField) trafficStopReportMap
@@ -157,7 +152,6 @@ public class TrafficStopReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField officernumarrestts = (TextField) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 		TextField offenderNamets = (TextField) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField offenderAgets = (TextField) trafficStopReportMap
@@ -168,7 +162,6 @@ public class TrafficStopReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 		TextField offenderDescriptionts = (TextField) trafficStopReportMap.get(
 				localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 		ComboBox colorts = (ComboBox) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 		ComboBox typets = (ComboBox) trafficStopReportMap
@@ -179,7 +172,6 @@ public class TrafficStopReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 		TextField modelts = (TextField) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 		ComboBox areats = (ComboBox) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 		ComboBox streetts = (ComboBox) trafficStopReportMap
@@ -192,23 +184,18 @@ public class TrafficStopReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 		TextField timets = (TextField) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 		TextArea notests = (TextArea) trafficStopReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
-
 		Button transferarrestbtnts = (Button) trafficStopReportMap.get("transferarrestbtn");
 		transferarrestbtnts.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " "
 				+ localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report"));
 		Button transfercitationbtnts = (Button) trafficStopReportMap.get("transfercitationbtn");
 		transfercitationbtnts.setText(localization.getLocalizedMessage("ReportWindows.NewLabel", "New") + " "
 				+ localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report"));
-
 		MenuButton pullNotesBtnts = (MenuButton) trafficStopReport.get("pullNotesBtn");
 		pullNotesBtnts.setPopupSide(Side.TOP);
-
 		Label legacyLabel = (Label) trafficStopReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		pullNotesBtnts.setOnMouseEntered(_ -> {
 			pullNotesBtnts.getItems().clear();
 			if (notesViewController != null) {
@@ -239,13 +226,10 @@ public class TrafficStopReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		transferarrestbtnts.setOnAction(_ -> {
 			Map<String, Object> arrestReportObj = ArrestReportUtils.newArrest();
-
 			Map<String, Object> arrestReportMap = (Map<String, Object>) arrestReportObj
 					.get(localization.getLocalizedMessage("ReportWindows.ArrestReportTitle", "Arrest Report") + " Map");
-
 			TextField officernamearr = (TextField) arrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 			TextField officerrankarr = (TextField) arrestReportMap
@@ -256,7 +240,6 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 			TextField officernumarrestarr = (TextField) arrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 			TextField offenderNamearr = (TextField) arrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 			TextField offenderAgearr = (TextField) arrestReportMap
@@ -267,7 +250,6 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 			TextField offenderDescriptionarr = (TextField) arrestReportMap.get(
 					localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 			ComboBox areaarr = (ComboBox) arrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 			ComboBox streetarr = (ComboBox) arrestReportMap
@@ -280,10 +262,8 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 			TextField timearr = (TextField) arrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 			TextArea notesarr = (TextArea) arrestReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
-
 			officernamearr.setText(officernamets.getText());
 			officerdivarr.setText(officerdivts.getText());
 			officerrankarr.setText(officerrankts.getText());
@@ -302,13 +282,10 @@ public class TrafficStopReportUtils {
 			arrestnumarr.setText(stopnumts.getText());
 			notesarr.setText(notests.getText());
 		});
-
 		transfercitationbtnts.setOnAction(_ -> {
 			Map<String, Object> trafficCitationObj = TrafficCitationUtils.newCitation();
-
 			Map<String, Object> citationReportMap = (Map<String, Object>) trafficCitationObj.get(
 					localization.getLocalizedMessage("ReportWindows.CitationReportTitle", "Citation Report") + " Map");
-
 			TextField officernamecit = (TextField) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 			TextField officerrankcit = (TextField) citationReportMap
@@ -319,7 +296,6 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 			TextField officernumcit = (TextField) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 			TextField offenderNamecit = (TextField) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 			TextField offenderAgecit = (TextField) citationReportMap
@@ -330,7 +306,6 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
 			TextField offenderDescriptioncit = (TextField) citationReportMap.get(
 					localization.getLocalizedMessage("ReportWindows.FieldOffenderDescription", "offender description"));
-
 			ComboBox areacit = (ComboBox) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldArea", "area"));
 			ComboBox streetcit = (ComboBox) citationReportMap
@@ -343,7 +318,6 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 			TextField timecit = (TextField) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 			ComboBox colorcit = (ComboBox) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 			ComboBox typecit = (ComboBox) citationReportMap
@@ -354,10 +328,8 @@ public class TrafficStopReportUtils {
 					.get(localization.getLocalizedMessage("ReportWindows.OtherInfoField", "other info"));
 			TextField modelcit = (TextField) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 			TextArea notescit = (TextArea) citationReportMap
 					.get(localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes"));
-
 			officernamecit.setText(officernamets.getText());
 			officerdivcit.setText(officerdivts.getText());
 			officerrankcit.setText(officerrankts.getText());
@@ -381,12 +353,9 @@ public class TrafficStopReportUtils {
 			numcit.setText(stopnumts.getText());
 			notescit.setText(notests.getText());
 		});
-
 		Button submitBtn = (Button) trafficStopReport.get("submitBtn");
 		Label warningLabel = (Label) trafficStopReport.get("warningLabel");
-
 		ComboBox<String> statusValue = (ComboBox) trafficStopReport.get("statusValue");
-
 		submitBtn.setOnAction(_ -> {
 			if (stopnumts.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -404,7 +373,6 @@ public class TrafficStopReportUtils {
 						}
 					}
 				}
-
 				TrafficStopReport trafficStopReport1 = new TrafficStopReport();
 				trafficStopReport1.setStatus(statusValue.getValue());
 				trafficStopReport1.setDate((datets.getText()));
@@ -413,7 +381,6 @@ public class TrafficStopReportUtils {
 				trafficStopReport1.setStopNumber((stopnumts.getText()));
 				trafficStopReport1.setPlateNumber((plateNumberts.getText()));
 				trafficStopReport1.setCommentsTextArea((notests.getText()));
-
 				trafficStopReport1.setResponseModel(toTitleCase(modelts.getText()));
 				trafficStopReport1.setResponseOtherInfo(toTitleCase(otherInfots.getText()));
 				trafficStopReport1.setOperatorName(toTitleCase(offenderNamets.getText()));
@@ -435,7 +402,6 @@ public class TrafficStopReportUtils {
 				} catch (JAXBException e) {
 					logError("Could not create new TrafficStopReport: ", e);
 				}
-
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");
@@ -444,7 +410,6 @@ public class TrafficStopReportUtils {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
 				trafficStopLogUpdate();
-
 				NotificationManager.showNotificationInfo("Report Manager",
 						"A new Traffic Stop Report has been submitted.");
 				CustomWindow window = getWindow("Traffic Stop Report");
@@ -453,15 +418,12 @@ public class TrafficStopReportUtils {
 				}
 			}
 		});
-
 		Button offenderInfoBtn = (Button) trafficStopReport.get(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information")
 						+ "_button");
-
 		Button vehInfoBtn = (Button) trafficStopReport
 				.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information") + "_button");
-
 		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
@@ -473,7 +435,6 @@ public class TrafficStopReportUtils {
 			offenderAddressts.setText(pullValueFromReport("ped", "Pedaddressfield"));
 			offenderDescriptionts.setText(pullValueFromReport("ped", "Peddescfield"));
 		});
-
 		vehInfoBtn.setOnAction(_ -> {
 			plateNumberts.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			modelts.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
@@ -482,7 +443,6 @@ public class TrafficStopReportUtils {
 				typets.setValue(typ);
 			}
 		});
-
 		return trafficStopReport;
 	}
 
@@ -491,7 +451,6 @@ public class TrafficStopReportUtils {
 		if (!file.exists()) {
 			return new TrafficStopReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(TrafficStopReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -506,21 +465,17 @@ public class TrafficStopReportUtils {
 		JAXBContext context = JAXBContext.newInstance(TrafficStopReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 		File file = new File(trafficstopLogURL);
 		marshaller.marshal(TrafficStopReports, file);
 	}
 
 	public static void addTrafficStopReport(TrafficStopReport TrafficStopReport) throws JAXBException {
 		TrafficStopReports TrafficStopReports = loadTrafficStopReports();
-
 		if (TrafficStopReports.getTrafficStopReportList() == null) {
 			TrafficStopReports.setTrafficStopReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<TrafficStopReport> existingReport = TrafficStopReports.getTrafficStopReportList().stream()
 				.filter(e -> e.getStopNumber().equals(TrafficStopReport.getStopNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			TrafficStopReports.getTrafficStopReportList().remove(existingReport.get());
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
@@ -529,13 +484,11 @@ public class TrafficStopReportUtils {
 			TrafficStopReports.getTrafficStopReportList().add(TrafficStopReport);
 			logInfo("TrafficStopReport with number " + TrafficStopReport.getStopNumber() + " added.");
 		}
-
 		saveTrafficStopReports(TrafficStopReports);
 	}
 
 	public static void deleteTrafficStopReport(String TrafficStopReportnumber) throws JAXBException {
 		TrafficStopReports TrafficStopReports = loadTrafficStopReports();
-
 		if (TrafficStopReports.getTrafficStopReportList() != null) {
 			TrafficStopReports.getTrafficStopReportList()
 					.removeIf(e -> e.getStopNumber().equals(TrafficStopReportnumber));
@@ -543,5 +496,4 @@ public class TrafficStopReportUtils {
 			logInfo("TrafficStopReport with number " + TrafficStopReportnumber + " deleted.");
 		}
 	}
-
 }

@@ -61,7 +61,6 @@ public class updateUtil {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(5000);
 			connection.setRequestMethod("GET");
-
 			int responseCode = connection.getResponseCode();
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -69,7 +68,6 @@ public class updateUtil {
 				gitVersion = latestVersion;
 				logInfo("Git Version: " + latestVersion);
 				logInfo("App Version: " + updateStrings.version);
-
 				if (updateStrings.version.contains("dev")) {
 					logDebug("Dev Version Detected: [" + version + "]");
 					showNotificationWarning("Dev Version Detected",
@@ -86,7 +84,6 @@ public class updateUtil {
 						updatesAppObj.setAlertVisibility(true);
 					}
 				}
-
 				reader.close();
 			} else {
 				logError("Failed to fetch version file: HTTP error code " + responseCode);
@@ -104,20 +101,15 @@ public class updateUtil {
 			protected Boolean call() throws Exception {
 				try {
 					logInfo("Starting " + nameOfUpdate + " Update!");
-
 					if (!isInternetAvailable()) {
 						logError("[Updater] Internet connection is unavailable. Aborting update.");
 					}
-
 					double startTime = System.currentTimeMillis();
-
 					logDebug("[Updater] Preparing to download file from: " + url);
 					logDebug("[Updater] Target destination: " + destination);
 					Path downloadedFile = downloadFile(url, destination);
-
 					logDebug("[Updater] Extracting downloaded file to: " + destination);
 					extractZip(downloadedFile, destination, replaceFiles);
-
 					double endTime = System.currentTimeMillis();
 					logInfo("[Updater] " + nameOfUpdate + " Update Finished: " + (endTime - startTime) / 1000 + "sec");
 					return true;
@@ -158,18 +150,14 @@ public class updateUtil {
 		logInfo("Running copyUpdaterJar");
 		String sourceJarPath = "/com/Guess/ReportsPlus/data/updater/Updater.jar";
 		Path destinationDir = Paths.get(getJarPath(), "tools");
-
 		if (!Files.exists(destinationDir)) {
 			Files.createDirectories(destinationDir);
 		}
-
 		Path updaterDestinationPath = destinationDir.resolve(Paths.get(sourceJarPath).getFileName());
 		boolean fileExistsBefore = Files.exists(updaterDestinationPath);
-
 		try (InputStream inputStream = treeViewUtils.class.getResourceAsStream(sourceJarPath)) {
 			if (inputStream != null) {
 				Files.copy(inputStream, updaterDestinationPath, StandardCopyOption.REPLACE_EXISTING);
-
 				if (fileExistsBefore) {
 					logInfo("Updater Jar replaced at Path: " + updaterDestinationPath);
 				} else {
@@ -188,33 +176,26 @@ public class updateUtil {
 			logError("[Downloader] Destination path is null. Aborting download.");
 			return null;
 		}
-
 		logInfo("[Downloader] Starting download from: " + fileUrl);
 		double startTime = System.currentTimeMillis();
 		URL url = URI.create(fileUrl).toURL();
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0");
-
 		Path destinationDir = Path.of(destinationPath);
 		if (!Files.exists(destinationDir)) {
 			logDebug("[Downloader] Destination directory does not exist. Creating: " + destinationDir);
 			Files.createDirectories(destinationDir);
 		}
-
 		String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
 		Path destinationFile = destinationDir.resolve(fileName);
-
 		try (BufferedInputStream in = new BufferedInputStream(connection.getInputStream());
 				FileOutputStream out = new FileOutputStream(destinationFile.toFile())) {
-
 			byte[] buffer = new byte[1024];
 			int bytesRead;
 			while ((bytesRead = in.read(buffer)) != -1) {
 				out.write(buffer, 0, bytesRead);
 			}
 		}
-
 		double endTime = System.currentTimeMillis();
 		logInfo("[Downloader] Download completed in " + (endTime - startTime) / 1000 + " seconds.");
 		logInfo("[Downloader] File saved to: " + destinationFile);
@@ -226,24 +207,18 @@ public class updateUtil {
 			logError("[Extractor] Destination directory is null. Aborting extraction.");
 			return;
 		}
-
 		logInfo("[Extractor] Starting extraction from: " + zipFile + " to " + destinationDir);
-
 		try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
 			ZipEntry entry;
 			while ((entry = zipInputStream.getNextEntry()) != null) {
 				String entryName = entry.getName();
-
 				if (entryName.startsWith("Sounds/")) {
 					entryName = entryName.substring("Sounds/".length());
 				}
-
 				if (entryName.isBlank()) {
 					continue;
 				}
-
 				Path entryPath = Path.of(destinationDir, entryName);
-
 				if (entry.isDirectory()) {
 					if (!Files.exists(entryPath)) {
 						Files.createDirectories(entryPath);
@@ -252,7 +227,6 @@ public class updateUtil {
 					if (!Files.exists(entryPath.getParent())) {
 						Files.createDirectories(entryPath.getParent());
 					}
-
 					if (!Files.exists(entryPath) || replaceExisting) {
 						try (FileOutputStream out = new FileOutputStream(entryPath.toFile())) {
 							byte[] buffer = new byte[1024];
@@ -268,13 +242,11 @@ public class updateUtil {
 				}
 				zipInputStream.closeEntry();
 			}
-
 			logInfo("[Extractor] Extraction completed to: " + destinationDir);
 		} catch (IOException e) {
 			logError("[Extractor] Error occurred during ZIP extraction: ", e);
 			throw e;
 		}
-
 		if (Files.exists(zipFile)) {
 			Files.delete(zipFile);
 			logInfo("[Extractor] ZIP file deleted after extraction.");

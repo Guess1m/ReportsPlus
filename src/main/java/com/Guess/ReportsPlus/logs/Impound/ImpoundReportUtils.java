@@ -45,7 +45,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class ImpoundReportUtils {
-
 	public static Map<String, Object> impoundLayout() {
 		SectionConfig vehInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
@@ -62,7 +61,6 @@ public class ImpoundReportUtils {
 						new FieldConfig(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"), 5,
 								FieldType.COMBO_BOX_COLOR)));
 		vehInfoSection.setHasButton(true);
-
 		SectionConfig offenderInfoSection = new SectionConfig(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information"),
 				new RowConfig(
@@ -78,7 +76,6 @@ public class ImpoundReportUtils {
 						localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"), 12,
 						FieldType.TEXT_FIELD)));
 		offenderInfoSection.setHasButton(true);
-
 		Map<String, Object> impoundReport = createReportWindow(
 				localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report"), null,
 				new SectionConfig(
@@ -120,10 +117,8 @@ public class ImpoundReportUtils {
 
 	public static Map<String, Object> newImpound() {
 		Map<String, Object> impoundReport = impoundLayout();
-
 		Map<String, Object> impoundReportMap = (Map<String, Object>) impoundReport
 				.get(localization.getLocalizedMessage("ReportWindows.ImpoundReportTitle", "Impound Report") + " Map");
-
 		TextField officername = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerName", "name"));
 		TextField officerrank = (TextField) impoundReportMap
@@ -134,7 +129,6 @@ public class ImpoundReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerAgency", "agency"));
 		TextField officernum = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOfficerNumber", "number"));
-
 		TextField offenderName = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderName", "offender name"));
 		TextField offenderAge = (TextField) impoundReportMap
@@ -143,14 +137,12 @@ public class ImpoundReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderGender", "offender gender"));
 		TextField offenderAddress = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldOffenderAddress", "offender address"));
-
 		TextField num = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.ImpoundNumField", "impound number"));
 		TextField date = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldDate", "date"));
 		TextField time = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldTime", "time"));
-
 		ComboBox color = (ComboBox) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldColor", "color"));
 		ComboBox type = (ComboBox) impoundReportMap
@@ -159,15 +151,11 @@ public class ImpoundReportUtils {
 				.get(localization.getLocalizedMessage("ReportWindows.FieldPlateNumber", "plate number"));
 		TextField model = (TextField) impoundReportMap
 				.get(localization.getLocalizedMessage("ReportWindows.FieldModel", "model"));
-
 		TextArea notes = (TextArea) impoundReportMap.get(localization.getLocalizedMessage("ReportWindows.FieldNotes",
 				localization.getLocalizedMessage("ReportWindows.FieldNotes", "notes")));
-
 		MenuButton pullnotesbtn = (MenuButton) impoundReport.get("pullNotesBtn");
 		pullnotesbtn.setPopupSide(Side.TOP);
-
 		Label warningLabel = (Label) impoundReport.get("warningLabel");
-
 		pullnotesbtn.setOnMouseEntered(_ -> {
 			pullnotesbtn.getItems().clear();
 			if (notesViewController != null) {
@@ -194,13 +182,10 @@ public class ImpoundReportUtils {
 				logError("NotesViewController Is Null");
 			}
 		});
-
 		Button submitBtn = (Button) impoundReport.get("submitBtn");
 		ComboBox<String> statusValue = (ComboBox) impoundReport.get("statusValue");
-
 		Label legacyLabel = (Label) impoundReport.get("legacyLabel");
 		legacyLabel.setVisible(true);
-
 		submitBtn.setOnAction(_ -> {
 			if (num.getText().trim().isEmpty()) {
 				warningLabel.setVisible(true);
@@ -218,7 +203,6 @@ public class ImpoundReportUtils {
 						}
 					}
 				}
-
 				ImpoundReport impoundReport1 = new ImpoundReport();
 				impoundReport1.setStatus(statusValue.getValue());
 				impoundReport1.setImpoundNumber(num.getText());
@@ -227,7 +211,6 @@ public class ImpoundReportUtils {
 				impoundReport1.setOfficerRank(officerrank.getText());
 				impoundReport1.setImpoundComments(notes.getText());
 				impoundReport1.setImpoundPlateNumber(plateNumber.getText());
-
 				impoundReport1.setOwnerName(toTitleCase(offenderName.getText()));
 				impoundReport1.setOwnerAge(toTitleCase(offenderAge.getText()));
 				impoundReport1.setOwnerGender(toTitleCase(offenderGender.getText()));
@@ -251,9 +234,7 @@ public class ImpoundReportUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCreateReport: ", e);
 				}
-
 				impoundLogUpdate();
-
 				NotificationManager.showNotificationInfo("Report Manager", "A new Impound Report has been submitted.");
 				CustomWindow window = getWindow("Impound Report");
 				if (window != null) {
@@ -261,15 +242,12 @@ public class ImpoundReportUtils {
 				}
 			}
 		});
-
 		Button offenderInfoBtn = (Button) impoundReport.get(
 				localization.getLocalizedMessage("ReportWindows.OffenderInfoSectionHeading", "Offender Information")
 						+ "_button");
-
 		Button vehInfoBtn = (Button) impoundReport
 				.get(localization.getLocalizedMessage("ReportWindows.OffenderVehicleInfoSectionHeading",
 						"Offender Vehicle Information") + "_button");
-
 		offenderInfoBtn.setOnAction(_ -> {
 			String fulln = pullValueFromReport("ped", "Pedfnamefield") + " "
 					+ pullValueFromReport("ped", "Pedlnamefield");
@@ -280,7 +258,6 @@ public class ImpoundReportUtils {
 			offenderGender.setText(pullValueFromReport("ped", "Pedgenfield"));
 			offenderAddress.setText(pullValueFromReport("ped", "Pedaddressfield"));
 		});
-
 		vehInfoBtn.setOnAction(_ -> {
 			plateNumber.setText(pullValueFromReport("vehicle", "Vehplatefield2"));
 			model.setText(pullValueFromReport("vehicle", "Vehmodelfield"));
@@ -289,7 +266,6 @@ public class ImpoundReportUtils {
 				type.setValue(typ);
 			}
 		});
-
 		return impoundReport;
 	}
 
@@ -298,7 +274,6 @@ public class ImpoundReportUtils {
 		if (!file.exists()) {
 			return new ImpoundReports();
 		}
-
 		try {
 			JAXBContext context = JAXBContext.newInstance(ImpoundReports.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -313,21 +288,17 @@ public class ImpoundReportUtils {
 		JAXBContext context = JAXBContext.newInstance(ImpoundReports.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 		File file = new File(impoundLogURL);
 		marshaller.marshal(ImpoundReports, file);
 	}
 
 	public static void addImpoundReport(ImpoundReport ImpoundReport) throws JAXBException {
 		ImpoundReports ImpoundReports = loadImpoundReports();
-
 		if (ImpoundReports.getImpoundReportList() == null) {
 			ImpoundReports.setImpoundReportList(new java.util.ArrayList<>());
 		}
-
 		Optional<ImpoundReport> existingReport = ImpoundReports.getImpoundReportList().stream()
 				.filter(e -> e.getImpoundNumber().equals(ImpoundReport.getImpoundNumber())).findFirst();
-
 		if (existingReport.isPresent()) {
 			ImpoundReports.getImpoundReportList().remove(existingReport.get());
 			ImpoundReports.getImpoundReportList().add(ImpoundReport);
@@ -336,13 +307,11 @@ public class ImpoundReportUtils {
 			ImpoundReports.getImpoundReportList().add(ImpoundReport);
 			logInfo("ImpoundReport with number " + ImpoundReport.getImpoundNumber() + " added.");
 		}
-
 		saveImpoundReports(ImpoundReports);
 	}
 
 	public static void deleteImpoundReport(String ImpoundReportnumber) throws JAXBException {
 		ImpoundReports ImpoundReports = loadImpoundReports();
-
 		if (ImpoundReports.getImpoundReportList() != null) {
 			ImpoundReports.getImpoundReportList().removeIf(e -> e.getImpoundNumber().equals(ImpoundReportnumber));
 			saveImpoundReports(ImpoundReports);

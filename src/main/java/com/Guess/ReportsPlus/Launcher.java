@@ -40,32 +40,20 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while clearing the log file: ", e);
 		}
-
 		initLogging();
-
 		loadJsonData();
-
 		localization = new Localization();
-
 		deleteFiles();
-
 		loadFonts();
-
 		createFilesFolders();
-
 		copyInternalFiles();
-
 		createDataLogsDir();
-
 		createConfig();
 		createAppConfig();
-
 		checkAndSetDefaultValues(false);
 		checkAndSetDefaultAppValues();
-
 		clearOldLookupData();
 		clearOldCalloutData();
-
 		try {
 			if (ConfigReader.configRead("uiSettings", "skipOfficerLogin").equalsIgnoreCase("true")) {
 				logDebug("skipOfficerLogin is true, trying to open main desktop..");
@@ -91,7 +79,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("clearLookupDataOnStartup was null, using default: 'true': ", e);
 		}
-
 		if (deleteOldData) {
 			try {
 				String filePath = controllerUtils.getDataFolderPath() + "vehHistory.xml";
@@ -113,7 +100,6 @@ public class Launcher {
 			} catch (IOException e) {
 				logError("Error while deleting pedHistory/vehHistory file: ", e);
 			}
-
 		}
 	}
 
@@ -124,7 +110,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("clearCalloutDataOnStartup was null, using default: 'true': ", e);
 		}
-
 		if (deleteOldData) {
 			try {
 				String filePath = controllerUtils.getDataFolderPath() + "calloutData.xml";
@@ -146,14 +131,12 @@ public class Launcher {
 			} catch (IOException e) {
 				logError("Error while deleting calloutHistory/calloutData file: ", e);
 			}
-
 		}
 	}
 
 	public static void loadFonts() {
 		System.setProperty("prism.lcdtext", "false");
 		System.setProperty("prism.text", "t2k");
-
 		ArrayList<Font> fonts = new ArrayList<>(
 				Arrays.asList(Font.loadFont(Launcher.class.getResource("fonts/InterBold.ttf").toExternalForm(), 28),
 						Font.loadFont(Launcher.class.getResource("fonts/InterRegular.ttf").toExternalForm(), 28),
@@ -184,7 +167,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("Error while deleting IDHistory file: ", e);
 		}
-
 		try {
 			String filePath = URLStrings.currentIDFileURL;
 			Path path = Path.of(filePath);
@@ -197,7 +179,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server current ID file: ", e);
 		}
-
 		try {
 			String filePath = URLStrings.serverGameDataFileURL;
 			Path path = Path.of(filePath);
@@ -210,7 +191,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server gameData file: ", e);
 		}
-
 		try {
 			String filePath = URLStrings.currentLocationFileURL;
 			Path path = Path.of(filePath);
@@ -223,7 +203,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server Location file: ", e);
 		}
-
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerWorldPeds.data";
 			Path path = Path.of(filePath);
@@ -236,7 +215,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world peds file: ", e);
 		}
-
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerWorldCars.data";
 			Path path = Path.of(filePath);
@@ -249,7 +227,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server world cars file: ", e);
 		}
-
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerALPR.data";
 			Path path = Path.of(filePath);
@@ -262,7 +239,6 @@ public class Launcher {
 		} catch (IOException e) {
 			logError("An error occurred while deleting the server ALPR file: ", e);
 		}
-
 		try {
 			String filePath = controllerUtils.getServerDataFolderPath() + "ServerTrafficStop.data";
 			Path path = Path.of(filePath);
@@ -280,7 +256,6 @@ public class Launcher {
 	private static void createFilesFolders() {
 		String dataFolderPath = controllerUtils.getJarPath() + File.separator + "data";
 		String serverData = controllerUtils.getJarPath() + File.separator + "serverData";
-
 		File dataFolder = new File(dataFolderPath);
 		if (!dataFolder.exists()) {
 			dataFolder.mkdirs();
@@ -288,7 +263,6 @@ public class Launcher {
 		} else {
 			logInfo("Data Folder Already Exists");
 		}
-
 		File serverDataFolder = new File(serverData);
 		if (!serverDataFolder.exists()) {
 			serverDataFolder.mkdirs();
@@ -296,7 +270,6 @@ public class Launcher {
 		} else {
 			logInfo("Server Data Folder Already Exists");
 		}
-
 		File calloutDataFile = new File(URLStrings.calloutDataURL);
 		if (!calloutDataFile.exists()) {
 			logInfo("Callout Data File Doesn't Exist, Creating");
@@ -306,7 +279,6 @@ public class Launcher {
 				logError("Could not create Callout Data File: ", e);
 			}
 		}
-
 		File calloutHistoryFile = new File(URLStrings.calloutHistoryURL);
 		if (!calloutHistoryFile.exists()) {
 			logInfo("Callout History File Doesn't Exist, Creating");

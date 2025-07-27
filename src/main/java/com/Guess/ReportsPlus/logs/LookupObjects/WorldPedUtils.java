@@ -12,17 +12,14 @@ import java.util.List;
 import java.util.Map;
 
 public class WorldPedUtils {
-
     public static List<Map<String, String>> grabAllPedData(String filePath) throws IOException {
         List<Map<String, String>> allPeds = new ArrayList<>();
         final Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
             return allPeds;
         }
-
         byte[] encodedBytes = Files.readAllBytes(path);
         String data = new String(encodedBytes);
-
         String[] pedestrians = data.split("\\|");
         for (String pedestrian : pedestrians) {
             Map<String, String> attributesMap = new HashMap<>();
@@ -46,7 +43,6 @@ public class WorldPedUtils {
         List<PedObject> allPeds = new ArrayList<>();
         try {
             List<Map<String, String>> allPedData = grabAllPedData(filePath);
-
             for (Map<String, String> pedData : allPedData) {
                 PedObject ped = new PedObject();
                 ped.setName(pedData.getOrDefault("name", null));

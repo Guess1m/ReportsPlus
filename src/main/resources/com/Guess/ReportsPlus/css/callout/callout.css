@@ -1,17 +1,16 @@
 .text-area {
-    -fx-control-inner-background: rgb(190, 190, 190, 0.9);
+  -fx-control-inner-background: rgb(190, 190, 190, 0.9);
 }
 
 .text-field {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Roboto";
-    -fx-font-size: 14px;
-    -fx-background-color: rgb(242, 242, 242, 0.6);
-    -fx-prompt-text-fill: #524992 !important;
-    -fx-background-insets: 0;
-    -fx-padding: 8px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: grey;
+  -fx-text-fill: black !important;
+  -fx-font-family: "Roboto";
+  -fx-font-size: 14px;
+  -fx-background-color: rgb(242, 242, 242, 0.6);
+  -fx-prompt-text-fill: #524992 !important;
+  -fx-background-insets: 0;
+  -fx-padding: 8px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: grey;
 }
-

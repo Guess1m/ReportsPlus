@@ -75,7 +75,6 @@ public class ClientUtils {
 			try {
 				logInfo("Initializing socket.");
 				socket = new Socket();
-
 				if (ClientController.clientController != null) {
 					Platform.runLater(() -> {
 						ClientController.clientController.getStatusLabel().setText(localization.getLocalizedMessage(
@@ -83,27 +82,20 @@ public class ClientUtils {
 						ClientController.clientController.getStatusLabel().setStyle("-fx-background-color: orange;");
 					});
 				}
-
 				logInfo("Attempting to connect to " + serviceAddress + ":" + servicePort);
 				socket.connect(new InetSocketAddress(serviceAddress, servicePort), 10000);
 				logInfo("Socket connected successfully.");
-
 				socket.setSoTimeout(Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
 				logInfo("Socket timeout set to "
 						+ Integer.parseInt(ConfigReader.configRead("connectionSettings", "socketTimeout")));
-
 				isConnected = true;
 				notifyStatusChanged(isConnected);
-
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				receiveMessages(in);
-
 				logInfo("Reader thread started.");
 				logInfo("CONNECTED: " + serviceAddress + ":" + servicePort);
-
 				port = String.valueOf(servicePort);
 				inet = serviceAddress;
-
 				logInfo("Writing connection settings to config. IP: " + serviceAddress + " Port: " + servicePort);
 				ConfigWriter.configwrite("connectionSettings", "lastIPV4Connection", serviceAddress);
 				ConfigWriter.configwrite("connectionSettings", "lastPortConnection", String.valueOf(servicePort));
@@ -125,18 +117,15 @@ public class ClientUtils {
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		Socket sock = null;
-
 		try {
 			sock = new Socket(ClientUtils.inet, Integer.parseInt(ClientUtils.port));
 			if (showdebug) {
 				logInfo("Starting file transfer: " + serverFileName + " (Size: " + fileSize + " bytes)");
 			}
-
 			byte[] mybytearray = new byte[fileSize];
 			InputStream is = sock.getInputStream();
 			fos = new FileOutputStream(controllerUtils.getServerDataFolderPath() + serverFileName);
 			bos = new BufferedOutputStream(fos);
-
 			if (showdebug) {
 				logDebug("{File Transfer} Receiving file: " + serverFileName);
 			}
@@ -146,7 +135,6 @@ public class ClientUtils {
 				totalBytesRead += bytesRead;
 			}
 			bos.flush();
-
 			if (showdebug) {
 				logInfo("{File Transfer} File transfer completed successfully. Total bytes received: "
 						+ totalBytesRead);
@@ -201,7 +189,6 @@ public class ClientUtils {
 						String serverVer = split[1];
 						logInfo("Checking Server / Application Versions");
 						serverVersion = serverVer;
-
 						if (!serverVer.equalsIgnoreCase(version)) {
 							logError("Versions dont match!");
 							logDebug("Server Version: " + serverVer);
@@ -220,53 +207,44 @@ public class ClientUtils {
 							logDebug("Received shutdown, Disconnecting...");
 							disconnectFromService();
 							break label;
-
 						case "UPDATE_ALPR":
 							logDebug("ALPR Update");
 							receiveFileFromServer(4096, "ServerALPR.data", false);
 							ALPRViewController.loadData();
 							break;
-
 						case "UPDATE_GAME_DATA":
 							logDebug("Received Location Update");
 							receiveFileFromServer(1024, "ServerGameData.data", true);
 							runUpdateLocation();
 							break;
-
 						case "UPDATE_ID":
 							logDebug("Received ID Update");
 							receiveFileFromServer(4096, "ServerCurrentID.xml", true);
 							runUpdateID();
 							break;
-
 						case "UPDATE_CALLOUT":
 							logDebug("Received Callout Update");
 							receiveFileFromServer(1024, "ServerCallout.xml", true);
 							runUpdateCallout();
 							break;
-
 						case "UPDATE_WORLD_PED":
 							logDebug("Received World Ped Update");
 							receiveFileFromServer(8192, "ServerWorldPeds.data", true);
 							break;
-
 						case "UPDATE_TRAFFIC_STOP":
 							logDebug("Received Traffic Stop Update");
 							receiveFileFromServer(1024, "ServerTrafficStop.data", true);
 							runTrafficStopUpdate();
 							break;
-
 						case "UPDATE_WORLD_VEH":
 							logDebug("Received World Vehicle Update");
 							receiveFileFromServer(16384, "ServerWorldCars.data", true);
 							break;
-
 						case "UPDATE_LOOKUP":
 							logDebug("Received Lookup Update");
 							receiveFileFromServer(256, "ServerLookup.data", true);
 							runLookupUpdate();
 							break;
-
 						case "HEARTBEAT":
 							long now = System.currentTimeMillis();
 							long delta = now - lastUpdate;
@@ -274,11 +252,9 @@ public class ClientUtils {
 							sendMessageToServer("HEARTBEAT");
 							lastUpdate = now;
 							break;
-
 						default:
 							logDebug("Received unknown message: " + fromServer);
 							break;
-
 					}
 				}
 			} catch (SocketTimeoutException e) {
@@ -365,7 +341,6 @@ public class ClientUtils {
 		} catch (IOException e) {
 			logError("Could not get broadcastPort from config: ", e);
 		}
-
 		try (DatagramSocket socket = new DatagramSocket(broadCastPort, InetAddress.getByName("0.0.0.0"))) {
 			socket.setBroadcast(true);
 			while (true) {
@@ -378,13 +353,11 @@ public class ClientUtils {
 					byte[] buffer = new byte[256];
 					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 					socket.receive(packet);
-
 					String message = new String(packet.getData(), 0, packet.getLength());
 					if (message.startsWith("SERVER_DISCOVERY:")) {
 						String[] parts = message.split(":");
 						String serverAddress = packet.getAddress().getHostAddress();
 						int serverPort = Integer.parseInt(parts[1]);
-
 						logInfo("Discovered server at " + serverAddress + ":" + serverPort);
 						try {
 							connectToService(serverAddress, serverPort);
@@ -442,7 +415,6 @@ public class ClientUtils {
 						mainDesktopControllerObj.getTaskBarApps(),
 						new Image(Objects.requireNonNull(Launcher.class
 								.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/license.png"))));
-
 				try {
 					if (!ConfigReader.configRead("misc", "IDDuration").equals("infinite")) {
 						PauseTransition delay = null;
@@ -490,7 +462,6 @@ public class ClientUtils {
 				} catch (IOException e) {
 					logError("Error getting configValue for playCallout: ", e);
 				}
-
 				try {
 					if (!ConfigReader.configRead("misc", "calloutDuration").equals("infinite")) {
 						PauseTransition delay = null;
@@ -505,7 +476,6 @@ public class ClientUtils {
 								try {
 									calloutWindow.closeWindow();
 									Callout callout = getCallout();
-
 									if (callout != null) {
 										String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
 										String type = callout.getType() != null ? callout.getType() : "Not Found";
@@ -554,7 +524,6 @@ public class ClientUtils {
 				logDebug("Callout Popups are disabled");
 				logInfo("Adding Callout To Active");
 				Callout callout = getCallout();
-
 				if (callout != null) {
 					String street = callout.getStreet() != null ? callout.getStreet() : "Not Found";
 					String type = callout.getType() != null ? callout.getType() : "Not Found";
@@ -595,10 +564,8 @@ public class ClientUtils {
 						"Traffic Stop Data", true, 1, true, true, mainDesktopControllerObj.getTaskBarApps(),
 						new Image(Objects.requireNonNull(Launcher.class
 								.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/trafficStop.png"))));
-
 				if (trafficStopWindow != null && trafficStopWindow.controller != null) {
 					trafficStopController.trafficStopController = (trafficStopController) trafficStopWindow.controller;
-
 					try {
 						trafficStopController.trafficStopController.updateTrafficStopFields();
 					} catch (IOException e) {
@@ -612,7 +579,6 @@ public class ClientUtils {
 						logError("Error loading theme from trafficStop", e);
 					}
 				});
-
 				try {
 					if (!ConfigReader.configRead("misc", "TrafficStopDuration").equals("infinite")) {
 						PauseTransition delay = null;
@@ -645,7 +611,6 @@ public class ClientUtils {
 	}
 
 	public interface ServerStatusListener {
-
 		void onStatusChanged(boolean isConnected);
 	}
 }

@@ -1,31 +1,29 @@
 package com.Guess.ReportsPlus.config;
 
-import java.io.*;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
 
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
-
 public class ConfigWriter {
-	
 	public static void configwrite(String database, String property, String value) {
 		Properties prop = new Properties();
 		OutputStream output = null;
 		FileInputStream input = null;
 		String configFilePath = null;
-		
 		try {
 			String jarPath = ConfigWriter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			
 			jarPath = URLDecoder.decode(jarPath, StandardCharsets.UTF_8);
-			
 			String jarDir = new File(jarPath).getParent();
-			
 			configFilePath = jarDir + File.separator + "config.properties";
-			
 			input = new FileInputStream(configFilePath);
 			prop.load(input);
 		} catch (IOException | URISyntaxException e) {
@@ -39,11 +37,8 @@ public class ConfigWriter {
 				}
 			}
 		}
-		
 		try {
-			
 			prop.setProperty(database + "." + property, value);
-			
 			output = new FileOutputStream(Objects.requireNonNull(configFilePath));
 			prop.store(output, null);
 		} catch (IOException e) {

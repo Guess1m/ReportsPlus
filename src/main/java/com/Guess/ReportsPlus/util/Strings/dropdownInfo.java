@@ -1,8 +1,8 @@
 package com.Guess.ReportsPlus.util.Strings;
 
 import java.util.List;
+
 public class dropdownInfo {
-	
 	public static final List<String> areaList = customizationDataLoader.areaList;
 	public static final List<String> searchMethods = customizationDataLoader.searchMethods;
 	public static final List<String> searchTypes = customizationDataLoader.searchTypes;

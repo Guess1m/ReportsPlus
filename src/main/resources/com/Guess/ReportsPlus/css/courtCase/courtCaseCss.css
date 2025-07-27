@@ -1,21 +1,21 @@
 .text-field {
-    -fx-text-fill: black !important;
-    -fx-font-family: "Inter 28pt Medium";
-    -fx-font-size: 13px;
-    -fx-background-color: rgb(0, 0, 0, 0.035);
-    -fx-prompt-text-fill: rgb(255, 255, 255, 0.5) !important;
-    -fx-background-insets: 0;
-    -fx-padding: 3px;
-    -fx-border-radius: 0;
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: rgb(0, 0, 0, 0.6);
+  -fx-text-fill: black !important;
+  -fx-font-family: "Inter 28pt Medium";
+  -fx-font-size: 13px;
+  -fx-background-color: rgb(0, 0, 0, 0.035);
+  -fx-prompt-text-fill: rgb(255, 255, 255, 0.5) !important;
+  -fx-background-insets: 0;
+  -fx-padding: 3px;
+  -fx-border-radius: 0;
+  -fx-border-width: 0 0 2px 0;
+  -fx-border-color: rgb(0, 0, 0, 0.6);
 }
 
 .split-pane .split-pane-divider {
-    -fx-background-color: rgb(0, 0, 0, 0.2);
-    -fx-padding: 3px;
+  -fx-background-color: rgb(0, 0, 0, 0.2);
+  -fx-padding: 3px;
 }
 
 .split-pane .split-pane-divider:pressed {
-    -fx-background-color: rgb(0, 0, 0, 0.45);
+  -fx-background-color: rgb(0, 0, 0, 0.45);
 }

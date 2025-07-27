@@ -1,23 +1,32 @@
 package com.Guess.ReportsPlus.Windows.Apps;
 
-import com.Guess.ReportsPlus.config.ConfigReader;
-import com.Guess.ReportsPlus.util.CourtData.Case;
-import com.Guess.ReportsPlus.util.CourtData.CourtCases;
-import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
-import com.Guess.ReportsPlus.util.CourtData.CustomCaseCell;
-import jakarta.xml.bind.JAXBException;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
+import static com.Guess.ReportsPlus.Launcher.localization;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.deleteCase;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.findCaseByNumber;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.loadCourtCases;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.modifyCase;
+import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.saveCourtCases;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logInfo;
+import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
+import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.calculateFineTotal;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.calculateTotalTime;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.createLabels;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.createPendingLabels;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.extractInteger;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.parseCharges;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,15 +34,30 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.Guess.ReportsPlus.Launcher.localization;
-import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.LogUtils.*;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
-import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationWarning;
-import static com.Guess.ReportsPlus.util.Other.controllerUtils.*;
+import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.util.CourtData.Case;
+import com.Guess.ReportsPlus.util.CourtData.CourtCases;
+import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
+import com.Guess.ReportsPlus.util.CourtData.CustomCaseCell;
+
+import jakarta.xml.bind.JAXBException;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 
 public class CourtViewController {
-	
 	private static final ScheduledExecutorService courtPendingChargesExecutor = Executors.newScheduledThreadPool(2);
 	public static SimpleIntegerProperty needCourtRefresh = new SimpleIntegerProperty();
 	public static CourtViewController courtViewController;
@@ -129,10 +153,9 @@ public class CourtViewController {
 	private Label caseprim1;
 	@javafx.fxml.FXML
 	private TextField caseNameField;
-	
+
 	public static String getNextIndex(CourtCases courtCases) {
 		int highestIndex = 0;
-		
 		if (courtCases.getCaseList() != null) {
 			for (Case c : courtCases.getCaseList()) {
 				String indexString = c.getIndex();
@@ -148,7 +171,7 @@ public class CourtViewController {
 		}
 		return String.valueOf(highestIndex + 1);
 	}
-	
+
 	private static void revealOutcomes(Case case1) {
 		if (courtViewController != null) {
 			List<String> licenseStatusList = parseCharges(case1.getOutcomes(), "License");
@@ -159,7 +182,6 @@ public class CourtViewController {
 			if (jailTimeList.contains("Life sentence")) {
 				totalJailTime = "Life Sentence";
 			}
-			
 			boolean areTrafficChargesPresent = !licenseStatusList.isEmpty() || !outcomeSuspension.isEmpty();
 			String licenseStatus = "";
 			if (licenseStatusList.contains("OK")) {
@@ -172,7 +194,6 @@ public class CourtViewController {
 				licenseStatus = "Revoked";
 				courtViewController.caseLicenseStatLabel.setStyle("-fx-text-fill: red;");
 			}
-			
 			if (!totalJailTime.isEmpty()) {
 				if (totalJailTime.contains("years") && Integer.parseInt(extractInteger(totalJailTime)) >= 10) {
 					courtViewController.caseTotalJailTimeLabel.setStyle("-fx-text-fill: red;");
@@ -186,11 +207,11 @@ public class CourtViewController {
 				courtViewController.caseTotalJailTimeLabel.setStyle("-fx-text-fill: gray;");
 				courtViewController.caseTotalJailTimeLabel.setText("None");
 			}
-			
 			if (!outcomeProbation.isEmpty()) {
 				if (outcomeProbation.contains("years")) {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: red;");
-				} else if (outcomeProbation.contains("months") && Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
+				} else if (outcomeProbation.contains("months")
+						&& Integer.parseInt(extractInteger(outcomeProbation)) >= 7) {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: #CC5200;");
 				} else {
 					courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: black;");
@@ -200,11 +221,11 @@ public class CourtViewController {
 				courtViewController.caseTotalProbationLabel.setStyle("-fx-text-fill: gray;");
 				courtViewController.caseTotalProbationLabel.setText("None");
 			}
-			
 			if (areTrafficChargesPresent) {
 				courtViewController.caseLicenseStatLabel.setText(licenseStatus);
 				if (!outcomeSuspension.isEmpty() && !licenseStatusList.contains("Revoked")) {
-					if (outcomeSuspension.contains("years") && Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
+					if (outcomeSuspension.contains("years")
+							&& Integer.parseInt(extractInteger(outcomeSuspension)) >= 2) {
 						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: red;");
 					} else {
 						courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: #CC5200;");
@@ -220,7 +241,6 @@ public class CourtViewController {
 				courtViewController.caseSuspensionDuration.setStyle("-fx-text-fill: gray;");
 				courtViewController.caseSuspensionDuration.setText("None");
 			}
-			
 			int fineTotal = calculateFineTotal(case1.getOutcomes());
 			if (fineTotal > 1500) {
 				courtViewController.caseTotalLabel.setStyle("-fx-text-fill: red;");
@@ -235,23 +255,19 @@ public class CourtViewController {
 				courtViewController.caseTotalLabel.setStyle("-fx-text-fill: gray;");
 				courtViewController.caseTotalLabel.setText("$0.00");
 			}
-			
 			String offences = case1.getOffences() != null ? case1.getOffences() : "";
 			Pattern pattern = Pattern.compile("MaxFine:\\S+");
 			Matcher matcher = pattern.matcher(offences);
 			String updatedOffences = matcher.replaceAll("").trim();
-			
 			ObservableList<Label> offenceLabels = createLabels(updatedOffences);
 			ObservableList<Label> outcomeLabels = createLabels(case1.getOutcomes());
-			
 			courtViewController.caseOutcomesListView.setItems(outcomeLabels);
 			courtViewController.caseOffencesListView.setItems(offenceLabels);
-			
 			setCellFactory(courtViewController.caseOutcomesListView);
 			setCellFactory(courtViewController.caseOffencesListView);
 		}
 	}
-	
+
 	private static void setCellFactory(ListView<Label> listView) {
 		listView.setCellFactory(new Callback<>() {
 			@Override
@@ -271,46 +287,39 @@ public class CourtViewController {
 			}
 		});
 	}
-	
+
 	public static void scheduleOutcomeRevealsForPendingCases() throws JAXBException, IOException {
 		long delayInSeconds = Long.parseLong(ConfigReader.configRead("pedHistory", "courtTrialDelay"));
 		Random random = new Random();
-		
 		long minSec = delayInSeconds / 3;
 		CourtCases courtCases = loadCourtCases();
-		
 		if (courtCases.getCaseList() != null) {
-			List<Case> pendingCases = courtCases.getCaseList().stream().filter(c -> "pending".equalsIgnoreCase(c.getStatus())).collect(Collectors.toList());
-			
+			List<Case> pendingCases = courtCases.getCaseList().stream()
+					.filter(c -> "pending".equalsIgnoreCase(c.getStatus())).collect(Collectors.toList());
 			for (Case pendingCase : pendingCases) {
 				long randomSec = minSec + random.nextLong(delayInSeconds - minSec + 1);
-				logDebug("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec + " Sec");
-				
+				logDebug("Scheduled: " + pendingCase.getCaseNumber() + " for court, pending trial: " + randomSec
+						+ " Sec");
 				Runnable revealTask = () -> {
-					
 					revealOutcomes(pendingCase);
 					pendingCase.setStatus("Closed");
-					
 					try {
 						modifyCase(pendingCase.getCaseNumber(), pendingCase);
 						logDebug("Case: #" + pendingCase.getCaseNumber() + " has been closed");
-						showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + ", " + pendingCase.getName() + ", has been closed");
+						showNotificationInfo("Court Manager", "Case: #" + pendingCase.getCaseNumber() + ", "
+								+ pendingCase.getName() + ", has been closed");
 					} catch (JAXBException | IOException e) {
 						logError("Error modifying case from scheduleOutcomeReveals: ", e);
-						
 					}
 				};
-				
 				courtPendingChargesExecutor.schedule(revealTask, randomSec, TimeUnit.SECONDS);
 			}
-			
 		}
 	}
-	
+
 	public void initialize() {
 		blankCourtInfoPane.setVisible(true);
 		courtInfoPane.setVisible(false);
-		
 		needCourtRefresh.set(0);
 		needCourtRefresh.addListener((obs, oldValue, newValue) -> {
 			if (newValue.equals(1)) {
@@ -318,44 +327,37 @@ public class CourtViewController {
 				needCourtRefresh.set(0);
 			}
 		});
-		
 		loadCaseLabels(caseList);
 		caseList.getSelectionModel().clearSelection();
-		
 		casePrim1.setText(localization.getLocalizedMessage("CourtView.MainHeaderLabel", "COURT CASE REPORT"));
 		caselbl1.setText(localization.getLocalizedMessage("CourtView.CaseNumLabel", "CASE#:"));
 		caselbl2.setText(localization.getLocalizedMessage("CourtView.CaseDateLabel", "COURT DATE:"));
-		
 		caseSec1.setText(localization.getLocalizedMessage("CourtView.DefendantInfoLbl", "Defendant Information:"));
 		caselbl4.setText(localization.getLocalizedMessage("CourtView.DefendantNameLbl", "NAME:"));
 		caselbl6.setText(localization.getLocalizedMessage("CourtView.DefendantAgeLbl", "AGE/DOB:"));
 		caselbl8.setText(localization.getLocalizedMessage("CourtView.DefendantAddressLbl", "ADDRESS:"));
 		caselbl7.setText(localization.getLocalizedMessage("CourtView.DefendantGenderLbl", "GENDER:"));
-		
 		caseSec2.setText(localization.getLocalizedMessage("CourtView.OffenseInfoLbl", "Offence Information:"));
 		caselbl9.setText(localization.getLocalizedMessage("CourtView.OffenseStreetLbl", "STREET:"));
 		caselbl10.setText(localization.getLocalizedMessage("CourtView.OffenseAreaLbl", "AREA:"));
 		caselbl11.setText(localization.getLocalizedMessage("CourtView.OffenseCountyLbl", "COUNTY:"));
 		caselbl12.setText(localization.getLocalizedMessage("CourtView.OffenseNotesLbl", "CASE NOTES:"));
-		
 		caseprim2.setText(localization.getLocalizedMessage("CourtView.ChargesLabel", "Charges:"));
 		caseprim3.setText(localization.getLocalizedMessage("CourtView.OutcomesLabel", "Outcomes:"));
-		
 		caseprim1.setText(localization.getLocalizedMessage("CourtView.CaseVerdictLabel", "Case Verdict:"));
 		casesec1.setText(localization.getLocalizedMessage("CourtView.FineTotalLabel", "Fine Total:"));
 		casesec2.setText(localization.getLocalizedMessage("CourtView.TotalJailTimeLabel", "Total Jail Time:"));
 		casesec3.setText(localization.getLocalizedMessage("CourtView.TotalProbationLabel", "Total Probation Time:"));
 		casesec4.setText(localization.getLocalizedMessage("CourtView.LicenseStatusLabel", "License Status:"));
-		caseSuspensionDurationlbl.setText(localization.getLocalizedMessage("CourtView.SuspensionDurationLabel", "Suspension Duration:"));
-		
+		caseSuspensionDurationlbl
+				.setText(localization.getLocalizedMessage("CourtView.SuspensionDurationLabel", "Suspension Duration:"));
 		revealOutcomeBtn.setText(localization.getLocalizedMessage("CourtView.ShowOutcomesButton", "Show Outcome(s)"));
 		deleteCaseBtn.setText(localization.getLocalizedMessage("CourtView.DeleteCaseButton", "Delete Case"));
-		
 		synchronizeScrolling(caseOutcomesListView, caseOffencesListView);
-		
-		noCourtCaseSelectedlbl.setText(localization.getLocalizedMessage("CourtView.NoCaseFoundLabel", "No Court Case Selected."));
+		noCourtCaseSelectedlbl
+				.setText(localization.getLocalizedMessage("CourtView.NoCaseFoundLabel", "No Court Case Selected."));
 	}
-	
+
 	private void synchronizeScrolling(ListView<?> listView1, ListView<?> listView2) {
 		listView1.skinProperty().addListener((obs, oldSkin, newSkin) -> {
 			ScrollBar scrollBar1 = getVerticalScrollBar(listView1);
@@ -364,7 +366,6 @@ public class CourtViewController {
 				bindScrollBars(scrollBar1, scrollBar2);
 			}
 		});
-		
 		listView2.skinProperty().addListener((obs, oldSkin, newSkin) -> {
 			ScrollBar scrollBar1 = getVerticalScrollBar(listView1);
 			ScrollBar scrollBar2 = getVerticalScrollBar(listView2);
@@ -373,27 +374,27 @@ public class CourtViewController {
 			}
 		});
 	}
-	
+
 	private ScrollBar getVerticalScrollBar(ListView<?> listView) {
-		return listView.lookupAll(".scroll-bar").stream().filter(node -> node instanceof ScrollBar).map(node -> (ScrollBar) node).filter(scrollBar -> scrollBar.getOrientation() == javafx.geometry.Orientation.VERTICAL).findFirst().orElse(null);
+		return listView.lookupAll(".scroll-bar").stream().filter(node -> node instanceof ScrollBar)
+				.map(node -> (ScrollBar) node)
+				.filter(scrollBar -> scrollBar.getOrientation() == javafx.geometry.Orientation.VERTICAL).findFirst()
+				.orElse(null);
 	}
-	
+
 	private void bindScrollBars(ScrollBar scrollBar1, ScrollBar scrollBar2) {
 		DoubleProperty v1 = scrollBar1.valueProperty();
 		DoubleProperty v2 = scrollBar2.valueProperty();
 		v1.bindBidirectional(v2);
 	}
-	
+
 	public void loadCaseLabels(ListView<String> listView) {
 		listView.getItems().clear();
 		try {
 			CourtCases courtCases = loadCourtCases();
 			ObservableList<String> caseNames = FXCollections.observableArrayList();
-			
 			if (courtCases.getCaseList() != null) {
-				
 				List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> {
-					
 					String indexString = case1.getIndex();
 					if (indexString == null || indexString.isEmpty()) {
 						indexString = getNextIndex(courtCases);
@@ -404,26 +405,23 @@ public class CourtViewController {
 							throw new RuntimeException(e);
 						}
 					}
-					
 					int index = Integer.parseInt(indexString);
-					
 					return index;
 				}).reversed()).toList();
-				
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
-						caseNames.add(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber());
+						caseNames.add(
+								case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "")
+										+ " " + case1.getName() + " " + case1.getCaseNumber());
 					}
 				}
-				
 				listView.setItems(caseNames);
-				
 				listView.setCellFactory(new Callback<>() {
 					@Override
 					public ListCell<String> call(ListView<String> param) {
 						return new ListCell<>() {
 							private final CustomCaseCell customCaseCell = new CustomCaseCell();
-							
+
 							@Override
 							protected void updateItem(String item, boolean empty) {
 								super.updateItem(item, empty);
@@ -431,7 +429,9 @@ public class CourtViewController {
 									setGraphic(null);
 								} else {
 									for (Case case1 : sortedCases) {
-										if (item.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
+										if (item.equals(case1.getOffenceDate().replaceAll("-", "/") + " "
+												+ case1.getCaseTime().replace(".", "") + " " + case1.getName() + " "
+												+ case1.getCaseNumber())) {
 											customCaseCell.updateCase(case1);
 											break;
 										}
@@ -442,20 +442,20 @@ public class CourtViewController {
 						};
 					}
 				});
-				
 				listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
 						blankCourtInfoPane.setVisible(false);
 						courtInfoPane.setVisible(true);
 						for (Case case1 : sortedCases) {
-							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " " + case1.getCaseTime().replace(".", "") + " " + case1.getName() + " " + case1.getCaseNumber())) {
+							if (newValue.equals(case1.getOffenceDate().replaceAll("-", "/") + " "
+									+ case1.getCaseTime().replace(".", "") + " " + case1.getName() + " "
+									+ case1.getCaseNumber())) {
 								updateFields(case1);
 								break;
 							}
 						}
 					}
 				});
-				
 				Map<String, Case> caseMap = new HashMap<>();
 				for (Case case1 : courtCases.getCaseList()) {
 					String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");
@@ -468,7 +468,7 @@ public class CourtViewController {
 			logError("Error loading Case labels: ", e);
 		}
 	}
-	
+
 	private void updateFields(Case case1) {
 		if (case1.getStatus() != null) {
 			if (case1.getStatus().equalsIgnoreCase("pending")) {
@@ -483,18 +483,14 @@ public class CourtViewController {
 				caseLicenseStatLabel.setStyle("-fx-text-fill: black;");
 				caseSuspensionDuration.setText(pendingLabel);
 				caseSuspensionDuration.setStyle("-fx-text-fill: black;");
-				
 				String offences = case1.getOffences() != null ? case1.getOffences() : "";
 				Pattern pattern = Pattern.compile("MaxFine:\\S+");
 				Matcher matcher = pattern.matcher(offences);
 				String updatedOffences = matcher.replaceAll("").trim();
-				
 				ObservableList<Label> offenceLabels = createLabels(updatedOffences);
 				ObservableList<Label> outcomeLabels = createPendingLabels(case1.getOutcomes());
-				
 				caseOutcomesListView.setItems(outcomeLabels);
 				caseOffencesListView.setItems(offenceLabels);
-				
 				setCellFactory(caseOutcomesListView);
 				setCellFactory(caseOffencesListView);
 			} else {
@@ -509,7 +505,6 @@ public class CourtViewController {
 				logDebug("Case: #" + case1.getCaseNumber() + " has been set as closed");
 			} catch (JAXBException | IOException e) {
 				logError("Error setting case as closed (modifying): ", e);
-				
 			}
 		}
 		revealOutcomeBtn.setVisible(case1.getStatus().equalsIgnoreCase("pending"));
@@ -524,7 +519,7 @@ public class CourtViewController {
 		caseNumField.setText(case1.getCaseNumber() != null ? case1.getCaseNumber() : "");
 		caseAddressField.setText(case1.getAddress() != null ? case1.getAddress() : "");
 	}
-	
+
 	@javafx.fxml.FXML
 	public void deleteCaseBtnPress(ActionEvent actionEvent) {
 		String selectedCaseNum;
@@ -542,7 +537,7 @@ public class CourtViewController {
 			loadCaseLabels(caseList);
 		}
 	}
-	
+
 	@javafx.fxml.FXML
 	public void revealOutcomeBtnPress(ActionEvent actionEvent) {
 		String selectedCaseNum;
@@ -558,122 +553,123 @@ public class CourtViewController {
 						logInfo("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Revealed");
 						updateFields(caseToUpdate);
 						loadCaseLabels(caseList);
-						
 					} catch (JAXBException e) {
-						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ", e);
+						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", JAXBException: ",
+								e);
 					} catch (IOException e) {
-						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ", e);
+						logError("Could not RevealOutcomes case#" + caseToUpdate.getCaseNumber() + ", IOException: ",
+								e);
 					}
 				} else {
 					logWarn("Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed!");
-					showNotificationWarning("Court Manager", "Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed");
+					showNotificationWarning("Court Manager",
+							"Case: #" + caseToUpdate.getCaseNumber() + " Outcomes Already Revealed");
 				}
 			}
 		}
 	}
-	
+
 	public Label getCaselbl12() {
 		return caselbl12;
 	}
-	
+
 	public Label getCaselbl11() {
 		return caselbl11;
 	}
-	
+
 	public Label getCaselbl10() {
 		return caselbl10;
 	}
-	
+
 	public Label getCaseSec1() {
 		return caseSec1;
 	}
-	
+
 	public Label getCaseSec2() {
 		return caseSec2;
 	}
-	
+
 	public Label getCaselbl4() {
 		return caselbl4;
 	}
-	
+
 	public Label getCaselbl2() {
 		return caselbl2;
 	}
-	
+
 	public Label getCaselbl1() {
 		return caselbl1;
 	}
-	
+
 	public Label getNoCourtCaseSelectedlbl() {
 		return noCourtCaseSelectedlbl;
 	}
-	
+
 	public TextArea getCaseNotesField() {
 		return caseNotesField;
 	}
-	
+
 	public AnchorPane getBlankCourtInfoPane() {
 		return blankCourtInfoPane;
 	}
-	
+
 	public Label getCaseSuspensionDurationlbl() {
 		return caseSuspensionDurationlbl;
 	}
-	
+
 	public Label getCaselbl9() {
 		return caselbl9;
 	}
-	
+
 	public Label getCaselbl8() {
 		return caselbl8;
 	}
-	
+
 	public Label getCaselbl7() {
 		return caselbl7;
 	}
-	
+
 	public Label getCaselbl6() {
 		return caselbl6;
 	}
-	
+
 	public Label getCasePrim1() {
 		return casePrim1;
 	}
-	
+
 	public BorderPane getRoot() {
 		return root;
 	}
-	
+
 	public Label getCasesec4() {
 		return casesec4;
 	}
-	
+
 	public Label getCasesec3() {
 		return casesec3;
 	}
-	
+
 	public Label getCasesec2() {
 		return casesec2;
 	}
-	
+
 	public Label getCasesec1() {
 		return casesec1;
 	}
-	
+
 	public AnchorPane getCourtPane() {
 		return courtPane;
 	}
-	
+
 	public Label getCaseprim2() {
 		return caseprim2;
 	}
-	
+
 	public Label getCaseprim3() {
 		return caseprim3;
 	}
-	
+
 	public Label getCaseprim1() {
 		return caseprim1;
 	}
-	
 }

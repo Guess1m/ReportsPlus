@@ -1920,7 +1920,7 @@ public class reportLayoutTemplates {
 			"        \"fieldName\" : \"Driver DOB\",\r\n" +
 			"        \"size\" : 2,\r\n" +
 			"        \"fieldType\" : \"TEXT_FIELD\",\r\n" +
-			"        \"populateKey\" : \"driverdob\",\r\n" +
+			"        \"populateKey\" : \"dob\",\r\n" +
 			"        \"nodeType\" : \"TEXT_FIELD\",\r\n" +
 			"        \"dropdownType\" : null,\r\n" +
 			"        \"lookupValue\" : \"DOB\"\r\n" +

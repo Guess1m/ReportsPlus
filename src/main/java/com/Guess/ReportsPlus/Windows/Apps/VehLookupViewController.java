@@ -12,6 +12,7 @@ import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewC
 import static com.Guess.ReportsPlus.Windows.Server.CurrentIDViewController.defaultPedImagePath;
 import static com.Guess.ReportsPlus.logs.Impound.ImpoundReportUtils.newImpound;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateTrueFalseProbability;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.femaleFirstNames;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateExpiredLicenseExpirationDate;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateLicenseNumber;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateRandomCoverage;
@@ -19,6 +20,7 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateRandomPl
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateRegStatus;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateValidLicenseExpirationDate;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateVin;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.maleFirstNames;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.parseExpirationDate;
 import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.addVehicle;
 import static com.Guess.ReportsPlus.util.History.Vehicle.VehicleHistoryUtils.findVehicleByNumber;
@@ -31,6 +33,7 @@ import static com.Guess.ReportsPlus.util.Misc.LogUtils.logWarn;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationError;
 import static com.Guess.ReportsPlus.util.Misc.NotificationManager.showNotificationInfo;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.getJarPath;
+import static com.Guess.ReportsPlus.util.Other.controllerUtils.toTitleCase;
 import static com.Guess.ReportsPlus.util.Server.recordUtils.getAllVehicles;
 import static com.Guess.ReportsPlus.util.Strings.URLStrings.vehImageFolderURL;
 import static com.Guess.ReportsPlus.util.Strings.dropdownInfo.vehicleTypes;
@@ -71,7 +74,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -90,6 +92,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -369,21 +372,27 @@ public class VehLookupViewController implements IShutdownable {
 	private Vehicle createFakeVehicle(String plate) {
 		Vehicle fake = new Vehicle();
 		fake.setPlateNumber(plate);
-		fake.setRegistration(generateRegStatus());
 		fake.setVin(generateVin());
+		fake.setRegistration(generateRegStatus());
+		fake.setInsurance(generateRegStatus());
+		fake.setStolenStatus(String.valueOf(calculateTrueFalseProbability("10")));
+		fake.setModel(PedHistoryMath.vehicleModelStrings
+				.get(new Random().nextInt(PedHistoryMath.vehicleModelStrings.size())));
 		return fake;
 	}
 
 	private void setupVehListView() {
 		databaseListView.setItems(masterVehicleList);
 		databaseListView.setCellFactory(lv -> new ListCell<Vehicle>() {
-			private final GridPane gridPane = new GridPane();
+			private final VBox layoutVBox = new VBox();
+			private final HBox detailsBox1 = new HBox();
+			private final HBox detailsBox2 = new HBox();
 			private final Label plateLabel = new Label();
-			private final Label vinTextLabel = new Label("VIN:");
+			private final Label modelLabel = new Label();
+			private final Label stolenStatusLabel = new Label();
 			private final Label vinValueLabel = new Label();
-			private final HBox vinBox = new HBox(5);
 			private final Label registrationLabel = new Label();
-			private final VBox plateBox = new VBox(5);
+			private final Label insuranceStatusLabel = new Label();
 			{
 				String textColor = "black";
 				try {
@@ -398,29 +407,40 @@ public class VehLookupViewController implements IShutdownable {
 					logError("Error reading secondary color config, using default: ", e);
 					secclr = "black";
 				}
-				String labelstyle = "-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: " + textColor
-						+ ";";
-				String titleStyle = "-fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr
-						+ ";";
-				plateLabel.setStyle(titleStyle);
-				vinTextLabel.setStyle(titleStyle);
+				String labelstyle = "-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: " + textColor + ";";
+				modelLabel.setStyle(labelstyle);
 				vinValueLabel.setStyle(labelstyle);
-				vinBox.getChildren().addAll(vinTextLabel, vinValueLabel);
-				plateBox.getChildren().addAll(plateLabel, vinBox);
-				registrationLabel.setStyle(
-						"-fx-font-family: 'Inter 24pt Regular'; -fx-font-size: 12; -fx-text-fill: black;-fx-background-radius: 5;");
-				registrationLabel.setPadding(new Insets(4, 8, 4, 8));
-				gridPane.setHgap(10);
-				gridPane.setPadding(new Insets(3, 10, 3, 10));
-				ColumnConstraints col1 = new ColumnConstraints();
-				col1.setHgrow(Priority.ALWAYS);
-				ColumnConstraints col2 = new ColumnConstraints();
-				col2.setHgrow(Priority.NEVER);
-				gridPane.getColumnConstraints().addAll(col1, col2);
-				gridPane.add(plateBox, 0, 0);
-				gridPane.add(registrationLabel, 1, 0);
-				GridPane.setHalignment(registrationLabel, HPos.RIGHT);
-				gridPane.setAlignment(Pos.CENTER_LEFT);
+				String titleStyle = "-fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr + ";";
+				plateLabel.setStyle("-fx-font-size: 16px; " + titleStyle);
+				Label modelTitle = new Label("Model:");
+				modelTitle.setStyle(titleStyle);
+				Label stolenTitle = new Label("Stolen:");
+				stolenTitle.setStyle(titleStyle);
+				Label vinTitle = new Label("VIN:");
+				vinTitle.setStyle(titleStyle);
+				Label regTitle = new Label("Registration:");
+				regTitle.setStyle(titleStyle);
+				Label insTitle = new Label("Insurance:");
+				insTitle.setStyle(titleStyle);
+				Pane spacer1 = new Pane();
+				HBox.setHgrow(spacer1, Priority.ALWAYS);
+				Pane spacer2 = new Pane();
+				HBox.setHgrow(spacer2, Priority.ALWAYS);
+				detailsBox1.getChildren().addAll(plateLabel, spacer1, modelTitle, modelLabel, spacer2, stolenTitle,
+						stolenStatusLabel);
+				Pane spacer3 = new Pane();
+				HBox.setHgrow(spacer3, Priority.ALWAYS);
+				Pane spacer4 = new Pane();
+				HBox.setHgrow(spacer4, Priority.ALWAYS);
+				detailsBox2.getChildren().addAll(vinTitle, vinValueLabel, spacer3, regTitle, registrationLabel, spacer4,
+						insTitle, insuranceStatusLabel);
+				detailsBox1.setSpacing(4);
+				detailsBox1.setAlignment(Pos.CENTER_LEFT);
+				detailsBox2.setSpacing(4);
+				detailsBox2.setAlignment(Pos.CENTER_LEFT);
+				layoutVBox.getChildren().addAll(detailsBox1, detailsBox2);
+				layoutVBox.setSpacing(3);
+				layoutVBox.setPadding(new Insets(5, 10, 5, 10));
 			}
 
 			@Override
@@ -428,33 +448,29 @@ public class VehLookupViewController implements IShutdownable {
 				super.updateItem(vehicle, empty);
 				if (empty || vehicle == null) {
 					setGraphic(null);
-					setText(null);
 				} else {
-					plateLabel.setText(vehicle.getPlateNumber());
-					vinValueLabel.setText(vehicle.getVin() != null ? vehicle.getVin() : "N/A");
-					String regStatus = vehicle.getRegistration() != null ? vehicle.getRegistration().toUpperCase()
-							: "UNKNOWN";
-					registrationLabel.setText(regStatus);
-					switch (regStatus) {
-						case "VALID":
-							registrationLabel.setStyle(
-									"-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;");
-							break;
-						case "EXPIRED":
-						case "REVOKED":
-							registrationLabel.setStyle(
-									"-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 5;");
-							break;
-						case "NONE":
-							registrationLabel.setStyle(
-									"-fx-background-color: #FFC107; -fx-text-fill: black; -fx-background-radius: 5;");
-							break;
-						default:
-							registrationLabel.setStyle(
-									"-fx-background-color: #9E9E9E; -fx-text-fill: white; -fx-background-radius: 5;");
-							break;
+					String textColor = "black";
+					try {
+						textColor = ConfigReader.configRead("uiColors", "labelColor");
+					} catch (Exception e) {
+						// ignore
 					}
-					setGraphic(gridPane);
+					plateLabel.setText(vehicle.getPlateNumber());
+					modelLabel.setText(toTitleCase(vehicle.getModel()));
+					vinValueLabel.setText(vehicle.getVin() != null ? vehicle.getVin() : "N/A");
+					String stolenStatus = toTitleCase(vehicle.getStolenStatus());
+					stolenStatusLabel.setText(stolenStatus);
+					stolenStatusLabel.setStyle("-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: "
+							+ ("True".equalsIgnoreCase(stolenStatus) ? "red" : textColor) + ";");
+					String regStatus = toTitleCase(vehicle.getRegistration());
+					registrationLabel.setText(regStatus);
+					registrationLabel.setStyle("-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: "
+							+ ("Valid".equalsIgnoreCase(regStatus) ? "#060" : "red") + ";");
+					String insStatus = toTitleCase(vehicle.getInsurance());
+					insuranceStatusLabel.setText(insStatus);
+					insuranceStatusLabel.setStyle("-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: "
+							+ ("Valid".equalsIgnoreCase(insStatus) ? "#060" : "red") + ";");
+					setGraphic(layoutVBox);
 				}
 			}
 		});
@@ -774,8 +790,21 @@ public class VehLookupViewController implements IShutdownable {
 		}
 		if (vehicle.getOwner() == null) {
 			Random random = new Random();
-			String firstName = PedHistoryMath.genericFirstNames
-					.get(random.nextInt(PedHistoryMath.genericFirstNames.size()));
+			String firstName;
+			boolean isMale = random.nextBoolean();
+			if (isMale && !maleFirstNames.isEmpty()) {
+				firstName = maleFirstNames.get(random.nextInt(maleFirstNames.size()));
+			} else if (!isMale && !femaleFirstNames.isEmpty()) {
+				firstName = femaleFirstNames
+						.get(random.nextInt(femaleFirstNames.size()));
+			} else if (!maleFirstNames.isEmpty()) {
+				firstName = maleFirstNames.get(random.nextInt(maleFirstNames.size()));
+			} else if (!femaleFirstNames.isEmpty()) {
+				firstName = femaleFirstNames
+						.get(random.nextInt(femaleFirstNames.size()));
+			} else {
+				firstName = "Alex";
+			}
 			String lastName = PedHistoryMath.lastNames.get(random.nextInt(PedHistoryMath.lastNames.size()));
 			String newOwner = firstName + " " + lastName;
 			logInfo("Vehicle [" + vehicleId + "] missing owner. Generated: " + newOwner);

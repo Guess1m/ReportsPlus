@@ -1226,7 +1226,7 @@ public class CalloutViewController {
 		String rank = "";
 		try {
 			sender = ConfigReader.configRead("userInfo", "Name");
-			rank = ConfigReader.configRead("userInfo", "Rank").split(" ")[0];
+			rank = ConfigReader.configRead("userInfo", "Rank");
 		} catch (IOException e) {
 			logError("Error loading userInfo.Name or userInfo.Rank from setupActiveCalloutsTable: ", e);
 		}

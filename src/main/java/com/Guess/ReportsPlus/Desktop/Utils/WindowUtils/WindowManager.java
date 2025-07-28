@@ -103,6 +103,9 @@ public class WindowManager {
 			return customWindow;
 		} else {
 			CustomWindow customWindow = windows.get(title);
+			if (customWindow.isMinimized) {
+				customWindow.restoreWindow(customWindow.title);
+			}
 			customWindow.bringToFront();
 			if (reopen) {
 				double x = customWindow.getWindowPane().getLayoutX();
@@ -116,6 +119,7 @@ public class WindowManager {
 				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false,
 						taskBarApps, image);
 			}
+
 		}
 		return null;
 	}
@@ -178,6 +182,9 @@ public class WindowManager {
 			return customWindow;
 		} else {
 			CustomWindow customWindow = windows.get(title);
+			if (customWindow.isMinimized) {
+				customWindow.restoreWindow(customWindow.title);
+			}
 			customWindow.bringToFront();
 			if (reopen) {
 				double x = customWindow.getWindowPane().getLayoutX();

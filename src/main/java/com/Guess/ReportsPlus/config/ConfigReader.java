@@ -206,6 +206,8 @@ public class ConfigReader {
 		checkAndSetDefaultValue("pedHistory", "suspendedLicenseChance", "5");
 		checkAndSetDefaultValue("pedHistory", "baseFlagProbability", "5");
 		checkAndSetDefaultValue("pedHistory", "chancePedIsPolice", "5");
+		checkAndSetDefaultValue("pedHistory", "chanceCitizenshipFlagged", "5");
+		checkAndSetDefaultValue("pedHistory", "chancePedDisabled", "5");
 		// Arrest
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceNoCharges", "60");
 		checkAndSetDefaultValue("pedHistoryArrest", "chanceMinimalCharges", "25");

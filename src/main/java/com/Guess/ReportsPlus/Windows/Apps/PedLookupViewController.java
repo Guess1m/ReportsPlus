@@ -19,6 +19,7 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateAge;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateLicenseStatus;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateTotalStops;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.calculateTrueFalseProbability;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.femaleFirstNames;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateBirthday;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateExpiredLicenseExpirationDate;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateLicenseNumber;
@@ -26,6 +27,7 @@ import static com.Guess.ReportsPlus.util.History.PedHistoryMath.generateValidLic
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.getRandomAddress;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.getRandomChargeWithWarrant;
 import static com.Guess.ReportsPlus.util.History.PedHistoryMath.getRandomDepartment;
+import static com.Guess.ReportsPlus.util.History.PedHistoryMath.maleFirstNames;
 import static com.Guess.ReportsPlus.util.Misc.AudioUtil.playSound;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logDebug;
 import static com.Guess.ReportsPlus.util.Misc.LogUtils.logError;
@@ -468,9 +470,16 @@ public class PedLookupViewController implements IShutdownable {
 
 	private List<String> prefilterFirstNames(String searchText) {
 		String firstNamePrefix = searchText.toLowerCase().split(" ", 2)[0];
-		return PedHistoryMath.genericFirstNames.stream()
+		List<String> combinedNames = new ArrayList<>();
+		List<String> maleMatches = maleFirstNames.stream()
 				.filter(name -> name.toLowerCase().startsWith(firstNamePrefix))
 				.collect(Collectors.toList());
+		List<String> femaleMatches = femaleFirstNames.stream()
+				.filter(name -> name.toLowerCase().startsWith(firstNamePrefix))
+				.collect(Collectors.toList());
+		combinedNames.addAll(maleMatches);
+		combinedNames.addAll(femaleMatches);
+		return combinedNames;
 	}
 
 	private List<String> prefilterLastNames(String searchText) {
@@ -545,52 +554,6 @@ public class PedLookupViewController implements IShutdownable {
 			return false;
 		}
 		return text.trim().length() >= 10 && text.contains(" ");
-	}
-
-	private Ped createMatchingPed(List<String> potentialFirstNames, List<String> potentialLastNames,
-			String searchText) {
-		Ped ped = new Ped();
-		Random random = new Random();
-		ped.setName(generateMatchingFullName(potentialFirstNames, potentialLastNames, searchText));
-		ped.setGender(random.nextBoolean() ? "Male" : "Female");
-		ped.setBirthday(PedHistoryMath.generateBirthday(18, 70));
-		ped.setAddress(PedHistoryMath.getRandomAddress());
-		ped.setWantedStatus(PedHistoryMath.calculateTrueFalseProbability("10") ? "True" : "False");
-		String[] statuses = { "Valid", "Valid", "Valid", "Valid", "Valid", "Expired", "Suspended", "None" };
-		String licenseStatus = statuses[random.nextInt(statuses.length)];
-		ped.setLicenseStatus(licenseStatus);
-		if (!"None".equalsIgnoreCase(licenseStatus)) {
-			String licenseNumber = generateLicenseNumber();
-			ped.setLicenseNumber(licenseNumber);
-		} else {
-			ped.setLicenseNumber(null);
-		}
-		return ped;
-	}
-
-	private String generateMatchingFullName(List<String> potentialFirstNames, List<String> potentialLastNames,
-			String searchText) {
-		Random random = new Random();
-		String[] nameParts = searchText.trim().toLowerCase().split("\\s+", 2);
-		String firstNamePrefix = nameParts[0];
-		String firstName;
-		if (potentialFirstNames == null || potentialFirstNames.isEmpty()) {
-			firstName = firstNamePrefix.substring(0, 1).toUpperCase() + firstNamePrefix.substring(1);
-		} else {
-			firstName = potentialFirstNames.get(random.nextInt(potentialFirstNames.size()));
-		}
-		String lastName;
-		if (nameParts.length > 1) {
-			String lastNamePrefix = nameParts[1];
-			if (potentialLastNames == null || potentialLastNames.isEmpty()) {
-				lastName = lastNamePrefix.substring(0, 1).toUpperCase() + lastNamePrefix.substring(1);
-			} else {
-				lastName = potentialLastNames.get(random.nextInt(potentialLastNames.size()));
-			}
-		} else {
-			lastName = PedHistoryMath.lastNames.get(random.nextInt(PedHistoryMath.lastNames.size()));
-		}
-		return firstName + " " + lastName;
 	}
 
 	private void updateSearchResults() {
@@ -1230,16 +1193,26 @@ public class PedLookupViewController implements IShutdownable {
 		String citizenshipStatus = ped.getCitizenshipStatus();
 		if (citizenshipStatus == null || citizenshipStatus.trim().isEmpty()) {
 			pedcitizenshipstatusfield.setText("No Data In System");
-			pedcitizenshipstatusfield.setStyle("-fx-text-fill: black;");
+			pedcitizenshipstatusfield.setStyle("-fx-text-fill: black !important;");
 		} else {
+			pedcitizenshipstatusfield.setStyle("-fx-text-fill: black !important;");
 			pedcitizenshipstatusfield.setText(citizenshipStatus);
+			if (citizenshipStatus.equalsIgnoreCase("flagged")) {
+				pedcitizenshipstatusfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
+			}
 		}
 		String disabilityStatus = ped.getDisabilityStatus();
 		if (disabilityStatus == null || disabilityStatus.trim().isEmpty()) {
 			peddisabilityfield.setText("No Data In System");
-			peddisabilityfield.setStyle("-fx-text-fill: black;");
+			peddisabilityfield.setStyle("-fx-text-fill: black !important;");
 		} else {
+			peddisabilityfield.setStyle("-fx-text-fill: black !important;");
 			peddisabilityfield.setText(disabilityStatus);
+			if (disabilityStatus.equalsIgnoreCase("disabled")) {
+				peddisabilityfield.setStyle("-fx-text-fill: red !important;");
+				playAudio = true;
+			}
 		}
 		String maritalStatus = ped.getMaritalStatus();
 		if (maritalStatus == null || maritalStatus.trim().isEmpty()) {
@@ -1372,6 +1345,7 @@ public class PedLookupViewController implements IShutdownable {
 			private final Label wantedLabel = new Label();
 			private final Label licenseNumberLabel = new Label();
 			private final Label licenseStatusLabel = new Label();
+			private final Label genderLabel = new Label();
 			{
 				String textColor = "black";
 				try {
@@ -1386,17 +1360,16 @@ public class PedLookupViewController implements IShutdownable {
 					logError("Error reading secondary color config, using default: ", e);
 					secclr = "black";
 				}
-				String labelstyle = "-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: " + textColor
-						+ ";";
+				String labelstyle = "-fx-font-family: 'Inter 24pt Regular'; -fx-text-fill: " + textColor + ";";
 				dobLabel.setStyle(labelstyle);
 				addressLabel.setStyle(labelstyle);
 				wantedLabel.setStyle(labelstyle);
 				licenseNumberLabel.setStyle(labelstyle);
 				licenseStatusLabel.setStyle(labelstyle);
-				String titleStyle = "-fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr
-						+ ";";
-				nameLabel.setStyle("-fx-font-size: 16px; -fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: "
-						+ secclr + ";");
+				genderLabel.setStyle(labelstyle);
+				String titleStyle = "-fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr + ";";
+				nameLabel.setStyle(
+						"-fx-font-size: 16px; -fx-font-family: 'Inter 28pt Bold'; -fx-text-fill: " + secclr + ";");
 				Label dobTitle = new Label("DOB:");
 				dobTitle.setStyle(titleStyle);
 				Label addressTitle = new Label("Address:");
@@ -1407,17 +1380,20 @@ public class PedLookupViewController implements IShutdownable {
 				licNumTitle.setStyle(titleStyle);
 				Label licStatusTitle = new Label("License Status:");
 				licStatusTitle.setStyle(titleStyle);
+				Label genderTitle = new Label("Gender:");
+				genderTitle.setStyle(titleStyle);
 				Pane spacer1 = new Pane();
 				HBox.setHgrow(spacer1, Priority.ALWAYS);
 				Pane spacer2 = new Pane();
 				HBox.setHgrow(spacer2, Priority.ALWAYS);
-				detailsBox1.getChildren().addAll(nameLabel, spacer1, licNumTitle, licenseNumberLabel, spacer2, dobTitle,
+				detailsBox1.getChildren().addAll(nameLabel, spacer1, genderTitle, genderLabel, spacer2, dobTitle,
 						dobLabel);
 				Pane spacer3 = new Pane();
 				HBox.setHgrow(spacer3, Priority.ALWAYS);
 				Pane spacer4 = new Pane();
 				HBox.setHgrow(spacer4, Priority.ALWAYS);
-				detailsBox2.getChildren().addAll(wantedTitle, wantedLabel, spacer3, addressTitle, addressLabel, spacer4,
+				detailsBox2.getChildren().addAll(wantedTitle, wantedLabel, spacer3, licNumTitle, licenseNumberLabel,
+						spacer4,
 						licStatusTitle, licenseStatusLabel);
 				detailsBox1.setSpacing(4);
 				detailsBox1.setAlignment(Pos.CENTER_LEFT);
@@ -1436,8 +1412,8 @@ public class PedLookupViewController implements IShutdownable {
 					setGraphic(null);
 				} else {
 					nameLabel.setText(toTitleCase(ped.getName()));
+					genderLabel.setText(toTitleCase(ped.getGender()));
 					dobLabel.setText(toTitleCase(ped.getBirthday()));
-					addressLabel.setText(toTitleCase(ped.getAddress()));
 					wantedLabel.setText(toTitleCase(ped.getWantedStatus()));
 					licenseNumberLabel.setText(toTitleCase(ped.getLicenseNumber()));
 					licenseStatusLabel.setText(toTitleCase(ped.getLicenseStatus()));
@@ -1742,11 +1718,38 @@ public class PedLookupViewController implements IShutdownable {
 		Optional<Ped> searchedPed = owner ? findPedByName(name_value) : findPedByNumber(licenseNumber_value);
 		Ped ped = searchedPed.orElseGet(Ped::new);
 		boolean needsSave = !searchedPed.isPresent();
-		String pedId = ped.getName() != null ? ped.getName() : licenseNumber_value;
 		if (ped.getName() == null && name_value != null) {
 			ped.setName(name_value);
 			needsSave = true;
 		}
+		if (ped.getGender() == null) {
+			if (gender_value != null) {
+				ped.setGender(gender_value);
+			} else {
+				String firstName = ped.getName() != null ? ped.getFirstName() : "";
+				if (maleFirstNames.stream().anyMatch(name -> name.equalsIgnoreCase(firstName))) {
+					ped.setGender("Male");
+				} else if (femaleFirstNames.stream().anyMatch(name -> name.equalsIgnoreCase(firstName))) {
+					ped.setGender("Female");
+				} else {
+					ped.setGender(calculateTrueFalseProbability("50") ? "Male" : "Female");
+				}
+			}
+			needsSave = true;
+		}
+		if (ped.getName() == null) {
+			Random random = new Random();
+			String firstName = "Unknown";
+			if ("Male".equalsIgnoreCase(ped.getGender()) && !maleFirstNames.isEmpty()) {
+				firstName = maleFirstNames.get(random.nextInt(maleFirstNames.size()));
+			} else if ("Female".equalsIgnoreCase(ped.getGender()) && !femaleFirstNames.isEmpty()) {
+				firstName = femaleFirstNames.get(random.nextInt(femaleFirstNames.size()));
+			}
+			String lastName = PedHistoryMath.lastNames.get(random.nextInt(PedHistoryMath.lastNames.size()));
+			ped.setName(firstName + " " + lastName);
+			needsSave = true;
+		}
+		String pedId = ped.getName();
 		if (ped.getLicenseNumber() == null) {
 			if (licenseNumber_value != null) {
 				ped.setLicenseNumber(licenseNumber_value);
@@ -1757,20 +1760,8 @@ public class PedLookupViewController implements IShutdownable {
 			}
 			needsSave = true;
 		}
-		pedId = ped.getName() != null ? ped.getName() : ped.getLicenseNumber();
-		if (ped.getGender() == null) {
-			if (gender_value != null) {
-				ped.setGender(gender_value);
-			} else {
-				String newGender = calculateTrueFalseProbability("50") ? "Male" : "Female";
-				logInfo("Ped [" + pedId + "] missing gender. Generated: " + newGender);
-				ped.setGender(newGender);
-			}
-			needsSave = true;
-		}
 		if (ped.getBirthday() == null) {
 			if (birthday_value != null) {
-				System.out.println("set birthday to " + birthday_value);
 				ped.setBirthday(birthday_value);
 			} else {
 				String newBirthday = generateBirthday(23, 65);
@@ -1816,8 +1807,15 @@ public class PedLookupViewController implements IShutdownable {
 			if (citizenshipStatus_value != null) {
 				ped.setCitizenshipStatus(citizenshipStatus_value);
 			} else {
-				logInfo("Ped [" + pedId + "] missing citizenship status. Generated: Citizen");
-				ped.setCitizenshipStatus("Citizen");
+				String flaggedChance = "5";
+				try {
+					flaggedChance = ConfigReader.configRead("pedHistory", "chanceCitizenshipFlagged");
+				} catch (IOException e) {
+					logError("Error reading chanceCitizenshipFlagged config, using default [5]: ", e);
+				}
+				String newStatus = calculateTrueFalseProbability(flaggedChance) ? "FLAGGED" : "Citizen";
+				logInfo("Ped [" + pedId + "] missing citizenship status. Generated: " + newStatus);
+				ped.setCitizenshipStatus(newStatus);
 			}
 			needsSave = true;
 		}
@@ -1825,8 +1823,27 @@ public class PedLookupViewController implements IShutdownable {
 			if (disabilityStatus_value != null) {
 				ped.setDisabilityStatus(disabilityStatus_value);
 			} else {
-				logInfo("Ped [" + pedId + "] missing disability status. Generated: None");
-				ped.setDisabilityStatus("None");
+				int baseChance = 5;
+				try {
+					baseChance = Integer.parseInt(ConfigReader.configRead("pedHistory", "chancePedDisabled"));
+				} catch (IOException | NumberFormatException e) {
+					logError("Error reading chancePedDisabled config, using default [5]: ", e);
+				}
+				int age = 0;
+				try {
+					age = Integer.parseInt(ped.getAge());
+				} catch (NumberFormatException e) {
+					logWarn("Could not parse age for disability calculation for ped: " + ped.getName());
+				}
+				int finalChance = baseChance;
+				if (age >= 45) {
+					finalChance += 15;
+				}
+				finalChance = Math.min(finalChance, 95);
+				String newStatus = calculateTrueFalseProbability(String.valueOf(finalChance)) ? "Disabled" : "None";
+				logInfo("Ped [" + pedId + "] missing disability status. Age: " + age + ", Final Chance: " + finalChance
+						+ "%. Generated: " + newStatus);
+				ped.setDisabilityStatus(newStatus);
 			}
 			needsSave = true;
 		}
@@ -2168,6 +2185,71 @@ public class PedLookupViewController implements IShutdownable {
 			}
 		}
 		return ped;
+	}
+
+	private Ped createMatchingPed(List<String> potentialFirstNames, List<String> potentialLastNames,
+			String searchText) {
+		Ped ped = new Ped();
+		Random random = new Random();
+		String firstName = generateMatchingFirstName(potentialFirstNames, searchText);
+		String lastName = generateMatchingLastName(potentialLastNames, searchText);
+		ped.setName(firstName + " " + lastName);
+		// Determine gender based on the chosen first name
+		if (maleFirstNames.stream().anyMatch(name -> name.equalsIgnoreCase(firstName))) {
+			ped.setGender("Male");
+		} else if (femaleFirstNames.stream().anyMatch(name -> name.equalsIgnoreCase(firstName))) {
+			ped.setGender("Female");
+		} else {
+			// Fallback if the name isn't in either list
+			ped.setGender(random.nextBoolean() ? "Male" : "Female");
+		}
+		ped.setBirthday(PedHistoryMath.generateBirthday(18, 70));
+		ped.setAddress(PedHistoryMath.getRandomAddress());
+		ped.setWantedStatus(PedHistoryMath.calculateTrueFalseProbability("10") ? "True" : "False");
+		String[] statuses = { "Valid", "Valid", "Valid", "Valid", "Valid", "Expired", "Suspended", "None" };
+		String licenseStatus = statuses[random.nextInt(statuses.length)];
+		ped.setLicenseStatus(licenseStatus);
+		if (!"None".equalsIgnoreCase(licenseStatus)) {
+			String licenseNumber = generateLicenseNumber();
+			ped.setLicenseNumber(licenseNumber);
+		} else {
+			ped.setLicenseNumber(null);
+		}
+		return ped;
+	}
+
+	private String generateMatchingFirstName(List<String> potentialFirstNames, String searchText) {
+		Random random = new Random();
+		String[] nameParts = searchText.trim().toLowerCase().split("\\s+", 2);
+		String firstNamePrefix = nameParts[0];
+		if (potentialFirstNames != null && !potentialFirstNames.isEmpty()) {
+			return potentialFirstNames.get(random.nextInt(potentialFirstNames.size()));
+		} else {
+			// If no potential names match, choose randomly from combined lists
+			List<String> allFirstNames = new ArrayList<>();
+			allFirstNames.addAll(maleFirstNames);
+			allFirstNames.addAll(femaleFirstNames);
+			if (!allFirstNames.isEmpty()) {
+				return allFirstNames.get(random.nextInt(allFirstNames.size()));
+			}
+		}
+		// Absolute fallback
+		return firstNamePrefix.substring(0, 1).toUpperCase() + firstNamePrefix.substring(1);
+	}
+
+	private String generateMatchingLastName(List<String> potentialLastNames, String searchText) {
+		Random random = new Random();
+		String[] nameParts = searchText.trim().toLowerCase().split("\\s+", 2);
+		if (nameParts.length > 1) {
+			String lastNamePrefix = nameParts[1];
+			if (potentialLastNames != null && !potentialLastNames.isEmpty()) {
+				return potentialLastNames.get(random.nextInt(potentialLastNames.size()));
+			} else {
+				return lastNamePrefix.substring(0, 1).toUpperCase() + lastNamePrefix.substring(1);
+			}
+		} else {
+			return PedHistoryMath.lastNames.get(random.nextInt(PedHistoryMath.lastNames.size()));
+		}
 	}
 
 	// #region Event Handlers

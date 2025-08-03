@@ -487,25 +487,7 @@ public class TrafficCitationUtils {
 					logError(
 							"Could not create court case from citation because either name or offences field(s) were empty.");
 				}
-				/*
-				 * TODO: !inprogress remove this code, was to update ped lookup from arrest
-				 * if (pedLookupViewController != null) {
-				 * if
-				 * (Objects.requireNonNull(pedLookupViewController).getPedRecordPane().isVisible
-				 * ()) {
-				 * if (pedLookupViewController.getPedSearchField().getEditor().getText()
-				 * .equalsIgnoreCase(offenderName.getText())) {
-				 * try {
-				 * pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
-				 * } catch (IOException e) {
-				 * logError("Error searching name to update ped lookup from citationReport: "
-				 * + pedLookupViewController.getPedfnamefield().getText().trim() + " "
-				 * + pedLookupViewController.getPedlnamefield().getText().trim(), e);
-				 * }
-				 * }
-				 * }
-				 * }
-				 */
+
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");

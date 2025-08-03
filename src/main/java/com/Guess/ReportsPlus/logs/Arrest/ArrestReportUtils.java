@@ -510,25 +510,7 @@ public class ArrestReportUtils {
 					logError(
 							"Could not create court case from arrest because either name or offences field(s) were empty.");
 				}
-				/*
-				 * TODO: !inprogress remove this code, was to update ped lookup from arrest
-				 * report
-				 * if (pedLookupViewController != null) {
-				 * if (Objects.requireNonNull(pedLookupViewController).getDatabaseInfoPane().
-				 * isVisible()) {
-				 * if (pedLookupViewController.getPedSearchField().getEditor().getText()
-				 * .equalsIgnoreCase(offenderName.getText())) {
-				 * try {
-				 * pedLookupViewController.onPedSearchBtnClick(new ActionEvent());
-				 * } catch (IOException e) {
-				 * logError("Error searching name to update ped lookup from arrestreport: "
-				 * + pedLookupViewController.getPedfnamefield().getText().trim() + " "
-				 * + pedLookupViewController.getPedlnamefield().getText().trim(), e);
-				 * }
-				 * }
-				 * }
-				 * }
-				 */
+
 				try {
 					if (ConfigReader.configRead("soundSettings", "playCreateReport").equalsIgnoreCase("true")) {
 						playSound(getJarPath() + "/sounds/alert-success.wav");

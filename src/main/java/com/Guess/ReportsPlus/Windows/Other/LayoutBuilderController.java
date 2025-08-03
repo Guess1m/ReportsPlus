@@ -305,7 +305,6 @@ public class LayoutBuilderController implements IShutdownable {
 	private class FieldPane extends HBox {
 		private TextField fieldNameField;
 		private TextField populateKeyField;
-		private Spinner<Integer> widthSpinner;
 		private ComboBox<String> fieldTypeComboBox;
 		private ComboBox<String> customDropdownComboBox;
 		private ComboBox<String> lookupValueComboBox;
@@ -1708,7 +1707,7 @@ public class LayoutBuilderController implements IShutdownable {
 		String dataFolderPath = getCustomDataLogsFolderPath();
 		createFolderIfNotExists(dataFolderPath);
 		File[] files = new File(dataFolderPath).listFiles((dir, name) -> name.endsWith(".db"));
-		if (files != null || files.length != 0) {
+		if (files != null && files.length != 0) {
 			for (File file : files) {
 				if (file.getName().equalsIgnoreCase(reportTitle + ".db")) {
 					logError("NewReport; Report title already exists: " + reportTitle);

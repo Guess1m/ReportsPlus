@@ -2372,10 +2372,6 @@ public class PedLookupViewController implements IShutdownable {
 		String bkgColor = "#F0F2F5";
 		String cardColor = "#FFFFFF";
 		String shadowColor = "rgba(0, 0, 0, 0.1)";
-		String headerColor = "#1D2C4D";
-		String labelColor = "#555555";
-		String fieldBorderColor = "#B9B9B9";
-		String fieldFocusColor = "#0078D7";
 		String saveBtnColor = "#28a745";
 		String cancelBtnColor = "#6c757d";
 		VBox editorContent = new VBox(20);

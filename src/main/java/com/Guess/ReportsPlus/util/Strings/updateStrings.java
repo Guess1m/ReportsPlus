@@ -21,6 +21,7 @@ public class updateStrings {
 	public static final String[] updatesList = { "UPDATED TO JDK24", "Redesign Callout Manager Window",
 			"Redesign Ped Lookup Window",
 			"Redesign Vehicle Lookup Window",
+			"Redesign User Manager Window",
 			"Added Custom Pull From Lookup Options For Each Field In CustomReports",
 			"Added Transfering To Any Custom Report",
 			"Change LicensePlate Image In ALPR App", "Fix Bug With DeskTopApps Not Opening Window If Minimized",

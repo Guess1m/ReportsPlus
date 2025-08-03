@@ -41,8 +41,6 @@ public class User {
 		this.rank = rank;
 		this.number = number;
 		this.callsign = callsign;
-		this.username = username;
-		this.password = password;
 	}
 
 	public User() {

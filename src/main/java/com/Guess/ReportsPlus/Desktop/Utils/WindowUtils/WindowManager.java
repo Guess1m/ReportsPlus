@@ -119,7 +119,6 @@ public class WindowManager {
 				return createCustomWindow(root, fileName, title, resizable, priority, centerOnDesktop, false,
 						taskBarApps, image);
 			}
-
 		}
 		return null;
 	}

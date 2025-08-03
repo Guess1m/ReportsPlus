@@ -447,7 +447,7 @@ public class CustomReport {
 				}
 			}
 		});
-		// TODO: !inprogress citation/arrest require MUCH more testing
+
 		submitBtn.setOnAction(_ -> {
 			Map<String, List<String>> selectedTypes = mainMap.getOrDefault("selectedType", new HashMap<>());
 			Map<String, List<String>> fieldNames = mainMap.getOrDefault("fieldNames", new HashMap<>());

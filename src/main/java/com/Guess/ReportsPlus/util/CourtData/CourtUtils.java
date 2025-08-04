@@ -59,14 +59,23 @@ public class CourtUtils {
 		if (courtCases.getCaseList() == null) {
 			courtCases.setCaseList(new java.util.ArrayList<>());
 		}
-		boolean exists = courtCases.getCaseList().stream()
-				.anyMatch(e -> e.getCaseNumber().equals(courtCase.getCaseNumber()));
-		if (!exists) {
-			courtCases.getCaseList().add(courtCase);
-			saveCourtCases(courtCases);
-		} else {
-			logWarn("Court Case with number " + courtCase.getCaseNumber() + " already exists.");
+		String originalCaseNumber = courtCase.getCaseNumber();
+		String currentCaseNumber = originalCaseNumber;
+		int suffix = 2;
+		java.util.Set<String> existingCaseNumbers = courtCases.getCaseList().stream()
+				.map(Case::getCaseNumber)
+				.collect(java.util.stream.Collectors.toSet());
+		while (existingCaseNumbers.contains(currentCaseNumber)) {
+			currentCaseNumber = originalCaseNumber + "-" + suffix;
+			suffix++;
 		}
+		if (!currentCaseNumber.equals(originalCaseNumber)) {
+			logWarn("Court Case with number " + originalCaseNumber + " already exists. Assigning new number: "
+					+ currentCaseNumber);
+			courtCase.setCaseNumber(currentCaseNumber);
+		}
+		courtCases.getCaseList().add(courtCase);
+		saveCourtCases(courtCases);
 	}
 
 	public static void deleteCase(String casenumber) throws JAXBException, IOException {

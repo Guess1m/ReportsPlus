@@ -402,7 +402,7 @@ public class AutoUpdaterToolController {
 		String rawUrl = "https://raw.githubusercontent.com/Guess1m/ReportsPlus/main/version.txt";
 		HttpURLConnection connection = null;
 		try {
-			URL url = Path.of(rawUrl).toUri().toURL();
+			URL url = URI.create(rawUrl).toURL();
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(5000);
 			connection.setReadTimeout(5000);

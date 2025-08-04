@@ -21,7 +21,7 @@ import com.Guess.ReportsPlus.Windows.Misc.TerminalWindow.Commands.ShowOutputComm
 import com.Guess.ReportsPlus.util.Strings.updateStrings;
 
 public class LogUtils {
-	// TODO: showoutput is showing ansi in terminal
+
 	public enum Severity {
 		DEBUG, INFO, WARN, ERROR,
 	}
@@ -40,13 +40,37 @@ public class LogUtils {
 		try {
 			consolePrintStream = System.out;
 			consoleErrorStream = System.err;
-			String logFilePath = getJarPath() + File.separator + "output.log";
+
+			String logsDirPath = getJarPath() + File.separator + "logs";
+			File logsDir = new File(logsDirPath);
+			if (!logsDir.exists()) {
+				logsDir.mkdirs();
+			}
+
+			final int MAX_LOG_FILES = 5;
+			File[] existingLogs = logsDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".log"));
+
+			if (existingLogs != null && existingLogs.length >= MAX_LOG_FILES) {
+				java.util.Arrays.sort(existingLogs, java.util.Comparator.comparingLong(File::lastModified));
+				int filesToDelete = existingLogs.length - MAX_LOG_FILES + 1;
+				for (int i = 0; i < filesToDelete; i++) {
+					existingLogs[i].delete();
+				}
+			}
+
+			String timeStamp = new java.text.SimpleDateFormat("dd-MM-yyyy_hh-mm-ss").format(new java.util.Date());
+			String logFilePath = logsDirPath + File.separator + "client_" + timeStamp + ".log";
 			filePrintStream = new PrintStream(new FileOutputStream(logFilePath, true), true);
+
 			Thread.setDefaultUncaughtExceptionHandler(
 					(thread, e) -> logError("Uncaught exception in thread: " + thread.getName(), e));
 			logInfo("---=== Client Log Initialized ===---");
+			logDebug("Logging initialized. Log file: " + timeStamp + ".log");
 			getOperatingSystemAndArch();
 		} catch (IOException e) {
+			if (consolePrintStream == null) {
+				consolePrintStream = System.out;
+			}
 			consolePrintStream.println("Failed to initialize file logging.");
 			consolePrintStream.println(checkFolderPermissions(Path.of(getJarPath())));
 			e.printStackTrace(consolePrintStream);
@@ -103,7 +127,7 @@ public class LogUtils {
 	private static void log(String message, Severity severity, String color) {
 		String threadInfo = Thread.currentThread().getName();
 		if (threadInfo.equalsIgnoreCase("JavaFX Application Thread")) {
-			threadInfo = "FXThread";
+			threadInfo = "FX";
 		}
 		String plainLog = String.format("[%s] [%s] [%s] [%s] %s",
 				threadInfo,

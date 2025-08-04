@@ -91,7 +91,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-//TODO: controlsfx searchable combobox
 public class reportUtil {
 	public static Map<String, Object> createReportWindow(String reportName,
 			nestedReportUtils.TransferConfig transferConfig, nestedReportUtils.SectionConfig... sectionConfigs) {

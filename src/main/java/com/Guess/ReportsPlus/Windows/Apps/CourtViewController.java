@@ -20,11 +20,8 @@ import static com.Guess.ReportsPlus.util.Other.controllerUtils.extractInteger;
 import static com.Guess.ReportsPlus.util.Other.controllerUtils.parseCharges;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -37,7 +34,6 @@ import java.util.stream.Collectors;
 import com.Guess.ReportsPlus.config.ConfigReader;
 import com.Guess.ReportsPlus.util.CourtData.Case;
 import com.Guess.ReportsPlus.util.CourtData.CourtCases;
-import com.Guess.ReportsPlus.util.CourtData.CourtUtils;
 import com.Guess.ReportsPlus.util.CourtData.CustomCaseCell;
 
 import jakarta.xml.bind.JAXBException;
@@ -394,20 +390,21 @@ public class CourtViewController {
 			CourtCases courtCases = loadCourtCases();
 			ObservableList<String> caseNames = FXCollections.observableArrayList();
 			if (courtCases.getCaseList() != null) {
-				List<Case> sortedCases = courtCases.getCaseList().stream().sorted(Comparator.comparing((Case case1) -> {
-					String indexString = case1.getIndex();
-					if (indexString == null || indexString.isEmpty()) {
-						indexString = getNextIndex(courtCases);
-						case1.setIndex(indexString);
-						try {
-							CourtUtils.addCase(case1);
-						} catch (JAXBException | IOException e) {
-							throw new RuntimeException(e);
-						}
+				boolean listWasModified = false;
+				int nextAvailableIndex = Integer.parseInt(getNextIndex(courtCases));
+				for (Case caseToFix : courtCases.getCaseList()) {
+					if (caseToFix.getIndex() == null || caseToFix.getIndex().isEmpty()) {
+						caseToFix.setIndex(String.valueOf(nextAvailableIndex));
+						nextAvailableIndex++;
+						listWasModified = true;
 					}
-					int index = Integer.parseInt(indexString);
-					return index;
-				}).reversed()).toList();
+				}
+				if (listWasModified) {
+					saveCourtCases(courtCases);
+				}
+				List<Case> sortedCases = courtCases.getCaseList().stream()
+						.sorted(Comparator.comparing((Case case1) -> Integer.parseInt(case1.getIndex())).reversed())
+						.toList();
 				for (Case case1 : sortedCases) {
 					if (!case1.getName().isEmpty() && !case1.getOffences().isEmpty()) {
 						caseNames.add(
@@ -456,13 +453,6 @@ public class CourtViewController {
 						}
 					}
 				});
-				Map<String, Case> caseMap = new HashMap<>();
-				for (Case case1 : courtCases.getCaseList()) {
-					String dateTime = case1.getOffenceDate() + " " + case1.getCaseTime().replace(".", "");
-					caseMap.put(dateTime, case1);
-				}
-				courtCases.setCaseList(new ArrayList<>(caseMap.values()));
-				saveCourtCases(courtCases);
 			}
 		} catch (JAXBException e) {
 			logError("Error loading Case labels: ", e);

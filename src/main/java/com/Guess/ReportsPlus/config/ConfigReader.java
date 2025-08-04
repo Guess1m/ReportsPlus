@@ -150,10 +150,12 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "appTextColor", "#ffffff");
 		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
 		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
-		checkAndSetDefaultValue("desktopSettings", "clearCalloutDataOnStartup", "false");
-		checkAndSetDefaultValue("desktopSettings", "clearLookupDataOnStartup", "true");
+
 		// TODO: !inprogress before release tell users to set this option to false in
 		// config.properties before running
+		checkAndSetDefaultValue("desktopSettings", "clearCalloutDataOnStartup", "false");
+		checkAndSetDefaultValue("desktopSettings", "clearLookupDataOnStartup", "true");
+
 		checkAndSetDefaultValue("desktopSettings", "saveWindowPosition", "true");
 		checkAndSetDefaultValue("desktopSettings", "saveWindowSize", "true");
 		// Miscellaneous

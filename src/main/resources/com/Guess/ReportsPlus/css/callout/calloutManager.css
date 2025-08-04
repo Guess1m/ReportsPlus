@@ -41,13 +41,25 @@ TabPane .tab-pane {
 
 .tab-pane .tab {
   -fx-font-family: "Inter 24pt Regular";
-  -fx-text-fill: white !important;
   -fx-background-radius: 8 8 0 0;
   -fx-background-color: transparent;
   -fx-border-width: 1 1 0 1;
   -fx-border-radius: 7 7 0 0;
   -fx-border-color: black;
   -fx-padding: 0 10;
+}
+
+TabPane .tab-label {
+  -fx-font-size: 15px;
+  -fx-font-family: "Inter 24pt Regular";
+}
+
+.dark-theme-tabs .tab-label {
+  -fx-text-fill: white;
+}
+
+.light-theme-tabs .tab-label {
+  -fx-text-fill: black;
 }
 
 .tab-pane .tab:selected {
@@ -65,12 +77,6 @@ TabPane .tab-pane {
 .scroll-bar:horizontal .thumb {
   -fx-background-color: #5e7387;
   -fx-min-height: 12px;
-}
-
-TabPane .tab-label {
-  -fx-text-fill: black;
-  -fx-font-size: 15px;
-  -fx-font-family: "Inter 24pt Regular";
 }
 
 TabPane .tab:selected .tab-label {

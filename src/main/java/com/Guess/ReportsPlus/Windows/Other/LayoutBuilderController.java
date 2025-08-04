@@ -90,9 +90,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 public class LayoutBuilderController implements IShutdownable {
-	// TODO: !inprogress
-	// documentation for custom reports
-	// Add field sobriety
 	CustomWindow addDropdownWindow = null;
 	public static LayoutBuilderController layoutBuilderController;
 	// #region FXML Components

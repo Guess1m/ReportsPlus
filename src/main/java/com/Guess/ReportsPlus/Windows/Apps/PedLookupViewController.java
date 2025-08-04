@@ -1211,7 +1211,6 @@ public class PedLookupViewController implements IShutdownable {
 			peddisabilityfield.setText(disabilityStatus);
 			if (disabilityStatus.equalsIgnoreCase("disabled")) {
 				peddisabilityfield.setStyle("-fx-text-fill: red !important;");
-				playAudio = true;
 			}
 		}
 		String maritalStatus = ped.getMaritalStatus();
@@ -3141,7 +3140,7 @@ public class PedLookupViewController implements IShutdownable {
 		});
 	}
 
-	// TODO: !important add to all controllers
+	// TODO: add to all controllers
 	@Override
 	public void shutdown() {
 		logInfo("Shutting down Ped Lookup View and all resources...");

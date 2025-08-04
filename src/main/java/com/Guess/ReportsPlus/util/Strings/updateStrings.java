@@ -21,7 +21,7 @@ public class updateStrings {
 	public static final String[] updatesList = { "UPDATED TO JDK24", "Redesign Callout Manager Window",
 			"Redesign Ped Lookup Window",
 			"Redesign Vehicle Lookup Window",
-			"Redesign User Manager Window",
+			"Redesign User Manager Window", "Store Previous Log Files",
 			"Added Custom Pull From Lookup Options For Each Field In CustomReports",
 			"Added Transfering To Any Custom Report",
 			"Change LicensePlate Image In ALPR App", "Fix Bug With DeskTopApps Not Opening Window If Minimized",
@@ -41,63 +41,128 @@ public class updateStrings {
 	public static final String localeChanges = """
 			Version: v1.5.2-alpha
 			NEW:
-			Callout_Manager.Actions=Actions
-			Callout_Manager.Additional=Additional (Optional):
-			Callout_Manager.CalloutCounty=County
-			Callout_Manager.CalloutDate=Date
-			Callout_Manager.CalloutNumberShort=Call#
-			Callout_Manager.CalloutTime=Time
-			Callout_Manager.CreateCallButton=Create Call
-			Callout_Manager.ExitButton=Exit
-			Callout_Manager.NewCalloutButtonShort=Report
-			Callout_Manager.NoActiveCallouts=No active callouts.
-			Callout_Manager.NoCalloutHistory=No callout history.
-			Callout_Manager.SendButton=Send
-			ImportExport.importFromDbButton=Import from DB
-			LogBrowser.Apply=Apply
-			LogBrowser.ReportsButton=Reports
-			LogBrowser.legacyReportsButton=Legacy Reports
-			Login_Window.NamePromptText=Name
-			PedLookup.BackButton=Back
-			PedLookup.BoatingLicenseSubheading=Boating License Information
-			PedLookup.CitizenshipStatus=Citizenship Status:
-			PedLookup.ClassLabel=Class:
-			PedLookup.CriminalHistory=Criminal History
-			PedLookup.Disability=Disability:
-			PedLookup.DriverLicenseSubheading=Driver License Information
-			PedLookup.FishingLicenseSubheading=Fishing License Information
-			PedLookup.GunLicenseSubheading=Gun License Information
-			PedLookup.Height=Height:
-			PedLookup.HuntingLicenseSubheading=Hunting License Information
-			PedLookup.MaritalStatus=Marital Status:
-			PedLookup.PedestrianField=Pedestrian
-			PedLookup.PhysicalInfoLabel=Physical Information
-			PedLookup.StatusAndAffiliations=Status & Affiliations
-			PedLookup.Weight=Weight:
-			ReportWindows.PullFromLookup=Pull From Lookup
-			Settings.DelCalloutButton=Delete
-			Settings.Disabled=Disabled
-			Settings.Enabled=Enabled
-			Settings.clearOldCalloutDataLabel=Clear Previous Callout History on Launch
-			Settings.reportFieldNameLabel=Show Field Names
-			Settings.reportFieldNameTT=Show labels above fields in report windows
-			VehicleLookup.FieldMake=Make:
+				Callout_Manager.Actions=Actions
+				Callout_Manager.Additional=Additional (Optional):
+				Callout_Manager.CalloutCounty=County
+				Callout_Manager.CalloutDate=Date
+				Callout_Manager.CalloutNumberShort=Call#
+				Callout_Manager.CalloutTime=Time
+				Callout_Manager.CreateCallButton=Create Call
+				Callout_Manager.ExitButton=Exit
+				Callout_Manager.NoActiveCallouts=No active callouts.
+				Callout_Manager.NoCalloutHistory=No callout history.
+				Callout_Manager.SendButton=Send
+				Desktop.firstNameLabel=First Name:
+				Desktop.lastNameLabel=Last Name:
+				Global.Cancel=Cancel
+				ImportExport.importFromDbButton=Import from DB
+				LogBrowser.Apply=Apply
+				LogBrowser.ReportsButton=Reports
+				LogBrowser.legacyReportsButton=Legacy Reports
+				Login_Window.NamePromptText=Name
+				PedLookup.BackButton=Back
+				PedLookup.BoatingLicenseSubheading=Boating License Information
+				PedLookup.CitizenshipStatus=Citizenship Status:
+				PedLookup.ClassLabel=Class:
+				PedLookup.CriminalHistory=Criminal History
+				PedLookup.Disability=Disability:
+				PedLookup.DriverLicenseSubheading=Driver License Information
+				PedLookup.FishingLicenseSubheading=Fishing License Information
+				PedLookup.GunLicenseSubheading=Gun License Information
+				PedLookup.Height=Height:
+				PedLookup.HuntingLicenseSubheading=Hunting License Information
+				PedLookup.MaritalStatus=Marital Status:
+				PedLookup.PedestrianField=Pedestrian
+				PedLookup.PhysicalInfoLabel=Physical Information
+				PedLookup.StatusAndAffiliations=Status & Affiliations
+				PedLookup.Weight=Weight:
+				ReportWindows.ElementButton=Element
+				ReportWindows.PullFromLookup=Pull From Lookup
+				ReportWindows.TransferButton=Transfer
+				ReportWindows.chargeColumn=Charge
+				Settings.DelCalloutButton=Delete
+				Settings.Disabled=Disabled
+				Settings.Enabled=Enabled
+				Settings.clearOldCalloutDataLabel=Clear Previous Callout History on Launch
+				Settings.reportFieldNameLabel=Show Field Names
+				Settings.reportFieldNameTT=Show labels above fields in report windows
+				UpdatesWindow.successfulAutoUpdateCheck=Successful Check!
+				UserManager.createButton=Create Profile
+				UserManager.selectUserPrompt=Select a user to view details
+				VehicleLookup.FieldMake=Make:
+
+
 			REMOVED:
-				NewReportApp.customReport=Custom Reports:
-				NewReportApp.search=Search Report
-				NewReportApp.callout=Callout Report
-				NewReportApp.trafficstop=TrafficStop Report
+				Callout_Manager.NewCalloutButton=Create Callout Report
+				Desktop.AvailableLabel=Available!
+				ImportExport.openFileTitle=Open JSON File
+				LogBrowser.HiddenColumns=Hidden Columns
+				LogBrowser.Refresh=Refresh
+				LogBrowser.VisibleColumns=Visible Columns
+				NewReportApp.accident=Accident Report
 				NewReportApp.arrest=Arrest Report
+				NewReportApp.callout=Callout Report
+				NewReportApp.citation=Citation Report
+				NewReportApp.customReport=Custom Reports:
 				NewReportApp.death=Death Report
 				NewReportApp.impound=Impound Report
-				NewReportApp.citation=Citation Report
 				NewReportApp.incident=Incident Report
-				NewReportApp.accident=Accident Report
-			PedLookup.NoPedFoundInSystem", "No Record Found In System
-			PedLookup.SearchPedButton=Search
-			PedLookup.LegalInfoLabel", "Legal Information
-			PedLookup.PriorHistoryLabel", "Prior History
-			PedLookup.HuntLicenseInfoTitle", "Hunting License Information:
+				NewReportApp.patrol=Patrol Report
+				NewReportApp.search=Search Report
+				NewReportApp.trafficstop=TrafficStop Report
+				Other.FlagImmigration=Immigration Status
+				PedLookup.CreateArrestButton=Create New Arrest
+				PedLookup.CreateCitationButton=Create New Citation
+				PedLookup.DateIssuedLabel=Date Issued:
+				PedLookup.DateOfBirthLabel=Date of Birth:
+				PedLookup.FieldBoatingLicenseStatus=Boating License Status
+				PedLookup.FieldFishingLicenseStatus=Fishing License Status
+				PedLookup.FieldGunLicenseStatus=Gun License Status:
+				PedLookup.FieldHuntingLicenseStatus=Hunting License Status
+				PedLookup.FieldLicenseNumber=License Number:
+				PedLookup.FieldLicenseStatus=License Status:
+				PedLookup.IssuingAuthorityLabel=Issuing Authority:
+				PedLookup.LegalInfoLabel=Legal Information
+				PedLookup.NameLabel=Name:
+				PedLookup.NoPedFoundInSystem=No Record Found In System
+				PedLookup.PriorHistoryLabel=Prior History
+				PedLookup.SearchPedButton=Search
+				PedLookup.WarrantInformationTitle=Issued Warrant Information:
+				PedLookup.WarrantLabel=Warrant:
+				PedLookup.WarrantNumberLabel=Warrant Number:
+				ReportWindows.CitationNotesHeading=Citation Notes
+				ReportWindows.DeathNotesSectionHeader=Death Report Notes
+				ReportWindows.PatrolNotesheader=Patrol Notes
+				ReportWindows.WidthLabel=Width:
+				ServerConnectionWindow.Connected=Connected
+				Settings.NotiDeleteButton=Delete
+				TrafficStopWindow.IsPoliceLabel=Police Vehicle:
+				UpdatesWindow.checksDidntPassLabel=Can't Update:
+				UpdatesWindow.failedAutoUpdateCheck=Issues Found
+				UserManager.newProfileLabel=Name:
+				VehLookup.InsuranceInfoTitle=Insurance Information:
+				VehLookup.RegistrationInfoTitle=Registration Information:
+				VehicleLookup.AddDataToNotesBtn=Add Data To Notes
+				VehicleLookup.CreateImpoundReportBtn=Create Impound Report
+				VehicleLookup.OwnerInfoHeader=Owner Information
+				VehicleLookup.OwnerLookupBtn=Owner Lookup
+				VehicleLookup.ProbabilitySettingsBtn=Probability Settings
+				VehicleLookup.SearchButton=Search
+				VehicleLookup.UpdateVehicleTypeBtn=Update Vehicle Type
+				VehicleLookup.VehicleInfoHeader=Vehicle Information
+
+
+			CHANGED:
+				Callout_Manager.CalloutArea, Old: [Area:] New: [Area]
+				Callout_Manager.CalloutPriority, Old: [Priority:] New: [Priority]
+				Callout_Manager.CalloutStatus, Old: [Status:] New: [Status]
+				Callout_Manager.CalloutStreet, Old: [Street:] New: [Street]
+				Callout_Manager.CalloutType, Old: [Type:] New: [Type]
+				LayoutBuilder.ImportExportButton, Old: [Import / Export] New: [Import/Export and Templates]
+				Settings.clearLookupDataLabel, Old: [Clear Old Ped / Veh Data] New: [Clear Old Lookup Data on Launch]
+
+
+
 			Version: v1.5.1-alpha
 			NEW:
 			    Settings.autofillLocationInfoLabel=AutoFill Location Information

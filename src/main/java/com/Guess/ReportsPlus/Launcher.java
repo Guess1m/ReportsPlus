@@ -31,15 +31,6 @@ public class Launcher {
 	public static Localization localization;
 
 	public static void main(String[] args) {
-		try {
-			String filePath = controllerUtils.getJarPath() + File.separator + "output.log";
-			Path path = Path.of(filePath);
-			if (Files.exists(path)) {
-				Files.write(path, new byte[0]);
-			}
-		} catch (IOException e) {
-			logError("An error occurred while clearing the log file: ", e);
-		}
 		initLogging();
 		loadJsonData();
 		localization = new Localization();

@@ -855,6 +855,10 @@ public class CalloutViewController {
 		return callInfoTypeContainer;
 	}
 
+	public TabPane getCallInfoTabPane() {
+		return callInfoTabPane;
+	}
+
 	@FXML
 	public void createCallBtnPress(ActionEvent actionEvent) {
 		VBox createCallLayout = new VBox(10);

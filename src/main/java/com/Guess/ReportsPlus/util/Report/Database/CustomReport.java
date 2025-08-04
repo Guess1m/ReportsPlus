@@ -7,7 +7,6 @@ import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.loadLa
 import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.loadTransferConfigFromJSON;
 import static com.Guess.ReportsPlus.Windows.Other.LayoutBuilderController.parseAndPopulateMap;
 import static com.Guess.ReportsPlus.Windows.Other.NotesViewController.notesViewController;
-import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.findCaseByNumber;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.generateCaseNumber;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.loadCourtCases;
 import static com.Guess.ReportsPlus.util.CourtData.CourtUtils.parseCourtData;
@@ -500,50 +499,47 @@ public class CustomReport {
 						String caseNumberField = getMappedValue(courtMapping, CourtCaseFields.CASE_NUMBER, reportMap,
 								mainMap);
 						String casenum = generateCaseNumber(caseNumberField);
-						if (!findCaseByNumber(casenum).isPresent()) {
-							Case case1 = new Case();
-							case1.setCaseNumber(casenum);
-							case1.setName(toTitleCase(offenderName));
-							case1.setOffenceDate(
-									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
-							case1.setCourtDate(
-									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
-							case1.setCaseTime(
-									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_TIME, reportMap, mainMap)
-											.replace(".", ""));
-							case1.setAge(toTitleCase(
-									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_AGE, reportMap, mainMap)));
-							case1.setAddress(toTitleCase(
-									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_ADDRESS, reportMap, mainMap)));
-							case1.setGender(toTitleCase(
-									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_GENDER, reportMap, mainMap)));
-							case1.setCounty(
-									toTitleCase(
-											getMappedValue(courtMapping, CourtCaseFields.COUNTY, reportMap, mainMap)));
-							case1.setStreet(
-									toTitleCase(
-											getMappedValue(courtMapping, CourtCaseFields.STREET, reportMap, mainMap)));
-							case1.setArea(
-									toTitleCase(
-											getMappedValue(courtMapping, CourtCaseFields.AREA, reportMap, mainMap)));
-							case1.setNotes(getMappedValue(courtMapping, CourtCaseFields.NOTES, reportMap, mainMap));
-							case1.setOffences(stringBuilder.toString());
-							case1.setOutcomes(chargesBuilder.toString());
-							case1.setStatus("Pending");
-							try {
-								case1.setIndex(getNextIndex(loadCourtCases()));
-								CourtUtils.addCase(case1);
-								CourtUtils.scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
-								NotificationManager.showNotificationInfo("Report Manager",
-										"A new court case has been created. Case#: " + casenum);
-								logInfo("Added case from custom report, Case#: " + casenum + " Name: " + offenderName);
-								CourtViewController.needCourtRefresh.set(1);
-							} catch (JAXBException | IOException e) {
-								logError("Failed to create or schedule court case: ", e);
-								showNotificationError("Court Case Error", "Failed to create or schedule court case.");
-							}
-						} else {
-							logWarn("Case #: " + casenum + " already exists, not adding new case");
+						Case case1 = new Case();
+						case1.setCaseNumber(casenum);
+						case1.setName(toTitleCase(offenderName));
+						case1.setOffenceDate(
+								getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+						case1.setCourtDate(
+								getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+						case1.setCaseTime(
+								getMappedValue(courtMapping, CourtCaseFields.OFFENSE_TIME, reportMap, mainMap)
+										.replace(".", ""));
+						case1.setAge(toTitleCase(
+								getMappedValue(courtMapping, CourtCaseFields.SUSPECT_AGE, reportMap, mainMap)));
+						case1.setAddress(toTitleCase(
+								getMappedValue(courtMapping, CourtCaseFields.SUSPECT_ADDRESS, reportMap, mainMap)));
+						case1.setGender(toTitleCase(
+								getMappedValue(courtMapping, CourtCaseFields.SUSPECT_GENDER, reportMap, mainMap)));
+						case1.setCounty(
+								toTitleCase(
+										getMappedValue(courtMapping, CourtCaseFields.COUNTY, reportMap, mainMap)));
+						case1.setStreet(
+								toTitleCase(
+										getMappedValue(courtMapping, CourtCaseFields.STREET, reportMap, mainMap)));
+						case1.setArea(
+								toTitleCase(
+										getMappedValue(courtMapping, CourtCaseFields.AREA, reportMap, mainMap)));
+						case1.setNotes(getMappedValue(courtMapping, CourtCaseFields.NOTES, reportMap, mainMap));
+						case1.setOffences(stringBuilder.toString());
+						case1.setOutcomes(chargesBuilder.toString());
+						case1.setStatus("Pending");
+						try {
+							case1.setIndex(getNextIndex(loadCourtCases()));
+							CourtUtils.addCase(case1);
+							CourtUtils.scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
+							NotificationManager.showNotificationInfo("Report Manager",
+									"A new court case has been created. Case#: " + case1.getCaseNumber());
+							logInfo("Added case from custom report, Case#: " + case1.getCaseNumber() + " Name: "
+									+ offenderName);
+							CourtViewController.needCourtRefresh.set(1);
+						} catch (JAXBException | IOException e) {
+							logError("Failed to create or schedule court case: ", e);
+							showNotificationError("Court Case Error", "Failed to create or schedule court case.");
 						}
 					} else {
 						showWarning(warningLabel,
@@ -631,65 +627,62 @@ public class CustomReport {
 						String caseNumberField = getMappedValue(courtMapping, CourtCaseFields.CASE_NUMBER, reportMap,
 								mainMap);
 						String casenum = generateCaseNumber(caseNumberField);
-						if (!findCaseByNumber(casenum).isPresent()) {
-							Case case1 = new Case();
-							case1.setCaseNumber(casenum);
-							case1.setName(toTitleCase(offenderName));
-							case1.setOffenceDate(
-									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
-							case1.setCourtDate(
-									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
-							case1.setCaseTime(
-									getMappedValue(courtMapping, CourtCaseFields.OFFENSE_TIME, reportMap, mainMap)
-											.replace(".", ""));
-							case1.setAge(toTitleCase(
-									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_AGE, reportMap, mainMap)));
-							case1.setAddress(toTitleCase(
-									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_ADDRESS, reportMap, mainMap)));
-							case1.setGender(toTitleCase(
-									getMappedValue(courtMapping, CourtCaseFields.SUSPECT_GENDER, reportMap, mainMap)));
-							case1.setCounty(
-									toTitleCase(
-											getMappedValue(courtMapping, CourtCaseFields.COUNTY, reportMap, mainMap)));
-							case1.setStreet(
-									toTitleCase(
-											getMappedValue(courtMapping, CourtCaseFields.STREET, reportMap, mainMap)));
-							case1.setArea(
-									toTitleCase(
-											getMappedValue(courtMapping, CourtCaseFields.AREA, reportMap, mainMap)));
-							case1.setNotes(getMappedValue(courtMapping, CourtCaseFields.NOTES, reportMap, mainMap));
-							case1.setOffences(stringBuilder.toString());
-							case1.setOutcomes(chargesBuilder.toString());
-							case1.setStatus("Pending");
-							try {
-								case1.setIndex(getNextIndex(CourtUtils.loadCourtCases()));
-								CourtUtils.addCase(case1);
-								CourtUtils.scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
-								NotificationManager.showNotificationInfo("Report Manager",
-										"A new citation case has been created. Case#: " + casenum);
-								logInfo("Added case from citation, Case#: " + casenum + " Name: " + offenderName);
-								CourtViewController.needCourtRefresh.set(1);
-							} catch (JAXBException | IOException e) {
-								logError("Failed to create or schedule citation case: ", e);
-								showNotificationError("Court Case Error",
-										"Failed to create or schedule citation case.");
-							}
-							if (isConnected) {
-								String plateNumber = getMappedValue(courtMapping, CourtCaseFields.PLATE_NUMBER,
-										reportMap, mainMap);
-								String selectedCitationType = citationType.getValue();
-								int type = 1;
-								if (selectedCitationType.equalsIgnoreCase(localization
-										.getLocalizedMessage("ReportWindows.CitationTypePrinted", "Printed Citation")))
-									type = 2;
-								else if (selectedCitationType.equalsIgnoreCase(localization
-										.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation")))
-									type = 3;
-								ClientUtils.sendMessageToServer("CITATION_UPDATE:name=" + offenderName.trim()
-										+ "|plate=" + plateNumber.trim() + "|type=" + type);
-							}
-						} else {
-							logWarn("Case #: " + casenum + " already exists, not adding new case");
+						Case case1 = new Case();
+						case1.setCaseNumber(casenum);
+						case1.setName(toTitleCase(offenderName));
+						case1.setOffenceDate(
+								getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+						case1.setCourtDate(
+								getMappedValue(courtMapping, CourtCaseFields.OFFENSE_DATE, reportMap, mainMap));
+						case1.setCaseTime(
+								getMappedValue(courtMapping, CourtCaseFields.OFFENSE_TIME, reportMap, mainMap)
+										.replace(".", ""));
+						case1.setAge(toTitleCase(
+								getMappedValue(courtMapping, CourtCaseFields.SUSPECT_AGE, reportMap, mainMap)));
+						case1.setAddress(toTitleCase(
+								getMappedValue(courtMapping, CourtCaseFields.SUSPECT_ADDRESS, reportMap, mainMap)));
+						case1.setGender(toTitleCase(
+								getMappedValue(courtMapping, CourtCaseFields.SUSPECT_GENDER, reportMap, mainMap)));
+						case1.setCounty(
+								toTitleCase(
+										getMappedValue(courtMapping, CourtCaseFields.COUNTY, reportMap, mainMap)));
+						case1.setStreet(
+								toTitleCase(
+										getMappedValue(courtMapping, CourtCaseFields.STREET, reportMap, mainMap)));
+						case1.setArea(
+								toTitleCase(
+										getMappedValue(courtMapping, CourtCaseFields.AREA, reportMap, mainMap)));
+						case1.setNotes(getMappedValue(courtMapping, CourtCaseFields.NOTES, reportMap, mainMap));
+						case1.setOffences(stringBuilder.toString());
+						case1.setOutcomes(chargesBuilder.toString());
+						case1.setStatus("Pending");
+						try {
+							case1.setIndex(getNextIndex(CourtUtils.loadCourtCases()));
+							CourtUtils.addCase(case1);
+							CourtUtils.scheduleOutcomeRevealForSingleCase(case1.getCaseNumber());
+							NotificationManager.showNotificationInfo("Report Manager",
+									"A new citation case has been created. Case#: " + case1.getCaseNumber());
+							logInfo("Added case from citation, Case#: " + case1.getCaseNumber() + " Name: "
+									+ offenderName);
+							CourtViewController.needCourtRefresh.set(1);
+						} catch (JAXBException | IOException e) {
+							logError("Failed to create or schedule citation case: ", e);
+							showNotificationError("Court Case Error",
+									"Failed to create or schedule citation case.");
+						}
+						if (isConnected) {
+							String plateNumber = getMappedValue(courtMapping, CourtCaseFields.PLATE_NUMBER,
+									reportMap, mainMap);
+							String selectedCitationType = citationType.getValue();
+							int type = 1;
+							if (selectedCitationType.equalsIgnoreCase(localization
+									.getLocalizedMessage("ReportWindows.CitationTypePrinted", "Printed Citation")))
+								type = 2;
+							else if (selectedCitationType.equalsIgnoreCase(localization
+									.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation")))
+								type = 3;
+							ClientUtils.sendMessageToServer("CITATION_UPDATE:name=" + offenderName.trim()
+									+ "|plate=" + plateNumber.trim() + "|type=" + type);
 						}
 					} else {
 						showWarning(warningLabel,
@@ -777,6 +770,7 @@ public class CustomReport {
 				window.closeWindow();
 			}
 		});
+
 		if (pullFromRecord != null && elementMap != null) {
 			for (String fieldName : pullFromRecord.keySet()) {
 				Object field = reportMap.get(fieldName);

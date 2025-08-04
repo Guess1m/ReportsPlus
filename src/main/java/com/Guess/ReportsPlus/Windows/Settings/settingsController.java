@@ -1196,11 +1196,8 @@ public class settingsController {
 					calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UIDarkColor));
 			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(
 					calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UIDarkColor));
-			// Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane
-			// .tab-label");
-			// node.setStyle("-fx-text-fill: " + UIDarkColor + " !important;");
-			// TODO: !important cant change tab text color
-			// BUG: not working
+			calloutViewController.getCallInfoTabPane().getStyleClass().removeAll("dark-theme-tabs", "light-theme-tabs");
+			calloutViewController.getCallInfoTabPane().getStyleClass().add("light-theme-tabs");
 		}
 		if (newReportVewController != null) {
 			newReportVewController.getCustomReportsLabel().setStyle(updateStyleProperty(
@@ -1323,11 +1320,9 @@ public class settingsController {
 					calloutViewController.getCallInfoStreetField(), "-fx-text-fill", UILightColor));
 			calloutViewController.getCallInfoTypeField().setStyle(updateStylePropertyImportant(
 					calloutViewController.getCallInfoTypeField(), "-fx-text-fill", UILightColor));
-			// Node node = calloutViewController.getCallInfoTabPane().lookup("TabPane
-			// .tab-label");
-			// node.setStyle("-fx-text-fill: " + UILightColor + " !important;");
-			// TODO: !important cant change tab text color
-			// BUG: not working
+			calloutViewController.getCallInfoNotesTab().getStyleClass().removeAll("dark-theme-tabs",
+					"light-theme-tabs");
+			calloutViewController.getCallInfoNotesTab().getStyleClass().add("dark-theme-tabs");
 		}
 		if (newReportVewController != null) {
 			newReportVewController.getCustomReportsLabel().setStyle(updateStyleProperty(

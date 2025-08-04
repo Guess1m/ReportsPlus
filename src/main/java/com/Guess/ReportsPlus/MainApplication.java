@@ -29,7 +29,6 @@ public class MainApplication extends Application {
 	public static mainDesktopController mainDesktopControllerObj;
 	public static Stage mainDesktopStage;
 
-	// TODO: implement sending test file
 	public static String getDate() {
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);

@@ -16,7 +16,7 @@ public class updateStrings {
 	 * Completed locale file
 	 * updatesList
 	 */
-	public static final String version = "v1.5.2-alpha-dev";
+	public static final String version = "v1.5.2-alpha";
 	public static boolean showANSILoggingInConsole = true;
 	public static final String[] updatesList = { "UPDATED TO JDK24", "Redesign Callout Manager Window",
 			"Redesign Ped Lookup Window",

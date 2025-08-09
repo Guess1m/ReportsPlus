@@ -151,8 +151,6 @@ public class ConfigReader {
 		checkAndSetDefaultValue("desktopSettings", "taskBarColor", "#2e2e2e");
 		checkAndSetDefaultValue("desktopSettings", "taskBarTextColor", "#ffffff");
 
-		// TODO: !inprogress before release tell users to set this option to false in
-		// config.properties before running
 		checkAndSetDefaultValue("desktopSettings", "clearCalloutDataOnStartup", "false");
 		checkAndSetDefaultValue("desktopSettings", "clearLookupDataOnStartup", "true");
 

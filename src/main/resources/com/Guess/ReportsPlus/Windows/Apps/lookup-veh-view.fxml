@@ -23,12 +23,13 @@
   <center>
     <AnchorPane fx:id="lookupPane">
       <children>
-        <BorderPane fx:id="databaseSearchPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane fx:id="databaseSearchPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <top>
             <GridPane hgap="15.0" vgap="15.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
                 <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="NEVER" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,6 +43,7 @@
                     <Font size="25.0" />
                   </font>
                 </Label>
+                        <Button fx:id="settingsButton" focusTraversable="false" mnemonicParsing="false" onAction="#openSettingsWindow" opacity="0.73" styleClass="accentBtn" text="Settings" textOverrun="WORD_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
               </children>
               <BorderPane.margin>
                 <Insets left="30.0" right="30.0" top="10.0" />
@@ -68,7 +70,7 @@
             </Label>
           </bottom>
         </BorderPane>
-        <BorderPane fx:id="databaseInfoPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane fx:id="databaseInfoPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <left>
             <VBox fx:id="sidePane" maxWidth="250.0" prefWidth="175.0" spacing="10.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
               <children>

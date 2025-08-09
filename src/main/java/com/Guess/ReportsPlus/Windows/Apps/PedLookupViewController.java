@@ -3033,7 +3033,7 @@ public class PedLookupViewController implements IShutdownable {
 	}
 
 	// #endregion
-	private void addSettingRow(GridPane grid, String labelText, ColorPicker colorPicker, int rowIndex) {
+	public static void addSettingRow(GridPane grid, String labelText, ColorPicker colorPicker, int rowIndex) {
 		Label label = new Label(labelText);
 		label.setStyle("-fx-font-weight: bold;");
 		colorPicker.setPrefWidth(150);

@@ -3,6 +3,7 @@ package com.Guess.ReportsPlus.Windows.Apps;
 import static com.Guess.ReportsPlus.Desktop.mainDesktopController.pedLookupAppObj;
 import static com.Guess.ReportsPlus.Launcher.localization;
 import static com.Guess.ReportsPlus.MainApplication.mainDesktopControllerObj;
+import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.addSettingRow;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.loadColorFromConfig;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.pedLookupViewController;
 import static com.Guess.ReportsPlus.Windows.Apps.PedLookupViewController.toWebString;
@@ -61,6 +62,7 @@ import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager;
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.WindowManager.IShutdownable;
 import com.Guess.ReportsPlus.Windows.Settings.settingsController;
 import com.Guess.ReportsPlus.config.ConfigReader;
+import com.Guess.ReportsPlus.config.ConfigWriter;
 import com.Guess.ReportsPlus.logs.LookupObjects.VehicleObject;
 import com.Guess.ReportsPlus.util.History.PedHistoryMath;
 import com.Guess.ReportsPlus.util.History.Vehicle;
@@ -78,6 +80,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -905,6 +908,84 @@ public class VehLookupViewController implements IShutdownable {
 			}
 		}
 		return vehicle;
+	}
+
+	@FXML
+	private void openSettingsWindow(ActionEvent event) throws IOException {
+		BorderPane layoutPane = new BorderPane();
+		layoutPane.setPrefSize(450, 380);
+		layoutPane.setStyle("-fx-background-color: #F4F4F4;");
+		GridPane settingsGrid = new GridPane();
+		settingsGrid.setVgap(12);
+		settingsGrid.setHgap(15);
+		settingsGrid.setPadding(new Insets(20));
+		settingsGrid.setAlignment(Pos.CENTER);
+		ColorPicker sidePaneColorPicker = new ColorPicker();
+		ColorPicker sidePaneTextColorPicker = new ColorPicker();
+		ColorPicker labelColorPicker = new ColorPicker();
+		ColorPicker backgroundColorPicker = new ColorPicker();
+		ColorPicker headingColorPicker = new ColorPicker();
+		ColorPicker cardBackgroundColorPicker = new ColorPicker();
+		ColorPicker buttonColorPicker = new ColorPicker();
+		addSettingRow(settingsGrid, "Side Pane Color:", sidePaneColorPicker, 0);
+		addSettingRow(settingsGrid, "Side Pane Text Color:", sidePaneTextColorPicker, 1);
+		addSettingRow(settingsGrid, "Label Color (Black/White):", labelColorPicker, 2);
+		addSettingRow(settingsGrid, "Background Color:", backgroundColorPicker, 3);
+		addSettingRow(settingsGrid, "Heading Color:", headingColorPicker, 4);
+		addSettingRow(settingsGrid, "Card Background Color:", cardBackgroundColorPicker, 5);
+		addSettingRow(settingsGrid, "Button Color:", buttonColorPicker, 6);
+		sidePaneColorPicker.setValue(loadColorFromConfig("sidePaneColor", Color.web("#323c41")));
+		sidePaneTextColorPicker.setValue(loadColorFromConfig("sidePaneTextColor", Color.WHITE));
+		labelColorPicker.setValue(loadColorFromConfig("labelColor", Color.web("#323c41")));
+		backgroundColorPicker.setValue(loadColorFromConfig("bkgColor", Color.WHITE));
+		headingColorPicker.setValue(loadColorFromConfig("headingColor", Color.web("#323c41")));
+		cardBackgroundColorPicker.setValue(loadColorFromConfig("cardBkgColor", Color.web("#f6f6f6")));
+		buttonColorPicker.setValue(loadColorFromConfig("buttonColor", Color.web("#3c484e")));
+		Button saveButton = new Button("Save");
+		saveButton.setStyle("-fx-background-color:rgb(92, 142, 93); -fx-text-fill: white; -fx-font-weight: bold;");
+		Button cancelButton = new Button("Cancel");
+		Button resetDefaultsButton = new Button("Reset Defaults");
+		resetDefaultsButton.setStyle("-fx-background-color: #E0E0E0; -fx-text-fill: black; -fx-font-weight: bold;");
+		HBox buttonBox = new HBox(10, resetDefaultsButton, saveButton, cancelButton);
+		buttonBox.setAlignment(Pos.CENTER_RIGHT);
+		buttonBox.setPadding(new Insets(15));
+		layoutPane.setCenter(settingsGrid);
+		layoutPane.setBottom(buttonBox);
+		CustomWindow settingsWindow = WindowManager.createCustomWindow(
+				mainDesktopControllerObj.getDesktopContainer(),
+				layoutPane,
+				"UI Color Settings",
+				true,
+				1,
+				true,
+				true,
+				mainDesktopControllerObj.getTaskBarApps(),
+				new Image(Objects.requireNonNull(
+						Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/icons/Apps/setting.png"))));
+		saveButton.setOnAction(e -> {
+			ConfigWriter.configwrite("uiColors", "sidePaneColor", toWebString(sidePaneColorPicker.getValue()));
+			ConfigWriter.configwrite("uiColors", "sidePaneTextColor",
+					toWebString(sidePaneTextColorPicker.getValue()));
+			ConfigWriter.configwrite("uiColors", "labelColor", toWebString(labelColorPicker.getValue()));
+			ConfigWriter.configwrite("uiColors", "bkgColor", toWebString(backgroundColorPicker.getValue()));
+			ConfigWriter.configwrite("uiColors", "headingColor", toWebString(headingColorPicker.getValue()));
+			ConfigWriter.configwrite("uiColors", "cardBkgColor",
+					toWebString(cardBackgroundColorPicker.getValue()));
+			ConfigWriter.configwrite("uiColors", "buttonColor", toWebString(buttonColorPicker.getValue()));
+			logInfo("UI color settings have been updated successfully.");
+			loadTheming();
+			settingsWindow.closeWindow();
+		});
+		cancelButton.setOnAction(e -> settingsWindow.closeWindow());
+		resetDefaultsButton.setOnAction(e -> {
+			sidePaneColorPicker.setValue(Color.web("#323c41"));
+			sidePaneTextColorPicker.setValue(Color.WHITE);
+			labelColorPicker.setValue(Color.web("#323c41"));
+			backgroundColorPicker.setValue(Color.WHITE);
+			headingColorPicker.setValue(Color.web("#323c41"));
+			cardBackgroundColorPicker.setValue(Color.web("#f6f6f6"));
+			buttonColorPicker.setValue(Color.web("#3c484e"));
+		});
 	}
 
 	@FXML

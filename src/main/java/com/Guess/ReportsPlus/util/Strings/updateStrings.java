@@ -29,6 +29,7 @@ public class updateStrings {
 			"Change LicensePlate Image In ALPR App", "Fix Bug With DeskTopApps Not Opening Window If Minimized",
 			"Clear Old Callout Data Config Setting",
 			"Clear Old History Data Config Setting",
+			"Fix Bug When Trying To Load DesktopBackground That Doesnt Exist, Application Would Crash",
 			"Registration Window UI Updates", "Better Styled Settings Window",
 			"Added Blank FieldType For Custom Reports", "Added Checkbox FieldType For Custom Reports",
 			"New Report App Legacy Reports Support", "LogViewer Legacy Report Section",

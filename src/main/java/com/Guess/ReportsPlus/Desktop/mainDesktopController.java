@@ -170,12 +170,26 @@ public class mainDesktopController {
 				if (ConfigReader.configRead("desktopSettings", "useBackground").equalsIgnoreCase("true")) {
 					String path = ConfigReader.configRead("desktopSettings", "backgroundPath");
 					if (path != null && !path.isEmpty()) {
-						Image image = loadImageFromAbsolutePath(path);
-						logDebug("Loading image from path: " + path);
-						BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-								BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
-								new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, false));
-						container.setBackground(new Background(backgroundImage));
+						try {
+							Image image = loadImageFromAbsolutePath(path);
+							logDebug("Loading image from path: " + path);
+							BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+									BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+									new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false,
+											false));
+							container.setBackground(new Background(backgroundImage));
+						} catch (IllegalArgumentException e) {
+							logError("Background image file does not exist at path: " + path, e);
+							showNotificationErrorPersistent("Desktop Background Error",
+									"The specified image path does not exist:\n" + path);
+							Image errorImg = new Image(Objects.requireNonNull(
+									Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/IMGNotFound.png")));
+							BackgroundImage errorBkgImg = new BackgroundImage(errorImg, BackgroundRepeat.NO_REPEAT,
+									BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+									new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false,
+											false));
+							container.setBackground(new Background(errorBkgImg));
+						}
 					} else {
 						Image errorImg = new Image(Objects.requireNonNull(
 								Launcher.class.getResourceAsStream("/com/Guess/ReportsPlus/imgs/IMGNotFound.png")));

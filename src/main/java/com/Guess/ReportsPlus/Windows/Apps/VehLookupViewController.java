@@ -755,15 +755,18 @@ public class VehLookupViewController implements IShutdownable {
 
 	private static Vehicle processVehicleInfo(Vehicle vehicle) {
 		boolean needsSave = false;
-		if (vehicle.getPlateNumber() == null)
+		if (vehicle.getPlateNumber() == null || vehicle.getPlateNumber().equalsIgnoreCase("no value provided")
+				|| vehicle.getPlateNumber().equalsIgnoreCase("not found"))
 			return null;
 		String vehicleId = vehicle.getPlateNumber();
-		if (vehicle.getMake() == null) {
+		if (vehicle.getMake() == null || vehicle.getMake().equalsIgnoreCase("no value provided")
+				|| vehicle.getMake().equalsIgnoreCase("not found")) {
 			logInfo("Vehicle [" + vehicleId + "] missing make. Generated: " + "Unknown");
 			vehicle.setMake("Unknown");
 			needsSave = true;
 		}
-		if (vehicle.getColor() == null) {
+		if (vehicle.getColor() == null || vehicle.getColor().equalsIgnoreCase("no value provided")
+				|| vehicle.getColor().equalsIgnoreCase("not found")) {
 			List<String> colors = Arrays.asList(
 					"rgb(0,0,0)", "rgb(128,128,128)", "rgb(255,255,255)", "rgb(192,192,192)", "rgb(255,0,0)",
 					"rgb(0,0,255)", "rgb(210,180,140)");
@@ -772,7 +775,8 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setColor(newColor);
 			needsSave = true;
 		}
-		if (vehicle.getModel() == null) {
+		if (vehicle.getModel() == null || vehicle.getModel().equalsIgnoreCase("no value provided")
+				|| vehicle.getModel().equalsIgnoreCase("not found")) {
 			List<String> models = Arrays.asList("baller", "gresley", "seminole", "rebla", "toros", "patriot",
 					"landstalker", "tailgater", "premier", "intruder", "fugitive", "glendale", "asterope", "warrener");
 			String newModel = models.get(new Random().nextInt(models.size()));
@@ -780,18 +784,21 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setModel(newModel);
 			needsSave = true;
 		}
-		if (vehicle.getStolenStatus() == null) {
+		if (vehicle.getStolenStatus() == null || vehicle.getStolenStatus().equalsIgnoreCase("no value provided")
+				|| vehicle.getStolenStatus().equalsIgnoreCase("not found")) {
 			String stolenStatus = String.valueOf(calculateTrueFalseProbability("10"));
 			logInfo("Vehicle [" + vehicleId + "] missing stolen status. Generated: " + stolenStatus);
 			vehicle.setStolenStatus(stolenStatus);
 			needsSave = true;
 		}
-		if (vehicle.getPoliceStatus() == null) {
+		if (vehicle.getPoliceStatus() == null || vehicle.getPoliceStatus().equalsIgnoreCase("no value provided")
+				|| vehicle.getPoliceStatus().equalsIgnoreCase("not found")) {
 			logInfo("Vehicle [" + vehicleId + "] missing police status. Generated: false");
 			vehicle.setPoliceStatus("false");
 			needsSave = true;
 		}
-		if (vehicle.getOwner() == null) {
+		if (vehicle.getOwner() == null || vehicle.getOwner().equalsIgnoreCase("no value provided")
+				|| vehicle.getOwner().equalsIgnoreCase("not found")) {
 			Random random = new Random();
 			String firstName;
 			boolean isMale = random.nextBoolean();
@@ -814,30 +821,36 @@ public class VehLookupViewController implements IShutdownable {
 			vehicle.setOwner(newOwner);
 			needsSave = true;
 		}
-		if (vehicle.getVin() == null) {
+		if (vehicle.getVin() == null || vehicle.getVin().equalsIgnoreCase("no value provided")
+				|| vehicle.getVin().equalsIgnoreCase("not found")) {
 			String newVin = generateVin();
 			logInfo("Vehicle [" + vehicleId + "] missing VIN. Generated: " + newVin);
 			vehicle.setVin(newVin);
 			needsSave = true;
 		}
-		if (vehicle.getType() == null) {
+		if (vehicle.getType() == null || vehicle.getType().equalsIgnoreCase("no value provided")
+				|| vehicle.getType().equalsIgnoreCase("not found")) {
 			logInfo("Vehicle [" + vehicleId + "] missing type. Generated: N/A");
 			vehicle.setType("N/A");
 			needsSave = true;
 		}
-		if (vehicle.getInspection() == null) {
+		if (vehicle.getInspection() == null || vehicle.getInspection().equalsIgnoreCase("no value provided")
+				|| vehicle.getInspection().equalsIgnoreCase("not found")) {
 			String newInspectionStatus = generateInspectionStatus();
 			logInfo("Vehicle [" + vehicleId + "] missing inspection status. Generated: " + newInspectionStatus);
 			vehicle.setInspection(newInspectionStatus);
 			needsSave = true;
 		}
-		if (vehicle.getRegistration() == null) {
+		if (vehicle.getRegistration() == null || vehicle.getRegistration().equalsIgnoreCase("no value provided")
+				|| vehicle.getRegistration().equalsIgnoreCase("not found")) {
 			String newRegStatus = generateRegStatus();
 			logInfo("Vehicle [" + vehicleId + "] missing registration status. Generated: " + newRegStatus);
 			vehicle.setRegistration(newRegStatus);
 			needsSave = true;
 		}
-		if (vehicle.getRegistrationNumber() == null) {
+		if (vehicle.getRegistrationNumber() == null
+				|| vehicle.getRegistrationNumber().equalsIgnoreCase("no value provided")
+				|| vehicle.getRegistrationNumber().equalsIgnoreCase("not found")) {
 			String regStatus = vehicle.getRegistration();
 			if (regStatus != null && (regStatus.equalsIgnoreCase("valid") || regStatus.equalsIgnoreCase("expired"))) {
 				String newRegNum = generateLicenseNumber();
@@ -846,24 +859,30 @@ public class VehLookupViewController implements IShutdownable {
 				needsSave = true;
 			}
 		}
-		if (vehicle.getRegistrationExpiration() == null) {
+		if (vehicle.getRegistrationExpiration() == null
+				|| vehicle.getRegistrationExpiration().equalsIgnoreCase("no value provided")
+				|| vehicle.getRegistrationExpiration().equalsIgnoreCase("not found")) {
 			String expiration = "Not Applicable";
-			if ("valid".equalsIgnoreCase(vehicle.getRegistration())) {
+			String regStatus = vehicle.getRegistration();
+			if ("valid".equalsIgnoreCase(regStatus)) {
 				expiration = generateValidLicenseExpirationDate();
-			} else if ("expired".equalsIgnoreCase(vehicle.getRegistration())) {
+			} else if (regStatus != null && (regStatus.equalsIgnoreCase("expired")
+					|| regStatus.equalsIgnoreCase("suspended") || regStatus.equalsIgnoreCase("revoked"))) {
 				expiration = generateExpiredLicenseExpirationDate(3);
 			}
 			logInfo("Vehicle [" + vehicleId + "] missing registration expiration. Generated: " + expiration);
 			vehicle.setRegistrationExpiration(expiration);
 			needsSave = true;
 		}
-		if (vehicle.getInsurance() == null) {
+		if (vehicle.getInsurance() == null || vehicle.getInsurance().equalsIgnoreCase("no value provided")
+				|| vehicle.getInsurance().equalsIgnoreCase("not found")) {
 			String newInsStatus = generateRegStatus();
 			logInfo("Vehicle [" + vehicleId + "] missing insurance status. Generated: " + newInsStatus);
 			vehicle.setInsurance(newInsStatus);
 			needsSave = true;
 		}
-		if (vehicle.getInsuranceNumber() == null) {
+		if (vehicle.getInsuranceNumber() == null || vehicle.getInsuranceNumber().equalsIgnoreCase("no value provided")
+				|| vehicle.getInsuranceNumber().equalsIgnoreCase("not found")) {
 			String insStatus = vehicle.getInsurance();
 			if (insStatus != null && (insStatus.equalsIgnoreCase("valid") || insStatus.equalsIgnoreCase("expired")
 					|| insStatus.equalsIgnoreCase("revoked"))) {
@@ -873,18 +892,23 @@ public class VehLookupViewController implements IShutdownable {
 				needsSave = true;
 			}
 		}
-		if (vehicle.getInsuranceExpiration() == null) {
+		if (vehicle.getInsuranceExpiration() == null
+				|| vehicle.getInsuranceExpiration().equalsIgnoreCase("no value provided")
+				|| vehicle.getInsuranceExpiration().equalsIgnoreCase("not found")) {
 			String expiration = "Not Applicable";
-			if ("valid".equalsIgnoreCase(vehicle.getInsurance())) {
+			String insStatus = vehicle.getInsurance();
+			if ("valid".equalsIgnoreCase(insStatus)) {
 				expiration = generateValidLicenseExpirationDate();
-			} else if ("expired".equalsIgnoreCase(vehicle.getInsurance())) {
+			} else if (insStatus != null && (insStatus.equalsIgnoreCase("expired")
+					|| insStatus.equalsIgnoreCase("suspended") || insStatus.equalsIgnoreCase("revoked"))) {
 				expiration = generateExpiredLicenseExpirationDate(3);
 			}
 			logInfo("Vehicle [" + vehicleId + "] missing insurance expiration. Generated: " + expiration);
 			vehicle.setInsuranceExpiration(expiration);
 			needsSave = true;
 		}
-		if (vehicle.getCoverage() == null) {
+		if (vehicle.getCoverage() == null || vehicle.getCoverage().equalsIgnoreCase("no value provided")
+				|| vehicle.getCoverage().equalsIgnoreCase("not found")) {
 			String insStatus = vehicle.getInsurance();
 			if (insStatus != null && (insStatus.equalsIgnoreCase("valid") || insStatus.equalsIgnoreCase("expired")
 					|| insStatus.equalsIgnoreCase("revoked"))) {

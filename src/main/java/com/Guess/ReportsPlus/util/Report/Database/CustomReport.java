@@ -38,7 +38,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import com.Guess.ReportsPlus.Desktop.Utils.WindowUtils.CustomWindow;
@@ -446,7 +445,6 @@ public class CustomReport {
 				}
 			}
 		});
-
 		submitBtn.setOnAction(_ -> {
 			Map<String, List<String>> selectedTypes = mainMap.getOrDefault("selectedType", new HashMap<>());
 			Map<String, List<String>> fieldNames = mainMap.getOrDefault("fieldNames", new HashMap<>());
@@ -588,14 +586,45 @@ public class CustomReport {
 				ObservableList<CitationsData> formDataList = citationTable.getItems();
 				StringBuilder stringBuilder = new StringBuilder();
 				StringBuilder chargesBuilder = new StringBuilder();
+				List<String> chargesListForServer = new java.util.ArrayList<>();
+				int totalFine = 0;
+				boolean isArrestable = false;
 				for (CitationsData formData : formDataList) {
-					stringBuilder.append(formData.getCitation()).append(" | ");
-					String fine = findXMLValue(formData.getCitation(), "fine", "data/Citations.xml");
-					if (fine != null) {
-						chargesBuilder.append("Fined: ").append(fine).append(" | ");
-					} else if (formData.getCitation().contains("MaxFine:")) {
-						int maxFine = Integer.parseInt(Objects.requireNonNull(extractMaxFine(formData.getCitation())));
-						chargesBuilder.append("Fined: ").append(maxFine).append(" | ");
+					String citation = formData.getCitation();
+					stringBuilder.append(citation).append(" | ");
+					String cleanCitation = citation;
+					if (citation.contains(" MaxFine:")) {
+						cleanCitation = citation.substring(0, citation.indexOf(" MaxFine:"));
+					}
+					chargesListForServer.add(cleanCitation);
+					String fineStr = findXMLValue(cleanCitation, "fine", "data/Citations.xml");
+					String arrestableStr = findXMLValue(cleanCitation, "arrestable", "data/Citations.xml");
+					if (arrestableStr != null && arrestableStr.equalsIgnoreCase("true")) {
+						isArrestable = true;
+					}
+					if (fineStr != null) {
+						try {
+							totalFine += Integer.parseInt(fineStr);
+							chargesBuilder.append("Fined: ").append(fineStr).append(" | ");
+						} catch (NumberFormatException e) {
+							logWarn("Could not parse fine for citation '" + cleanCitation + "'. Value was: " + fineStr);
+							chargesBuilder.append("Fined: Not Found | ");
+						}
+					} else if (citation.contains("MaxFine:")) {
+						String maxFineStr = extractMaxFine(citation);
+						if (maxFineStr != null) {
+							try {
+								int maxFine = Integer.parseInt(maxFineStr);
+								totalFine += maxFine;
+								chargesBuilder.append("Fined: ").append(maxFine).append(" | ");
+							} catch (NumberFormatException e) {
+								logWarn("Could not parse MaxFine for citation '" + citation + "'. Value was: "
+										+ maxFineStr);
+								chargesBuilder.append("Fined: Not Found | ");
+							}
+						} else {
+							chargesBuilder.append("Fined: Not Found | ");
+						}
 					} else {
 						chargesBuilder.append("Fined: Not Found | ");
 					}
@@ -681,8 +710,11 @@ public class CustomReport {
 							else if (selectedCitationType.equalsIgnoreCase(localization
 									.getLocalizedMessage("ReportWindows.CitationTypeParking", "Parking Citation")))
 								type = 3;
+							String chargesForServer = String.join(",", chargesListForServer);
 							ClientUtils.sendMessageToServer("CITATION_UPDATE:name=" + offenderName.trim()
-									+ "|plate=" + plateNumber.trim() + "|type=" + type);
+									+ "|plate=" + plateNumber.trim() + "|type=" + type + "|charges="
+									+ chargesForServer + "|fine=" + totalFine
+									+ "|arrestable=" + isArrestable);
 						}
 					} else {
 						showWarning(warningLabel,
@@ -770,7 +802,6 @@ public class CustomReport {
 				window.closeWindow();
 			}
 		});
-
 		if (pullFromRecord != null && elementMap != null) {
 			for (String fieldName : pullFromRecord.keySet()) {
 				Object field = reportMap.get(fieldName);

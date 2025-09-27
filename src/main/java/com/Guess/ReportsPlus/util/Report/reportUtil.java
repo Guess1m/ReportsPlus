@@ -408,7 +408,7 @@ public class reportUtil {
 		if (citation == null) {
 			citation = "";
 		}
-		Pattern pattern = Pattern.compile("MaxFine:(\\S+)");
+		Pattern pattern = Pattern.compile("\\s?MaxFine:(\\S+)");
 		Matcher matcher = pattern.matcher(citation);
 		if (matcher.find()) {
 			return matcher.group(1);

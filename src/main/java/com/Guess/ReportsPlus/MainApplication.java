@@ -68,11 +68,12 @@ public class MainApplication extends Application {
 				try {
 					String gameDataFileContent = Files.readString(Paths.get(gameDataFile.toURI()));
 					String timeValue = extractValueByKey(gameDataFileContent, "time");
-					if (timeValue != null) {
+					if (timeValue != null && !timeValue.equalsIgnoreCase("Unknown")) {
 						LocalTime parsedTime = LocalTime.parse(timeValue, storageFormatter);
 						return parsedTime.format(displayFormatter);
+					} else if (timeValue == null) {
+						logError("timeValue was null; using system time instead");
 					}
-					logError("timeValue was null; using system time instead");
 				} catch (IOException | DateTimeParseException e) {
 					logError("Error parsing time, using system time: ", e);
 				}

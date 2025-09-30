@@ -207,7 +207,7 @@ public class NotificationManager {
 			} catch (IOException e) {
 				logError("Error Getting NotificationsEnabled Setting: ", e);
 			} catch (NullPointerException e) {
-				logWarn("Notification config is null or a required resource is missing: " + e.getStackTrace());
+				logWarn("Notification config is null or a required resource is missing");
 			}
 		});
 	}

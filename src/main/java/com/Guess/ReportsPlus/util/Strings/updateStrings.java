@@ -16,29 +16,14 @@ public class updateStrings {
 	 * Completed locale file
 	 * updatesList
 	 */
-	public static final String version = "v1.5.2-alpha";
+	public static final String version = "v1.5.3-alpha";
 	public static boolean showANSILoggingInConsole = true;
-	public static final String[] updatesList = { "UPDATED TO JDK24", "Redesign Callout Manager Window",
-			"Redesign Ped Lookup Window",
-			"Redesign Vehicle Lookup Window",
-			"Redesign User Manager Window", "Fixed Keybinds For GiveTicket, DiscardTicket, ALPRKey",
-			"Fix Duplicating Options In Menu For Giveticket, DiscardTicket",
-			"Fix Not Being Able To Give Citation With Multiple People In A Vehicle", "Store Previous Log Files",
-			"Added Custom Pull From Lookup Options For Each Field In CustomReports",
-			"Added Transfering To Any Custom Report",
-			"Change LicensePlate Image In ALPR App", "Fix Bug With DeskTopApps Not Opening Window If Minimized",
-			"Clear Old Callout Data Config Setting",
-			"Clear Old History Data Config Setting",
-			"Fix Bug When Trying To Load DesktopBackground That Doesnt Exist, Application Would Crash",
-			"Registration Window UI Updates", "Better Styled Settings Window",
-			"Added Blank FieldType For Custom Reports", "Added Checkbox FieldType For Custom Reports",
-			"New Report App Legacy Reports Support", "LogViewer Legacy Report Section",
-			"Show Enabled/Disabled For Settings",
-			"Fix Bug With Vin Not Generating", "Ability To Get JSON Layout From DB File",
-			"Option To Remove Custom Reports", "Press Enter To Send Callout Messages",
-			"Add Default Redesigned Reports Button", "Added Use Of Force Report",
-			"Fixed Not Showing Expiration Dates Symbols (> 1yr, etc.)", "Importing Report Layout From Templates",
-			"Ped/Vehicle Lookup Comands In Terminal" };
+	public static final String[] updatesList = {
+			"NEW: Support for extended citation information in Citation_Update message",
+			"FIX: parsing for Unknown time entry from plugin",
+			"FIX: Bug When Trying To Load DesktopBackground That Doesnt Exist, Application Would Crash",
+			"FIX: Extended Support In ProcessVehicleInfo To Fix Expiration Dates Not Showing",
+			"FIX: Driver not matching owner with PR", "CHANGED: ALPR Functionality to fix driver owner issue" };
 	public static final String[] soundList = { "alert-callout.wav", "alert-success.wav", "alert-delete.wav",
 			"alert-wanted.wav" };
 	public static final String localeChanges = """
